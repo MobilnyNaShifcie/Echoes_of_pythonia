@@ -3,6 +3,7 @@ extends RefCounted
 
 const PlayerProfileClass := preload("res://core/player/player_profile.gd")
 const QuestLogClass := preload("res://core/quests/quest_log.gd")
+const GuildStorageClass := preload("res://core/economy/guild_storage.gd")
 const STARTING_LOCATION_ID := "twilight_plains"
 const STARTING_CITY_ID := "varenhold"
 const STARTING_DAY := 1
@@ -21,6 +22,8 @@ var quest_log := QuestLogClass.new()
 var guild_reputation := 0
 var last_activity := ""
 var victories := 0
+var last_inn_rest_day := 0
+var guild_storage := GuildStorageClass.new()
 
 
 func _init(slot: int, player_profile: PlayerProfileClass) -> void:

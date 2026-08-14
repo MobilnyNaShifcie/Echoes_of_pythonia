@@ -20,6 +20,7 @@ var _session: GameSessionClass
 
 func _ready() -> void:
 	%GateButton.pressed.connect(world_map_requested.emit)
+	%QuartermasterButton.pressed.connect(service_requested.emit.bind("quartermaster"))
 	%BlacksmithButton.pressed.connect(service_requested.emit.bind("blacksmith"))
 	%WorkshopButton.pressed.connect(service_requested.emit.bind("workshop"))
 	%MerchantButton.pressed.connect(service_requested.emit.bind("merchant"))
@@ -45,7 +46,7 @@ func _render() -> void:
 	var player := _session.player
 	time_label.text = _session.formatted_time()
 	player_label.text = (
-		"%s  •  Poziom %d  •  %s  •  PŻ %d/%d  •  Gold %d  •  Gildia F (%d)"
+		"%s  •  Poziom %d  •  %s  •  PŻ %d/%d  •  Złoto %d  •  Gildia F (%d)"
 		% [
 			player.display_name,
 			player.level,

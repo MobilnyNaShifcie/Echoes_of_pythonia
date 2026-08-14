@@ -4,6 +4,7 @@ const EnemyCatalogClass := preload("res://core/combat/enemy_catalog.gd")
 const GameSessionClass := preload("res://core/game/game_session.gd")
 const CharacterSheetScreenClass := preload("res://ui/screens/character_sheet/character_sheet.gd")
 const CityHubScreenClass := preload("res://ui/screens/city_hub/city_hub.gd")
+const CityEconomyScreenClass := preload("res://ui/screens/city_economy/city_economy.gd")
 const CityServiceScreenClass := preload("res://ui/screens/city_service/city_service.gd")
 const ClassSelectionScreenClass := preload("res://ui/screens/class_selection/class_selection.gd")
 const CombatScreenClass := preload("res://ui/screens/combat/combat.gd")
@@ -18,6 +19,7 @@ const WorldMapScreenClass := preload("res://ui/screens/world_map/world_map.gd")
 const SaveGameServiceClass := preload("res://core/save/save_game_service.gd")
 const CHARACTER_SHEET_SCENE := preload("res://ui/screens/character_sheet/character_sheet.tscn")
 const CITY_HUB_SCENE := preload("res://ui/screens/city_hub/city_hub.tscn")
+const CITY_ECONOMY_SCENE := preload("res://ui/screens/city_economy/city_economy.tscn")
 const CITY_SERVICE_SCENE := preload("res://ui/screens/city_service/city_service.tscn")
 const CLASS_SELECTION_SCENE := preload("res://ui/screens/class_selection/class_selection.tscn")
 const COMBAT_SCENE := preload("res://ui/screens/combat/combat.tscn")
@@ -177,6 +179,14 @@ func _show_city_service(service_id: String) -> void:
 	if _current_session == null:
 		_show_main_menu()
 		return
+	if service_id in ["merchant", "blacksmith", "workshop", "quartermaster"]:
+		var economy: CityEconomyScreenClass = _replace_screen(CITY_ECONOMY_SCENE)
+		economy.configure(_current_session, service_id)
+		economy.back_requested.connect(_show_city_hub)
+		app_status_label.text = (
+			"Varenhold: %s" % CityEconomyScreenClass.display_name_for(service_id)
+		)
+		return
 	var service: CityServiceScreenClass = _replace_screen(CITY_SERVICE_SCENE)
 	service.configure(_current_session, service_id)
 	service.back_requested.connect(_show_city_hub)
@@ -220,7 +230,7 @@ func _on_combat_finished(context: String, result: String) -> void:
 
 func _show_project_status() -> void:
 	app_status_label.text = (
-		"v0.25.0: prolog, Varenhold, misja fabularna, " + "Równiny i walka turowa w Godot 4"
+		"v0.25.0: prolog, Varenhold, walka turowa, " + "zapisy i ekonomia etapu 2 w Godot 4"
 	)
 
 

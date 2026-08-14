@@ -7,6 +7,8 @@ const EquipmentItemClass := preload("res://core/items/equipment_item.gd")
 const GameSessionClass := preload("res://core/game/game_session.gd")
 const ItemCatalogClass := preload("res://core/items/item_catalog.gd")
 const PlayerEquipmentClass := preload("res://core/player/equipment.gd")
+const CarryWeightServiceClass := preload("res://core/economy/carry_weight_service.gd")
+const UpgradeServiceClass := preload("res://core/economy/upgrade_service.gd")
 const SLOT_ORDER := [
 	PlayerEquipmentClass.WEAPON,
 	PlayerEquipmentClass.OFF_HAND,
@@ -65,8 +67,12 @@ func _refresh() -> void:
 	if _session == null:
 		return
 	var player := _session.player
+	var load := CarryWeightServiceClass.carry_status(player)
 	hero_stats_label.text = (
-		"%s  •  PŻ %d/%d  •  ATK %d  •  DEF %d  •  MANA %d/%d  •  UNIK %.1f%%"
+		(
+			"%s  •  PŻ %d/%d  •  ATK %d  •  DEF %d  •  MANA %d/%d  •  "
+			+ "UNIK %.1f%%  •  Udźwig %.1f/%.1f kg (%s)"
+		)
 		% [
 			player.display_name,
 			player.stats.current_hp,
@@ -76,6 +82,9 @@ func _refresh() -> void:
 			player.stats.current_mana,
 			player.stats.max_mana,
 			player.stats.dodge,
+			load.current_kg,
+			load.capacity_kg,
+			load.display_name,
 		]
 	)
 	_refresh_equipped_items()
@@ -195,24 +204,26 @@ func _equip_selected() -> void:
 
 func _format_item_details(item: EquipmentItemClass) -> String:
 	var definition = item.definition
+	var effective := UpgradeServiceClass.effective_stats(item)
 	var stats: Array[String] = []
-	if definition.attack > 0:
-		stats.append("ATK +%d" % definition.attack)
-	if definition.defense > 0:
-		stats.append("DEF +%d" % definition.defense)
-	if definition.max_hp > 0:
-		stats.append("PŻ +%d" % definition.max_hp)
-	if definition.max_mana > 0:
-		stats.append("MANA +%d" % definition.max_mana)
-	if definition.dodge > 0:
-		stats.append("UNIK +%.1f%%" % definition.dodge)
+	if effective.attack > 0:
+		stats.append("ATK +%d" % effective.attack)
+	if effective.defense > 0:
+		stats.append("DEF +%d" % effective.defense)
+	if effective.max_hp > 0:
+		stats.append("PŻ +%d" % effective.max_hp)
+	if effective.max_mana > 0:
+		stats.append("MANA +%d" % effective.max_mana)
+	if effective.dodge > 0:
+		stats.append("UNIK +%.1f%%" % effective.dodge)
 	var stats_text := ", ".join(stats) if not stats.is_empty() else "Brak premii"
 	return (
-		"%s\nMiejsce: %s  •  Moc przedmiotu: %d\n%s\n\n%s"
+		"%s\nMiejsce: %s  •  Moc przedmiotu: %d  •  Waga: %.1f kg\n%s\n\n%s"
 		% [
 			item.formatted_name(),
 			SLOT_NAMES[item.slot],
 			definition.item_power,
+			CarryWeightServiceClass.item_unit_weight(item.item_id),
 			stats_text,
 			definition.description,
 		]
@@ -225,11 +236,12 @@ func _format_stack_details(item_id: String) -> String:
 	if definition.heal_hp > 0:
 		effect = "Leczenie: %d PŻ" % definition.heal_hp
 	return (
-		"%s\nKategoria: %s  •  Liczba: %d\n%s\n\n%s"
+		"%s\nKategoria: %s  •  Liczba: %d  •  Waga stosu: %.2f kg\n%s\n\n%s"
 		% [
 			definition.display_name,
 			_category_name(definition.category),
 			_session.player.inventory.count(item_id),
+			CarryWeightServiceClass.stack_weight(item_id, _session.player.inventory.count(item_id)),
 			effect,
 			definition.description,
 		]

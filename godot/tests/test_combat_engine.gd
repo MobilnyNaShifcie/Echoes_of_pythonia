@@ -45,3 +45,19 @@ func test_healing_item_action_still_allows_the_enemy_turn() -> void:
 	assert_eq(report.player_healed, 10)
 	assert_eq(report.enemy_damage, 1)
 	assert_eq(player.stats.current_hp, 19)
+
+
+func test_restoration_item_can_restore_health_and_mana_in_one_turn() -> void:
+	var player = PlayerFactoryClass.create_player("Tester")
+	player.level = 5
+	assert_true(player.choose_class("mage"))
+	player.stats.current_hp = 5
+	player.stats.current_mana = 0
+	var enemy = EnemyCatalogClass.create_enemy("prologue_scarecrow")
+	var combat := CombatEngineClass.new(player, enemy)
+
+	var report := combat.player_use_restoration(10, 5)
+
+	assert_eq(report.player_healed, 10)
+	assert_eq(report.player_mana_restored, 5)
+	assert_true(report.enemy_acted)

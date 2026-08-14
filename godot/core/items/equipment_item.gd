@@ -20,6 +20,10 @@ var slot: String:
 	get:
 		return definition.slot if definition != null else ""
 
+var item_power: int:
+	get:
+		return definition.item_power if definition != null else 0
+
 
 func _init(item_definition: ItemDefinitionClass, initial_upgrade_level := 0) -> void:
 	definition = item_definition

@@ -15,7 +15,7 @@ etapów; do czasu osobnej akceptacji używane są wyłącznie placeholdery.
 - turowa walka, nagrody, łupy, ekwipunek oraz podgląd klas,
 - testy regresji Python i GUT, Full HD jako rozdzielczość referencyjna.
 
-## Etap 1 — zapis i odczyt stanu Godot (w realizacji)
+## Etap 1 — zapis i odczyt stanu Godot (ukończony)
 
 - osobny format i katalog zapisów migracyjnych Godota,
 - cztery sloty, podsumowanie zawartości i walidacja danych,
@@ -28,13 +28,22 @@ Pliki tego etapu nie nadpisują zapisów schematu `v15` aplikacji terminalowej.
 Bezpośredni import starego zapisu nastąpi dopiero po migracji wszystkich pól,
 które taki zapis może zawierać.
 
-## Etap 2 — pełna ekonomia Varenhold
+## Etap 2 — pełna ekonomia Varenhold (ukończony)
 
 - kupno i sprzedaż zgodne z terminalową ekonomią,
 - Kuźnia Garrana i ulepszenia `+0`–`+10`,
 - Warsztat Mireli, przepisy, materiały i wymagania,
 - zasady karczmy, odpoczynku, udźwigu i magazynu Gildii,
 - testy cen, transakcji, receptur i braku utraty przedmiotów.
+
+Zaimplementowany zakres obejmuje pełne operacje dla zawartości już dostępnej
+w Godocie: sześciopozycyjny asortyment Orena, sprzedaż stosów i konkretnych
+instancji wyposażenia, dziesięć receptur Zmierzchowych Równin, ulepszenia
+`+0`–`+10`, nocleg raz na dzień, miękki limit udźwigu, blokadę startu wyprawy
+przy przeciążeniu, 200-miejscowy Magazyn Gildii i trzy ulepszenia plecaka.
+Stan tych systemów zapisuje schemat Godot `v2`; pliki `v1` są automatycznie
+uzupełniane bezpiecznymi wartościami domyślnymi. Receptury następnych regionów
+zostaną podłączone razem z ich przedmiotami i źródłami materiałów w etapie 4.
 
 ## Etap 3 — rozwój bohatera i kompletna walka klas
 

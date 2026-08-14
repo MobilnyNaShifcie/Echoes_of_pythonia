@@ -61,6 +61,19 @@ The migrated flow is runnable in Godot:
     backpack, including loot quantities and descriptions.
 14. Compare all four class paths from level zero and make the permanent class
     choice at the original level-five unlock point.
+15. Buy all six merchant offers, sell stackable loot by quantity, and sell a
+    selected equipment instance without touching equipped items.
+16. Craft all ten Twilight Plains recipes in Mirela's workshop and use the
+    migrated healing supplies during turn-based combat.
+17. Upgrade equipped or backpack gear from `+0` through `+10` using the exact
+    gold curve, material plans, and stat scaling of the terminal build.
+18. Rest at the inn for six hours no more than once per Pythonia day, with the
+    original level-scaled price and full resource restoration.
+19. Track backpack weight, block only the start of a normal expedition while
+    overloaded, and transfer stacks or exact equipment instances through the
+    200-slot Guild Storage.
+20. Persist the inn cooldown, carry upgrade, and complete Guild Storage in
+    Godot save schema v2 while safely upgrading schema-v1 Godot saves.
 
 The GDScript model also carries the legacy attribute formulas, level-zero
 experience threshold, four attribute points per level, and Pierrot-only Luck.
@@ -78,11 +91,11 @@ could be silently discarded. Detailed ordering and acceptance criteria are in
 `SYSTEM_MIGRATION_STAGES_v0.25.0.md`.
 
 The current city service screens are intentionally asymmetric. The merchant
-can sell the first healing consumable and the inn performs paid full recovery
-with time advancement. The blacksmith and workshop expose their locations and
-already recognize migrated loot, while enhancement recipes, crafting, item
-sets, and the broader economy remain subsequent parity slices. This keeps the
-playable prologue-to-quest loop honest without inventing replacement rules.
+supports the terminal stock plus stack and equipment sales, the blacksmith
+handles atomic multi-level upgrades, Mirela exposes recipes whose materials
+already have sources in the migrated world, and the inn performs paid full
+recovery with its daily cooldown. Final item art, shop animation, and audio
+remain outside this domain slice and continue to use placeholder presentation.
 
 ## Add-on policy
 

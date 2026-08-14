@@ -28,6 +28,7 @@ func test_city_plan_is_a_single_top_to_bottom_column() -> void:
 	var expected_labels := [
 		"Brama Zachodnia",
 		"Gildia Poszukiwaczy",
+		"Kwatermistrz i magazyn",
 		"Kuźnia Garrana",
 		"Warsztat Mireli",
 		"Kram Orena",

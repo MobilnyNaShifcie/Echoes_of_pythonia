@@ -91,6 +91,12 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Gildia Poszukiwaczy"
 alignment = 1
+[node name="QuartermasterButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Kwatermistrz i magazyn"
+alignment = 1
 [node name="BlacksmithButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/Grid"]
 unique_name_in_owner = true
 layout_mode = 2

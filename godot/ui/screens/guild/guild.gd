@@ -42,7 +42,7 @@ func _perform_quest_action() -> void:
 		var result := QuestServiceClass.turn_in_story_quest(_session)
 		_session.last_activity = "Ukończono zadanie: Ci, którzy nie wrócili."
 		result_label.text = (
-			"Nagroda: +%d EXP, +%d Gold, +%d reputacji Gildii.\n\n%s"
+			"Nagroda: +%d EXP, +%d złota, +%d reputacji Gildii.\n\n%s"
 			% [
 				result.experience,
 				result.gold,
@@ -63,7 +63,7 @@ func _render() -> void:
 		(
 			"Reputacja Gildii: %d  •  Ranga F — Nowicjusz\n"
 			+ "Cel: pokonaj Wilki na Zmierzchowych Równinach  •  %d/%d\n"
-			+ "Zalecany poziom: %d  •  Nagroda: %d EXP, %d Gold, 40 reputacji Gildii"
+			+ "Zalecany poziom: %d  •  Nagroda: %d EXP, %d złota, 40 reputacji Gildii"
 		)
 		% [
 			_session.guild_reputation,

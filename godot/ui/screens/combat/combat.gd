@@ -8,7 +8,9 @@ const CombatEngineClass := preload("res://core/combat/combat_engine.gd")
 const EnemyCatalogClass := preload("res://core/combat/enemy_catalog.gd")
 const GameSessionClass := preload("res://core/game/game_session.gd")
 const ItemCatalogClass := preload("res://core/items/item_catalog.gd")
-const HEALING_POTION_ID := "weak_healing_potion"
+const HEALING_ITEM_IDS := [
+	"weak_healing_potion", "strong_healing_potion", "hunter_provisions", "grandmaster_elixir"
+]
 
 var _session: GameSessionClass
 var _enemy
@@ -26,6 +28,7 @@ var _rng := RandomNumberGenerator.new()
 @onready var combat_log: RichTextLabel = %CombatLog
 @onready var attack_button: Button = %AttackButton
 @onready var defend_button: Button = %DefendButton
+@onready var consumable_selector: OptionButton = %ConsumableSelector
 @onready var potion_button: Button = %PotionButton
 @onready var flee_button: Button = %FleeButton
 @onready var result_panel: PanelContainer = %ResultPanel
@@ -36,6 +39,7 @@ var _rng := RandomNumberGenerator.new()
 func _ready() -> void:
 	attack_button.pressed.connect(_attack)
 	defend_button.pressed.connect(_defend)
+	consumable_selector.item_selected.connect(_on_consumable_selected)
 	potion_button.pressed.connect(_use_potion)
 	flee_button.pressed.connect(_flee)
 	continue_button.pressed.connect(_continue)
@@ -64,11 +68,30 @@ func _defend() -> void:
 
 
 func _use_potion() -> void:
-	if not _session.player.inventory.remove_item(HEALING_POTION_ID):
-		_append_log("Nie masz słabej mikstury leczenia.")
+	if consumable_selector.item_count == 0:
+		_append_log("Nie masz przedmiotu leczącego.")
 		return
-	var definition = ItemCatalogClass.get_definition(HEALING_POTION_ID)
-	_resolve_turn(_engine.player_use_healing(definition.heal_hp), "Wypijasz słabą miksturę.")
+	var item_id := str(consumable_selector.get_item_metadata(consumable_selector.selected))
+	if not _session.player.inventory.remove_item(item_id):
+		_append_log("Nie masz wybranego przedmiotu leczącego.")
+		return
+	var definition = ItemCatalogClass.get_definition(item_id)
+	var heal_amount: int = (
+		definition.heal_hp
+		+ roundi(_session.player.stats.max_hp * definition.heal_hp_percent / 100.0)
+	)
+	var mana_amount: int = (
+		definition.restore_mana
+		+ roundi(_session.player.stats.max_mana * definition.restore_mana_percent / 100.0)
+	)
+	_resolve_turn(
+		_engine.player_use_restoration(heal_amount, mana_amount),
+		"Używasz: %s." % definition.display_name
+	)
+
+
+func _on_consumable_selected(_index: int) -> void:
+	_render_consumable_action()
 
 
 func _flee() -> void:
@@ -85,6 +108,8 @@ func _resolve_turn(report: Dictionary, action_text: String) -> void:
 		_append_log("Zadajesz %d obrażeń." % report.player_damage)
 	if report.get("player_healed", 0) > 0:
 		_append_log("Odzyskujesz %d PŻ." % report.player_healed)
+	if report.get("player_mana_restored", 0) > 0:
+		_append_log("Odzyskujesz %d Many." % report.player_mana_restored)
 	if report.get("flee_failed", false):
 		_append_log("Droga odwrotu została odcięta.")
 	if not report.get("enemy_special_name", "").is_empty():
@@ -123,7 +148,7 @@ func _resolve_victory() -> String:
 		_session.last_activity = "Pokonano Przeklętego Stracha na Wróble."
 		return "Zwycięstwo. Po walce odzyskujesz pełne PŻ i możesz przeszukać pobojowisko."
 	var rewards := AdventureServiceClass.resolve_victory(_session, _enemy, _rng)
-	var text := "Zwycięstwo  •  +%d EXP  •  +%d Gold" % [rewards.experience, rewards.gold]
+	var text := "Zwycięstwo  •  +%d EXP  •  +%d złota" % [rewards.experience, rewards.gold]
 	if rewards.levels_gained > 0:
 		text += "  •  Awans: +%d poziom" % rewards.levels_gained
 	if not rewards.loot_names.is_empty():
@@ -189,16 +214,60 @@ func _render() -> void:
 	enemy_hp_bar.value = _enemy.current_hp
 	enemy_hp_bar.tooltip_text = "PŻ %d/%d" % [_enemy.current_hp, _enemy.max_hp]
 	flee_button.visible = _context != "prologue"
-	var potion_count: int = player.inventory.count(HEALING_POTION_ID)
-	potion_button.text = "Mikstura (+20 PŻ)  ×%d" % potion_count
-	potion_button.disabled = potion_count == 0 or player.stats.current_hp >= player.stats.max_hp
+	_refresh_consumable_selector()
+	_render_consumable_action()
 
 
 func _set_actions_enabled(enabled: bool) -> void:
 	attack_button.disabled = not enabled
 	defend_button.disabled = not enabled
-	potion_button.disabled = not enabled or _session.player.inventory.count(HEALING_POTION_ID) == 0
+	potion_button.disabled = not enabled or consumable_selector.item_count == 0
 	flee_button.disabled = not enabled
+
+
+func _refresh_consumable_selector() -> void:
+	var previous_id := ""
+	if consumable_selector.item_count > 0:
+		previous_id = str(consumable_selector.get_item_metadata(consumable_selector.selected))
+	consumable_selector.clear()
+	var selected_index := 0
+	for item_id: String in HEALING_ITEM_IDS:
+		var count: int = _session.player.inventory.count(item_id)
+		if count <= 0:
+			continue
+		var definition = ItemCatalogClass.get_definition(item_id)
+		consumable_selector.add_item("%s ×%d" % [definition.display_name, count])
+		var index := consumable_selector.item_count - 1
+		consumable_selector.set_item_metadata(index, item_id)
+		if item_id == previous_id:
+			selected_index = index
+	if consumable_selector.item_count > 0:
+		consumable_selector.select(selected_index)
+
+
+func _render_consumable_action() -> void:
+	if _session == null or consumable_selector.item_count == 0:
+		consumable_selector.visible = false
+		potion_button.text = "Brak leczenia"
+		potion_button.disabled = true
+		return
+	consumable_selector.visible = true
+	var item_id := str(consumable_selector.get_item_metadata(consumable_selector.selected))
+	var definition = ItemCatalogClass.get_definition(item_id)
+	var effects: Array[String] = []
+	if definition.heal_hp > 0:
+		effects.append("+%d PŻ" % definition.heal_hp)
+	if definition.heal_hp_percent > 0:
+		effects.append("+%.0f%% PŻ" % definition.heal_hp_percent)
+	if definition.restore_mana > 0:
+		effects.append("+%d Many" % definition.restore_mana)
+	if definition.restore_mana_percent > 0:
+		effects.append("+%.0f%% Many" % definition.restore_mana_percent)
+	potion_button.text = "Użyj (%s)" % ", ".join(effects)
+	potion_button.disabled = (
+		_session.player.stats.current_hp >= _session.player.stats.max_hp
+		and _session.player.stats.current_mana >= _session.player.stats.max_mana
+	)
 
 
 func _append_log(message: String) -> void:

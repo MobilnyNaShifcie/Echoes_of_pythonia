@@ -1,6 +1,7 @@
 extends GutTest
 
 const NewGameServiceClass := preload("res://core/game/new_game_service.gd")
+const ItemCatalogClass := preload("res://core/items/item_catalog.gd")
 const PlayerEquipmentClass := preload("res://core/player/equipment.gd")
 const QuestServiceClass := preload("res://core/quests/quest_service.gd")
 const SaveGameServiceClass := preload("res://core/save/save_game_service.gd")
@@ -43,12 +44,14 @@ func test_round_trip_preserves_the_current_migrated_state() -> void:
 	session.guild_reputation = 17
 	session.last_activity = "Powrót z wyprawy."
 	session.victories = 3
+	session.last_inn_rest_day = 3
 	session.quest_log.active[QuestServiceClass.STORY_QUEST_ID] = 1
 	session.player.level = 5
 	session.player.experience = 12
 	session.player.gold = 87
 	session.player.rubies = 2
 	session.player.unspent_attribute_points = 20
+	session.player.carry_upgrade_level = 2
 	assert_true(session.player.choose_class("pierrot"))
 	assert_true(session.player.attributes.increase("vitality", 2))
 	assert_true(session.player.attributes.increase("luck", 3))
@@ -58,6 +61,10 @@ func test_round_trip_preserves_the_current_migrated_state() -> void:
 	assert_true(session.player.inventory.add("weak_leather", 4))
 	assert_true(session.player.inventory.add("leather_hood"))
 	session.player.inventory.equipment_items[0].upgrade_level = 4
+	session.guild_storage.inventory.add("weak_leather", 31)
+	var stored_item = ItemCatalogClass.create_equipment_item("nature_amulet")
+	stored_item.upgrade_level = 6
+	session.guild_storage.inventory.add_equipment_instance(stored_item)
 	var weapon_instance_id: String = (
 		session.player.equipment.get_item(PlayerEquipmentClass.WEAPON).instance_id
 	)
@@ -76,6 +83,7 @@ func test_round_trip_preserves_the_current_migrated_state() -> void:
 	assert_eq(loaded.guild_reputation, 17)
 	assert_eq(loaded.last_activity, "Powrót z wyprawy.")
 	assert_eq(loaded.victories, 3)
+	assert_eq(loaded.last_inn_rest_day, 3)
 	assert_eq(loaded.quest_log.active[QuestServiceClass.STORY_QUEST_ID], 1)
 	assert_eq(loaded.player.display_name, "Aria")
 	assert_eq(loaded.player.level, 5)
@@ -83,6 +91,7 @@ func test_round_trip_preserves_the_current_migrated_state() -> void:
 	assert_eq(loaded.player.gold, 87)
 	assert_eq(loaded.player.rubies, 2)
 	assert_eq(loaded.player.character_class_code, "pierrot")
+	assert_eq(loaded.player.carry_upgrade_level, 2)
 	assert_eq(loaded.player.attributes.vitality, 2)
 	assert_eq(loaded.player.attributes.luck, 3)
 	assert_eq(loaded.player.stats.current_hp, 7)
@@ -94,6 +103,11 @@ func test_round_trip_preserves_the_current_migrated_state() -> void:
 		loaded.player.equipment.get_item(PlayerEquipmentClass.WEAPON).instance_id,
 		weapon_instance_id
 	)
+	assert_eq(loaded.guild_storage.inventory.count("weak_leather"), 31)
+	assert_eq(
+		loaded.guild_storage.inventory.equipment_items[0].instance_id, stored_item.instance_id
+	)
+	assert_eq(loaded.guild_storage.inventory.equipment_items[0].upgrade_level, 6)
 
 
 func test_corrupt_and_future_saves_are_rejected_without_loading_a_session() -> void:
@@ -131,3 +145,25 @@ func test_corrupt_and_future_saves_are_rejected_without_loading_a_session() -> v
 
 func test_save_uses_a_dedicated_godot_directory() -> void:
 	assert_eq(SaveGameServiceClass.DEFAULT_SAVE_ROOT, "user://godot_migration_saves")
+
+
+func test_schema_one_save_migrates_with_safe_economy_defaults() -> void:
+	var session = NewGameServiceClass.new().create_session("Aria", 1)
+	assert_true(_service.save_session(session).ok)
+	var slot_path := "%s/save_1.json" % _save_root
+	var file := FileAccess.open(slot_path, FileAccess.READ)
+	var payload: Dictionary = JSON.parse_string(file.get_as_text())
+	file.close()
+	payload.schema_version = 1
+	payload.session.erase("last_inn_rest_day")
+	payload.session.erase("guild_storage")
+	payload.session.player.erase("carry_upgrade_level")
+	file = FileAccess.open(slot_path, FileAccess.WRITE)
+	file.store_string(JSON.stringify(payload))
+	file.close()
+
+	var result := _service.load_session(1)
+	assert_true(result.ok, result.message)
+	assert_eq(result.session.last_inn_rest_day, 0)
+	assert_eq(result.session.player.carry_upgrade_level, 0)
+	assert_true(result.session.guild_storage.inventory.is_empty())

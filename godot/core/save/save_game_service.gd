@@ -11,7 +11,7 @@ const PlayerProfileClass := preload("res://core/player/player_profile.gd")
 const QuestServiceClass := preload("res://core/quests/quest_service.gd")
 
 const FORMAT_ID := "echoes_of_pythonia_godot_migration"
-const SCHEMA_VERSION := 1
+const SCHEMA_VERSION := 2
 const GAME_VERSION := "0.25.0"
 const DEFAULT_SAVE_ROOT := "user://godot_migration_saves"
 const SLOT_COUNT := NewGameServiceClass.SAVE_SLOT_COUNT
@@ -152,6 +152,8 @@ func _serialize_session(session: GameSessionClass) -> Dictionary:
 			"guild_reputation": session.guild_reputation,
 			"last_activity": session.last_activity,
 			"victories": session.victories,
+			"last_inn_rest_day": session.last_inn_rest_day,
+			"guild_storage": _serialize_inventory(session.guild_storage.inventory),
 			"quest_log":
 			{
 				"active": session.quest_log.active.duplicate(true),
@@ -166,15 +168,12 @@ func _serialize_session(session: GameSessionClass) -> Dictionary:
 				"rubies": player.rubies,
 				"unspent_attribute_points": player.unspent_attribute_points,
 				"character_class_code": player.character_class_code,
+				"carry_upgrade_level": player.carry_upgrade_level,
 				"attributes": _serialize_attributes(player.attributes),
 				"current_hp": player.stats.current_hp,
 				"current_mana": player.stats.current_mana,
 				"equipment": _serialize_equipment(player.equipment.slots),
-				"inventory":
-				{
-					"stacks": player.inventory.stacks.duplicate(true),
-					"equipment_items": _serialize_equipment_items(player.inventory.equipment_items),
-				},
+				"inventory": _serialize_inventory(player.inventory),
 			},
 		},
 	}
@@ -189,7 +188,10 @@ func _deserialize_payload(payload: Dictionary, expected_slot: int) -> Dictionary
 	if schema_version > SCHEMA_VERSION:
 		return _failure("Zapis pochodzi z nowszej wersji gry.")
 	if schema_version < SCHEMA_VERSION:
-		return _failure("Zapis ma nieobsługiwaną, starszą wersję schematu.")
+		var migration_result := _migrate_payload(payload)
+		if not migration_result.ok:
+			return migration_result
+		payload = migration_result.payload
 	if not payload.get("session") is Dictionary:
 		return _failure("Zapis nie zawiera sesji.")
 
@@ -228,6 +230,7 @@ func _deserialize_player(data: Dictionary) -> Dictionary:
 		"gold",
 		"rubies",
 		"unspent_attribute_points",
+		"carry_upgrade_level",
 		"current_hp",
 		"current_mana",
 	]
@@ -248,6 +251,9 @@ func _deserialize_player(data: Dictionary) -> Dictionary:
 	player.gold = int(data.gold)
 	player.rubies = int(data.rubies)
 	player.unspent_attribute_points = int(data.unspent_attribute_points)
+	player.carry_upgrade_level = int(data.carry_upgrade_level)
+	if player.carry_upgrade_level > 3:
+		return _failure("Zapis zawiera nieprawidłowy poziom ulepszenia udźwigu.")
 	player.character_class_code = class_code
 	var attributes_result := _restore_attributes(player, data.attributes)
 	if not attributes_result.ok:
@@ -267,7 +273,9 @@ func _deserialize_player(data: Dictionary) -> Dictionary:
 
 
 func _restore_session_fields(session: GameSessionClass, data: Dictionary) -> Dictionary:
-	var numeric_fields := ["day", "hour", "prologue_stage", "guild_reputation", "victories"]
+	var numeric_fields := [
+		"day", "hour", "prologue_stage", "guild_reputation", "victories", "last_inn_rest_day"
+	]
 	for field: String in numeric_fields:
 		if not _is_non_negative_integer(data.get(field)):
 			return _failure("Nieprawidłowa wartość pola sesji: %s." % field)
@@ -277,6 +285,8 @@ func _restore_session_fields(session: GameSessionClass, data: Dictionary) -> Dic
 		return _failure("Zapis zawiera nieprawidłowe flagi sesji.")
 	if not data.get("quest_log") is Dictionary:
 		return _failure("Zapis nie zawiera dziennika zadań.")
+	if not data.get("guild_storage") is Dictionary:
+		return _failure("Zapis nie zawiera Magazynu Gildii.")
 	var location_id := str(data.get("current_location_id", ""))
 	var city_id := str(data.get("current_city_id", ""))
 	if location_id != GameSessionClass.STARTING_LOCATION_ID:
@@ -286,6 +296,13 @@ func _restore_session_fields(session: GameSessionClass, data: Dictionary) -> Dic
 	var quest_result := _restore_quest_log(session, data.quest_log)
 	if not quest_result.ok:
 		return quest_result
+	var storage_result := _restore_inventory_container(
+		session.guild_storage.inventory, data.guild_storage
+	)
+	if not storage_result.ok:
+		return _failure("Nieprawidłowy Magazyn Gildii: %s" % storage_result.message)
+	if session.guild_storage.used_slots > session.guild_storage.CAPACITY_SLOTS:
+		return _failure("Magazyn Gildii przekracza limit miejsc.")
 
 	session.current_location_id = location_id
 	session.current_city_id = city_id
@@ -297,6 +314,7 @@ func _restore_session_fields(session: GameSessionClass, data: Dictionary) -> Dic
 	session.guild_reputation = int(data.guild_reputation)
 	session.last_activity = str(data.get("last_activity", ""))
 	session.victories = int(data.victories)
+	session.last_inn_rest_day = int(data.last_inn_rest_day)
 	return {"ok": true}
 
 
@@ -332,6 +350,10 @@ func _restore_equipment(player: PlayerProfileClass, data: Dictionary) -> Diction
 
 
 func _restore_inventory(player: PlayerProfileClass, data: Dictionary) -> Dictionary:
+	return _restore_inventory_container(player.inventory, data)
+
+
+func _restore_inventory_container(inventory, data: Dictionary) -> Dictionary:
 	if not data.get("stacks") is Dictionary or not data.get("equipment_items") is Array:
 		return _failure("Zapis zawiera nieprawidłowy plecak.")
 	for item_id_value in data.stacks:
@@ -340,15 +362,34 @@ func _restore_inventory(player: PlayerProfileClass, data: Dictionary) -> Diction
 		var quantity = data.stacks[item_id]
 		if definition == null or definition.is_equipment() or not _is_positive_integer(quantity):
 			return _failure("Zapis zawiera nieprawidłowy stos przedmiotów.")
-		player.inventory.stacks[item_id] = int(quantity)
+		inventory.stacks[item_id] = int(quantity)
 	for item_data in data.equipment_items:
 		if not item_data is Dictionary:
 			return _failure("Zapis zawiera nieprawidłowy przedmiot w plecaku.")
 		var item_result := _deserialize_equipment_item(item_data)
 		if not item_result.ok:
 			return item_result
-		player.inventory.add_equipment_instance(item_result.item)
+		inventory.add_equipment_instance(item_result.item)
 	return {"ok": true}
+
+
+func _migrate_payload(payload: Dictionary) -> Dictionary:
+	var migrated := payload.duplicate(true)
+	var version := int(migrated.schema_version)
+	if version == 1:
+		if not migrated.get("session") is Dictionary:
+			return _failure("Starszy zapis nie zawiera sesji.")
+		var session: Dictionary = migrated.session
+		if not session.get("player") is Dictionary:
+			return _failure("Starszy zapis nie zawiera bohatera.")
+		session.player["carry_upgrade_level"] = 0
+		session["last_inn_rest_day"] = 0
+		session["guild_storage"] = {"stacks": {}, "equipment_items": []}
+		migrated.schema_version = 2
+		version = 2
+	if version != SCHEMA_VERSION:
+		return _failure("Zapis ma nieobsługiwaną, starszą wersję schematu.")
+	return {"ok": true, "payload": migrated}
 
 
 func _restore_quest_log(session: GameSessionClass, data: Dictionary) -> Dictionary:
@@ -415,6 +456,13 @@ func _serialize_equipment_items(items: Array) -> Array[Dictionary]:
 	for item: EquipmentItemClass in items:
 		result.append(_serialize_equipment_item(item))
 	return result
+
+
+func _serialize_inventory(inventory) -> Dictionary:
+	return {
+		"stacks": inventory.stacks.duplicate(true),
+		"equipment_items": _serialize_equipment_items(inventory.equipment_items),
+	}
 
 
 func _serialize_equipment_item(item: EquipmentItemClass) -> Dictionary:

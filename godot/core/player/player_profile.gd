@@ -32,6 +32,7 @@ var gold := 0
 var rubies := 0
 var unspent_attribute_points := 0
 var character_class_code := CLASS_NONE
+var carry_upgrade_level := 0
 var attributes := PlayerAttributesClass.new()
 var stats := PrimaryStatsClass.new()
 var equipment := PlayerEquipmentClass.new()

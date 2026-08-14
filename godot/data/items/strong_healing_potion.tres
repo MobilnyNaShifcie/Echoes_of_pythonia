@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/items/item_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+item_id = "strong_healing_potion"
+display_name = "Mocna Mikstura Lecznicza"
+description = "Gęsta mikstura przywracająca 65 PŻ."
+category = "consumable"
+rarity = "uncommon"
+stackable = true
+heal_hp = 65

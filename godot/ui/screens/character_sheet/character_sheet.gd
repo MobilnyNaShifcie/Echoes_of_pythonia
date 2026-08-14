@@ -6,6 +6,7 @@ signal equipment_requested
 
 const GameSessionClass := preload("res://core/game/game_session.gd")
 const PlayerEquipmentClass := preload("res://core/player/equipment.gd")
+const CarryWeightServiceClass := preload("res://core/economy/carry_weight_service.gd")
 
 var _session: GameSessionClass
 
@@ -33,15 +34,23 @@ func _render_character() -> void:
 	if _session == null:
 		return
 	var player := _session.player
+	var load := CarryWeightServiceClass.carry_status(player)
 	hero_name_label.text = player.display_name
 	progression_label.text = (
-		"%s  •  Poziom %d\nEXP: %d/%d  •  Wolne punkty atrybutów: %d"
+		(
+			"%s  •  Poziom %d\nEXP: %d/%d  •  Wolne punkty atrybutów: %d\n"
+			+ "Udźwig: %.1f/%.1f kg  •  %s  •  Plecak Kwatermistrza %d/3"
+		)
 		% [
 			player.character_class_name,
 			player.level,
 			player.experience,
 			player.experience_to_next_level(),
 			player.unspent_attribute_points,
+			load.current_kg,
+			load.capacity_kg,
+			load.display_name,
+			player.carry_upgrade_level,
 		]
 	)
 	primary_stats_label.text = (

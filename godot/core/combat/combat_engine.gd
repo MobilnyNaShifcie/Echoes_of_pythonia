@@ -65,10 +65,15 @@ func player_flee() -> Dictionary:
 
 
 func player_use_healing(heal_amount: int) -> Dictionary:
-	if result != ONGOING or heal_amount <= 0:
+	return player_use_restoration(heal_amount, 0)
+
+
+func player_use_restoration(heal_amount: int, mana_amount: int) -> Dictionary:
+	if result != ONGOING or (heal_amount <= 0 and mana_amount <= 0):
 		return {}
 	var report := _new_report()
 	report.player_healed = player.stats.heal(heal_amount)
+	report.player_mana_restored = player.stats.restore_mana(mana_amount)
 	_enemy_turn(report)
 	return report
 
@@ -105,6 +110,7 @@ func _new_report() -> Dictionary:
 	return {
 		"player_damage": 0,
 		"player_healed": 0,
+		"player_mana_restored": 0,
 		"enemy_damage": 0,
 		"enemy_extra_damage": 0,
 		"enemy_dodged": false,

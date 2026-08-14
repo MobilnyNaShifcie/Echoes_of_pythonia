@@ -5,6 +5,7 @@ const EnemyCatalogClass := preload("res://core/combat/enemy_catalog.gd")
 const ItemCatalogClass := preload("res://core/items/item_catalog.gd")
 const QuestServiceClass := preload("res://core/quests/quest_service.gd")
 const TwilightPlainsClass := preload("res://core/world/twilight_plains.gd")
+const CarryWeightServiceClass := preload("res://core/economy/carry_weight_service.gd")
 const LOOT_TABLES := {
 	"wild_dog": [{"item_id": "weak_leather", "chance": 0.7}],
 	"slime":
@@ -58,6 +59,17 @@ const LOOT_TABLES := {
 
 
 static func explore_twilight_plains(session, rng: RandomNumberGenerator) -> Dictionary:
+	var load := CarryWeightServiceClass.carry_status(session.player)
+	if load.overloaded:
+		var message := (
+			"Nie możesz rozpocząć wyprawy: plecak jest przeciążony "
+			+ (
+				"(%.1f/%.1f kg). Odłóż przedmioty u Kwatermistrza."
+				% [load.current_kg, load.capacity_kg]
+			)
+		)
+		session.last_activity = message
+		return {"enemy_id": "", "message": message, "blocked": true}
 	var period: String = session.period_code()
 	var result := _roll_exploration(period, rng.randf(), rng.randi(), rng.randi())
 	session.advance_hours(1)
@@ -116,14 +128,14 @@ static func resolve_victory(session, enemy, rng: RandomNumberGenerator) -> Dicti
 static func resolve_defeat(session, enemy_name: String) -> Dictionary:
 	session.player.stats.restore_full()
 	session.last_activity = (
-		"Porażka z %s. Nie tracisz Golda ani EXP; ratownicy odstawili cię do Varenhold."
+		"Porażka z %s. Nie tracisz złota ani EXP; ratownicy odstawili cię do Varenhold."
 		% enemy_name
 	)
 	return {"message": session.last_activity}
 
 
 static func _format_victory(enemy_name: String, summary: Dictionary) -> String:
-	var text := "Pokonano %s: +%d EXP, +%d Gold." % [enemy_name, summary.experience, summary.gold]
+	var text := "Pokonano %s: +%d EXP, +%d złota." % [enemy_name, summary.experience, summary.gold]
 	if not summary.loot_names.is_empty():
 		text += " Łup: %s." % ", ".join(summary.loot_names)
 	if not summary.quest_update.is_empty():

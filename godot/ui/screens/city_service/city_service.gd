@@ -5,8 +5,7 @@ signal back_requested
 signal world_map_requested
 
 const GameSessionClass := preload("res://core/game/game_session.gd")
-const POTION_ID := "weak_healing_potion"
-const POTION_PRICE := 25
+const InnServiceClass := preload("res://core/economy/inn_service.gd")
 
 const SERVICES := {
 	"blacksmith":
@@ -42,7 +41,7 @@ const SERVICES := {
 		"eyebrow": "RYNEK VARENHOLD",
 		"title": "Kram Orena",
 		"description": "Oren handluje podstawowym zaopatrzeniem dla nowych Poszukiwaczy.",
-		"offer": "Słaba Mikstura Leczenia — przywraca 20 PŻ\nCena: 25 Gold",
+		"offer": "Słaba Mikstura Leczenia — przywraca 20 PŻ\nCena: 25 złota",
 		"action": "Kup miksturę",
 	},
 	"inn":
@@ -100,8 +99,6 @@ func configure(session: GameSessionClass, service_id: String) -> void:
 
 func _perform_action() -> void:
 	match _service_id:
-		"merchant":
-			_buy_potion()
 		"inn":
 			_rest()
 		"preparation":
@@ -109,29 +106,11 @@ func _perform_action() -> void:
 	_render()
 
 
-func _buy_potion() -> void:
-	if _session.player.gold < POTION_PRICE:
-		status_label.text = "Brakuje Golda. Potrzebujesz %d." % POTION_PRICE
-		return
-	_session.player.gold -= POTION_PRICE
-	_session.player.inventory.add(POTION_ID)
-	_session.last_activity = "Kupiono: Słaba Mikstura Leczenia."
-	status_label.text = _session.last_activity
-
-
 func _rest() -> void:
-	var price := 25 + _session.player.level * 25
-	if not _session.player.stats.needs_restoration():
-		status_label.text = "Nie potrzebujesz teraz odpoczynku."
-		return
-	if _session.player.gold < price:
-		status_label.text = "Nocleg kosztuje %d Gold — nie masz wystarczająco dużo." % price
-		return
-	_session.player.gold -= price
-	_session.player.stats.restore_full()
-	_session.advance_hours(6)
-	_session.last_activity = "Odpoczynek zakończony. Odzyskano pełne PŻ i Manę."
-	status_label.text = _session.last_activity
+	var result := InnServiceClass.rest(_session)
+	status_label.text = result.message
+	if result.ok:
+		_session.last_activity = result.message
 
 
 func _render() -> void:
@@ -143,7 +122,7 @@ func _render() -> void:
 	description_label.text = service.description
 	offer_label.text = service.offer
 	wallet_label.text = (
-		"%s  •  Poziom %d  •  PŻ %d/%d  •  Gold %d"
+		"%s  •  Poziom %d  •  PŻ %d/%d  •  Złoto %d"
 		% [
 			_session.player.display_name,
 			_session.player.level,
@@ -155,4 +134,4 @@ func _render() -> void:
 	action_button.visible = not service.action.is_empty()
 	action_button.text = service.action
 	if _service_id == "inn":
-		action_button.text = "Odpocznij — %d Gold" % (25 + _session.player.level * 25)
+		action_button.text = "Odpocznij — %d złota" % InnServiceClass.rest_cost(_session.player)

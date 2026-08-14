@@ -20,6 +20,9 @@ extends Resource
 @export var max_mana := 0
 @export var magic_power := 0
 @export var heal_hp := 0
+@export var heal_hp_percent := 0.0
+@export var restore_mana := 0
+@export var restore_mana_percent := 0.0
 
 
 func is_equipment() -> bool:
