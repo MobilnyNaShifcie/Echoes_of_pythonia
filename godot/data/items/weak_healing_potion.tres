@@ -4,7 +4,7 @@
 script = ExtResource("1")
 item_id = "weak_healing_potion"
 display_name = "Słaba Mikstura Lecznicza"
-description = "Niewielka fiolka przywracająca 20 HP."
+description = "Niewielka fiolka przywracająca 20 PŻ."
 category = "consumable"
 stackable = true
 heal_hp = 20

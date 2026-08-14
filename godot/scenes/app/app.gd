@@ -1,5 +1,6 @@
 extends Control
 
+const EnemyCatalogClass := preload("res://core/combat/enemy_catalog.gd")
 const GameSessionClass := preload("res://core/game/game_session.gd")
 const CharacterSheetScreenClass := preload("res://ui/screens/character_sheet/character_sheet.gd")
 const CityHubScreenClass := preload("res://ui/screens/city_hub/city_hub.gd")
@@ -155,7 +156,7 @@ func _show_city_service(service_id: String) -> void:
 	service.configure(_current_session, service_id)
 	service.back_requested.connect(_show_city_hub)
 	service.world_map_requested.connect(_show_world_map)
-	app_status_label.text = "Varenhold: %s" % service_id
+	app_status_label.text = "Varenhold: %s" % CityServiceScreenClass.display_name_for(service_id)
 
 
 func _show_world_map() -> void:
@@ -180,7 +181,7 @@ func _show_combat(enemy_id: String, context: String) -> void:
 	var combat: CombatScreenClass = _replace_screen(COMBAT_SCENE)
 	combat.configure(_current_session, enemy_id, context)
 	combat.finished.connect(_on_combat_finished)
-	app_status_label.text = "Walka: %s" % enemy_id
+	app_status_label.text = "Walka: %s" % EnemyCatalogClass.display_name_for(enemy_id)
 
 
 func _on_combat_finished(context: String, result: String) -> void:

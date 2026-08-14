@@ -18,7 +18,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 8
 
 [node name="EncounterLabel" type="Label" parent="Page"]
 unique_name_in_owner = true
@@ -57,7 +57,7 @@ custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 max_value = 20.0
 value = 20.0
-show_percentage = true
+show_percentage = false
 
 [node name="PlayerStatsLabel" type="Label" parent="Page/Arena/PlayerPanel/Content"]
 unique_name_in_owner = true
@@ -98,7 +98,7 @@ custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 max_value = 10.0
 value = 10.0
-show_percentage = true
+show_percentage = false
 
 [node name="EnemyStatsLabel" type="Label" parent="Page/Arena/EnemyPanel/Content"]
 unique_name_in_owner = true
@@ -116,14 +116,14 @@ size_flags_horizontal = 3
 
 [node name="CombatLog" type="RichTextLabel" parent="Page/Lower/LogPanel"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 170)
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_vertical = 3
 fit_content = false
 scroll_active = true
 
 [node name="Actions" type="VBoxContainer" parent="Page/Lower"]
-custom_minimum_size = Vector2(340, 0)
+custom_minimum_size = Vector2(420, 0)
 layout_mode = 2
 theme_override_constants/separation = 7
 
@@ -132,24 +132,34 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
 text = "WYBIERZ AKCJĘ"
 
-[node name="AttackButton" type="Button" parent="Page/Lower/Actions"]
+[node name="ActionGrid" type="GridContainer" parent="Page/Lower/Actions"]
+layout_mode = 2
+theme_override_constants/h_separation = 7
+theme_override_constants/v_separation = 7
+columns = 2
+
+[node name="AttackButton" type="Button" parent="Page/Lower/Actions/ActionGrid"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Atak"
 
-[node name="DefendButton" type="Button" parent="Page/Lower/Actions"]
+[node name="DefendButton" type="Button" parent="Page/Lower/Actions/ActionGrid"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Obrona"
 
-[node name="PotionButton" type="Button" parent="Page/Lower/Actions"]
+[node name="PotionButton" type="Button" parent="Page/Lower/Actions/ActionGrid"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Mikstura (+20 PŻ)  ×0"
 
-[node name="FleeButton" type="Button" parent="Page/Lower/Actions"]
+[node name="FleeButton" type="Button" parent="Page/Lower/Actions/ActionGrid"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Ucieczka (50%)"
 
 [node name="ResultPanel" type="PanelContainer" parent="Page"]

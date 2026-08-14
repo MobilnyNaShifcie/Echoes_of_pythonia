@@ -123,9 +123,9 @@ func _resolve_victory() -> String:
 		_session.last_activity = "Pokonano Przeklętego Stracha na Wróble."
 		return "Zwycięstwo. Po walce odzyskujesz pełne PŻ i możesz przeszukać pobojowisko."
 	var rewards := AdventureServiceClass.resolve_victory(_session, _enemy, _rng)
-	var text := "Zwycięstwo\n+%d EXP  •  +%d Gold" % [rewards.experience, rewards.gold]
+	var text := "Zwycięstwo  •  +%d EXP  •  +%d Gold" % [rewards.experience, rewards.gold]
 	if rewards.levels_gained > 0:
-		text += "\nAwansujesz o %d poziom!" % rewards.levels_gained
+		text += "  •  Awans: +%d poziom" % rewards.levels_gained
 	if not rewards.loot_names.is_empty():
 		text += "\nŁup: %s" % ", ".join(rewards.loot_names)
 	if not rewards.quest_update.is_empty():
@@ -162,8 +162,10 @@ func _render() -> void:
 	)
 	player_name_label.text = player.display_name
 	player_stats_label.text = (
-		"ATK %d  •  DEF %d  •  UNIK %.1f%%"
+		"PŻ %d/%d  •  ATK %d  •  DEF %d  •  UNIK %.1f%%"
 		% [
+			player.stats.current_hp,
+			player.stats.max_hp,
 			player.stats.attack,
 			player.stats.defense,
 			player.stats.dodge,
@@ -174,8 +176,10 @@ func _render() -> void:
 	player_hp_bar.tooltip_text = "PŻ %d/%d" % [player.stats.current_hp, player.stats.max_hp]
 	enemy_name_label.text = _enemy.display_name
 	enemy_stats_label.text = (
-		"ATK %d  •  DEF %d  •  UNIK %.1f%%"
+		"PŻ %d/%d  •  ATK %d  •  DEF %d  •  UNIK %.1f%%"
 		% [
+			_enemy.current_hp,
+			_enemy.max_hp,
 			_enemy.attack,
 			_enemy.defense,
 			_enemy.dodge,

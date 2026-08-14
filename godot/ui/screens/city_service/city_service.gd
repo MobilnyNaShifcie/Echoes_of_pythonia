@@ -80,6 +80,10 @@ var _service_id := "preparation"
 @onready var action_button: Button = %ActionButton
 
 
+static func display_name_for(service_id: String) -> String:
+	return SERVICES.get(service_id, SERVICES.preparation).title
+
+
 func _ready() -> void:
 	%BackButton.pressed.connect(back_requested.emit)
 	action_button.pressed.connect(_perform_action)

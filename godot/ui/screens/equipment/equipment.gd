@@ -208,7 +208,7 @@ func _format_item_details(item: EquipmentItemClass) -> String:
 		stats.append("UNIK +%.1f%%" % definition.dodge)
 	var stats_text := ", ".join(stats) if not stats.is_empty() else "Brak premii"
 	return (
-		"%s\nSlot: %s  •  Item Power: %d\n%s\n\n%s"
+		"%s\nMiejsce: %s  •  Moc przedmiotu: %d\n%s\n\n%s"
 		% [
 			item.formatted_name(),
 			SLOT_NAMES[item.slot],

@@ -20,6 +20,8 @@ without losing the behavior covered by the existing Python test suite.
    outcomes more clearly but does not become the source of combat results.
 7. Preview visual and audio proposals before integrating them, following
    `ART_AND_AUDIO_PIPELINE_v0.25.0.md`.
+8. Design and export at a Full HD `1920×1080` reference resolution while
+   keeping all functional screens usable at a tested `1280×720` minimum.
 
 ## Proposed milestones
 

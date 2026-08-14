@@ -2,6 +2,10 @@
 
 ## [0.25.0-dev] — Pierwsza grywalna pętla w Godot 4
 
+- ustawiono docelową rozdzielczość Full HD `1920×1080` i zabezpieczono ekran
+  walki przed nachodzeniem na nagłówek oraz stopkę także przy `1280×720`,
+- przetłumaczono techniczne identyfikatory w stopce oraz nazwy `Slot`,
+  `Item Power` i `HP`, aby interfejs nie mieszał języka polskiego z kodem gry,
 - przeniesiono pięcioetapowy prolog wraz z obowiązkową, turową walką fabularną,
 - dodano pełną nawigację Varenhold oraz działające ekrany Gildii, klas, bohatera,
   ekwipunku, kupca, karczmy, przygotowania wyprawy, kuźni i warsztatu,
