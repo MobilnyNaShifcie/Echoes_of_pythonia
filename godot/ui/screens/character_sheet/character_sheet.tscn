@@ -1,0 +1,136 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://ui/screens/character_sheet/character_sheet.gd" id="1_sheet"]
+
+[node name="CharacterSheetScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sheet")
+
+[node name="Page" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 14
+
+[node name="Heading" type="HBoxContainer" parent="Page"]
+layout_mode = 2
+
+[node name="Identity" type="VBoxContainer" parent="Page/Heading"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="Eyebrow" type="Label" parent="Page/Heading/Identity"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
+theme_override_font_sizes/font_size = 16
+text = "KARTA BOHATERA"
+
+[node name="HeroNameLabel" type="Label" parent="Page/Heading/Identity"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.93, 0.95, 0.98, 1)
+theme_override_font_sizes/font_size = 32
+text = "Bohater"
+
+[node name="ProgressionLabel" type="Label" parent="Page/Heading/Identity"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.68, 0.78, 1)
+text = "Poszukiwacz  •  Poziom 0"
+
+[node name="BackButton" type="Button" parent="Page/Heading"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(190, 0)
+layout_mode = 2
+text = "Wróć do sesji"
+
+[node name="Columns" type="HBoxContainer" parent="Page"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="StatsPanel" type="PanelContainer" parent="Page/Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Content" type="VBoxContainer" parent="Page/Columns/StatsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Page/Columns/StatsPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
+theme_override_font_sizes/font_size = 21
+text = "Statystyki główne"
+
+[node name="Separator" type="HSeparator" parent="Page/Columns/StatsPanel/Content"]
+layout_mode = 2
+
+[node name="PrimaryStatsLabel" type="Label" parent="Page/Columns/StatsPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.82, 0.86, 0.92, 1)
+text = "PŻ      20 / 20\nMANA    0 / 0\nATK     3\nDEF     2\nUNIK    0.0%"
+
+[node name="AttributesPanel" type="PanelContainer" parent="Page/Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Content" type="VBoxContainer" parent="Page/Columns/AttributesPanel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Page/Columns/AttributesPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
+theme_override_font_sizes/font_size = 21
+text = "Atrybuty"
+
+[node name="Separator" type="HSeparator" parent="Page/Columns/AttributesPanel/Content"]
+layout_mode = 2
+
+[node name="AttributesLabel" type="Label" parent="Page/Columns/AttributesPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.82, 0.86, 0.92, 1)
+text = "Siła             0\nWitalność         0\nInteligencja      0\nZręczność         0\nWytrzymałość      0"
+
+[node name="LuckHint" type="Label" parent="Page/Columns/AttributesPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.48, 0.56, 0.66, 1)
+theme_override_font_sizes/font_size = 14
+text = "Szczęście odblokowuje droga Pierrota."
+autowrap_mode = 2
+
+[node name="EquipmentPanel" type="PanelContainer" parent="Page/Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Content" type="VBoxContainer" parent="Page/Columns/EquipmentPanel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Page/Columns/EquipmentPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
+theme_override_font_sizes/font_size = 21
+text = "Wyposażenie"
+
+[node name="Separator" type="HSeparator" parent="Page/Columns/EquipmentPanel/Content"]
+layout_mode = 2
+
+[node name="EquipmentLabel" type="Label" parent="Page/Columns/EquipmentPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.82, 0.86, 0.92, 1)
+text = "Broń\nStary Miecz +0\n\nZbroja\nZużyta Skórzana Zbroja +0"
+autowrap_mode = 2

@@ -2,7 +2,7 @@ class_name NewGameService
 extends RefCounted
 
 const GameSessionClass := preload("res://core/game/game_session.gd")
-const PlayerProfileClass := preload("res://core/player/player_profile.gd")
+const PlayerFactoryClass := preload("res://core/player/player_factory.gd")
 const MINIMUM_NAME_LENGTH := 2
 const MAXIMUM_NAME_LENGTH := 20
 const SAVE_SLOT_COUNT := 4
@@ -33,5 +33,5 @@ func create_session(raw_name: String, save_slot: int) -> GameSessionClass:
 	if not get_save_slot_error(save_slot).is_empty():
 		return null
 
-	var player := PlayerProfileClass.new(normalize_player_name(raw_name))
+	var player := PlayerFactoryClass.create_player(normalize_player_name(raw_name))
 	return GameSessionClass.new(save_slot, player)

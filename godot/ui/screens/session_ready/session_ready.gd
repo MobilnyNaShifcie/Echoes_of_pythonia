@@ -2,6 +2,7 @@ class_name SessionReadyScreen
 extends Control
 
 signal back_to_menu_requested
+signal character_sheet_requested
 
 const GameSessionClass := preload("res://core/game/game_session.gd")
 
@@ -13,8 +14,9 @@ var _session: GameSessionClass
 
 func _ready() -> void:
 	%BackToMenuButton.pressed.connect(back_to_menu_requested.emit)
+	%CharacterSheetButton.pressed.connect(character_sheet_requested.emit)
 	_render_session()
-	%BackToMenuButton.grab_focus()
+	%CharacterSheetButton.grab_focus()
 
 
 func configure(session: GameSessionClass) -> void:
@@ -40,7 +42,7 @@ func _render_session() -> void:
 			_session.player.max_health,
 			_session.current_city_id.capitalize(),
 			_session.hour,
-			_session.player.weapon_id,
-			_session.player.armor_id,
+			_session.player.get_equipped_item_name("weapon"),
+			_session.player.get_equipped_item_name("chest"),
 		]
 	)

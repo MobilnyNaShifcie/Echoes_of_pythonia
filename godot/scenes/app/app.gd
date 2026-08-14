@@ -1,9 +1,11 @@
 extends Control
 
 const GameSessionClass := preload("res://core/game/game_session.gd")
+const CharacterSheetScreenClass := preload("res://ui/screens/character_sheet/character_sheet.gd")
 const MainMenuScreenClass := preload("res://ui/screens/main_menu/main_menu.gd")
 const NewGameScreenClass := preload("res://ui/screens/new_game/new_game.gd")
 const SessionReadyScreenClass := preload("res://ui/screens/session_ready/session_ready.gd")
+const CHARACTER_SHEET_SCENE := preload("res://ui/screens/character_sheet/character_sheet.tscn")
 const MAIN_MENU_SCENE := preload("res://ui/screens/main_menu/main_menu.tscn")
 const NEW_GAME_SCENE := preload("res://ui/screens/new_game/new_game.tscn")
 const SESSION_READY_SCENE := preload("res://ui/screens/session_ready/session_ready.tscn")
@@ -48,11 +50,22 @@ func _show_session_ready() -> void:
 	var ready_screen: SessionReadyScreenClass = _replace_screen(SESSION_READY_SCENE)
 	ready_screen.configure(_current_session)
 	ready_screen.back_to_menu_requested.connect(_show_main_menu)
+	ready_screen.character_sheet_requested.connect(_show_character_sheet)
 	app_status_label.text = "Aktywna sesja: %s" % _current_session.player.display_name
 
 
+func _show_character_sheet() -> void:
+	if _current_session == null:
+		_show_main_menu()
+		return
+	var character_sheet: CharacterSheetScreenClass = _replace_screen(CHARACTER_SHEET_SCENE)
+	character_sheet.configure(_current_session)
+	character_sheet.back_requested.connect(_show_session_ready)
+	app_status_label.text = "Karta postaci: %s" % _current_session.player.display_name
+
+
 func _show_project_status() -> void:
-	app_status_label.text = "v0.25.0: menu i tworzenie bohatera przeniesione do Godot 4"
+	app_status_label.text = "v0.25.0: tworzenie bohatera, statystyki i karta postaci w Godot 4"
 
 
 func _replace_screen(scene: PackedScene) -> Control:

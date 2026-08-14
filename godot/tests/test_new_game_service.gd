@@ -39,6 +39,8 @@ func test_creates_session_with_legacy_starting_state() -> void:
 	assert_eq(session.player.level, 0)
 	assert_eq(session.player.health, 20)
 	assert_eq(session.player.max_health, 20)
+	assert_eq(session.player.stats.attack, 3)
+	assert_eq(session.player.stats.defense, 2)
 	assert_eq(session.player.weapon_id, "starter_sword")
 	assert_eq(session.player.armor_id, "worn_leather_armor")
 	assert_eq(session.current_location_id, "twilight_plains")

@@ -31,19 +31,30 @@ without losing the behavior covered by the existing Python test suite.
 5. **Presentation:** final layouts, animation, audio, accessibility, input, and
    export configuration.
 
-## Current vertical slice
+## Completed vertical slices
 
-The first migrated flow is runnable in Godot:
+The migrated flow is runnable in Godot:
 
 1. Open the main menu.
 2. Select one of four save slots and enter a validated player name.
-3. Create an in-memory game session with the legacy starting values.
-4. Review the player, location, time, and starter equipment on the session
-   checkpoint screen.
+3. Create an in-memory game session through a player factory.
+4. Equip the typed `Stary Miecz` and `Zużyta Skórzana Zbroja` resources.
+5. Calculate the legacy starting state: 20 HP, 3 ATK, 2 DEF, zero Mana,
+   Dodge, attributes, currency, and experience.
+6. Review progression, primary statistics, attributes, and equipped item names
+   on the character sheet.
 
-The menu deliberately keeps load and persistent save actions disabled. The next
-slice will introduce the save repository and overwrite confirmation before the
-Dialogic prologue is connected.
+The GDScript model also carries the legacy attribute formulas, level-zero
+experience threshold, four attribute points per level, and Pierrot-only Luck.
+GUT parity tests protect those rules while the Python suite remains the complete
+behavioral reference.
+
+The menu deliberately keeps load and persistent save actions disabled. Save
+schema v15 contains inventory instances, affixes, progression, quests, party,
+expeditions, and world state. A partial writer would silently discard data, so
+persistent saves will be enabled only after their required domain objects have
+been migrated. The next domain slice expands the item instances and inventory
+needed by that safe round trip.
 
 ## Add-on policy
 
