@@ -10,8 +10,10 @@ $gdlintExecutable = Join-Path $repositoryRoot '.venv\Scripts\gdlint.exe'
 $godotExecutable = Join-Path $repositoryRoot '.tools\godot\Godot_v4.7.1-stable_win64_console.exe'
 $godotDirectory = Join-Path $repositoryRoot 'godot'
 $gdscriptPaths = @(
+    (Join-Path $godotDirectory 'core'),
     (Join-Path $godotDirectory 'scenes'),
-    (Join-Path $godotDirectory 'tests')
+    (Join-Path $godotDirectory 'tests'),
+    (Join-Path $godotDirectory 'ui')
 )
 
 foreach ($requiredExecutable in @($pythonExecutable, $gdformatExecutable, $gdlintExecutable, $godotExecutable)) {

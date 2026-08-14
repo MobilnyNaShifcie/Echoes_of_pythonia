@@ -7,6 +7,5 @@ func test_project_version_is_v0250() -> void:
 
 func test_main_scene_is_configured() -> void:
 	assert_eq(
-		ProjectSettings.get_setting("application/run/main_scene"),
-		"res://scenes/bootstrap/bootstrap.tscn"
+		ProjectSettings.get_setting("application/run/main_scene"), "res://scenes/app/app.tscn"
 	)

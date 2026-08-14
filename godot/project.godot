@@ -13,7 +13,7 @@ config_version=5
 config/name="Echoes of Pythonia"
 config/description="A narrative role-playing game rebuilt in Godot 4."
 config/version="0.25.0"
-run/main_scene="res://scenes/bootstrap/bootstrap.tscn"
+run/main_scene="res://scenes/app/app.tscn"
 config/features=PackedStringArray("4.7")
 
 [autoload]

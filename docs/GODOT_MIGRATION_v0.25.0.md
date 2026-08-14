@@ -27,6 +27,20 @@ without losing the behavior covered by the existing Python test suite.
 5. **Presentation:** final layouts, animation, audio, accessibility, input, and
    export configuration.
 
+## Current vertical slice
+
+The first migrated flow is runnable in Godot:
+
+1. Open the main menu.
+2. Select one of four save slots and enter a validated player name.
+3. Create an in-memory game session with the legacy starting values.
+4. Review the player, location, time, and starter equipment on the session
+   checkpoint screen.
+
+The menu deliberately keeps load and persistent save actions disabled. The next
+slice will introduce the save repository and overwrite confirmation before the
+Dialogic prologue is connected.
+
 ## Add-on policy
 
 - GUT is the test runner for migrated GDScript behavior.
