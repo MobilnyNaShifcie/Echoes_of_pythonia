@@ -23,10 +23,32 @@ costume and Fate effects may use red, rose, and pink accents, but a class palett
 must not recolor the battlefield, enemies, or shared interface. Those elements
 have independent art direction and color ownership.
 
+This character and combat-art direction is approved as the target. The preview
+itself is not a production asset and must not be imported directly.
+
 The preferred combat action layout uses illustrated vertical skill panels
 grouped at the bottom center, including compact resource indicators. Their
 shared frame belongs to the game UI theme; character-specific colors belong to
 skill artwork and effects.
+
+The action panel is not one fixed row used in every combat state. Its contents,
+panel type, layout, and available interactions follow the current turn phase and
+the actions exposed by the migrated terminal mechanics. Skill selection, basic
+actions, item use, target selection, paired skills, and other contextual choices
+may use different presentations while sharing one coherent UI language.
+
+## Fate dice presentation
+
+One reusable dice presentation system supports the existing 1d6, 2d6, and 3d6
+Pierrot skills. It receives already resolved die faces from the migrated Fate
+Engine and never determines combat outcomes through visual physics.
+
+The presentation uses the same dice model, timing language, pink-to-crimson Fate
+effect, and audio family for every count. Spawn positions adapt to one centered
+die, two balanced dice, or three dice in a readable triangular arrangement. The
+animation sequence can expose existing rerolls and Fate manipulations without
+changing their rules: anticipation, throw, tumble, settle on prescribed faces,
+result emphasis, optional manipulation or reroll, and combat resolution.
 
 ## Expedition-driven battle environments
 
