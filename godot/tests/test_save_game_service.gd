@@ -167,3 +167,20 @@ func test_schema_one_save_migrates_with_safe_economy_defaults() -> void:
 	assert_eq(result.session.last_inn_rest_day, 0)
 	assert_eq(result.session.player.carry_upgrade_level, 0)
 	assert_true(result.session.guild_storage.inventory.is_empty())
+
+
+func test_save_rejects_invalid_class_progression_and_equipped_requirements() -> void:
+	var session = NewGameServiceClass.new().create_session("Aria", 1)
+	session.player.character_class_code = "hunter"
+	var early_class_result := _service.save_session(session)
+	assert_false(early_class_result.ok)
+	assert_string_contains(early_class_result.message, "poziomem 5")
+
+	session.player.level = 5
+	session.player.character_class_code = "warrior"
+	var illegal_bow = ItemCatalogClass.create_equipment_item("hunting_bow")
+	session.player.equipment.equip_and_return_previous(illegal_bow)
+	session.player.recalculate_stats()
+	var illegal_equipment_result := _service.save_session(session)
+	assert_false(illegal_equipment_result.ok)
+	assert_string_contains(illegal_equipment_result.message, "wymaga klasy: Łowca")

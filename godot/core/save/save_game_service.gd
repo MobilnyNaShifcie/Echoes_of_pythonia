@@ -255,9 +255,13 @@ func _deserialize_player(data: Dictionary) -> Dictionary:
 	if player.carry_upgrade_level > 3:
 		return _failure("Zapis zawiera nieprawidłowy poziom ulepszenia udźwigu.")
 	player.character_class_code = class_code
+	if class_code != PlayerProfileClass.CLASS_NONE and player.level < 5:
+		return _failure("Zapis wybiera Drogę przed wymaganym poziomem 5.")
 	var attributes_result := _restore_attributes(player, data.attributes)
 	if not attributes_result.ok:
 		return attributes_result
+	if player.attributes.luck > 0 and class_code != PlayerProfileClass.CLASS_PIERROT:
+		return _failure("Zapis przyznaje Szczęście postaci, która nie jest Pierrotem.")
 	var equipment_result := _restore_equipment(player, data.equipment)
 	if not equipment_result.ok:
 		return equipment_result
@@ -345,6 +349,9 @@ func _restore_equipment(player: PlayerProfileClass, data: Dictionary) -> Diction
 		var item: EquipmentItemClass = item_result.item
 		if item.slot != slot or player.equipment.get_item(slot) != null:
 			return _failure("Przedmiot znajduje się w nieprawidłowym slocie.")
+		var equip_error := player.get_item_equip_error(item)
+		if not equip_error.is_empty():
+			return _failure("Założony przedmiot nie spełnia wymagań: %s" % equip_error)
 		player.equipment.equip_and_return_previous(item)
 	return {"ok": true}
 

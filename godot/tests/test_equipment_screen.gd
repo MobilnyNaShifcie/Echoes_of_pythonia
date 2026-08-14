@@ -57,3 +57,36 @@ func test_backpack_lists_loot_stacks_and_shows_their_details() -> void:
 
 	assert_true(screen.equip_button.disabled)
 	assert_string_contains(screen.details_label.text, "Liczba: 2")
+
+
+func test_backpack_compares_candidate_with_equipped_item() -> void:
+	var session = NewGameServiceClass.new().create_session("Aria", 1)
+	session.player.level = 2
+	session.player.inventory.add("sharpened_sword")
+	var screen := EQUIPMENT_SCENE.instantiate() as EquipmentScreenClass
+	screen.configure(session)
+	add_child_autofree(screen)
+
+	screen.inventory_list.select(0)
+	screen.inventory_list.item_selected.emit(0)
+
+	assert_false(screen.equip_button.disabled)
+	assert_string_contains(screen.details_label.text, "Porównanie z: Stary Miecz +0")
+	assert_string_contains(screen.details_label.text, "Zmiana: ATK +2")
+	assert_string_contains(screen.details_label.text, "Wymagania: poziom 2")
+
+
+func test_class_restricted_equipment_is_visible_but_cannot_be_equipped() -> void:
+	var session = NewGameServiceClass.new().create_session("Aria", 1)
+	session.player.level = 5
+	session.player.inventory.add("hunting_bow")
+	var screen := EQUIPMENT_SCENE.instantiate() as EquipmentScreenClass
+	screen.configure(session)
+	add_child_autofree(screen)
+
+	screen.inventory_list.select(0)
+	screen.inventory_list.item_selected.emit(0)
+
+	assert_true(screen.equip_button.disabled)
+	assert_string_contains(screen.feedback_label.text, "wymaga klasy: Łowca")
+	assert_string_contains(screen.details_label.text, "Łowca")

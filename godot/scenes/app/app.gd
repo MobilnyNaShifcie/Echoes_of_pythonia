@@ -141,6 +141,7 @@ func _show_character_sheet() -> void:
 	character_sheet.configure(_current_session)
 	character_sheet.back_requested.connect(_show_city_hub)
 	character_sheet.equipment_requested.connect(_show_equipment)
+	character_sheet.class_selection_requested.connect(_show_class_selection)
 	app_status_label.text = "Karta postaci: %s" % _current_session.player.display_name
 
 
@@ -230,7 +231,8 @@ func _on_combat_finished(context: String, result: String) -> void:
 
 func _show_project_status() -> void:
 	app_status_label.text = (
-		"v0.25.0: prolog, Varenhold, walka turowa, " + "zapisy i ekonomia etapu 2 w Godot 4"
+		"v0.25.0: prolog, Varenhold, ekonomia oraz "
+		+ "rozwój bohatera i ekwipunek etapu 3A w Godot 4"
 	)
 
 

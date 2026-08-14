@@ -1,9 +1,12 @@
 extends GutTest
 
 const APP_SCENE := preload("res://scenes/app/app.tscn")
+const CharacterSheetScreenClass := preload("res://ui/screens/character_sheet/character_sheet.gd")
 const CityHubScreenClass := preload("res://ui/screens/city_hub/city_hub.gd")
 const CityEconomyScreenClass := preload("res://ui/screens/city_economy/city_economy.gd")
+const ClassSelectionScreenClass := preload("res://ui/screens/class_selection/class_selection.gd")
 const CombatScreenClass := preload("res://ui/screens/combat/combat.gd")
+const EquipmentScreenClass := preload("res://ui/screens/equipment/equipment.gd")
 const GuildScreenClass := preload("res://ui/screens/guild/guild.gd")
 const NewGameServiceClass := preload("res://core/game/new_game_service.gd")
 const PrologueScreenClass := preload("res://ui/screens/prologue/prologue.gd")
@@ -108,5 +111,47 @@ func test_economy_layout_fits_between_header_and_footer_at_720p() -> void:
 	assert_lte(
 		economy.get_global_rect().end.x,
 		app.screen_host.get_global_rect().end.x,
+	)
+	host.free()
+
+
+func test_character_progression_screens_fit_at_720p() -> void:
+	var host := Control.new()
+	host.size = Vector2(1280, 720)
+	add_child(host)
+	var app = APP_SCENE.instantiate()
+	host.add_child(app)
+	var session = NewGameServiceClass.new().create_session("Aria", 1)
+	session.prologue_completed = true
+	session.player.unspent_attribute_points = 4
+	app._on_session_created(session)
+	await get_tree().process_frame
+	var footer_separator: HSeparator = app.get_node("SafeArea/Page/FooterSeparator")
+
+	app._show_character_sheet()
+	await get_tree().process_frame
+	var sheet = app.screen_host.get_child(0)
+	assert_eq(sheet.get_script(), CharacterSheetScreenClass)
+	assert_lte(
+		sheet.get_node("Page/BodyScroll").get_global_rect().end.y,
+		footer_separator.get_global_rect().position.y,
+	)
+
+	app._show_equipment()
+	await get_tree().process_frame
+	var equipment = app.screen_host.get_child(0)
+	assert_eq(equipment.get_script(), EquipmentScreenClass)
+	assert_lte(
+		equipment.feedback_label.get_global_rect().end.y,
+		footer_separator.get_global_rect().position.y,
+	)
+
+	app._show_class_selection()
+	await get_tree().process_frame
+	var class_selection = app.screen_host.get_child(0)
+	assert_eq(class_selection.get_script(), ClassSelectionScreenClass)
+	assert_lte(
+		class_selection.get_node("Page/Columns").get_global_rect().end.y,
+		footer_separator.get_global_rect().position.y,
 	)
 	host.free()

@@ -61,82 +61,198 @@ layout_mode = 2
 size_flags_vertical = 4
 text = "Zarządzaj ekwipunkiem"
 
-[node name="Columns" type="HBoxContainer" parent="Page"]
+[node name="BodyScroll" type="ScrollContainer" parent="Page"]
 layout_mode = 2
 size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Columns" type="HBoxContainer" parent="Page/BodyScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/separation = 16
 
-[node name="StatsPanel" type="PanelContainer" parent="Page/Columns"]
+[node name="StatsPanel" type="PanelContainer" parent="Page/BodyScroll/Columns"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Content" type="VBoxContainer" parent="Page/Columns/StatsPanel"]
+[node name="Content" type="VBoxContainer" parent="Page/BodyScroll/Columns/StatsPanel"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Title" type="Label" parent="Page/Columns/StatsPanel/Content"]
+[node name="Title" type="Label" parent="Page/BodyScroll/Columns/StatsPanel/Content"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
 theme_override_font_sizes/font_size = 21
 text = "Statystyki główne"
 
-[node name="Separator" type="HSeparator" parent="Page/Columns/StatsPanel/Content"]
+[node name="Separator" type="HSeparator" parent="Page/BodyScroll/Columns/StatsPanel/Content"]
 layout_mode = 2
 
-[node name="PrimaryStatsLabel" type="Label" parent="Page/Columns/StatsPanel/Content"]
+[node name="PrimaryStatsLabel" type="Label" parent="Page/BodyScroll/Columns/StatsPanel/Content"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.82, 0.86, 0.92, 1)
 text = "PŻ      20 / 20\nMANA    0 / 0\nATK     3\nDEF     2\nUNIK    0.0%"
 
-[node name="AttributesPanel" type="PanelContainer" parent="Page/Columns"]
+[node name="AttributesPanel" type="PanelContainer" parent="Page/BodyScroll/Columns"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Content" type="VBoxContainer" parent="Page/Columns/AttributesPanel"]
+[node name="Content" type="VBoxContainer" parent="Page/BodyScroll/Columns/AttributesPanel"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Title" type="Label" parent="Page/Columns/AttributesPanel/Content"]
+[node name="Title" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
 theme_override_font_sizes/font_size = 21
 text = "Atrybuty"
 
-[node name="Separator" type="HSeparator" parent="Page/Columns/AttributesPanel/Content"]
+[node name="Separator" type="HSeparator" parent="Page/BodyScroll/Columns/AttributesPanel/Content"]
 layout_mode = 2
 
-[node name="AttributesLabel" type="Label" parent="Page/Columns/AttributesPanel/Content"]
+[node name="AttributeGrid" type="GridContainer" parent="Page/BodyScroll/Columns/AttributesPanel/Content"]
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 6
+columns = 3
+
+[node name="StrengthName" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Siła"
+[node name="StrengthValue" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.82, 0.86, 0.92, 1)
-text = "Siła             0\nWitalność         0\nInteligencja      0\nZręczność         0\nWytrzymałość      0"
+text = "0"
+horizontal_alignment = 2
+[node name="StrengthButton" type="Button" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(54, 32)
+layout_mode = 2
+text = "+1"
 
-[node name="LuckHint" type="Label" parent="Page/Columns/AttributesPanel/Content"]
+[node name="VitalityName" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Witalność"
+[node name="VitalityValue" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+[node name="VitalityButton" type="Button" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(54, 32)
+layout_mode = 2
+text = "+1"
+
+[node name="IntelligenceName" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Inteligencja"
+[node name="IntelligenceValue" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+[node name="IntelligenceButton" type="Button" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(54, 32)
+layout_mode = 2
+text = "+1"
+
+[node name="DexterityName" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Zręczność"
+[node name="DexterityValue" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+[node name="DexterityButton" type="Button" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(54, 32)
+layout_mode = 2
+text = "+1"
+
+[node name="EnduranceName" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Wytrzymałość"
+[node name="EnduranceValue" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+[node name="EnduranceButton" type="Button" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(54, 32)
+layout_mode = 2
+text = "+1"
+
+[node name="LuckName" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Szczęście (Pierrot)"
+[node name="LuckValue" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+[node name="LuckButton" type="Button" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(54, 32)
+layout_mode = 2
+disabled = true
+text = "+1"
+
+[node name="LuckHint" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.48, 0.56, 0.66, 1)
 theme_override_font_sizes/font_size = 14
 text = "Szczęście odblokowuje droga Pierrota."
 autowrap_mode = 2
 
-[node name="EquipmentPanel" type="PanelContainer" parent="Page/Columns"]
+[node name="AttributeFeedbackLabel" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42, 0.78, 0.56, 1)
+theme_override_font_sizes/font_size = 14
+text = "Wybierz +1, aby wydać wolny punkt."
+autowrap_mode = 2
+
+[node name="ClassButton" type="Button" parent="Page/BodyScroll/Columns/AttributesPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Zobacz Drogi bohatera"
+
+[node name="EquipmentPanel" type="PanelContainer" parent="Page/BodyScroll/Columns"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Content" type="VBoxContainer" parent="Page/Columns/EquipmentPanel"]
+[node name="Content" type="VBoxContainer" parent="Page/BodyScroll/Columns/EquipmentPanel"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Title" type="Label" parent="Page/Columns/EquipmentPanel/Content"]
+[node name="Title" type="Label" parent="Page/BodyScroll/Columns/EquipmentPanel/Content"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
 theme_override_font_sizes/font_size = 21
 text = "Wyposażenie"
 
-[node name="Separator" type="HSeparator" parent="Page/Columns/EquipmentPanel/Content"]
+[node name="Separator" type="HSeparator" parent="Page/BodyScroll/Columns/EquipmentPanel/Content"]
 layout_mode = 2
 
-[node name="EquipmentLabel" type="Label" parent="Page/Columns/EquipmentPanel/Content"]
+[node name="EquipmentLabel" type="Label" parent="Page/BodyScroll/Columns/EquipmentPanel/Content"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.82, 0.86, 0.92, 1)

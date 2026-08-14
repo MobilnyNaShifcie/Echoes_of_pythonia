@@ -74,6 +74,15 @@ The migrated flow is runnable in Godot:
     200-slot Guild Storage.
 20. Persist the inn cooldown, carry upgrade, and complete Guild Storage in
     Godot save schema v2 while safely upgrading schema-v1 Godot saves.
+21. Spend attribute points directly on the character sheet and immediately
+    recalculate the same derived statistics as the terminal build.
+22. Use one typed class catalog for all four Paths, their base Mana, identity,
+    and starter equipment instead of duplicating those rules in UI code.
+23. Inspect the full eleven-slot equipment set and backpack, compare candidate
+    statistics with the currently equipped instance, and enforce level and
+    class requirements before equipping.
+24. Reject invalid save state that assigns a Path before level five, grants
+    Luck outside Pierrot, or bypasses equipped-item requirements.
 
 The GDScript model also carries the legacy attribute formulas, level-zero
 experience threshold, four attribute points per level, and Pierrot-only Luck.
@@ -96,6 +105,11 @@ handles atomic multi-level upgrades, Mirela exposes recipes whose materials
 already have sources in the migrated world, and the inn performs paid full
 recovery with its daily cooldown. Final item art, shop animation, and audio
 remain outside this domain slice and continue to use placeholder presentation.
+
+Stage 3A is complete without a save-schema bump: schema v2 already contains
+the character Path, attributes, exact equipment instances, and backpack. The
+next slice, 3B, will add the data-driven active-skill foundation. Affixes, item
+sets, and equipment from later regions stay in the world-and-expeditions stage.
 
 ## Add-on policy
 

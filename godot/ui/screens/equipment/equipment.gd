@@ -35,6 +35,17 @@ const SLOT_NAMES := {
 	"earrings": "Kolczyki",
 	"ring": "Pierścień",
 }
+const EQUIPMENT_TYPE_NAMES := {
+	"sword": "Miecz",
+	"bow": "Łuk",
+	"staff": "Kostur",
+	"fate_lance": "Lanca Losu",
+	"shield": "Tarcza",
+	"quiver": "Kołczan",
+	"artifact": "Artefakt",
+	"fate_dice": "Kości Losu",
+	"fate_cards": "Karty Losu",
+}
 
 var _session: GameSessionClass
 
@@ -165,8 +176,11 @@ func _on_inventory_selected(index: int) -> void:
 	if inventory_index < 0 or inventory_index >= items.size():
 		equip_button.disabled = true
 		return
-	equip_button.disabled = false
-	details_label.text = _format_item_details(items[inventory_index])
+	var item: EquipmentItemClass = items[inventory_index]
+	var error := _session.player.get_equip_error(inventory_index)
+	equip_button.disabled = not error.is_empty()
+	feedback_label.text = error if not error.is_empty() else "Przedmiot spełnia wymagania."
+	details_label.text = _format_item_details(item, true)
 
 
 func _unequip_selected() -> void:
@@ -202,39 +216,98 @@ func _equip_selected() -> void:
 	_refresh()
 
 
-func _format_item_details(item: EquipmentItemClass) -> String:
+func _format_item_details(item: EquipmentItemClass, compare_with_equipped := false) -> String:
 	var definition = item.definition
 	var effective := UpgradeServiceClass.effective_stats(item)
-	var stats: Array[String] = []
-	if effective.attack > 0:
-		stats.append("ATK +%d" % effective.attack)
-	if effective.defense > 0:
-		stats.append("DEF +%d" % effective.defense)
-	if effective.max_hp > 0:
-		stats.append("PŻ +%d" % effective.max_hp)
-	if effective.max_mana > 0:
-		stats.append("MANA +%d" % effective.max_mana)
-	if effective.dodge > 0:
-		stats.append("UNIK +%.1f%%" % effective.dodge)
-	var stats_text := ", ".join(stats) if not stats.is_empty() else "Brak premii"
-	return (
-		"%s\nMiejsce: %s  •  Moc przedmiotu: %d  •  Waga: %.1f kg\n%s\n\n%s"
-		% [
-			item.formatted_name(),
-			SLOT_NAMES[item.slot],
-			definition.item_power,
-			CarryWeightServiceClass.item_unit_weight(item.item_id),
-			stats_text,
-			definition.description,
-		]
+	var required_class: String = (
+		definition.required_class_name
+		if not definition.required_class_code.is_empty()
+		else "dowolna Droga"
 	)
+	var lines: Array[String] = [
+		item.formatted_name(),
+		(
+			"Miejsce: %s  •  Typ: %s  •  Moc przedmiotu: %d  •  Waga: %.1f kg"
+			% [
+				SLOT_NAMES[item.slot],
+				EQUIPMENT_TYPE_NAMES.get(definition.equipment_type, "ogólne"),
+				definition.item_power,
+				CarryWeightServiceClass.item_unit_weight(item.item_id),
+			]
+		),
+		"Wymagania: poziom %d  •  %s" % [definition.required_level, required_class],
+		"Premie: %s" % _format_stats(effective),
+	]
+	if compare_with_equipped:
+		var current: EquipmentItemClass = _session.player.equipment.get_item(item.slot)
+		if current == null:
+			lines.append("Porównanie: miejsce jest obecnie puste.")
+		else:
+			var current_stats := UpgradeServiceClass.effective_stats(current)
+			lines.append("Porównanie z: %s" % current.formatted_name())
+			lines.append("Zmiana: %s" % _format_stat_delta(effective, current_stats))
+	lines.append("")
+	lines.append(definition.description)
+	return "\n".join(lines)
+
+
+func _format_stats(stats: Dictionary) -> String:
+	var parts: Array[String] = []
+	if stats.attack > 0:
+		parts.append("ATK +%d" % stats.attack)
+	if stats.defense > 0:
+		parts.append("DEF +%d" % stats.defense)
+	if stats.max_hp > 0:
+		parts.append("PŻ +%d" % stats.max_hp)
+	if stats.max_mana > 0:
+		parts.append("MANA +%d" % stats.max_mana)
+	if stats.magic_power > 0:
+		parts.append("MOC MAG. +%d" % stats.magic_power)
+	if stats.dodge > 0:
+		parts.append("UNIK +%.1f%%" % stats.dodge)
+	return ", ".join(parts) if not parts.is_empty() else "brak premii"
+
+
+func _format_stat_delta(candidate: Dictionary, current: Dictionary) -> String:
+	var parts: Array[String] = []
+	_append_integer_delta(parts, "ATK", int(candidate.attack) - int(current.attack))
+	_append_integer_delta(parts, "DEF", int(candidate.defense) - int(current.defense))
+	_append_integer_delta(parts, "PŻ", int(candidate.max_hp) - int(current.max_hp))
+	_append_integer_delta(parts, "MANA", int(candidate.max_mana) - int(current.max_mana))
+	_append_integer_delta(parts, "MOC MAG.", int(candidate.magic_power) - int(current.magic_power))
+	var dodge_delta := float(candidate.dodge) - float(current.dodge)
+	if not is_zero_approx(dodge_delta):
+		parts.append("UNIK %s%%" % _signed_float(dodge_delta))
+	return ", ".join(parts) if not parts.is_empty() else "bez zmiany statystyk"
+
+
+func _append_integer_delta(parts: Array[String], stat_name: String, value: int) -> void:
+	if value != 0:
+		parts.append("%s %s" % [stat_name, _signed_integer(value)])
+
+
+func _signed_integer(value: int) -> String:
+	return "+%d" % value if value > 0 else str(value)
+
+
+func _signed_float(value: float) -> String:
+	return "+%.1f" % value if value > 0.0 else "%.1f" % value
 
 
 func _format_stack_details(item_id: String) -> String:
 	var definition = ItemCatalogClass.get_definition(item_id)
 	var effect := "Materiał lub przedmiot fabularny."
+	var effects: Array[String] = []
 	if definition.heal_hp > 0:
-		effect = "Leczenie: %d PŻ" % definition.heal_hp
+		effects.append("Leczenie: %d PŻ" % definition.heal_hp)
+	if definition.heal_hp_percent > 0.0:
+		effects.append("Leczenie: %.0f%% maksymalnych PŻ" % definition.heal_hp_percent)
+	if definition.restore_mana > 0:
+		effects.append("Odnowienie: %d Many" % definition.restore_mana)
+	if definition.restore_mana_percent > 0.0:
+		effects.append("Odnowienie: %.0f%% maksymalnej Many" % definition.restore_mana_percent)
+	if not effects.is_empty():
+		effect = "  •  ".join(effects)
 	return (
 		"%s\nKategoria: %s  •  Liczba: %d  •  Waga stosu: %.2f kg\n%s\n\n%s"
 		% [

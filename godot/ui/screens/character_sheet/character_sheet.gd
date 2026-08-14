@@ -3,8 +3,10 @@ extends Control
 
 signal back_requested
 signal equipment_requested
+signal class_selection_requested
 
 const GameSessionClass := preload("res://core/game/game_session.gd")
+const PlayerAttributesClass := preload("res://core/player/attributes.gd")
 const PlayerEquipmentClass := preload("res://core/player/equipment.gd")
 const CarryWeightServiceClass := preload("res://core/economy/carry_weight_service.gd")
 
@@ -13,13 +15,33 @@ var _session: GameSessionClass
 @onready var hero_name_label: Label = %HeroNameLabel
 @onready var progression_label: Label = %ProgressionLabel
 @onready var primary_stats_label: Label = %PrimaryStatsLabel
-@onready var attributes_label: Label = %AttributesLabel
 @onready var equipment_label: Label = %EquipmentLabel
+@onready var attribute_feedback_label: Label = %AttributeFeedbackLabel
+@onready var class_button: Button = %ClassButton
+@onready var attribute_value_labels := {
+	PlayerAttributesClass.STRENGTH: %StrengthValue,
+	PlayerAttributesClass.VITALITY: %VitalityValue,
+	PlayerAttributesClass.INTELLIGENCE: %IntelligenceValue,
+	PlayerAttributesClass.DEXTERITY: %DexterityValue,
+	PlayerAttributesClass.ENDURANCE: %EnduranceValue,
+	PlayerAttributesClass.LUCK: %LuckValue,
+}
+@onready var attribute_buttons := {
+	PlayerAttributesClass.STRENGTH: %StrengthButton,
+	PlayerAttributesClass.VITALITY: %VitalityButton,
+	PlayerAttributesClass.INTELLIGENCE: %IntelligenceButton,
+	PlayerAttributesClass.DEXTERITY: %DexterityButton,
+	PlayerAttributesClass.ENDURANCE: %EnduranceButton,
+	PlayerAttributesClass.LUCK: %LuckButton,
+}
 
 
 func _ready() -> void:
 	%BackButton.pressed.connect(back_requested.emit)
 	%EquipmentButton.pressed.connect(equipment_requested.emit)
+	class_button.pressed.connect(class_selection_requested.emit)
+	for attribute_code: String in attribute_buttons:
+		attribute_buttons[attribute_code].pressed.connect(_spend_attribute.bind(attribute_code))
 	_render_character()
 	%BackButton.grab_focus()
 
@@ -65,25 +87,58 @@ func _render_character() -> void:
 			player.stats.dodge,
 		]
 	)
-	attributes_label.text = (
-		(
-			"Siła             %d\nWitalność         %d\nInteligencja      %d\n"
-			+ "Zręczność        %d\nWytrzymałość      %d"
+	for attribute_code: String in attribute_value_labels:
+		attribute_value_labels[attribute_code].text = str(
+			player.attributes.get_value(attribute_code)
 		)
-		% [
-			player.attributes.strength,
-			player.attributes.vitality,
-			player.attributes.intelligence,
-			player.attributes.dexterity,
-			player.attributes.endurance,
-		]
+		attribute_buttons[attribute_code].disabled = player.unspent_attribute_points <= 0
+	attribute_buttons[PlayerAttributesClass.LUCK].disabled = (
+		player.unspent_attribute_points <= 0 or player.character_class_code != player.CLASS_PIERROT
 	)
-	if player.character_class_code == player.CLASS_PIERROT:
-		attributes_label.text += "\nSzczęście         %d" % player.attributes.luck
+	%LuckHint.text = (
+		"Szczęście wzmacnia Kości i Żetony Losu."
+		if player.character_class_code == player.CLASS_PIERROT
+		else "Szczęście jest dostępne wyłącznie dla Pierrota."
+	)
+	class_button.text = (
+		"Wybierz Drogę bohatera" if player.can_choose_class else "Zobacz Drogi bohatera"
+	)
 	equipment_label.text = (
-		"Broń\n%s\n\nZbroja\n%s"
+		"Broń\n%s\n\nDruga ręka\n%s\n\nZbroja\n%s"
 		% [
 			player.get_equipped_item_name(PlayerEquipmentClass.WEAPON),
+			player.get_equipped_item_name(PlayerEquipmentClass.OFF_HAND),
 			player.get_equipped_item_name(PlayerEquipmentClass.CHEST),
 		]
+	)
+
+
+func _spend_attribute(attribute_code: String) -> void:
+	if _session == null:
+		return
+	var player := _session.player
+	var error := player.get_attribute_spend_error(attribute_code)
+	if not error.is_empty():
+		attribute_feedback_label.text = error
+		return
+	if not player.spend_attribute_points(attribute_code):
+		attribute_feedback_label.text = "Nie udało się wydać punktu atrybutu."
+		return
+	var attribute_name := _attribute_display_name(attribute_code)
+	attribute_feedback_label.text = "Zwiększono: %s." % attribute_name
+	_session.last_activity = attribute_feedback_label.text
+	_render_character()
+
+
+func _attribute_display_name(attribute_code: String) -> String:
+	return (
+		{
+			PlayerAttributesClass.STRENGTH: "Siła",
+			PlayerAttributesClass.VITALITY: "Witalność",
+			PlayerAttributesClass.INTELLIGENCE: "Inteligencja",
+			PlayerAttributesClass.DEXTERITY: "Zręczność",
+			PlayerAttributesClass.ENDURANCE: "Wytrzymałość",
+			PlayerAttributesClass.LUCK: "Szczęście",
+		}
+		. get(attribute_code, attribute_code)
 	)

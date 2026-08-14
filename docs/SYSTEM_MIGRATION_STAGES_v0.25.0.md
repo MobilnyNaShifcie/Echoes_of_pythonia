@@ -45,12 +45,37 @@ Stan tych systemów zapisuje schemat Godot `v2`; pliki `v1` są automatycznie
 uzupełniane bezpiecznymi wartościami domyślnymi. Receptury następnych regionów
 zostaną podłączone razem z ich przedmiotami i źródłami materiałów w etapie 4.
 
-## Etap 3 — rozwój bohatera i kompletna walka klas
+## Etap 3 — rozwój bohatera i kompletna walka klas (w toku)
 
-- wydawanie punktów atrybutów i wszystkie efekty pasywne,
-- umiejętności oraz ograniczenia wyposażenia każdej Drogi,
+### Etap 3A — atrybuty, Drogi i wyposażenie (ukończony)
+
+- działające wydawanie punktów atrybutów z karty postaci,
+- Szczęście dostępne wyłącznie dla Pierrota,
+- wspólny katalog czterech Dróg używany przez model i UI,
+- wybór Drogi od poziomu 5, bazowa Mana i sprzęt startowy,
+- wymagania poziomu oraz klasy przy zakładaniu przedmiotów,
+- plecak z porównaniem statystyk wobec aktualnie założonego wyposażenia,
+- pełne jedenaście slotów, druga ręka, typy broni, udźwig i opisy zapasów,
+- walidacja klasy i założonego wyposażenia przy zapisie oraz odczycie,
+- przewijana karta postaci dla 1280×720 i pełny widok referencyjny Full HD.
+
+Schemat zapisu pozostaje w wersji `v2`, ponieważ już przechowuje klasę,
+atrybuty, wszystkie instancje wyposażenia oraz zawartość plecaka. Afiksy,
+zestawy i przedmioty z kolejnych regionów pozostają częścią etapu 4.
+
+### Etap 3B — fundament aktywnych umiejętności
+
+- definicje umiejętności, koszty Many, poziomy i wymagane wyposażenie,
+- wspólne efekty walki: krwawienie, osłabienie DEF, garda i unik,
+- akcja odrzucona bez utraty Many i tury, gdy wymagania nie są spełnione.
+
+### Etap 3C–3F — klasy, systemy specjalne i progresja
+
+- cztery bazowe umiejętności Wojownika, Łowcy, Maga i Pierrota,
 - kombinacje Łowcy i logika kości Pierrota w wariantach `1k6`, `2k6`, `3k6`,
+- żywioły i Splot Maga oraz stany ofensywne i obronne Wojownika,
 - tymczasowy, konfigurowalny panel akcji zależny od postaci i stanu walki,
+- drzewka, specjalizacje, pasywne mistrzostwa i trwały zapis progresji,
 - testy parytetu obrażeń, kosztów, efektów, tur i losowości.
 
 ## Etap 4 — wyprawy i świat
