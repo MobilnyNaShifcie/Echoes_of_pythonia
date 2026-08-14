@@ -1,0 +1,1 @@
+"""Pakiet zawierający mechanikę walki."""
