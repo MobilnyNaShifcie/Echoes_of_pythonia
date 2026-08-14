@@ -68,12 +68,14 @@ GUT parity tests protect those rules while the Python suite remains the complete
 behavioral reference.
 
 Equipment in the backpack remains a separate instance with its own identifier,
-matching the swap and unequip behavior of v0.24.7. The menu deliberately keeps
-load and persistent save actions disabled. Save schema v15 also contains the
-complete item catalog, stack inventory, affixes, quests, party, expeditions,
-and world state. A partial writer would silently discard data, so persistent
-saves will be enabled only after those required domain objects have been
-migrated.
+matching the swap and unequip behavior of v0.24.7. The Godot build now writes a
+separate migration schema containing every system currently available in the
+windowed build. Its four files live below `user://godot_migration_saves` and do
+not read or overwrite terminal save schema v15. That legacy schema also contains
+affixes, party, expeditions, and world state which have not been migrated yet;
+therefore importing terminal saves remains disabled until no supported field
+could be silently discarded. Detailed ordering and acceptance criteria are in
+`SYSTEM_MIGRATION_STAGES_v0.25.0.md`.
 
 The current city service screens are intentionally asymmetric. The merchant
 can sell the first healing consumable and the inn performs paid full recovery

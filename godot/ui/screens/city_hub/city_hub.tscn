@@ -72,53 +72,74 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.9, 0.92, 0.96, 1)
 theme_override_font_sizes/font_size = 24
 text = "Plan miasta"
+horizontal_alignment = 1
 [node name="Grid" type="GridContainer" parent="Layout/MenuPanel/MenuScroll/Menu"]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
 columns = 1
 [node name="GateButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/Grid"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Brama Zachodnia"
+alignment = 1
 [node name="GuildButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/Grid"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Gildia Poszukiwaczy"
+alignment = 1
 [node name="BlacksmithButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/Grid"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Kuźnia Garrana"
+alignment = 1
 [node name="WorkshopButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/Grid"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Warsztat Mireli"
+alignment = 1
 [node name="MerchantButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/Grid"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Kram Orena"
+alignment = 1
 [node name="InnButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/Grid"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Karczma"
+alignment = 1
 [node name="HeroButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/Grid"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Bohater"
+alignment = 1
 [node name="PreparationButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/Grid"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Przygotowanie wyprawy"
+alignment = 1
 [node name="ClassButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Droga bohatera — poziom 5"
+alignment = 1
 [node name="BlackMarketButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu"]
 layout_mode = 2
 tooltip_text = "Czarny Rynek odblokowuje się przez progres Gildii."
 disabled = true
 text = "Czarny Rynek — zablokowany"
+alignment = 1
 [node name="MainMenuButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Powrót do menu głównego"
+alignment = 1

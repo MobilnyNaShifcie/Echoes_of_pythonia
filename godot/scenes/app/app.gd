@@ -9,11 +9,13 @@ const ClassSelectionScreenClass := preload("res://ui/screens/class_selection/cla
 const CombatScreenClass := preload("res://ui/screens/combat/combat.gd")
 const EquipmentScreenClass := preload("res://ui/screens/equipment/equipment.gd")
 const GuildScreenClass := preload("res://ui/screens/guild/guild.gd")
+const LoadGameScreenClass := preload("res://ui/screens/load_game/load_game.gd")
 const MainMenuScreenClass := preload("res://ui/screens/main_menu/main_menu.gd")
 const NewGameScreenClass := preload("res://ui/screens/new_game/new_game.gd")
 const PrologueScreenClass := preload("res://ui/screens/prologue/prologue.gd")
 const SessionReadyScreenClass := preload("res://ui/screens/session_ready/session_ready.gd")
 const WorldMapScreenClass := preload("res://ui/screens/world_map/world_map.gd")
+const SaveGameServiceClass := preload("res://core/save/save_game_service.gd")
 const CHARACTER_SHEET_SCENE := preload("res://ui/screens/character_sheet/character_sheet.tscn")
 const CITY_HUB_SCENE := preload("res://ui/screens/city_hub/city_hub.tscn")
 const CITY_SERVICE_SCENE := preload("res://ui/screens/city_service/city_service.tscn")
@@ -21,6 +23,7 @@ const CLASS_SELECTION_SCENE := preload("res://ui/screens/class_selection/class_s
 const COMBAT_SCENE := preload("res://ui/screens/combat/combat.tscn")
 const EQUIPMENT_SCENE := preload("res://ui/screens/equipment/equipment.tscn")
 const GUILD_SCENE := preload("res://ui/screens/guild/guild.tscn")
+const LOAD_GAME_SCENE := preload("res://ui/screens/load_game/load_game.tscn")
 const MAIN_MENU_SCENE := preload("res://ui/screens/main_menu/main_menu.tscn")
 const NEW_GAME_SCENE := preload("res://ui/screens/new_game/new_game.tscn")
 const PROLOGUE_SCENE := preload("res://ui/screens/prologue/prologue.tscn")
@@ -28,6 +31,7 @@ const SESSION_READY_SCENE := preload("res://ui/screens/session_ready/session_rea
 const WORLD_MAP_SCENE := preload("res://ui/screens/world_map/world_map.tscn")
 
 var _current_session: GameSessionClass
+var _save_service := SaveGameServiceClass.new()
 
 @onready var screen_host: Control = %ScreenHost
 @onready var app_status_label: Label = %AppStatusLabel
@@ -39,12 +43,33 @@ func _ready() -> void:
 
 func _show_main_menu() -> void:
 	var menu: MainMenuScreenClass = _replace_screen(MAIN_MENU_SCENE)
-	menu.configure(_current_session != null)
+	menu.configure(_current_session != null, _save_service.any_save_exists())
 	menu.continue_requested.connect(_continue_session)
 	menu.new_game_requested.connect(_show_new_game)
+	menu.load_requested.connect(_show_load_game)
+	menu.save_requested.connect(_save_current_session)
 	menu.project_status_requested.connect(_show_project_status)
 	menu.exit_requested.connect(get_tree().quit)
 	app_status_label.text = "Gotowe"
+
+
+func _show_load_game() -> void:
+	var load_game: LoadGameScreenClass = _replace_screen(LOAD_GAME_SCENE)
+	load_game.configure(_save_service)
+	load_game.canceled.connect(_show_main_menu)
+	load_game.session_loaded.connect(_on_session_loaded)
+	app_status_label.text = "Wybór zapisu"
+
+
+func _save_current_session() -> void:
+	var result := _save_service.save_session(_current_session)
+	app_status_label.text = result.message
+
+
+func _on_session_loaded(session: GameSessionClass) -> void:
+	_current_session = session
+	app_status_label.text = "Wczytano: %s" % session.player.display_name
+	_continue_session()
 
 
 func _show_new_game() -> void:

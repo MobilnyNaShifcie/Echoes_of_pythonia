@@ -9,6 +9,7 @@ func test_session_actions_start_disabled() -> void:
 	add_child_autofree(menu)
 
 	assert_true(menu.continue_button.disabled)
+	assert_true(menu.load_button.disabled)
 	assert_true(menu.save_button.disabled)
 
 
@@ -19,3 +20,13 @@ func test_session_actions_enable_when_session_exists() -> void:
 
 	assert_false(menu.continue_button.disabled)
 	assert_false(menu.save_button.disabled)
+
+
+func test_load_action_enables_only_when_a_persistent_save_exists() -> void:
+	var menu := MAIN_MENU_SCENE.instantiate() as MainMenuScreenClass
+	add_child_autofree(menu)
+	menu.configure(false, true)
+
+	assert_true(menu.continue_button.disabled)
+	assert_false(menu.load_button.disabled)
+	assert_true(menu.save_button.disabled)

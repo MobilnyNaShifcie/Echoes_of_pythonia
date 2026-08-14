@@ -21,8 +21,10 @@ func test_city_plan_is_a_single_top_to_bottom_column() -> void:
 	var city := CITY_HUB_SCENE.instantiate() as CityHubScreenClass
 	city.configure(session)
 	add_child_autofree(city)
+	await get_tree().process_frame
 	var menu_scroll := city.get_node("Layout/MenuPanel/MenuScroll") as ScrollContainer
 	var grid := city.get_node("Layout/MenuPanel/MenuScroll/Menu/Grid") as GridContainer
+	var class_button := city.get_node("Layout/MenuPanel/MenuScroll/Menu/ClassButton") as Button
 	var expected_labels := [
 		"Brama Zachodnia",
 		"Gildia Poszukiwaczy",
@@ -36,7 +38,10 @@ func test_city_plan_is_a_single_top_to_bottom_column() -> void:
 	var actual_labels: Array[String] = []
 	for button: Button in grid.get_children():
 		actual_labels.append(button.text)
+		assert_eq(button.alignment, HORIZONTAL_ALIGNMENT_CENTER)
+		assert_almost_eq(button.size.x, class_button.size.x, 1.0)
 
 	assert_eq(grid.columns, 1)
+	assert_eq(grid.size_flags_horizontal, Control.SIZE_EXPAND_FILL)
 	assert_eq(actual_labels, expected_labels)
 	assert_eq(menu_scroll.horizontal_scroll_mode, ScrollContainer.SCROLL_MODE_DISABLED)

@@ -82,8 +82,9 @@ text = "Nowa gra"
 alignment = 0
 
 [node name="LoadButton" type="Button" parent="Layout/MenuPanel/Menu"]
+unique_name_in_owner = true
 layout_mode = 2
-tooltip_text = "Obsługa zapisów pojawi się w kolejnym etapie migracji."
+tooltip_text = "Wczytaj zapis utworzony przez wersję Godot."
 disabled = true
 text = "Wczytaj grę"
 alignment = 0
@@ -91,7 +92,7 @@ alignment = 0
 [node name="SaveButton" type="Button" parent="Layout/MenuPanel/Menu"]
 unique_name_in_owner = true
 layout_mode = 2
-tooltip_text = "Obsługa zapisów pojawi się w kolejnym etapie migracji."
+tooltip_text = "Zapisz aktywną sesję w wybranym slocie Godota."
 disabled = true
 text = "Zapisz grę"
 alignment = 0
