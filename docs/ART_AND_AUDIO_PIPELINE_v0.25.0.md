@@ -2,14 +2,30 @@
 
 ## Approved presentation direction
 
-Echoes of Pythonia will use an illustrated dark-fantasy 2D/2.5D presentation:
+Echoes of Pythonia will use an anime-fantasy 2D/2.5D presentation with a dark,
+serious world:
 
 - node-based world travel and illustrated location hubs,
 - side-view, turn-based combat,
 - layered backgrounds with restrained parallax, weather, light, and particles,
-- character portraits and readable combat silhouettes,
-- a midnight-blue, charcoal, tarnished-gold, and class-accent UI palette,
+- clean character portraits and readable combat silhouettes with restrained
+  costume and armor detail,
+- a dark, flat UI with class-specific accents instead of ornate gold filigree,
 - selective 3D or 2.5D presentation where it adds value, such as Pierrot's dice.
+
+The visual target should feel intentionally drawn and animation-ready. Avoid
+hyper-detailed painterly rendering, excessive armor ornament, ubiquitous gold
+outlines, and other patterns associated with generic generated fantasy art.
+Pierrot's Fate magic uses a pink-to-crimson glow rather than violet and gold.
+
+## Modular city rule
+
+Varenhold and later settlements are authored as expandable maps in Godot, not
+as single generated panoramic illustrations. Buildings and services are
+separate reusable scene elements placed on a controlled layout. Adding a new
+city function must mean adding or changing a building node without regenerating
+the rest of the city. City art must therefore come from an approved coherent
+modular set or purpose-built components.
 
 The presentation must serve the existing terminal game's pacing and rules. It
 must not turn combat into real-time action or silently change progression,
