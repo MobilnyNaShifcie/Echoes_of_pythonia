@@ -18,6 +18,24 @@ hyper-detailed painterly rendering, excessive armor ornament, ubiquitous gold
 outlines, and other patterns associated with generic generated fantasy art.
 Pierrot's Fate magic uses a pink-to-crimson glow rather than violet and gold.
 
+Pierrot is presented as a charismatic, visually striking adult woman. Her
+costume and Fate effects may use red, rose, and pink accents, but a class palette
+must not recolor the battlefield, enemies, or shared interface. Those elements
+have independent art direction and color ownership.
+
+The preferred combat action layout uses illustrated vertical skill panels
+grouped at the bottom center, including compact resource indicators. Their
+shared frame belongs to the game UI theme; character-specific colors belong to
+skill artwork and effects.
+
+## Expedition-driven battle environments
+
+A battle backdrop must represent the expedition that produced the encounter.
+Region, current segment or location, time, weather, and encounter type select
+the environment independently of the active character and enemy. This rule is
+recorded now, but its implementation belongs to the later combat migration
+slice.
+
 ## Modular city rule
 
 Varenhold and later settlements are authored as expandable maps in Godot, not
