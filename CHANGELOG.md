@@ -2,6 +2,10 @@
 
 ## [0.25.0-dev] — Pierwsza grywalna pętla w Godot 4
 
+- zmieniono plan Varenhold na pojedynczą kolumnę kafelków od góry do dołu;
+  przy mniejszych oknach panel przewija się bez naruszania reszty układu,
+- w prologu zastąpiono określenia `Gold/Goldem` słowami `złoto/złotem`, a
+  królewski `edykt` przemianowano na `dekret`,
 - ustawiono docelową rozdzielczość Full HD `1920×1080` i zabezpieczono ekran
   walki przed nachodzeniem na nagłówek oraz stopkę także przy `1280×720`,
 - przetłumaczono techniczne identyfikatory w stopce oraz nazwy `Slot`,

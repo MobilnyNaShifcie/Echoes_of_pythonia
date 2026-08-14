@@ -14,7 +14,7 @@ const SCENES := [
 			"Królestwo od lat zamyka swoje granice coraz szczelniej.\n\n"
 			+ "Na północy zamarzają porty. Na południu popiół zasypuje drogi. "
 			+ "Z lasów znikają całe patrole, a stare ruiny znów pojawiają się w raportach Gildii.\n\n"
-			+ "Mimo to do Varenhold każdego dnia przybywają nowi ludzie. Jedni szukają Golda. "
+			+ "Mimo to do Varenhold każdego dnia przybywają nowi ludzie. Jedni szukają złota. "
 			+ "Inni sławy. Niektórzy po prostu nie mają już dokąd wrócić.\n\nTy jesteś jednym z nich."
 		),
 	},
@@ -24,7 +24,7 @@ const SCENES := [
 		"body":
 		(
 			"Pod wieczór karawana zatrzymuje się przy rozbitym królewskim wozie. "
-			+ "Strażnicy nie żyją. Skrzynie z Goldem są nietknięte.\n\n"
+			+ "Strażnicy nie żyją. Skrzynie ze złotem są nietknięte.\n\n"
 			+ "Brakuje tylko jednej, niewielkiej skrzyni.\n\n"
 			+ "Woźnica spogląda na ślady prowadzące w pole.\n"
 			+ "— Jeśli zostawili złoto, to nie pieniędzy szukali.\n\n"
@@ -50,7 +50,7 @@ const SCENES := [
 		(
 			"Przed bramą strażnicy przeszukują karawanę. Jeden z podróżnych zostaje zatrzymany, "
 			+ "gdy spod jego płaszcza wypada stara księga.\n\n— Handel wiedzą bojową jest zakazany "
-			+ "na mocy królewskiego edyktu.\n— To tylko stary manuskrypt!\n"
+			+ "na mocy królewskiego dekretu.\n— To tylko stary manuskrypt!\n"
 			+ "— W takim razie nie będziesz miał nic przeciwko, jeśli go spalimy.\n\n"
 			+ "Nikt w kolejce nie protestuje. Ty zapamiętujesz płomień."
 		),
