@@ -43,18 +43,22 @@ The migrated flow is runnable in Godot:
    Dodge, attributes, currency, and experience.
 6. Review progression, primary statistics, attributes, and equipped item names
    on the character sheet.
+7. Open the equipment screen, inspect all eleven legacy slots, move equipment
+   to the backpack, equip it again, and observe live stat recalculation.
 
 The GDScript model also carries the legacy attribute formulas, level-zero
 experience threshold, four attribute points per level, and Pierrot-only Luck.
 GUT parity tests protect those rules while the Python suite remains the complete
 behavioral reference.
 
-The menu deliberately keeps load and persistent save actions disabled. Save
-schema v15 contains inventory instances, affixes, progression, quests, party,
-expeditions, and world state. A partial writer would silently discard data, so
-persistent saves will be enabled only after their required domain objects have
-been migrated. The next domain slice expands the item instances and inventory
-needed by that safe round trip.
+Equipment in the backpack remains a separate instance with its own identifier,
+matching the swap and unequip behavior of v0.24.7. The menu deliberately keeps
+load and persistent save actions disabled. Save schema v15 also contains the
+complete item catalog, stack inventory, affixes, quests, party, expeditions,
+and world state. A partial writer would silently discard data, so persistent
+saves will be enabled only after those required domain objects have been
+migrated. The next domain slice expands the catalog, stack inventory, and carry
+weight needed by that safe round trip.
 
 ## Add-on policy
 

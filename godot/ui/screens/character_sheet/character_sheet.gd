@@ -2,6 +2,7 @@ class_name CharacterSheetScreen
 extends Control
 
 signal back_requested
+signal equipment_requested
 
 const GameSessionClass := preload("res://core/game/game_session.gd")
 const PlayerEquipmentClass := preload("res://core/player/equipment.gd")
@@ -17,6 +18,7 @@ var _session: GameSessionClass
 
 func _ready() -> void:
 	%BackButton.pressed.connect(back_requested.emit)
+	%EquipmentButton.pressed.connect(equipment_requested.emit)
 	_render_character()
 	%BackButton.grab_focus()
 

@@ -6,6 +6,7 @@ const MAX_UPGRADE_LEVEL := 10
 
 var definition: ItemDefinitionClass
 var upgrade_level := 0
+var instance_id := ""
 
 var item_id: String:
 	get:
@@ -23,6 +24,7 @@ var slot: String:
 func _init(item_definition: ItemDefinitionClass, initial_upgrade_level := 0) -> void:
 	definition = item_definition
 	upgrade_level = clampi(initial_upgrade_level, 0, MAX_UPGRADE_LEVEL)
+	instance_id = Crypto.new().generate_random_bytes(16).hex_encode()
 
 
 func formatted_name() -> String:

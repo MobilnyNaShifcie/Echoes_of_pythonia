@@ -3,6 +3,7 @@ extends RefCounted
 
 const PlayerAttributesClass := preload("res://core/player/attributes.gd")
 const PlayerEquipmentClass := preload("res://core/player/equipment.gd")
+const PlayerInventoryClass := preload("res://core/player/inventory.gd")
 const PrimaryStatsClass := preload("res://core/player/primary_stats.gd")
 const STARTING_LEVEL := 0
 const ATTRIBUTE_POINTS_PER_LEVEL := 4
@@ -33,6 +34,7 @@ var character_class_code := CLASS_NONE
 var attributes := PlayerAttributesClass.new()
 var stats := PrimaryStatsClass.new()
 var equipment := PlayerEquipmentClass.new()
+var inventory := PlayerInventoryClass.new()
 
 var health: int:
 	get:
@@ -118,6 +120,40 @@ func recalculate_stats() -> void:
 		),
 		equipment_bonuses.magic_power
 	)
+
+
+func get_equip_error(inventory_index: int) -> String:
+	if inventory_index < 0 or inventory_index >= inventory.equipment_items.size():
+		return "Nieprawidłowy przedmiot w plecaku."
+	var item = inventory.equipment_items[inventory_index]
+	if level < item.definition.required_level:
+		return "Wymagany poziom: %d." % item.definition.required_level
+	if (
+		not item.definition.required_class_code.is_empty()
+		and item.definition.required_class_code != character_class_code
+	):
+		return "Ten przedmiot wymaga klasy: %s." % item.definition.required_class_name
+	return ""
+
+
+func equip_from_inventory(inventory_index: int):
+	if not get_equip_error(inventory_index).is_empty():
+		return null
+	var item = inventory.pop_equipment(inventory_index)
+	var previous = equipment.equip_and_return_previous(item)
+	if previous != null:
+		inventory.add_equipment_instance(previous)
+	recalculate_stats()
+	return item
+
+
+func unequip_to_inventory(slot: String):
+	var item = equipment.unequip(slot)
+	if item == null:
+		return null
+	inventory.add_equipment_instance(item)
+	recalculate_stats()
+	return item
 
 
 func get_equipped_item_id(slot: String) -> String:

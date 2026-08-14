@@ -26,3 +26,12 @@ func test_back_button_emits_navigation_request() -> void:
 
 	screen.get_node("Page/Heading/BackButton").pressed.emit()
 	assert_signal_emitted(screen, "back_requested")
+
+
+func test_equipment_button_emits_navigation_request() -> void:
+	var screen := CHARACTER_SHEET_SCENE.instantiate() as CharacterSheetScreenClass
+	add_child_autofree(screen)
+	watch_signals(screen)
+
+	screen.get_node("Page/Heading/EquipmentButton").pressed.emit()
+	assert_signal_emitted(screen, "equipment_requested")

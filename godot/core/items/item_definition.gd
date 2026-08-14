@@ -9,6 +9,8 @@ extends Resource
 @export var slot := ""
 @export var item_power := 0
 @export var required_level := 0
+@export var required_class_code := ""
+@export var required_class_name := ""
 @export var attack := 0
 @export var defense := 0
 @export var max_hp := 0
