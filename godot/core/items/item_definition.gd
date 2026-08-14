@@ -6,7 +6,9 @@ extends Resource
 @export_multiline var description := ""
 @export var category := "equipment"
 @export var rarity := "common"
+@export var stackable := false
 @export var slot := ""
+@export var equipment_type := ""
 @export var item_power := 0
 @export var required_level := 0
 @export var required_class_code := ""
@@ -17,6 +19,7 @@ extends Resource
 @export var dodge := 0.0
 @export var max_mana := 0
 @export var magic_power := 0
+@export var heal_hp := 0
 
 
 func is_equipment() -> bool:

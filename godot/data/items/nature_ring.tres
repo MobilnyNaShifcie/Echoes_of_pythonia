@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=2 format=3]
+[ext_resource type="Script" path="res://core/items/item_definition.gd" id="1"]
+[resource]
+script = ExtResource("1")
+item_id = "nature_ring"
+display_name = "Pierścień Natury"
+description = "Pierścień z żywego drewna, który lekko pulsuje w rytmie ziemi."
+rarity = "rare"
+slot = "ring"
+item_power = 1
+required_level = 3
+attack = 1
+max_mana = 5

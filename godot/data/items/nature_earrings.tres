@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=2 format=3]
+[ext_resource type="Script" path="res://core/items/item_definition.gd" id="1"]
+[resource]
+script = ExtResource("1")
+item_id = "nature_earrings"
+display_name = "Kolczyki Natury"
+description = "Para zielonych kamieni o słabym, wewnętrznym blasku."
+rarity = "rare"
+slot = "earrings"
+item_power = 1
+required_level = 3
+attack = 1
+max_mana = 8

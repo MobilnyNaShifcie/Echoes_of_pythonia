@@ -45,6 +45,20 @@ The migrated flow is runnable in Godot:
    on the character sheet.
 7. Open the equipment screen, inspect all eleven legacy slots, move equipment
    to the backpack, equip it again, and observe live stat recalculation.
+8. Play the five-part prologue, including the tutorial fight against the
+   `Przeklęty Strach na Wróble`, and enter Varenhold with guild rank F.
+9. Navigate the complete Varenhold menu: guild, gate, hero, class preview,
+   blacksmith, workshop, merchant, inn, and expedition preparation.
+10. Accept the first story quest, `Ci, którzy nie wrócili`, and track its exact
+    objective of defeating two wolves.
+11. Explore a modular `Zmierzchowe Równiny` map with the original 80% encounter
+    chance and separate day/night enemy tables.
+12. Fight all first-region enemies in turns using attack, defense, potion, and
+    flee actions; receive original EXP, Gold, and loot-table rewards.
+13. Inspect both equippable items and stackable materials or consumables in the
+    backpack, including loot quantities and descriptions.
+14. Compare all four class paths from level zero and make the permanent class
+    choice at the original level-five unlock point.
 
 The GDScript model also carries the legacy attribute formulas, level-zero
 experience threshold, four attribute points per level, and Pierrot-only Luck.
@@ -57,8 +71,14 @@ load and persistent save actions disabled. Save schema v15 also contains the
 complete item catalog, stack inventory, affixes, quests, party, expeditions,
 and world state. A partial writer would silently discard data, so persistent
 saves will be enabled only after those required domain objects have been
-migrated. The next domain slice expands the catalog, stack inventory, and carry
-weight needed by that safe round trip.
+migrated.
+
+The current city service screens are intentionally asymmetric. The merchant
+can sell the first healing consumable and the inn performs paid full recovery
+with time advancement. The blacksmith and workshop expose their locations and
+already recognize migrated loot, while enhancement recipes, crafting, item
+sets, and the broader economy remain subsequent parity slices. This keeps the
+playable prologue-to-quest loop honest without inventing replacement rules.
 
 ## Add-on policy
 

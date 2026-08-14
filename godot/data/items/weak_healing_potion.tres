@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=2 format=3]
+[ext_resource type="Script" path="res://core/items/item_definition.gd" id="1"]
+[resource]
+script = ExtResource("1")
+item_id = "weak_healing_potion"
+display_name = "Słaba Mikstura Lecznicza"
+description = "Niewielka fiolka przywracająca 20 HP."
+category = "consumable"
+stackable = true
+heal_hp = 20

@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.25.0-dev] — Pierwsza grywalna pętla w Godot 4
+
+- przeniesiono pięcioetapowy prolog wraz z obowiązkową, turową walką fabularną,
+- dodano pełną nawigację Varenhold oraz działające ekrany Gildii, klas, bohatera,
+  ekwipunku, kupca, karczmy, przygotowania wyprawy, kuźni i warsztatu,
+- odtworzono pierwszą misję fabularną **Ci, którzy nie wrócili**, jej cel,
+  nagrody i 40 punktów reputacji Gildii,
+- dodano modułową mapę Zmierzchowych Równin z oryginalnymi tabelami spotkań
+  dnia i nocy oraz zdarzeniami bez walki,
+- przeniesiono wszystkich przeciwników pierwszego regionu, ich statystyki,
+  zachowania specjalne, nagrody i tabele łupów,
+- dodano grywalną walkę turową: atak, obronę, ucieczkę, użycie mikstury,
+  zwycięstwo, porażkę i powrót na mapę lub do miasta,
+- rozszerzono plecak o materiały, stosy, mikstury oraz szczegóły przedmiotów,
+- dodano podgląd czterech Dróg bohatera i zachowano stały wybór klasy na
+  poziomie 5 wraz z właściwym wyposażeniem startowym,
+- dodano testy GUT dla walki, wypraw, misji, klas, plecaka i nawigacji całego
+  pionowego wycinka; kompletna regresja terminalowa nadal pozostaje zielona.
+
 ## [0.24.7] — Przygotowanie do wyprawy
 
 - dodano w Varenhold osobny ekran **Przygotowanie do wyprawy**, spinający w jednym miejscu cel, HP/Manę, udźwig, aktywną drużynę, zapasy i ostrzeżenia przed wyruszeniem,

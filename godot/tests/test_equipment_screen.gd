@@ -40,3 +40,20 @@ func test_unequip_and_equip_buttons_change_live_character_state() -> void:
 	assert_eq(session.player.stats.attack, 3)
 	assert_true(session.player.inventory.is_empty())
 	assert_string_contains(screen.hero_stats_label.text, "ATK 3")
+
+
+func test_backpack_lists_loot_stacks_and_shows_their_details() -> void:
+	var session = NewGameServiceClass.new().create_session("Aria", 1)
+	session.player.inventory.add("wolf_fur", 2)
+	var screen := EQUIPMENT_SCENE.instantiate() as EquipmentScreenClass
+	screen.configure(session)
+	add_child_autofree(screen)
+
+	assert_eq(screen.inventory_list.item_count, 1)
+	assert_string_contains(screen.inventory_list.get_item_text(0), "Futro Wilka")
+	assert_string_contains(screen.inventory_list.get_item_text(0), "×2")
+	screen.inventory_list.select(0)
+	screen.inventory_list.item_selected.emit(0)
+
+	assert_true(screen.equip_button.disabled)
+	assert_string_contains(screen.details_label.text, "Liczba: 2")

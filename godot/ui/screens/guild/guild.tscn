@@ -1,0 +1,87 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://ui/screens/guild/guild.gd" id="1"]
+[node name="GuildScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+[node name="Page" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+[node name="Header" type="HBoxContainer" parent="Page"]
+layout_mode = 2
+[node name="Identity" type="VBoxContainer" parent="Page/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+[node name="Eyebrow" type="Label" parent="Page/Header/Identity"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
+text = "RANGA F — NOWICJUSZ"
+[node name="Title" type="Label" parent="Page/Header/Identity"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.93, 0.95, 0.98, 1)
+theme_override_font_sizes/font_size = 32
+text = "Gildia Poszukiwaczy"
+[node name="BackButton" type="Button" parent="Page/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+text = "Wróć do Varenhold"
+[node name="QuestPanel" type="PanelContainer" parent="Page"]
+layout_mode = 2
+size_flags_vertical = 3
+[node name="Content" type="VBoxContainer" parent="Page/QuestPanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+[node name="Top" type="HBoxContainer" parent="Page/QuestPanel/Content"]
+layout_mode = 2
+[node name="Arc" type="Label" parent="Page/QuestPanel/Content/Top"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.78, 0.56, 0.7, 1)
+text = "AKT I — ŚLADY PRZEBUDZENIA"
+[node name="StatusLabel" type="Label" parent="Page/QuestPanel/Content/Top"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.44, 0.8, 0.58, 1)
+text = "DOSTĘPNE NA TABLICY"
+[node name="Chapter" type="Label" parent="Page/QuestPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.53, 0.62, 0.73, 1)
+text = "Rozdział I — Droga, która ucichła"
+[node name="Title" type="Label" parent="Page/QuestPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.93, 0.95, 0.98, 1)
+theme_override_font_sizes/font_size = 28
+text = "Ci, którzy nie wrócili"
+[node name="Description" type="Label" parent="Page/QuestPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.73, 0.78, 0.85, 1)
+text = "Trójka Nowicjuszy miała wrócić ze Zmierzchowych Równin przed zmrokiem. Znaleziono tylko ich wygaszone ognisko i ślady wilków biegnących... w przeciwną stronę. Gildia prosi cię o sprawdzenie okolicy i przepędzenie drapieżników z traktu."
+autowrap_mode = 2
+[node name="Separator" type="HSeparator" parent="Page/QuestPanel/Content"]
+layout_mode = 2
+[node name="ProgressLabel" type="Label" parent="Page/QuestPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.82, 0.86, 0.92, 1)
+text = "Cel: pokonaj Wilki  •  0/2"
+autowrap_mode = 2
+[node name="ActionButton" type="Button" parent="Page/QuestPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Przyjmij zadanie"
+[node name="ResultLabel" type="Label" parent="Page/QuestPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.44, 0.8, 0.58, 1)
+autowrap_mode = 2

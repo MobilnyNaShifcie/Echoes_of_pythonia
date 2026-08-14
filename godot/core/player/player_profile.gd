@@ -5,6 +5,7 @@ const PlayerAttributesClass := preload("res://core/player/attributes.gd")
 const PlayerEquipmentClass := preload("res://core/player/equipment.gd")
 const PlayerInventoryClass := preload("res://core/player/inventory.gd")
 const PrimaryStatsClass := preload("res://core/player/primary_stats.gd")
+const ItemCatalogClass := preload("res://core/items/item_catalog.gd")
 const STARTING_LEVEL := 0
 const ATTRIBUTE_POINTS_PER_LEVEL := 4
 const CLASS_NONE := "none"
@@ -56,6 +57,10 @@ var character_class_name: String:
 	get:
 		return CLASS_DISPLAY_NAMES.get(character_class_code, character_class_code)
 
+var can_choose_class: bool:
+	get:
+		return level >= 5 and character_class_code == CLASS_NONE
+
 
 func _init(player_name: String) -> void:
 	display_name = player_name
@@ -81,6 +86,44 @@ func gain_experience(amount: int) -> int:
 		unspent_attribute_points += ATTRIBUTE_POINTS_PER_LEVEL
 		levels_gained += 1
 	return levels_gained
+
+
+func add_gold(amount: int) -> bool:
+	if amount < 0:
+		return false
+	gold += amount
+	return true
+
+
+func get_class_choice_error(class_code: String) -> String:
+	if not CLASS_DISPLAY_NAMES.has(class_code) or class_code == CLASS_NONE:
+		return "Nieznana Droga bohatera."
+	if character_class_code != CLASS_NONE:
+		return "Droga została już wybrana: %s." % character_class_name
+	if level < 5:
+		return "Drogę bohatera można wybrać od poziomu 5."
+	return ""
+
+
+func choose_class(class_code: String) -> bool:
+	if not get_class_choice_error(class_code).is_empty():
+		return false
+	character_class_code = class_code
+	var starter_items := {
+		"warrior": ["training_shield"],
+		"hunter": ["hunting_bow", "simple_quiver"],
+		"mage": ["apprentice_staff", "mana_crystal_artifact"],
+		"pierrot": ["caprice_lance", "worn_fate_dice"],
+	}
+	for item_id: String in starter_items[class_code]:
+		var previous = equipment.equip_and_return_previous(
+			ItemCatalogClass.create_equipment_item(item_id)
+		)
+		if previous != null:
+			inventory.add_equipment_instance(previous)
+	recalculate_stats()
+	stats.current_mana = stats.max_mana
+	return true
 
 
 func get_attribute_spend_error(attribute_code: String, amount := 1) -> String:

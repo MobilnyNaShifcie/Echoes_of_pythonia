@@ -1,0 +1,120 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://ui/screens/city_hub/city_hub.gd" id="1"]
+[node name="CityHubScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+[node name="Layout" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+[node name="City" type="VBoxContainer" parent="Layout"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+theme_override_constants/separation = 10
+[node name="Eyebrow" type="Label" parent="Layout/City"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
+text = "MIASTO POSZUKIWACZY"
+[node name="Title" type="Label" parent="Layout/City"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.93, 0.95, 0.98, 1)
+theme_override_font_sizes/font_size = 38
+text = "Varenhold"
+[node name="TimeLabel" type="Label" parent="Layout/City"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.65, 0.77, 1)
+text = "Dzień 1  •  08:00  •  DZIEŃ"
+[node name="PlayerLabel" type="Label" parent="Layout/City"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.78, 0.86, 1)
+text = "Bohater  •  Poziom 0  •  Poszukiwacz"
+autowrap_mode = 2
+[node name="Separator" type="HSeparator" parent="Layout/City"]
+layout_mode = 2
+[node name="Description" type="Label" parent="Layout/City"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.61, 0.68, 0.77, 1)
+text = "Kamienne miasto otoczone grubym murem. Na jego ulicach mieszają się kupcy, najemnicy i poszukiwacze wracający z terenów, na które rozsądni ludzie nie zapuszczają się nocą."
+autowrap_mode = 2
+[node name="ActivityPanel" type="PanelContainer" parent="Layout/City"]
+layout_mode = 2
+[node name="ActivityLabel" type="Label" parent="Layout/City/ActivityPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.45, 0.78, 0.59, 1)
+text = "Wybierz miejsce w mieście."
+autowrap_mode = 2
+[node name="MenuPanel" type="PanelContainer" parent="Layout"]
+custom_minimum_size = Vector2(520, 0)
+layout_mode = 2
+[node name="Menu" type="VBoxContainer" parent="Layout/MenuPanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+[node name="Title" type="Label" parent="Layout/MenuPanel/Menu"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.92, 0.96, 1)
+theme_override_font_sizes/font_size = 24
+text = "Plan miasta"
+[node name="Grid" type="GridContainer" parent="Layout/MenuPanel/Menu"]
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 2
+[node name="GateButton" type="Button" parent="Layout/MenuPanel/Menu/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Brama Zachodnia"
+[node name="GuildButton" type="Button" parent="Layout/MenuPanel/Menu/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Gildia Poszukiwaczy"
+[node name="BlacksmithButton" type="Button" parent="Layout/MenuPanel/Menu/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Kuźnia Garrana"
+[node name="WorkshopButton" type="Button" parent="Layout/MenuPanel/Menu/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Warsztat Mireli"
+[node name="MerchantButton" type="Button" parent="Layout/MenuPanel/Menu/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Kram Orena"
+[node name="InnButton" type="Button" parent="Layout/MenuPanel/Menu/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Karczma"
+[node name="HeroButton" type="Button" parent="Layout/MenuPanel/Menu/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Bohater"
+[node name="PreparationButton" type="Button" parent="Layout/MenuPanel/Menu/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Przygotowanie wyprawy"
+[node name="ClassButton" type="Button" parent="Layout/MenuPanel/Menu"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Droga bohatera — poziom 5"
+[node name="BlackMarketButton" type="Button" parent="Layout/MenuPanel/Menu"]
+layout_mode = 2
+tooltip_text = "Czarny Rynek odblokowuje się przez progres Gildii."
+disabled = true
+text = "Czarny Rynek — zablokowany"
+[node name="MainMenuButton" type="Button" parent="Layout/MenuPanel/Menu"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Powrót do menu głównego"

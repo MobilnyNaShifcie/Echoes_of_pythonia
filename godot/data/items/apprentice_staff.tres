@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=2 format=3]
+[ext_resource type="Script" path="res://core/items/item_definition.gd" id="1"]
+[resource]
+script = ExtResource("1")
+item_id = "apprentice_staff"
+display_name = "Kostur Adepta"
+description = "Pierwszy prawdziwy kostur Maga. Wzmacnia przepływ zaklęć zamiast służyć do zwykłej walki wręcz."
+slot = "weapon"
+equipment_type = "staff"
+item_power = 2
+required_level = 5
+required_class_code = "mage"
+required_class_name = "Mag"
+max_mana = 5
+magic_power = 5

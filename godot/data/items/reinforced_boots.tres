@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=2 format=3]
+[ext_resource type="Script" path="res://core/items/item_definition.gd" id="1"]
+[resource]
+script = ExtResource("1")
+item_id = "reinforced_boots"
+display_name = "Wzmocnione Buty"
+description = "Cięższe buty chroniące nogi podczas wypraw."
+rarity = "uncommon"
+slot = "feet"
+item_power = 1
+required_level = 2
+defense = 1
+max_hp = 5

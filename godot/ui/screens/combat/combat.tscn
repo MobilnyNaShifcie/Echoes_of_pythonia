@@ -1,0 +1,174 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://ui/screens/combat/combat.gd" id="1"]
+
+[node name="CombatScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="Page" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="EncounterLabel" type="Label" parent="Page"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
+text = "ZMIERZCHOWE RÓWNINY — WALKA TUROWA"
+
+[node name="Arena" type="HBoxContainer" parent="Page"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="PlayerPanel" type="PanelContainer" parent="Page/Arena"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Content" type="VBoxContainer" parent="Page/Arena/PlayerPanel"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 10
+
+[node name="Role" type="Label" parent="Page/Arena/PlayerPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.62, 0.76, 1)
+text = "BOHATER"
+
+[node name="PlayerNameLabel" type="Label" parent="Page/Arena/PlayerPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Bohater"
+
+[node name="PlayerHpBar" type="ProgressBar" parent="Page/Arena/PlayerPanel/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+max_value = 20.0
+value = 20.0
+show_percentage = true
+
+[node name="PlayerStatsLabel" type="Label" parent="Page/Arena/PlayerPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.79, 0.87, 1)
+text = "ATK 3  •  DEF 2"
+
+[node name="Versus" type="Label" parent="Page/Arena"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.78, 0.56, 0.7, 1)
+theme_override_font_sizes/font_size = 24
+text = "VS"
+
+[node name="EnemyPanel" type="PanelContainer" parent="Page/Arena"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Content" type="VBoxContainer" parent="Page/Arena/EnemyPanel"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 10
+
+[node name="Role" type="Label" parent="Page/Arena/EnemyPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.74, 0.38, 0.48, 1)
+text = "PRZECIWNIK"
+
+[node name="EnemyNameLabel" type="Label" parent="Page/Arena/EnemyPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Przeciwnik"
+
+[node name="EnemyHpBar" type="ProgressBar" parent="Page/Arena/EnemyPanel/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+max_value = 10.0
+value = 10.0
+show_percentage = true
+
+[node name="EnemyStatsLabel" type="Label" parent="Page/Arena/EnemyPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.79, 0.87, 1)
+text = "ATK 2  •  DEF 1"
+
+[node name="Lower" type="HBoxContainer" parent="Page"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="LogPanel" type="PanelContainer" parent="Page/Lower"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CombatLog" type="RichTextLabel" parent="Page/Lower/LogPanel"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 170)
+layout_mode = 2
+size_flags_vertical = 3
+fit_content = false
+scroll_active = true
+
+[node name="Actions" type="VBoxContainer" parent="Page/Lower"]
+custom_minimum_size = Vector2(340, 0)
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="Title" type="Label" parent="Page/Lower/Actions"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
+text = "WYBIERZ AKCJĘ"
+
+[node name="AttackButton" type="Button" parent="Page/Lower/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Atak"
+
+[node name="DefendButton" type="Button" parent="Page/Lower/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Obrona"
+
+[node name="PotionButton" type="Button" parent="Page/Lower/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Mikstura (+20 PŻ)  ×0"
+
+[node name="FleeButton" type="Button" parent="Page/Lower/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Ucieczka (50%)"
+
+[node name="ResultPanel" type="PanelContainer" parent="Page"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="Result" type="HBoxContainer" parent="Page/ResultPanel"]
+layout_mode = 2
+
+[node name="ResultLabel" type="Label" parent="Page/ResultPanel/Result"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.44, 0.8, 0.58, 1)
+text = "Zwycięstwo"
+autowrap_mode = 2
+
+[node name="ContinueButton" type="Button" parent="Page/ResultPanel/Result"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Kontynuuj"

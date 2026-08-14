@@ -5,6 +5,7 @@ signal back_requested
 
 const EquipmentItemClass := preload("res://core/items/equipment_item.gd")
 const GameSessionClass := preload("res://core/game/game_session.gd")
+const ItemCatalogClass := preload("res://core/items/item_catalog.gd")
 const PlayerEquipmentClass := preload("res://core/player/equipment.gd")
 const SLOT_ORDER := [
 	PlayerEquipmentClass.WEAPON,
@@ -101,7 +102,8 @@ func _refresh_equipped_items() -> void:
 func _refresh_inventory_items() -> void:
 	inventory_list.clear()
 	var items = _session.player.inventory.equipment_items
-	if items.is_empty():
+	var stacks: Dictionary = _session.player.inventory.stacks
+	if items.is_empty() and stacks.is_empty():
 		var empty_row := inventory_list.add_item("Plecak jest pusty.")
 		inventory_list.set_item_disabled(empty_row, true)
 		return
@@ -110,7 +112,25 @@ func _refresh_inventory_items() -> void:
 		var row := inventory_list.add_item(
 			"%s  [%s]" % [item.formatted_name(), SLOT_NAMES[item.slot]]
 		)
-		inventory_list.set_item_metadata(row, index)
+		inventory_list.set_item_metadata(row, {"kind": "equipment", "index": index})
+	var stack_ids: Array = stacks.keys()
+	stack_ids.sort()
+	for item_id: String in stack_ids:
+		var definition = ItemCatalogClass.get_definition(item_id)
+		var stack_row := (
+			inventory_list
+			. add_item(
+				(
+					"%s  ×%d  [%s]"
+					% [
+						definition.display_name,
+						stacks[item_id],
+						_category_name(definition.category),
+					]
+				)
+			)
+		)
+		inventory_list.set_item_metadata(stack_row, {"kind": "stack", "item_id": item_id})
 
 
 func _on_equipped_selected(index: int) -> void:
@@ -126,7 +146,12 @@ func _on_equipped_selected(index: int) -> void:
 func _on_inventory_selected(index: int) -> void:
 	equipped_list.deselect_all()
 	unequip_button.disabled = true
-	var inventory_index: int = inventory_list.get_item_metadata(index)
+	var metadata: Dictionary = inventory_list.get_item_metadata(index)
+	if metadata.get("kind", "") == "stack":
+		equip_button.disabled = true
+		details_label.text = _format_stack_details(metadata.item_id)
+		return
+	var inventory_index: int = metadata.get("index", -1)
 	var items = _session.player.inventory.equipment_items
 	if inventory_index < 0 or inventory_index >= items.size():
 		equip_button.disabled = true
@@ -152,7 +177,10 @@ func _equip_selected() -> void:
 	var selected := inventory_list.get_selected_items()
 	if selected.is_empty():
 		return
-	var inventory_index: int = inventory_list.get_item_metadata(selected[0])
+	var metadata: Dictionary = inventory_list.get_item_metadata(selected[0])
+	if metadata.get("kind", "") != "equipment":
+		return
+	var inventory_index: int = metadata.get("index", -1)
 	var error := _session.player.get_equip_error(inventory_index)
 	if not error.is_empty():
 		feedback_label.text = error
@@ -188,4 +216,32 @@ func _format_item_details(item: EquipmentItemClass) -> String:
 			stats_text,
 			definition.description,
 		]
+	)
+
+
+func _format_stack_details(item_id: String) -> String:
+	var definition = ItemCatalogClass.get_definition(item_id)
+	var effect := "Materiał lub przedmiot fabularny."
+	if definition.heal_hp > 0:
+		effect = "Leczenie: %d PŻ" % definition.heal_hp
+	return (
+		"%s\nKategoria: %s  •  Liczba: %d\n%s\n\n%s"
+		% [
+			definition.display_name,
+			_category_name(definition.category),
+			_session.player.inventory.count(item_id),
+			effect,
+			definition.description,
+		]
+	)
+
+
+func _category_name(category: String) -> String:
+	return (
+		{
+			"consumable": "przedmiot użytkowy",
+			"material": "materiał",
+			"quest": "przedmiot fabularny",
+		}
+		. get(category, category)
 	)
