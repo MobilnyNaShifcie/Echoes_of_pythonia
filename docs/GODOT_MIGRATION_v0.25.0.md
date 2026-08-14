@@ -16,6 +16,10 @@ without losing the behavior covered by the existing Python test suite.
    hard-coded control-tree state.
 5. Pin engine and add-on versions. Upgrade them only on a dedicated branch after
    tests pass.
+6. Preserve the terminal game's turn-based mechanics. Presentation may expose
+   outcomes more clearly but does not become the source of combat results.
+7. Preview visual and audio proposals before integrating them, following
+   `ART_AND_AUDIO_PIPELINE_v0.25.0.md`.
 
 ## Proposed milestones
 
