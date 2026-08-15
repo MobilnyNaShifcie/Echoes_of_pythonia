@@ -2,6 +2,9 @@ class_name SkillCatalog
 extends RefCounted
 
 const SkillDefinitionClass := preload("res://core/skills/skill_definition.gd")
+const TalentProgressionServiceClass := preload(
+	"res://core/progression/talent_progression_service.gd"
+)
 const CLASS_SKILL_ORDER := {
 	"warrior": ["power_slash", "armor_break", "defensive_stance", "blood_strike"],
 	"hunter": ["precise_shot", "bleeding_shot", "shadow_step", "double_shot"],
@@ -19,7 +22,8 @@ const HUNTER_TECHNIQUE_ORDER := [
 const WARRIOR_TALENT_SKILL_ORDER := ["shield_bash", "provoke"]
 const TALENT_SKILL_ORDER_BY_CLASS := {
 	"warrior": WARRIOR_TALENT_SKILL_ORDER,
-	"hunter": HUNTER_TECHNIQUE_ORDER,
+	"hunter": HUNTER_TECHNIQUE_ORDER + ["thousand_arrows"],
+	"pierrot": ["va_banque"],
 }
 const DEFINITIONS := {
 	"power_slash": preload("res://data/skills/power_slash.tres"),
@@ -38,6 +42,7 @@ const DEFINITIONS := {
 	"phantom_arrow": preload("res://data/skills/phantom_arrow.tres"),
 	"rain_of_arrows": preload("res://data/skills/rain_of_arrows.tres"),
 	"splitting_arrow": preload("res://data/skills/splitting_arrow.tres"),
+	"thousand_arrows": preload("res://data/skills/thousand_arrows.tres"),
 	"fire_bolt": preload("res://data/skills/fire_bolt.tres"),
 	"frost_lance": preload("res://data/skills/frost_lance.tres"),
 	"lightning": preload("res://data/skills/lightning.tres"),
@@ -46,6 +51,7 @@ const DEFINITIONS := {
 	"double_roll": preload("res://data/skills/double_roll.tres"),
 	"fate_feint": preload("res://data/skills/fate_feint.tres"),
 	"grand_gamble": preload("res://data/skills/grand_gamble.tres"),
+	"va_banque": preload("res://data/skills/va_banque.tres"),
 }
 
 
@@ -79,12 +85,13 @@ static func get_unlocked_skills(player) -> Array[SkillDefinitionClass]:
 	for skill: SkillDefinitionClass in get_skills_for_class(player.character_class_code):
 		if player.level >= skill.unlock_level:
 			result.append(skill)
-	for skill_id: String in player.unlocked_talent_skill_ids:
+	for skill_id: String in TALENT_SKILL_ORDER_BY_CLASS.get(player.character_class_code, []):
 		var skill: SkillDefinitionClass = get_definition(skill_id)
 		if (
 			skill != null
 			and skill.character_class_code == player.character_class_code
 			and player.level >= skill.unlock_level
+			and is_unlocked(player, skill)
 			and not result.has(skill)
 		):
 			result.append(skill)
@@ -107,7 +114,10 @@ static func is_unlocked(player, skill: SkillDefinitionClass) -> bool:
 	):
 		return false
 	if skill.unlock_source == "talent":
-		return skill.skill_id in player.unlocked_talent_skill_ids
+		return (
+			skill.skill_id in player.unlocked_talent_skill_ids
+			or TalentProgressionServiceClass.has_talent(player, skill.required_talent_id)
+		)
 	return skill.skill_id in CLASS_SKILL_ORDER.get(player.character_class_code, [])
 
 

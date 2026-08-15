@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/skills/skill_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+skill_id = "thousand_arrows"
+display_name = "Tysiąc Strzał"
+character_class_code = "hunter"
+unlock_level = 5
+mana_cost = 14
+description = "Widmowe łuki wykonują serię czterech trafień po 55% mocy."
+scaling = "hunter"
+multiplier = 0.55
+hits = 4
+required_weapon_type = "bow"
+unlock_source = "talent"
+required_talent_id = "phantom_thousand_arrows"

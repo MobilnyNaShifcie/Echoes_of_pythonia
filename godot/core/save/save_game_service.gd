@@ -12,11 +12,17 @@ const NewGameServiceClass := preload("res://core/game/new_game_service.gd")
 const PlayerAttributesClass := preload("res://core/player/attributes.gd")
 const PlayerEquipmentClass := preload("res://core/player/equipment.gd")
 const PlayerProfileClass := preload("res://core/player/player_profile.gd")
+const PassiveProgressionServiceClass := preload(
+	"res://core/progression/passive_progression_service.gd"
+)
 const QuestServiceClass := preload("res://core/quests/quest_service.gd")
 const SkillCatalogClass := preload("res://core/skills/skill_catalog.gd")
+const TalentProgressionServiceClass := preload(
+	"res://core/progression/talent_progression_service.gd"
+)
 
 const FORMAT_ID := "echoes_of_pythonia_godot_migration"
-const SCHEMA_VERSION := 4
+const SCHEMA_VERSION := 5
 const GAME_VERSION := "0.25.0"
 const DEFAULT_SAVE_ROOT := "user://godot_migration_saves"
 const SLOT_COUNT := NewGameServiceClass.SAVE_SLOT_COUNT
@@ -177,6 +183,11 @@ func _serialize_session(session: GameSessionClass) -> Dictionary:
 				"unlocked_talent_skill_ids": player.unlocked_talent_skill_ids.duplicate(),
 				"unlocked_class_mechanic_ids": player.unlocked_class_mechanic_ids.duplicate(),
 				"discovered_hunter_combos": player.discovered_hunter_combos.duplicate(),
+				"talent_ranks": player.talent_ranks.duplicate(true),
+				"unlocked_class_path_ids": player.unlocked_class_path_ids.duplicate(),
+				"passive_ranks": player.passive_ranks.duplicate(true),
+				"unlocked_passive_mastery_ids": player.unlocked_passive_mastery_ids.duplicate(),
+				"passive_specialization_ids": player.passive_specialization_ids.duplicate(true),
 				"attributes": _serialize_attributes(player.attributes),
 				"current_hp": player.stats.current_hp,
 				"current_mana": player.stats.current_mana,
@@ -273,6 +284,9 @@ func _deserialize_player(data: Dictionary) -> Dictionary:
 	var class_progression_result := _restore_class_combat_progression(player, data)
 	if not class_progression_result.ok:
 		return class_progression_result
+	var tree_progression_result := _restore_stage_three_f_progression(player, data)
+	if not tree_progression_result.ok:
+		return tree_progression_result
 	var equipment_result := _restore_equipment(player, data.equipment)
 	if not equipment_result.ok:
 		return equipment_result
@@ -412,6 +426,12 @@ func _migrate_payload(payload: Dictionary) -> Dictionary:
 			session.player["discovered_hunter_combos"] = []
 		if version <= 3:
 			session.player["unlocked_class_mechanic_ids"] = []
+		if version <= 4:
+			session.player["talent_ranks"] = {}
+			session.player["unlocked_class_path_ids"] = []
+			session.player["passive_ranks"] = {}
+			session.player["unlocked_passive_mastery_ids"] = []
+			session.player["passive_specialization_ids"] = {}
 		migrated.schema_version = SCHEMA_VERSION
 	if not error.is_empty():
 		return _failure(error)
@@ -487,6 +507,37 @@ func _restore_hunter_combos(player: PlayerProfileClass, values: Array) -> Dictio
 			return _failure("Zapis zawiera niedozwoloną kombinację Łowcy.")
 		seen_combos[combo_id] = true
 		player.discovered_hunter_combos.append(combo_id)
+	return {"ok": true}
+
+
+func _restore_stage_three_f_progression(player: PlayerProfileClass, data: Dictionary) -> Dictionary:
+	if (
+		not data.get("talent_ranks") is Dictionary
+		or not data.get("unlocked_class_path_ids") is Array
+		or not data.get("passive_ranks") is Dictionary
+		or not data.get("unlocked_passive_mastery_ids") is Array
+		or not data.get("passive_specialization_ids") is Dictionary
+	):
+		return _failure("Zapis nie zawiera prawidłowej progresji etapu 3F.")
+	player.talent_ranks = data.talent_ranks.duplicate(true)
+	player.unlocked_class_path_ids.assign(data.unlocked_class_path_ids)
+	player.passive_ranks = data.passive_ranks.duplicate(true)
+	player.unlocked_passive_mastery_ids.assign(data.unlocked_passive_mastery_ids)
+	player.passive_specialization_ids = data.passive_specialization_ids.duplicate(true)
+	var talent_error := TalentProgressionServiceClass.validate_state(player)
+	if not talent_error.is_empty():
+		return _failure(talent_error)
+	var passive_error := PassiveProgressionServiceClass.validate_state(player)
+	if not passive_error.is_empty():
+		return _failure(passive_error)
+	var normalized_talents := {}
+	for talent_id_value in player.talent_ranks:
+		normalized_talents[str(talent_id_value)] = int(player.talent_ranks[talent_id_value])
+	player.talent_ranks = normalized_talents
+	var normalized_passives := {}
+	for passive_code_value in player.passive_ranks:
+		normalized_passives[str(passive_code_value)] = int(player.passive_ranks[passive_code_value])
+	player.passive_ranks = normalized_passives
 	return {"ok": true}
 
 

@@ -45,7 +45,7 @@ Stan tych systemów zapisuje schemat Godot `v2`; pliki `v1` są automatycznie
 uzupełniane bezpiecznymi wartościami domyślnymi. Receptury następnych regionów
 zostaną podłączone razem z ich przedmiotami i źródłami materiałów w etapie 4.
 
-## Etap 3 — rozwój bohatera i kompletna walka klas (w toku)
+## Etap 3 — rozwój bohatera i kompletna walka klas (ukończony)
 
 ### Etap 3A — atrybuty, Drogi i wyposażenie (ukończony)
 
@@ -138,13 +138,28 @@ odblokowanych mechanik klasowych. Pliki `v1`–`v3` są migrowane z pustą,
 bezpieczną kolekcją. Reguły talentów są gotowe, lecz bohater nie otrzymuje ich
 automatycznie: faktyczny zakup i odblokowanie należą do etapu 3F.
 
-### Etap 3F — drzewka i specjalizacje
+### Etap 3F — drzewka i specjalizacje (ukończony)
 
-- drzewka talentów wszystkich czterech Dróg,
-- specjalizacje i pasywne mistrzostwa,
-- wydawanie punktów, wymagania i trwały zapis progresji,
-- podłączenie gotowych mechanik klasowych bez przyznawania ich za darmo,
-- testy dostępności, resetu oraz zgodności zapisu i odczytu.
+- typowany katalog ośmiu ścieżek i wszystkich 41 talentów czterech klas,
+- punkty drzewka zgodne z poziomem, wymagania rang, ścieżek oraz Ksiąg Ścieżki,
+- zakup talentów i reset za złoto bez usuwania trwale otwartych ścieżek,
+- cztery pasywki, rangi `1–5`, Mistrzostwa `6–10` oraz osiem trwałych
+  specjalizacji pasywnych,
+- podłączenie rang do obrażeń, krwawienia, osłabienia DEF, bloku, sekwencji,
+  Widmowego Echa, żywiołów, Splotu, Kości Losu, krytyków, dodatkowych ciosów,
+  regeneracji, Drugiego Oddechu i Rozpędu,
+- talentowe umiejętności Uderzenie Tarczą, Prowokacja, Tysiąc Strzał i
+  Va Banque odblokowywane wyłącznie przez prawdziwy zakup talentu,
+- osobny moduł rozstrzygania Fortuny z Dociążoną Kością, Kantem, Drugą Szansą,
+  Wybrańcem Fortuny, Krzywym Zwierciadłem, Podwójną Stawką i Efektem Domina,
+- roboczy ekran `Talenty i pasywy` dostępny z karty postaci, z dwiema zakładkami,
+  opisami wymagań i czytelnymi blokadami; finalna oprawa pozostaje poza etapem,
+- walidacja budżetu punktów, wymagań i specjalizacji przy zapisie oraz odczycie.
+
+Schemat zapisu Godota ma teraz wersję `v5`. Przechowuje rangi talentów,
+odblokowane Księgami Ścieżki, rangi pasywów, Mistrzostwa i wybrane
+specjalizacje. Pliki `v1`–`v4` są migrowane z bezpiecznymi pustymi wartościami,
+a zapis próbujący ominąć wymagania albo budżet punktów jest odrzucany.
 
 ## Etap 4 — wyprawy i świat
 

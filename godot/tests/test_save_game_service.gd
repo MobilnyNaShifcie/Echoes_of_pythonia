@@ -145,7 +145,7 @@ func test_corrupt_and_future_saves_are_rejected_without_loading_a_session() -> v
 
 func test_save_uses_a_dedicated_godot_directory() -> void:
 	assert_eq(SaveGameServiceClass.DEFAULT_SAVE_ROOT, "user://godot_migration_saves")
-	assert_eq(SaveGameServiceClass.SCHEMA_VERSION, 4)
+	assert_eq(SaveGameServiceClass.SCHEMA_VERSION, 5)
 
 
 func test_round_trip_preserves_hunter_techniques_and_discovered_combos() -> void:
@@ -245,6 +245,81 @@ func test_schema_three_save_migrates_with_empty_class_mechanics() -> void:
 
 	assert_true(result.ok, result.message)
 	assert_true(result.session.player.unlocked_class_mechanic_ids.is_empty())
+
+
+func test_round_trip_preserves_talents_paths_passives_and_specializations() -> void:
+	var session = NewGameServiceClass.new().create_session("Aria", 1)
+	session.player.level = 20
+	assert_true(session.player.choose_class("warrior"))
+	session.player.unlocked_class_path_ids.append("warrior_heavy_knight")
+	session.player.talent_ranks = {
+		"heavy_knight_core": 1,
+		"heavy_shield_mastery": 3,
+		"heavy_provoke": 1,
+	}
+	session.player.unlocked_passive_mastery_ids.append("increased_attack")
+	session.player.passive_ranks = {"increased_attack": 5}
+
+	var save_result := _service.save_session(session)
+	var load_result := _service.load_session(1)
+
+	assert_true(save_result.ok, save_result.message)
+	assert_true(load_result.ok, load_result.message)
+	assert_eq(load_result.session.player.talent_ranks, session.player.talent_ranks)
+	assert_eq(
+		load_result.session.player.unlocked_class_path_ids,
+		["warrior_heavy_knight"],
+	)
+	assert_eq(load_result.session.player.passive_ranks, {"increased_attack": 5})
+	assert_eq(
+		load_result.session.player.unlocked_passive_mastery_ids,
+		["increased_attack"],
+	)
+
+
+func test_schema_four_save_migrates_with_empty_stage_three_f_progression() -> void:
+	var session = NewGameServiceClass.new().create_session("Aria", 1)
+	assert_true(_service.save_session(session).ok)
+	var slot_path := "%s/save_1.json" % _save_root
+	var file := FileAccess.open(slot_path, FileAccess.READ)
+	var payload: Dictionary = JSON.parse_string(file.get_as_text())
+	file.close()
+	payload.schema_version = 4
+	for field in [
+		"talent_ranks",
+		"unlocked_class_path_ids",
+		"passive_ranks",
+		"unlocked_passive_mastery_ids",
+		"passive_specialization_ids",
+	]:
+		payload.session.player.erase(field)
+	file = FileAccess.open(slot_path, FileAccess.WRITE)
+	file.store_string(JSON.stringify(payload))
+	file.close()
+
+	var result := _service.load_session(1)
+
+	assert_true(result.ok, result.message)
+	assert_true(result.session.player.talent_ranks.is_empty())
+	assert_true(result.session.player.unlocked_class_path_ids.is_empty())
+	assert_true(result.session.player.passive_ranks.is_empty())
+	assert_true(result.session.player.unlocked_passive_mastery_ids.is_empty())
+	assert_true(result.session.player.passive_specialization_ids.is_empty())
+
+
+func test_save_rejects_talents_that_bypass_points_paths_or_prerequisites() -> void:
+	var session = NewGameServiceClass.new().create_session("Aria", 1)
+	session.player.level = 5
+	assert_true(session.player.choose_class("warrior"))
+	session.player.talent_ranks = {"warrior_executioner": 1}
+	var prerequisite_result := _service.save_session(session)
+	assert_false(prerequisite_result.ok)
+	assert_string_contains(prerequisite_result.message, "wymagania talentu")
+
+	session.player.talent_ranks = {"heavy_knight_core": 1}
+	var path_result := _service.save_session(session)
+	assert_false(path_result.ok)
+	assert_string_contains(path_result.message, "nieodblokowanej ścieżki")
 
 
 func test_schema_one_save_migrates_with_safe_economy_defaults() -> void:

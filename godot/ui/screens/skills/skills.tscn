@@ -155,5 +155,5 @@ autowrap_mode = 2
 layout_mode = 2
 theme_override_colors/font_color = Color(0.48, 0.56, 0.66, 1)
 theme_override_font_sizes/font_size = 14
-text = "W tym podetapie działają wspólne reguły walki. Kości Pierrota, kombinacje klasowe i drzewka talentów będą migrowane osobno."
+text = "Umiejętności talentowe odblokowujesz na ekranie Talenty i pasywy. Zakupione rangi wpływają bezpośrednio na walkę."
 autowrap_mode = 2

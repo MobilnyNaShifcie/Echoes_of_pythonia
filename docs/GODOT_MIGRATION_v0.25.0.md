@@ -115,6 +115,17 @@ The migrated flow is runnable in Godot:
     defense-prepared retaliation through encounter-local combat state.
 37. Present live Warrior and Mage mechanics in compact placeholder panels and
     persist their unlocked mechanic identifiers in validated save schema v4.
+38. Spend level-derived points across all eight class paths and 41 terminal
+    talents, enforcing ranks, prerequisites, book-locked paths, and paid reset.
+39. Develop four passive abilities through base and Mastery ranks, then make
+    one permanent specialization choice for each completed passive.
+40. Drive combat behavior from purchased ranks, including class multipliers,
+    talent skills, Fate manipulation, critical hits, extra attacks,
+    regeneration, Second Wind, and Momentum.
+41. Manage the complete progression flow from the placeholder Talents and
+    Passives screen reached through the character sheet.
+42. Persist and validate all stage-3F progression in Godot save schema v5 while
+    safely migrating schema-v1 through schema-v4 files.
 
 The GDScript model also carries the legacy attribute formulas, level-zero
 experience threshold, four attribute points per level, and Pierrot-only Luck.
@@ -138,15 +149,16 @@ already have sources in the migrated world, and the inn performs paid full
 recovery with its daily cooldown. Final item art, shop animation, and audio
 remain outside this domain slice and continue to use placeholder presentation.
 
-Stages 3C, 3D, and 3E are complete. Dice history, Fate Tokens, temporary dodge,
+Stages 3C through 3F are complete. Dice history, Fate Tokens, temporary dodge,
 mirror readiness, Hunter sequence, delayed effects, explosive charges, Arcane
 Weave, elemental sequence, Provoke, block bonus, and retaliation readiness are
-intentionally encounter-local. Godot save schema v4 keeps durable Hunter
-progression and the unlocked class-mechanic identifiers needed by Warrior and
-Mage rules. Talent-driven dice manipulation, the actual talent-tree purchase
-flow, passive masteries, and specializations remain assigned to stage 3F;
-affixes, item sets, and later regional equipment remain in the
-world-and-expeditions stage.
+intentionally encounter-local. Godot save schema v5 keeps durable talent ranks,
+book-unlocked class paths, passive ranks, Masteries, specializations, Hunter
+progression, and compatibility identifiers from earlier slices. Purchased
+talents are now the authoritative source for class mechanics; the older
+identifier collections remain only for schema compatibility. Affixes, item
+sets, path and Mastery book acquisition, and later regional equipment remain
+in the world-and-expeditions stage.
 
 ## Add-on policy
 

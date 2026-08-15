@@ -23,14 +23,16 @@ equivalent, tested GDScript implementation.
 - `tests/` — GUT tests mirroring migrated behavior
 - `ui/` — reusable controls, themes, and presentation logic
 
-The current playable migration includes stages 0–2 and character progression
-stages 3A–3E. All sixteen base Path skills are active. Pierrot uses a dedicated
+The current playable migration includes stages 0–3, including all eight class
+talent paths, 41 talents, passive Masteries, and specializations. All sixteen
+base Path skills are active. Pierrot uses a dedicated
 Fate Engine with encounter-local Fate Tokens and exact 1d6/2d6/3d6 tables.
 Hunter has all additional Volley Techniques and named combinations. Mage has
 elemental sequences and Arcane Weave, while Warrior has shield blocking,
-Provoke, Shield Bash, counters, and retaliation. Their compact combat panels
-remain placeholders; talent-tree acquisition and final presentation are later
-steps.
+Provoke, Shield Bash, counters, and retaliation. Purchased talents now drive
+those mechanics, including Pierrot's Fate manipulation and four talent-only
+active skills. The progression and combat panels remain placeholders; final
+presentation is a later, separately approved step.
 
 Open the project with the pinned local editor from the repository root:
 

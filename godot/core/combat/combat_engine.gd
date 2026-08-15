@@ -2,14 +2,23 @@ class_name TurnBasedCombatEngine
 extends RefCounted
 
 const CombatEffectsClass := preload("res://core/combat/combat_effects.gd")
+const FateCombatResolverClass := preload("res://core/combat/fate_combat_resolver.gd")
+const CombatHitResolverClass := preload("res://core/combat/combat_hit_resolver.gd")
+const CombatProgressionRulesClass := preload("res://core/combat/combat_progression_rules.gd")
+const CombatReportFactoryClass := preload("res://core/combat/combat_report_factory.gd")
 const EnemyClass := preload("res://core/combat/enemy.gd")
 const FateEngineClass := preload("res://core/combat/fate_engine.gd")
-const FateRollClass := preload("res://core/combat/fate_roll.gd")
 const HunterComboCatalogClass := preload("res://core/combat/hunter_combo_catalog.gd")
 const HunterComboDefinitionClass := preload("res://core/combat/hunter_combo_definition.gd")
 const MathClass := preload("res://core/math/legacy_math.gd")
 const PlayerEquipmentClass := preload("res://core/player/equipment.gd")
 const PlayerProfileClass := preload("res://core/player/player_profile.gd")
+const PassiveProgressionServiceClass := preload(
+	"res://core/progression/passive_progression_service.gd"
+)
+const TalentProgressionServiceClass := preload(
+	"res://core/progression/talent_progression_service.gd"
+)
 const SkillCatalogClass := preload("res://core/skills/skill_catalog.gd")
 const SkillDefinitionClass := preload("res://core/skills/skill_definition.gd")
 const ONGOING := "ongoing"
@@ -21,6 +30,7 @@ var player: PlayerProfileClass
 var enemy: EnemyClass
 var effects := CombatEffectsClass.new()
 var fate: FateEngineClass
+var fate_resolver: FateCombatResolverClass
 var fate_tokens := 0
 var pierrot_reflect_ready := false
 var hunter_sequence: Array[String] = []
@@ -33,8 +43,12 @@ var warrior_provoke_ready := false
 var warrior_provoke_block_bonus := 0.0
 var mage_arcane_weave := 0
 var mage_element_sequence: Array[String] = []
+var momentum_stacks := 0
+var deadly_tempo_ready := false
+var second_wind_used := false
 var result := ONGOING
 var rng: RandomNumberGenerator
+var hit_resolver: CombatHitResolverClass
 
 
 func _init(
@@ -48,6 +62,8 @@ func _init(
 		random_number_generator if random_number_generator != null else RandomNumberGenerator.new()
 	)
 	fate = FateEngineClass.new(rng)
+	fate_resolver = FateCombatResolverClass.new(self)
+	hit_resolver = CombatHitResolverClass.new(player, enemy, effects, rng)
 
 
 func player_attack() -> Dictionary:
@@ -57,6 +73,9 @@ func player_attack() -> Dictionary:
 	var hunter_pending := _take_hunter_delayed_effects()
 	var armor_break_was_active := effects.enemy_defense_reduction_actions > 0
 	var attack_power := player.stats.attack
+	var attack_multiplier := CombatProgressionRulesClass.basic_attack_multiplier(
+		player, momentum_stacks
+	)
 	if warrior_retribution_ready:
 		var defense_power := maxi(
 			1, MathClass.python_roundi(player.stats.defense * warrior_retribution_ratio)
@@ -67,12 +86,12 @@ func player_attack() -> Dictionary:
 		)
 	warrior_retribution_ready = false
 	warrior_retribution_ratio = 0.50
-	if rng.randf() < enemy.dodge / 100.0:
-		report.enemy_dodged = true
-	else:
-		var damage := maxi(1, attack_power - effects.effective_enemy_defense(enemy.defense))
-		damage = enemy.reduce_physical_damage(damage)
-		report.player_damage = enemy.take_damage(damage)
+	var hit := hit_resolver.resolve(attack_power, attack_multiplier, false, false, "physical")
+	report.player_damage = hit.damage
+	report.enemy_dodged = hit.dodged
+	report.player_critical = hit.critical
+	if hit.critical and _passive_specialization("attack_speed") == "deadly_tempo":
+		deadly_tempo_ready = true
 	if armor_break_was_active:
 		effects.consume_offensive_action()
 	report.turn_consumed = true
@@ -80,12 +99,30 @@ func player_attack() -> Dictionary:
 		result = VICTORY
 		_update_class_reports(report)
 		return report
+	var extra_chance := PassiveProgressionServiceClass.attack_speed_extra_hit_chance(player)
+	if _passive_specialization("attack_speed") == "flurry":
+		extra_chance += 5.0
+	if deadly_tempo_ready:
+		extra_chance += 15.0
+		deadly_tempo_ready = false
+		report.class_effect_notes.append("ZABÓJCZE TEMPO: +15 p.p. szansy na dodatkowe uderzenie.")
+	if extra_chance > 0.0 and rng.randf() < extra_chance / 100.0:
+		var extra_hit := hit_resolver.resolve(player.stats.attack, 1.0, false, false, "physical")
+		report.extra_player_damage = extra_hit.damage
+		report.extra_player_critical = extra_hit.critical
+		if extra_hit.critical and _passive_specialization("attack_speed") == "deadly_tempo":
+			deadly_tempo_ready = true
+		if not enemy.is_alive():
+			result = VICTORY
+			_update_class_reports(report)
+			return report
 	_resolve_hunter_delayed_effects(report, hunter_pending)
 	_update_hunter_report(report)
 	if not enemy.is_alive():
 		result = VICTORY
 		_update_class_reports(report)
 		return report
+	_after_offensive_action()
 	_enemy_turn(report)
 	_update_class_reports(report)
 	return report
@@ -106,6 +143,8 @@ func get_skill_use_error(skill_id: String) -> String:
 		error = "Umiejętność wymaga odblokowania w drzewku talentów."
 	elif error.is_empty() and not skill.is_combat_ready():
 		error = "Mechanika tej umiejętności nie została jeszcze przeniesiona."
+	elif error.is_empty() and skill.effect == "fate_va_banque" and fate_tokens <= 0:
+		error = "Va Banque wymaga przynajmniej 1 Żetonu Losu."
 	elif error.is_empty():
 		error = _get_skill_equipment_error(skill)
 	if error.is_empty() and not player.stats.can_spend_mana(skill.mana_cost):
@@ -148,6 +187,10 @@ func player_use_skill(skill_id: String) -> Dictionary:
 		result = VICTORY
 		_update_class_reports(report)
 		return report
+	if skill.is_offensive():
+		_after_offensive_action()
+	else:
+		_break_momentum()
 	_enemy_turn(report)
 	_update_class_reports(report)
 	return report
@@ -259,6 +302,7 @@ func player_use_skill_pair(first_skill_id: String, second_skill_id: String) -> D
 	if not enemy.is_alive():
 		result = VICTORY
 		return report
+	_after_offensive_action()
 	_enemy_turn(report)
 	_update_class_reports(report)
 	return report
@@ -270,6 +314,7 @@ func player_defend() -> Dictionary:
 	var report := _new_report()
 	report.player_defended = true
 	report.turn_consumed = true
+	_break_momentum()
 	var uses_shield := _equipped_type(PlayerEquipmentClass.OFF_HAND) == "shield"
 	if (
 		_has_class_mechanic("warrior_retribution")
@@ -295,6 +340,7 @@ func player_flee() -> Dictionary:
 		return {}
 	var report := _new_report()
 	report.turn_consumed = true
+	_break_momentum()
 	if rng.randf() < 0.5:
 		result = FLED
 		return report
@@ -308,6 +354,7 @@ func player_use_restoration(heal_amount: int, mana_amount: int) -> Dictionary:
 		return {}
 	var report := _new_report()
 	report.turn_consumed = true
+	_break_momentum()
 	report.player_healed = player.stats.heal(heal_amount)
 	report.player_mana_restored = player.stats.restore_mana(mana_amount)
 	_enemy_turn(report)
@@ -353,11 +400,16 @@ func _resolve_skill_hits(
 		if hit_index == 0:
 			report.player_damage = hit.damage
 			report.enemy_dodged = hit.dodged
+			report.player_critical = hit.critical
 		else:
+			report.extra_player_critical = report.extra_player_critical or hit.critical
 			var note := (
 				"Trafienie %d: unik." % (hit_index + 1)
 				if hit.dodged
-				else "Trafienie %d: %d obrażeń." % [hit_index + 1, hit.damage]
+				else (
+					"Trafienie %d: %d obrażeń%s."
+					% [hit_index + 1, hit.damage, " krytycznych" if hit.critical else ""]
+				)
 			)
 			report.skill_notes.append(note)
 
@@ -375,7 +427,13 @@ func _execute_standard_skill(
 		)
 		_record_hunter_technique(skill, report)
 		return
-	var final_power_scale := _record_mage_element(skill, report, power_scale)
+	var final_power_scale := (
+		power_scale
+		* CombatProgressionRulesClass.skill_multiplier(
+			player, skill, enemy, hunter_sequence, momentum_stacks, report
+		)
+	)
+	final_power_scale = _record_mage_element(skill, report, final_power_scale)
 	_resolve_skill_hits(skill, report, final_power_scale)
 	_resolve_hunter_skill_effect(skill, report)
 	_apply_skill_effect(skill, report)
@@ -389,22 +447,17 @@ func _execute_standard_skill(
 func _resolve_player_skill_hit(
 	skill: SkillDefinitionClass, power: int, power_scale := 1.0
 ) -> Dictionary:
-	if not skill.guaranteed_hit and rng.randf() < enemy.dodge / 100.0:
-		return {"damage": 0, "dodged": true}
-	var attack_value := maxi(1, MathClass.python_roundi(power * skill.multiplier * power_scale))
-	var enemy_defense := effects.effective_enemy_defense(enemy.defense)
-	if skill.special_armor_penetration > 0.0:
-		var remaining_defense := 1.0 - clampf(skill.special_armor_penetration, 0.0, 90.0) / 100.0
-		enemy_defense = maxi(0, MathClass.python_roundi(enemy_defense * remaining_defense))
-	var magical := skill.scaling == "magic"
-	if magical:
-		enemy_defense = int(enemy_defense / 2.0)
-	var damage := maxi(1, attack_value - enemy_defense)
-	if skill.damage_type != "physical":
-		damage = enemy.elemental_resistances.reduce_damage(damage, skill.damage_type)
-	elif not magical:
-		damage = enemy.reduce_physical_damage(damage)
-	return {"damage": enemy.take_damage(damage), "dodged": false}
+	return (
+		hit_resolver
+		. resolve(
+			power,
+			skill.multiplier * power_scale,
+			skill.guaranteed_hit,
+			skill.scaling == "magic",
+			skill.damage_type,
+			skill.special_armor_penetration,
+		)
+	)
 
 
 func _record_mage_element(
@@ -443,7 +496,10 @@ func _update_mage_report(report: Dictionary) -> void:
 
 
 func _has_class_mechanic(mechanic_id: String) -> bool:
-	return mechanic_id in player.unlocked_class_mechanic_ids
+	return (
+		mechanic_id in player.unlocked_class_mechanic_ids
+		or TalentProgressionServiceClass.has_talent(player, mechanic_id)
+	)
 
 
 func _update_warrior_report(report: Dictionary) -> void:
@@ -459,6 +515,7 @@ func _update_class_reports(report: Dictionary) -> void:
 	_update_mage_report(report)
 	_update_hunter_report(report)
 	_update_fate_report(report)
+	report.momentum_stacks = momentum_stacks
 
 
 func _resolve_hunter_skill_effect(skill: SkillDefinitionClass, report: Dictionary) -> void:
@@ -490,17 +547,9 @@ func _resolve_hunter_skill_effect(skill: SkillDefinitionClass, report: Dictionar
 func _resolve_hunter_guaranteed_hit(
 	power: int, multiplier: float, damage_type: String, armor_penetration := 0.0
 ) -> int:
-	var attack_value := maxi(1, MathClass.python_roundi(power * multiplier))
-	var enemy_defense := effects.effective_enemy_defense(enemy.defense)
-	if armor_penetration > 0.0:
-		var remaining_defense := 1.0 - clampf(armor_penetration, 0.0, 90.0) / 100.0
-		enemy_defense = maxi(0, MathClass.python_roundi(enemy_defense * remaining_defense))
-	var damage := maxi(1, attack_value - enemy_defense)
-	if damage_type != "physical":
-		damage = enemy.elemental_resistances.reduce_damage(damage, damage_type)
-	else:
-		damage = enemy.reduce_physical_damage(damage)
-	return enemy.take_damage(damage)
+	return (
+		hit_resolver.resolve(power, multiplier, true, false, damage_type, armor_penetration).damage
+	)
 
 
 func _take_hunter_delayed_effects() -> Dictionary:
@@ -521,7 +570,9 @@ func _resolve_hunter_delayed_effects(report: Dictionary, pending: Dictionary) ->
 	for power: int in pending.echoes:
 		if not enemy.is_alive():
 			break
-		var damage := _resolve_hunter_guaranteed_hit(power, 0.60, "physical")
+		var damage := _resolve_hunter_guaranteed_hit(
+			power, CombatProgressionRulesClass.hunter_echo_multiplier(player), "physical"
+		)
 		report.skill_total_damage += damage
 		report.hunter_delayed_damage += damage
 		report.skill_notes.append("WIDMOWE ECHO materializuje się: %d obrażeń." % damage)
@@ -561,6 +612,17 @@ func _record_hunter_technique(skill: SkillDefinitionClass, report: Dictionary) -
 		"KOMBINACJA: %s!%s" % [combo.display_name, " [NOWA]" if first_discovery else ""]
 	)
 	_resolve_hunter_combo(combo, report)
+	if TalentProgressionServiceClass.has_talent(player, "phantom_bows") and enemy.is_alive():
+		var phantom_damage := _resolve_hunter_guaranteed_hit(
+			maxi(1, player.stats.attack + int(player.attributes.dexterity / 2.0)),
+			0.35,
+			"physical",
+		)
+		report.hunter_combo_damage += phantom_damage
+		report.skill_total_damage += phantom_damage
+		report.skill_notes.append(
+			"WIDMOWE ŁUKI: dodatkowa strzała zadaje %d obrażeń." % phantom_damage
+		)
 	_update_hunter_report(report)
 
 
@@ -619,204 +681,34 @@ func _skill_power(skill: SkillDefinitionClass) -> int:
 
 
 func _resolve_fate_skill(skill: SkillDefinitionClass, report: Dictionary) -> void:
-	match skill.effect:
-		"fate_1d6":
-			_resolve_fate_thrust(fate.roll(1), report)
-		"fate_2d6":
-			_resolve_double_roll(fate.roll(2), report)
-		"fate_feint":
-			_resolve_fate_feint(fate.roll(1), report)
-		"fate_3d6":
-			_resolve_grand_gamble(fate.roll(3), report)
-	_update_fate_report(report)
-
-
-func _resolve_fate_thrust(roll: FateRollClass, report: Dictionary) -> void:
-	var face: int = roll.dice[0]
-	var multiplier := 1.0
-	var hits := 1
-	var outcome := "PEWNE PCHNIĘCIE"
-	match face:
-		1:
-			multiplier = 0.70
-			outcome = "PECHOWY NUMER"
-			_add_fate_tokens(2, report)
-		2:
-			multiplier = 0.95
-			outcome = "FIGIEL"
-			enemy.attack = maxi(0, enemy.attack - 1)
-			report.skill_notes.append("FIGIEL: ATK przeciwnika -1 do końca walki.")
-		3:
-			multiplier = 1.15
-			outcome = "PEWNE PCHNIĘCIE"
-		4:
-			multiplier = 1.10
-			outcome = "ZWROT LOSU"
-			effects.apply_dodge(15, 1)
-			report.skill_notes.append("ZWROT LOSU: UNIK +15 p.p. na następny atak.")
-		5:
-			multiplier = 0.85
-			hits = 2
-			outcome = "PODWÓJNY NUMER"
-		6:
-			multiplier = 1.85
-			outcome = "JACKPOT"
-			_add_fate_tokens(1, report)
-	_resolve_fate_damage(multiplier, hits, report)
-	_set_fate_roll_report(roll, outcome, report)
-
-
-func _resolve_double_roll(roll: FateRollClass, report: Dictionary) -> void:
-	var total := roll.total()
-	var multiplier := 1.10
-	var outcome := "RZUT LOSU"
-	if roll.dice == [1, 1]:
-		multiplier = 0.50
-		outcome = "WĘŻOWE OCZY"
-		_add_fate_tokens(2, report)
-	elif total == 7:
-		multiplier = 1.70
-		outcome = "SZCZĘŚLIWA SIÓDEMKA"
-		_add_fate_tokens(2, report)
-	elif roll.dice == [6, 6]:
-		multiplier = 2.25
-		outcome = "PODWÓJNA SZÓSTKA — JACKPOT"
-		_add_fate_tokens(1, report)
-	elif roll.is_double():
-		multiplier = 1.45
-		outcome = "DUBLET"
-	elif total <= 4:
-		multiplier = 0.80
-		outcome = "NISKI RZUT"
-		_add_fate_tokens(2, report)
-	elif total >= 10:
-		multiplier = 1.60
-		outcome = "WYSOKI RZUT"
-		_add_fate_tokens(1, report)
-	_resolve_fate_damage(multiplier, 1, report)
-	_set_fate_roll_report(roll, outcome, report)
-
-
-func _resolve_fate_feint(roll: FateRollClass, report: Dictionary) -> void:
-	var face: int = roll.dice[0]
-	var outcome := "ZWÓD"
-	match face:
-		1:
-			outcome = "PECH"
-			_add_fate_tokens(2, report)
-			effects.apply_dodge(10, 1)
-			report.skill_notes.append("PECH: UNIK +10 p.p. na następny atak.")
-		2, 3:
-			outcome = "ZWÓD"
-			effects.apply_dodge(20, 2)
-			report.skill_notes.append("ZWÓD: UNIK +20 p.p. przez 2 ataki.")
-		4, 5:
-			outcome = "AKROBACJA"
-			effects.apply_dodge(35, 2)
-			report.skill_notes.append("AKROBACJA: UNIK +35 p.p. przez 2 ataki.")
-		6:
-			outcome = "KURTYNA LUSTRZANA"
-			pierrot_reflect_ready = true
-			report.skill_notes.append(
-				"KURTYNA LUSTRZANA: następny bezpośredni cios zostanie odbity."
-			)
-	_set_fate_roll_report(roll, outcome, report)
-
-
-func _resolve_grand_gamble(roll: FateRollClass, report: Dictionary) -> void:
-	var total := roll.total()
-	var multiplier := 0.85 + total * 0.055
-	var outcome := "WIELKI ZAKŁAD"
-	if roll.is_triple():
-		multiplier = 2.55
-		outcome = "TRÓJKA"
-		_add_fate_tokens(2, report)
-	elif total <= 5:
-		multiplier = 0.60
-		outcome = "KATASTROFA"
-		_add_fate_tokens(3, report)
-	elif total >= 16:
-		multiplier = 2.15
-		outcome = "WIELKI JACKPOT"
-		_add_fate_tokens(2, report)
-	elif roll.is_double():
-		multiplier = 1.55
-		outcome = "DUBLET WZMACNIA ZAKŁAD"
-	_resolve_fate_damage(multiplier, 1, report)
-	_set_fate_roll_report(roll, outcome, report)
-
-
-func _resolve_fate_damage(multiplier: float, hits: int, report: Dictionary) -> void:
-	var attack_value := maxi(1, MathClass.python_roundi(_fate_power() * multiplier))
-	for _hit_index in hits:
-		if not enemy.is_alive():
-			break
-		var damage := maxi(1, attack_value - effects.effective_enemy_defense(enemy.defense))
-		damage = enemy.reduce_physical_damage(damage)
-		var damage_taken := enemy.take_damage(damage)
-		report.player_hit_damages.append(damage_taken)
-		report.player_hit_dodges.append(false)
-		report.skill_total_damage += damage_taken
-	report.player_damage = report.skill_total_damage
-	report.enemy_dodged = false
-
-
-func _fate_power() -> int:
-	return maxi(1, player.stats.attack + int(player.attributes.luck / 2.0))
-
-
-func _set_fate_roll_report(roll: FateRollClass, outcome: String, report: Dictionary) -> void:
-	report.fate_dice.assign(roll.dice)
-	report.fate_total = roll.total()
-	report.fate_outcome = outcome
-	report.skill_notes.append("KOŚCI LOSU: %s — %s." % [_dice_text(roll.dice), outcome])
-
-
-func _dice_text(dice: Array[int]) -> String:
-	var values: Array[String] = []
-	for value: int in dice:
-		values.append(str(value))
-	return "[" + ", ".join(values) + "]"
+	fate_resolver.resolve(skill, report)
 
 
 func fate_token_cap() -> int:
-	return 6 + mini(4, int(player.attributes.luck / 10.0))
-
-
-func _add_fate_tokens(amount: int, report: Dictionary) -> void:
-	var previous := fate_tokens
-	fate_tokens = clampi(fate_tokens + maxi(0, amount), 0, fate_token_cap())
-	var gained := fate_tokens - previous
-	if gained > 0:
-		report.fate_tokens_gained += gained
-		report.skill_notes.append(
-			"ŻETONY LOSU: +%d (%d/%d)." % [gained, fate_tokens, fate_token_cap()]
-		)
+	return fate_resolver.token_cap()
 
 
 func _update_fate_report(report: Dictionary) -> void:
-	report.fate_tokens = fate_tokens
-	report.fate_token_cap = fate_token_cap()
-	report.reflect_ready = pierrot_reflect_ready
+	fate_resolver.update_report(report)
 
 
 func _apply_skill_effect(skill: SkillDefinitionClass, report: Dictionary) -> void:
 	match skill.effect:
 		"armor_break":
-			effects.apply_armor_break(skill.effect_value, skill.effect_duration)
+			var armor_break := skill.effect_value
+			if player.character_class_code == "warrior":
+				armor_break += CombatProgressionRulesClass.armor_break_bonus(player)
+			effects.apply_armor_break(armor_break, skill.effect_duration)
 			report.skill_notes.append(
-				(
-					"DEF przeciwnika -%d na %d ofensywne akcje."
-					% [skill.effect_value, skill.effect_duration]
-				)
+				"DEF przeciwnika -%d na %d ofensywne akcje." % [armor_break, skill.effect_duration]
 			)
 		"bleed":
-			effects.apply_bleed(skill.effect_value, skill.effect_duration)
+			var bleed_damage := skill.effect_value
+			if player.character_class_code == "warrior":
+				bleed_damage += CombatProgressionRulesClass.bleed_bonus(player)
+			effects.apply_bleed(bleed_damage, skill.effect_duration)
 			report.skill_notes.append(
-				(
-					"Krwawienie: %d obrażeń przez %d tury."
-					% [skill.effect_value, skill.effect_duration]
-				)
+				"Krwawienie: %d obrażeń przez %d tury." % [bleed_damage, skill.effect_duration]
 			)
 		"guard":
 			effects.apply_guard(skill.effect_value, skill.effect_duration)
@@ -884,8 +776,18 @@ func _enemy_turn(report: Dictionary, defending := false) -> void:
 		if not enemy.is_alive():
 			result = VICTORY
 			return
-	if player.stats.health_regen > 0:
-		report.player_regenerated = player.stats.heal(player.stats.health_regen)
+	_maybe_second_wind(report)
+	var regeneration := (
+		PassiveProgressionServiceClass.health_regeneration(player) + player.stats.health_regen
+	)
+	if regeneration > 0:
+		if (
+			_passive_specialization("health_regen") == "iron_will"
+			and player.stats.current_hp <= player.stats.max_hp * 0.40
+		):
+			regeneration = MathClass.python_roundi(regeneration * 1.50)
+			report.class_effect_notes.append("ŻELAZNA WOLA: regeneracja zwiększona o 50%.")
+		report.player_regenerated = player.stats.heal(regeneration)
 
 
 func _resolve_enemy_hit(
@@ -936,62 +838,40 @@ func warrior_block_chance() -> float:
 		or _equipped_type(PlayerEquipmentClass.OFF_HAND) != "shield"
 	):
 		return 0.0
-	return minf(75.0, 5.0 + warrior_provoke_block_bonus)
+	return minf(
+		75.0,
+		5.0 + CombatProgressionRulesClass.shield_block_bonus(player) + warrior_provoke_block_bonus,
+	)
+
+
+func _passive_specialization(passive_code: String) -> String:
+	return PassiveProgressionServiceClass.specialization_for(player, passive_code)
+
+
+func _after_offensive_action() -> void:
+	if _passive_specialization("increased_attack") == "momentum":
+		momentum_stacks = mini(3, momentum_stacks + 1)
+
+
+func _break_momentum() -> void:
+	if _passive_specialization("increased_attack") == "momentum":
+		momentum_stacks = 0
+
+
+func _maybe_second_wind(report: Dictionary) -> void:
+	if second_wind_used or _passive_specialization("health_regen") != "second_wind":
+		return
+	if not player.stats.is_alive():
+		return
+	if player.stats.current_hp <= player.stats.max_hp * 0.25:
+		second_wind_used = true
+		var healed := player.stats.heal(
+			maxi(1, MathClass.python_roundi(player.stats.max_hp * 0.20))
+		)
+		if healed > 0:
+			report.player_healed += healed
+			report.class_effect_notes.append("DRUGI ODDECH: odzyskujesz %d PŻ." % healed)
 
 
 func _new_report() -> Dictionary:
-	return {
-		"player_damage": 0,
-		"player_hit_damages": [],
-		"player_hit_dodges": [],
-		"player_damage_type": "physical",
-		"skill_id": "",
-		"skill_name": "",
-		"skill_mana_cost": 0,
-		"skill_total_damage": 0,
-		"skill_notes": [],
-		"class_effect_notes": [],
-		"fate_dice": [],
-		"fate_total": 0,
-		"fate_outcome": "",
-		"fate_tokens_gained": 0,
-		"fate_tokens": fate_tokens,
-		"fate_token_cap": fate_token_cap(),
-		"reflect_ready": pierrot_reflect_ready,
-		"reflected_damage": 0,
-		"hunter_sequence": hunter_sequence.duplicate(),
-		"hunter_combo_id": "",
-		"hunter_combo_name": "",
-		"hunter_combo_discovered": false,
-		"hunter_combo_damage": 0,
-		"hunter_delayed_damage": 0,
-		"hunter_explosive_charges": hunter_explosive_charges,
-		"hunter_pending_echoes": hunter_phantom_pending.size(),
-		"hunter_pending_rain": hunter_rain_pending.size(),
-		"warrior_retribution_ready": warrior_retribution_ready,
-		"warrior_retribution_ratio": warrior_retribution_ratio,
-		"warrior_block_chance": warrior_block_chance(),
-		"warrior_guard_percent": effects.player_guard_percent,
-		"warrior_guard_hits": effects.player_guard_hits,
-		"warrior_counter_damage": 0,
-		"shield_blocked": false,
-		"mage_arcane_weave": mage_arcane_weave,
-		"mage_element_sequence": mage_element_sequence.duplicate(),
-		"mage_double_weave_ready": can_double_cast(),
-		"mage_double_cast": false,
-		"player_healed": 0,
-		"player_mana_restored": 0,
-		"player_regenerated": 0,
-		"enemy_damage": 0,
-		"enemy_extra_damage": 0,
-		"enemy_bleed_damage": 0,
-		"enemy_dodged": false,
-		"player_dodged": false,
-		"player_defended": false,
-		"flee_failed": false,
-		"enemy_special_name": "",
-		"enemy_damage_type": "physical",
-		"enemy_acted": false,
-		"turn_consumed": false,
-		"error": "",
-	}
+	return CombatReportFactoryClass.create(self)

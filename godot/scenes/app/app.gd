@@ -14,6 +14,7 @@ const LoadGameScreenClass := preload("res://ui/screens/load_game/load_game.gd")
 const MainMenuScreenClass := preload("res://ui/screens/main_menu/main_menu.gd")
 const NewGameScreenClass := preload("res://ui/screens/new_game/new_game.gd")
 const PrologueScreenClass := preload("res://ui/screens/prologue/prologue.gd")
+const ProgressionScreenClass := preload("res://ui/screens/progression/progression.gd")
 const SessionReadyScreenClass := preload("res://ui/screens/session_ready/session_ready.gd")
 const SkillsScreenClass := preload("res://ui/screens/skills/skills.gd")
 const WorldMapScreenClass := preload("res://ui/screens/world_map/world_map.gd")
@@ -30,6 +31,7 @@ const LOAD_GAME_SCENE := preload("res://ui/screens/load_game/load_game.tscn")
 const MAIN_MENU_SCENE := preload("res://ui/screens/main_menu/main_menu.tscn")
 const NEW_GAME_SCENE := preload("res://ui/screens/new_game/new_game.tscn")
 const PROLOGUE_SCENE := preload("res://ui/screens/prologue/prologue.tscn")
+const PROGRESSION_SCENE := preload("res://ui/screens/progression/progression.tscn")
 const SESSION_READY_SCENE := preload("res://ui/screens/session_ready/session_ready.tscn")
 const SKILLS_SCENE := preload("res://ui/screens/skills/skills.tscn")
 const WORLD_MAP_SCENE := preload("res://ui/screens/world_map/world_map.tscn")
@@ -145,6 +147,7 @@ func _show_character_sheet() -> void:
 	character_sheet.equipment_requested.connect(_show_equipment)
 	character_sheet.class_selection_requested.connect(_show_class_selection)
 	character_sheet.skills_requested.connect(_show_skills)
+	character_sheet.progression_requested.connect(_show_progression)
 	app_status_label.text = "Karta postaci: %s" % _current_session.player.display_name
 
 
@@ -156,6 +159,16 @@ func _show_skills() -> void:
 	skills_screen.configure(_current_session)
 	skills_screen.back_requested.connect(_show_character_sheet)
 	app_status_label.text = "Umiejętności: %s" % _current_session.player.character_class_name
+
+
+func _show_progression() -> void:
+	if _current_session == null:
+		_show_main_menu()
+		return
+	var progression: ProgressionScreenClass = _replace_screen(PROGRESSION_SCENE)
+	progression.configure(_current_session)
+	progression.back_requested.connect(_show_character_sheet)
+	app_status_label.text = "Talenty i pasywy: %s" % _current_session.player.display_name
 
 
 func _show_equipment() -> void:
@@ -244,8 +257,8 @@ func _on_combat_finished(context: String, result: String) -> void:
 
 func _show_project_status() -> void:
 	app_status_label.text = (
-		"v0.25.0: prolog, Varenhold, ekonomia oraz "
-		+ "rozwój bohatera, ekwipunek i umiejętności etapu 3B w Godot 4"
+		"v0.25.0: prolog, Varenhold, ekonomia, walka klasowa oraz "
+		+ "talenty i pasywy etapu 3F w Godot 4"
 	)
 
 

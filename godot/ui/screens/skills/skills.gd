@@ -11,6 +11,9 @@ const HunterComboCatalogClass := preload("res://core/combat/hunter_combo_catalog
 const PlayerClassCatalogClass := preload("res://core/player/player_class_catalog.gd")
 const SkillCatalogClass := preload("res://core/skills/skill_catalog.gd")
 const SkillDefinitionClass := preload("res://core/skills/skill_definition.gd")
+const TalentProgressionServiceClass := preload(
+	"res://core/progression/talent_progression_service.gd"
+)
 
 var _session: GameSessionClass
 var _preview_class_code := "warrior"
@@ -106,7 +109,10 @@ func _render() -> void:
 			var mechanics = ClassCombatMechanicCatalogClass.get_for_class(_preview_class_code)
 			var unlocked_mechanics := 0
 			for mechanic in mechanics:
-				if mechanic.mechanic_id in player.unlocked_class_mechanic_ids:
+				if (
+					mechanic.mechanic_id in player.unlocked_class_mechanic_ids
+					or TalentProgressionServiceClass.has_talent(player, mechanic.mechanic_id)
+				):
 					unlocked_mechanics += 1
 			var system_name := (
 				"Stany i tarcza" if _preview_class_code == "warrior" else "Żywioły i Splot"
@@ -155,7 +161,7 @@ func _show_skill_details(index: int) -> void:
 		skill_status_label.text = "ZABLOKOWANA — wymagany poziom %d" % skill.unlock_level
 		skill_status_label.modulate = Color(0.62, 0.68, 0.76)
 	elif skill.unlock_source == "talent" and not SkillCatalogClass.is_unlocked(player, skill):
-		skill_status_label.text = ("UMIEJĘTNOŚĆ TALENTOWA — wymaga odblokowania w drzewku (etap 3F)")
+		skill_status_label.text = "UMIEJĘTNOŚĆ TALENTOWA — wymaga odblokowania w drzewku"
 		skill_status_label.modulate = Color(0.88, 0.68, 0.38)
 	else:
 		skill_status_label.text = "ODBLOKOWANA — dostępna w panelu akcji podczas walki"

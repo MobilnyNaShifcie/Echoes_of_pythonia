@@ -7,6 +7,9 @@ const PlayerEquipmentClass := preload("res://core/player/equipment.gd")
 const PlayerInventoryClass := preload("res://core/player/inventory.gd")
 const PrimaryStatsClass := preload("res://core/player/primary_stats.gd")
 const ItemCatalogClass := preload("res://core/items/item_catalog.gd")
+const PassiveProgressionServiceClass := preload(
+	"res://core/progression/passive_progression_service.gd"
+)
 const STARTING_LEVEL := 0
 const ATTRIBUTE_POINTS_PER_LEVEL := 4
 const CLASS_NONE := "none"
@@ -23,6 +26,11 @@ var carry_upgrade_level := 0
 var unlocked_talent_skill_ids: Array[String] = []
 var unlocked_class_mechanic_ids: Array[String] = []
 var discovered_hunter_combos: Array[String] = []
+var talent_ranks := {}
+var unlocked_class_path_ids: Array[String] = []
+var passive_ranks := {}
+var unlocked_passive_mastery_ids: Array[String] = []
+var passive_specialization_ids := {}
 var attributes := PlayerAttributesClass.new()
 var stats := PrimaryStatsClass.new()
 var equipment := PlayerEquipmentClass.new()
@@ -142,7 +150,11 @@ func recalculate_stats() -> void:
 	var class_definition = PlayerClassCatalogClass.get_definition(character_class_code)
 	var class_base_mana: int = class_definition.base_mana if class_definition != null else 0
 	stats.apply_derived_stats(
-		equipment_bonuses.attack + attribute_bonuses.attack,
+		(
+			equipment_bonuses.attack
+			+ attribute_bonuses.attack
+			+ PassiveProgressionServiceClass.attack_bonus(self)
+		),
 		equipment_bonuses.defense + attribute_bonuses.defense,
 		equipment_bonuses.max_hp + attribute_bonuses.max_hp,
 		equipment_bonuses.dodge + attribute_bonuses.dodge,

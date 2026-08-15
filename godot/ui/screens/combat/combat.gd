@@ -11,6 +11,9 @@ const GameSessionClass := preload("res://core/game/game_session.gd")
 const HunterComboCatalogClass := preload("res://core/combat/hunter_combo_catalog.gd")
 const ItemCatalogClass := preload("res://core/items/item_catalog.gd")
 const SkillCatalogClass := preload("res://core/skills/skill_catalog.gd")
+const TalentProgressionServiceClass := preload(
+	"res://core/progression/talent_progression_service.gd"
+)
 const HEALING_ITEM_IDS := [
 	"weak_healing_potion", "strong_healing_potion", "hunter_provisions", "grandmaster_elixir"
 ]
@@ -439,11 +442,11 @@ func _render_mage_panel() -> void:
 	mage_elements_label.text = (
 		"ŻYWIOŁY —" if elements.is_empty() else "ŻYWIOŁY " + " → ".join(elements)
 	)
-	var has_arcana := "arcana_core" in _session.player.unlocked_class_mechanic_ids
+	var has_arcana := _has_mechanic("arcana_core")
 	mage_weave_label.text = ("SPLOT %d/3" % _engine.mage_arcane_weave if has_arcana else "SPLOT —")
 	if _engine.can_double_cast():
 		mage_ready_label.text = "PODWÓJNY SPLOT GOTOWY"
-	elif has_arcana and "arcana_double_weave" in _session.player.unlocked_class_mechanic_ids:
+	elif has_arcana and _has_mechanic("arcana_double_weave"):
 		mage_ready_label.text = "SPLOT SIĘ ŁADUJE"
 	else:
 		mage_ready_label.text = "ARKANA — TALENT 3F"
@@ -592,3 +595,10 @@ func _render_consumable_action() -> void:
 func _append_log(message: String) -> void:
 	combat_log.append_text(message + "\n")
 	combat_log.scroll_to_line(combat_log.get_line_count())
+
+
+func _has_mechanic(mechanic_id: String) -> bool:
+	return (
+		mechanic_id in _session.player.unlocked_class_mechanic_ids
+		or TalentProgressionServiceClass.has_talent(_session.player, mechanic_id)
+	)

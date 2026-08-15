@@ -144,7 +144,7 @@ func test_hunter_catalog_and_combat_panels_expose_placeholder_state() -> void:
 	var skills_screen := SKILLS_SCENE.instantiate() as SkillsScreenClass
 	skills_screen.configure(session)
 	add_child_autofree(skills_screen)
-	assert_eq(skills_screen.skill_list.item_count, 10)
+	assert_eq(skills_screen.skill_list.item_count, 11)
 	assert_string_contains(skills_screen.summary_label.text, "Techniki Salwy: 6")
 
 	var combat_screen := COMBAT_SCENE.instantiate() as CombatScreenClass
