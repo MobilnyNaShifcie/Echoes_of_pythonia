@@ -2,6 +2,7 @@ class_name EnemyCatalog
 extends RefCounted
 
 const EnemyClass := preload("res://core/combat/enemy.gd")
+const RegionalEnemyCatalogClass := preload("res://core/combat/regional_enemy_catalog.gd")
 const DATA := {
 	"prologue_scarecrow":
 	{
@@ -89,6 +90,7 @@ const DATA := {
 		"special_name": "Płonąca Słoma",
 		"special_chance": 0.2,
 		"special_attack_bonus": 2,
+		"special_damage_type": "fire",
 	},
 	"plains_spirit":
 	{
@@ -140,17 +142,28 @@ const DATA := {
 		"special_name": "Gniew Korzeni",
 		"special_chance": 0.25,
 		"special_attack_bonus": 2,
+		"special_damage_type": "earth",
 	},
 }
 
 
 static func create_enemy(enemy_id: String) -> EnemyClass:
-	if not DATA.has(enemy_id):
+	var data := get_data(enemy_id)
+	if data.is_empty():
 		return null
-	var data: Dictionary = DATA[enemy_id].duplicate(true)
 	data.enemy_id = enemy_id
 	return EnemyClass.new(data)
 
 
 static func display_name_for(enemy_id: String) -> String:
-	return DATA.get(enemy_id, {}).get("display_name", enemy_id)
+	return get_data(enemy_id).get("display_name", enemy_id)
+
+
+static func get_data(enemy_id: String) -> Dictionary:
+	if DATA.has(enemy_id):
+		return DATA[enemy_id].duplicate(true)
+	return RegionalEnemyCatalogClass.DATA.get(enemy_id, {}).duplicate(true)
+
+
+static func has_enemy(enemy_id: String) -> bool:
+	return DATA.has(enemy_id) or RegionalEnemyCatalogClass.DATA.has(enemy_id)

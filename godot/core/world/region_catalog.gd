@@ -9,44 +9,6 @@ const REGION_ORDER := [
 	"ashen_borderlands",
 	"ice_coast",
 ]
-const ENCOUNTER_DISPLAY_NAMES := {
-	"wild_dog": "Dziki Pies",
-	"slime": "Slime",
-	"wolf": "Wilk",
-	"boar": "Spaczony Dzik",
-	"bandit": "Bandyta",
-	"cursed_scarecrow": "Przeklęty Strach na Wróble",
-	"plains_spirit": "Duch Równin",
-	"night_guard": "Nocny Strażnik",
-	"hunter": "Myśliwy",
-	"nature_guardian": "Strażnik Natury",
-	"venom_spider": "Jadowity Pająk",
-	"forest_cultist": "Kultysta Boru",
-	"rotting_knight": "Zgniły Rycerz",
-	"corrupted_bear": "Spaczony Niedźwiedź",
-	"black_hart": "Czarny Jeleń",
-	"gallows_wraith": "Zjawa Wisielca",
-	"blackwood_executioner": "Leśny Egzekutor",
-	"bog_crawler": "Błotny Pełzacz",
-	"drowned_dead": "Topielec",
-	"swamp_witch": "Bagienna Wiedźma",
-	"bone_crocodile": "Kościany Krokodyl",
-	"sunken_knight": "Rycerz Zatopionego Zakonu",
-	"mist_walker": "Wędrowiec Mgieł",
-	"drowned_mother": "Matka Głuchej Wody",
-	"desert_wanderer": "Pustynny Wędrowiec",
-	"desert_harpy": "Pustynna Harpia",
-	"red_salamander": "Czerwona Salamandra",
-	"sand_golem": "Piaskowy Golem",
-	"boneburner": "Kościopal",
-	"hearth_devourer": "Pożeracz Palenisk",
-	"frozen_castaway": "Zamarznięty Rozbitek",
-	"ice_bear": "Lodowy Niedźwiedź",
-	"snow_griffin": "Śnieżny Gryf",
-	"ice_crab": "Lodowy Krab",
-	"black_sea_siren": "Syrena Czarnego Morza",
-	"ghost_ship_captain": "Widmo Kapitana Statku",
-}
 
 
 static func get_definition(region_id: String) -> RegionDefinitionClass:
@@ -73,10 +35,6 @@ static func get_all_definitions() -> Array[RegionDefinitionClass]:
 
 static func is_valid_region_id(region_id: String) -> bool:
 	return region_id in REGION_ORDER
-
-
-static func encounter_display_name(enemy_id: String) -> String:
-	return str(ENCOUNTER_DISPLAY_NAMES.get(enemy_id, enemy_id))
 
 
 static func validate_known_region_ids(region_ids: Array) -> String:

@@ -132,6 +132,15 @@ The migrated flow is runnable in Godot:
     presentation while keeping recommended level as a warning, not a lock.
 45. Persist and validate known regions in Godot save schema v6 and migrate
     schema-v1 through schema-v5 saves with all terminal regions known.
+46. Run ordinary expeditions through one region-aware service for all five
+    terminal regions, preserving encounter chances, day/night weights, quiet
+    events, one-hour duration, overload checks, and non-blocking level advice.
+47. Register all 36 unique open-world encounters, including the 26 enemies
+    beyond Twilight Plains, with terminal combat stats, specials, ranks,
+    physical reduction, elemental resistances, status resistance, EXP, and
+    gold rewards.
+48. Carry the selected region into combat presentation and validated save
+    round-trips without introducing a new schema after v6.
 
 The GDScript model also carries the legacy attribute formulas, level-zero
 experience threshold, four attribute points per level, and Pierrot-only Luck.
@@ -155,18 +164,20 @@ already have sources in the migrated world, and the inn performs paid full
 recovery with its daily cooldown. Final item art, shop animation, and audio
 remain outside this domain slice and continue to use placeholder presentation.
 
-Stages 3C through 3F and stage 4A are complete. Dice history, Fate Tokens,
+Stages 3C through 3F and stages 4A–4B are complete. Dice history, Fate Tokens,
 temporary dodge,
 mirror readiness, Hunter sequence, delayed effects, explosive charges, Arcane
 Weave, elemental sequence, Provoke, block bonus, and retaliation readiness are
 intentionally encounter-local. Godot save schema v6 keeps durable talent ranks,
 book-unlocked class paths, passive ranks, Masteries, specializations, Hunter
 progression, compatibility identifiers from earlier slices, and the list of
-known regions. Unread books remain ordinary inventory stacks. Purchased
+known regions. Unread books remain ordinary inventory stacks. All five regions
+now launch real day/night expeditions against their terminal enemy catalogs;
+recommended levels remain advisory. Purchased
 talents are now the authoritative source for class mechanics; the older
 identifier collections remain only for schema compatibility. Affixes, item
-sets, book acquisition sources, complete non-Plains expeditions, and later
-regional equipment remain in the world-and-expeditions stage.
+sets, book acquisition sources, regional item drops, weather, camps, elites,
+bosses, and later regional equipment remain in the world-and-expeditions stage.
 
 ## Add-on policy
 

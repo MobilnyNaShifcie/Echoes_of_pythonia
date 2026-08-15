@@ -10,6 +10,7 @@ const EnemyCatalogClass := preload("res://core/combat/enemy_catalog.gd")
 const GameSessionClass := preload("res://core/game/game_session.gd")
 const HunterComboCatalogClass := preload("res://core/combat/hunter_combo_catalog.gd")
 const ItemCatalogClass := preload("res://core/items/item_catalog.gd")
+const RegionCatalogClass := preload("res://core/world/region_catalog.gd")
 const SkillCatalogClass := preload("res://core/skills/skill_catalog.gd")
 const TalentProgressionServiceClass := preload(
 	"res://core/progression/talent_progression_service.gd"
@@ -300,11 +301,11 @@ func _render() -> void:
 	if _session == null or _enemy == null or _engine == null:
 		return
 	var player = _session.player
-	encounter_label.text = (
-		"WALKA FABULARNA — PROLOG"
-		if _context == "prologue"
-		else "ZMIERZCHOWE RÓWNINY — WALKA TUROWA"
-	)
+	if _context == "prologue":
+		encounter_label.text = "WALKA FABULARNA — PROLOG"
+	else:
+		var region = RegionCatalogClass.get_definition(_session.current_location_id)
+		encounter_label.text = "%s — WALKA TUROWA" % region.display_name.to_upper()
 	player_name_label.text = player.display_name
 	player_stats_label.text = (
 		"PŻ %d/%d  •  MANA %d/%d  •  ATK %d  •  DEF %d  •  UNIK %.1f%%"

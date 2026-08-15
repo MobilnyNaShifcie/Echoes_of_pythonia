@@ -693,6 +693,13 @@ func _update_fate_report(report: Dictionary) -> void:
 
 
 func _apply_skill_effect(skill: SkillDefinitionClass, report: Dictionary) -> void:
+	if (
+		skill.effect in ["armor_break", "bleed"]
+		and enemy.status_resistance > 0.0
+		and rng.randf() < enemy.status_resistance
+	):
+		report.skill_notes.append("%s odpiera negatywny efekt." % enemy.display_name)
+		return
 	match skill.effect:
 		"armor_break":
 			var armor_break := skill.effect_value

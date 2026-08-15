@@ -2,6 +2,7 @@ extends Control
 
 const EnemyCatalogClass := preload("res://core/combat/enemy_catalog.gd")
 const GameSessionClass := preload("res://core/game/game_session.gd")
+const RegionCatalogClass := preload("res://core/world/region_catalog.gd")
 const CharacterSheetScreenClass := preload("res://ui/screens/character_sheet/character_sheet.gd")
 const CityHubScreenClass := preload("res://ui/screens/city_hub/city_hub.gd")
 const CityEconomyScreenClass := preload("res://ui/screens/city_economy/city_economy.gd")
@@ -229,7 +230,8 @@ func _show_world_map() -> void:
 	world_map.configure(_current_session)
 	world_map.back_requested.connect(_show_city_hub)
 	world_map.encounter_requested.connect(_show_expedition_combat)
-	app_status_label.text = "Wyprawa: Zmierzchowe Równiny"
+	var region = RegionCatalogClass.get_definition(_current_session.current_location_id)
+	app_status_label.text = "Wyprawa: %s" % region.display_name
 
 
 func _show_expedition_combat(enemy_id: String) -> void:
@@ -257,8 +259,8 @@ func _on_combat_finished(context: String, result: String) -> void:
 
 func _show_project_status() -> void:
 	app_status_label.text = (
-		"v0.25.0: prolog, Varenhold, ekonomia, walka klasowa oraz "
-		+ "talenty i pasywy etapu 3F w Godot 4"
+		"v0.25.0: prolog, Varenhold, ekonomia, walka klasowa, "
+		+ "progresja oraz pięć regionów wypraw w Godot 4"
 	)
 
 

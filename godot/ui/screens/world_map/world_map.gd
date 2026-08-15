@@ -5,6 +5,7 @@ signal back_requested
 signal encounter_requested(enemy_id: String)
 
 const AdventureServiceClass := preload("res://core/world/adventure_service.gd")
+const EnemyCatalogClass := preload("res://core/combat/enemy_catalog.gd")
 const GameSessionClass := preload("res://core/game/game_session.gd")
 const QuestServiceClass := preload("res://core/quests/quest_service.gd")
 const RegionCatalogClass := preload("res://core/world/region_catalog.gd")
@@ -51,9 +52,9 @@ func _select_region(index: int) -> void:
 
 
 func _explore() -> void:
-	if _session == null or _selected_region_id != GameSessionClass.STARTING_LOCATION_ID:
+	if _session == null:
 		return
-	var result := AdventureServiceClass.explore_twilight_plains(_session, _rng)
+	var result := AdventureServiceClass.explore_region(_session, _selected_region_id, _rng)
 	_render_session()
 	event_label.text = result.message
 	if not result.enemy_id.is_empty():
@@ -151,13 +152,8 @@ func _render_region() -> void:
 		% region.display_name.to_upper()
 	)
 	threats_label.text = _format_encounters(region)
-	var expedition_is_migrated := region.region_id == GameSessionClass.STARTING_LOCATION_ID
-	explore_button.disabled = not expedition_is_migrated
-	explore_button.text = (
-		"Wyrusz na wyprawę  •  +1 godzina"
-		if expedition_is_migrated
-		else "Wyprawy tego regionu  •  etap 4B"
-	)
+	explore_button.disabled = false
+	explore_button.text = "Wyrusz na wyprawę  •  +1 godzina"
 
 
 func _format_encounters(region: RegionDefinitionClass) -> String:
@@ -173,5 +169,5 @@ func _format_encounters(region: RegionDefinitionClass) -> String:
 func _format_encounter_table(encounters: Dictionary) -> String:
 	var lines: Array[String] = []
 	for enemy_id: String in encounters:
-		lines.append("• %s" % RegionCatalogClass.encounter_display_name(enemy_id))
+		lines.append("• %s" % EnemyCatalogClass.display_name_for(enemy_id))
 	return "\n".join(lines)

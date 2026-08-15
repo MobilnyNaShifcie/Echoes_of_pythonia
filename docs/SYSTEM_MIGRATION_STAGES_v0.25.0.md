@@ -181,9 +181,27 @@ plecaku, a lista znanych regionów jest przechowywana i walidowana osobno. Pliki
 `v1`–`v5` otrzymują przy migracji wszystkie pięć regionów, ponieważ były one
 widoczne od początku w wersji terminalowej.
 
+### Etap 4B — regionalne wyprawy i przeciwnicy (ukończony)
+
+- jeden serwis wypraw obsługujący wszystkie pięć regionów, ich osobne szanse
+  spotkania, tabele dnia i nocy oraz ciche wydarzenia,
+- 26 brakujących definicji przeciwników, dzięki czemu wszystkie 36 unikalnych
+  spotkań otwartego świata prowadzi do prawdziwej walki,
+- terminalowe PŻ, ATK, DEF, unik, nagrody EXP i złota, rangi, ataki specjalne,
+  dodatkowe ciosy, pierwszy wzmocniony atak i redukcja obrażeń fizycznych,
+- odporności na ogień, wiatr, mróz, ziemię i wodę oraz odporność wybranych
+  przeciwników na krwawienie i obniżenie DEF,
+- dynamiczna nazwa regionu na ekranie walki i zachowanie wybranego regionu po
+  powrocie z walki oraz po zapisie i odczycie,
+- wejście do regionu powyżej zalecanego poziomu nadal nie jest blokowane;
+  każda rozpoczęta wyprawa przesuwa czas o jedną godzinę.
+
+Etap nie zmienia schematu `v6`, ponieważ bieżący i znane regiony zostały już
+utrwalone w 4A. Pełne regionalne tabele przedmiotów, elity, pogoda, ognisko,
+bossowie i ich liczniki należą do kolejnych podetapów.
+
 ### Następne podetapy
 
-- wszystkie regiony, tabele przeciwników i pora dnia,
 - pogoda, obóz, odpoczynek, elity, bossowie i ich odradzanie,
 - pełne tabele łupów, afiksy, zestawy i progresja przedmiotów,
 - dane mapy oddzielone od widoku, aby miejsca można było rozbudowywać bez

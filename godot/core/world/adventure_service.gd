@@ -59,6 +59,18 @@ const LOOT_TABLES := {
 
 
 static func explore_twilight_plains(session, rng: RandomNumberGenerator) -> Dictionary:
+	return explore_region(session, "twilight_plains", rng)
+
+
+static func explore_region(session, region_id: String, rng: RandomNumberGenerator) -> Dictionary:
+	var region = RegionCatalogClass.get_definition(region_id)
+	if region == null or region_id not in session.known_region_ids:
+		return {
+			"enemy_id": "",
+			"message": "Nie możesz wyruszyć do nieznanego regionu.",
+			"blocked": true,
+		}
+	session.current_location_id = region_id
 	var load := CarryWeightServiceClass.carry_status(session.player)
 	if load.overloaded:
 		var message := (
@@ -71,7 +83,7 @@ static func explore_twilight_plains(session, rng: RandomNumberGenerator) -> Dict
 		session.last_activity = message
 		return {"enemy_id": "", "message": message, "blocked": true}
 	var period: String = session.period_code()
-	var result := _roll_exploration(period, rng.randf(), rng.randi(), rng.randi())
+	var result := _roll_region_exploration(region_id, period, rng.randf(), rng.randi(), rng.randi())
 	session.advance_hours(1)
 	if result.enemy_id.is_empty():
 		session.last_activity = result.message
@@ -81,11 +93,27 @@ static func explore_twilight_plains(session, rng: RandomNumberGenerator) -> Dict
 static func _roll_exploration(
 	period_code: String, encounter_roll: float, enemy_roll: int, quiet_roll: int
 ) -> Dictionary:
-	var region = RegionCatalogClass.get_definition("twilight_plains")
+	return _roll_region_exploration(
+		"twilight_plains", period_code, encounter_roll, enemy_roll, quiet_roll
+	)
+
+
+static func _roll_region_exploration(
+	region_id: String,
+	period_code: String,
+	encounter_roll: float,
+	enemy_roll: int,
+	quiet_roll: int,
+) -> Dictionary:
+	var region = RegionCatalogClass.get_definition(region_id)
+	if region == null:
+		return {"enemy_id": "", "message": "Nieznany region.", "blocked": true}
 	if encounter_roll >= region.encounter_chance:
 		var quiet_index := posmod(quiet_roll, region.quiet_events.size())
 		return {"enemy_id": "", "message": region.quiet_events[quiet_index]}
 	var table := region.encounters_for(period_code)
+	if table.is_empty():
+		return {"enemy_id": "", "message": "Droga pozostaje niepokojąco pusta."}
 	var total_weight := 0
 	for weight: int in table.values():
 		total_weight += weight
@@ -96,6 +124,7 @@ static func _roll_exploration(
 		if target < cumulative:
 			return {
 				"enemy_id": enemy_id,
+				"region_id": region_id,
 				"message":
 				"Na szlaku pojawia się: %s." % EnemyCatalogClass.display_name_for(enemy_id),
 			}

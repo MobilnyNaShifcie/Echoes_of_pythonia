@@ -22,6 +22,7 @@ var first_attack_bonus := 0
 var physical_damage_reduction := 0
 var basic_damage_type := "physical"
 var special_damage_type := ""
+var status_resistance := 0.0
 var elemental_resistances := ElementalResistancesClass.new()
 var attacks_made := 0
 
@@ -46,6 +47,7 @@ func _init(data: Dictionary) -> void:
 	physical_damage_reduction = data.get("physical_damage_reduction", 0)
 	basic_damage_type = str(data.get("basic_damage_type", "physical"))
 	special_damage_type = str(data.get("special_damage_type", ""))
+	status_resistance = clampf(float(data.get("status_resistance", 0.0)), 0.0, 1.0)
 	elemental_resistances = ElementalResistancesClass.new(data.get("elemental_resistances", {}))
 
 

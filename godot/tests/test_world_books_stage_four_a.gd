@@ -126,8 +126,8 @@ func test_new_session_knows_all_regions_and_world_screen_can_inspect_them() -> v
 	assert_eq(screen.title_label.text, "Czarny Bór")
 	assert_string_contains(screen.risk_label.text, "2–4")
 	assert_string_contains(screen.threats_label.text, "Jadowity Pająk")
-	assert_true(screen.explore_button.disabled)
-	assert_string_contains(screen.explore_button.text, "etap 4B")
+	assert_false(screen.explore_button.disabled)
+	assert_eq(screen.explore_button.text, "Wyrusz na wyprawę  •  +1 godzina")
 
 
 func test_save_v6_preserves_books_and_known_regions() -> void:
