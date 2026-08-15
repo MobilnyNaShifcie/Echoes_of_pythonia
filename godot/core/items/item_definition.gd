@@ -23,6 +23,13 @@ extends Resource
 @export var heal_hp_percent := 0.0
 @export var restore_mana := 0
 @export var restore_mana_percent := 0.0
+@export var set_id := ""
+@export var class_effect_id := ""
+@export var fire_resistance := 0
+@export var wind_resistance := 0
+@export var frost_resistance := 0
+@export var earth_resistance := 0
+@export var water_resistance := 0
 
 
 func is_equipment() -> bool:

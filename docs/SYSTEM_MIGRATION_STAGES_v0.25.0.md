@@ -197,13 +197,39 @@ widoczne od początku w wersji terminalowej.
   każda rozpoczęta wyprawa przesuwa czas o jedną godzinę.
 
 Etap nie zmienia schematu `v6`, ponieważ bieżący i znane regiony zostały już
-utrwalone w 4A. Pełne regionalne tabele przedmiotów, elity, pogoda, ognisko,
-bossowie i ich liczniki należą do kolejnych podetapów.
+utrwalone w 4A. Elity, pogoda, ognisko, bossowie i ich liczniki należą do
+kolejnych podetapów.
+
+### Etap 4C — regionalne łupy i przedmioty (ukończony)
+
+- wszystkie 36 tabel łupów przeciwników otwartego świata, wraz z terminalowymi
+  szansami i zachowanymi wariantami szans dla przyszłych elit,
+- 72 brakujące definicje materiałów, wyposażenia, mikstur i wejściówek; razem z
+  wcześniejszym katalogiem Godot rozpoznaje teraz 118 przedmiotów,
+- łup ze wszystkich pięciu regionów trafia do zwykłego plecaka, a wyposażenie
+  powstaje jako osobny egzemplarz z własnym `instance_id`,
+- terminalowe statystyki bazowe, rzadkość, Item Power, wymagany poziom,
+  odporności żywiołowe i metadane specjalnych przedmiotów regionalnych,
+- odporności założonego wyposażenia są sumowane i rzeczywiście redukują
+  odpowiednie obrażenia w walce,
+- 42 receptury Mireli podzielone na pięć regionów: 10 dla Równin, 8 dla Boru,
+  12 dla Mokradeł, 7 dla Pogranicza i 5 dla Wybrzeża,
+- terminalowe koszty złota receptur są sprawdzane atomowo; brak złota albo
+  składnika nie zużywa żadnych zasobów,
+- profile ulepszeń Item Power II, III, V i VI wymagają materiałów pochodzących
+  z właściwego regionu,
+- nowe stosy i egzemplarze wyposażenia przechodzą przez istniejący zapis i
+  odczyt schematu `v6` bez dodawania pól trwałego stanu.
+
+Etap 4C przenosi bazowy regionalny przedmiot i jego pełny obieg, ale jeszcze nie
+losuje afiksów Equipment 2.0, nie aktywuje bonusów zestawów ani wyjątkowych
+efektów klasowych późnego wyposażenia. Te mechaniki wymagają rozszerzenia
+zapisywanej instancji przedmiotu i pozostają osobnym podetapem.
 
 ### Następne podetapy
 
 - pogoda, obóz, odpoczynek, elity, bossowie i ich odradzanie,
-- pełne tabele łupów, afiksy, zestawy i progresja przedmiotów,
+- afiksy Equipment 2.0, bonusy zestawów i specjalne efekty wyposażenia,
 - dane mapy oddzielone od widoku, aby miejsca można było rozbudowywać bez
   generowania jednej sztywnej ilustracji miasta albo regionu.
 

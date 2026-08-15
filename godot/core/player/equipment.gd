@@ -2,6 +2,7 @@ class_name PlayerEquipment
 extends RefCounted
 
 const EquipmentItemClass := preload("res://core/items/equipment_item.gd")
+const ElementalResistancesClass := preload("res://core/combat/elemental_resistances.gd")
 const UpgradeServiceClass := preload("res://core/economy/upgrade_service.gd")
 
 const WEAPON := "weapon"
@@ -45,6 +46,7 @@ func total_bonuses() -> Dictionary:
 		"dodge": 0.0,
 		"max_mana": 0,
 		"magic_power": 0,
+		"elemental_resistances": ElementalResistancesClass.new(),
 	}
 	for item: EquipmentItemClass in slots.values():
 		var stats := UpgradeServiceClass.effective_stats(item)
@@ -54,5 +56,19 @@ func total_bonuses() -> Dictionary:
 		bonuses.dodge += stats.dodge
 		bonuses.max_mana += stats.max_mana
 		bonuses.magic_power += stats.magic_power
+		var definition = item.definition
+		var item_resistances := {
+			"fire": definition.fire_resistance,
+			"wind": definition.wind_resistance,
+			"frost": definition.frost_resistance,
+			"earth": definition.earth_resistance,
+			"water": definition.water_resistance,
+		}
+		for damage_type: String in ElementalResistancesClass.ELEMENT_ORDER:
+			var total: int = (
+				bonuses.elemental_resistances.get_value(damage_type)
+				+ int(item_resistances[damage_type])
+			)
+			bonuses.elemental_resistances.set_value(damage_type, total)
 	bonuses.dodge = snappedf(bonuses.dodge, 0.1)
 	return bonuses

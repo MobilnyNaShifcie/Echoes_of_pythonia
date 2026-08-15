@@ -141,6 +141,15 @@ The migrated flow is runnable in Godot:
     gold rewards.
 48. Carry the selected region into combat presentation and validated save
     round-trips without introducing a new schema after v6.
+49. Replace the first-region reward constant with one validated loot catalog
+    covering all 36 open-world enemies and preserving future elite chances.
+50. Register 72 additional regional materials, consumables, keys, and equipment
+    definitions with terminal Item Power, level requirements, base statistics,
+    elemental resistances, and item metadata.
+51. Group Mirela's 42 open-region recipes by their five source regions and make
+    material plus Gold consumption atomic.
+52. Carry regional loot through backpack equipment instances, upgrades,
+    elemental combat resistance, and existing schema-v6 save round-trips.
 
 The GDScript model also carries the legacy attribute formulas, level-zero
 experience threshold, four attribute points per level, and Pierrot-only Luck.
@@ -164,7 +173,7 @@ already have sources in the migrated world, and the inn performs paid full
 recovery with its daily cooldown. Final item art, shop animation, and audio
 remain outside this domain slice and continue to use placeholder presentation.
 
-Stages 3C through 3F and stages 4A–4B are complete. Dice history, Fate Tokens,
+Stages 3C through 3F and stages 4A–4C are complete. Dice history, Fate Tokens,
 temporary dodge,
 mirror readiness, Hunter sequence, delayed effects, explosive charges, Arcane
 Weave, elemental sequence, Provoke, block bonus, and retaliation readiness are
@@ -175,9 +184,10 @@ known regions. Unread books remain ordinary inventory stacks. All five regions
 now launch real day/night expeditions against their terminal enemy catalogs;
 recommended levels remain advisory. Purchased
 talents are now the authoritative source for class mechanics; the older
-identifier collections remain only for schema compatibility. Affixes, item
-sets, book acquisition sources, regional item drops, weather, camps, elites,
-bosses, and later regional equipment remain in the world-and-expeditions stage.
+identifier collections remain only for schema compatibility. All regional
+open-world loot and base equipment progression are now connected. Affixes,
+item-set bonuses, special late-equipment effects, book acquisition sources,
+weather, camps, elites, and bosses remain in the world-and-expeditions stage.
 
 ## Add-on policy
 

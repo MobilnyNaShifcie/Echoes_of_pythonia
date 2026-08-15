@@ -19,8 +19,8 @@ const SERVICES := {
 		),
 		"offer":
 		(
-			"W tej wersji zachowujemy komplet danych broni, pancerzy i kamieni ulepszeń. "
-			+ "Samo ulepszanie zostanie podłączone po migracji bazowej pętli walki."
+			"Garran ulepsza wyposażenie od +0 do +10. Wyższy Item Power wymaga "
+			+ "materiałów z odpowiadającego mu regionu."
 		),
 		"action": "",
 	},
@@ -30,10 +30,10 @@ const SERVICES := {
 		"title": "Warsztat Mireli",
 		"description":
 		(
-			"Mirela skupuje materiały z potworów i tworzy z nich przedmioty użytkowe. "
-			+ "Tutaj trafią receptury oraz system craftingu z wersji terminalowej."
+			"Mirela wykorzystuje materiały zdobyte w pięciu otwartych regionach. "
+			+ "Receptury są podzielone według miejsca pochodzenia składników."
 		),
-		"offer": "Zebrane skóry, kły, esencje i części wyposażenia są już przechowywane w plecaku.",
+		"offer": "Materiały, wyposażenie i wejściówki trafiają bezpośrednio do plecaka.",
 		"action": "",
 	},
 	"merchant":

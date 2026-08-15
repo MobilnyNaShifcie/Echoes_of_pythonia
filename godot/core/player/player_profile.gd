@@ -161,6 +161,7 @@ func recalculate_stats() -> void:
 		equipment_bonuses.max_mana + attribute_bonuses.max_mana + class_base_mana,
 		equipment_bonuses.magic_power
 	)
+	stats.elemental_resistances = equipment_bonuses.elemental_resistances
 
 
 func get_equip_error(inventory_index: int) -> String:

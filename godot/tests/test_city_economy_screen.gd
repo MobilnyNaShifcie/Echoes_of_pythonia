@@ -27,10 +27,16 @@ func test_workshop_crafts_selected_first_region_recipe() -> void:
 	add_child_autofree(screen)
 	screen.configure(session, "workshop")
 
+	assert_eq(screen.mode_selector.item_count, 5)
 	assert_eq(screen.item_list.item_count, 10)
 	screen.action_button.pressed.emit()
 	assert_eq(session.player.inventory.count("leather_hood"), 1)
 	assert_eq(session.player.inventory.count("weak_leather"), 0)
+
+	screen.mode_selector.select(1)
+	screen.mode_selector.item_selected.emit(1)
+	assert_eq(screen.item_list.item_count, 8)
+	assert_string_contains(screen.details_label.text, "Czarny Bór")
 
 
 func test_blacksmith_upgrades_the_selected_equipped_item() -> void:

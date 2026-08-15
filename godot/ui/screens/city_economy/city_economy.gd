@@ -9,6 +9,7 @@ const EconomyServiceClass := preload("res://core/economy/economy_service.gd")
 const GameSessionClass := preload("res://core/game/game_session.gd")
 const GuildStorageServiceClass := preload("res://core/economy/guild_storage_service.gd")
 const ItemCatalogClass := preload("res://core/items/item_catalog.gd")
+const RegionCatalogClass := preload("res://core/world/region_catalog.gd")
 const UpgradeServiceClass := preload("res://core/economy/upgrade_service.gd")
 
 const SERVICE_NAMES := {
@@ -25,7 +26,14 @@ const MODES := {
 		{"id": "merchant_sell_equipment", "name": "Sprzedaj wyposażenie z plecaka"},
 	],
 	"blacksmith": [{"id": "blacksmith", "name": "Ulepsz wyposażenie +0–+10"}],
-	"workshop": [{"id": "workshop", "name": "Receptury Zmierzchowych Równin"}],
+	"workshop":
+	[
+		{"id": "workshop_twilight_plains", "name": "Zmierzchowe Równiny"},
+		{"id": "workshop_black_forest", "name": "Czarny Bór"},
+		{"id": "workshop_silent_water_marshes", "name": "Mokradła Głuchej Wody"},
+		{"id": "workshop_ashen_borderlands", "name": "Popielne Pogranicze"},
+		{"id": "workshop_ice_coast", "name": "Lodowe Wybrzeże"},
+	],
 	"quartermaster":
 	[
 		{"id": "storage_deposit_stacks", "name": "Odłóż materiały i zapasy"},
@@ -122,6 +130,20 @@ func _refresh_current_mode() -> void:
 
 func _build_entries(mode: String) -> Array[Dictionary]:
 	var entries: Array[Dictionary] = []
+	if mode.begins_with("workshop_"):
+		var region_id := mode.trim_prefix("workshop_")
+		for recipe: Dictionary in CraftingServiceClass.get_recipes(region_id):
+			(
+				entries
+				. append(
+					{
+						"kind": "workshop",
+						"recipe": recipe,
+						"label": recipe.name,
+					}
+				)
+			)
+		return entries
 	match mode:
 		"merchant_buy":
 			for stock: Dictionary in EconomyServiceClass.get_stock():
@@ -168,18 +190,6 @@ func _build_entries(mode: String) -> Array[Dictionary]:
 			for item in _session.player.inventory.equipment_items:
 				entries.append(
 					{"kind": mode, "item": item, "label": "Plecak • %s" % item.formatted_name()}
-				)
-		"workshop":
-			for recipe: Dictionary in CraftingServiceClass.get_recipes():
-				(
-					entries
-					. append(
-						{
-							"kind": mode,
-							"recipe": recipe,
-							"label": recipe.name,
-						}
-					)
 				)
 		"carry_upgrade":
 			var upgrade := CarryWeightServiceClass.next_upgrade(_session.player)
@@ -383,7 +393,13 @@ func _format_upgrade_plan(item, plan: Dictionary) -> String:
 
 
 func _format_recipe(recipe: Dictionary) -> String:
-	var lines: Array[String] = ["Wynik: %s ×%d" % [recipe.name, recipe.quantity], "Składniki:"]
+	var region = RegionCatalogClass.get_definition(recipe.region_id)
+	var lines: Array[String] = [
+		"Region: %s" % (region.display_name if region != null else recipe.region_id),
+		"Wynik: %s ×%d" % [recipe.name, recipe.quantity],
+		"Koszt: %d złota" % int(recipe.get("gold_cost", 0)),
+		"Składniki:",
+	]
 	for item_id: String in recipe.ingredients:
 		(
 			lines

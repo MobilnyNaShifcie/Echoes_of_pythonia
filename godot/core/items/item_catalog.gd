@@ -3,6 +3,7 @@ extends RefCounted
 
 const EquipmentItemClass := preload("res://core/items/equipment_item.gd")
 const ItemDefinitionClass := preload("res://core/items/item_definition.gd")
+const RegionalItemCatalogClass := preload("res://core/items/regional_item_catalog.gd")
 const DEFINITIONS := {
 	"starter_sword": preload("res://data/items/starter_sword.tres"),
 	"worn_leather_armor": preload("res://data/items/worn_leather_armor.tres"),
@@ -54,11 +55,14 @@ const DEFINITIONS := {
 
 
 static func get_definition(item_id: String) -> ItemDefinitionClass:
-	return DEFINITIONS.get(item_id)
+	var definition: ItemDefinitionClass = DEFINITIONS.get(item_id)
+	return definition if definition != null else RegionalItemCatalogClass.get_definition(item_id)
 
 
 static func get_all_definitions() -> Array:
-	return DEFINITIONS.values()
+	var result := DEFINITIONS.values()
+	result.append_array(RegionalItemCatalogClass.get_all_definitions())
+	return result
 
 
 static func create_equipment_item(item_id: String) -> EquipmentItemClass:

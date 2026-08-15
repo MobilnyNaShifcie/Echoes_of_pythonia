@@ -23,7 +23,7 @@ equivalent, tested GDScript implementation.
 - `tests/` — GUT tests mirroring migrated behavior
 - `ui/` — reusable controls, themes, and presentation logic
 
-The current playable migration includes stages 0–3 and stages 4A–4B, including all eight class
+The current playable migration includes stages 0–3 and stages 4A–4C, including all eight class
 talent paths, 41 talents, passive Masteries, and specializations. All sixteen
 base Path skills are active. Pierrot uses a dedicated
 Fate Engine with encounter-local Fate Tokens and exact 1d6/2d6/3d6 tables.
@@ -39,6 +39,13 @@ warnings rather than access locks, matching the terminal game. Stage 4B makes
 all five regions explorable with their separate day/night encounter tables and
 all 36 open-world enemies. Regional fights use terminal stats, special attacks,
 physical and elemental defenses, status resistance, EXP, and gold rewards.
+Stage 4C connects all 36 open-world loot tables to a regional item catalog. Its
+72 additional definitions bring the Godot catalog to 118 items, while Mirela's
+42 recipes are grouped across all five regions. Loot now reaches the backpack
+as real stacks or separate equipment instances, regional Item Power drives
+upgrade materials, recipe gold costs are atomic, and equipped elemental
+resistances affect combat. Affixes, set bonuses, and final item presentation
+remain later slices.
 
 Open the project with the pinned local editor from the repository root:
 

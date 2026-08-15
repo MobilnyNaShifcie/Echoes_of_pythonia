@@ -17,6 +17,15 @@ const BASE_GOLD_COSTS := [25, 50, 75, 100, 150, 225, 400, 650, 950, 1400]
 const ITEM_POWER_GOLD_MULTIPLIER := {1: 1.0, 2: 1.1, 3: 1.25, 4: 1.45, 5: 1.7, 6: 2.0, 7: 2.35}
 const MATERIAL_PROFILE_BY_ITEM_POWER := {
 	1: {"regional": "common_essence", "elite": "common_essence", "boss": "spark_of_life"},
+	2: {"regional": "spider_silk", "elite": "blackwood_heart", "boss": "blackwood_heart"},
+	3:
+	{
+		"regional": "sunken_plate",
+		"elite": "silentwater_heart",
+		"boss": "silentwater_heart",
+	},
+	5: {"regional": "salamander_scale", "elite": "hearth_core", "boss": "azhar_sigil"},
+	6: {"regional": "ice_chitin", "elite": "cursed_compass", "boss": "leviathan_scale"},
 }
 
 
@@ -47,6 +56,14 @@ static func effective_stats(item: EquipmentItemClass) -> Dictionary:
 			definition.magic_power
 			+ _scaled_integer_bonus(definition.magic_power, level, "attack", int(level / 2.0))
 		),
+		"elemental_resistances":
+		{
+			"fire": definition.fire_resistance,
+			"wind": definition.wind_resistance,
+			"frost": definition.frost_resistance,
+			"earth": definition.earth_resistance,
+			"water": definition.water_resistance,
+		},
 	}
 
 

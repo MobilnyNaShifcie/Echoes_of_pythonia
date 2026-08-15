@@ -293,6 +293,18 @@ func _format_stats(stats: Dictionary) -> String:
 		parts.append("MOC MAG. +%d" % stats.magic_power)
 	if stats.dodge > 0:
 		parts.append("UNIK +%.1f%%" % stats.dodge)
+	if stats.has("elemental_resistances"):
+		var names := {
+			"fire": "OGIEŃ",
+			"wind": "WIATR",
+			"frost": "MRÓZ",
+			"earth": "ZIEMIA",
+			"water": "WODA",
+		}
+		for damage_type: String in names:
+			var value := int(stats.elemental_resistances.get(damage_type, 0))
+			if value > 0:
+				parts.append("ODP. %s +%d%%" % [names[damage_type], value])
 	return ", ".join(parts) if not parts.is_empty() else "brak premii"
 
 
@@ -306,6 +318,19 @@ func _format_stat_delta(candidate: Dictionary, current: Dictionary) -> String:
 	var dodge_delta := float(candidate.dodge) - float(current.dodge)
 	if not is_zero_approx(dodge_delta):
 		parts.append("UNIK %s%%" % _signed_float(dodge_delta))
+	var resistance_names := {
+		"fire": "ODP. OGIEŃ",
+		"wind": "ODP. WIATR",
+		"frost": "ODP. MRÓZ",
+		"earth": "ODP. ZIEMIA",
+		"water": "ODP. WODA",
+	}
+	for damage_type: String in resistance_names:
+		var resistance_delta := (
+			int(candidate.elemental_resistances[damage_type])
+			- int(current.elemental_resistances[damage_type])
+		)
+		_append_integer_delta(parts, resistance_names[damage_type], resistance_delta)
 	return ", ".join(parts) if not parts.is_empty() else "bez zmiany statystyk"
 
 
@@ -371,6 +396,7 @@ func _category_name(category: String) -> String:
 		{
 			"consumable": "przedmiot użytkowy",
 			"material": "materiał",
+			"key": "wejściówka",
 			"quest": "przedmiot fabularny",
 			"book": "księga",
 		}
