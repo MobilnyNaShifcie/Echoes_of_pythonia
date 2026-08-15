@@ -21,6 +21,7 @@ var unspent_attribute_points := 0
 var character_class_code := CLASS_NONE
 var carry_upgrade_level := 0
 var unlocked_talent_skill_ids: Array[String] = []
+var unlocked_class_mechanic_ids: Array[String] = []
 var discovered_hunter_combos: Array[String] = []
 var attributes := PlayerAttributesClass.new()
 var stats := PrimaryStatsClass.new()

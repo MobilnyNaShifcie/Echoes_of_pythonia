@@ -3,6 +3,9 @@ extends RefCounted
 
 const EquipmentItemClass := preload("res://core/items/equipment_item.gd")
 const GameSessionClass := preload("res://core/game/game_session.gd")
+const ClassCombatMechanicCatalogClass := preload(
+	"res://core/combat/class_combat_mechanic_catalog.gd"
+)
 const HunterComboCatalogClass := preload("res://core/combat/hunter_combo_catalog.gd")
 const ItemCatalogClass := preload("res://core/items/item_catalog.gd")
 const NewGameServiceClass := preload("res://core/game/new_game_service.gd")
@@ -13,7 +16,7 @@ const QuestServiceClass := preload("res://core/quests/quest_service.gd")
 const SkillCatalogClass := preload("res://core/skills/skill_catalog.gd")
 
 const FORMAT_ID := "echoes_of_pythonia_godot_migration"
-const SCHEMA_VERSION := 3
+const SCHEMA_VERSION := 4
 const GAME_VERSION := "0.25.0"
 const DEFAULT_SAVE_ROOT := "user://godot_migration_saves"
 const SLOT_COUNT := NewGameServiceClass.SAVE_SLOT_COUNT
@@ -172,6 +175,7 @@ func _serialize_session(session: GameSessionClass) -> Dictionary:
 				"character_class_code": player.character_class_code,
 				"carry_upgrade_level": player.carry_upgrade_level,
 				"unlocked_talent_skill_ids": player.unlocked_talent_skill_ids.duplicate(),
+				"unlocked_class_mechanic_ids": player.unlocked_class_mechanic_ids.duplicate(),
 				"discovered_hunter_combos": player.discovered_hunter_combos.duplicate(),
 				"attributes": _serialize_attributes(player.attributes),
 				"current_hp": player.stats.current_hp,
@@ -266,9 +270,9 @@ func _deserialize_player(data: Dictionary) -> Dictionary:
 		return attributes_result
 	if player.attributes.luck > 0 and class_code != PlayerProfileClass.CLASS_PIERROT:
 		return _failure("Zapis przyznaje Szczęście postaci, która nie jest Pierrotem.")
-	var hunter_progression_result := _restore_hunter_progression(player, data)
-	if not hunter_progression_result.ok:
-		return hunter_progression_result
+	var class_progression_result := _restore_class_combat_progression(player, data)
+	if not class_progression_result.ok:
+		return class_progression_result
 	var equipment_result := _restore_equipment(player, data.equipment)
 	if not equipment_result.ok:
 		return equipment_result
@@ -390,53 +394,88 @@ func _restore_inventory_container(inventory, data: Dictionary) -> Dictionary:
 func _migrate_payload(payload: Dictionary) -> Dictionary:
 	var migrated := payload.duplicate(true)
 	var version := int(migrated.schema_version)
-	if version == 1:
-		if not migrated.get("session") is Dictionary:
-			return _failure("Starszy zapis nie zawiera sesji.")
+	var error := ""
+	if version < 1 or version >= SCHEMA_VERSION:
+		error = "Zapis ma nieobsługiwaną, starszą wersję schematu."
+	elif not migrated.get("session") is Dictionary:
+		error = "Starszy zapis nie zawiera sesji."
+	elif not migrated.session.get("player") is Dictionary:
+		error = "Starszy zapis nie zawiera bohatera."
+	else:
 		var session: Dictionary = migrated.session
-		if not session.get("player") is Dictionary:
-			return _failure("Starszy zapis nie zawiera bohatera.")
-		session.player["carry_upgrade_level"] = 0
-		session["last_inn_rest_day"] = 0
-		session["guild_storage"] = {"stacks": {}, "equipment_items": []}
-		migrated.schema_version = 2
-		version = 2
-	if version == 2:
-		if not migrated.get("session") is Dictionary:
-			return _failure("Starszy zapis nie zawiera sesji.")
-		var session: Dictionary = migrated.session
-		if not session.get("player") is Dictionary:
-			return _failure("Starszy zapis nie zawiera bohatera.")
-		session.player["unlocked_talent_skill_ids"] = []
-		session.player["discovered_hunter_combos"] = []
-		migrated.schema_version = 3
-		version = 3
-	if version != SCHEMA_VERSION:
-		return _failure("Zapis ma nieobsługiwaną, starszą wersję schematu.")
+		if version <= 1:
+			session.player["carry_upgrade_level"] = 0
+			session["last_inn_rest_day"] = 0
+			session["guild_storage"] = {"stacks": {}, "equipment_items": []}
+		if version <= 2:
+			session.player["unlocked_talent_skill_ids"] = []
+			session.player["discovered_hunter_combos"] = []
+		if version <= 3:
+			session.player["unlocked_class_mechanic_ids"] = []
+		migrated.schema_version = SCHEMA_VERSION
+	if not error.is_empty():
+		return _failure(error)
 	return {"ok": true, "payload": migrated}
 
 
-func _restore_hunter_progression(player: PlayerProfileClass, data: Dictionary) -> Dictionary:
+func _restore_class_combat_progression(player: PlayerProfileClass, data: Dictionary) -> Dictionary:
 	if (
 		not data.get("unlocked_talent_skill_ids") is Array
+		or not data.get("unlocked_class_mechanic_ids") is Array
 		or not data.get("discovered_hunter_combos") is Array
 	):
-		return _failure("Zapis nie zawiera prawidłowej progresji technik Łowcy.")
+		return _failure("Zapis nie zawiera prawidłowej progresji systemów klasowych.")
+	var skill_result := _restore_talent_skills(player, data.unlocked_talent_skill_ids)
+	if not skill_result.ok:
+		return skill_result
+	var mechanic_result := _restore_class_mechanics(player, data.unlocked_class_mechanic_ids)
+	if not mechanic_result.ok:
+		return mechanic_result
+	var combo_result := _restore_hunter_combos(player, data.discovered_hunter_combos)
+	if not combo_result.ok:
+		return combo_result
+	return {"ok": true}
+
+
+func _restore_talent_skills(player: PlayerProfileClass, values: Array) -> Dictionary:
 	var seen_skills := {}
-	for skill_id_value in data.unlocked_talent_skill_ids:
+	for skill_id_value in values:
 		if not skill_id_value is String:
-			return _failure("Zapis zawiera nieprawidłową technikę Łowcy.")
+			return _failure("Zapis zawiera nieprawidłową umiejętność talentową.")
 		var skill_id := str(skill_id_value)
 		if (
-			player.character_class_code != "hunter"
-			or not SkillCatalogClass.is_hunter_technique_id(skill_id)
+			not SkillCatalogClass.is_talent_skill_id_for_class(
+				skill_id, player.character_class_code
+			)
 			or seen_skills.has(skill_id)
 		):
-			return _failure("Zapis zawiera niedozwoloną technikę Łowcy.")
+			return _failure("Zapis zawiera niedozwoloną umiejętność talentową.")
 		seen_skills[skill_id] = true
 		player.unlocked_talent_skill_ids.append(skill_id)
+	return {"ok": true}
+
+
+func _restore_class_mechanics(player: PlayerProfileClass, values: Array) -> Dictionary:
+	var seen_mechanics := {}
+	for mechanic_id_value in values:
+		if not mechanic_id_value is String:
+			return _failure("Zapis zawiera nieprawidłową mechanikę klasową.")
+		var mechanic_id := str(mechanic_id_value)
+		if (
+			not ClassCombatMechanicCatalogClass.is_valid_for_class(
+				mechanic_id, player.character_class_code
+			)
+			or seen_mechanics.has(mechanic_id)
+		):
+			return _failure("Zapis zawiera niedozwoloną mechanikę klasową.")
+		seen_mechanics[mechanic_id] = true
+		player.unlocked_class_mechanic_ids.append(mechanic_id)
+	return {"ok": true}
+
+
+func _restore_hunter_combos(player: PlayerProfileClass, values: Array) -> Dictionary:
 	var seen_combos := {}
-	for combo_id_value in data.discovered_hunter_combos:
+	for combo_id_value in values:
 		if not combo_id_value is String:
 			return _failure("Zapis zawiera nieprawidłową kombinację Łowcy.")
 		var combo_id := str(combo_id_value)

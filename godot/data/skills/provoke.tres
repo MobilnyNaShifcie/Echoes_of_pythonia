@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/skills/skill_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+skill_id = "provoke"
+display_name = "Prowokacja"
+character_class_code = "warrior"
+unlock_level = 5
+mana_cost = 5
+description = "Wymusza zwykły atak przeciwnika i daje +20 p.p. Bloku na tę wymianę."
+scaling = "none"
+multiplier = 0.0
+hits = 0
+effect = "provoke"
+effect_value = 20
+effect_duration = 1
+guaranteed_hit = true
+required_offhand_type = "shield"
+unlock_source = "talent"
+required_talent_id = "heavy_provoke"

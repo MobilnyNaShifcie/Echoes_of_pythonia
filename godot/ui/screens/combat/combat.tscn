@@ -90,6 +90,66 @@ theme_override_colors/font_color = Color(0.48, 0.8, 0.68, 1)
 text = "FINISHER OCZEKUJE"
 text_overrun_behavior = 3
 
+[node name="WarriorPanel" type="PanelContainer" parent="Page/EncounterHeader"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(560, 0)
+layout_mode = 2
+
+[node name="Content" type="HBoxContainer" parent="Page/EncounterHeader/WarriorPanel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="WarriorDefenseLabel" type="Label" parent="Page/EncounterHeader/WarriorPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.45, 0.69, 0.86, 1)
+text = "BLOK 5%  •  GARDA —"
+
+[node name="WarriorOffenseLabel" type="Label" parent="Page/EncounterHeader/WarriorPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.5, 0.42, 1)
+text = "PANCERZ —  •  KRWAWIENIE —"
+
+[node name="WarriorRetributionLabel" type="Label" parent="Page/EncounterHeader/WarriorPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.84, 0.72, 0.38, 1)
+text = "ODWET —"
+text_overrun_behavior = 3
+
+[node name="MagePanel" type="PanelContainer" parent="Page/EncounterHeader"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(570, 0)
+layout_mode = 2
+
+[node name="Content" type="HBoxContainer" parent="Page/EncounterHeader/MagePanel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="MageElementsLabel" type="Label" parent="Page/EncounterHeader/MagePanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.57, 0.69, 0.92, 1)
+text = "ŻYWIOŁY —"
+
+[node name="MageWeaveLabel" type="Label" parent="Page/EncounterHeader/MagePanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.67, 0.49, 0.88, 1)
+text = "SPLOT 0/3"
+
+[node name="MageReadyLabel" type="Label" parent="Page/EncounterHeader/MagePanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.46, 0.81, 0.78, 1)
+text = "ARKANA — TALENT 3F"
+text_overrun_behavior = 3
+
 [node name="Arena" type="HBoxContainer" parent="Page"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -210,6 +270,23 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(155, 0)
 layout_mode = 2
 text = "Użyj umiejętności"
+
+[node name="WeaveRow" type="HBoxContainer" parent="Page/Lower/Actions"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="SecondSpellSelector" type="OptionButton" parent="Page/Lower/Actions/WeaveRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DoubleWeaveButton" type="Button" parent="Page/Lower/Actions/WeaveRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(155, 0)
+layout_mode = 2
+text = "Podwójny Splot"
 
 [node name="ConsumableSelector" type="OptionButton" parent="Page/Lower/Actions"]
 unique_name_in_owner = true

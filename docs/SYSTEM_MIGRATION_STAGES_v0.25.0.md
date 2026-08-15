@@ -121,12 +121,30 @@ talentowe i odkryte kombinacje, a pliki `v1` oraz `v2` są kolejno migrowane z
 bezpiecznymi pustymi kolekcjami. Samo zdobywanie talentów nadal należy do 3F;
 3D dostarcza gotowe i testowane reguły, które ta progresja będzie odblokowywać.
 
-### Etap 3E–3F — pozostałe systemy klasowe i progresja
+### Etap 3E — Splot Maga i postawy Wojownika (ukończony)
 
-- **3E:** żywioły i Splot Maga oraz stany ofensywne i obronne Wojownika,
-- dalsze warianty konfigurowalnego panelu akcji zależne od klasy i stanu walki,
-- **3F:** drzewka, specjalizacje, pasywne mistrzostwa i zapis progresji,
-- testy parytetu obrażeń, kosztów, efektów, tur i losowości.
+- sześć typów obrażeń oraz odporności żywiołów z limitem `0–75%`,
+- Sekwencja Żywiołów Maga i premia trzeciego różnego czaru,
+- trzy Ładunki Splotu i Podwójne Tkanie dwóch czarów w jednej turze,
+- warianty kosztu, obrażeń i odzyskiwania Many wynikające z mistrzostw Splotu,
+- bazowa szansa bloku Wojownika z tarczą oraz jednorazowa premia Prowokacji,
+- Uderzenie Tarczą, wymuszony podstawowy atak po Prowokacji, ciężka kontra
+  po bloku i odwet przygotowywany przez Obronę,
+- osobne, zwarte panele zastępcze Wojownika i Maga oraz drugi selektor czaru,
+- testy parytetu obrażeń, odporności, kosztów Many, tur i stanów walki.
+
+Schemat zapisu Godota ma teraz wersję `v4` i przechowuje identyfikatory
+odblokowanych mechanik klasowych. Pliki `v1`–`v3` są migrowane z pustą,
+bezpieczną kolekcją. Reguły talentów są gotowe, lecz bohater nie otrzymuje ich
+automatycznie: faktyczny zakup i odblokowanie należą do etapu 3F.
+
+### Etap 3F — drzewka i specjalizacje
+
+- drzewka talentów wszystkich czterech Dróg,
+- specjalizacje i pasywne mistrzostwa,
+- wydawanie punktów, wymagania i trwały zapis progresji,
+- podłączenie gotowych mechanik klasowych bez przyznawania ich za darmo,
+- testy dostępności, resetu oraz zgodności zapisu i odczytu.
 
 ## Etap 4 — wyprawy i świat
 

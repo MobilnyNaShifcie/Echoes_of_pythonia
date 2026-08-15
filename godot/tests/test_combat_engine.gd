@@ -40,7 +40,7 @@ func test_healing_item_action_still_allows_the_enemy_turn() -> void:
 	var enemy = EnemyCatalogClass.create_enemy("prologue_scarecrow")
 	var combat := CombatEngineClass.new(player, enemy)
 
-	var report := combat.player_use_healing(20)
+	var report := combat.player_use_restoration(20, 0)
 
 	assert_eq(report.player_healed, 10)
 	assert_eq(report.enemy_damage, 1)

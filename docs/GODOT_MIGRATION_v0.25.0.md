@@ -107,6 +107,14 @@ The migrated flow is runnable in Godot:
 33. Persist unlocked Hunter techniques and discovered combinations in the
     validated Godot save schema v3 while safely migrating schema-v1 and
     schema-v2 Godot saves.
+34. Apply physical, fire, wind, frost, earth, and water resistance through one
+    clamped combat-domain model while preserving the terminal damage floor.
+35. Build Mage elemental sequences and Arcane Weave, including a validated
+    two-spell action with the original power, Mana, and turn-economy variants.
+36. Resolve Warrior shield blocking, Shield Bash, Provoke, block counters, and
+    defense-prepared retaliation through encounter-local combat state.
+37. Present live Warrior and Mage mechanics in compact placeholder panels and
+    persist their unlocked mechanic identifiers in validated save schema v4.
 
 The GDScript model also carries the legacy attribute formulas, level-zero
 experience threshold, four attribute points per level, and Pierrot-only Luck.
@@ -130,14 +138,15 @@ already have sources in the migrated world, and the inn performs paid full
 recovery with its daily cooldown. Final item art, shop animation, and audio
 remain outside this domain slice and continue to use placeholder presentation.
 
-Stages 3C and 3D are complete. Dice history, Fate Tokens, temporary dodge,
-mirror readiness, Hunter sequence, delayed effects, and explosive charges are
-intentionally encounter-local. Godot save schema v3 adds only durable Hunter
-progression: unlocked talent techniques and discovered named combinations.
-Talent-driven dice manipulation, the actual talent-tree purchase flow, passive
-Hunter masteries, and specializations remain assigned to stage 3F; affixes,
-item sets, and later regional equipment remain in the world-and-expeditions
-stage.
+Stages 3C, 3D, and 3E are complete. Dice history, Fate Tokens, temporary dodge,
+mirror readiness, Hunter sequence, delayed effects, explosive charges, Arcane
+Weave, elemental sequence, Provoke, block bonus, and retaliation readiness are
+intentionally encounter-local. Godot save schema v4 keeps durable Hunter
+progression and the unlocked class-mechanic identifiers needed by Warrior and
+Mage rules. Talent-driven dice manipulation, the actual talent-tree purchase
+flow, passive masteries, and specializations remain assigned to stage 3F;
+affixes, item sets, and later regional equipment remain in the
+world-and-expeditions stage.
 
 ## Add-on policy
 

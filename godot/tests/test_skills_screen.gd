@@ -16,14 +16,18 @@ func test_skill_catalog_screen_shows_unlock_state_and_details() -> void:
 	screen.configure(session)
 	add_child_autofree(screen)
 
-	assert_eq(screen.skill_list.item_count, 4)
-	assert_string_contains(screen.summary_label.text, "2/4")
+	assert_eq(screen.skill_list.item_count, 6)
+	assert_string_contains(screen.summary_label.text, "2/6")
 	assert_eq(screen.skill_name_label.text, "Potężne Cięcie")
 	assert_string_contains(screen.skill_status_label.text, "ODBLOKOWANA")
 	screen.skill_list.select(2)
 	screen.skill_list.item_selected.emit(2)
 	assert_eq(screen.skill_name_label.text, "Postawa Obronna")
 	assert_string_contains(screen.skill_status_label.text, "poziom 9")
+	screen.skill_list.select(4)
+	screen.skill_list.item_selected.emit(4)
+	assert_eq(screen.skill_name_label.text, "Uderzenie Tarczą")
+	assert_string_contains(screen.skill_status_label.text, "TALENTOWA")
 
 
 func test_skills_screen_explains_state_before_class_selection() -> void:
@@ -33,7 +37,7 @@ func test_skills_screen_explains_state_before_class_selection() -> void:
 	add_child_autofree(screen)
 
 	assert_eq(screen.path_selector.item_count, 4)
-	assert_eq(screen.skill_list.item_count, 4)
+	assert_eq(screen.skill_list.item_count, 6)
 	assert_eq(screen.skill_name_label.text, "Potężne Cięcie")
 	assert_string_contains(screen.skill_status_label.text, "PODGLĄD")
 	screen.path_selector.select(3)

@@ -7,6 +7,7 @@ const FateEngineClass := preload("res://core/combat/fate_engine.gd")
 const FateRollClass := preload("res://core/combat/fate_roll.gd")
 const HunterComboCatalogClass := preload("res://core/combat/hunter_combo_catalog.gd")
 const HunterComboDefinitionClass := preload("res://core/combat/hunter_combo_definition.gd")
+const MathClass := preload("res://core/math/legacy_math.gd")
 const PlayerEquipmentClass := preload("res://core/player/equipment.gd")
 const PlayerProfileClass := preload("res://core/player/player_profile.gd")
 const SkillCatalogClass := preload("res://core/skills/skill_catalog.gd")
@@ -26,6 +27,12 @@ var hunter_sequence: Array[String] = []
 var hunter_phantom_pending: Array[int] = []
 var hunter_rain_pending: Array[int] = []
 var hunter_explosive_charges := 0
+var warrior_retribution_ready := false
+var warrior_retribution_ratio := 0.50
+var warrior_provoke_ready := false
+var warrior_provoke_block_bonus := 0.0
+var mage_arcane_weave := 0
+var mage_element_sequence: Array[String] = []
 var result := ONGOING
 var rng: RandomNumberGenerator
 
@@ -49,10 +56,21 @@ func player_attack() -> Dictionary:
 	var report := _new_report()
 	var hunter_pending := _take_hunter_delayed_effects()
 	var armor_break_was_active := effects.enemy_defense_reduction_actions > 0
+	var attack_power := player.stats.attack
+	if warrior_retribution_ready:
+		var defense_power := maxi(
+			1, MathClass.python_roundi(player.stats.defense * warrior_retribution_ratio)
+		)
+		attack_power += defense_power
+		report.class_effect_notes.append(
+			"ODWET: DEF dodaje +%d siły do tego ataku." % defense_power
+		)
+	warrior_retribution_ready = false
+	warrior_retribution_ratio = 0.50
 	if rng.randf() < enemy.dodge / 100.0:
 		report.enemy_dodged = true
 	else:
-		var damage := maxi(1, player.stats.attack - effects.effective_enemy_defense(enemy.defense))
+		var damage := maxi(1, attack_power - effects.effective_enemy_defense(enemy.defense))
 		damage = enemy.reduce_physical_damage(damage)
 		report.player_damage = enemy.take_damage(damage)
 	if armor_break_was_active:
@@ -60,13 +78,16 @@ func player_attack() -> Dictionary:
 	report.turn_consumed = true
 	if not enemy.is_alive():
 		result = VICTORY
+		_update_class_reports(report)
 		return report
 	_resolve_hunter_delayed_effects(report, hunter_pending)
 	_update_hunter_report(report)
 	if not enemy.is_alive():
 		result = VICTORY
+		_update_class_reports(report)
 		return report
 	_enemy_turn(report)
+	_update_class_reports(report)
 	return report
 
 
@@ -82,7 +103,7 @@ func get_skill_use_error(skill_id: String) -> String:
 	elif error.is_empty() and player.level < skill.unlock_level:
 		error = "Umiejętność odblokowuje się na poziomie %d." % skill.unlock_level
 	elif error.is_empty() and not SkillCatalogClass.is_unlocked(player, skill):
-		error = "Technika wymaga odblokowania w drzewku talentów Łowcy."
+		error = "Umiejętność wymaga odblokowania w drzewku talentów."
 	elif error.is_empty() and not skill.is_combat_ready():
 		error = "Mechanika tej umiejętności nie została jeszcze przeniesiona."
 	elif error.is_empty():
@@ -119,13 +140,127 @@ func player_use_skill(skill_id: String) -> Dictionary:
 
 	if not enemy.is_alive():
 		result = VICTORY
+		_update_class_reports(report)
 		return report
 	_resolve_hunter_delayed_effects(report, hunter_pending)
 	_update_hunter_report(report)
 	if not enemy.is_alive():
 		result = VICTORY
+		_update_class_reports(report)
 		return report
 	_enemy_turn(report)
+	_update_class_reports(report)
+	return report
+
+
+func can_double_cast() -> bool:
+	return (
+		player.character_class_code == "mage"
+		and _has_class_mechanic("arcana_double_weave")
+		and mage_arcane_weave >= 3
+	)
+
+
+func get_double_cast_cost(first_skill_id: String, second_skill_id: String) -> int:
+	var first: SkillDefinitionClass = SkillCatalogClass.get_definition(first_skill_id)
+	var second: SkillDefinitionClass = SkillCatalogClass.get_definition(second_skill_id)
+	if first == null or second == null:
+		return 0
+	var second_cost := second.mana_cost
+	if _has_class_mechanic("arcana_efficiency"):
+		second_cost = maxi(1, MathClass.python_roundi(second_cost * 0.75))
+	return first.mana_cost + second_cost
+
+
+func get_skill_pair_error(first_skill_id: String, second_skill_id: String) -> String:
+	var error := ""
+	if result != ONGOING:
+		error = "Ta walka już się zakończyła."
+	elif not can_double_cast():
+		error = "Podwójny Splot nie jest jeszcze gotowy."
+	var first: SkillDefinitionClass = SkillCatalogClass.get_definition(first_skill_id)
+	var second: SkillDefinitionClass = SkillCatalogClass.get_definition(second_skill_id)
+	if error.is_empty() and (first == null or second == null):
+		error = "Podwójny Splot zawiera nieznane zaklęcie."
+	if error.is_empty():
+		error = get_skill_use_error(first_skill_id)
+	if error.is_empty():
+		error = get_skill_use_error(second_skill_id)
+	if (
+		error.is_empty()
+		and (
+			first.character_class_code != "mage"
+			or second.character_class_code != "mage"
+			or not first.is_offensive()
+			or not second.is_offensive()
+		)
+	):
+		error = "Podwójny Splot wymaga dwóch ofensywnych zaklęć Maga."
+	var total_cost := 0
+	if error.is_empty():
+		total_cost = get_double_cast_cost(first_skill_id, second_skill_id)
+	if error.is_empty() and not player.stats.can_spend_mana(total_cost):
+		error = (
+			"Brak Many na Podwójny Splot. Potrzeba %d, masz %d."
+			% [total_cost, player.stats.current_mana]
+		)
+	return error
+
+
+func player_use_skill_pair(first_skill_id: String, second_skill_id: String) -> Dictionary:
+	var report := _new_report()
+	var error := get_skill_pair_error(first_skill_id, second_skill_id)
+	if not error.is_empty():
+		report.error = error
+		return report
+	var first: SkillDefinitionClass = SkillCatalogClass.get_definition(first_skill_id)
+	var second: SkillDefinitionClass = SkillCatalogClass.get_definition(second_skill_id)
+	var total_cost := get_double_cast_cost(first_skill_id, second_skill_id)
+	player.stats.spend_mana(total_cost)
+	report.skill_id = "%s+%s" % [first.skill_id, second.skill_id]
+	report.skill_name = "%s + %s" % [first.display_name, second.display_name]
+	report.skill_mana_cost = total_cost
+	report.player_damage_type = first.damage_type
+	report.turn_consumed = true
+	report.mage_double_cast = true
+	report.class_effect_notes.append("PODWÓJNY SPLOT: dwa zaklęcia zostają rzucone w jednej turze.")
+	var armor_break_was_active := effects.enemy_defense_reduction_actions > 0
+	mage_arcane_weave = 0
+
+	var first_damage_before: int = report.skill_total_damage
+	_execute_standard_skill(first, report, 1.0, false)
+	report.skill_notes.append(
+		"%s: %d obrażeń." % [first.display_name, report.skill_total_damage - first_damage_before]
+	)
+	if enemy.is_alive():
+		var second_scale := 0.95 if _has_class_mechanic("arcana_perfect_weave") else 0.80
+		var second_damage_before: int = report.skill_total_damage
+		_execute_standard_skill(second, report, second_scale, false)
+		report.skill_notes.append(
+			(
+				"%s: %d obrażeń."
+				% [second.display_name, report.skill_total_damage - second_damage_before]
+			)
+		)
+		report.class_effect_notes.append(
+			(
+				"Drugie zaklęcie Splotu działa z %d%% mocy."
+				% MathClass.python_roundi(second_scale * 100.0)
+			)
+		)
+	if armor_break_was_active:
+		effects.consume_offensive_action()
+	if _has_class_mechanic("arcana_mana_cycle"):
+		var restored := player.stats.restore_mana(4)
+		if restored > 0:
+			report.player_mana_restored += restored
+			report.class_effect_notes.append("OBIEG MANY: odzyskujesz %d Many." % restored)
+	_update_class_reports(report)
+	if not enemy.is_alive():
+		result = VICTORY
+		return report
+	_enemy_turn(report)
+	_update_class_reports(report)
 	return report
 
 
@@ -135,7 +270,23 @@ func player_defend() -> Dictionary:
 	var report := _new_report()
 	report.player_defended = true
 	report.turn_consumed = true
+	var uses_shield := _equipped_type(PlayerEquipmentClass.OFF_HAND) == "shield"
+	if (
+		_has_class_mechanic("warrior_retribution")
+		or (uses_shield and _has_class_mechanic("heavy_knight_core"))
+	):
+		warrior_retribution_ready = true
+		warrior_retribution_ratio = (
+			0.75 if uses_shield and _has_class_mechanic("heavy_bastion") else 0.50
+		)
+		report.class_effect_notes.append(
+			(
+				"ODWET: następny podstawowy atak wykorzysta %d%% DEF jako dodatkową siłę."
+				% MathClass.python_roundi(warrior_retribution_ratio * 100.0)
+			)
+		)
 	_enemy_turn(report, true)
+	_update_class_reports(report)
 	return report
 
 
@@ -152,10 +303,6 @@ func player_flee() -> Dictionary:
 	return report
 
 
-func player_use_healing(heal_amount: int) -> Dictionary:
-	return player_use_restoration(heal_amount, 0)
-
-
 func player_use_restoration(heal_amount: int, mana_amount: int) -> Dictionary:
 	if result != ONGOING or (heal_amount <= 0 and mana_amount <= 0):
 		return {}
@@ -169,10 +316,7 @@ func player_use_restoration(heal_amount: int, mana_amount: int) -> Dictionary:
 
 func _get_skill_equipment_error(skill: SkillDefinitionClass) -> String:
 	if not skill.required_weapon_type.is_empty():
-		var weapon = player.equipment.get_item(PlayerEquipmentClass.WEAPON)
-		var equipped_weapon_type: String = (
-			weapon.definition.equipment_type if weapon != null and weapon.definition != null else ""
-		)
+		var equipped_weapon_type := _equipped_type(PlayerEquipmentClass.WEAPON)
 		if equipped_weapon_type != skill.required_weapon_type:
 			var weapon_names := {"bow": "Łuku", "staff": "Kostura", "fate_lance": "Lancy Losu"}
 			return (
@@ -180,12 +324,7 @@ func _get_skill_equipment_error(skill: SkillDefinitionClass) -> String:
 				% weapon_names.get(skill.required_weapon_type, skill.required_weapon_type)
 			)
 	if not skill.required_offhand_type.is_empty():
-		var offhand = player.equipment.get_item(PlayerEquipmentClass.OFF_HAND)
-		var equipped_offhand_type: String = (
-			offhand.definition.equipment_type
-			if offhand != null and offhand.definition != null
-			else ""
-		)
+		var equipped_offhand_type := _equipped_type(PlayerEquipmentClass.OFF_HAND)
 		if equipped_offhand_type != skill.required_offhand_type:
 			var offhand_names := {"shield": "Tarczy", "quiver": "Kołczanu", "artifact": "Artefaktu"}
 			return (
@@ -195,12 +334,19 @@ func _get_skill_equipment_error(skill: SkillDefinitionClass) -> String:
 	return ""
 
 
-func _resolve_skill_hits(skill: SkillDefinitionClass, report: Dictionary) -> void:
+func _equipped_type(slot: String) -> String:
+	var item = player.equipment.get_item(slot)
+	return item.definition.equipment_type if item != null and item.definition != null else ""
+
+
+func _resolve_skill_hits(
+	skill: SkillDefinitionClass, report: Dictionary, power_scale := 1.0
+) -> void:
 	var power := _skill_power(skill)
 	for hit_index in skill.hits:
 		if not enemy.is_alive():
 			break
-		var hit := _resolve_player_skill_hit(skill, power)
+		var hit := _resolve_player_skill_hit(skill, power, power_scale)
 		report.player_hit_damages.append(hit.damage)
 		report.player_hit_dodges.append(hit.dodged)
 		report.skill_total_damage += hit.damage
@@ -216,7 +362,12 @@ func _resolve_skill_hits(skill: SkillDefinitionClass, report: Dictionary) -> voi
 			report.skill_notes.append(note)
 
 
-func _execute_standard_skill(skill: SkillDefinitionClass, report: Dictionary) -> void:
+func _execute_standard_skill(
+	skill: SkillDefinitionClass,
+	report: Dictionary,
+	power_scale := 1.0,
+	build_weave := true,
+) -> void:
 	if skill.effect == "delayed_rain":
 		hunter_rain_pending.append(_skill_power(skill))
 		report.skill_notes.append(
@@ -224,27 +375,90 @@ func _execute_standard_skill(skill: SkillDefinitionClass, report: Dictionary) ->
 		)
 		_record_hunter_technique(skill, report)
 		return
-	_resolve_skill_hits(skill, report)
+	var final_power_scale := _record_mage_element(skill, report, power_scale)
+	_resolve_skill_hits(skill, report, final_power_scale)
 	_resolve_hunter_skill_effect(skill, report)
 	_apply_skill_effect(skill, report)
 	_record_hunter_technique(skill, report)
+	if build_weave and player.character_class_code == "mage" and _has_class_mechanic("arcana_core"):
+		mage_arcane_weave = mini(3, mage_arcane_weave + 1)
+		report.class_effect_notes.append("SPLOT MAGII: %d/3." % mage_arcane_weave)
+	_update_mage_report(report)
 
 
-func _resolve_player_skill_hit(skill: SkillDefinitionClass, power: int) -> Dictionary:
+func _resolve_player_skill_hit(
+	skill: SkillDefinitionClass, power: int, power_scale := 1.0
+) -> Dictionary:
 	if not skill.guaranteed_hit and rng.randf() < enemy.dodge / 100.0:
 		return {"damage": 0, "dodged": true}
-	var attack_value := maxi(1, _python_roundi(power * skill.multiplier))
+	var attack_value := maxi(1, MathClass.python_roundi(power * skill.multiplier * power_scale))
 	var enemy_defense := effects.effective_enemy_defense(enemy.defense)
 	if skill.special_armor_penetration > 0.0:
 		var remaining_defense := 1.0 - clampf(skill.special_armor_penetration, 0.0, 90.0) / 100.0
-		enemy_defense = maxi(0, _python_roundi(enemy_defense * remaining_defense))
+		enemy_defense = maxi(0, MathClass.python_roundi(enemy_defense * remaining_defense))
 	var magical := skill.scaling == "magic"
 	if magical:
 		enemy_defense = int(enemy_defense / 2.0)
 	var damage := maxi(1, attack_value - enemy_defense)
-	if skill.damage_type == "physical" and not magical:
+	if skill.damage_type != "physical":
+		damage = enemy.elemental_resistances.reduce_damage(damage, skill.damage_type)
+	elif not magical:
 		damage = enemy.reduce_physical_damage(damage)
 	return {"damage": enemy.take_damage(damage), "dodged": false}
+
+
+func _record_mage_element(
+	skill: SkillDefinitionClass, report: Dictionary, power_scale: float
+) -> float:
+	if player.character_class_code != "mage" or skill.damage_type not in ["fire", "frost", "wind"]:
+		return power_scale
+	var candidate: Array[String] = []
+	candidate.assign(mage_element_sequence.slice(-2))
+	candidate.append(skill.damage_type)
+	if (
+		_has_class_mechanic("mage_elemental_cycle")
+		and candidate.size() == 3
+		and _unique_string_count(candidate) == 3
+	):
+		report.class_effect_notes.append("CYKL ŻYWIOŁÓW: trzeci różny żywioł zyskuje +20% obrażeń.")
+		mage_element_sequence.clear()
+		return power_scale * 1.20
+	mage_element_sequence.append(skill.damage_type)
+	if mage_element_sequence.size() > 2:
+		mage_element_sequence.pop_front()
+	return power_scale
+
+
+func _unique_string_count(values: Array[String]) -> int:
+	var unique := {}
+	for value: String in values:
+		unique[value] = true
+	return unique.size()
+
+
+func _update_mage_report(report: Dictionary) -> void:
+	report.mage_arcane_weave = mage_arcane_weave
+	report.mage_element_sequence.assign(mage_element_sequence)
+	report.mage_double_weave_ready = can_double_cast()
+
+
+func _has_class_mechanic(mechanic_id: String) -> bool:
+	return mechanic_id in player.unlocked_class_mechanic_ids
+
+
+func _update_warrior_report(report: Dictionary) -> void:
+	report.warrior_retribution_ready = warrior_retribution_ready
+	report.warrior_retribution_ratio = warrior_retribution_ratio
+	report.warrior_block_chance = warrior_block_chance()
+	report.warrior_guard_percent = effects.player_guard_percent
+	report.warrior_guard_hits = effects.player_guard_hits
+
+
+func _update_class_reports(report: Dictionary) -> void:
+	_update_warrior_report(report)
+	_update_mage_report(report)
+	_update_hunter_report(report)
+	_update_fate_report(report)
 
 
 func _resolve_hunter_skill_effect(skill: SkillDefinitionClass, report: Dictionary) -> void:
@@ -276,13 +490,15 @@ func _resolve_hunter_skill_effect(skill: SkillDefinitionClass, report: Dictionar
 func _resolve_hunter_guaranteed_hit(
 	power: int, multiplier: float, damage_type: String, armor_penetration := 0.0
 ) -> int:
-	var attack_value := maxi(1, _python_roundi(power * multiplier))
+	var attack_value := maxi(1, MathClass.python_roundi(power * multiplier))
 	var enemy_defense := effects.effective_enemy_defense(enemy.defense)
 	if armor_penetration > 0.0:
 		var remaining_defense := 1.0 - clampf(armor_penetration, 0.0, 90.0) / 100.0
-		enemy_defense = maxi(0, _python_roundi(enemy_defense * remaining_defense))
+		enemy_defense = maxi(0, MathClass.python_roundi(enemy_defense * remaining_defense))
 	var damage := maxi(1, attack_value - enemy_defense)
-	if damage_type == "physical":
+	if damage_type != "physical":
+		damage = enemy.elemental_resistances.reduce_damage(damage, damage_type)
+	else:
 		damage = enemy.reduce_physical_damage(damage)
 	return enemy.take_damage(damage)
 
@@ -394,7 +610,9 @@ func _skill_power(skill: SkillDefinitionClass) -> int:
 				4 + player.attributes.intelligence * 2 + player.stats.magic_power,
 			)
 		"shield":
-			return maxi(1, player.stats.attack + _python_roundi(player.stats.defense * 0.6))
+			return maxi(
+				1, player.stats.attack + MathClass.python_roundi(player.stats.defense * 0.6)
+			)
 		"fate":
 			return maxi(1, player.stats.attack + int(player.attributes.luck / 2.0))
 	return 0
@@ -529,7 +747,7 @@ func _resolve_grand_gamble(roll: FateRollClass, report: Dictionary) -> void:
 
 
 func _resolve_fate_damage(multiplier: float, hits: int, report: Dictionary) -> void:
-	var attack_value := maxi(1, _python_roundi(_fate_power() * multiplier))
+	var attack_value := maxi(1, MathClass.python_roundi(_fate_power() * multiplier))
 	for _hit_index in hits:
 		if not enemy.is_alive():
 			break
@@ -616,26 +834,44 @@ func _apply_skill_effect(skill: SkillDefinitionClass, report: Dictionary) -> voi
 					% [skill.effect_value, skill.effect_duration]
 				)
 			)
+		"provoke":
+			warrior_provoke_ready = true
+			warrior_provoke_block_bonus = float(skill.effect_value)
+			report.skill_notes.append(
+				(
+					"PROWOKACJA: przeciwnik odpowie zwykłym atakiem; "
+					+ "+%d p.p. Bloku na tę wymianę." % skill.effect_value
+				)
+			)
 
 
 func _enemy_turn(report: Dictionary, defending := false) -> void:
 	report.enemy_acted = true
 	var attack_value := enemy.attack
+	var damage_type := enemy.basic_damage_type
+	var provoked := warrior_provoke_ready
+	warrior_provoke_ready = false
 	if enemy.attacks_made == 0:
 		attack_value += enemy.first_attack_bonus
-	if not enemy.special_name.is_empty() and rng.randf() < enemy.special_chance:
+	if not provoked and not enemy.special_name.is_empty() and rng.randf() < enemy.special_chance:
 		attack_value += enemy.special_attack_bonus
 		report.enemy_special_name = enemy.special_name
+		if not enemy.special_damage_type.is_empty():
+			damage_type = enemy.special_damage_type
+	report.enemy_damage_type = damage_type
 	enemy.attacks_made += 1
-	report.enemy_damage = _resolve_enemy_hit(attack_value, defending, report, false)
+	report.enemy_damage = _resolve_enemy_hit(attack_value, damage_type, defending, report, false)
+	warrior_provoke_block_bonus = 0.0
 	if not enemy.is_alive():
 		result = VICTORY
 		return
 	if not player.stats.is_alive():
 		result = DEFEAT
 		return
-	if enemy.extra_attack_chance > 0.0 and rng.randf() < enemy.extra_attack_chance:
-		report.enemy_extra_damage = _resolve_enemy_hit(enemy.attack, false, report, true)
+	if not provoked and enemy.extra_attack_chance > 0.0 and rng.randf() < enemy.extra_attack_chance:
+		report.enemy_extra_damage = _resolve_enemy_hit(
+			enemy.attack, enemy.basic_damage_type, false, report, true
+		)
 		if not enemy.is_alive():
 			result = VICTORY
 			return
@@ -653,7 +889,11 @@ func _enemy_turn(report: Dictionary, defending := false) -> void:
 
 
 func _resolve_enemy_hit(
-	attack_value: int, defending: bool, report: Dictionary, is_extra_hit: bool
+	attack_value: int,
+	damage_type: String,
+	defending: bool,
+	report: Dictionary,
+	is_extra_hit: bool,
 ) -> int:
 	var dodge_chance := player.stats.dodge + effects.current_dodge_bonus()
 	var dodged := rng.randf() < dodge_chance / 100.0
@@ -663,7 +903,20 @@ func _resolve_enemy_hit(
 			report.player_dodged = true
 		effects.consume_guard_hit()
 		return 0
+	var block_chance := warrior_block_chance()
+	if block_chance > 0.0 and rng.randf() < block_chance / 100.0:
+		report.shield_blocked = true
+		report.class_effect_notes.append("BLOK TARCZĄ! (%.0f%% szansy)" % block_chance)
+		effects.consume_guard_hit()
+		if _has_class_mechanic("heavy_counter") and enemy.is_alive():
+			var counter := maxi(1, MathClass.python_roundi(player.stats.defense * 0.70))
+			report.warrior_counter_damage += enemy.take_damage(counter)
+			report.class_effect_notes.append(
+				"ŻELAZNA KONTRA: przeciwnik otrzymuje %d obrażeń." % report.warrior_counter_damage
+			)
+		return 0
 	var damage := maxi(1, attack_value - player.stats.defense)
+	damage = player.stats.elemental_resistances.reduce_damage(damage, damage_type)
 	if defending:
 		damage = int(damage / 2.0)
 	damage = effects.reduce_damage_by_guard(damage)
@@ -677,14 +930,13 @@ func _resolve_enemy_hit(
 	return player.stats.take_damage(damage)
 
 
-func _python_roundi(value: float) -> int:
-	var lower := floori(value)
-	var fraction := value - lower
-	if fraction < 0.5 and not is_equal_approx(fraction, 0.5):
-		return lower
-	if fraction > 0.5 and not is_equal_approx(fraction, 0.5):
-		return lower + 1
-	return lower if lower % 2 == 0 else lower + 1
+func warrior_block_chance() -> float:
+	if (
+		player.character_class_code != "warrior"
+		or _equipped_type(PlayerEquipmentClass.OFF_HAND) != "shield"
+	):
+		return 0.0
+	return minf(75.0, 5.0 + warrior_provoke_block_bonus)
 
 
 func _new_report() -> Dictionary:
@@ -698,6 +950,7 @@ func _new_report() -> Dictionary:
 		"skill_mana_cost": 0,
 		"skill_total_damage": 0,
 		"skill_notes": [],
+		"class_effect_notes": [],
 		"fate_dice": [],
 		"fate_total": 0,
 		"fate_outcome": "",
@@ -715,6 +968,17 @@ func _new_report() -> Dictionary:
 		"hunter_explosive_charges": hunter_explosive_charges,
 		"hunter_pending_echoes": hunter_phantom_pending.size(),
 		"hunter_pending_rain": hunter_rain_pending.size(),
+		"warrior_retribution_ready": warrior_retribution_ready,
+		"warrior_retribution_ratio": warrior_retribution_ratio,
+		"warrior_block_chance": warrior_block_chance(),
+		"warrior_guard_percent": effects.player_guard_percent,
+		"warrior_guard_hits": effects.player_guard_hits,
+		"warrior_counter_damage": 0,
+		"shield_blocked": false,
+		"mage_arcane_weave": mage_arcane_weave,
+		"mage_element_sequence": mage_element_sequence.duplicate(),
+		"mage_double_weave_ready": can_double_cast(),
+		"mage_double_cast": false,
 		"player_healed": 0,
 		"player_mana_restored": 0,
 		"player_regenerated": 0,
@@ -726,6 +990,7 @@ func _new_report() -> Dictionary:
 		"player_defended": false,
 		"flee_failed": false,
 		"enemy_special_name": "",
+		"enemy_damage_type": "physical",
 		"enemy_acted": false,
 		"turn_consumed": false,
 		"error": "",

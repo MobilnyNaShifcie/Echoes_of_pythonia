@@ -4,6 +4,9 @@ extends Control
 signal back_requested
 
 const GameSessionClass := preload("res://core/game/game_session.gd")
+const ClassCombatMechanicCatalogClass := preload(
+	"res://core/combat/class_combat_mechanic_catalog.gd"
+)
 const HunterComboCatalogClass := preload("res://core/combat/hunter_combo_catalog.gd")
 const PlayerClassCatalogClass := preload("res://core/player/player_class_catalog.gd")
 const SkillCatalogClass := preload("res://core/skills/skill_catalog.gd")
@@ -99,6 +102,25 @@ func _render() -> void:
 					HunterComboCatalogClass.COMBO_ORDER.size(),
 				]
 			)
+		elif _preview_class_code in ["warrior", "mage"]:
+			var mechanics = ClassCombatMechanicCatalogClass.get_for_class(_preview_class_code)
+			var unlocked_mechanics := 0
+			for mechanic in mechanics:
+				if mechanic.mechanic_id in player.unlocked_class_mechanic_ids:
+					unlocked_mechanics += 1
+			var system_name := (
+				"Stany i tarcza" if _preview_class_code == "warrior" else "Żywioły i Splot"
+			)
+			summary_label.text = (
+				"Odblokowane: %d/%d  •  %s  •  Mechaniki talentowe: %d/%d"
+				% [
+					unlocked_count,
+					skills.size(),
+					system_name,
+					unlocked_mechanics,
+					mechanics.size(),
+				]
+			)
 		else:
 			summary_label.text = (
 				"Odblokowane umiejętności: %d/%d. Kolejne zdolności pojawiają się wraz z poziomem."
@@ -133,7 +155,7 @@ func _show_skill_details(index: int) -> void:
 		skill_status_label.text = "ZABLOKOWANA — wymagany poziom %d" % skill.unlock_level
 		skill_status_label.modulate = Color(0.62, 0.68, 0.76)
 	elif skill.unlock_source == "talent" and not SkillCatalogClass.is_unlocked(player, skill):
-		skill_status_label.text = "TECHNIKA — wymaga odblokowania w drzewku talentów Łowcy (etap 3F)"
+		skill_status_label.text = ("UMIEJĘTNOŚĆ TALENTOWA — wymaga odblokowania w drzewku (etap 3F)")
 		skill_status_label.modulate = Color(0.88, 0.68, 0.38)
 	else:
 		skill_status_label.text = "ODBLOKOWANA — dostępna w panelu akcji podczas walki"
@@ -163,7 +185,17 @@ func _requirements_text(skill: SkillDefinitionClass) -> String:
 			"Broń: %s" % weapon_names.get(skill.required_weapon_type, skill.required_weapon_type)
 		)
 	if not skill.required_offhand_type.is_empty():
-		requirements.append("Druga ręka: %s" % skill.required_offhand_type)
+		var offhand_names := {
+			"shield": "Tarcza",
+			"quiver": "Kołczan",
+			"artifact": "Artefakt",
+		}
+		requirements.append(
+			(
+				"Druga ręka: %s"
+				% offhand_names.get(skill.required_offhand_type, skill.required_offhand_type)
+			)
+		)
 	if skill.hits > 1:
 		requirements.append("Trafienia: %d" % skill.hits)
 	if not skill.hunter_technique.is_empty():
@@ -172,6 +204,8 @@ func _requirements_text(skill: SkillDefinitionClass) -> String:
 		)
 	if skill.special_armor_penetration > 0.0:
 		requirements.append("Przebicie pancerza: %.0f%%" % skill.special_armor_penetration)
+	if not skill.required_talent_id.is_empty():
+		requirements.append("Źródło: drzewko talentów")
 	if requirements.is_empty():
 		return "Wymagania: brak dodatkowych wymagań sprzętowych."
 	return "Wymagania: %s." % "  •  ".join(requirements)

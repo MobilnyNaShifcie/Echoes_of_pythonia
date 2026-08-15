@@ -24,11 +24,13 @@ equivalent, tested GDScript implementation.
 - `ui/` — reusable controls, themes, and presentation logic
 
 The current playable migration includes stages 0–2 and character progression
-stages 3A–3D. All sixteen base Path skills are active. Pierrot uses a dedicated
+stages 3A–3E. All sixteen base Path skills are active. Pierrot uses a dedicated
 Fate Engine with encounter-local Fate Tokens and exact 1d6/2d6/3d6 tables.
-Hunter now has the six additional terminal Volley Techniques, all six named
-three-shot combinations, delayed Echo and Rain effects, Explosive Charges, and
-an adaptive placeholder status panel. Final presentation remains a later step.
+Hunter has all additional Volley Techniques and named combinations. Mage has
+elemental sequences and Arcane Weave, while Warrior has shield blocking,
+Provoke, Shield Bash, counters, and retaliation. Their compact combat panels
+remain placeholders; talent-tree acquisition and final presentation are later
+steps.
 
 Open the project with the pinned local editor from the repository root:
 

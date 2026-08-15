@@ -145,7 +145,7 @@ func test_corrupt_and_future_saves_are_rejected_without_loading_a_session() -> v
 
 func test_save_uses_a_dedicated_godot_directory() -> void:
 	assert_eq(SaveGameServiceClass.DEFAULT_SAVE_ROOT, "user://godot_migration_saves")
-	assert_eq(SaveGameServiceClass.SCHEMA_VERSION, 3)
+	assert_eq(SaveGameServiceClass.SCHEMA_VERSION, 4)
 
 
 func test_round_trip_preserves_hunter_techniques_and_discovered_combos() -> void:
@@ -188,6 +188,7 @@ func test_schema_two_save_migrates_with_empty_hunter_progression() -> void:
 
 	assert_true(result.ok, result.message)
 	assert_true(result.session.player.unlocked_talent_skill_ids.is_empty())
+	assert_true(result.session.player.unlocked_class_mechanic_ids.is_empty())
 	assert_true(result.session.player.discovered_hunter_combos.is_empty())
 
 
@@ -200,7 +201,50 @@ func test_save_rejects_hunter_progression_on_another_class() -> void:
 	var result := _service.save_session(session)
 
 	assert_false(result.ok)
-	assert_string_contains(result.message, "niedozwoloną technikę Łowcy")
+	assert_string_contains(result.message, "niedozwoloną umiejętność talentową")
+
+
+func test_round_trip_preserves_warrior_skills_and_class_mechanics() -> void:
+	var session = NewGameServiceClass.new().create_session("Aria", 1)
+	session.player.level = 5
+	assert_true(session.player.choose_class("warrior"))
+	session.player.unlocked_talent_skill_ids.assign(["shield_bash", "provoke"])
+	session.player.unlocked_class_mechanic_ids.assign(
+		["heavy_knight_core", "heavy_counter", "heavy_bastion"]
+	)
+
+	var save_result := _service.save_session(session)
+	var load_result := _service.load_session(1)
+
+	assert_true(save_result.ok, save_result.message)
+	assert_true(load_result.ok, load_result.message)
+	assert_eq(
+		load_result.session.player.unlocked_talent_skill_ids,
+		["shield_bash", "provoke"],
+	)
+	assert_eq(
+		load_result.session.player.unlocked_class_mechanic_ids,
+		["heavy_knight_core", "heavy_counter", "heavy_bastion"],
+	)
+
+
+func test_schema_three_save_migrates_with_empty_class_mechanics() -> void:
+	var session = NewGameServiceClass.new().create_session("Aria", 1)
+	assert_true(_service.save_session(session).ok)
+	var slot_path := "%s/save_1.json" % _save_root
+	var file := FileAccess.open(slot_path, FileAccess.READ)
+	var payload: Dictionary = JSON.parse_string(file.get_as_text())
+	file.close()
+	payload.schema_version = 3
+	payload.session.player.erase("unlocked_class_mechanic_ids")
+	file = FileAccess.open(slot_path, FileAccess.WRITE)
+	file.store_string(JSON.stringify(payload))
+	file.close()
+
+	var result := _service.load_session(1)
+
+	assert_true(result.ok, result.message)
+	assert_true(result.session.player.unlocked_class_mechanic_ids.is_empty())
 
 
 func test_schema_one_save_migrates_with_safe_economy_defaults() -> void:

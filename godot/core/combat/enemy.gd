@@ -1,6 +1,8 @@
 class_name CombatEnemy
 extends RefCounted
 
+const ElementalResistancesClass := preload("res://core/combat/elemental_resistances.gd")
+
 var enemy_id := ""
 var display_name := ""
 var max_hp := 0
@@ -18,6 +20,9 @@ var special_attack_bonus := 0
 var extra_attack_chance := 0.0
 var first_attack_bonus := 0
 var physical_damage_reduction := 0
+var basic_damage_type := "physical"
+var special_damage_type := ""
+var elemental_resistances := ElementalResistancesClass.new()
 var attacks_made := 0
 
 
@@ -39,6 +44,9 @@ func _init(data: Dictionary) -> void:
 	extra_attack_chance = data.get("extra_attack_chance", 0.0)
 	first_attack_bonus = data.get("first_attack_bonus", 0)
 	physical_damage_reduction = data.get("physical_damage_reduction", 0)
+	basic_damage_type = str(data.get("basic_damage_type", "physical"))
+	special_damage_type = str(data.get("special_damage_type", ""))
+	elemental_resistances = ElementalResistancesClass.new(data.get("elemental_resistances", {}))
 
 
 func is_alive() -> bool:

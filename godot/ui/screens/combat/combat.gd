@@ -5,6 +5,7 @@ signal finished(context: String, result: String)
 
 const AdventureServiceClass := preload("res://core/world/adventure_service.gd")
 const CombatEngineClass := preload("res://core/combat/combat_engine.gd")
+const ElementalResistancesClass := preload("res://core/combat/elemental_resistances.gd")
 const EnemyCatalogClass := preload("res://core/combat/enemy_catalog.gd")
 const GameSessionClass := preload("res://core/game/game_session.gd")
 const HunterComboCatalogClass := preload("res://core/combat/hunter_combo_catalog.gd")
@@ -33,6 +34,14 @@ var _last_hunter_combo := ""
 @onready var hunter_sequence_label: Label = %HunterSequenceLabel
 @onready var hunter_resources_label: Label = %HunterResourcesLabel
 @onready var hunter_combo_label: Label = %HunterComboLabel
+@onready var warrior_panel: PanelContainer = %WarriorPanel
+@onready var warrior_defense_label: Label = %WarriorDefenseLabel
+@onready var warrior_offense_label: Label = %WarriorOffenseLabel
+@onready var warrior_retribution_label: Label = %WarriorRetributionLabel
+@onready var mage_panel: PanelContainer = %MagePanel
+@onready var mage_elements_label: Label = %MageElementsLabel
+@onready var mage_weave_label: Label = %MageWeaveLabel
+@onready var mage_ready_label: Label = %MageReadyLabel
 @onready var player_name_label: Label = %PlayerNameLabel
 @onready var player_stats_label: Label = %PlayerStatsLabel
 @onready var player_hp_bar: ProgressBar = %PlayerHpBar
@@ -44,6 +53,9 @@ var _last_hunter_combo := ""
 @onready var defend_button: Button = %DefendButton
 @onready var skill_selector: OptionButton = %SkillSelector
 @onready var skill_button: Button = %SkillButton
+@onready var weave_row: HBoxContainer = %WeaveRow
+@onready var second_spell_selector: OptionButton = %SecondSpellSelector
+@onready var double_weave_button: Button = %DoubleWeaveButton
 @onready var consumable_selector: OptionButton = %ConsumableSelector
 @onready var potion_button: Button = %PotionButton
 @onready var flee_button: Button = %FleeButton
@@ -57,6 +69,8 @@ func _ready() -> void:
 	defend_button.pressed.connect(_defend)
 	skill_selector.item_selected.connect(_on_skill_selected)
 	skill_button.pressed.connect(_use_skill)
+	second_spell_selector.item_selected.connect(_on_second_spell_selected)
+	double_weave_button.pressed.connect(_use_double_weave)
 	consumable_selector.item_selected.connect(_on_consumable_selected)
 	potion_button.pressed.connect(_use_potion)
 	flee_button.pressed.connect(_flee)
@@ -101,8 +115,29 @@ func _use_skill() -> void:
 	)
 
 
+func _use_double_weave() -> void:
+	if skill_selector.item_count == 0 or second_spell_selector.item_count == 0:
+		_append_log("Podwójny Splot wymaga dwóch zaklęć Maga.")
+		return
+	var first_skill_id := str(skill_selector.get_item_metadata(skill_selector.selected))
+	var second_skill_id := str(
+		second_spell_selector.get_item_metadata(second_spell_selector.selected)
+	)
+	var first = SkillCatalogClass.get_definition(first_skill_id)
+	var second = SkillCatalogClass.get_definition(second_skill_id)
+	_resolve_turn(
+		_engine.player_use_skill_pair(first_skill_id, second_skill_id),
+		"Splatasz zaklęcia: %s + %s." % [first.display_name, second.display_name],
+	)
+
+
 func _on_skill_selected(_index: int) -> void:
 	_render_skill_action()
+	_render_double_weave_action()
+
+
+func _on_second_spell_selected(_index: int) -> void:
+	_render_double_weave_action()
 
 
 func _use_potion() -> void:
@@ -154,8 +189,15 @@ func _resolve_turn(report: Dictionary, action_text: String) -> void:
 	if report.get("enemy_dodged", false):
 		_append_log("Przeciwnik unika ciosu.")
 	elif report.get("player_damage", 0) > 0:
-		_append_log("Zadajesz %d obrażeń." % report.player_damage)
+		_append_log(
+			(
+				"Zadajesz %d obrażeń%s."
+				% [report.player_damage, _damage_type_suffix(str(report.player_damage_type))]
+			)
+		)
 	for note: String in report.get("skill_notes", []):
+		_append_log(note)
+	for note: String in report.get("class_effect_notes", []):
 		_append_log(note)
 	if report.get("player_healed", 0) > 0:
 		_append_log("Odzyskujesz %d PŻ." % report.player_healed)
@@ -169,7 +211,12 @@ func _resolve_turn(report: Dictionary, action_text: String) -> void:
 		if report.get("player_dodged", false):
 			_append_log("Unikasz ataku przeciwnika.")
 		elif report.get("enemy_damage", 0) > 0:
-			_append_log("Otrzymujesz %d obrażeń." % report.enemy_damage)
+			_append_log(
+				(
+					"Otrzymujesz %d obrażeń%s."
+					% [report.enemy_damage, _damage_type_suffix(str(report.enemy_damage_type))]
+				)
+			)
 		else:
 			_append_log("Atak przeciwnika nie zadaje obrażeń.")
 		if report.get("enemy_extra_damage", 0) > 0:
@@ -188,6 +235,12 @@ func _resolve_turn(report: Dictionary, action_text: String) -> void:
 	_render()
 	if _engine.result != CombatEngineClass.ONGOING:
 		_finish_battle()
+
+
+func _damage_type_suffix(damage_type: String) -> String:
+	if damage_type == "physical":
+		return ""
+	return " [%s]" % ElementalResistancesClass.display_name(damage_type)
 
 
 func _finish_battle() -> void:
@@ -282,8 +335,12 @@ func _render() -> void:
 	flee_button.visible = _context != "prologue"
 	_render_fate_panel()
 	_render_hunter_panel()
+	_render_warrior_panel()
+	_render_mage_panel()
 	_refresh_skill_selector()
 	_render_skill_action()
+	_refresh_second_spell_selector()
+	_render_double_weave_action()
 	_refresh_consumable_selector()
 	_render_consumable_action()
 
@@ -338,11 +395,66 @@ func _render_hunter_panel() -> void:
 	)
 
 
+func _render_warrior_panel() -> void:
+	var is_warrior := _session.player.character_class_code == "warrior"
+	warrior_panel.visible = is_warrior
+	if not is_warrior:
+		return
+	var guard := "—"
+	if _engine.effects.player_guard_hits > 0:
+		guard = (
+			"%d%% ×%d" % [_engine.effects.player_guard_percent, _engine.effects.player_guard_hits]
+		)
+	warrior_defense_label.text = (
+		"BLOK %.0f%%  •  GARDA %s" % [_engine.warrior_block_chance(), guard]
+	)
+	var armor_break := "—"
+	if _engine.effects.enemy_defense_reduction_actions > 0:
+		armor_break = (
+			"-%d ×%d"
+			% [
+				_engine.effects.enemy_defense_reduction,
+				_engine.effects.enemy_defense_reduction_actions,
+			]
+		)
+	var bleed := "—"
+	if _engine.effects.enemy_bleed_turns > 0:
+		bleed = "%d ×%d" % [_engine.effects.enemy_bleed_damage, _engine.effects.enemy_bleed_turns]
+	warrior_offense_label.text = "PANCERZ %s  •  KRWAWIENIE %s" % [armor_break, bleed]
+	warrior_retribution_label.text = (
+		"ODWET %.0f%% DEF" % (_engine.warrior_retribution_ratio * 100.0)
+		if _engine.warrior_retribution_ready
+		else "ODWET —"
+	)
+
+
+func _render_mage_panel() -> void:
+	var is_mage := _session.player.character_class_code == "mage"
+	mage_panel.visible = is_mage
+	if not is_mage:
+		return
+	var elements: Array[String] = []
+	for damage_type: String in _engine.mage_element_sequence:
+		elements.append(ElementalResistancesClass.display_name(damage_type))
+	mage_elements_label.text = (
+		"ŻYWIOŁY —" if elements.is_empty() else "ŻYWIOŁY " + " → ".join(elements)
+	)
+	var has_arcana := "arcana_core" in _session.player.unlocked_class_mechanic_ids
+	mage_weave_label.text = ("SPLOT %d/3" % _engine.mage_arcane_weave if has_arcana else "SPLOT —")
+	if _engine.can_double_cast():
+		mage_ready_label.text = "PODWÓJNY SPLOT GOTOWY"
+	elif has_arcana and "arcana_double_weave" in _session.player.unlocked_class_mechanic_ids:
+		mage_ready_label.text = "SPLOT SIĘ ŁADUJE"
+	else:
+		mage_ready_label.text = "ARKANA — TALENT 3F"
+
+
 func _set_actions_enabled(enabled: bool) -> void:
 	_battle_actions_enabled = enabled
 	attack_button.disabled = not enabled
 	defend_button.disabled = not enabled
 	_render_skill_action()
+	_render_double_weave_action()
 	potion_button.disabled = not enabled or consumable_selector.item_count == 0
 	flee_button.disabled = not enabled
 
@@ -382,6 +494,51 @@ func _render_skill_action() -> void:
 	skill_button.text = "Użyj umiejętności"
 	skill_button.tooltip_text = skill.description if error.is_empty() else error
 	skill_button.disabled = not _battle_actions_enabled or not error.is_empty()
+
+
+func _refresh_second_spell_selector() -> void:
+	var is_mage := _session.player.character_class_code == "mage"
+	weave_row.visible = is_mage
+	if not is_mage:
+		second_spell_selector.clear()
+		return
+	var previous_id := ""
+	if second_spell_selector.item_count > 0:
+		previous_id = str(second_spell_selector.get_item_metadata(second_spell_selector.selected))
+	second_spell_selector.clear()
+	var selected_index := 0
+	for skill in SkillCatalogClass.get_combat_ready_skills(_session.player):
+		if not skill.is_offensive():
+			continue
+		second_spell_selector.add_item("II: %s" % skill.display_name)
+		var index := second_spell_selector.item_count - 1
+		second_spell_selector.set_item_metadata(index, skill.skill_id)
+		if skill.skill_id == previous_id:
+			selected_index = index
+	if second_spell_selector.item_count > 0:
+		second_spell_selector.select(selected_index)
+
+
+func _render_double_weave_action() -> void:
+	if _session == null or _engine == null:
+		return
+	if _session.player.character_class_code != "mage":
+		weave_row.visible = false
+		return
+	weave_row.visible = true
+	if skill_selector.item_count == 0 or second_spell_selector.item_count == 0:
+		double_weave_button.text = "Brak zaklęć"
+		double_weave_button.disabled = true
+		return
+	var first_id := str(skill_selector.get_item_metadata(skill_selector.selected))
+	var second_id := str(second_spell_selector.get_item_metadata(second_spell_selector.selected))
+	var error := _engine.get_skill_pair_error(first_id, second_id)
+	var total_cost := _engine.get_double_cast_cost(first_id, second_id)
+	double_weave_button.text = "Podwójny Splot (%d)" % total_cost
+	double_weave_button.tooltip_text = (
+		"Rzuć dwa zaklęcia, potem przeciwnik otrzyma jedną turę." if error.is_empty() else error
+	)
+	double_weave_button.disabled = not _battle_actions_enabled or not error.is_empty()
 
 
 func _refresh_consumable_selector() -> void:

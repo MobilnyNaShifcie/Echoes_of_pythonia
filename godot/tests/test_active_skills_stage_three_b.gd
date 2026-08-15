@@ -107,12 +107,13 @@ func test_bleed_ticks_after_enemy_turn_and_keeps_two_turns() -> void:
 
 func test_guard_reduces_the_next_enemy_hit() -> void:
 	var player = _create_class_player("warrior", 9)
+	player.unequip_to_inventory(PlayerEquipmentClass.OFF_HAND)
 	var enemy := _enemy(100, 10, 0)
 	var combat := CombatEngineClass.new(player, enemy)
 
 	var report := combat.player_use_skill("defensive_stance")
 
-	assert_eq(report.enemy_damage, 3)
+	assert_eq(report.enemy_damage, 4)
 	assert_eq(combat.effects.player_guard_hits, 1)
 
 

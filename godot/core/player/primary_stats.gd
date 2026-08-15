@@ -1,6 +1,7 @@
 class_name PrimaryStats
 extends RefCounted
 
+const ElementalResistancesClass := preload("res://core/combat/elemental_resistances.gd")
 const STARTING_HP := 20
 
 var max_hp := STARTING_HP
@@ -19,6 +20,7 @@ var armor_penetration := 0.0
 var damage_vs_elite := 0.0
 var damage_vs_boss := 0.0
 var average_damage := 0.0
+var elemental_resistances := ElementalResistancesClass.new()
 
 
 func is_alive() -> bool:

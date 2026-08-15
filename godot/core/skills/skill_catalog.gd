@@ -16,11 +16,18 @@ const HUNTER_TECHNIQUE_ORDER := [
 	"rain_of_arrows",
 	"splitting_arrow",
 ]
+const WARRIOR_TALENT_SKILL_ORDER := ["shield_bash", "provoke"]
+const TALENT_SKILL_ORDER_BY_CLASS := {
+	"warrior": WARRIOR_TALENT_SKILL_ORDER,
+	"hunter": HUNTER_TECHNIQUE_ORDER,
+}
 const DEFINITIONS := {
 	"power_slash": preload("res://data/skills/power_slash.tres"),
 	"armor_break": preload("res://data/skills/armor_break.tres"),
 	"defensive_stance": preload("res://data/skills/defensive_stance.tres"),
 	"blood_strike": preload("res://data/skills/blood_strike.tres"),
+	"shield_bash": preload("res://data/skills/shield_bash.tres"),
+	"provoke": preload("res://data/skills/provoke.tres"),
 	"precise_shot": preload("res://data/skills/precise_shot.tres"),
 	"bleeding_shot": preload("res://data/skills/bleeding_shot.tres"),
 	"shadow_step": preload("res://data/skills/shadow_step.tres"),
@@ -55,9 +62,8 @@ static func get_skills_for_class(class_code: String) -> Array[SkillDefinitionCla
 
 static func get_preview_skills_for_class(class_code: String) -> Array[SkillDefinitionClass]:
 	var result := get_skills_for_class(class_code)
-	if class_code == "hunter":
-		for skill_id: String in HUNTER_TECHNIQUE_ORDER:
-			result.append(DEFINITIONS[skill_id])
+	for skill_id: String in TALENT_SKILL_ORDER_BY_CLASS.get(class_code, []):
+		result.append(DEFINITIONS[skill_id])
 	return result
 
 
@@ -107,3 +113,7 @@ static func is_unlocked(player, skill: SkillDefinitionClass) -> bool:
 
 static func is_hunter_technique_id(skill_id: String) -> bool:
 	return skill_id in HUNTER_TECHNIQUE_ORDER
+
+
+static func is_talent_skill_id_for_class(skill_id: String, class_code: String) -> bool:
+	return skill_id in TALENT_SKILL_ORDER_BY_CLASS.get(class_code, [])
