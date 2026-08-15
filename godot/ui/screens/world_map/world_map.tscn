@@ -153,6 +153,24 @@ size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.73, 0.79, 0.86, 1)
 text = "DZIEŃ\n• Dziki Pies\n\nNOC\n• Duch Równin"
 
+[node name="WeatherTitle" type="Label" parent="Page/Body/ThreatPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
+theme_override_font_sizes/font_size = 20
+text = "Pogoda i obóz"
+
+[node name="WeatherLabel" type="Label" parent="Page/Body/ThreatPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.64, 0.74, 0.84, 1)
+text = "SŁONECZNIE  •  zmiana za 6 godz."
+autowrap_mode = 2
+
+[node name="CampButton" type="Button" parent="Page/Body/ThreatPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Odpocznij przy ognisku  •  +2 godziny"
+
 [node name="ExploreButton" type="Button" parent="Page/Body/ThreatPanel/Content"]
 unique_name_in_owner = true
 layout_mode = 2

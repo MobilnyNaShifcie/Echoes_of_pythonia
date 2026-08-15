@@ -93,6 +93,8 @@ func _advance() -> void:
 		_session.prologue_stage = 5
 		_session.prologue_completed = true
 		_session.last_activity = "Prolog ukończony. Otrzymano rangę Gildii F — Nowicjusz."
+		_session.log_event("Prolog: przybyto do Varenhold i otrzymano rangę F — Nowicjusz.")
+		_session.log_event("Na drodze znaleziono nadpalony fragment królewskiego dokumentu.")
 		prologue_completed.emit()
 		return
 	_session.prologue_stage += 1

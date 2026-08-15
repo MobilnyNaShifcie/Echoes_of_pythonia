@@ -150,6 +150,63 @@ The migrated flow is runnable in Godot:
     material plus Gold consumption atomic.
 52. Carry regional loot through backpack equipment instances, upgrades,
     elemental combat resistance, and existing schema-v6 save round-trips.
+53. Generate zero to four unique Equipment 2.0 affixes by rarity, slot role,
+    Item Power, source quality, and terminal T1–T5 value curves.
+54. Apply flat, percentage, resistance, critical, skill, armor-penetration, and
+    enemy-rank bonuses to the live player and turn-based damage resolver.
+55. Activate the complete four-piece Nature set and the three regional class
+    effects: Odwet, Drapieżny Odruch, and Przypływ Many.
+56. Show Item Power, affix tiers, set progress, and class effects in the
+    placeholder equipment comparison panel.
+57. Persist and validate generated equipment in Godot save schema v7 while
+    deterministically backfilling schema-v1 through schema-v6 instances.
+58. Roll Sunny, Storm, Frost, Wind, and Aurora from the terminal weights and
+    advance that state in six-hour cycles through the shared world clock.
+59. Preserve encounter-start weather, apply its regular-enemy and miniboss
+    modifiers, and increase EXP, Gold, and loot chances by 50% under Aurora.
+60. Rest at a field camp for partial HP and Mana recovery, consume two hours,
+    and reopen the free rest only after another expedition.
+61. Present weather and camp controls with placeholders and persist their state
+    in validated schema v8 while migrating schema-v1 through schema-v7 saves.
+62. Register all nine ordered Act I quests with their terminal levels,
+    objectives, rewards, completion text, and total Guild reputation.
+63. Run kill and collection objectives through one generic quest service,
+    including consumed evidence, retained trophies, sequential prerequisites,
+    and live updates from combat, city, and world flows.
+64. Derive the seven Guild ranks from exact reputation thresholds, present the
+    complete Act I on a placeholder Guild board, and validate every quest state
+    in the existing schema v8 without inventing unavailable late-game sources.
+65. Generate exactly three Daily contracts and one multi-objective Weekly from
+    the player's accessible regions, their enemies, and real material drops.
+66. Rotate Daily by local calendar date and Weekly by ISO Monday week while
+    persisting generated definitions to prevent restart rerolls and ignoring
+    clock rollback.
+67. Track enemy, region, elite, miniboss, collection, and dungeon objectives;
+    consume deliveries atomically and award one-time EXP, Gold, items, and
+    exact `15/75` Guild reputation behind ranks E and D.
+68. Present story, Daily, and Weekly as separate placeholder Guild-board views,
+    report unmigrated elite and dungeon sources, and persist all contract state
+    in validated schema v9 while safely migrating schema-v1 through schema-v8.
+69. Register the four one-time Guild world milestones with their exact terminal
+    reputation values and reusable boss/dungeon integration points.
+70. Preserve all 32 terminal Guild rumors and filter them by rank, Black Market
+    access, and permanent milestone state without exposing locked information.
+71. Record timestamped major events through one Adventure Log API, keep the
+    newest 50 entries, and show the latest 30 on a city-accessible placeholder.
+72. Expose milestones and rumors as separate Guild tabs and persist both Guild
+    milestones and journal entries in validated schema v10 while safely
+    migrating schema-v1 through schema-v9.
+73. Check for the inn informant once per eligible Pythonia day behind rank C and
+    a completed qualifying dungeon, preserving the 20% roll and fifth-day pity.
+74. Permanently expose the Black Market after the authored informant scene and
+    rotate four deterministic offers every real calendar day.
+75. Carry terminal rare goods, all Mastery Books, and rarer Path Books through
+    single-stock purchases plus one-copy book sales.
+76. Apply one persisted 30% bargaining attempt per purchase offer or sold book,
+    using the original success and failure price ranges and 50-gold rounding.
+77. Save every anti-reroll mutation immediately and persist the complete market
+    state in validated schema v11 while safely migrating schema-v1 through
+    schema-v10.
 
 The GDScript model also carries the legacy attribute formulas, level-zero
 experience threshold, four attribute points per level, and Pierrot-only Luck.
@@ -161,7 +218,7 @@ matching the swap and unequip behavior of v0.24.7. The Godot build now writes a
 separate migration schema containing every system currently available in the
 windowed build. Its four files live below `user://godot_migration_saves` and do
 not read or overwrite terminal save schema v15. That legacy schema also contains
-affixes, party, expeditions, and world state which have not been migrated yet;
+party, expeditions, and world state which have not been migrated yet;
 therefore importing terminal saves remains disabled until no supported field
 could be silently discarded. Detailed ordering and acceptance criteria are in
 `SYSTEM_MIGRATION_STAGES_v0.25.0.md`.
@@ -173,11 +230,12 @@ already have sources in the migrated world, and the inn performs paid full
 recovery with its daily cooldown. Final item art, shop animation, and audio
 remain outside this domain slice and continue to use placeholder presentation.
 
-Stages 3C through 3F and stages 4A–4C are complete. Dice history, Fate Tokens,
+Stages 3C through 3F, stages 4A–4E, and stages 5A–5E are complete. Dice history,
+Fate Tokens,
 temporary dodge,
 mirror readiness, Hunter sequence, delayed effects, explosive charges, Arcane
 Weave, elemental sequence, Provoke, block bonus, and retaliation readiness are
-intentionally encounter-local. Godot save schema v6 keeps durable talent ranks,
+intentionally encounter-local. Godot save schema v12 keeps durable talent ranks,
 book-unlocked class paths, passive ranks, Masteries, specializations, Hunter
 progression, compatibility identifiers from earlier slices, and the list of
 known regions. Unread books remain ordinary inventory stacks. All five regions
@@ -185,9 +243,36 @@ now launch real day/night expeditions against their terminal enemy catalogs;
 recommended levels remain advisory. Purchased
 talents are now the authoritative source for class mechanics; the older
 identifier collections remain only for schema compatibility. All regional
-open-world loot and base equipment progression are now connected. Affixes,
-item-set bonuses, special late-equipment effects, book acquisition sources,
-weather, camps, elites, and bosses remain in the world-and-expeditions stage.
+open-world loot and Equipment 2.0 are now connected. Generated instances carry
+validated Item Power and T1–T5 affixes; the Nature set and three regional class
+effects participate in live combat. Weather advances with the world clock,
+changes encounters and Aurora rewards, while the field camp provides its
+terminal partial recovery and cooldown. Book acquisition sources, elites,
+weather-specific miniboss weapons, and bosses remain in the
+world-and-expeditions stage. The full nine-chapter Act I catalog and Guild
+ranks F–S are now active. Its first five chapters use already migrated targets;
+later chapters explicitly report their dungeon, regional-boss, and Black Fleet
+dependencies until those world systems are implemented.
+The Guild board also owns three deterministic Daily contracts and one Weekly.
+The seven terminal achievements and their title rewards are now driven by
+victory, weather, upgrade, and Guild-rank events. Their dedicated placeholder
+screen is reachable from Varenhold, and the selected title is rendered with the
+hero name. The closing stage-5 audit fixes the migrated Guild totals and gates in
+tests before dungeon work begins.
+Their calendar periods, generated definitions, objective progress, and claimed
+rewards survive reloads; existing schema-v8 files receive a safe empty board
+before the next period is generated.
+The Guild archive also tracks four permanent world milestones and exposes all
+currently eligible authored rumors. The shared Adventure Log records major
+combat, weather, economy, rest, quest, contract, and reputation events with
+world time; its newest entries and milestone state survive reloads. Regional
+boss and dungeon completion sources remain explicit dependencies of stages 4F
+and 6 rather than placeholder reward shortcuts.
+The inn now performs the persisted informant roll once per eligible world day.
+After the permanent unlock, the city exposes a placeholder Black Market with a
+deterministic four-offer daily delivery, one-stock purchases, book sales, and
+one persisted bargaining attempt per price. The qualifying dungeon milestones
+still originate in stage 6; no temporary unlock bypass has been introduced.
 
 ## Add-on policy
 

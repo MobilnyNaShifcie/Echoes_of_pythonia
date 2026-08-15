@@ -15,6 +15,7 @@ const SkillCatalogClass := preload("res://core/skills/skill_catalog.gd")
 const TalentProgressionServiceClass := preload(
 	"res://core/progression/talent_progression_service.gd"
 )
+const WeatherServiceClass := preload("res://core/world/weather_service.gd")
 const HEALING_ITEM_IDS := [
 	"weak_healing_potion", "strong_healing_potion", "hunter_provisions", "grandmaster_elixir"
 ]
@@ -28,8 +29,10 @@ var _battle_actions_enabled := true
 var _last_fate_dice: Array[int] = []
 var _last_fate_outcome := ""
 var _last_hunter_combo := ""
+var _encounter_weather_code := WeatherServiceClass.SUNNY
 
 @onready var encounter_label: Label = %EncounterLabel
+@onready var weather_label: Label = %EnemyNameLabel
 @onready var fate_panel: PanelContainer = %FatePanel
 @onready var fate_status_label: Label = %FateStatusLabel
 @onready var dice_row: HBoxContainer = %DiceRow
@@ -84,10 +87,22 @@ func _ready() -> void:
 	attack_button.grab_focus()
 
 
-func configure(session: GameSessionClass, enemy_id: String, context := "expedition") -> void:
+func configure(
+	session: GameSessionClass,
+	enemy_id: String,
+	context := "expedition",
+	weather_code := WeatherServiceClass.SUNNY,
+) -> void:
 	_session = session
 	_context = context
+	_encounter_weather_code = (
+		weather_code
+		if WeatherServiceClass.is_valid_code(weather_code)
+		else WeatherServiceClass.SUNNY
+	)
 	_enemy = EnemyCatalogClass.create_enemy(enemy_id)
+	if _context != "prologue":
+		WeatherServiceClass.apply_to_enemy(_enemy, _encounter_weather_code)
 	_engine = CombatEngineClass.new(_session.player, _enemy, _rng)
 	_battle_actions_enabled = true
 	_last_fate_dice.clear()
@@ -96,6 +111,8 @@ func configure(session: GameSessionClass, enemy_id: String, context := "expediti
 	if is_node_ready():
 		combat_log.clear()
 		_append_log("Rozpoczyna się walka z: %s." % _enemy.display_name)
+		if not _enemy.weather_note.is_empty():
+			_append_log(_enemy.weather_note + ".")
 		_render()
 
 
@@ -249,6 +266,8 @@ func _damage_type_suffix(damage_type: String) -> String:
 
 func _finish_battle() -> void:
 	_set_actions_enabled(false)
+	if _context == "expedition":
+		_session.camp_rest_available = true
 	result_panel.visible = true
 	match _engine.result:
 		CombatEngineClass.VICTORY:
@@ -257,6 +276,7 @@ func _finish_battle() -> void:
 			result_label.text = _resolve_defeat()
 		CombatEngineClass.FLED:
 			_session.last_activity = "Ucieczka z walki z: %s." % _enemy.display_name
+			_session.log_event(_session.last_activity)
 			result_label.text = "Ucieczka udana. Wracasz na szlak."
 	_render()
 	continue_button.grab_focus()
@@ -267,6 +287,7 @@ func _resolve_victory() -> String:
 		_session.player.stats.restore_full()
 		_session.prologue_stage = 2
 		_session.last_activity = "Pokonano Przeklętego Stracha na Wróble."
+		_session.log_event(_session.last_activity)
 		return "Zwycięstwo. Po walce odzyskujesz pełne PŻ i możesz przeszukać pobojowisko."
 	var rewards := AdventureServiceClass.resolve_victory(_session, _enemy, _rng)
 	var text := "Zwycięstwo  •  +%d EXP  •  +%d złota" % [rewards.experience, rewards.gold]
@@ -276,12 +297,17 @@ func _resolve_victory() -> String:
 		text += "\nŁup: %s" % ", ".join(rewards.loot_names)
 	if not rewards.quest_update.is_empty():
 		text += (
-			"\nMisja: Wilki %d/%d"
+			"\nMisja „%s”: %d/%d"
 			% [
+				rewards.quest_update.title,
 				rewards.quest_update.current,
 				rewards.quest_update.required,
 			]
 		)
+	for update: Dictionary in rewards.contract_updates:
+		text += "\nKontrakt „%s”: %d/%d" % [update.title, update.current, update.required]
+	for achievement in rewards.unlocked_achievements:
+		text += "\nOsiągnięcie: %s — tytuł „%s”" % [achievement.display_name, achievement.title]
 	return text
 
 
@@ -306,7 +332,7 @@ func _render() -> void:
 	else:
 		var region = RegionCatalogClass.get_definition(_session.current_location_id)
 		encounter_label.text = "%s — WALKA TUROWA" % region.display_name.to_upper()
-	player_name_label.text = player.display_name
+	player_name_label.text = player.titled_display_name()
 	player_stats_label.text = (
 		"PŻ %d/%d  •  MANA %d/%d  •  ATK %d  •  DEF %d  •  UNIK %.1f%%"
 		% [
@@ -323,6 +349,13 @@ func _render() -> void:
 	player_hp_bar.value = player.stats.current_hp
 	player_hp_bar.tooltip_text = "PŻ %d/%d" % [player.stats.current_hp, player.stats.max_hp]
 	enemy_name_label.text = _enemy.display_name
+	if _context != "prologue":
+		enemy_name_label.text += (
+			"  •  %s" % WeatherServiceClass.display_name_for(_encounter_weather_code)
+		)
+		enemy_name_label.tooltip_text = WeatherServiceClass.description_for(_encounter_weather_code)
+		if not _enemy.weather_note.is_empty():
+			enemy_name_label.tooltip_text += "\n" + _enemy.weather_note
 	enemy_stats_label.text = (
 		"PŻ %d/%d  •  ATK %d  •  DEF %d  •  UNIK %.1f%%"
 		% [

@@ -39,7 +39,7 @@ static func get_craft_error(player, recipe_id: String) -> String:
 	return ""
 
 
-static func craft(player, recipe_id: String) -> Dictionary:
+static func craft(player, recipe_id: String, rng: RandomNumberGenerator = null) -> Dictionary:
 	var error := get_craft_error(player, recipe_id)
 	if not error.is_empty():
 		return {"ok": false, "message": error}
@@ -47,7 +47,12 @@ static func craft(player, recipe_id: String) -> Dictionary:
 	for item_id: String in recipe.ingredients:
 		player.inventory.remove_item(item_id, int(recipe.ingredients[item_id]))
 	player.gold -= int(recipe.get("gold_cost", 0))
-	player.inventory.add(recipe.output_item_id, int(recipe.quantity))
+	player.inventory.add(
+		recipe.output_item_id,
+		int(recipe.quantity),
+		rng,
+		str(recipe.get("equipment_quality", "normal"))
+	)
 	return {
 		"ok": true,
 		"message": "Wytworzono: %s ×%d." % [recipe.name, recipe.quantity],

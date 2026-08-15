@@ -226,19 +226,196 @@ losuje afiksów Equipment 2.0, nie aktywuje bonusów zestawów ani wyjątkowych
 efektów klasowych późnego wyposażenia. Te mechaniki wymagają rozszerzenia
 zapisywanej instancji przedmiotu i pozostają osobnym podetapem.
 
+### Etap 4D — Equipment 2.0 (ukończony)
+
+- 17 terminalowych afiksów podzielonych na pule ofensywną i defensywną; pas
+  korzysta z obu pul z mnożnikiem wartości `0,75`,
+- od zera do czterech unikalnych afiksów zależnie od rzadkości przedmiotu oraz
+  pełne wartości T1–T5 dla Item Power I–IV i bezpieczne krzywe endgame,
+- jakość źródła `normal`, `elite`, `miniboss`, `dungeon` lub `boss` przesuwa
+  szanse tierów; łup używa rangi przeciwnika, a receptura może określić własną
+  jakość wyposażenia,
+- wszystkie premie płaskie, procentowe i odporności trafiają do statystyk
+  bohatera; obrażenia umiejętności, przebicie pancerza oraz premie przeciw
+  elitom i bossom działają w prawdziwej walce turowej,
+- pełny czteroelementowy Zestaw Natury aktywuje `+1 ATK`, `+2 DEF`, `+10 PŻ`
+  i `+15%` odporności na ziemię,
+- trzy regionalne efekty klasowe: Odwet Pancerza Północy, Drapieżny Odruch
+  Płaszcza Śnieżnego Gryfa oraz Przypływ Many Amuletu Czarnego Morza,
+- placeholderowy panel szczegółów pokazuje Item Power, każdy afiks i jego tier,
+  postęp zestawu, stan efektu klasowego oraz porównanie wszystkich nowych
+  statystyk,
+- schemat zapisu `v7` przechowuje i waliduje Item Power oraz afiksy każdego
+  egzemplarza. Pliki `v1`–`v6` otrzymują stabilny, deterministyczny zestaw
+  afiksów na podstawie `instance_id`, więc ponowne wczytanie nie zmienia łupu.
+
+Etap nadal używa prostych paneli i tekstu. Nie dodaje finalnych ikon, grafik,
+dźwięków ani animacji przedmiotów.
+
+### Etap 4E — pogoda i obóz (ukończony)
+
+- pięć terminalowych stanów pogody: Słonecznie, Burza, Mróz, Wichura oraz
+  rzadka Zorza Polarna, losowanych z wagami `30/20/20/20/10`,
+- jeden zegar świata przesuwający pogodę w sześciogodzinnych cyklach podczas
+  wyprawy, noclegu i odpoczynku przy ognisku,
+- zachowanie pogody z chwili rozpoczęcia spotkania, dzięki czemu zmiana po
+  godzinnej wyprawie nie podmienia modyfikatorów już wylosowanego przeciwnika,
+- wzmocnienia wszystkich przeciwników podczas Zorzy oraz osobne reguły Burzy,
+  Mrozu i Wichury dla minibossów, razem z typami ich podstawowych obrażeń,
+- premia Zorzy `+50%` do EXP, złota i szans tabeli łupów,
+- darmowy odpoczynek polowy regenerujący `25%` maksymalnych PŻ i `35%`
+  maksymalnej Many, zajmujący dwie godziny i odnawiany przez następną wyprawę,
+- placeholderowy panel pogody i obozu na mapie świata oraz informacja o
+  pogodzie spotkania na ekranie walki; bez finalnego tła i efektów pogodowych,
+- schemat zapisu `v8`, który przechowuje pogodę, czas do kolejnego losowania i
+  cooldown ogniska. Pliki `v1`–`v7` dostają bezpieczny stan Słonecznie na sześć
+  godzin i dostępny odpoczynek.
+
+Losowe elity, pogodowe bronie minibossów, bossowie regionalni i ich odradzanie
+pozostają w następnych podetapach, ponieważ zależą od niewdrożonych jeszcze
+liczników spotkań i osobnych tabel bossów.
+
 ### Następne podetapy
 
-- pogoda, obóz, odpoczynek, elity, bossowie i ich odradzanie,
-- afiksy Equipment 2.0, bonusy zestawów i specjalne efekty wyposażenia,
+- elity, pogodowe bronie minibossów, bossowie i ich odradzanie,
 - dane mapy oddzielone od widoku, aby miejsca można było rozbudowywać bez
   generowania jednej sztywnej ilustracji miasta albo regionu.
 
 ## Etap 5 — fabuła, Gildia i zadania
 
-- pozostałe misje fabularne oraz kontrakty,
-- rangi, kamienie milowe, Czarny Rynek i osiągnięcia,
-- Dialogic tylko jako warstwa prezentacji rozmów; stan misji pozostaje w
-  testowanej logice domenowej.
+### Etap 5A — Akt I i rangi Gildii (ukończony)
+
+- pełny, uporządkowany katalog dziewięciu zadań Aktu I „Ślady Przebudzenia” z
+  terminalowymi poziomami, celami, nagrodami i łączną pulą `700` reputacji,
+- jeden ogólny silnik zadań obsługujący cele zabójstw i zbierania, zużywane
+  dowody oraz trofea zachowywane po oddaniu zadania,
+- sekwencyjne odblokowywanie rozdziałów według poziomu i ukończenia
+  poprzedniego zadania; nie można przyjąć rozdziału z pominięciem fabuły,
+- rzeczywiste rangi Gildii od F — Nowicjusza do S — Legendy, wraz z dokładnymi
+  progami reputacji `0/100/300/700/1400/2600/4500`,
+- placeholderowa tablica Gildii pokazująca cały Akt I, stan każdego rozdziału,
+  cel, nagrody, blokady oraz postęp do następnej rangi,
+- aktywne zadanie i aktualna ranga są pokazywane dynamicznie w mieście, na
+  mapie świata, po walce oraz w stopce aplikacji,
+- walidacja zapisu obejmuje wszystkie rozdziały i ich kolejność. Istniejący
+  schemat `v8` już przechowywał ogólne słowniki aktywnych i ukończonych zadań,
+  dlatego nie wymaga dodania nowego pola.
+
+Pierwszych pięć rozdziałów ma źródła celów w obecnie przemigrowanym świecie.
+Cztery późne rozdziały są prawidłowo opisane i walidowane, lecz ich zależności
+— Krypta Zatopionego Zakonu, bossowie regionalni oraz wrak Czarnej Floty —
+zostają oznaczone na tablicy zamiast otrzymać fikcyjne skróty rozgrywki.
+
+### Etap 5B — kontrakty dzienne i tygodniowe (ukończony)
+
+- dokładnie trzy automatyczne kontrakty dzienne: polowanie na konkretny typ
+  przeciwnika, dostawa materiałów oraz elitarne zagrożenie; przed poziomem 2
+  ostatni typ jest zastępowany pierwszym patrolem,
+- jeden kontrakt tygodniowy z celami regionalnymi, elitarnymi oraz minibossem
+  albo lochem zależnie od poziomu postaci,
+- generator korzystający z poziomu bohatera, pięciu przemigrowanych regionów,
+  ich przeciwników i rzeczywistych tabel łupów; zestaw jest stabilny dla imienia
+  postaci i okresu,
+- Daily zmieniają się według lokalnego dnia kalendarzowego, a Weekly według
+  tygodnia ISO rozpoczynającego się w poniedziałek. Restart oraz cofnięcie
+  zegara nie pozwalają przerzucać tablicy,
+- cele zabójstw, regionów i minibossów aktualizują się po prawdziwej walce,
+  zaś postęp dostawy jest liczony bezpośrednio z plecaka,
+- dostawy są zużywane dopiero po pełnej walidacji, a nagrody EXP, złota,
+  przedmiotu i reputacji (`+15` Daily, `+75` Weekly) można odebrać tylko raz,
+- Daily wymagają rangi E — Adept, a Weekly rangi D — Poszukiwacz,
+- placeholderowa tablica Gildii ma osobne widoki fabuły, Daily i Weekly, pokazuje
+  wszystkie cele, ich postęp, okres resetu, nagrody oraz wymagania rangi,
+- cele losowych elit i lochów zachowują oryginalną definicję, ale są oznaczone
+  jako zależności etapów świata 4F i lochów 6 zamiast otrzymać sztuczne źródła,
+- schemat zapisu `v9` przechowuje wygenerowane definicje, okresy, postęp i
+  odebrane nagrody. Pliki `v1`–`v8` otrzymują pustą, bezpieczną tablicę, która
+  zostaje wygenerowana przy następnym wejściu do Gildii albo rozpoczęciu wyprawy.
+
+### Etap 5C — kamienie milowe, plotki i Dziennik Przygód (ukończony)
+
+- cztery terminalowe kamienie milowe świata przyznają jednorazowo dokładnie
+  `100/150/150/250` reputacji za Azhara, Lewiatana Północy, Kryptę
+  Zatopionego Zakonu oraz Wrak Czarnej Floty,
+- powtórzenie zdarzenia nie nalicza reputacji ponownie, a zmiana rangi zostaje
+  zapisana jako osobne wydarzenie,
+- katalog zachowuje wszystkie `32` plotki z wersji terminalowej i filtruje je
+  według rangi, odblokowania Czarnego Rynku oraz trwałych kamieni milowych,
+- placeholderowa Gildia ma osobne widoki kamieni i dostępnych plotek; zależne
+  walki z bossami i lochy są jawnie opisane jako późniejsze źródła zamiast
+  otrzymać sztuczne przyciski nagród,
+- Dziennik Przygód zapisuje wpisy z dniem i godziną, pokazuje ostatnie `30`
+  oraz zachowuje maksymalnie `50` najnowszych wydarzeń,
+- walki, pogoda, odpoczynek, crafting, handel, ulepszanie, zadania, kontrakty,
+  prolog i zmiany reputacji korzystają ze wspólnego API dziennika,
+- osobny placeholderowy ekran Dziennika jest dostępny z pionowego planu
+  Varenhold bez używania terminala,
+- schemat zapisu `v10` przechowuje kamienie milowe i wpisy dziennika, odrzuca
+  nieznane lub powtórzone identyfikatory oraz przekroczenie limitu. Pliki
+  `v1`–`v9` otrzymują bezpieczny pusty stan tych dwóch systemów.
+
+Bossowie regionalni i lochy nadal należą odpowiednio do etapu świata 4F i
+etapu 6. Warstwa 5C udostępnia ich docelowe, testowane punkty integracji, ale nie
+udaje nieistniejących jeszcze zwycięstw.
+
+### Etap 5D — informator i Czarny Rynek (ukończony)
+
+- informator wymaga rangi C oraz trwałego kamienia za Kryptę Zatopionego
+  Zakonu albo Wrak Czarnej Floty,
+- każdy kwalifikujący dzień Pythonii wykonuje tylko jedną próbę `20%`;
+  ponowne wejście do Karczmy nie przerzuca wyniku, a po czterech porażkach
+  piąty dzień jest gwarantowany,
+- rozmowa z informatorem permanentnie odblokowuje kafelek Czarnego Rynku w
+  pionowym planie Varenhold i zapisuje wydarzenie w Dzienniku Przygód,
+- dzienna rotacja według realnej daty zawiera dokładnie cztery jednorazowe
+  oferty i jest deterministyczna dla imienia bohatera oraz daty, więc restart
+  nie zmienia dostawy,
+- łączna szansa na księgę wynosi `55%`: `8%` na Księgę Ścieżki i `47%`
+  na Księgę Mistrzostwa; pozostałe miejsca wypełnia siedem terminalowych
+  rzadkich materiałów i przedmiotów zużywalnych,
+- wszystkie osiem ksiąg można sprzedawać po jednej sztuce,
+- targowanie ma bazową szansę `30%` i tylko jedną próbę na ofertę albo
+  tytuł księgi w dostawie; sukces i porażka stosują terminalowe przedziały
+  `-10–15%/+5–10%` dla zakupu oraz `+10–15%/-5–10%` dla sprzedaży,
+- wynik sprawdzenia informatora, odblokowanie, rotacja, negocjacje i transakcje
+  wywołują natychmiastowy zapis zamiast pozwalać na przerzut restartem,
+- osobny placeholderowy ekran pozwala przeglądać ofertę, kupować, sprzedawać
+  księgi i negocjować bez używania terminala,
+- schemat zapisu `v11` przechowuje pełny stan informatora i rynku, waliduje
+  definicje i ceny ofert, wykupione pozycje oraz wyniki negocjacji. Pliki
+  `v1`–`v10` otrzymują bezpieczny, zablokowany stan rynku.
+
+Naturalne spotkanie informatora pozostaje zależne od lochów z etapu 6. Etap
+5D nie dodaje przycisku omijającego ten warunek; dostarcza kompletny przepływ,
+który uruchomi się po zdobyciu prawdziwego kamienia milowego.
+
+### Etap 5E — osiągnięcia, tytuły i audyt Gildii (ukończony)
+
+- przeniesiono dokładnie siedem osiągnięć terminalowych wraz z opisami i
+  nagradzanymi tytułami; domyślnym tytułem pozostaje `Wędrowiec`,
+- zwycięstwa odblokowują `Pierwszą krew`, osiągnięcia Strażnika Natury,
+  Leśnego Egzekutora i Matki Głuchej Wody oraz `Pod Zorzą` przy pogodzie
+  Zorza Polarna; każde osiągnięcie jest nadawane tylko raz,
+- ulepszenie dowolnego przedmiotu do `+10` odblokowuje `Mistrza Kowadła`, a
+  osiągnięcie rangi S — Legenda odblokowuje `Weterana Gildii`,
+- przy wczytywaniu i zapisie jednoznaczny istniejący progres (`+10` i ranga S)
+  jest uzgadniany, dzięki czemu starszy stan nie traci należnej nagrody,
+- osobny placeholderowy ekran w planie Varenhold pokazuje postęp `x/7`, status,
+  opis i nagrodę oraz pozwala wybrać wyłącznie odblokowany tytuł; wybór zapisuje
+  się natychmiast i pojawia przy imieniu bohatera,
+- schemat zapisu `v12` przechowuje listę osiągnięć i aktywny tytuł, odrzuca
+  nieznane i powtórzone identyfikatory oraz tytuły bez osiągnięcia; pliki
+  `v1`–`v11` otrzymują bezpieczny pusty stan z tytułem `Wędrowiec`,
+- końcowy audyt etapu 5 zabezpiecza testami progi rang F–S, dziewięć zadań
+  Aktu I i ich 700 reputacji, nagrody kontraktów `15/75`, cztery kamienie
+  milowe warte 650, 32 plotki, warunki Czarnego Rynku i siedem osiągnięć.
+
+Etap 5 jest domknięty domenowo. Zależności fabularnych zadań, informatora oraz
+kamieni milowych prowadzące do lochów pozostają jawnie zablokowane do etapu 6;
+5E nie dodaje zastępczych przycisków ani fikcyjnych zwycięstw.
+
+Dialogic pozostaje wyłącznie warstwą prezentacji rozmów; stan misji i wszystkie
+nagrody należą do testowanej logiki domenowej.
 
 ## Etap 6 — lochy, drużyna i Szczeliny
 

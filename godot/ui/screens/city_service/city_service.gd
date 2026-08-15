@@ -3,7 +3,9 @@ extends Control
 
 signal back_requested
 signal world_map_requested
+signal state_changed
 
+const BlackMarketServiceClass := preload("res://core/economy/black_market_service.gd")
 const GameSessionClass := preload("res://core/game/game_session.gd")
 const InnServiceClass := preload("res://core/economy/inn_service.gd")
 
@@ -69,6 +71,8 @@ const SERVICES := {
 
 var _session: GameSessionClass
 var _service_id := "preparation"
+var _informant_present := false
+var _informant_rng: RandomNumberGenerator
 
 @onready var eyebrow_label: Label = %EyebrowLabel
 @onready var title_label: Label = %TitleLabel
@@ -77,6 +81,7 @@ var _service_id := "preparation"
 @onready var wallet_label: Label = %WalletLabel
 @onready var status_label: Label = %StatusLabel
 @onready var action_button: Button = %ActionButton
+@onready var informant_button: Button = %InformantButton
 
 
 static func display_name_for(service_id: String) -> String:
@@ -86,13 +91,26 @@ static func display_name_for(service_id: String) -> String:
 func _ready() -> void:
 	%BackButton.pressed.connect(back_requested.emit)
 	action_button.pressed.connect(_perform_action)
+	informant_button.pressed.connect(_meet_informant)
 	_render()
 	%BackButton.grab_focus()
 
 
-func configure(session: GameSessionClass, service_id: String) -> void:
+func configure(
+	session: GameSessionClass,
+	service_id: String,
+	informant_rng: RandomNumberGenerator = null,
+) -> void:
 	_session = session
 	_service_id = service_id if SERVICES.has(service_id) else "preparation"
+	_informant_rng = informant_rng
+	if _service_id == "inn":
+		var informant_result := BlackMarketServiceClass.check_informant_for_day(
+			_session, _informant_rng
+		)
+		_informant_present = informant_result.present
+		if informant_result.checked:
+			state_changed.emit()
 	if is_node_ready():
 		_render()
 
@@ -111,6 +129,15 @@ func _rest() -> void:
 	status_label.text = result.message
 	if result.ok:
 		_session.last_activity = result.message
+
+
+func _meet_informant() -> void:
+	var result := BlackMarketServiceClass.unlock(_session)
+	status_label.text = result.message
+	if result.ok:
+		_informant_present = false
+		state_changed.emit()
+	_render()
 
 
 func _render() -> void:
@@ -132,6 +159,18 @@ func _render() -> void:
 		]
 	)
 	action_button.visible = not service.action.is_empty()
+	informant_button.visible = false
 	action_button.text = service.action
 	if _service_id == "inn":
 		action_button.text = "Odpocznij — %d złota" % InnServiceClass.rest_cost(_session.player)
+		if _informant_present:
+			offer_label.text = (
+				"W ciemnym kącie siedzi zakapturzony nieznajomy. "
+				+ "Nie ma przy sobie towaru, tylko skrawek mapy."
+			)
+			informant_button.visible = true
+		elif _session.black_market.unlocked:
+			offer_label.text = (
+				"Zapamiętana droga prowadzi do Czarnego Rynku. "
+				+ "Nowa lokacja jest dostępna w planie miasta."
+			)

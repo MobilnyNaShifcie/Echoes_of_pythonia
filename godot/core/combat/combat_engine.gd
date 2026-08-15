@@ -37,11 +37,13 @@ var hunter_sequence: Array[String] = []
 var hunter_phantom_pending: Array[int] = []
 var hunter_rain_pending: Array[int] = []
 var hunter_explosive_charges := 0
+var hunter_instinct_ready := false
 var warrior_retribution_ready := false
 var warrior_retribution_ratio := 0.50
 var warrior_provoke_ready := false
 var warrior_provoke_block_bonus := 0.0
 var mage_arcane_weave := 0
+var mage_mana_spent := 0
 var mage_element_sequence: Array[String] = []
 var momentum_stacks := 0
 var deadly_tempo_ready := false
@@ -86,7 +88,26 @@ func player_attack() -> Dictionary:
 		)
 	warrior_retribution_ready = false
 	warrior_retribution_ratio = 0.50
-	var hit := hit_resolver.resolve(attack_power, attack_multiplier, false, false, "physical")
+	var bonus_critical_chance := 0.0
+	if hunter_instinct_ready and player.has_active_equipment_effect("hunter_predatory_instinct"):
+		attack_multiplier *= 1.20
+		bonus_critical_chance = 10.0
+		report.class_effect_notes.append(
+			"DRAPIEŻNY ODRUCH: +20% obrażeń i +10 p.p. szansy na krytyk."
+		)
+	hunter_instinct_ready = false
+	var hit := (
+		hit_resolver
+		. resolve(
+			attack_power,
+			attack_multiplier,
+			false,
+			false,
+			"physical",
+			0.0,
+			bonus_critical_chance,
+		)
+	)
 	report.player_damage = hit.damage
 	report.enemy_dodged = hit.dodged
 	report.player_critical = hit.critical
@@ -162,7 +183,7 @@ func player_use_skill(skill_id: String) -> Dictionary:
 		return report
 	var skill: SkillDefinitionClass = SkillCatalogClass.get_definition(skill_id)
 	var hunter_pending := _take_hunter_delayed_effects()
-	player.stats.spend_mana(skill.mana_cost)
+	_spend_skill_mana(skill.mana_cost, report)
 	report.skill_id = skill.skill_id
 	report.skill_name = skill.display_name
 	report.skill_mana_cost = skill.mana_cost
@@ -259,7 +280,7 @@ func player_use_skill_pair(first_skill_id: String, second_skill_id: String) -> D
 	var first: SkillDefinitionClass = SkillCatalogClass.get_definition(first_skill_id)
 	var second: SkillDefinitionClass = SkillCatalogClass.get_definition(second_skill_id)
 	var total_cost := get_double_cast_cost(first_skill_id, second_skill_id)
-	player.stats.spend_mana(total_cost)
+	_spend_skill_mana(total_cost, report)
 	report.skill_id = "%s+%s" % [first.skill_id, second.skill_id]
 	report.skill_name = "%s + %s" % [first.display_name, second.display_name]
 	report.skill_mana_cost = total_cost
@@ -318,6 +339,7 @@ func player_defend() -> Dictionary:
 	var uses_shield := _equipped_type(PlayerEquipmentClass.OFF_HAND) == "shield"
 	if (
 		_has_class_mechanic("warrior_retribution")
+		or player.has_active_equipment_effect("warrior_retribution")
 		or (uses_shield and _has_class_mechanic("heavy_knight_core"))
 	):
 		warrior_retribution_ready = true
@@ -456,6 +478,8 @@ func _resolve_player_skill_hit(
 			skill.scaling == "magic",
 			skill.damage_type,
 			skill.special_armor_penetration,
+			0.0,
+			true,
 		)
 	)
 
@@ -548,7 +572,9 @@ func _resolve_hunter_guaranteed_hit(
 	power: int, multiplier: float, damage_type: String, armor_penetration := 0.0
 ) -> int:
 	return (
-		hit_resolver.resolve(power, multiplier, true, false, damage_type, armor_penetration).damage
+		hit_resolver
+		. resolve(power, multiplier, true, false, damage_type, armor_penetration, 0.0, true)
+		. damage
 	)
 
 
@@ -810,6 +836,11 @@ func _resolve_enemy_hit(
 	if dodged:
 		if not is_extra_hit:
 			report.player_dodged = true
+		if player.has_active_equipment_effect("hunter_predatory_instinct"):
+			hunter_instinct_ready = true
+			report.class_effect_notes.append(
+				"DRAPIEŻNY ODRUCH: unik przygotowuje wzmocniony podstawowy atak."
+			)
 		effects.consume_guard_hit()
 		return 0
 	var block_chance := warrior_block_chance()
@@ -853,6 +884,19 @@ func warrior_block_chance() -> float:
 
 func _passive_specialization(passive_code: String) -> String:
 	return PassiveProgressionServiceClass.specialization_for(player, passive_code)
+
+
+func _spend_skill_mana(mana_cost: int, report: Dictionary) -> void:
+	player.stats.spend_mana(mana_cost)
+	if not player.has_active_equipment_effect("mage_mana_tide"):
+		return
+	mage_mana_spent += mana_cost
+	while mage_mana_spent >= 20:
+		mage_mana_spent -= 20
+		var restored := player.stats.restore_mana(5)
+		if restored > 0:
+			report.player_mana_restored += restored
+			report.class_effect_notes.append("PRZYPŁYW MANY: odzyskujesz %d Many." % restored)
 
 
 func _after_offensive_action() -> void:

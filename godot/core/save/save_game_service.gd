@@ -2,6 +2,8 @@ class_name SaveGameService
 extends RefCounted
 
 const EquipmentItemClass := preload("res://core/items/equipment_item.gd")
+const EquipmentAffixClass := preload("res://core/items/equipment_affix.gd")
+const EquipmentAffixServiceClass := preload("res://core/items/equipment_affix_service.gd")
 const GameSessionClass := preload("res://core/game/game_session.gd")
 const ClassCombatMechanicCatalogClass := preload(
 	"res://core/combat/class_combat_mechanic_catalog.gd"
@@ -15,15 +17,21 @@ const PlayerProfileClass := preload("res://core/player/player_profile.gd")
 const PassiveProgressionServiceClass := preload(
 	"res://core/progression/passive_progression_service.gd"
 )
+const AchievementCatalogClass := preload("res://core/progression/achievement_catalog.gd")
+const AchievementServiceClass := preload("res://core/progression/achievement_service.gd")
 const QuestServiceClass := preload("res://core/quests/quest_service.gd")
+const ContractServiceClass := preload("res://core/quests/contract_service.gd")
+const BlackMarketServiceClass := preload("res://core/economy/black_market_service.gd")
+const GuildMilestoneServiceClass := preload("res://core/quests/guild_milestone_service.gd")
 const RegionCatalogClass := preload("res://core/world/region_catalog.gd")
 const SkillCatalogClass := preload("res://core/skills/skill_catalog.gd")
 const TalentProgressionServiceClass := preload(
 	"res://core/progression/talent_progression_service.gd"
 )
+const WeatherServiceClass := preload("res://core/world/weather_service.gd")
 
 const FORMAT_ID := "echoes_of_pythonia_godot_migration"
-const SCHEMA_VERSION := 6
+const SCHEMA_VERSION := 12
 const GAME_VERSION := "0.25.0"
 const DEFAULT_SAVE_ROOT := "user://godot_migration_saves"
 const SLOT_COUNT := NewGameServiceClass.SAVE_SLOT_COUNT
@@ -68,13 +76,15 @@ func any_save_exists() -> bool:
 	return false
 
 
-# Early returns keep malformed save data from reaching object construction.
+# Early returns keep malformed save data from reaching object construction in all
+# deserializers below.
 # gdlint: disable=max-returns
 func save_session(session: GameSessionClass) -> Dictionary:
 	if session == null or session.player == null:
 		return _failure("Brak aktywnej sesji do zapisania.")
 	if not _is_valid_slot(session.save_slot):
 		return _failure("Nieprawidłowy slot zapisu.")
+	AchievementServiceClass.reconcile_existing_progress(session)
 
 	var payload := _serialize_session(session)
 	var validation := _deserialize_payload(payload, session.save_slot)
@@ -163,15 +173,22 @@ func _serialize_session(session: GameSessionClass) -> Dictionary:
 			"prologue_stage": session.prologue_stage,
 			"prologue_completed": session.prologue_completed,
 			"guild_reputation": session.guild_reputation,
+			"guild_milestones": session.guild_milestones.duplicate(),
+			"adventure_log": session.adventure_log.entries.duplicate(),
+			"black_market": BlackMarketServiceClass.serialize(session.black_market),
 			"last_activity": session.last_activity,
 			"victories": session.victories,
 			"last_inn_rest_day": session.last_inn_rest_day,
+			"weather_code": session.weather_code,
+			"weather_remaining_hours": session.weather_remaining_hours,
+			"camp_rest_available": session.camp_rest_available,
 			"guild_storage": _serialize_inventory(session.guild_storage.inventory),
 			"quest_log":
 			{
 				"active": session.quest_log.active.duplicate(true),
 				"completed": session.quest_log.completed.duplicate(true),
 			},
+			"contracts": ContractServiceClass.serialize_board(session.contract_board),
 			"player":
 			{
 				"display_name": player.display_name,
@@ -190,6 +207,11 @@ func _serialize_session(session: GameSessionClass) -> Dictionary:
 				"passive_ranks": player.passive_ranks.duplicate(true),
 				"unlocked_passive_mastery_ids": player.unlocked_passive_mastery_ids.duplicate(),
 				"passive_specialization_ids": player.passive_specialization_ids.duplicate(true),
+				"achievements":
+				{
+					"unlocked": player.achievement_book.unlocked_ids.duplicate(),
+					"equipped_title": player.achievement_book.equipped_title,
+				},
 				"attributes": _serialize_attributes(player.attributes),
 				"current_hp": player.stats.current_hp,
 				"current_mana": player.stats.current_mana,
@@ -232,6 +254,7 @@ func _deserialize_payload(payload: Dictionary, expected_slot: int) -> Dictionary
 	var session_result := _restore_session_fields(session, session_data)
 	if not session_result.ok:
 		return session_result
+	AchievementServiceClass.reconcile_existing_progress(session)
 	return {
 		"ok": true,
 		"message": "Wczytano slot %d." % slot,
@@ -263,6 +286,8 @@ func _deserialize_player(data: Dictionary) -> Dictionary:
 		return _failure("Zapis zawiera nieznaną Drogę bohatera.")
 	if not data.get("attributes") is Dictionary:
 		return _failure("Zapis nie zawiera atrybutów bohatera.")
+	if not data.get("achievements") is Dictionary:
+		return _failure("Zapis nie zawiera osiągnięć bohatera.")
 	if not data.get("equipment") is Dictionary or not data.get("inventory") is Dictionary:
 		return _failure("Zapis nie zawiera kompletnego ekwipunku.")
 
@@ -289,6 +314,9 @@ func _deserialize_player(data: Dictionary) -> Dictionary:
 	var tree_progression_result := _restore_stage_three_f_progression(player, data)
 	if not tree_progression_result.ok:
 		return tree_progression_result
+	var achievement_result := _restore_achievements(player, data.achievements)
+	if not achievement_result.ok:
+		return achievement_result
 	var equipment_result := _restore_equipment(player, data.equipment)
 	if not equipment_result.ok:
 		return equipment_result
@@ -305,17 +333,44 @@ func _deserialize_player(data: Dictionary) -> Dictionary:
 
 func _restore_session_fields(session: GameSessionClass, data: Dictionary) -> Dictionary:
 	var numeric_fields := [
-		"day", "hour", "prologue_stage", "guild_reputation", "victories", "last_inn_rest_day"
+		"day",
+		"hour",
+		"prologue_stage",
+		"guild_reputation",
+		"victories",
+		"last_inn_rest_day",
+		"weather_remaining_hours",
 	]
 	for field: String in numeric_fields:
 		if not _is_non_negative_integer(data.get(field)):
 			return _failure("Nieprawidłowa wartość pola sesji: %s." % field)
-	if int(data.day) < 1 or int(data.hour) > 23 or int(data.prologue_stage) > 5:
+	if (
+		int(data.day) < 1
+		or int(data.hour) > 23
+		or int(data.prologue_stage) > 5
+		or int(data.weather_remaining_hours) < 1
+		or int(data.weather_remaining_hours) > WeatherServiceClass.DURATION_HOURS
+	):
 		return _failure("Zapis zawiera nieprawidłowy czas albo etap prologu.")
-	if not data.get("is_active") is bool or not data.get("prologue_completed") is bool:
+	if (
+		not data.get("is_active") is bool
+		or not data.get("prologue_completed") is bool
+		or not data.get("camp_rest_available") is bool
+	):
 		return _failure("Zapis zawiera nieprawidłowe flagi sesji.")
+	var weather_code := str(data.get("weather_code", ""))
+	if not WeatherServiceClass.is_valid_code(weather_code):
+		return _failure("Zapis zawiera nieznany stan pogody.")
 	if not data.get("quest_log") is Dictionary:
 		return _failure("Zapis nie zawiera dziennika zadań.")
+	if not data.get("contracts") is Dictionary:
+		return _failure("Zapis nie zawiera tablicy kontraktów.")
+	if not data.get("guild_milestones") is Array:
+		return _failure("Zapis nie zawiera kamieni milowych Gildii.")
+	if not data.get("adventure_log") is Array:
+		return _failure("Zapis nie zawiera Dziennika Przygód.")
+	if not data.get("black_market") is Dictionary:
+		return _failure("Zapis nie zawiera stanu Czarnego Rynku.")
 	if not data.get("guild_storage") is Dictionary:
 		return _failure("Zapis nie zawiera Magazynu Gildii.")
 	var location_id := str(data.get("current_location_id", ""))
@@ -335,6 +390,21 @@ func _restore_session_fields(session: GameSessionClass, data: Dictionary) -> Dic
 	var quest_result := _restore_quest_log(session, data.quest_log)
 	if not quest_result.ok:
 		return quest_result
+	var contract_error := ContractServiceClass.deserialize_board(
+		data.contracts, session.contract_board
+	)
+	if not contract_error.is_empty():
+		return _failure(contract_error)
+	var guild_state_result := _restore_guild_stage_five_c(
+		session, data.guild_milestones, data.adventure_log
+	)
+	if not guild_state_result.ok:
+		return guild_state_result
+	var black_market_error := BlackMarketServiceClass.deserialize(
+		data.black_market, session.black_market
+	)
+	if not black_market_error.is_empty():
+		return _failure(black_market_error)
 	var storage_result := _restore_inventory_container(
 		session.guild_storage.inventory, data.guild_storage
 	)
@@ -355,10 +425,11 @@ func _restore_session_fields(session: GameSessionClass, data: Dictionary) -> Dic
 	session.last_activity = str(data.get("last_activity", ""))
 	session.victories = int(data.victories)
 	session.last_inn_rest_day = int(data.last_inn_rest_day)
+	session.weather_code = weather_code
+	session.weather_remaining_hours = int(data.weather_remaining_hours)
+	session.camp_rest_available = data.camp_rest_available
+	session.last_weather_changes.clear()
 	return {"ok": true}
-
-
-# gdlint: enable=max-returns
 
 
 func _restore_attributes(player: PlayerProfileClass, data: Dictionary) -> Dictionary:
@@ -445,6 +516,44 @@ func _migrate_payload(payload: Dictionary) -> Dictionary:
 			session.player["passive_specialization_ids"] = {}
 		if version <= 5:
 			session["known_region_ids"] = RegionCatalogClass.REGION_ORDER.duplicate()
+		if version <= 6:
+			_backfill_equipment_generation(session.player.get("equipment", {}), false)
+			_backfill_equipment_generation(session.player.get("inventory", {}), true)
+			_backfill_equipment_generation(session.get("guild_storage", {}), true)
+		if version <= 7:
+			session["weather_code"] = WeatherServiceClass.SUNNY
+			session["weather_remaining_hours"] = WeatherServiceClass.DURATION_HOURS
+			session["camp_rest_available"] = true
+		if version <= 8:
+			session["contracts"] = {
+				"daily_date": "",
+				"daily_contracts": [],
+				"daily_claimed": [],
+				"weekly_key": "",
+				"weekly_contract": {},
+				"weekly_claimed": false,
+				"progress": {},
+			}
+		if version <= 9:
+			session["guild_milestones"] = []
+			session["adventure_log"] = []
+		if version <= 10:
+			session["black_market"] = {
+				"unlocked": false,
+				"informant_last_check_day": 0,
+				"informant_failed_checks": 0,
+				"informant_present_day": 0,
+				"rotation_key": "",
+				"offers": [],
+				"purchased_offer_ids": [],
+				"buy_negotiated_prices": {},
+				"sale_negotiated_prices": {},
+			}
+		if version <= 11:
+			session.player["achievements"] = {
+				"unlocked": [],
+				"equipped_title": AchievementCatalogClass.DEFAULT_TITLE,
+			}
 		migrated.schema_version = SCHEMA_VERSION
 	if not error.is_empty():
 		return _failure(error)
@@ -554,26 +663,73 @@ func _restore_stage_three_f_progression(player: PlayerProfileClass, data: Dictio
 	return {"ok": true}
 
 
+func _restore_achievements(player: PlayerProfileClass, data: Dictionary) -> Dictionary:
+	if not data.get("unlocked") is Array or not data.get("equipped_title") is String:
+		return _failure("Zapis nie zawiera prawidłowej kolekcji osiągnięć.")
+	for achievement_id_value in data.unlocked:
+		if not achievement_id_value is String:
+			return _failure("Zapis zawiera nieprawidłowe osiągnięcie.")
+		player.achievement_book.unlocked_ids.append(str(achievement_id_value))
+	player.achievement_book.equipped_title = str(data.equipped_title)
+	var validation_error := AchievementServiceClass.validate_book(player.achievement_book)
+	if not validation_error.is_empty():
+		return _failure(validation_error)
+	return {"ok": true}
+
+
 func _restore_quest_log(session: GameSessionClass, data: Dictionary) -> Dictionary:
 	if not data.get("active") is Dictionary or not data.get("completed") is Dictionary:
 		return _failure("Zapis zawiera nieprawidłowy dziennik zadań.")
 	for quest_id_value in data.active:
 		var quest_id := str(quest_id_value)
 		var progress = data.active[quest_id]
+		var quest = QuestServiceClass.get_quest(quest_id)
 		if (
-			quest_id != QuestServiceClass.STORY_QUEST_ID
+			quest == null
 			or not _is_non_negative_integer(progress)
-			or int(progress) > int(QuestServiceClass.STORY_QUEST.required_count)
+			or int(progress) > quest.required_count
 		):
 			return _failure("Zapis zawiera nieobsługiwane aktywne zadanie.")
 		session.quest_log.active[quest_id] = int(progress)
 	for quest_id_value in data.completed:
 		var quest_id := str(quest_id_value)
-		if quest_id != QuestServiceClass.STORY_QUEST_ID or data.completed[quest_id] != true:
+		if not QuestServiceClass.has_quest(quest_id) or data.completed[quest_id] != true:
 			return _failure("Zapis zawiera nieobsługiwane ukończone zadanie.")
 		if session.quest_log.active.has(quest_id):
 			return _failure("To samo zadanie jest aktywne i ukończone.")
 		session.quest_log.completed[quest_id] = true
+	var state_error := QuestServiceClass.validate_state(session.quest_log)
+	if not state_error.is_empty():
+		return _failure(state_error)
+	return {"ok": true}
+
+
+func _restore_guild_stage_five_c(
+	session: GameSessionClass, milestone_values: Array, log_values: Array
+) -> Dictionary:
+	var seen_milestones := {}
+	for milestone_value in milestone_values:
+		if not milestone_value is String:
+			return _failure("Zapis zawiera nieprawidłowy kamień milowy Gildii.")
+		var milestone_id := str(milestone_value)
+		if (
+			not GuildMilestoneServiceClass.is_valid_id(milestone_id)
+			or seen_milestones.has(milestone_id)
+		):
+			return _failure("Zapis zawiera nieznany albo powtórzony kamień milowy Gildii.")
+		seen_milestones[milestone_id] = true
+		session.guild_milestones.append(milestone_id)
+	if log_values.size() > session.adventure_log.MAX_ENTRIES:
+		return _failure("Dziennik Przygód przekracza limit wpisów.")
+	var restored_entries: Array[String] = []
+	for entry_value in log_values:
+		if not entry_value is String:
+			return _failure("Dziennik Przygód zawiera nieprawidłowy wpis.")
+		var entry := str(entry_value).strip_edges()
+		if entry.is_empty() or entry.length() > 500:
+			return _failure("Dziennik Przygód zawiera nieprawidłowy wpis.")
+		restored_entries.append(entry)
+	session.adventure_log.replace_entries(restored_entries)
 	return {"ok": true}
 
 
@@ -590,9 +746,58 @@ func _deserialize_equipment_item(data: Dictionary) -> Dictionary:
 	var instance_id := str(data.get("instance_id", ""))
 	if instance_id.is_empty():
 		return _failure("Przedmiot nie ma identyfikatora instancji.")
-	var item := EquipmentItemClass.new(definition, upgrade_level)
+	if not _is_positive_integer(data.get("item_power")):
+		return _failure("Przedmiot nie ma prawidłowego Item Power.")
+	var item_power := int(data.item_power)
+	if item_power != definition.item_power:
+		return _failure("Item Power przedmiotu nie zgadza się z katalogiem.")
+	if not data.get("affixes") is Array:
+		return _failure("Przedmiot nie zawiera prawidłowej listy afiksów.")
+	var affixes: Array[EquipmentAffixClass] = []
+	for affix_data in data.affixes:
+		if not affix_data is Dictionary:
+			return _failure("Zapis zawiera nieprawidłowy afiks.")
+		if not _is_positive_integer(affix_data.get("tier")):
+			return _failure("Zapis zawiera nieprawidłowy tier afiksu.")
+		var value = affix_data.get("value")
+		if not value is int and not value is float:
+			return _failure("Zapis zawiera nieprawidłową wartość afiksu.")
+		affixes.append(
+			EquipmentAffixClass.new(
+				str(affix_data.get("affix_id", "")), int(affix_data.tier), float(value)
+			)
+		)
+	var affix_error := EquipmentAffixServiceClass.validate(definition, affixes)
+	if not affix_error.is_empty():
+		return _failure("Nieprawidłowe afiksy przedmiotu: %s" % affix_error)
+	var item := EquipmentItemClass.new(definition, upgrade_level, affixes, item_power)
 	item.instance_id = instance_id
 	return {"ok": true, "item": item}
+
+
+func _backfill_equipment_generation(container: Dictionary, is_inventory: bool) -> void:
+	if is_inventory:
+		var items = container.get("equipment_items", [])
+		if not items is Array:
+			return
+		for item_data in items:
+			if item_data is Dictionary:
+				_backfill_equipment_item(item_data)
+		return
+	for item_data in container.values():
+		if item_data is Dictionary:
+			_backfill_equipment_item(item_data)
+
+
+func _backfill_equipment_item(data: Dictionary) -> void:
+	var definition = ItemCatalogClass.get_definition(str(data.get("item_id", "")))
+	if definition == null or not definition.is_equipment():
+		return
+	var item = EquipmentAffixServiceClass.deterministic_item(
+		definition, int(data.get("upgrade_level", 0)), str(data.get("instance_id", ""))
+	)
+	data["item_power"] = item.item_power
+	data["affixes"] = _serialize_affixes(item.affixes)
 
 
 func _serialize_attributes(attributes: PlayerAttributesClass) -> Dictionary:
@@ -632,7 +837,16 @@ func _serialize_equipment_item(item: EquipmentItemClass) -> Dictionary:
 		"item_id": item.item_id,
 		"upgrade_level": item.upgrade_level,
 		"instance_id": item.instance_id,
+		"item_power": item.item_power,
+		"affixes": _serialize_affixes(item.affixes),
 	}
+
+
+func _serialize_affixes(affixes: Array) -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	for affix in affixes:
+		result.append({"affix_id": affix.affix_id, "tier": affix.tier, "value": affix.value})
+	return result
 
 
 func _replace_file_safely(

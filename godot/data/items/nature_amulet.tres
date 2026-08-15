@@ -11,3 +11,4 @@ item_power = 1
 required_level = 3
 attack = 2
 max_mana = 8
+set_id = "nature_guardian"

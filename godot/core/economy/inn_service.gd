@@ -1,6 +1,8 @@
 class_name InnService
 extends RefCounted
 
+const WeatherServiceClass := preload("res://core/world/weather_service.gd")
+
 const BASE_COST := 25
 const LEVEL_COST := 25
 const DURATION_HOURS := 6
@@ -33,10 +35,16 @@ static func rest(session) -> Dictionary:
 	player.stats.restore_full()
 	session.advance_hours(DURATION_HOURS)
 	session.last_inn_rest_day = session.day
+	var message := (
+		"Nocleg zakończony: +%d PŻ, +%d Many, -%d złota." % [healed_hp, restored_mana, cost]
+	)
+	var weather_change := WeatherServiceClass.format_changes(session.last_weather_changes)
+	if not weather_change.is_empty():
+		message += " " + weather_change
+	session.log_event(message)
 	return {
 		"ok": true,
-		"message":
-		"Nocleg zakończony: +%d PŻ, +%d Many, -%d złota." % [healed_hp, restored_mana, cost],
+		"message": message,
 		"healed_hp": healed_hp,
 		"restored_mana": restored_mana,
 		"gold": cost,

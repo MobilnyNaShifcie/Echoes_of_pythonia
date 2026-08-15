@@ -2,6 +2,7 @@ class_name ItemCatalog
 extends RefCounted
 
 const EquipmentItemClass := preload("res://core/items/equipment_item.gd")
+const EquipmentAffixServiceClass := preload("res://core/items/equipment_affix_service.gd")
 const ItemDefinitionClass := preload("res://core/items/item_definition.gd")
 const RegionalItemCatalogClass := preload("res://core/items/regional_item_catalog.gd")
 const DEFINITIONS := {
@@ -65,8 +66,12 @@ static func get_all_definitions() -> Array:
 	return result
 
 
-static func create_equipment_item(item_id: String) -> EquipmentItemClass:
+static func create_equipment_item(
+	item_id: String,
+	rng: RandomNumberGenerator = null,
+	quality := EquipmentAffixServiceClass.QUALITY_NORMAL
+) -> EquipmentItemClass:
 	var definition := get_definition(item_id)
 	if definition == null or not definition.is_equipment():
 		return null
-	return EquipmentItemClass.new(definition)
+	return EquipmentAffixServiceClass.generate_item(definition, rng, quality)

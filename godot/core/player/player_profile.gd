@@ -2,11 +2,15 @@ class_name PlayerProfile
 extends RefCounted
 
 const PlayerAttributesClass := preload("res://core/player/attributes.gd")
+const AchievementBookClass := preload("res://core/progression/achievement_book.gd")
 const PlayerClassCatalogClass := preload("res://core/player/player_class_catalog.gd")
 const PlayerEquipmentClass := preload("res://core/player/equipment.gd")
 const PlayerInventoryClass := preload("res://core/player/inventory.gd")
 const PrimaryStatsClass := preload("res://core/player/primary_stats.gd")
 const ItemCatalogClass := preload("res://core/items/item_catalog.gd")
+const EquipmentClassEffectCatalogClass := preload(
+	"res://core/items/equipment_class_effect_catalog.gd"
+)
 const PassiveProgressionServiceClass := preload(
 	"res://core/progression/passive_progression_service.gd"
 )
@@ -31,6 +35,7 @@ var unlocked_class_path_ids: Array[String] = []
 var passive_ranks := {}
 var unlocked_passive_mastery_ids: Array[String] = []
 var passive_specialization_ids := {}
+var achievement_book := AchievementBookClass.new()
 var attributes := PlayerAttributesClass.new()
 var stats := PrimaryStatsClass.new()
 var equipment := PlayerEquipmentClass.new()
@@ -64,6 +69,10 @@ var can_choose_class: bool:
 
 func _init(player_name: String) -> void:
 	display_name = player_name
+
+
+func titled_display_name() -> String:
+	return "[%s] %s" % [achievement_book.equipped_title, display_name]
 
 
 func experience_to_next_level() -> int:
@@ -162,6 +171,17 @@ func recalculate_stats() -> void:
 		equipment_bonuses.magic_power
 	)
 	stats.elemental_resistances = equipment_bonuses.elemental_resistances
+	stats.health_regen = equipment_bonuses.health_regen
+	stats.crit_chance = equipment_bonuses.crit_chance
+	stats.crit_damage = equipment_bonuses.crit_damage
+	stats.skill_damage = equipment_bonuses.skill_damage
+	stats.armor_penetration = equipment_bonuses.armor_penetration
+	stats.damage_vs_elite = equipment_bonuses.damage_vs_elite
+	stats.damage_vs_boss = equipment_bonuses.damage_vs_boss
+
+
+func has_active_equipment_effect(effect_id: String) -> bool:
+	return EquipmentClassEffectCatalogClass.is_active(self, effect_id)
 
 
 func get_equip_error(inventory_index: int) -> String:

@@ -61,7 +61,7 @@ func _render_character() -> void:
 		return
 	var player := _session.player
 	var load := CarryWeightServiceClass.carry_status(player)
-	hero_name_label.text = player.display_name
+	hero_name_label.text = player.titled_display_name()
 	progression_label.text = (
 		(
 			"%s  •  Poziom %d\nEXP: %d/%d  •  Wolne punkty atrybutów: %d\n"

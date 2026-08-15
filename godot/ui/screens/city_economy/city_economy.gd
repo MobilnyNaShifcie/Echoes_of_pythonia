@@ -433,7 +433,9 @@ func _perform_action() -> void:
 		"merchant_sell_equipment":
 			result = EconomyServiceClass.sell_equipment(_session.player, int(entry.index))
 		"blacksmith":
-			result = UpgradeServiceClass.upgrade_item(_session.player, entry.item, quantity)
+			result = UpgradeServiceClass.upgrade_item(
+				_session.player, entry.item, quantity, _session
+			)
 		"workshop":
 			result = CraftingServiceClass.craft(_session.player, entry.recipe.recipe_id)
 		"storage_deposit_stacks":
@@ -459,4 +461,5 @@ func _perform_action() -> void:
 	status_label.text = result.message
 	if result.ok:
 		_session.last_activity = result.message
+		_session.log_event(result.message)
 	_refresh_current_mode()

@@ -127,6 +127,18 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Bohater"
 alignment = 1
+[node name="AdventureLogButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Dziennik Przygód"
+alignment = 1
+[node name="AchievementsButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Osiągnięcia i tytuły"
+alignment = 1
 [node name="PreparationButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/Grid"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -139,6 +151,7 @@ layout_mode = 2
 text = "Droga bohatera — poziom 5"
 alignment = 1
 [node name="BlackMarketButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu"]
+unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Czarny Rynek odblokowuje się przez progres Gildii."
 disabled = true

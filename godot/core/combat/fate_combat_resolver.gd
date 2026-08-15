@@ -227,7 +227,7 @@ func _maybe_chaos_bonus_roll(report: Dictionary) -> void:
 	var roll: FateRollClass = combat.fate.roll(1)
 	var multiplier: float = 0.20 + roll.dice[0] * 0.08
 	var hit: Dictionary = combat.hit_resolver.resolve(
-		_fate_power(), multiplier, true, false, "physical"
+		_fate_power(), multiplier, true, false, "physical", 0.0, 0.0, true
 	)
 	report.skill_total_damage += hit.damage
 	report.extra_player_critical = report.extra_player_critical or hit.critical
@@ -244,7 +244,7 @@ func _resolve_damage(multiplier: float, hits: int, report: Dictionary) -> void:
 		if not combat.enemy.is_alive():
 			break
 		var hit: Dictionary = combat.hit_resolver.resolve(
-			_fate_power(), multiplier, true, false, "physical"
+			_fate_power(), multiplier, true, false, "physical", 0.0, 0.0, true
 		)
 		report.player_hit_damages.append(hit.damage)
 		report.player_hit_dodges.append(false)

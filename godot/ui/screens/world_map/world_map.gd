@@ -2,14 +2,16 @@ class_name WorldMapScreen
 extends Control
 
 signal back_requested
-signal encounter_requested(enemy_id: String)
+signal encounter_requested(enemy_id: String, weather_code: String)
 
 const AdventureServiceClass := preload("res://core/world/adventure_service.gd")
+const CampRestServiceClass := preload("res://core/economy/camp_rest_service.gd")
 const EnemyCatalogClass := preload("res://core/combat/enemy_catalog.gd")
 const GameSessionClass := preload("res://core/game/game_session.gd")
 const QuestServiceClass := preload("res://core/quests/quest_service.gd")
 const RegionCatalogClass := preload("res://core/world/region_catalog.gd")
 const RegionDefinitionClass := preload("res://core/world/region_definition.gd")
+const WeatherServiceClass := preload("res://core/world/weather_service.gd")
 
 var _session: GameSessionClass
 var _rng := RandomNumberGenerator.new()
@@ -24,6 +26,8 @@ var _selected_region_id := GameSessionClass.STARTING_LOCATION_ID
 @onready var risk_label: Label = %RiskLabel
 @onready var map_placeholder_label: Label = %MapPlaceholderLabel
 @onready var threats_label: Label = %ThreatsLabel
+@onready var weather_label: Label = %WeatherLabel
+@onready var camp_button: Button = %CampButton
 @onready var explore_button: Button = %ExploreButton
 @onready var event_label: Label = %EventLabel
 @onready var quest_label: Label = %QuestLabel
@@ -32,6 +36,7 @@ var _selected_region_id := GameSessionClass.STARTING_LOCATION_ID
 func _ready() -> void:
 	%BackButton.pressed.connect(back_requested.emit)
 	explore_button.pressed.connect(_explore)
+	camp_button.pressed.connect(_rest_at_camp)
 	region_list.item_selected.connect(_select_region)
 	_rng.randomize()
 	_render()
@@ -58,7 +63,16 @@ func _explore() -> void:
 	_render_session()
 	event_label.text = result.message
 	if not result.enemy_id.is_empty():
-		encounter_requested.emit(result.enemy_id)
+		encounter_requested.emit(result.enemy_id, result.weather_code)
+
+
+func _rest_at_camp() -> void:
+	if _session == null:
+		return
+	var result := CampRestServiceClass.rest(_session, _rng)
+	_render_session()
+	_render_region()
+	event_label.text = result.message
 
 
 func _render() -> void:
@@ -103,21 +117,40 @@ func _render_session() -> void:
 			player.stats.defense,
 		]
 	)
+	weather_label.text = (
+		"%s\n%s"
+		% [
+			WeatherServiceClass.format_status(_session),
+			WeatherServiceClass.description_for(_session.weather_code),
+		]
+	)
+	var camp_error := CampRestServiceClass.get_rest_error(_session)
+	camp_button.disabled = not camp_error.is_empty()
+	camp_button.text = "Odpocznij przy ognisku  •  +2 godziny"
+	camp_button.tooltip_text = (
+		"Regeneruje 25% maksymalnych PŻ i 35% maksymalnej Many."
+		if camp_error.is_empty()
+		else camp_error
+	)
 	event_label.text = (
 		_session.last_activity
 		if not _session.last_activity.is_empty()
 		else "Wybierz region. Wyprawa na Równiny przesuwa czas o godzinę."
 	)
 	var log = _session.quest_log
-	if log.is_active(QuestServiceClass.STORY_QUEST_ID):
+	var active_quests := QuestServiceClass.get_active_quests(log)
+	if not active_quests.is_empty():
+		var quest = active_quests[0]
+		var progress := QuestServiceClass.objective_progress(_session.player, log, quest)
 		quest_label.text = (
-			"Śledzona misja: Ci, którzy nie wrócili  •  Wilki %d/2"
-			% QuestServiceClass.get_progress(log)
+			"Śledzona misja: %s  •  %s" % [quest.title, quest.objective_text(progress)]
 		)
-	elif log.is_completed(QuestServiceClass.STORY_QUEST_ID):
-		quest_label.text = "Misja „Ci, którzy nie wrócili” ukończona."
+	elif not QuestServiceClass.get_available_quests(log, _session.player.level).is_empty():
+		quest_label.text = "Nowy rozdział fabularny czeka w Gildii Poszukiwaczy."
+	elif log.completed.size() >= QuestServiceClass.get_all_story_quests().size():
+		quest_label.text = "Akt I — Ślady Przebudzenia został ukończony."
 	else:
-		quest_label.text = "Nowa misja fabularna czeka w Gildii Poszukiwaczy."
+		quest_label.text = "Kolejny rozdział odblokuje poziom bohatera lub postęp fabuły."
 
 
 func _render_region() -> void:

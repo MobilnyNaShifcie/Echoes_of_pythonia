@@ -8,6 +8,7 @@ description = "Pierścień z żywego drewna, który lekko pulsuje w rytmie ziemi
 rarity = "rare"
 slot = "ring"
 item_power = 1
+set_id = "nature_guardian"
 required_level = 3
 attack = 1
 max_mana = 5

@@ -3,6 +3,7 @@ extends RefCounted
 
 const EquipmentItemClass := preload("res://core/items/equipment_item.gd")
 const ItemCatalogClass := preload("res://core/items/item_catalog.gd")
+const AchievementServiceClass := preload("res://core/progression/achievement_service.gd")
 
 const MAX_UPGRADE_LEVEL := 10
 const SCALING_PROGRESS := [0.0, 0.07, 0.14, 0.22, 0.31, 0.41, 0.52, 0.64, 0.76, 0.88, 1.0]
@@ -128,7 +129,9 @@ static func get_upgrade_error(player, item: EquipmentItemClass, levels: int) -> 
 	return ""
 
 
-static func upgrade_item(player, item: EquipmentItemClass, levels := 1) -> Dictionary:
+static func upgrade_item(
+	player, item: EquipmentItemClass, levels := 1, session = null
+) -> Dictionary:
 	var error := get_upgrade_error(player, item, levels)
 	if not error.is_empty():
 		return {"ok": false, "message": error}
@@ -138,10 +141,14 @@ static func upgrade_item(player, item: EquipmentItemClass, levels := 1) -> Dicti
 	player.gold -= int(plan.gold)
 	item.upgrade_level = int(plan.target_level)
 	player.recalculate_stats()
+	var unlocked_achievements: Array = []
+	if session != null:
+		unlocked_achievements = AchievementServiceClass.record_upgrade(session, item.upgrade_level)
 	return {
 		"ok": true,
 		"message": "Ulepszono %s do +%d." % [item.display_name, item.upgrade_level],
 		"plan": plan,
+		"unlocked_achievements": unlocked_achievements,
 	}
 
 

@@ -42,6 +42,8 @@ func test_round_trip_preserves_the_current_migrated_state() -> void:
 	session.prologue_stage = 5
 	session.prologue_completed = true
 	session.guild_reputation = 17
+	session.guild_milestones.append("boss:azhar")
+	session.log_event("Powrót z wyprawy zapisano w dzienniku.")
 	session.last_activity = "Powrót z wyprawy."
 	session.victories = 3
 	session.last_inn_rest_day = 3
@@ -81,6 +83,8 @@ func test_round_trip_preserves_the_current_migrated_state() -> void:
 	assert_eq(loaded.hour, 21)
 	assert_true(loaded.prologue_completed)
 	assert_eq(loaded.guild_reputation, 17)
+	assert_eq(loaded.guild_milestones, ["boss:azhar"])
+	assert_eq(loaded.adventure_log.entries, session.adventure_log.entries)
 	assert_eq(loaded.last_activity, "Powrót z wyprawy.")
 	assert_eq(loaded.victories, 3)
 	assert_eq(loaded.last_inn_rest_day, 3)
@@ -145,7 +149,7 @@ func test_corrupt_and_future_saves_are_rejected_without_loading_a_session() -> v
 
 func test_save_uses_a_dedicated_godot_directory() -> void:
 	assert_eq(SaveGameServiceClass.DEFAULT_SAVE_ROOT, "user://godot_migration_saves")
-	assert_eq(SaveGameServiceClass.SCHEMA_VERSION, 6)
+	assert_eq(SaveGameServiceClass.SCHEMA_VERSION, 12)
 
 
 func test_round_trip_preserves_hunter_techniques_and_discovered_combos() -> void:

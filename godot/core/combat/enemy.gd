@@ -25,6 +25,9 @@ var special_damage_type := ""
 var status_resistance := 0.0
 var elemental_resistances := ElementalResistancesClass.new()
 var attacks_made := 0
+var weather_code := "sunny"
+var weather_note := ""
+var weather_applied := false
 
 
 func _init(data: Dictionary) -> void:

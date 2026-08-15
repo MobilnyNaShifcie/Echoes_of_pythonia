@@ -8,6 +8,7 @@ description = "Żywe pnącza zastygłe w formie bransolety."
 rarity = "rare"
 slot = "bracelet"
 item_power = 1
+set_id = "nature_guardian"
 required_level = 3
 attack = 2
 max_mana = 5

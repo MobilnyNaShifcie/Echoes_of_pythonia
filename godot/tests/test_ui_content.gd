@@ -34,6 +34,8 @@ func test_city_plan_is_a_single_top_to_bottom_column() -> void:
 		"Kram Orena",
 		"Karczma",
 		"Bohater",
+		"Dziennik Przygód",
+		"Osiągnięcia i tytuły",
 		"Przygotowanie wyprawy",
 	]
 	var actual_labels: Array[String] = []

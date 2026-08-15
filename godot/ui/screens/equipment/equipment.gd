@@ -6,6 +6,11 @@ signal back_requested
 const EquipmentItemClass := preload("res://core/items/equipment_item.gd")
 const GameSessionClass := preload("res://core/game/game_session.gd")
 const ItemCatalogClass := preload("res://core/items/item_catalog.gd")
+const EquipmentAffixServiceClass := preload("res://core/items/equipment_affix_service.gd")
+const EquipmentSetCatalogClass := preload("res://core/items/equipment_set_catalog.gd")
+const EquipmentClassEffectCatalogClass := preload(
+	"res://core/items/equipment_class_effect_catalog.gd"
+)
 const BookCatalogClass := preload("res://core/progression/book_catalog.gd")
 const BookServiceClass := preload("res://core/progression/book_service.gd")
 const PlayerEquipmentClass := preload("res://core/player/equipment.gd")
@@ -246,7 +251,7 @@ func _read_selected_book() -> void:
 
 func _format_item_details(item: EquipmentItemClass, compare_with_equipped := false) -> String:
 	var definition = item.definition
-	var effective := UpgradeServiceClass.effective_stats(item)
+	var effective := _item_stats(item)
 	var required_class: String = (
 		definition.required_class_name
 		if not definition.required_class_code.is_empty()
@@ -259,19 +264,63 @@ func _format_item_details(item: EquipmentItemClass, compare_with_equipped := fal
 			% [
 				SLOT_NAMES[item.slot],
 				EQUIPMENT_TYPE_NAMES.get(definition.equipment_type, "ogólne"),
-				definition.item_power,
+				item.item_power,
 				CarryWeightServiceClass.item_unit_weight(item.item_id),
 			]
 		),
 		"Wymagania: poziom %d  •  %s" % [definition.required_level, required_class],
 		"Premie: %s" % _format_stats(effective),
 	]
+	if not item.affixes.is_empty():
+		lines.append("Afiksy:")
+		for affix in item.affixes:
+			lines.append("• %s" % EquipmentAffixServiceClass.formatted_affix(affix))
+	if not definition.set_id.is_empty():
+		var set_definition := EquipmentSetCatalogClass.get_definition(definition.set_id)
+		var equipped_count := 0
+		for required_item_id: String in set_definition.required_items:
+			for equipped_item in _session.player.equipment.slots.values():
+				if equipped_item != null and equipped_item.item_id == required_item_id:
+					equipped_count += 1
+		(
+			lines
+			. append(
+				(
+					"Zestaw: %s (%d/%d)%s"
+					% [
+						set_definition.display_name,
+						equipped_count,
+						set_definition.required_items.size(),
+						(
+							" — premia aktywna"
+							if equipped_count == set_definition.required_items.size()
+							else ""
+						),
+					]
+				)
+			)
+		)
+	if not definition.class_effect_id.is_empty():
+		var class_effect := EquipmentClassEffectCatalogClass.get_definition(
+			definition.class_effect_id
+		)
+		var effect_status := (
+			"aktywny"
+			if _session.player.has_active_equipment_effect(definition.class_effect_id)
+			else "wymaga klasy %s i założenia przedmiotu" % class_effect.class_name
+		)
+		lines.append(
+			(
+				"Efekt klasowy — %s (%s): %s"
+				% [class_effect.display_name, effect_status, class_effect.description]
+			)
+		)
 	if compare_with_equipped:
 		var current: EquipmentItemClass = _session.player.equipment.get_item(item.slot)
 		if current == null:
 			lines.append("Porównanie: miejsce jest obecnie puste.")
 		else:
-			var current_stats := UpgradeServiceClass.effective_stats(current)
+			var current_stats := _item_stats(current)
 			lines.append("Porównanie z: %s" % current.formatted_name())
 			lines.append("Zmiana: %s" % _format_stat_delta(effective, current_stats))
 	lines.append("")
@@ -293,6 +342,19 @@ func _format_stats(stats: Dictionary) -> String:
 		parts.append("MOC MAG. +%d" % stats.magic_power)
 	if stats.dodge > 0:
 		parts.append("UNIK +%.1f%%" % stats.dodge)
+	if stats.health_regen > 0:
+		parts.append("REGEN. PŻ +%d" % stats.health_regen)
+	var percent_names := {
+		"crit_chance": "SZANSA KRYT.",
+		"crit_damage": "OBR. KRYT.",
+		"skill_damage": "OBR. UMIEJ.",
+		"armor_penetration": "PRZEBICIE",
+		"damage_vs_elite": "OBR. VS ELITA",
+		"damage_vs_boss": "OBR. VS BOSS",
+	}
+	for stat_id: String in percent_names:
+		if float(stats.get(stat_id, 0.0)) > 0.0:
+			parts.append("%s +%.1f%%" % [percent_names[stat_id], stats[stat_id]])
 	if stats.has("elemental_resistances"):
 		var names := {
 			"fire": "OGIEŃ",
@@ -315,9 +377,24 @@ func _format_stat_delta(candidate: Dictionary, current: Dictionary) -> String:
 	_append_integer_delta(parts, "PŻ", int(candidate.max_hp) - int(current.max_hp))
 	_append_integer_delta(parts, "MANA", int(candidate.max_mana) - int(current.max_mana))
 	_append_integer_delta(parts, "MOC MAG.", int(candidate.magic_power) - int(current.magic_power))
+	_append_integer_delta(
+		parts, "REGEN. PŻ", int(candidate.health_regen) - int(current.health_regen)
+	)
 	var dodge_delta := float(candidate.dodge) - float(current.dodge)
 	if not is_zero_approx(dodge_delta):
 		parts.append("UNIK %s%%" % _signed_float(dodge_delta))
+	var percent_names := {
+		"crit_chance": "SZANSA KRYT.",
+		"crit_damage": "OBR. KRYT.",
+		"skill_damage": "OBR. UMIEJ.",
+		"armor_penetration": "PRZEBICIE",
+		"damage_vs_elite": "OBR. VS ELITA",
+		"damage_vs_boss": "OBR. VS BOSS",
+	}
+	for stat_id: String in percent_names:
+		var delta := float(candidate.get(stat_id, 0.0)) - float(current.get(stat_id, 0.0))
+		if not is_zero_approx(delta):
+			parts.append("%s %s%%" % [percent_names[stat_id], _signed_float(delta)])
 	var resistance_names := {
 		"fire": "ODP. OGIEŃ",
 		"wind": "ODP. WIATR",
@@ -332,6 +409,38 @@ func _format_stat_delta(candidate: Dictionary, current: Dictionary) -> String:
 		)
 		_append_integer_delta(parts, resistance_names[damage_type], resistance_delta)
 	return ", ".join(parts) if not parts.is_empty() else "bez zmiany statystyk"
+
+
+func _item_stats(item: EquipmentItemClass) -> Dictionary:
+	var stats := UpgradeServiceClass.effective_stats(item).duplicate(true)
+	stats["health_regen"] = 0
+	for stat_id: String in [
+		"crit_chance",
+		"crit_damage",
+		"skill_damage",
+		"armor_penetration",
+		"damage_vs_elite",
+		"damage_vs_boss",
+	]:
+		stats[stat_id] = 0.0
+	var affix_bonuses := EquipmentAffixServiceClass.bonuses_for(item)
+	for stat_id: String in ["attack", "defense", "max_hp", "max_mana", "health_regen"]:
+		stats[stat_id] += roundi(affix_bonuses.get(stat_id, 0.0))
+	for stat_id: String in [
+		"dodge",
+		"crit_chance",
+		"crit_damage",
+		"skill_damage",
+		"armor_penetration",
+		"damage_vs_elite",
+		"damage_vs_boss",
+	]:
+		stats[stat_id] += float(affix_bonuses.get(stat_id, 0.0))
+	for damage_type: String in ["fire", "wind", "frost", "earth", "water"]:
+		stats.elemental_resistances[damage_type] += roundi(
+			affix_bonuses.get("%s_resistance" % damage_type, 0.0)
+		)
+	return stats
 
 
 func _append_integer_delta(parts: Array[String], stat_name: String, value: int) -> void:

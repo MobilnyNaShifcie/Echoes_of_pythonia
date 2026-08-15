@@ -12,7 +12,7 @@ func test_renders_migrated_character_state() -> void:
 	screen.configure(session)
 	add_child_autofree(screen)
 
-	assert_eq(screen.hero_name_label.text, "Aria")
+	assert_eq(screen.hero_name_label.text, "[Wędrowiec] Aria")
 	assert_string_contains(screen.progression_label.text, "Poszukiwacz  •  Poziom 0")
 	assert_string_contains(screen.primary_stats_label.text, "ATK     3")
 	assert_string_contains(screen.primary_stats_label.text, "DEF     2")

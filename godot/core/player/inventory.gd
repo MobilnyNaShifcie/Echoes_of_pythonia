@@ -8,7 +8,9 @@ var stacks := {}
 var equipment_items: Array[EquipmentItemClass] = []
 
 
-func add(item_id: String, quantity := 1) -> bool:
+func add(
+	item_id: String, quantity := 1, rng: RandomNumberGenerator = null, equipment_quality := "normal"
+) -> bool:
 	if quantity <= 0:
 		return false
 	var definition := ItemCatalogClass.get_definition(item_id)
@@ -16,7 +18,9 @@ func add(item_id: String, quantity := 1) -> bool:
 		return false
 	if definition.is_equipment():
 		for _item_number in quantity:
-			equipment_items.append(ItemCatalogClass.create_equipment_item(item_id))
+			equipment_items.append(
+				ItemCatalogClass.create_equipment_item(item_id, rng, equipment_quality)
+			)
 		return true
 	stacks[item_id] = stacks.get(item_id, 0) + quantity
 	return true

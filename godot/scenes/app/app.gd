@@ -2,8 +2,12 @@ extends Control
 
 const EnemyCatalogClass := preload("res://core/combat/enemy_catalog.gd")
 const GameSessionClass := preload("res://core/game/game_session.gd")
+const GuildProgressionServiceClass := preload("res://core/quests/guild_progression_service.gd")
 const RegionCatalogClass := preload("res://core/world/region_catalog.gd")
 const CharacterSheetScreenClass := preload("res://ui/screens/character_sheet/character_sheet.gd")
+const AdventureLogScreenClass := preload("res://ui/screens/adventure_log/adventure_log.gd")
+const AchievementsScreenClass := preload("res://ui/screens/achievements/achievements.gd")
+const BlackMarketScreenClass := preload("res://ui/screens/black_market/black_market.gd")
 const CityHubScreenClass := preload("res://ui/screens/city_hub/city_hub.gd")
 const CityEconomyScreenClass := preload("res://ui/screens/city_economy/city_economy.gd")
 const CityServiceScreenClass := preload("res://ui/screens/city_service/city_service.gd")
@@ -21,6 +25,9 @@ const SkillsScreenClass := preload("res://ui/screens/skills/skills.gd")
 const WorldMapScreenClass := preload("res://ui/screens/world_map/world_map.gd")
 const SaveGameServiceClass := preload("res://core/save/save_game_service.gd")
 const CHARACTER_SHEET_SCENE := preload("res://ui/screens/character_sheet/character_sheet.tscn")
+const ADVENTURE_LOG_SCENE := preload("res://ui/screens/adventure_log/adventure_log.tscn")
+const ACHIEVEMENTS_SCENE := preload("res://ui/screens/achievements/achievements.tscn")
+const BLACK_MARKET_SCENE := preload("res://ui/screens/black_market/black_market.tscn")
 const CITY_HUB_SCENE := preload("res://ui/screens/city_hub/city_hub.tscn")
 const CITY_ECONOMY_SCENE := preload("res://ui/screens/city_economy/city_economy.tscn")
 const CITY_SERVICE_SCENE := preload("res://ui/screens/city_service/city_service.tscn")
@@ -120,6 +127,8 @@ func _show_city_hub() -> void:
 	hub.world_map_requested.connect(_show_world_map)
 	hub.guild_requested.connect(_show_guild)
 	hub.hero_requested.connect(_show_character_sheet)
+	hub.adventure_log_requested.connect(_show_adventure_log)
+	hub.achievements_requested.connect(_show_achievements)
 	hub.classes_requested.connect(_show_class_selection)
 	hub.service_requested.connect(_show_city_service)
 	hub.main_menu_requested.connect(_show_main_menu)
@@ -150,6 +159,27 @@ func _show_character_sheet() -> void:
 	character_sheet.skills_requested.connect(_show_skills)
 	character_sheet.progression_requested.connect(_show_progression)
 	app_status_label.text = "Karta postaci: %s" % _current_session.player.display_name
+
+
+func _show_adventure_log() -> void:
+	if _current_session == null:
+		_show_main_menu()
+		return
+	var adventure_log: AdventureLogScreenClass = _replace_screen(ADVENTURE_LOG_SCENE)
+	adventure_log.configure(_current_session)
+	adventure_log.back_requested.connect(_show_city_hub)
+	app_status_label.text = "Dziennik Przygód: %s" % _current_session.player.display_name
+
+
+func _show_achievements() -> void:
+	if _current_session == null:
+		_show_main_menu()
+		return
+	var achievements: AchievementsScreenClass = _replace_screen(ACHIEVEMENTS_SCENE)
+	achievements.configure(_current_session)
+	achievements.back_requested.connect(_show_city_hub)
+	achievements.state_changed.connect(_save_current_session_silently)
+	app_status_label.text = "Osiągnięcia i tytuły: %s" % _current_session.player.display_name
 
 
 func _show_skills() -> void:
@@ -189,7 +219,8 @@ func _show_guild() -> void:
 	var guild: GuildScreenClass = _replace_screen(GUILD_SCENE)
 	guild.configure(_current_session)
 	guild.back_requested.connect(_show_city_hub)
-	app_status_label.text = "Gildia Poszukiwaczy: ranga F"
+	var rank := GuildProgressionServiceClass.rank_for_reputation(_current_session.guild_reputation)
+	app_status_label.text = "Gildia Poszukiwaczy: ranga %s" % rank.code
 
 
 func _show_class_selection() -> void:
@@ -215,11 +246,32 @@ func _show_city_service(service_id: String) -> void:
 			"Varenhold: %s" % CityEconomyScreenClass.display_name_for(service_id)
 		)
 		return
+	if service_id == "black_market":
+		_show_black_market()
+		return
 	var service: CityServiceScreenClass = _replace_screen(CITY_SERVICE_SCENE)
-	service.configure(_current_session, service_id)
 	service.back_requested.connect(_show_city_hub)
 	service.world_map_requested.connect(_show_world_map)
+	service.state_changed.connect(_save_current_session_silently)
+	service.configure(_current_session, service_id)
 	app_status_label.text = "Varenhold: %s" % CityServiceScreenClass.display_name_for(service_id)
+
+
+func _show_black_market() -> void:
+	if _current_session == null or not _current_session.black_market.unlocked:
+		_show_city_hub()
+		return
+	var market: BlackMarketScreenClass = _replace_screen(BLACK_MARKET_SCENE)
+	market.back_requested.connect(_show_city_hub)
+	market.state_changed.connect(_save_current_session_silently)
+	market.configure(_current_session)
+	app_status_label.text = "Czarny Rynek: dzienna dostawa"
+
+
+func _save_current_session_silently() -> void:
+	var result := _save_service.save_session(_current_session)
+	if not result.ok:
+		app_status_label.text = result.message
 
 
 func _show_world_map() -> void:
@@ -234,16 +286,16 @@ func _show_world_map() -> void:
 	app_status_label.text = "Wyprawa: %s" % region.display_name
 
 
-func _show_expedition_combat(enemy_id: String) -> void:
-	_show_combat(enemy_id, "expedition")
+func _show_expedition_combat(enemy_id: String, weather_code: String) -> void:
+	_show_combat(enemy_id, "expedition", weather_code)
 
 
-func _show_combat(enemy_id: String, context: String) -> void:
+func _show_combat(enemy_id: String, context: String, weather_code := "sunny") -> void:
 	if _current_session == null:
 		_show_main_menu()
 		return
 	var combat: CombatScreenClass = _replace_screen(COMBAT_SCENE)
-	combat.configure(_current_session, enemy_id, context)
+	combat.configure(_current_session, enemy_id, context, weather_code)
 	combat.finished.connect(_on_combat_finished)
 	app_status_label.text = "Walka: %s" % EnemyCatalogClass.display_name_for(enemy_id)
 
@@ -260,7 +312,7 @@ func _on_combat_finished(context: String, result: String) -> void:
 func _show_project_status() -> void:
 	app_status_label.text = (
 		"v0.25.0: prolog, Varenhold, ekonomia, walka klasowa, "
-		+ "progresja oraz pięć regionów wypraw w Godot 4"
+		+ "progresja, pięć regionów, Akt I, Gildia i Czarny Rynek w Godot 4"
 	)
 
 

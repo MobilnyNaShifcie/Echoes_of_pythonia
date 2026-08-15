@@ -3,6 +3,7 @@ extends RefCounted
 
 const GameSessionClass := preload("res://core/game/game_session.gd")
 const PlayerFactoryClass := preload("res://core/player/player_factory.gd")
+const WeatherServiceClass := preload("res://core/world/weather_service.gd")
 const MINIMUM_NAME_LENGTH := 2
 const MAXIMUM_NAME_LENGTH := 20
 const SAVE_SLOT_COUNT := 4
@@ -27,11 +28,16 @@ func get_save_slot_error(save_slot: int) -> String:
 	return ""
 
 
-func create_session(raw_name: String, save_slot: int) -> GameSessionClass:
+func create_session(
+	raw_name: String, save_slot: int, rng: RandomNumberGenerator = null
+) -> GameSessionClass:
 	if not get_player_name_error(raw_name).is_empty():
 		return null
 	if not get_save_slot_error(save_slot).is_empty():
 		return null
 
 	var player := PlayerFactoryClass.create_player(normalize_player_name(raw_name))
-	return GameSessionClass.new(save_slot, player)
+	var session := GameSessionClass.new(save_slot, player)
+	WeatherServiceClass.initialize(session, rng)
+	session.log_event("Rozpoczęto przygodę.")
+	return session

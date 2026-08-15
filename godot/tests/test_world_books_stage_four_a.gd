@@ -130,7 +130,7 @@ func test_new_session_knows_all_regions_and_world_screen_can_inspect_them() -> v
 	assert_eq(screen.explore_button.text, "Wyrusz na wyprawę  •  +1 godzina")
 
 
-func test_save_v6_preserves_books_and_known_regions() -> void:
+func test_current_save_preserves_books_and_known_regions() -> void:
 	var service := SaveGameServiceClass.new(_save_root)
 	var session = NewGameServiceClass.new().create_session("Aria", 1)
 	session.known_region_ids.assign(["twilight_plains", "black_forest"])

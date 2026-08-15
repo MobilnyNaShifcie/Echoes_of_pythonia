@@ -72,7 +72,8 @@ func test_backpack_compares_candidate_with_equipped_item() -> void:
 
 	assert_false(screen.equip_button.disabled)
 	assert_string_contains(screen.details_label.text, "Porównanie z: Stary Miecz +0")
-	assert_string_contains(screen.details_label.text, "Zmiana: ATK +2")
+	assert_string_contains(screen.details_label.text, "Zmiana: ATK +")
+	assert_string_contains(screen.details_label.text, "Afiksy:")
 	assert_string_contains(screen.details_label.text, "Wymagania: poziom 2")
 
 

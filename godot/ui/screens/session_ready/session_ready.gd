@@ -28,7 +28,7 @@ func configure(session: GameSessionClass) -> void:
 func _render_session() -> void:
 	if _session == null:
 		return
-	hero_label.text = "%s jest gotowy do drogi" % _session.player.display_name
+	hero_label.text = "%s jest gotowy do drogi" % _session.player.titled_display_name()
 	details_label.text = (
 		(
 			"Slot %d  •  Poziom %d  •  %d/%d PŻ\n"
