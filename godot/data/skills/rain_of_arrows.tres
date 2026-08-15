@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/skills/skill_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+skill_id = "rain_of_arrows"
+display_name = "Deszcz Strzał"
+character_class_code = "hunter"
+unlock_level = 5
+mana_cost = 9
+description = "Wypuszcza salwę w niebo. Deszcz spada po następnej akcji Łowcy."
+scaling = "hunter"
+multiplier = 0.7
+hits = 1
+effect = "delayed_rain"
+effect_value = 65
+guaranteed_hit = true
+required_weapon_type = "bow"
+unlock_source = "talent"
+required_talent_id = "hunter_rain_of_arrows"
+hunter_technique = "rain"

@@ -7,6 +7,7 @@ const AdventureServiceClass := preload("res://core/world/adventure_service.gd")
 const CombatEngineClass := preload("res://core/combat/combat_engine.gd")
 const EnemyCatalogClass := preload("res://core/combat/enemy_catalog.gd")
 const GameSessionClass := preload("res://core/game/game_session.gd")
+const HunterComboCatalogClass := preload("res://core/combat/hunter_combo_catalog.gd")
 const ItemCatalogClass := preload("res://core/items/item_catalog.gd")
 const SkillCatalogClass := preload("res://core/skills/skill_catalog.gd")
 const HEALING_ITEM_IDS := [
@@ -21,12 +22,17 @@ var _rng := RandomNumberGenerator.new()
 var _battle_actions_enabled := true
 var _last_fate_dice: Array[int] = []
 var _last_fate_outcome := ""
+var _last_hunter_combo := ""
 
 @onready var encounter_label: Label = %EncounterLabel
 @onready var fate_panel: PanelContainer = %FatePanel
 @onready var fate_status_label: Label = %FateStatusLabel
 @onready var dice_row: HBoxContainer = %DiceRow
 @onready var fate_outcome_label: Label = %FateOutcomeLabel
+@onready var hunter_panel: PanelContainer = %HunterPanel
+@onready var hunter_sequence_label: Label = %HunterSequenceLabel
+@onready var hunter_resources_label: Label = %HunterResourcesLabel
+@onready var hunter_combo_label: Label = %HunterComboLabel
 @onready var player_name_label: Label = %PlayerNameLabel
 @onready var player_stats_label: Label = %PlayerStatsLabel
 @onready var player_hp_bar: ProgressBar = %PlayerHpBar
@@ -68,6 +74,7 @@ func configure(session: GameSessionClass, enemy_id: String, context := "expediti
 	_battle_actions_enabled = true
 	_last_fate_dice.clear()
 	_last_fate_outcome = ""
+	_last_hunter_combo = ""
 	if is_node_ready():
 		combat_log.clear()
 		_append_log("Rozpoczyna się walka z: %s." % _enemy.display_name)
@@ -141,6 +148,8 @@ func _resolve_turn(report: Dictionary, action_text: String) -> void:
 	if not rolled_dice.is_empty():
 		_last_fate_dice.assign(rolled_dice)
 		_last_fate_outcome = str(report.get("fate_outcome", ""))
+	if not str(report.get("hunter_combo_name", "")).is_empty():
+		_last_hunter_combo = str(report.hunter_combo_name)
 	_append_log("\n" + action_text)
 	if report.get("enemy_dodged", false):
 		_append_log("Przeciwnik unika ciosu.")
@@ -272,6 +281,7 @@ func _render() -> void:
 	enemy_hp_bar.tooltip_text = "PŻ %d/%d" % [_enemy.current_hp, _enemy.max_hp]
 	flee_button.visible = _context != "prologue"
 	_render_fate_panel()
+	_render_hunter_panel()
 	_refresh_skill_selector()
 	_render_skill_action()
 	_refresh_consumable_selector()
@@ -303,6 +313,28 @@ func _render_fate_panel() -> void:
 		dice_row.add_child(die_label)
 	fate_outcome_label.text = (
 		"RZUT OCZEKUJE" if _last_fate_outcome.is_empty() else _last_fate_outcome
+	)
+
+
+func _render_hunter_panel() -> void:
+	var is_hunter := _session.player.character_class_code == "hunter"
+	hunter_panel.visible = is_hunter
+	if not is_hunter:
+		return
+	var sequence_text := "—"
+	if not _engine.hunter_sequence.is_empty():
+		sequence_text = HunterComboCatalogClass.sequence_text(_engine.hunter_sequence)
+	hunter_sequence_label.text = "SEKWENCJA %s" % sequence_text
+	hunter_resources_label.text = (
+		"ŁADUNKI %d/3  •  ECHA %d  •  DESZCZ %d"
+		% [
+			_engine.hunter_explosive_charges,
+			_engine.hunter_phantom_pending.size(),
+			_engine.hunter_rain_pending.size(),
+		]
+	)
+	hunter_combo_label.text = (
+		"FINISHER OCZEKUJE" if _last_hunter_combo.is_empty() else _last_hunter_combo
 	)
 
 

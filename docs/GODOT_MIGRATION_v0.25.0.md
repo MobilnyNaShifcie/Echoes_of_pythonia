@@ -97,6 +97,16 @@ The migrated flow is runnable in Godot:
     temporary dodge effects, attack reduction, double hits, and reflection.
 29. Present Pierrot's encounter-local Luck, Fate Tokens, mirror readiness, and
     last one-to-three die results in an adaptive placeholder combat panel.
+30. Execute Hunter's six additional Volley Techniques and the base Bleeding
+    Shot as a three-technique sequence, including Explosive Charges, Phantom
+    Echo, delayed Rain of Arrows, splitting fragments, and armor penetration.
+31. Discover and resolve all six named Hunter combinations while clearing an
+    unknown third-shot sequence without creating false progression.
+32. Present the current Hunter sequence, pending effects, explosive charges,
+    and last finisher in a compact placeholder combat panel.
+33. Persist unlocked Hunter techniques and discovered combinations in the
+    validated Godot save schema v3 while safely migrating schema-v1 and
+    schema-v2 Godot saves.
 
 The GDScript model also carries the legacy attribute formulas, level-zero
 experience threshold, four attribute points per level, and Pierrot-only Luck.
@@ -120,12 +130,14 @@ already have sources in the migrated world, and the inn performs paid full
 recovery with its daily cooldown. Final item art, shop animation, and audio
 remain outside this domain slice and continue to use placeholder presentation.
 
-Stage 3C is complete without a save-schema bump. Schema v2 already contains
-the Path, level, current Mana, exact equipment instances, backpack, and Luck
-needed to derive Pierrot's combat state. Dice history, Fate Tokens, temporary
-dodge, and mirror readiness are intentionally encounter-local. Talent-driven
-dice manipulation remains assigned to stage 3F; affixes, item sets, and later
-regional equipment remain in the world-and-expeditions stage.
+Stages 3C and 3D are complete. Dice history, Fate Tokens, temporary dodge,
+mirror readiness, Hunter sequence, delayed effects, and explosive charges are
+intentionally encounter-local. Godot save schema v3 adds only durable Hunter
+progression: unlocked talent techniques and discovered named combinations.
+Talent-driven dice manipulation, the actual talent-tree purchase flow, passive
+Hunter masteries, and specializations remain assigned to stage 3F; affixes,
+item sets, and later regional equipment remain in the world-and-expeditions
+stage.
 
 ## Add-on policy
 

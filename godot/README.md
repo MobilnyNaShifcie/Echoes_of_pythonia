@@ -24,9 +24,11 @@ equivalent, tested GDScript implementation.
 - `ui/` — reusable controls, themes, and presentation logic
 
 The current playable migration includes stages 0–2 and character progression
-stages 3A–3C. All sixteen base Path skills are active. Pierrot uses a dedicated
-Fate Engine with encounter-local Fate Tokens, exact 1d6/2d6/3d6 outcome tables,
-and a flexible placeholder dice panel ready for later presentation work.
+stages 3A–3D. All sixteen base Path skills are active. Pierrot uses a dedicated
+Fate Engine with encounter-local Fate Tokens and exact 1d6/2d6/3d6 tables.
+Hunter now has the six additional terminal Volley Techniques, all six named
+three-shot combinations, delayed Echo and Rain effects, Explosive Charges, and
+an adaptive placeholder status panel. Final presentation remains a later step.
 
 Open the project with the pinned local editor from the repository root:
 

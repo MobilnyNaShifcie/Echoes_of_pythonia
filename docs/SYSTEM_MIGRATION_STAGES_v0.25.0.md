@@ -101,9 +101,28 @@ Stan rzutów, Żetony Losu i odbicie istnieją wyłącznie w bieżącej walce, w
 schemat zapisu pozostaje w wersji `v2`. Manipulacje kośćmi z talentów Fortuny
 i Chaosu należą do 3F i nie są zastępowane uproszczoną logiką.
 
-### Etap 3D–3F — pozostałe systemy klasowe i progresja
+### Etap 3D — Techniki Salwy i kombinacje Łowcy (ukończony)
 
-- **3D:** techniki i kombinacje Łowcy wraz z efektami opóźnionymi,
+- sześć dodatkowych Technik Salwy oraz bazowy Krwawiący Strzał jako elementy
+  trzystrzałowej sekwencji,
+- pełne reguły Przebijającej, Lodowej, Wybuchowej, Widmowej i
+  Rozszczepiającej Strzały oraz Deszczu Strzał,
+- trzy Ładunki Wybuchowe, opóźnione Widmowe Echo i opóźniona salwa,
+- sześć nazwanych kombinacji z mnożnikami, przebiciem pancerza, żywiołem,
+  krwawieniem i zużyciem ładunków zgodnymi z wersją terminalową,
+- czyszczenie także nienazwanej sekwencji po trzeciej technice,
+- trwałe odkrywanie kombinacji oraz walidowany zapis progresji Łowcy,
+- zastępczy panel walki pokazujący sekwencję, ładunki, oczekujące efekty i
+  ostatni finiszer; finalne efekty pocisków pozostają poza tym etapem,
+- katalog technik na ekranie umiejętności bez przedwczesnego wdrażania drzewka.
+
+Schemat zapisu Godota ma teraz wersję `v3`. Zapisuje odblokowane techniki
+talentowe i odkryte kombinacje, a pliki `v1` oraz `v2` są kolejno migrowane z
+bezpiecznymi pustymi kolekcjami. Samo zdobywanie talentów nadal należy do 3F;
+3D dostarcza gotowe i testowane reguły, które ta progresja będzie odblokowywać.
+
+### Etap 3E–3F — pozostałe systemy klasowe i progresja
+
 - **3E:** żywioły i Splot Maga oraz stany ofensywne i obronne Wojownika,
 - dalsze warianty konfigurowalnego panelu akcji zależne od klasy i stanu walki,
 - **3F:** drzewka, specjalizacje, pasywne mistrzostwa i zapis progresji,

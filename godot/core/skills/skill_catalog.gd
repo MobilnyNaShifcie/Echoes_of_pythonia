@@ -8,6 +8,14 @@ const CLASS_SKILL_ORDER := {
 	"mage": ["fire_bolt", "frost_lance", "lightning", "mana_burst"],
 	"pierrot": ["fate_thrust", "double_roll", "fate_feint", "grand_gamble"],
 }
+const HUNTER_TECHNIQUE_ORDER := [
+	"piercing_arrow",
+	"frost_arrow",
+	"explosive_arrow",
+	"phantom_arrow",
+	"rain_of_arrows",
+	"splitting_arrow",
+]
 const DEFINITIONS := {
 	"power_slash": preload("res://data/skills/power_slash.tres"),
 	"armor_break": preload("res://data/skills/armor_break.tres"),
@@ -17,6 +25,12 @@ const DEFINITIONS := {
 	"bleeding_shot": preload("res://data/skills/bleeding_shot.tres"),
 	"shadow_step": preload("res://data/skills/shadow_step.tres"),
 	"double_shot": preload("res://data/skills/double_shot.tres"),
+	"piercing_arrow": preload("res://data/skills/piercing_arrow.tres"),
+	"frost_arrow": preload("res://data/skills/frost_arrow.tres"),
+	"explosive_arrow": preload("res://data/skills/explosive_arrow.tres"),
+	"phantom_arrow": preload("res://data/skills/phantom_arrow.tres"),
+	"rain_of_arrows": preload("res://data/skills/rain_of_arrows.tres"),
+	"splitting_arrow": preload("res://data/skills/splitting_arrow.tres"),
 	"fire_bolt": preload("res://data/skills/fire_bolt.tres"),
 	"frost_lance": preload("res://data/skills/frost_lance.tres"),
 	"lightning": preload("res://data/skills/lightning.tres"),
@@ -39,10 +53,34 @@ static func get_skills_for_class(class_code: String) -> Array[SkillDefinitionCla
 	return result
 
 
+static func get_preview_skills_for_class(class_code: String) -> Array[SkillDefinitionClass]:
+	var result := get_skills_for_class(class_code)
+	if class_code == "hunter":
+		for skill_id: String in HUNTER_TECHNIQUE_ORDER:
+			result.append(DEFINITIONS[skill_id])
+	return result
+
+
+static func get_hunter_techniques() -> Array[SkillDefinitionClass]:
+	var result: Array[SkillDefinitionClass] = []
+	for skill_id: String in HUNTER_TECHNIQUE_ORDER:
+		result.append(DEFINITIONS[skill_id])
+	return result
+
+
 static func get_unlocked_skills(player) -> Array[SkillDefinitionClass]:
 	var result: Array[SkillDefinitionClass] = []
 	for skill: SkillDefinitionClass in get_skills_for_class(player.character_class_code):
 		if player.level >= skill.unlock_level:
+			result.append(skill)
+	for skill_id: String in player.unlocked_talent_skill_ids:
+		var skill: SkillDefinitionClass = get_definition(skill_id)
+		if (
+			skill != null
+			and skill.character_class_code == player.character_class_code
+			and player.level >= skill.unlock_level
+			and not result.has(skill)
+		):
 			result.append(skill)
 	return result
 
@@ -56,8 +94,16 @@ static func get_combat_ready_skills(player) -> Array[SkillDefinitionClass]:
 
 
 static func is_unlocked(player, skill: SkillDefinitionClass) -> bool:
-	return (
-		skill != null
-		and skill.character_class_code == player.character_class_code
-		and player.level >= skill.unlock_level
-	)
+	if (
+		skill == null
+		or skill.character_class_code != player.character_class_code
+		or player.level < skill.unlock_level
+	):
+		return false
+	if skill.unlock_source == "talent":
+		return skill.skill_id in player.unlocked_talent_skill_ids
+	return skill.skill_id in CLASS_SKILL_ORDER.get(player.character_class_code, [])
+
+
+static func is_hunter_technique_id(skill_id: String) -> bool:
+	return skill_id in HUNTER_TECHNIQUE_ORDER

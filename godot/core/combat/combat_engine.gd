@@ -5,6 +5,8 @@ const CombatEffectsClass := preload("res://core/combat/combat_effects.gd")
 const EnemyClass := preload("res://core/combat/enemy.gd")
 const FateEngineClass := preload("res://core/combat/fate_engine.gd")
 const FateRollClass := preload("res://core/combat/fate_roll.gd")
+const HunterComboCatalogClass := preload("res://core/combat/hunter_combo_catalog.gd")
+const HunterComboDefinitionClass := preload("res://core/combat/hunter_combo_definition.gd")
 const PlayerEquipmentClass := preload("res://core/player/equipment.gd")
 const PlayerProfileClass := preload("res://core/player/player_profile.gd")
 const SkillCatalogClass := preload("res://core/skills/skill_catalog.gd")
@@ -20,6 +22,10 @@ var effects := CombatEffectsClass.new()
 var fate: FateEngineClass
 var fate_tokens := 0
 var pierrot_reflect_ready := false
+var hunter_sequence: Array[String] = []
+var hunter_phantom_pending: Array[int] = []
+var hunter_rain_pending: Array[int] = []
+var hunter_explosive_charges := 0
 var result := ONGOING
 var rng: RandomNumberGenerator
 
@@ -41,6 +47,7 @@ func player_attack() -> Dictionary:
 	if result != ONGOING:
 		return {}
 	var report := _new_report()
+	var hunter_pending := _take_hunter_delayed_effects()
 	var armor_break_was_active := effects.enemy_defense_reduction_actions > 0
 	if rng.randf() < enemy.dodge / 100.0:
 		report.enemy_dodged = true
@@ -51,6 +58,11 @@ func player_attack() -> Dictionary:
 	if armor_break_was_active:
 		effects.consume_offensive_action()
 	report.turn_consumed = true
+	if not enemy.is_alive():
+		result = VICTORY
+		return report
+	_resolve_hunter_delayed_effects(report, hunter_pending)
+	_update_hunter_report(report)
 	if not enemy.is_alive():
 		result = VICTORY
 		return report
@@ -69,6 +81,8 @@ func get_skill_use_error(skill_id: String) -> String:
 		error = "Ta umiejętność nie jest dostępna dla twojej postaci."
 	elif error.is_empty() and player.level < skill.unlock_level:
 		error = "Umiejętność odblokowuje się na poziomie %d." % skill.unlock_level
+	elif error.is_empty() and not SkillCatalogClass.is_unlocked(player, skill):
+		error = "Technika wymaga odblokowania w drzewku talentów Łowcy."
 	elif error.is_empty() and not skill.is_combat_ready():
 		error = "Mechanika tej umiejętności nie została jeszcze przeniesiona."
 	elif error.is_empty():
@@ -87,6 +101,7 @@ func player_use_skill(skill_id: String) -> Dictionary:
 		report.error = error
 		return report
 	var skill: SkillDefinitionClass = SkillCatalogClass.get_definition(skill_id)
+	var hunter_pending := _take_hunter_delayed_effects()
 	player.stats.spend_mana(skill.mana_cost)
 	report.skill_id = skill.skill_id
 	report.skill_name = skill.display_name
@@ -98,11 +113,15 @@ func player_use_skill(skill_id: String) -> Dictionary:
 	if skill.execution_kind == "fate":
 		_resolve_fate_skill(skill, report)
 	else:
-		_resolve_skill_hits(skill, report)
-		_apply_skill_effect(skill, report)
+		_execute_standard_skill(skill, report)
 	if armor_break_was_active and skill.is_offensive():
 		effects.consume_offensive_action()
 
+	if not enemy.is_alive():
+		result = VICTORY
+		return report
+	_resolve_hunter_delayed_effects(report, hunter_pending)
+	_update_hunter_report(report)
 	if not enemy.is_alive():
 		result = VICTORY
 		return report
@@ -197,11 +216,28 @@ func _resolve_skill_hits(skill: SkillDefinitionClass, report: Dictionary) -> voi
 			report.skill_notes.append(note)
 
 
+func _execute_standard_skill(skill: SkillDefinitionClass, report: Dictionary) -> void:
+	if skill.effect == "delayed_rain":
+		hunter_rain_pending.append(_skill_power(skill))
+		report.skill_notes.append(
+			"DESZCZ STRZAŁ: salwa leci w górę i spadnie po następnej akcji Łowcy."
+		)
+		_record_hunter_technique(skill, report)
+		return
+	_resolve_skill_hits(skill, report)
+	_resolve_hunter_skill_effect(skill, report)
+	_apply_skill_effect(skill, report)
+	_record_hunter_technique(skill, report)
+
+
 func _resolve_player_skill_hit(skill: SkillDefinitionClass, power: int) -> Dictionary:
 	if not skill.guaranteed_hit and rng.randf() < enemy.dodge / 100.0:
 		return {"damage": 0, "dodged": true}
 	var attack_value := maxi(1, _python_roundi(power * skill.multiplier))
 	var enemy_defense := effects.effective_enemy_defense(enemy.defense)
+	if skill.special_armor_penetration > 0.0:
+		var remaining_defense := 1.0 - clampf(skill.special_armor_penetration, 0.0, 90.0) / 100.0
+		enemy_defense = maxi(0, _python_roundi(enemy_defense * remaining_defense))
 	var magical := skill.scaling == "magic"
 	if magical:
 		enemy_defense = int(enemy_defense / 2.0)
@@ -209,6 +245,141 @@ func _resolve_player_skill_hit(skill: SkillDefinitionClass, power: int) -> Dicti
 	if skill.damage_type == "physical" and not magical:
 		damage = enemy.reduce_physical_damage(damage)
 	return {"damage": enemy.take_damage(damage), "dodged": false}
+
+
+func _resolve_hunter_skill_effect(skill: SkillDefinitionClass, report: Dictionary) -> void:
+	if player.character_class_code != "hunter" or report.enemy_dodged:
+		return
+	match skill.effect:
+		"splitting":
+			for _fragment_index in 2:
+				if not enemy.is_alive():
+					break
+				var fragment_damage := _resolve_hunter_guaranteed_hit(
+					_skill_power(skill), skill.effect_value / 100.0, "physical"
+				)
+				report.skill_total_damage += fragment_damage
+				report.skill_notes.append("Widmowy odłamek zadaje %d obrażeń." % fragment_damage)
+		"phantom_echo":
+			hunter_phantom_pending.append(_skill_power(skill))
+			report.skill_notes.append("WIDMOWE ECHO: ślad strzały pozostaje przy celu.")
+		"explosive_charge":
+			hunter_explosive_charges += 1
+			report.skill_notes.append("Ładunek Wybuchowy: %d/3." % hunter_explosive_charges)
+			if hunter_explosive_charges >= 3 and enemy.is_alive():
+				var detonation := _resolve_hunter_guaranteed_hit(_skill_power(skill), 1.55, "fire")
+				report.skill_total_damage += detonation
+				report.skill_notes.append("DETONACJA 3/3: %d obrażeń." % detonation)
+				hunter_explosive_charges = 0
+
+
+func _resolve_hunter_guaranteed_hit(
+	power: int, multiplier: float, damage_type: String, armor_penetration := 0.0
+) -> int:
+	var attack_value := maxi(1, _python_roundi(power * multiplier))
+	var enemy_defense := effects.effective_enemy_defense(enemy.defense)
+	if armor_penetration > 0.0:
+		var remaining_defense := 1.0 - clampf(armor_penetration, 0.0, 90.0) / 100.0
+		enemy_defense = maxi(0, _python_roundi(enemy_defense * remaining_defense))
+	var damage := maxi(1, attack_value - enemy_defense)
+	if damage_type == "physical":
+		damage = enemy.reduce_physical_damage(damage)
+	return enemy.take_damage(damage)
+
+
+func _take_hunter_delayed_effects() -> Dictionary:
+	if player.character_class_code != "hunter":
+		return {"echoes": [], "rain": []}
+	var echoes: Array[int] = []
+	var rain: Array[int] = []
+	echoes.assign(hunter_phantom_pending)
+	rain.assign(hunter_rain_pending)
+	hunter_phantom_pending.clear()
+	hunter_rain_pending.clear()
+	return {"echoes": echoes, "rain": rain}
+
+
+func _resolve_hunter_delayed_effects(report: Dictionary, pending: Dictionary) -> void:
+	if player.character_class_code != "hunter":
+		return
+	for power: int in pending.echoes:
+		if not enemy.is_alive():
+			break
+		var damage := _resolve_hunter_guaranteed_hit(power, 0.60, "physical")
+		report.skill_total_damage += damage
+		report.hunter_delayed_damage += damage
+		report.skill_notes.append("WIDMOWE ECHO materializuje się: %d obrażeń." % damage)
+	for power: int in pending.rain:
+		if not enemy.is_alive():
+			break
+		var damage := _resolve_hunter_guaranteed_hit(power, 0.65, "physical")
+		report.skill_total_damage += damage
+		report.hunter_delayed_damage += damage
+		report.skill_notes.append("DESZCZ STRZAŁ spada z góry: %d obrażeń." % damage)
+
+
+func _record_hunter_technique(skill: SkillDefinitionClass, report: Dictionary) -> void:
+	if player.character_class_code != "hunter" or skill.hunter_technique.is_empty():
+		return
+	hunter_sequence.append(skill.hunter_technique)
+	if hunter_sequence.size() < 3:
+		_update_hunter_report(report)
+		return
+	var completed_sequence: Array[String] = []
+	completed_sequence.assign(hunter_sequence.slice(-3))
+	hunter_sequence.clear()
+	var combo: HunterComboDefinitionClass = HunterComboCatalogClass.for_sequence(completed_sequence)
+	if combo == null:
+		report.skill_notes.append(
+			"Sekwencja trzech strzałów zakończona — brak nazwanej kombinacji."
+		)
+		_update_hunter_report(report)
+		return
+	var first_discovery := combo.combo_id not in player.discovered_hunter_combos
+	if first_discovery:
+		player.discovered_hunter_combos.append(combo.combo_id)
+	report.hunter_combo_id = combo.combo_id
+	report.hunter_combo_name = combo.display_name
+	report.hunter_combo_discovered = first_discovery
+	report.skill_notes.append(
+		"KOMBINACJA: %s!%s" % [combo.display_name, " [NOWA]" if first_discovery else ""]
+	)
+	_resolve_hunter_combo(combo, report)
+	_update_hunter_report(report)
+
+
+func _resolve_hunter_combo(combo: HunterComboDefinitionClass, report: Dictionary) -> void:
+	if not enemy.is_alive():
+		return
+	var multiplier: float = combo.multiplier
+	if combo.combo_id == "phantom_detonation":
+		multiplier += 0.20 * hunter_explosive_charges
+	var damage := _resolve_hunter_guaranteed_hit(
+		maxi(1, player.stats.attack + int(player.attributes.dexterity / 2.0)),
+		multiplier,
+		combo.damage_type,
+		combo.armor_penetration,
+	)
+	report.skill_total_damage += damage
+	report.hunter_combo_damage += damage
+	report.skill_notes.append("%s: %d obrażeń." % [combo.display_name, damage])
+	if combo.bleed_damage > 0:
+		effects.apply_bleed(combo.bleed_damage, combo.bleed_duration)
+		report.skill_notes.append(
+			(
+				"Kombinacja pogłębia Krwawienie: %d obrażenia przez %d tury."
+				% [combo.bleed_damage, combo.bleed_duration]
+			)
+		)
+	if combo.consumes_explosive_charges:
+		hunter_explosive_charges = 0
+
+
+func _update_hunter_report(report: Dictionary) -> void:
+	report.hunter_sequence.assign(hunter_sequence)
+	report.hunter_explosive_charges = hunter_explosive_charges
+	report.hunter_pending_echoes = hunter_phantom_pending.size()
+	report.hunter_pending_rain = hunter_rain_pending.size()
 
 
 func _skill_power(skill: SkillDefinitionClass) -> int:
@@ -535,6 +706,15 @@ func _new_report() -> Dictionary:
 		"fate_token_cap": fate_token_cap(),
 		"reflect_ready": pierrot_reflect_ready,
 		"reflected_damage": 0,
+		"hunter_sequence": hunter_sequence.duplicate(),
+		"hunter_combo_id": "",
+		"hunter_combo_name": "",
+		"hunter_combo_discovered": false,
+		"hunter_combo_damage": 0,
+		"hunter_delayed_damage": 0,
+		"hunter_explosive_charges": hunter_explosive_charges,
+		"hunter_pending_echoes": hunter_phantom_pending.size(),
+		"hunter_pending_rain": hunter_rain_pending.size(),
 		"player_healed": 0,
 		"player_mana_restored": 0,
 		"player_regenerated": 0,

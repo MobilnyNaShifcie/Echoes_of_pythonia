@@ -60,6 +60,36 @@ theme_override_colors/font_color = Color(0.89, 0.32, 0.47, 1)
 text = "RZUT OCZEKUJE"
 text_overrun_behavior = 3
 
+[node name="HunterPanel" type="PanelContainer" parent="Page/EncounterHeader"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(590, 0)
+layout_mode = 2
+
+[node name="Content" type="HBoxContainer" parent="Page/EncounterHeader/HunterPanel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="HunterSequenceLabel" type="Label" parent="Page/EncounterHeader/HunterPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.37, 0.7, 0.84, 1)
+text = "SEKWENCJA —"
+
+[node name="HunterResourcesLabel" type="Label" parent="Page/EncounterHeader/HunterPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.62, 0.72, 0.82, 1)
+text = "ŁADUNKI 0/3  •  ECHA 0  •  DESZCZ 0"
+
+[node name="HunterComboLabel" type="Label" parent="Page/EncounterHeader/HunterPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.48, 0.8, 0.68, 1)
+text = "FINISHER OCZEKUJE"
+text_overrun_behavior = 3
+
 [node name="Arena" type="HBoxContainer" parent="Page"]
 layout_mode = 2
 size_flags_vertical = 3

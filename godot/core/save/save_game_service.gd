@@ -3,15 +3,17 @@ extends RefCounted
 
 const EquipmentItemClass := preload("res://core/items/equipment_item.gd")
 const GameSessionClass := preload("res://core/game/game_session.gd")
+const HunterComboCatalogClass := preload("res://core/combat/hunter_combo_catalog.gd")
 const ItemCatalogClass := preload("res://core/items/item_catalog.gd")
 const NewGameServiceClass := preload("res://core/game/new_game_service.gd")
 const PlayerAttributesClass := preload("res://core/player/attributes.gd")
 const PlayerEquipmentClass := preload("res://core/player/equipment.gd")
 const PlayerProfileClass := preload("res://core/player/player_profile.gd")
 const QuestServiceClass := preload("res://core/quests/quest_service.gd")
+const SkillCatalogClass := preload("res://core/skills/skill_catalog.gd")
 
 const FORMAT_ID := "echoes_of_pythonia_godot_migration"
-const SCHEMA_VERSION := 2
+const SCHEMA_VERSION := 3
 const GAME_VERSION := "0.25.0"
 const DEFAULT_SAVE_ROOT := "user://godot_migration_saves"
 const SLOT_COUNT := NewGameServiceClass.SAVE_SLOT_COUNT
@@ -169,6 +171,8 @@ func _serialize_session(session: GameSessionClass) -> Dictionary:
 				"unspent_attribute_points": player.unspent_attribute_points,
 				"character_class_code": player.character_class_code,
 				"carry_upgrade_level": player.carry_upgrade_level,
+				"unlocked_talent_skill_ids": player.unlocked_talent_skill_ids.duplicate(),
+				"discovered_hunter_combos": player.discovered_hunter_combos.duplicate(),
 				"attributes": _serialize_attributes(player.attributes),
 				"current_hp": player.stats.current_hp,
 				"current_mana": player.stats.current_mana,
@@ -262,6 +266,9 @@ func _deserialize_player(data: Dictionary) -> Dictionary:
 		return attributes_result
 	if player.attributes.luck > 0 and class_code != PlayerProfileClass.CLASS_PIERROT:
 		return _failure("Zapis przyznaje Szczęście postaci, która nie jest Pierrotem.")
+	var hunter_progression_result := _restore_hunter_progression(player, data)
+	if not hunter_progression_result.ok:
+		return hunter_progression_result
 	var equipment_result := _restore_equipment(player, data.equipment)
 	if not equipment_result.ok:
 		return equipment_result
@@ -394,9 +401,54 @@ func _migrate_payload(payload: Dictionary) -> Dictionary:
 		session["guild_storage"] = {"stacks": {}, "equipment_items": []}
 		migrated.schema_version = 2
 		version = 2
+	if version == 2:
+		if not migrated.get("session") is Dictionary:
+			return _failure("Starszy zapis nie zawiera sesji.")
+		var session: Dictionary = migrated.session
+		if not session.get("player") is Dictionary:
+			return _failure("Starszy zapis nie zawiera bohatera.")
+		session.player["unlocked_talent_skill_ids"] = []
+		session.player["discovered_hunter_combos"] = []
+		migrated.schema_version = 3
+		version = 3
 	if version != SCHEMA_VERSION:
 		return _failure("Zapis ma nieobsługiwaną, starszą wersję schematu.")
 	return {"ok": true, "payload": migrated}
+
+
+func _restore_hunter_progression(player: PlayerProfileClass, data: Dictionary) -> Dictionary:
+	if (
+		not data.get("unlocked_talent_skill_ids") is Array
+		or not data.get("discovered_hunter_combos") is Array
+	):
+		return _failure("Zapis nie zawiera prawidłowej progresji technik Łowcy.")
+	var seen_skills := {}
+	for skill_id_value in data.unlocked_talent_skill_ids:
+		if not skill_id_value is String:
+			return _failure("Zapis zawiera nieprawidłową technikę Łowcy.")
+		var skill_id := str(skill_id_value)
+		if (
+			player.character_class_code != "hunter"
+			or not SkillCatalogClass.is_hunter_technique_id(skill_id)
+			or seen_skills.has(skill_id)
+		):
+			return _failure("Zapis zawiera niedozwoloną technikę Łowcy.")
+		seen_skills[skill_id] = true
+		player.unlocked_talent_skill_ids.append(skill_id)
+	var seen_combos := {}
+	for combo_id_value in data.discovered_hunter_combos:
+		if not combo_id_value is String:
+			return _failure("Zapis zawiera nieprawidłową kombinację Łowcy.")
+		var combo_id := str(combo_id_value)
+		if (
+			player.character_class_code != "hunter"
+			or not HunterComboCatalogClass.is_valid_combo_id(combo_id)
+			or seen_combos.has(combo_id)
+		):
+			return _failure("Zapis zawiera niedozwoloną kombinację Łowcy.")
+		seen_combos[combo_id] = true
+		player.discovered_hunter_combos.append(combo_id)
+	return {"ok": true}
 
 
 func _restore_quest_log(session: GameSessionClass, data: Dictionary) -> Dictionary:

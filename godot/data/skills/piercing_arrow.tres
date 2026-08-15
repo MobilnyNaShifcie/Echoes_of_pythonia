@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/skills/skill_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+skill_id = "piercing_arrow"
+display_name = "Przebijająca Strzała"
+character_class_code = "hunter"
+unlock_level = 5
+mana_cost = 6
+description = "Technika Salwy ignorująca 45% DEF celu."
+scaling = "hunter"
+multiplier = 1.2
+hits = 1
+required_weapon_type = "bow"
+unlock_source = "talent"
+required_talent_id = "hunter_piercing_arrow"
+hunter_technique = "piercing"
+special_armor_penetration = 45.0

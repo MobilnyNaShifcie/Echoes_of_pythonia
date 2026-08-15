@@ -18,10 +18,18 @@ extends Resource
 @export var required_weapon_type := ""
 @export var required_offhand_type := ""
 @export var execution_kind := "generic"
+@export var unlock_source := "level"
+@export var required_talent_id := ""
+@export var hunter_technique := ""
+@export var special_armor_penetration := 0.0
 
 
 func is_offensive() -> bool:
-	return hits > 0 or (effect.begins_with("fate_") and effect != "fate_feint")
+	return (
+		hits > 0
+		or effect == "delayed_rain"
+		or (effect.begins_with("fate_") and effect != "fate_feint")
+	)
 
 
 func is_combat_ready() -> bool:

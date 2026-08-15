@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/skills/skill_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+skill_id = "explosive_arrow"
+display_name = "Wybuchowa Strzała"
+character_class_code = "hunter"
+unlock_level = 5
+mana_cost = 8
+description = "Wbija ładunek. Trzeci ładunek detonuje wszystkie naraz."
+scaling = "hunter"
+multiplier = 0.95
+damage_type = "fire"
+hits = 1
+effect = "explosive_charge"
+required_weapon_type = "bow"
+unlock_source = "talent"
+required_talent_id = "hunter_explosive_arrow"
+hunter_technique = "explosive"
