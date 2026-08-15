@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/skills/skill_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+skill_id = "precise_shot"
+display_name = "Precyzyjny Strzał"
+character_class_code = "hunter"
+unlock_level = 5
+mana_cost = 5
+description = "Pewny strzał zadający 135% obrażeń. Nie może zostać uniknięty."
+scaling = "hunter"
+multiplier = 1.35
+hits = 1
+guaranteed_hit = true
+required_weapon_type = "bow"

@@ -23,6 +23,11 @@ equivalent, tested GDScript implementation.
 - `tests/` — GUT tests mirroring migrated behavior
 - `ui/` — reusable controls, themes, and presentation logic
 
+The current playable migration includes stages 0–2 and character progression
+stages 3A–3B. The skill catalog preserves all four Paths; the shared combat
+execution for Warrior, Hunter, and Mage is active, while Pierrot's dice-based
+resolution remains explicitly reserved for stage 3C.
+
 Open the project with the pinned local editor from the repository root:
 
 ```powershell

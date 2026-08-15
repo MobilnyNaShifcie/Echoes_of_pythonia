@@ -18,7 +18,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 4
 
 [node name="EncounterLabel" type="Label" parent="Page"]
 unique_name_in_owner = true
@@ -38,7 +38,7 @@ size_flags_horizontal = 3
 [node name="Content" type="VBoxContainer" parent="Page/Arena/PlayerPanel"]
 layout_mode = 2
 alignment = 1
-theme_override_constants/separation = 10
+theme_override_constants/separation = 6
 
 [node name="Role" type="Label" parent="Page/Arena/PlayerPanel/Content"]
 layout_mode = 2
@@ -53,7 +53,7 @@ text = "Bohater"
 
 [node name="PlayerHpBar" type="ProgressBar" parent="Page/Arena/PlayerPanel/Content"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 30)
+custom_minimum_size = Vector2(0, 26)
 layout_mode = 2
 max_value = 20.0
 value = 20.0
@@ -79,7 +79,7 @@ size_flags_horizontal = 3
 [node name="Content" type="VBoxContainer" parent="Page/Arena/EnemyPanel"]
 layout_mode = 2
 alignment = 1
-theme_override_constants/separation = 10
+theme_override_constants/separation = 6
 
 [node name="Role" type="Label" parent="Page/Arena/EnemyPanel/Content"]
 layout_mode = 2
@@ -94,7 +94,7 @@ text = "Przeciwnik"
 
 [node name="EnemyHpBar" type="ProgressBar" parent="Page/Arena/EnemyPanel/Content"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 30)
+custom_minimum_size = Vector2(0, 26)
 layout_mode = 2
 max_value = 10.0
 value = 10.0
@@ -125,12 +125,27 @@ scroll_active = true
 [node name="Actions" type="VBoxContainer" parent="Page/Lower"]
 custom_minimum_size = Vector2(420, 0)
 layout_mode = 2
-theme_override_constants/separation = 7
+theme_override_constants/separation = 5
 
 [node name="Title" type="Label" parent="Page/Lower/Actions"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
 text = "WYBIERZ AKCJĘ"
+
+[node name="SkillRow" type="HBoxContainer" parent="Page/Lower/Actions"]
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="SkillSelector" type="OptionButton" parent="Page/Lower/Actions/SkillRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SkillButton" type="Button" parent="Page/Lower/Actions/SkillRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(155, 0)
+layout_mode = 2
+text = "Użyj umiejętności"
 
 [node name="ConsumableSelector" type="OptionButton" parent="Page/Lower/Actions"]
 unique_name_in_owner = true

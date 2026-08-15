@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/skills/skill_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+skill_id = "double_shot"
+display_name = "Podwójny Strzał"
+character_class_code = "hunter"
+unlock_level = 12
+mana_cost = 10
+description = "Oddaje dwa strzały, każdy za 85% obrażeń."
+scaling = "hunter"
+multiplier = 0.85
+hits = 2
+required_weapon_type = "bow"

@@ -10,6 +10,7 @@ const EquipmentScreenClass := preload("res://ui/screens/equipment/equipment.gd")
 const GuildScreenClass := preload("res://ui/screens/guild/guild.gd")
 const NewGameServiceClass := preload("res://core/game/new_game_service.gd")
 const PrologueScreenClass := preload("res://ui/screens/prologue/prologue.gd")
+const SkillsScreenClass := preload("res://ui/screens/skills/skills.gd")
 const WorldMapScreenClass := preload("res://ui/screens/world_map/world_map.gd")
 
 
@@ -152,6 +153,15 @@ func test_character_progression_screens_fit_at_720p() -> void:
 	assert_eq(class_selection.get_script(), ClassSelectionScreenClass)
 	assert_lte(
 		class_selection.get_node("Page/Columns").get_global_rect().end.y,
+		footer_separator.get_global_rect().position.y,
+	)
+
+	app._show_skills()
+	await get_tree().process_frame
+	var skills = app.screen_host.get_child(0)
+	assert_eq(skills.get_script(), SkillsScreenClass)
+	assert_lte(
+		skills.get_node("Page/Body").get_global_rect().end.y,
 		footer_separator.get_global_rect().position.y,
 	)
 	host.free()

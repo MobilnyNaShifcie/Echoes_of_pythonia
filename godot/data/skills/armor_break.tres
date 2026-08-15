@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/skills/skill_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+skill_id = "armor_break"
+display_name = "Roztrzaskanie Pancerza"
+character_class_code = "warrior"
+unlock_level = 7
+mana_cost = 8
+description = "Zadaje 115% obrażeń i obniża DEF przeciwnika o 2 na następne 3 ofensywne akcje."
+scaling = "attack"
+multiplier = 1.15
+hits = 1
+effect = "armor_break"
+effect_value = 2
+effect_duration = 3

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/skills/skill_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+skill_id = "frost_lance"
+display_name = "Lodowa Lanca"
+character_class_code = "mage"
+unlock_level = 7
+mana_cost = 7
+description = "Zaklęcie mrozu zadające 135% mocy magicznej i ignorujące połowę DEF."
+scaling = "magic"
+multiplier = 1.35
+damage_type = "frost"
+hits = 1
+required_weapon_type = "staff"

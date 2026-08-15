@@ -4,6 +4,7 @@ extends Control
 signal back_requested
 signal equipment_requested
 signal class_selection_requested
+signal skills_requested
 
 const GameSessionClass := preload("res://core/game/game_session.gd")
 const PlayerAttributesClass := preload("res://core/player/attributes.gd")
@@ -39,6 +40,7 @@ var _session: GameSessionClass
 func _ready() -> void:
 	%BackButton.pressed.connect(back_requested.emit)
 	%EquipmentButton.pressed.connect(equipment_requested.emit)
+	%SkillsButton.pressed.connect(skills_requested.emit)
 	class_button.pressed.connect(class_selection_requested.emit)
 	for attribute_code: String in attribute_buttons:
 		attribute_buttons[attribute_code].pressed.connect(_spend_attribute.bind(attribute_code))

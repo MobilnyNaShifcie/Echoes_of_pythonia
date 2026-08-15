@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/skills/skill_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+skill_id = "fire_bolt"
+display_name = "Ognisty Pocisk"
+character_class_code = "mage"
+unlock_level = 5
+mana_cost = 6
+description = "Zaklęcie ognia zadające 150% mocy magicznej."
+scaling = "magic"
+multiplier = 1.5
+damage_type = "fire"
+hits = 1
+required_weapon_type = "staff"

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/skills/skill_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+skill_id = "blood_strike"
+display_name = "Krwawy Zamach"
+character_class_code = "warrior"
+unlock_level = 12
+mana_cost = 12
+description = "Zadaje 180% obrażeń i nakłada krwawienie: 3 obrażenia przez 3 tury."
+scaling = "attack"
+multiplier = 1.8
+hits = 1
+effect = "bleed"
+effect_value = 3
+effect_duration = 3

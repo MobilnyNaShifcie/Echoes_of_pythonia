@@ -15,6 +15,7 @@ const MainMenuScreenClass := preload("res://ui/screens/main_menu/main_menu.gd")
 const NewGameScreenClass := preload("res://ui/screens/new_game/new_game.gd")
 const PrologueScreenClass := preload("res://ui/screens/prologue/prologue.gd")
 const SessionReadyScreenClass := preload("res://ui/screens/session_ready/session_ready.gd")
+const SkillsScreenClass := preload("res://ui/screens/skills/skills.gd")
 const WorldMapScreenClass := preload("res://ui/screens/world_map/world_map.gd")
 const SaveGameServiceClass := preload("res://core/save/save_game_service.gd")
 const CHARACTER_SHEET_SCENE := preload("res://ui/screens/character_sheet/character_sheet.tscn")
@@ -30,6 +31,7 @@ const MAIN_MENU_SCENE := preload("res://ui/screens/main_menu/main_menu.tscn")
 const NEW_GAME_SCENE := preload("res://ui/screens/new_game/new_game.tscn")
 const PROLOGUE_SCENE := preload("res://ui/screens/prologue/prologue.tscn")
 const SESSION_READY_SCENE := preload("res://ui/screens/session_ready/session_ready.tscn")
+const SKILLS_SCENE := preload("res://ui/screens/skills/skills.tscn")
 const WORLD_MAP_SCENE := preload("res://ui/screens/world_map/world_map.tscn")
 
 var _current_session: GameSessionClass
@@ -142,7 +144,18 @@ func _show_character_sheet() -> void:
 	character_sheet.back_requested.connect(_show_city_hub)
 	character_sheet.equipment_requested.connect(_show_equipment)
 	character_sheet.class_selection_requested.connect(_show_class_selection)
+	character_sheet.skills_requested.connect(_show_skills)
 	app_status_label.text = "Karta postaci: %s" % _current_session.player.display_name
+
+
+func _show_skills() -> void:
+	if _current_session == null:
+		_show_main_menu()
+		return
+	var skills_screen: SkillsScreenClass = _replace_screen(SKILLS_SCENE)
+	skills_screen.configure(_current_session)
+	skills_screen.back_requested.connect(_show_character_sheet)
+	app_status_label.text = "Umiejętności: %s" % _current_session.player.character_class_name
 
 
 func _show_equipment() -> void:
@@ -232,7 +245,7 @@ func _on_combat_finished(context: String, result: String) -> void:
 func _show_project_status() -> void:
 	app_status_label.text = (
 		"v0.25.0: prolog, Varenhold, ekonomia oraz "
-		+ "rozwój bohatera i ekwipunek etapu 3A w Godot 4"
+		+ "rozwój bohatera, ekwipunek i umiejętności etapu 3B w Godot 4"
 	)
 
 

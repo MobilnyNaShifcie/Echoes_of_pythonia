@@ -83,6 +83,17 @@ The migrated flow is runnable in Godot:
     class requirements before equipping.
 24. Reject invalid save state that assigns a Path before level five, grants
     Luck outside Pierrot, or bypasses equipped-item requirements.
+25. Inspect the four base active skills for the selected Path on a dedicated
+    character-screen catalog, including unlock level, Mana cost, and equipment
+    requirements.
+26. Use all twelve shared-execution Warrior, Hunter, and Mage base skills from
+    a dynamic combat selector, with invalid actions consuming neither Mana nor
+    an enemy turn.
+27. Resolve multi-hit and guaranteed-hit attacks, ATK, Dexterity, and
+    Intelligence scaling, bleeding, defense reduction, guard, and temporary
+    dodge using tested combat-domain code.
+28. Keep the four Pierrot skill definitions visible but their combat execution
+    explicitly unavailable until the dice-and-Fate slice is implemented.
 
 The GDScript model also carries the legacy attribute formulas, level-zero
 experience threshold, four attribute points per level, and Pierrot-only Luck.
@@ -106,10 +117,12 @@ already have sources in the migrated world, and the inn performs paid full
 recovery with its daily cooldown. Final item art, shop animation, and audio
 remain outside this domain slice and continue to use placeholder presentation.
 
-Stage 3A is complete without a save-schema bump: schema v2 already contains
-the character Path, attributes, exact equipment instances, and backpack. The
-next slice, 3B, will add the data-driven active-skill foundation. Affixes, item
-sets, and equipment from later regions stay in the world-and-expeditions stage.
+Stage 3B is complete without a save-schema bump. Schema v2 already contains
+the Path, level, current Mana, exact equipment instances, and backpack needed
+to derive skill availability. Combat effects are intentionally encounter-local.
+The next slice, 3C, adds Pierrot's dice outcomes and Fate Tokens rather than a
+placeholder substitute. Affixes, item sets, and equipment from later regions
+stay in the world-and-expeditions stage.
 
 ## Add-on policy
 

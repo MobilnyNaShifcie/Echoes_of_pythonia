@@ -8,6 +8,7 @@ const CombatEngineClass := preload("res://core/combat/combat_engine.gd")
 const EnemyCatalogClass := preload("res://core/combat/enemy_catalog.gd")
 const GameSessionClass := preload("res://core/game/game_session.gd")
 const ItemCatalogClass := preload("res://core/items/item_catalog.gd")
+const SkillCatalogClass := preload("res://core/skills/skill_catalog.gd")
 const HEALING_ITEM_IDS := [
 	"weak_healing_potion", "strong_healing_potion", "hunter_provisions", "grandmaster_elixir"
 ]
@@ -17,6 +18,7 @@ var _enemy
 var _engine: CombatEngineClass
 var _context := "expedition"
 var _rng := RandomNumberGenerator.new()
+var _battle_actions_enabled := true
 
 @onready var encounter_label: Label = %EncounterLabel
 @onready var player_name_label: Label = %PlayerNameLabel
@@ -28,6 +30,8 @@ var _rng := RandomNumberGenerator.new()
 @onready var combat_log: RichTextLabel = %CombatLog
 @onready var attack_button: Button = %AttackButton
 @onready var defend_button: Button = %DefendButton
+@onready var skill_selector: OptionButton = %SkillSelector
+@onready var skill_button: Button = %SkillButton
 @onready var consumable_selector: OptionButton = %ConsumableSelector
 @onready var potion_button: Button = %PotionButton
 @onready var flee_button: Button = %FleeButton
@@ -39,6 +43,8 @@ var _rng := RandomNumberGenerator.new()
 func _ready() -> void:
 	attack_button.pressed.connect(_attack)
 	defend_button.pressed.connect(_defend)
+	skill_selector.item_selected.connect(_on_skill_selected)
+	skill_button.pressed.connect(_use_skill)
 	consumable_selector.item_selected.connect(_on_consumable_selected)
 	potion_button.pressed.connect(_use_potion)
 	flee_button.pressed.connect(_flee)
@@ -53,6 +59,7 @@ func configure(session: GameSessionClass, enemy_id: String, context := "expediti
 	_context = context
 	_enemy = EnemyCatalogClass.create_enemy(enemy_id)
 	_engine = CombatEngineClass.new(_session.player, _enemy, _rng)
+	_battle_actions_enabled = true
 	if is_node_ready():
 		combat_log.clear()
 		_append_log("Rozpoczyna się walka z: %s." % _enemy.display_name)
@@ -65,6 +72,22 @@ func _attack() -> void:
 
 func _defend() -> void:
 	_resolve_turn(_engine.player_defend(), "Przyjmujesz pozycję obronną.")
+
+
+func _use_skill() -> void:
+	if skill_selector.item_count == 0:
+		_append_log("Nie masz jeszcze dostępnej umiejętności bojowej.")
+		return
+	var skill_id := str(skill_selector.get_item_metadata(skill_selector.selected))
+	var skill = SkillCatalogClass.get_definition(skill_id)
+	_resolve_turn(
+		_engine.player_use_skill(skill_id),
+		"Używasz: %s (-%d Many)." % [skill.display_name, skill.mana_cost],
+	)
+
+
+func _on_skill_selected(_index: int) -> void:
+	_render_skill_action()
 
 
 func _use_potion() -> void:
@@ -101,11 +124,18 @@ func _flee() -> void:
 func _resolve_turn(report: Dictionary, action_text: String) -> void:
 	if report.is_empty():
 		return
+	var error := str(report.get("error", ""))
+	if not error.is_empty():
+		_append_log(error)
+		_render()
+		return
 	_append_log("\n" + action_text)
 	if report.get("enemy_dodged", false):
 		_append_log("Przeciwnik unika ciosu.")
 	elif report.get("player_damage", 0) > 0:
 		_append_log("Zadajesz %d obrażeń." % report.player_damage)
+	for note: String in report.get("skill_notes", []):
+		_append_log(note)
 	if report.get("player_healed", 0) > 0:
 		_append_log("Odzyskujesz %d PŻ." % report.player_healed)
 	if report.get("player_mana_restored", 0) > 0:
@@ -115,12 +145,18 @@ func _resolve_turn(report: Dictionary, action_text: String) -> void:
 	if not report.get("enemy_special_name", "").is_empty():
 		_append_log("%s używa: %s." % [_enemy.display_name, report.enemy_special_name])
 	if report.get("enemy_acted", false):
-		if report.get("enemy_damage", 0) > 0:
+		if report.get("player_dodged", false):
+			_append_log("Unikasz ataku przeciwnika.")
+		elif report.get("enemy_damage", 0) > 0:
 			_append_log("Otrzymujesz %d obrażeń." % report.enemy_damage)
 		else:
 			_append_log("Atak przeciwnika nie zadaje obrażeń.")
 		if report.get("enemy_extra_damage", 0) > 0:
 			_append_log("Kolejny atak zadaje %d obrażeń." % report.enemy_extra_damage)
+	if report.get("enemy_bleed_damage", 0) > 0:
+		_append_log("Krwawienie zadaje przeciwnikowi %d obrażeń." % report.enemy_bleed_damage)
+	if report.get("player_regenerated", 0) > 0:
+		_append_log("Regenerujesz %d PŻ." % report.player_regenerated)
 	_render()
 	if _engine.result != CombatEngineClass.ONGOING:
 		_finish_battle()
@@ -187,10 +223,12 @@ func _render() -> void:
 	)
 	player_name_label.text = player.display_name
 	player_stats_label.text = (
-		"PŻ %d/%d  •  ATK %d  •  DEF %d  •  UNIK %.1f%%"
+		"PŻ %d/%d  •  MANA %d/%d  •  ATK %d  •  DEF %d  •  UNIK %.1f%%"
 		% [
 			player.stats.current_hp,
 			player.stats.max_hp,
+			player.stats.current_mana,
+			player.stats.max_mana,
 			player.stats.attack,
 			player.stats.defense,
 			player.stats.dodge,
@@ -214,15 +252,58 @@ func _render() -> void:
 	enemy_hp_bar.value = _enemy.current_hp
 	enemy_hp_bar.tooltip_text = "PŻ %d/%d" % [_enemy.current_hp, _enemy.max_hp]
 	flee_button.visible = _context != "prologue"
+	_refresh_skill_selector()
+	_render_skill_action()
 	_refresh_consumable_selector()
 	_render_consumable_action()
 
 
 func _set_actions_enabled(enabled: bool) -> void:
+	_battle_actions_enabled = enabled
 	attack_button.disabled = not enabled
 	defend_button.disabled = not enabled
+	_render_skill_action()
 	potion_button.disabled = not enabled or consumable_selector.item_count == 0
 	flee_button.disabled = not enabled
+
+
+func _refresh_skill_selector() -> void:
+	var previous_id := ""
+	if skill_selector.item_count > 0:
+		previous_id = str(skill_selector.get_item_metadata(skill_selector.selected))
+	skill_selector.clear()
+	var selected_index := 0
+	for skill in SkillCatalogClass.get_combat_ready_skills(_session.player):
+		skill_selector.add_item("%s  •  %d Many" % [skill.display_name, skill.mana_cost])
+		var index := skill_selector.item_count - 1
+		skill_selector.set_item_metadata(index, skill.skill_id)
+		if skill.skill_id == previous_id:
+			selected_index = index
+	if skill_selector.item_count > 0:
+		skill_selector.select(selected_index)
+
+
+func _render_skill_action() -> void:
+	if _session == null or _engine == null:
+		return
+	if skill_selector.item_count == 0:
+		skill_selector.visible = false
+		if _session.player.character_class_code == "pierrot" and _session.player.level >= 5:
+			skill_button.text = "Kości Losu — następny podetap"
+		elif _session.player.character_class_code == "none":
+			skill_button.text = "Umiejętności po wyborze Drogi"
+		else:
+			skill_button.text = "Brak odblokowanych umiejętności"
+		skill_button.tooltip_text = "Podgląd pełnego katalogu znajdziesz na karcie bohatera."
+		skill_button.disabled = true
+		return
+	skill_selector.visible = true
+	var skill_id := str(skill_selector.get_item_metadata(skill_selector.selected))
+	var skill = SkillCatalogClass.get_definition(skill_id)
+	var error := _engine.get_skill_use_error(skill_id)
+	skill_button.text = "Użyj umiejętności"
+	skill_button.tooltip_text = skill.description if error.is_empty() else error
+	skill_button.disabled = not _battle_actions_enabled or not error.is_empty()
 
 
 func _refresh_consumable_selector() -> void:
@@ -265,8 +346,11 @@ func _render_consumable_action() -> void:
 		effects.append("+%.0f%% Many" % definition.restore_mana_percent)
 	potion_button.text = "Użyj (%s)" % ", ".join(effects)
 	potion_button.disabled = (
-		_session.player.stats.current_hp >= _session.player.stats.max_hp
-		and _session.player.stats.current_mana >= _session.player.stats.max_mana
+		not _battle_actions_enabled
+		or (
+			_session.player.stats.current_hp >= _session.player.stats.max_hp
+			and _session.player.stats.current_mana >= _session.player.stats.max_mana
+		)
 	)
 
 

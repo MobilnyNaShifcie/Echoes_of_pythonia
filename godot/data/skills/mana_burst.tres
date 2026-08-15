@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/skills/skill_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+skill_id = "mana_burst"
+display_name = "Wybuch Many"
+character_class_code = "mage"
+unlock_level = 12
+mana_cost = 14
+description = "Potężny wybuch zadający 220% mocy magicznej."
+scaling = "magic"
+multiplier = 2.2
+hits = 1
+required_weapon_type = "staff"

@@ -63,19 +63,34 @@ Schemat zapisu pozostaje w wersji `v2`, ponieważ już przechowuje klasę,
 atrybuty, wszystkie instancje wyposażenia oraz zawartość plecaka. Afiksy,
 zestawy i przedmioty z kolejnych regionów pozostają częścią etapu 4.
 
-### Etap 3B — fundament aktywnych umiejętności
+### Etap 3B — fundament aktywnych umiejętności (ukończony)
 
-- definicje umiejętności, koszty Many, poziomy i wymagane wyposażenie,
-- wspólne efekty walki: krwawienie, osłabienie DEF, garda i unik,
-- akcja odrzucona bez utraty Many i tury, gdy wymagania nie są spełnione.
+- typowany katalog zachowujący cztery bazowe umiejętności każdej Drogi,
+- koszty Many, poziomy odblokowania, opisy i wymagane typy wyposażenia,
+- działające w walce bazowe zdolności Wojownika, Łowcy i Maga, w tym
+  wielokrotne trafienia i gwarantowane trafienie,
+- wspólne efekty walki: krwawienie, osłabienie DEF, garda i premia do uniku,
+- skalowanie z ATK, Zręczności i Inteligencji zgodne z wersją terminalową,
+- akcja odrzucona bez utraty Many i tury, gdy wymagania nie są spełnione,
+- ekran katalogu dostępny z karty bohatera, podgląd wszystkich czterech Dróg
+  bez zmiany klasy oraz dynamiczny wybór odblokowanej umiejętności w walce,
+- testowany układ 1280×720 przy referencyjnym Full HD.
+
+Umiejętności Pierrota są już obecne w katalogu i można sprawdzić ich opis,
+koszt oraz poziom. Nie wykonują jednak zastępczego ataku: ich rozstrzygnięcie
+pozostaje zablokowane do podetapu 3C, ponieważ wymaga pełnej logiki Kości Losu.
+Stan efektów 3B istnieje tylko podczas walki, a dostępność umiejętności wynika
+z zapisanych już klasy, poziomu i wyposażenia, dlatego schemat zapisu nadal ma
+wersję `v2`.
 
 ### Etap 3C–3F — klasy, systemy specjalne i progresja
 
-- cztery bazowe umiejętności Wojownika, Łowcy, Maga i Pierrota,
-- kombinacje Łowcy i logika kości Pierrota w wariantach `1k6`, `2k6`, `3k6`,
-- żywioły i Splot Maga oraz stany ofensywne i obronne Wojownika,
-- tymczasowy, konfigurowalny panel akcji zależny od postaci i stanu walki,
-- drzewka, specjalizacje, pasywne mistrzostwa i trwały zapis progresji,
+- **3C:** Kości Losu Pierrota w wariantach `1k6`, `2k6`, `3k6`, Żetony Losu
+  oraz pełne rozstrzygnięcia jego czterech bazowych umiejętności,
+- **3D:** techniki i kombinacje Łowcy wraz z efektami opóźnionymi,
+- **3E:** żywioły i Splot Maga oraz stany ofensywne i obronne Wojownika,
+- dalsze warianty konfigurowalnego panelu akcji zależne od klasy i stanu walki,
+- **3F:** drzewka, specjalizacje, pasywne mistrzostwa i zapis progresji,
 - testy parytetu obrażeń, kosztów, efektów, tur i losowości.
 
 ## Etap 4 — wyprawy i świat

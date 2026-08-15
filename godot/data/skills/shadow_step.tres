@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/skills/skill_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+skill_id = "shadow_step"
+display_name = "Krok w Cieniu"
+character_class_code = "hunter"
+unlock_level = 9
+mana_cost = 6
+description = "Zwiększa UNIK o 30 p.p. na 2 następne ataki przeciwnika."
+effect = "dodge"
+effect_value = 30
+effect_duration = 2
+guaranteed_hit = true
+required_weapon_type = "bow"

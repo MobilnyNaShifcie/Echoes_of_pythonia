@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/skills/skill_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+skill_id = "grand_gamble"
+display_name = "Wielki Zakład"
+character_class_code = "pierrot"
+unlock_level = 12
+mana_cost = 12
+description = "Rzut 3k6. Trójki, dublety i skrajne sumy tworzą nieprzewidywalne rezultaty."
+scaling = "fate"
+effect = "fate_3d6"
+guaranteed_hit = true
+required_weapon_type = "fate_lance"
+execution_kind = "fate"
