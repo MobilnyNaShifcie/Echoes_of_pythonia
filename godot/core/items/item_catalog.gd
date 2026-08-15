@@ -42,6 +42,14 @@ const DEFINITIONS := {
 	"mana_crystal_artifact": preload("res://data/items/mana_crystal_artifact.tres"),
 	"caprice_lance": preload("res://data/items/caprice_lance.tres"),
 	"worn_fate_dice": preload("res://data/items/worn_fate_dice.tres"),
+	"mastery_regeneration_book": preload("res://data/items/mastery_regeneration_book.tres"),
+	"mastery_attack_speed_book": preload("res://data/items/mastery_attack_speed_book.tres"),
+	"mastery_critical_book": preload("res://data/items/mastery_critical_book.tres"),
+	"mastery_strength_book": preload("res://data/items/mastery_strength_book.tres"),
+	"path_heavy_knight_book": preload("res://data/items/path_heavy_knight_book.tres"),
+	"path_phantom_archer_book": preload("res://data/items/path_phantom_archer_book.tres"),
+	"path_arcana_book": preload("res://data/items/path_arcana_book.tres"),
+	"path_fortuna_book": preload("res://data/items/path_fortuna_book.tres"),
 }
 
 

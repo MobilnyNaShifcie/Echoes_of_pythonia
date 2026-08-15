@@ -4,7 +4,7 @@ extends RefCounted
 const EnemyCatalogClass := preload("res://core/combat/enemy_catalog.gd")
 const ItemCatalogClass := preload("res://core/items/item_catalog.gd")
 const QuestServiceClass := preload("res://core/quests/quest_service.gd")
-const TwilightPlainsClass := preload("res://core/world/twilight_plains.gd")
+const RegionCatalogClass := preload("res://core/world/region_catalog.gd")
 const CarryWeightServiceClass := preload("res://core/economy/carry_weight_service.gd")
 const LOOT_TABLES := {
 	"wild_dog": [{"item_id": "weak_leather", "chance": 0.7}],
@@ -81,10 +81,11 @@ static func explore_twilight_plains(session, rng: RandomNumberGenerator) -> Dict
 static func _roll_exploration(
 	period_code: String, encounter_roll: float, enemy_roll: int, quiet_roll: int
 ) -> Dictionary:
-	if encounter_roll >= TwilightPlainsClass.ENCOUNTER_CHANCE:
-		var quiet_index := posmod(quiet_roll, TwilightPlainsClass.QUIET_EVENTS.size())
-		return {"enemy_id": "", "message": TwilightPlainsClass.QUIET_EVENTS[quiet_index]}
-	var table := TwilightPlainsClass.encounters_for(period_code)
+	var region = RegionCatalogClass.get_definition("twilight_plains")
+	if encounter_roll >= region.encounter_chance:
+		var quiet_index := posmod(quiet_roll, region.quiet_events.size())
+		return {"enemy_id": "", "message": region.quiet_events[quiet_index]}
+	var table := region.encounters_for(period_code)
 	var total_weight := 0
 	for weight: int in table.values():
 		total_weight += weight

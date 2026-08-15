@@ -163,6 +163,26 @@ a zapis próbujący ominąć wymagania albo budżet punktów jest odrzucany.
 
 ## Etap 4 — wyprawy i świat
 
+### Etap 4A — księgi i fundament świata (ukończony)
+
+- osiem terminalowych Ksiąg Mistrzostwa i Ksiąg Ścieżki jako zwykłe,
+  stosowalne przedmioty plecaka,
+- czytanie księgi z ekranu ekwipunku; błędna klasa i ponowne czytanie nie
+  zużywają egzemplarza,
+- typowany katalog pięciu regionów z opisami, poziomami, zagrożeniem, szansą
+  spotkania, tabelami dnia i nocy oraz cichymi wydarzeniami,
+- lista znanych regionów oddzielona od UI i gotowa na przyszłe odblokowania,
+- placeholderowy ekran przeglądania regionów bez finalnej mapy i assetów,
+- zachowanie reguły terminalowej: zalecany poziom ostrzega, ale nie blokuje
+  dostępu do trudniejszego obszaru.
+
+Schemat zapisu Godota ma teraz wersję `v6`. Księgi są zapisywane w zwykłym
+plecaku, a lista znanych regionów jest przechowywana i walidowana osobno. Pliki
+`v1`–`v5` otrzymują przy migracji wszystkie pięć regionów, ponieważ były one
+widoczne od początku w wersji terminalowej.
+
+### Następne podetapy
+
 - wszystkie regiony, tabele przeciwników i pora dnia,
 - pogoda, obóz, odpoczynek, elity, bossowie i ich odradzanie,
 - pełne tabele łupów, afiksy, zestawy i progresja przedmiotów,

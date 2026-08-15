@@ -74,7 +74,7 @@ text = "Założone wyposażenie"
 
 [node name="EquippedList" type="ItemList" parent="Page/Columns/EquippedPanel/Content"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(350, 260)
+custom_minimum_size = Vector2(350, 190)
 layout_mode = 2
 size_flags_vertical = 3
 allow_reselect = true
@@ -101,7 +101,7 @@ text = "Wyposażenie w plecaku"
 
 [node name="InventoryList" type="ItemList" parent="Page/Columns/InventoryPanel/Content"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(300, 260)
+custom_minimum_size = Vector2(300, 190)
 layout_mode = 2
 size_flags_vertical = 3
 allow_reselect = true
@@ -111,6 +111,12 @@ unique_name_in_owner = true
 layout_mode = 2
 disabled = true
 text = "Załóż zaznaczone"
+
+[node name="ReadBookButton" type="Button" parent="Page/Columns/InventoryPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "Przeczytaj księgę"
 
 [node name="DetailsPanel" type="PanelContainer" parent="Page/Columns"]
 custom_minimum_size = Vector2(300, 0)

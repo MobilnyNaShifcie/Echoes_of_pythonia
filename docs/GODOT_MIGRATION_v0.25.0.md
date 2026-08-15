@@ -126,6 +126,12 @@ The migrated flow is runnable in Godot:
     Passives screen reached through the character sheet.
 42. Persist and validate all stage-3F progression in Godot save schema v5 while
     safely migrating schema-v1 through schema-v4 files.
+43. Register all eight terminal Path and Mastery books as backpack items and
+    consume them only after their class, ownership, and duplicate checks pass.
+44. Separate five complete terminal region definitions from their placeholder
+    presentation while keeping recommended level as a warning, not a lock.
+45. Persist and validate known regions in Godot save schema v6 and migrate
+    schema-v1 through schema-v5 saves with all terminal regions known.
 
 The GDScript model also carries the legacy attribute formulas, level-zero
 experience threshold, four attribute points per level, and Pierrot-only Luck.
@@ -149,16 +155,18 @@ already have sources in the migrated world, and the inn performs paid full
 recovery with its daily cooldown. Final item art, shop animation, and audio
 remain outside this domain slice and continue to use placeholder presentation.
 
-Stages 3C through 3F are complete. Dice history, Fate Tokens, temporary dodge,
+Stages 3C through 3F and stage 4A are complete. Dice history, Fate Tokens,
+temporary dodge,
 mirror readiness, Hunter sequence, delayed effects, explosive charges, Arcane
 Weave, elemental sequence, Provoke, block bonus, and retaliation readiness are
-intentionally encounter-local. Godot save schema v5 keeps durable talent ranks,
+intentionally encounter-local. Godot save schema v6 keeps durable talent ranks,
 book-unlocked class paths, passive ranks, Masteries, specializations, Hunter
-progression, and compatibility identifiers from earlier slices. Purchased
+progression, compatibility identifiers from earlier slices, and the list of
+known regions. Unread books remain ordinary inventory stacks. Purchased
 talents are now the authoritative source for class mechanics; the older
 identifier collections remain only for schema compatibility. Affixes, item
-sets, path and Mastery book acquisition, and later regional equipment remain
-in the world-and-expeditions stage.
+sets, book acquisition sources, complete non-Plains expeditions, and later
+regional equipment remain in the world-and-expeditions stage.
 
 ## Add-on policy
 

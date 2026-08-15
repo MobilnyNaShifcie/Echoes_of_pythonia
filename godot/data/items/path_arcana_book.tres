@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=2 format=3]
+[ext_resource type="Script" path="res://core/items/item_definition.gd" id="1"]
+[resource]
+script = ExtResource("1")
+item_id = "path_arcana_book"
+display_name = "Grimuar Podwójnego Splotu"
+description = "Zakazany grimuar opisujący splatanie dwóch zaklęć w jednej chwili bez rozerwania własnych kanałów Many."
+category = "book"
+rarity = "rare"
+stackable = true

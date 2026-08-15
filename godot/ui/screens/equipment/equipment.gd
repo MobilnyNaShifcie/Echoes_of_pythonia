@@ -6,6 +6,8 @@ signal back_requested
 const EquipmentItemClass := preload("res://core/items/equipment_item.gd")
 const GameSessionClass := preload("res://core/game/game_session.gd")
 const ItemCatalogClass := preload("res://core/items/item_catalog.gd")
+const BookCatalogClass := preload("res://core/progression/book_catalog.gd")
+const BookServiceClass := preload("res://core/progression/book_service.gd")
 const PlayerEquipmentClass := preload("res://core/player/equipment.gd")
 const CarryWeightServiceClass := preload("res://core/economy/carry_weight_service.gd")
 const UpgradeServiceClass := preload("res://core/economy/upgrade_service.gd")
@@ -54,6 +56,7 @@ var _session: GameSessionClass
 @onready var inventory_list: ItemList = %InventoryList
 @onready var unequip_button: Button = %UnequipButton
 @onready var equip_button: Button = %EquipButton
+@onready var read_book_button: Button = %ReadBookButton
 @onready var details_label: Label = %DetailsLabel
 @onready var feedback_label: Label = %FeedbackLabel
 
@@ -64,6 +67,7 @@ func _ready() -> void:
 	inventory_list.item_selected.connect(_on_inventory_selected)
 	unequip_button.pressed.connect(_unequip_selected)
 	equip_button.pressed.connect(_equip_selected)
+	read_book_button.pressed.connect(_read_selected_book)
 	_refresh()
 	%BackButton.grab_focus()
 
@@ -102,6 +106,7 @@ func _refresh() -> void:
 	_refresh_inventory_items()
 	unequip_button.disabled = true
 	equip_button.disabled = true
+	read_book_button.disabled = true
 	details_label.text = "Zaznacz przedmiot, aby zobaczyć jego opis i statystyki."
 
 
@@ -156,6 +161,7 @@ func _refresh_inventory_items() -> void:
 func _on_equipped_selected(index: int) -> void:
 	inventory_list.deselect_all()
 	equip_button.disabled = true
+	read_book_button.disabled = true
 	var slot: String = equipped_list.get_item_metadata(index)
 	var item: EquipmentItemClass = _session.player.equipment.get_item(slot)
 	unequip_button.disabled = item == null
@@ -169,8 +175,17 @@ func _on_inventory_selected(index: int) -> void:
 	var metadata: Dictionary = inventory_list.get_item_metadata(index)
 	if metadata.get("kind", "") == "stack":
 		equip_button.disabled = true
-		details_label.text = _format_stack_details(metadata.item_id)
+		var item_id: String = metadata.item_id
+		read_book_button.disabled = true
+		if BookCatalogClass.is_book(item_id):
+			var read_error := BookServiceClass.get_read_error(_session.player, item_id)
+			read_book_button.disabled = not read_error.is_empty()
+			feedback_label.text = (
+				read_error if not read_error.is_empty() else "Księga jest gotowa do przeczytania."
+			)
+		details_label.text = _format_stack_details(item_id)
 		return
+	read_book_button.disabled = true
 	var inventory_index: int = metadata.get("index", -1)
 	var items = _session.player.inventory.equipment_items
 	if inventory_index < 0 or inventory_index >= items.size():
@@ -213,6 +228,19 @@ func _equip_selected() -> void:
 		feedback_label.text = "Nie udało się założyć przedmiotu."
 		return
 	feedback_label.text = "Założono: %s." % item.formatted_name()
+	_refresh()
+
+
+func _read_selected_book() -> void:
+	var selected := inventory_list.get_selected_items()
+	if selected.is_empty():
+		return
+	var metadata: Dictionary = inventory_list.get_item_metadata(selected[0])
+	var item_id := str(metadata.get("item_id", ""))
+	if metadata.get("kind", "") != "stack" or not BookCatalogClass.is_book(item_id):
+		return
+	var result := BookServiceClass.read(_session.player, item_id)
+	feedback_label.text = result.message
 	_refresh()
 
 
@@ -298,6 +326,23 @@ func _format_stack_details(item_id: String) -> String:
 	var definition = ItemCatalogClass.get_definition(item_id)
 	var effect := "Materiał lub przedmiot fabularny."
 	var effects: Array[String] = []
+	var book = BookCatalogClass.get_definition(item_id)
+	if book != null:
+		var kind := "Księga Mistrzostwa" if book.book_type == "mastery" else "Księga Ścieżki"
+		(
+			effects
+			. append(
+				(
+					"%s  •  Status: %s  •  Ceny: kupno %d, sprzedaż %d złota"
+					% [
+						kind,
+						BookServiceClass.status_for(_session.player, item_id),
+						book.buy_price,
+						book.sell_price,
+					]
+				)
+			)
+		)
 	if definition.heal_hp > 0:
 		effects.append("Leczenie: %d PŻ" % definition.heal_hp)
 	if definition.heal_hp_percent > 0.0:
@@ -327,6 +372,7 @@ func _category_name(category: String) -> String:
 			"consumable": "przedmiot użytkowy",
 			"material": "materiał",
 			"quest": "przedmiot fabularny",
+			"book": "księga",
 		}
 		. get(category, category)
 	)

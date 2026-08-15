@@ -150,6 +150,7 @@ func test_hunter_catalog_and_combat_panels_expose_placeholder_state() -> void:
 	var combat_screen := COMBAT_SCENE.instantiate() as CombatScreenClass
 	combat_screen.configure(session, "nature_guardian", "stage_three_d_preview")
 	add_child_autofree(combat_screen)
+	combat_screen._enemy.dodge = 0.0
 	_select_skill(combat_screen, "phantom_arrow")
 	combat_screen.skill_button.pressed.emit()
 

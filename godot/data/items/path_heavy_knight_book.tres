@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=2 format=3]
+[ext_resource type="Script" path="res://core/items/item_definition.gd" id="1"]
+[resource]
+script = ExtResource("1")
+item_id = "path_heavy_knight_book"
+display_name = "Traktat Ciężkiego Rycerza"
+description = "Zakazany traktat o walce tarczą, prowokacji i przemianie obrony w siłę kontrataku."
+category = "book"
+rarity = "rare"
+stackable = true

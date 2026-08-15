@@ -16,13 +16,14 @@ const PassiveProgressionServiceClass := preload(
 	"res://core/progression/passive_progression_service.gd"
 )
 const QuestServiceClass := preload("res://core/quests/quest_service.gd")
+const RegionCatalogClass := preload("res://core/world/region_catalog.gd")
 const SkillCatalogClass := preload("res://core/skills/skill_catalog.gd")
 const TalentProgressionServiceClass := preload(
 	"res://core/progression/talent_progression_service.gd"
 )
 
 const FORMAT_ID := "echoes_of_pythonia_godot_migration"
-const SCHEMA_VERSION := 5
+const SCHEMA_VERSION := 6
 const GAME_VERSION := "0.25.0"
 const DEFAULT_SAVE_ROOT := "user://godot_migration_saves"
 const SLOT_COUNT := NewGameServiceClass.SAVE_SLOT_COUNT
@@ -154,6 +155,7 @@ func _serialize_session(session: GameSessionClass) -> Dictionary:
 		{
 			"save_slot": session.save_slot,
 			"current_location_id": session.current_location_id,
+			"known_region_ids": session.known_region_ids.duplicate(),
 			"current_city_id": session.current_city_id,
 			"day": session.day,
 			"hour": session.hour,
@@ -318,8 +320,16 @@ func _restore_session_fields(session: GameSessionClass, data: Dictionary) -> Dic
 		return _failure("Zapis nie zawiera Magazynu Gildii.")
 	var location_id := str(data.get("current_location_id", ""))
 	var city_id := str(data.get("current_city_id", ""))
-	if location_id != GameSessionClass.STARTING_LOCATION_ID:
-		return _failure("Zapis wskazuje region, który nie został jeszcze przeniesiony.")
+	if not data.get("known_region_ids") is Array:
+		return _failure("Zapis nie zawiera listy znanych regionów.")
+	var region_error := RegionCatalogClass.validate_known_region_ids(data.known_region_ids)
+	if not region_error.is_empty():
+		return _failure(region_error)
+	if (
+		not RegionCatalogClass.is_valid_region_id(location_id)
+		or location_id not in data.known_region_ids
+	):
+		return _failure("Bieżący region nie znajduje się na liście znanych regionów.")
 	if city_id != GameSessionClass.STARTING_CITY_ID:
 		return _failure("Zapis wskazuje miasto, które nie zostało jeszcze przeniesione.")
 	var quest_result := _restore_quest_log(session, data.quest_log)
@@ -334,6 +344,7 @@ func _restore_session_fields(session: GameSessionClass, data: Dictionary) -> Dic
 		return _failure("Magazyn Gildii przekracza limit miejsc.")
 
 	session.current_location_id = location_id
+	session.known_region_ids.assign(data.known_region_ids)
 	session.current_city_id = city_id
 	session.day = int(data.day)
 	session.hour = int(data.hour)
@@ -432,6 +443,8 @@ func _migrate_payload(payload: Dictionary) -> Dictionary:
 			session.player["passive_ranks"] = {}
 			session.player["unlocked_passive_mastery_ids"] = []
 			session.player["passive_specialization_ids"] = {}
+		if version <= 5:
+			session["known_region_ids"] = RegionCatalogClass.REGION_ORDER.duplicate()
 		migrated.schema_version = SCHEMA_VERSION
 	if not error.is_empty():
 		return _failure(error)
