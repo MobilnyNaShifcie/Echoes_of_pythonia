@@ -19,8 +19,14 @@ var _engine: CombatEngineClass
 var _context := "expedition"
 var _rng := RandomNumberGenerator.new()
 var _battle_actions_enabled := true
+var _last_fate_dice: Array[int] = []
+var _last_fate_outcome := ""
 
 @onready var encounter_label: Label = %EncounterLabel
+@onready var fate_panel: PanelContainer = %FatePanel
+@onready var fate_status_label: Label = %FateStatusLabel
+@onready var dice_row: HBoxContainer = %DiceRow
+@onready var fate_outcome_label: Label = %FateOutcomeLabel
 @onready var player_name_label: Label = %PlayerNameLabel
 @onready var player_stats_label: Label = %PlayerStatsLabel
 @onready var player_hp_bar: ProgressBar = %PlayerHpBar
@@ -60,6 +66,8 @@ func configure(session: GameSessionClass, enemy_id: String, context := "expediti
 	_enemy = EnemyCatalogClass.create_enemy(enemy_id)
 	_engine = CombatEngineClass.new(_session.player, _enemy, _rng)
 	_battle_actions_enabled = true
+	_last_fate_dice.clear()
+	_last_fate_outcome = ""
 	if is_node_ready():
 		combat_log.clear()
 		_append_log("Rozpoczyna się walka z: %s." % _enemy.display_name)
@@ -129,6 +137,10 @@ func _resolve_turn(report: Dictionary, action_text: String) -> void:
 		_append_log(error)
 		_render()
 		return
+	var rolled_dice: Array = report.get("fate_dice", [])
+	if not rolled_dice.is_empty():
+		_last_fate_dice.assign(rolled_dice)
+		_last_fate_outcome = str(report.get("fate_outcome", ""))
 	_append_log("\n" + action_text)
 	if report.get("enemy_dodged", false):
 		_append_log("Przeciwnik unika ciosu.")
@@ -153,6 +165,13 @@ func _resolve_turn(report: Dictionary, action_text: String) -> void:
 			_append_log("Atak przeciwnika nie zadaje obrażeń.")
 		if report.get("enemy_extra_damage", 0) > 0:
 			_append_log("Kolejny atak zadaje %d obrażeń." % report.enemy_extra_damage)
+		if report.get("reflected_damage", 0) > 0:
+			_append_log(
+				(
+					"Krzywe Zwierciadło odbija cios. Przeciwnik otrzymuje %d obrażeń."
+					% report.reflected_damage
+				)
+			)
 	if report.get("enemy_bleed_damage", 0) > 0:
 		_append_log("Krwawienie zadaje przeciwnikowi %d obrażeń." % report.enemy_bleed_damage)
 	if report.get("player_regenerated", 0) > 0:
@@ -252,10 +271,39 @@ func _render() -> void:
 	enemy_hp_bar.value = _enemy.current_hp
 	enemy_hp_bar.tooltip_text = "PŻ %d/%d" % [_enemy.current_hp, _enemy.max_hp]
 	flee_button.visible = _context != "prologue"
+	_render_fate_panel()
 	_refresh_skill_selector()
 	_render_skill_action()
 	_refresh_consumable_selector()
 	_render_consumable_action()
+
+
+func _render_fate_panel() -> void:
+	var is_pierrot := _session.player.character_class_code == "pierrot"
+	fate_panel.visible = is_pierrot
+	if not is_pierrot:
+		return
+	var mirror_status := "  •  ODBICIE GOTOWE" if _engine.pierrot_reflect_ready else ""
+	fate_status_label.text = (
+		"LOS %d  •  ŻETONY %d/%d%s"
+		% [
+			_session.player.attributes.luck,
+			_engine.fate_tokens,
+			_engine.fate_token_cap(),
+			mirror_status,
+		]
+	)
+	for die_label in dice_row.get_children():
+		die_label.free()
+	for value: int in _last_fate_dice:
+		var die_label := Label.new()
+		die_label.text = "[ %d ]" % value
+		die_label.add_theme_color_override("font_color", Color(0.94, 0.28, 0.43))
+		die_label.tooltip_text = "Tymczasowa kość k6 — wynik %d" % value
+		dice_row.add_child(die_label)
+	fate_outcome_label.text = (
+		"RZUT OCZEKUJE" if _last_fate_outcome.is_empty() else _last_fate_outcome
+	)
 
 
 func _set_actions_enabled(enabled: bool) -> void:
@@ -288,9 +336,7 @@ func _render_skill_action() -> void:
 		return
 	if skill_selector.item_count == 0:
 		skill_selector.visible = false
-		if _session.player.character_class_code == "pierrot" and _session.player.level >= 5:
-			skill_button.text = "Kości Losu — następny podetap"
-		elif _session.player.character_class_code == "none":
+		if _session.player.character_class_code == "none":
 			skill_button.text = "Umiejętności po wyborze Drogi"
 		else:
 			skill_button.text = "Brak odblokowanych umiejętności"

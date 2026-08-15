@@ -23,15 +23,13 @@ func test_catalog_preserves_four_terminal_base_skills_for_every_class() -> void:
 			assert_false(skill.description.is_empty())
 
 
-func test_twelve_common_skills_are_ready_and_pierrot_waits_for_dice_module() -> void:
+func test_all_sixteen_base_skills_are_combat_ready_after_stage_three_c() -> void:
 	var ready_count := 0
-	for class_code: String in ["warrior", "hunter", "mage"]:
+	for class_code: String in ["warrior", "hunter", "mage", "pierrot"]:
 		for skill in SkillCatalogClass.get_skills_for_class(class_code):
 			assert_true(skill.is_combat_ready())
 			ready_count += 1
-	assert_eq(ready_count, 12)
-	for skill in SkillCatalogClass.get_skills_for_class("pierrot"):
-		assert_false(skill.is_combat_ready())
+	assert_eq(ready_count, 16)
 
 
 func test_power_slash_spends_mana_and_gives_enemy_one_turn() -> void:
@@ -151,17 +149,18 @@ func test_magic_damage_scales_with_intelligence() -> void:
 	assert_gt(intelligent_damage, base_damage)
 
 
-func test_pierrot_skill_is_registered_but_cannot_fake_dice_execution() -> void:
+func test_pierrot_skill_executes_with_real_dice_resolution() -> void:
 	var player = _create_class_player("pierrot", 5)
-	var enemy := _enemy(40, 3, 1)
+	var enemy := _enemy(40, 0, 0)
 	var combat := CombatEngineClass.new(player, enemy)
 	var mana_before: int = player.stats.current_mana
 
 	var report := combat.player_use_skill("fate_thrust")
 
-	assert_string_contains(report.error, "Kości Losu")
-	assert_eq(player.stats.current_mana, mana_before)
-	assert_eq(enemy.attacks_made, 0)
+	assert_eq(report.error, "")
+	assert_eq(report.fate_dice.size(), 1)
+	assert_eq(player.stats.current_mana, mana_before - 5)
+	assert_eq(enemy.attacks_made, 1)
 
 
 func test_dodge_applies_to_every_hit_of_an_enemy_multiattack() -> void:

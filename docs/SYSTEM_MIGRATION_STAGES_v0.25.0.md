@@ -83,10 +83,26 @@ Stan efektów 3B istnieje tylko podczas walki, a dostępność umiejętności wy
 z zapisanych już klasy, poziomu i wyposażenia, dlatego schemat zapisu nadal ma
 wersję `v2`.
 
-### Etap 3C–3F — klasy, systemy specjalne i progresja
+### Etap 3C — Kości Losu Pierrota (ukończony)
 
-- **3C:** Kości Losu Pierrota w wariantach `1k6`, `2k6`, `3k6`, Żetony Losu
-  oraz pełne rozstrzygnięcia jego czterech bazowych umiejętności,
+- jeden Fate Engine z historią rzutów i testowalnym źródłem wyników,
+- Kości Losu w wariantach `1k6`, `2k6` i `3k6`, włącznie z dubletami,
+  trójkami, skrajnymi sumami i dokładnymi mnożnikami z wersji terminalowej,
+- Żetony Losu z limitem zależnym od Szczęścia,
+- pełne rozstrzygnięcia Pchnięcia Losu, Podwójnego Rzutu, Błazeńskiego Uniku
+  i Wielkiego Zakładu,
+- osłabienie ATK, podwójne trafienie, premie do Uniku oraz Kurtyna Lustrzana,
+- odrzucenie nieprawidłowej akcji bez utraty Many, tury ani wykonania rzutu,
+- elastyczny panel zastępczy pokazujący `1–3` kości, wynik, Żetony i gotowość
+  odbicia; finalna animacja oraz oprawa pozostają poza tym etapem,
+- parytet zaokrąglania połówek z Pythonem oraz testowany układ 1280×720.
+
+Stan rzutów, Żetony Losu i odbicie istnieją wyłącznie w bieżącej walce, więc
+schemat zapisu pozostaje w wersji `v2`. Manipulacje kośćmi z talentów Fortuny
+i Chaosu należą do 3F i nie są zastępowane uproszczoną logiką.
+
+### Etap 3D–3F — pozostałe systemy klasowe i progresja
+
 - **3D:** techniki i kombinacje Łowcy wraz z efektami opóźnionymi,
 - **3E:** żywioły i Splot Maga oraz stany ofensywne i obronne Wojownika,
 - dalsze warianty konfigurowalnego panelu akcji zależne od klasy i stanu walki,

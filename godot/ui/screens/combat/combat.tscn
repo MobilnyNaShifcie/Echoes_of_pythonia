@@ -20,11 +20,45 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 4
 
-[node name="EncounterLabel" type="Label" parent="Page"]
+[node name="EncounterHeader" type="HBoxContainer" parent="Page"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="EncounterLabel" type="Label" parent="Page/EncounterHeader"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
 text = "ZMIERZCHOWE RÓWNINY — WALKA TUROWA"
+
+[node name="FatePanel" type="PanelContainer" parent="Page/EncounterHeader"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(475, 0)
+layout_mode = 2
+
+[node name="Content" type="HBoxContainer" parent="Page/EncounterHeader/FatePanel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="FateStatusLabel" type="Label" parent="Page/EncounterHeader/FatePanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.83, 0.59, 0.69, 1)
+text = "LOS 0  •  ŻETONY 0/6"
+
+[node name="DiceRow" type="HBoxContainer" parent="Page/EncounterHeader/FatePanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="FateOutcomeLabel" type="Label" parent="Page/EncounterHeader/FatePanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.89, 0.32, 0.47, 1)
+text = "RZUT OCZEKUJE"
+text_overrun_behavior = 3
 
 [node name="Arena" type="HBoxContainer" parent="Page"]
 layout_mode = 2

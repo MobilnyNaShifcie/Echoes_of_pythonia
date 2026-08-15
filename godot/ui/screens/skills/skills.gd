@@ -117,9 +117,6 @@ func _show_skill_details(index: int) -> void:
 	elif player.level < skill.unlock_level:
 		skill_status_label.text = "ZABLOKOWANA — wymagany poziom %d" % skill.unlock_level
 		skill_status_label.modulate = Color(0.62, 0.68, 0.76)
-	elif not skill.is_combat_ready():
-		skill_status_label.text = "ZAREJESTROWANA — moduł Kości Losu powstanie w kolejnym podetapie"
-		skill_status_label.modulate = Color(0.88, 0.68, 0.38)
 	else:
 		skill_status_label.text = "ODBLOKOWANA — dostępna w panelu akcji podczas walki"
 		skill_status_label.modulate = Color(0.42, 0.78, 0.56)

@@ -3,6 +3,8 @@ extends RefCounted
 
 const CombatEffectsClass := preload("res://core/combat/combat_effects.gd")
 const EnemyClass := preload("res://core/combat/enemy.gd")
+const FateEngineClass := preload("res://core/combat/fate_engine.gd")
+const FateRollClass := preload("res://core/combat/fate_roll.gd")
 const PlayerEquipmentClass := preload("res://core/player/equipment.gd")
 const PlayerProfileClass := preload("res://core/player/player_profile.gd")
 const SkillCatalogClass := preload("res://core/skills/skill_catalog.gd")
@@ -15,6 +17,9 @@ const FLED := "fled"
 var player: PlayerProfileClass
 var enemy: EnemyClass
 var effects := CombatEffectsClass.new()
+var fate: FateEngineClass
+var fate_tokens := 0
+var pierrot_reflect_ready := false
 var result := ONGOING
 var rng: RandomNumberGenerator
 
@@ -29,6 +34,7 @@ func _init(
 	rng = (
 		random_number_generator if random_number_generator != null else RandomNumberGenerator.new()
 	)
+	fate = FateEngineClass.new(rng)
 
 
 func player_attack() -> Dictionary:
@@ -64,7 +70,7 @@ func get_skill_use_error(skill_id: String) -> String:
 	elif error.is_empty() and player.level < skill.unlock_level:
 		error = "Umiejętność odblokowuje się na poziomie %d." % skill.unlock_level
 	elif error.is_empty() and not skill.is_combat_ready():
-		error = "Mechanika Kości Losu zostanie przeniesiona w osobnym podetapie 3."
+		error = "Mechanika tej umiejętności nie została jeszcze przeniesiona."
 	elif error.is_empty():
 		error = _get_skill_equipment_error(skill)
 	if error.is_empty() and not player.stats.can_spend_mana(skill.mana_cost):
@@ -89,8 +95,11 @@ func player_use_skill(skill_id: String) -> Dictionary:
 	report.turn_consumed = true
 	var armor_break_was_active := effects.enemy_defense_reduction_actions > 0
 
-	_resolve_skill_hits(skill, report)
-	_apply_skill_effect(skill, report)
+	if skill.execution_kind == "fate":
+		_resolve_fate_skill(skill, report)
+	else:
+		_resolve_skill_hits(skill, report)
+		_apply_skill_effect(skill, report)
 	if armor_break_was_active and skill.is_offensive():
 		effects.consume_offensive_action()
 
@@ -191,7 +200,7 @@ func _resolve_skill_hits(skill: SkillDefinitionClass, report: Dictionary) -> voi
 func _resolve_player_skill_hit(skill: SkillDefinitionClass, power: int) -> Dictionary:
 	if not skill.guaranteed_hit and rng.randf() < enemy.dodge / 100.0:
 		return {"damage": 0, "dodged": true}
-	var attack_value := maxi(1, roundi(power * skill.multiplier))
+	var attack_value := maxi(1, _python_roundi(power * skill.multiplier))
 	var enemy_defense := effects.effective_enemy_defense(enemy.defense)
 	var magical := skill.scaling == "magic"
 	if magical:
@@ -214,10 +223,192 @@ func _skill_power(skill: SkillDefinitionClass) -> int:
 				4 + player.attributes.intelligence * 2 + player.stats.magic_power,
 			)
 		"shield":
-			return maxi(1, player.stats.attack + roundi(player.stats.defense * 0.6))
+			return maxi(1, player.stats.attack + _python_roundi(player.stats.defense * 0.6))
 		"fate":
 			return maxi(1, player.stats.attack + int(player.attributes.luck / 2.0))
 	return 0
+
+
+func _resolve_fate_skill(skill: SkillDefinitionClass, report: Dictionary) -> void:
+	match skill.effect:
+		"fate_1d6":
+			_resolve_fate_thrust(fate.roll(1), report)
+		"fate_2d6":
+			_resolve_double_roll(fate.roll(2), report)
+		"fate_feint":
+			_resolve_fate_feint(fate.roll(1), report)
+		"fate_3d6":
+			_resolve_grand_gamble(fate.roll(3), report)
+	_update_fate_report(report)
+
+
+func _resolve_fate_thrust(roll: FateRollClass, report: Dictionary) -> void:
+	var face: int = roll.dice[0]
+	var multiplier := 1.0
+	var hits := 1
+	var outcome := "PEWNE PCHNIĘCIE"
+	match face:
+		1:
+			multiplier = 0.70
+			outcome = "PECHOWY NUMER"
+			_add_fate_tokens(2, report)
+		2:
+			multiplier = 0.95
+			outcome = "FIGIEL"
+			enemy.attack = maxi(0, enemy.attack - 1)
+			report.skill_notes.append("FIGIEL: ATK przeciwnika -1 do końca walki.")
+		3:
+			multiplier = 1.15
+			outcome = "PEWNE PCHNIĘCIE"
+		4:
+			multiplier = 1.10
+			outcome = "ZWROT LOSU"
+			effects.apply_dodge(15, 1)
+			report.skill_notes.append("ZWROT LOSU: UNIK +15 p.p. na następny atak.")
+		5:
+			multiplier = 0.85
+			hits = 2
+			outcome = "PODWÓJNY NUMER"
+		6:
+			multiplier = 1.85
+			outcome = "JACKPOT"
+			_add_fate_tokens(1, report)
+	_resolve_fate_damage(multiplier, hits, report)
+	_set_fate_roll_report(roll, outcome, report)
+
+
+func _resolve_double_roll(roll: FateRollClass, report: Dictionary) -> void:
+	var total := roll.total()
+	var multiplier := 1.10
+	var outcome := "RZUT LOSU"
+	if roll.dice == [1, 1]:
+		multiplier = 0.50
+		outcome = "WĘŻOWE OCZY"
+		_add_fate_tokens(2, report)
+	elif total == 7:
+		multiplier = 1.70
+		outcome = "SZCZĘŚLIWA SIÓDEMKA"
+		_add_fate_tokens(2, report)
+	elif roll.dice == [6, 6]:
+		multiplier = 2.25
+		outcome = "PODWÓJNA SZÓSTKA — JACKPOT"
+		_add_fate_tokens(1, report)
+	elif roll.is_double():
+		multiplier = 1.45
+		outcome = "DUBLET"
+	elif total <= 4:
+		multiplier = 0.80
+		outcome = "NISKI RZUT"
+		_add_fate_tokens(2, report)
+	elif total >= 10:
+		multiplier = 1.60
+		outcome = "WYSOKI RZUT"
+		_add_fate_tokens(1, report)
+	_resolve_fate_damage(multiplier, 1, report)
+	_set_fate_roll_report(roll, outcome, report)
+
+
+func _resolve_fate_feint(roll: FateRollClass, report: Dictionary) -> void:
+	var face: int = roll.dice[0]
+	var outcome := "ZWÓD"
+	match face:
+		1:
+			outcome = "PECH"
+			_add_fate_tokens(2, report)
+			effects.apply_dodge(10, 1)
+			report.skill_notes.append("PECH: UNIK +10 p.p. na następny atak.")
+		2, 3:
+			outcome = "ZWÓD"
+			effects.apply_dodge(20, 2)
+			report.skill_notes.append("ZWÓD: UNIK +20 p.p. przez 2 ataki.")
+		4, 5:
+			outcome = "AKROBACJA"
+			effects.apply_dodge(35, 2)
+			report.skill_notes.append("AKROBACJA: UNIK +35 p.p. przez 2 ataki.")
+		6:
+			outcome = "KURTYNA LUSTRZANA"
+			pierrot_reflect_ready = true
+			report.skill_notes.append(
+				"KURTYNA LUSTRZANA: następny bezpośredni cios zostanie odbity."
+			)
+	_set_fate_roll_report(roll, outcome, report)
+
+
+func _resolve_grand_gamble(roll: FateRollClass, report: Dictionary) -> void:
+	var total := roll.total()
+	var multiplier := 0.85 + total * 0.055
+	var outcome := "WIELKI ZAKŁAD"
+	if roll.is_triple():
+		multiplier = 2.55
+		outcome = "TRÓJKA"
+		_add_fate_tokens(2, report)
+	elif total <= 5:
+		multiplier = 0.60
+		outcome = "KATASTROFA"
+		_add_fate_tokens(3, report)
+	elif total >= 16:
+		multiplier = 2.15
+		outcome = "WIELKI JACKPOT"
+		_add_fate_tokens(2, report)
+	elif roll.is_double():
+		multiplier = 1.55
+		outcome = "DUBLET WZMACNIA ZAKŁAD"
+	_resolve_fate_damage(multiplier, 1, report)
+	_set_fate_roll_report(roll, outcome, report)
+
+
+func _resolve_fate_damage(multiplier: float, hits: int, report: Dictionary) -> void:
+	var attack_value := maxi(1, _python_roundi(_fate_power() * multiplier))
+	for _hit_index in hits:
+		if not enemy.is_alive():
+			break
+		var damage := maxi(1, attack_value - effects.effective_enemy_defense(enemy.defense))
+		damage = enemy.reduce_physical_damage(damage)
+		var damage_taken := enemy.take_damage(damage)
+		report.player_hit_damages.append(damage_taken)
+		report.player_hit_dodges.append(false)
+		report.skill_total_damage += damage_taken
+	report.player_damage = report.skill_total_damage
+	report.enemy_dodged = false
+
+
+func _fate_power() -> int:
+	return maxi(1, player.stats.attack + int(player.attributes.luck / 2.0))
+
+
+func _set_fate_roll_report(roll: FateRollClass, outcome: String, report: Dictionary) -> void:
+	report.fate_dice.assign(roll.dice)
+	report.fate_total = roll.total()
+	report.fate_outcome = outcome
+	report.skill_notes.append("KOŚCI LOSU: %s — %s." % [_dice_text(roll.dice), outcome])
+
+
+func _dice_text(dice: Array[int]) -> String:
+	var values: Array[String] = []
+	for value: int in dice:
+		values.append(str(value))
+	return "[" + ", ".join(values) + "]"
+
+
+func fate_token_cap() -> int:
+	return 6 + mini(4, int(player.attributes.luck / 10.0))
+
+
+func _add_fate_tokens(amount: int, report: Dictionary) -> void:
+	var previous := fate_tokens
+	fate_tokens = clampi(fate_tokens + maxi(0, amount), 0, fate_token_cap())
+	var gained := fate_tokens - previous
+	if gained > 0:
+		report.fate_tokens_gained += gained
+		report.skill_notes.append(
+			"ŻETONY LOSU: +%d (%d/%d)." % [gained, fate_tokens, fate_token_cap()]
+		)
+
+
+func _update_fate_report(report: Dictionary) -> void:
+	report.fate_tokens = fate_tokens
+	report.fate_token_cap = fate_token_cap()
+	report.reflect_ready = pierrot_reflect_ready
 
 
 func _apply_skill_effect(skill: SkillDefinitionClass, report: Dictionary) -> void:
@@ -266,11 +457,17 @@ func _enemy_turn(report: Dictionary, defending := false) -> void:
 		report.enemy_special_name = enemy.special_name
 	enemy.attacks_made += 1
 	report.enemy_damage = _resolve_enemy_hit(attack_value, defending, report, false)
+	if not enemy.is_alive():
+		result = VICTORY
+		return
 	if not player.stats.is_alive():
 		result = DEFEAT
 		return
 	if enemy.extra_attack_chance > 0.0 and rng.randf() < enemy.extra_attack_chance:
 		report.enemy_extra_damage = _resolve_enemy_hit(enemy.attack, false, report, true)
+		if not enemy.is_alive():
+			result = VICTORY
+			return
 		if not player.stats.is_alive():
 			result = DEFEAT
 			return
@@ -300,7 +497,23 @@ func _resolve_enemy_hit(
 		damage = int(damage / 2.0)
 	damage = effects.reduce_damage_by_guard(damage)
 	effects.consume_guard_hit()
+	if pierrot_reflect_ready and damage > 0:
+		pierrot_reflect_ready = false
+		var reflected := enemy.take_damage(damage)
+		report.reflected_damage += reflected
+		report.reflect_ready = false
+		return 0
 	return player.stats.take_damage(damage)
+
+
+func _python_roundi(value: float) -> int:
+	var lower := floori(value)
+	var fraction := value - lower
+	if fraction < 0.5 and not is_equal_approx(fraction, 0.5):
+		return lower
+	if fraction > 0.5 and not is_equal_approx(fraction, 0.5):
+		return lower + 1
+	return lower if lower % 2 == 0 else lower + 1
 
 
 func _new_report() -> Dictionary:
@@ -314,6 +527,14 @@ func _new_report() -> Dictionary:
 		"skill_mana_cost": 0,
 		"skill_total_damage": 0,
 		"skill_notes": [],
+		"fate_dice": [],
+		"fate_total": 0,
+		"fate_outcome": "",
+		"fate_tokens_gained": 0,
+		"fate_tokens": fate_tokens,
+		"fate_token_cap": fate_token_cap(),
+		"reflect_ready": pierrot_reflect_ready,
+		"reflected_damage": 0,
 		"player_healed": 0,
 		"player_mana_restored": 0,
 		"player_regenerated": 0,

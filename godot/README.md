@@ -24,9 +24,9 @@ equivalent, tested GDScript implementation.
 - `ui/` — reusable controls, themes, and presentation logic
 
 The current playable migration includes stages 0–2 and character progression
-stages 3A–3B. The skill catalog preserves all four Paths; the shared combat
-execution for Warrior, Hunter, and Mage is active, while Pierrot's dice-based
-resolution remains explicitly reserved for stage 3C.
+stages 3A–3C. All sixteen base Path skills are active. Pierrot uses a dedicated
+Fate Engine with encounter-local Fate Tokens, exact 1d6/2d6/3d6 outcome tables,
+and a flexible placeholder dice panel ready for later presentation work.
 
 Open the project with the pinned local editor from the repository root:
 

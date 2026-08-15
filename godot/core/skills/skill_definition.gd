@@ -21,8 +21,8 @@ extends Resource
 
 
 func is_offensive() -> bool:
-	return hits > 0
+	return hits > 0 or (effect.begins_with("fate_") and effect != "fate_feint")
 
 
 func is_combat_ready() -> bool:
-	return execution_kind == "generic"
+	return execution_kind in ["generic", "fate"]
