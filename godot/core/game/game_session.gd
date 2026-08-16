@@ -9,6 +9,7 @@ const ContractBoardClass := preload("res://core/quests/contract_board.gd")
 const GuildStorageClass := preload("res://core/economy/guild_storage.gd")
 const RegionCatalogClass := preload("res://core/world/region_catalog.gd")
 const WeatherServiceClass := preload("res://core/world/weather_service.gd")
+const PartyStateClass := preload("res://core/companions/party_state.gd")
 const STARTING_LOCATION_ID := "twilight_plains"
 const STARTING_CITY_ID := "varenhold"
 const STARTING_DAY := 1
@@ -38,6 +39,7 @@ var weather_code := WeatherServiceClass.SUNNY
 var weather_remaining_hours := WeatherServiceClass.DURATION_HOURS
 var camp_rest_available := true
 var last_weather_changes: Array[Dictionary] = []
+var party := PartyStateClass.new()
 
 
 func _init(slot: int, player_profile: PlayerProfileClass) -> void:

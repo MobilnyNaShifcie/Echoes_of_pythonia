@@ -15,6 +15,7 @@ const ClassSelectionScreenClass := preload("res://ui/screens/class_selection/cla
 const CombatScreenClass := preload("res://ui/screens/combat/combat.gd")
 const EquipmentScreenClass := preload("res://ui/screens/equipment/equipment.gd")
 const GuildScreenClass := preload("res://ui/screens/guild/guild.gd")
+const PartyHubScreenClass := preload("res://ui/screens/party_hub/party_hub.gd")
 const LoadGameScreenClass := preload("res://ui/screens/load_game/load_game.gd")
 const MainMenuScreenClass := preload("res://ui/screens/main_menu/main_menu.gd")
 const NewGameScreenClass := preload("res://ui/screens/new_game/new_game.gd")
@@ -35,6 +36,7 @@ const CLASS_SELECTION_SCENE := preload("res://ui/screens/class_selection/class_s
 const COMBAT_SCENE := preload("res://ui/screens/combat/combat.tscn")
 const EQUIPMENT_SCENE := preload("res://ui/screens/equipment/equipment.tscn")
 const GUILD_SCENE := preload("res://ui/screens/guild/guild.tscn")
+const PARTY_HUB_SCENE := preload("res://ui/screens/party_hub/party_hub.tscn")
 const LOAD_GAME_SCENE := preload("res://ui/screens/load_game/load_game.tscn")
 const MAIN_MENU_SCENE := preload("res://ui/screens/main_menu/main_menu.tscn")
 const NEW_GAME_SCENE := preload("res://ui/screens/new_game/new_game.tscn")
@@ -219,8 +221,23 @@ func _show_guild() -> void:
 	var guild: GuildScreenClass = _replace_screen(GUILD_SCENE)
 	guild.configure(_current_session)
 	guild.back_requested.connect(_show_city_hub)
+	guild.party_requested.connect(_show_party_hub)
 	var rank := GuildProgressionServiceClass.rank_for_reputation(_current_session.guild_reputation)
 	app_status_label.text = "Gildia Poszukiwaczy: ranga %s" % rank.code
+
+
+func _show_party_hub() -> void:
+	if _current_session == null:
+		_show_main_menu()
+		return
+	var party_hub: PartyHubScreenClass = _replace_screen(PARTY_HUB_SCENE)
+	party_hub.configure(_current_session)
+	party_hub.back_requested.connect(_show_guild)
+	party_hub.state_changed.connect(_save_current_session_silently)
+	app_status_label.text = (
+		"Drużyna: %d/3 aktywnych"
+		% (_current_session.party.active_companions(_current_session.day).size())
+	)
 
 
 func _show_class_selection() -> void:

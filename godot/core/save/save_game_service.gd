@@ -2,7 +2,6 @@ class_name SaveGameService
 extends RefCounted
 
 const EquipmentItemClass := preload("res://core/items/equipment_item.gd")
-const EquipmentAffixClass := preload("res://core/items/equipment_affix.gd")
 const EquipmentAffixServiceClass := preload("res://core/items/equipment_affix_service.gd")
 const GameSessionClass := preload("res://core/game/game_session.gd")
 const ClassCombatMechanicCatalogClass := preload(
@@ -29,9 +28,11 @@ const TalentProgressionServiceClass := preload(
 	"res://core/progression/talent_progression_service.gd"
 )
 const WeatherServiceClass := preload("res://core/world/weather_service.gd")
+const EquipmentSaveCodecClass := preload("res://core/save/equipment_save_codec.gd")
+const PartySaveCodecClass := preload("res://core/save/party_save_codec.gd")
 
 const FORMAT_ID := "echoes_of_pythonia_godot_migration"
-const SCHEMA_VERSION := 12
+const SCHEMA_VERSION := 13
 const GAME_VERSION := "0.25.0"
 const DEFAULT_SAVE_ROOT := "user://godot_migration_saves"
 const SLOT_COUNT := NewGameServiceClass.SAVE_SLOT_COUNT
@@ -183,6 +184,7 @@ func _serialize_session(session: GameSessionClass) -> Dictionary:
 			"weather_remaining_hours": session.weather_remaining_hours,
 			"camp_rest_available": session.camp_rest_available,
 			"guild_storage": _serialize_inventory(session.guild_storage.inventory),
+			"party": PartySaveCodecClass.serialize(session.party),
 			"quest_log":
 			{
 				"active": session.quest_log.active.duplicate(true),
@@ -373,6 +375,8 @@ func _restore_session_fields(session: GameSessionClass, data: Dictionary) -> Dic
 		return _failure("Zapis nie zawiera stanu Czarnego Rynku.")
 	if not data.get("guild_storage") is Dictionary:
 		return _failure("Zapis nie zawiera Magazynu Gildii.")
+	if not data.get("party") is Dictionary:
+		return _failure("Zapis nie zawiera stanu drużyny.")
 	var location_id := str(data.get("current_location_id", ""))
 	var city_id := str(data.get("current_city_id", ""))
 	if not data.get("known_region_ids") is Array:
@@ -412,6 +416,10 @@ func _restore_session_fields(session: GameSessionClass, data: Dictionary) -> Dic
 		return _failure("Nieprawidłowy Magazyn Gildii: %s" % storage_result.message)
 	if session.guild_storage.used_slots > session.guild_storage.CAPACITY_SLOTS:
 		return _failure("Magazyn Gildii przekracza limit miejsc.")
+	var party_result := PartySaveCodecClass.deserialize(data.party, int(data.day))
+	if not party_result.ok:
+		return _failure("Nieprawidłowy stan drużyny: %s" % party_result.message)
+	session.party = party_result.party
 
 	session.current_location_id = location_id
 	session.known_region_ids.assign(data.known_region_ids)
@@ -554,6 +562,8 @@ func _migrate_payload(payload: Dictionary) -> Dictionary:
 				"unlocked": [],
 				"equipped_title": AchievementCatalogClass.DEFAULT_TITLE,
 			}
+		if version <= 12:
+			session["party"] = PartySaveCodecClass.empty_data()
 		migrated.schema_version = SCHEMA_VERSION
 	if not error.is_empty():
 		return _failure(error)
@@ -734,45 +744,7 @@ func _restore_guild_stage_five_c(
 
 
 func _deserialize_equipment_item(data: Dictionary) -> Dictionary:
-	var item_id := str(data.get("item_id", ""))
-	var definition = ItemCatalogClass.get_definition(item_id)
-	if definition == null or not definition.is_equipment():
-		return _failure("Zapis zawiera nieznany przedmiot wyposażenia.")
-	if not _is_non_negative_integer(data.get("upgrade_level")):
-		return _failure("Zapis zawiera nieprawidłowy poziom ulepszenia.")
-	var upgrade_level := int(data.upgrade_level)
-	if upgrade_level > EquipmentItemClass.MAX_UPGRADE_LEVEL:
-		return _failure("Poziom ulepszenia przekracza dozwolone maksimum.")
-	var instance_id := str(data.get("instance_id", ""))
-	if instance_id.is_empty():
-		return _failure("Przedmiot nie ma identyfikatora instancji.")
-	if not _is_positive_integer(data.get("item_power")):
-		return _failure("Przedmiot nie ma prawidłowego Item Power.")
-	var item_power := int(data.item_power)
-	if item_power != definition.item_power:
-		return _failure("Item Power przedmiotu nie zgadza się z katalogiem.")
-	if not data.get("affixes") is Array:
-		return _failure("Przedmiot nie zawiera prawidłowej listy afiksów.")
-	var affixes: Array[EquipmentAffixClass] = []
-	for affix_data in data.affixes:
-		if not affix_data is Dictionary:
-			return _failure("Zapis zawiera nieprawidłowy afiks.")
-		if not _is_positive_integer(affix_data.get("tier")):
-			return _failure("Zapis zawiera nieprawidłowy tier afiksu.")
-		var value = affix_data.get("value")
-		if not value is int and not value is float:
-			return _failure("Zapis zawiera nieprawidłową wartość afiksu.")
-		affixes.append(
-			EquipmentAffixClass.new(
-				str(affix_data.get("affix_id", "")), int(affix_data.tier), float(value)
-			)
-		)
-	var affix_error := EquipmentAffixServiceClass.validate(definition, affixes)
-	if not affix_error.is_empty():
-		return _failure("Nieprawidłowe afiksy przedmiotu: %s" % affix_error)
-	var item := EquipmentItemClass.new(definition, upgrade_level, affixes, item_power)
-	item.instance_id = instance_id
-	return {"ok": true, "item": item}
+	return EquipmentSaveCodecClass.deserialize_item(data)
 
 
 func _backfill_equipment_generation(container: Dictionary, is_inventory: bool) -> void:
@@ -812,41 +784,23 @@ func _serialize_attributes(attributes: PlayerAttributesClass) -> Dictionary:
 
 
 func _serialize_equipment(slots: Dictionary) -> Dictionary:
-	var result := {}
-	for slot in slots:
-		result[slot] = _serialize_equipment_item(slots[slot])
-	return result
+	return EquipmentSaveCodecClass.serialize_equipment(slots)
 
 
 func _serialize_equipment_items(items: Array) -> Array[Dictionary]:
-	var result: Array[Dictionary] = []
-	for item: EquipmentItemClass in items:
-		result.append(_serialize_equipment_item(item))
-	return result
+	return EquipmentSaveCodecClass.serialize_items(items)
 
 
 func _serialize_inventory(inventory) -> Dictionary:
-	return {
-		"stacks": inventory.stacks.duplicate(true),
-		"equipment_items": _serialize_equipment_items(inventory.equipment_items),
-	}
+	return EquipmentSaveCodecClass.serialize_inventory(inventory)
 
 
 func _serialize_equipment_item(item: EquipmentItemClass) -> Dictionary:
-	return {
-		"item_id": item.item_id,
-		"upgrade_level": item.upgrade_level,
-		"instance_id": item.instance_id,
-		"item_power": item.item_power,
-		"affixes": _serialize_affixes(item.affixes),
-	}
+	return EquipmentSaveCodecClass.serialize_item(item)
 
 
 func _serialize_affixes(affixes: Array) -> Array[Dictionary]:
-	var result: Array[Dictionary] = []
-	for affix in affixes:
-		result.append({"affix_id": affix.affix_id, "tier": affix.tier, "value": affix.value})
-	return result
+	return EquipmentSaveCodecClass.serialize_affixes(affixes)
 
 
 func _replace_file_safely(

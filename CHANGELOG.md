@@ -2,6 +2,14 @@
 
 ## [0.25.0-dev] — Pierwsza grywalna pętla w Godot 4
 
+- rozpoczęto Stage 6A: dodano jawne modele `CompanionState` i `PartyState`,
+  katalog 12 ręcznie napisanych kompanów oraz limity 4 osób w rosterze i 3 w
+  aktywnym składzie,
+- Gildia prowadzi teraz do funkcjonalnego placeholdera „Drużyna i kompani”,
+  który ustawia skład albo tryb SOLO bez przejmowania logiki domenowej,
+- wydzielono kodeki wyposażenia i drużyny; schemat Godot `v13` zapisuje pełny
+  stan kompanów, kandydatów, wiadomości, własności sprzętu i Tablicy Poległych,
+  a zapisy `v1`–`v12` otrzymują bezpieczną pustą drużynę,
 - zmieniono plan Varenhold na pojedynczą kolumnę kafelków od góry do dołu;
   przy mniejszych oknach panel przewija się bez naruszania reszty układu,
 - w prologu zastąpiono określenia `Gold/Goldem` słowami `złoto/złotem`, a

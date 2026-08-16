@@ -1,0 +1,144 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://ui/screens/party_hub/party_hub.gd" id="1"]
+
+[node name="PartyHubScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="Page" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="Header" type="HBoxContainer" parent="Page"]
+layout_mode = 2
+
+[node name="Identity" type="VBoxContainer" parent="Page/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Eyebrow" type="Label" parent="Page/Header/Identity"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
+text = "GILDIA POSZUKIWACZY"
+
+[node name="Title" type="Label" parent="Page/Header/Identity"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Drużyna i kompani"
+
+[node name="SummaryLabel" type="Label" parent="Page/Header/Identity"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.65, 0.77, 1)
+text = "Roster 0/4  •  aktywny skład 0/3"
+
+[node name="BackButton" type="Button" parent="Page/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+text = "Wróć do Gildii"
+
+[node name="Separator" type="HSeparator" parent="Page"]
+layout_mode = 2
+
+[node name="Body" type="HBoxContainer" parent="Page"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="RosterPanel" type="PanelContainer" parent="Page/Body"]
+custom_minimum_size = Vector2(680, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Roster" type="VBoxContainer" parent="Page/Body/RosterPanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="SectionTitle" type="Label" parent="Page/Body/RosterPanel/Roster"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
+theme_override_font_sizes/font_size = 21
+text = "Roster kompanów"
+
+[node name="RosterList" type="ItemList" parent="Page/Body/RosterPanel/Roster"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 320)
+layout_mode = 2
+size_flags_vertical = 3
+allow_reselect = true
+
+[node name="EmptyLabel" type="Label" parent="Page/Body/RosterPanel/Roster"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.61, 0.68, 0.77, 1)
+text = "Nie masz jeszcze kompanów. Kandydaci pojawią się w etapie 6B."
+autowrap_mode = 2
+
+[node name="DetailsPanel" type="PanelContainer" parent="Page/Body"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Details" type="VBoxContainer" parent="Page/Body/DetailsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="SectionTitle" type="Label" parent="Page/Body/DetailsPanel/Details"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
+theme_override_font_sizes/font_size = 21
+text = "Ustaw skład wyprawy"
+
+[node name="DetailNameLabel" type="Label" parent="Page/Body/DetailsPanel/Details"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 23
+text = "Brak kompanów"
+
+[node name="DetailStateLabel" type="Label" parent="Page/Body/DetailsPanel/Details"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.78, 0.86, 1)
+text = "Nowa sesja zaczyna z pustą drużyną."
+autowrap_mode = 2
+
+[node name="Spacer" type="Control" parent="Page/Body/DetailsPanel/Details"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ToggleButton" type="Button" parent="Page/Body/DetailsPanel/Details"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "Wybierz kompana"
+
+[node name="SoloButton" type="Button" parent="Page/Body/DetailsPanel/Details"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "Wyruszaj SOLO"
+
+[node name="PlaceholderNote" type="Label" parent="Page/Body/DetailsPanel/Details"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42, 0.49, 0.58, 1)
+text = "Etap 6A: funkcjonalny placeholder. Rekrutacja, relacje i historie powstaną w 6B."
+autowrap_mode = 2
+
+[node name="ResultLabel" type="Label" parent="Page"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.45, 0.78, 0.59, 1)
+text = "Zarządzaj składem przed wyprawą."
+autowrap_mode = 2

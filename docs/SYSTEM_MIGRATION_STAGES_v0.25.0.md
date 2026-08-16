@@ -419,9 +419,34 @@ nagrody należą do testowanej logiki domenowej.
 
 ## Etap 6 — lochy, drużyna i Szczeliny
 
-- lochy i ich zasady dostępu,
-- towarzysze, relacje, taktyki oraz przygotowanie wyprawy,
-- Szczeliny i związane z nimi zasoby, progresja oraz spotkania.
+### Etap 6A — fundament kompanów i drużyny (ukończony)
+
+- jawne modele `CompanionState` oraz `PartyState` są właścicielami stanu
+  konkretnego kompana i całego rosteru zamiast luźnych pól w `GameSession`,
+- katalog zachowuje 12 ręcznie napisanych szablonów v0.24.7, ich dozwolone
+  klasy, pochodzenie, głos, nastawienie i minimalną rangę Gildii,
+- osobny serwis egzekwuje limit 4 kompanów, 3 aktywnych, tryb SOLO oraz blokady
+  dla poległych, ciężko rannych i trwającej ekspedycji,
+- placeholder „Drużyna i kompani” jest dostępny z Gildii i wywołuje serwis
+  domenowy zamiast samodzielnie zmieniać reguły składu,
+- `EquipmentSaveCodec` współdzieli reguły instancji sprzętu, a
+  `PartySaveCodec` przechowuje kompanów, kandydatów, wiadomości, własność
+  przedmiotów, prywatny schowek i Tablicę Poległych,
+- schemat Godot `v13` dodaje `party`; pliki `v1`–`v12` migrują z pustym stanem
+  bez aktywowania niepełnego importu terminalowego save v15.
+
+### Dalsza kolejność Stage 6
+
+- **6B:** rekrutacja, relacje, wiadomości, scenki i osobiste historie,
+- **6C:** rozwój kompanów oraz ich osobiste wyposażenie,
+- **6D:** Przygotowanie do wyprawy i presety,
+- **6E:** oddzielone od UI taktyki AI,
+- **6F:** wspólne zasady obrażeń i osobny silnik walki drużynowej,
+- **6G:** powalenie, ciężkie rany i jawnie zapowiadana permanentna śmierć,
+- **6H:** dwa terminalowe lochy SOLO przeniesione 1:1,
+- **6I:** lifecycle Szczelin,
+- **6J:** kompletne ekspedycje i walki drużynowe Szczelin,
+- **6K:** audyt parytetu Stage 6 i save/load.
 
 ## Etap 7 — parytet i bezpieczne przejście
 

@@ -95,6 +95,13 @@ titles, preserves them across sessions, reconciles unambiguous legacy progress,
 and safely migrates schema-v1 through schema-v11 files. The closing Guild audit
 locks the F–S thresholds, nine-story-quest total, contract reputation, four
 milestones, 32 rumors, and Black Market gates in regression tests.
+Stage 6A introduces explicit `CompanionState` and `PartyState` models, the 12
+authored terminal companion templates, and a party service enforcing the
+four-companion roster, three-active limit, SOLO mode, injuries, death, and
+composition locks. The Guild now opens a functional party placeholder without
+owning those rules. Save schema v13 delegates companion equipment and complete
+party state to dedicated codecs and safely migrates schema-v1 through
+schema-v12 files with an empty party.
 
 Open the project with the pinned local editor from the repository root:
 

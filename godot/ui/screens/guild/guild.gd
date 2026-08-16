@@ -2,6 +2,7 @@ class_name GuildScreen
 extends Control
 
 signal back_requested
+signal party_requested
 
 const ContractDefinitionClass := preload("res://core/quests/contract_definition.gd")
 const ContractServiceClass := preload("res://core/quests/contract_service.gd")
@@ -49,6 +50,7 @@ var _selected_rumor_index := 0
 
 func _ready() -> void:
 	%BackButton.pressed.connect(back_requested.emit)
+	%PartyButton.pressed.connect(party_requested.emit)
 	story_button.pressed.connect(_set_mode.bind(MODE_STORY))
 	daily_button.pressed.connect(_set_mode.bind(MODE_DAILY))
 	weekly_button.pressed.connect(_set_mode.bind(MODE_WEEKLY))

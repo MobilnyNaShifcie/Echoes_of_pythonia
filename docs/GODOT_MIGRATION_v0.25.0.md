@@ -207,6 +207,14 @@ The migrated flow is runnable in Godot:
 77. Save every anti-reroll mutation immediately and persist the complete market
     state in validated schema v11 while safely migrating schema-v1 through
     schema-v10.
+78. Own all companion-specific state through `CompanionState` and the roster
+    through `PartyState`, preserving the terminal limits of four recruited and
+    three active companions.
+79. Keep all twelve authored companion templates in a catalog separate from UI
+    and change active composition only through a tested party service.
+80. Persist full party, candidate, message, equipment-ownership, private
+    storage, and fallen-companion state in schema v13 while migrating earlier
+    Godot saves with a safe empty party.
 
 The GDScript model also carries the legacy attribute formulas, level-zero
 experience threshold, four attribute points per level, and Pierrot-only Luck.
@@ -230,12 +238,12 @@ already have sources in the migrated world, and the inn performs paid full
 recovery with its daily cooldown. Final item art, shop animation, and audio
 remain outside this domain slice and continue to use placeholder presentation.
 
-Stages 3C through 3F, stages 4A–4E, and stages 5A–5E are complete. Dice history,
+Stages 3C through 3F, stages 4A–4E, stages 5A–5E, and stage 6A are complete. Dice history,
 Fate Tokens,
 temporary dodge,
 mirror readiness, Hunter sequence, delayed effects, explosive charges, Arcane
 Weave, elemental sequence, Provoke, block bonus, and retaliation readiness are
-intentionally encounter-local. Godot save schema v12 keeps durable talent ranks,
+intentionally encounter-local. Godot save schema v13 keeps durable talent ranks,
 book-unlocked class paths, passive ranks, Masteries, specializations, Hunter
 progression, compatibility identifiers from earlier slices, and the list of
 known regions. Unread books remain ordinary inventory stacks. All five regions
@@ -259,6 +267,11 @@ victory, weather, upgrade, and Guild-rank events. Their dedicated placeholder
 screen is reachable from Varenhold, and the selected title is rendered with the
 hero name. The closing stage-5 audit fixes the migrated Guild totals and gates in
 tests before dungeon work begins.
+The Stage 6 foundation now stores companions and the roster in explicit domain
+models, exposes tested composition controls through the Guild, and validates
+party equipment ownership independently of `SaveGameService`. Recruitment,
+personal progression, AI and party combat remain in their dedicated subsequent
+vertical slices rather than placeholders that grant progress.
 Their calendar periods, generated definitions, objective progress, and claimed
 rewards survive reloads; existing schema-v8 files receive a safe empty board
 before the next period is generated.
