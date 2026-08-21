@@ -23,8 +23,8 @@ equivalent, tested GDScript implementation.
 - `tests/` — GUT tests mirroring migrated behavior
 - `ui/` — reusable controls, themes, and presentation logic
 
-The current playable migration includes stages 0–3, stages 4A–4E, and stages
-5A–5E, including all eight class talent paths, 41 talents, passive Masteries, and
+The current playable migration includes stages 0–3, stages 4A–4E, stages
+5A–5E, and stages 6A–6B, including all eight class talent paths, 41 talents, passive Masteries, and
 specializations. All sixteen
 base Path skills are active. Pierrot uses a dedicated
 Fate Engine with encounter-local Fate Tokens and exact 1d6/2d6/3d6 tables.
@@ -102,6 +102,16 @@ composition locks. The Guild now opens a functional party placeholder without
 owning those rules. Save schema v13 delegates companion equipment and complete
 party state to dedicated codecs and safely migrates schema-v1 through
 schema-v12 files with an empty party.
+Stage 6B adds the persisted two-candidate daily rotation, Guild-rank gates,
+authored first conversations, one-attempt recruitment, dismissal and returning
+companions. All 12 companions now have their terminal messages, idle/camp and
+pair banter plus 16 authored personal-arc variants represented by explicit arc,
+stage, and choice models. Relations, unique memories, unread state, seen banter,
+Rift-based story gates, and candidate decisions remain domain-owned and survive
+reload. The existing Party screen exposes roster, candidate, message, and
+personal-story flows using placeholder panels. Existing schema v13 already
+contained every required field, so 6B validates that data without a schema bump.
+Companion builds and personal equipment intentionally remain in stage 6C.
 
 Open the project with the pinned local editor from the repository root:
 

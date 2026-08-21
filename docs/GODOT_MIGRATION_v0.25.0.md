@@ -215,6 +215,17 @@ The migrated flow is runnable in Godot:
 80. Persist full party, candidate, message, equipment-ownership, private
     storage, and fallen-companion state in schema v13 while migrating earlier
     Godot saves with a safe empty party.
+81. Rotate two persisted candidates per Pythonia day behind the terminal Guild
+    rank gates, keeping generated identity, level, Path, personal arc, and the
+    one-attempt recruitment roll stable across reloads.
+82. Keep the twelve authored recruitment conversations, responses, idle/camp
+    lines, messages, pair banter, and all sixteen personal-arc variants in
+    catalogs and explicit dialogue/arc/stage models outside UI.
+83. Apply relation deltas, unique memory tags, unread state, seen banter, and
+    Rift-based personal-stage gates only through companion domain services.
+84. Expand the existing Guild party screen with roster, candidate, message,
+    and personal-story flows while retaining placeholder presentation and save
+    schema v13.
 
 The GDScript model also carries the legacy attribute formulas, level-zero
 experience threshold, four attribute points per level, and Pierrot-only Luck.
@@ -238,7 +249,7 @@ already have sources in the migrated world, and the inn performs paid full
 recovery with its daily cooldown. Final item art, shop animation, and audio
 remain outside this domain slice and continue to use placeholder presentation.
 
-Stages 3C through 3F, stages 4A–4E, stages 5A–5E, and stage 6A are complete. Dice history,
+Stages 3C through 3F, stages 4A–4E, stages 5A–5E, and stages 6A–6B are complete. Dice history,
 Fate Tokens,
 temporary dodge,
 mirror readiness, Hunter sequence, delayed effects, explosive charges, Arcane
@@ -267,11 +278,14 @@ victory, weather, upgrade, and Guild-rank events. Their dedicated placeholder
 screen is reachable from Varenhold, and the selected title is rendered with the
 hero name. The closing stage-5 audit fixes the migrated Guild totals and gates in
 tests before dungeon work begins.
-The Stage 6 foundation now stores companions and the roster in explicit domain
+The Stage 6 foundation stores companions and the roster in explicit domain
 models, exposes tested composition controls through the Guild, and validates
-party equipment ownership independently of `SaveGameService`. Recruitment,
-personal progression, AI and party combat remain in their dedicated subsequent
-vertical slices rather than placeholders that grant progress.
+party equipment ownership independently of `SaveGameService`. Stage 6B adds
+deterministic daily candidates, persisted one-attempt recruitment, returning
+companions, authored relations, messages, banter, and personal histories for all
+twelve templates. Companion builds and personal equipment, AI, and party combat
+remain in their dedicated subsequent vertical slices rather than placeholders
+that grant progress.
 Their calendar periods, generated definitions, objective progress, and claimed
 rewards survive reloads; existing schema-v8 files receive a safe empty board
 before the next period is generated.

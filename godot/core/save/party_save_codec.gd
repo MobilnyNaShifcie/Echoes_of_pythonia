@@ -5,6 +5,7 @@ const CompanionCandidateClass := preload("res://core/companions/companion_candid
 const CompanionCatalogClass := preload("res://core/companions/companion_catalog.gd")
 const CompanionServiceClass := preload("res://core/companions/companion_service.gd")
 const CompanionStateClass := preload("res://core/companions/companion_state.gd")
+const CompanionStoryCatalogClass := preload("res://core/companions/companion_story_catalog.gd")
 const FallenCompanionClass := preload("res://core/companions/fallen_companion.gd")
 const PartyMessageClass := preload("res://core/companions/party_message.gd")
 const PartyStateClass := preload("res://core/companions/party_state.gd")
@@ -64,6 +65,8 @@ static func deserialize(data: Dictionary, current_day: int) -> Dictionary:
 		return _failure("Zapis zawiera nieprawidłowe dni stanu drużyny.")
 	if data.companions.size() > CompanionServiceClass.MAX_COMPANIONS:
 		return _failure("Zapis przekracza limit kompanów.")
+	if data.candidates.size() > 2:
+		return _failure("Zapis przekracza limit dziennych kandydatów.")
 
 	var party := PartyStateClass.new()
 	var known_ids := {}
@@ -242,6 +245,21 @@ static func _deserialize_companion(data, current_day: int, dismissed: bool) -> D
 	companion.current_hp = int(data.current_hp)
 	companion.current_mana = int(data.current_mana)
 	companion.dismissed_day = int(data.dismissed_day)
+	var story = CompanionStoryCatalogClass.get_story(companion.template_id)
+	if not companion.quest_arc_id.is_empty():
+		var arc = story.arc_by_id(companion.quest_arc_id) if story != null else null
+		if arc == null or companion.quest_stage > arc.stages.size():
+			return _failure("Kompan zawiera nieprawidłowy postęp historii osobistej.")
+		var valid_memories: Array[String] = []
+		for stage in arc.stages:
+			for choice in stage.choices:
+				if not choice.memory_tag.is_empty() and choice.memory_tag not in valid_memories:
+					valid_memories.append(choice.memory_tag)
+		for memory: String in companion.memories:
+			if memory not in valid_memories:
+				return _failure("Kompan zawiera nieznane wspomnienie historii osobistej.")
+	elif companion.quest_stage != 0 or not companion.memories.is_empty():
+		return _failure("Kompan ma postęp historii bez przypisanego wątku osobistego.")
 	if companion.active and not companion.can_join_party(current_day):
 		return _failure("Martwy albo ciężko ranny kompan nie może być aktywny.")
 	var ownership_error := _validate_item_ownership(companion)

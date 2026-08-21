@@ -2,7 +2,17 @@
 
 ## [0.25.0-dev] — Pierwsza grywalna pętla w Godot 4
 
-- rozpoczęto Stage 6A: dodano jawne modele `CompanionState` i `PartyState`,
+- ukończono Stage 6B: Gildia pokazuje dwóch utrwalonych kandydatów dziennie,
+  respektuje rangi, ręcznie napisane rozmowy i jedną próbę rekrutacji oraz
+  zachowuje byłych kompanów, którzy mogą powrócić po terminalowym czasie,
+- relacje, unikalne wspomnienia, wiadomości read/unread, jednorazowe scenki
+  par i postęp wspólnych Szczelin należą do osobnych serwisów domenowych,
+- wszystkie 12 postaci otrzymało terminalowe dialogi oraz 16 wariantów
+  osobistych historii z bramkami `unlock_rifts`; istniejący ekran drużyny ma
+  zakładki rosteru, kandydatów i wiadomości bez finalnych assetów,
+- schemat Godot pozostaje `v13`, ponieważ fundament 6A już zapisywał wszystkie
+  pola 6B; kodek dodatkowo waliduje kandydatów, wątki i tagi pamięci,
+- ukończono Stage 6A: dodano jawne modele `CompanionState` i `PartyState`,
   katalog 12 ręcznie napisanych kompanów oraz limity 4 osób w rosterze i 3 w
   aktywnym składzie,
 - Gildia prowadzi teraz do funkcjonalnego placeholdera „Drużyna i kompani”,

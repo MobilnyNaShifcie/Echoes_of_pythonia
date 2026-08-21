@@ -435,9 +435,42 @@ nagrody należą do testowanej logiki domenowej.
 - schemat Godot `v13` dodaje `party`; pliki `v1`–`v12` migrują z pustym stanem
   bez aktywowania niepełnego importu terminalowego save v15.
 
+### Etap 6B — rekrutacja, relacje i historie kompanów (ukończony)
+
+- dzienna rotacja zachowuje terminalowy limit dwóch kandydatów, wymagania rang
+  F–S, przedział poziomów, zwykłe i rzadkie ścieżki oraz zapisany rzut
+  rekrutacyjny; ponowne wejście i restart tego samego dnia nie przerzucają
+  oferty ani wyniku,
+- wszystkie pierwsze rozmowy, odpowiedzi rekrutacyjne, pożegnania, wiadomości,
+  wypowiedzi bezczynności i obozowe są ręcznie przeniesione z v0.24.7;
+  rozmowa zmienia nastawienie tylko raz, a próba rekrutacji jest jednorazowa,
+- rekrutacja egzekwuje limit czterech kompanów, automatycznie uzupełnia wolne
+  miejsce aktywnej trójki i pozostawia odrzuconego kandydata bez kolejnej próby
+  tego dnia,
+- rozstanie zachowuje relację, wspomnienia i postęp osobistej historii; były
+  kompan może ponownie wejść do deterministycznej rotacji najwcześniej po
+  trzech dniach Pythonii,
+- `CompanionRelationshipService` jest właścicielem relacji, unikalnych tagów
+  pamięci, dziennych wiadomości, stanu przeczytania, jednorazowych scenek par,
+  scenek obozowych i integracyjnego postępu wspólnych Szczelin,
+- jawne modele `CompanionPersonalArc`, `CompanionQuestStage` oraz
+  `CompanionDialogueChoice` przechowują wszystkie 16 ręcznie napisanych
+  wariantów historii dla 12 kompanów. Kolejne etapy wymagają odpowiednio
+  `0/1/2` wspólnie zamkniętych Szczelin i nie mogą przyznać relacji ani
+  wspomnienia ponownie po zapisie i odczycie,
+- istniejący ekran „Drużyna i kompani” ma zakładki rosteru, kandydatów i
+  wiadomości oraz pozwala rozmawiać, rekrutować, czytać wiadomości i wybierać
+  odpowiedzi w historii bez przenoszenia reguł domenowych do UI,
+- `PartySaveCodec` w schemacie `v13` już posiadał wszystkie potrzebne pola.
+  Etap nie podnosi wersji schematu, lecz dodatkowo waliduje limit kandydatów,
+  identyfikatory wątków, ich etapy i dozwolone tagi pamięci.
+
+Pełne buildy, rozwój oraz osobiste i powierzone wyposażenie kandydatów należą
+do 6C. 6B nie tworzy ich przedwcześnie i nie dodaje zastępczych przedmiotów.
+Prezentacja nadal używa prostych paneli i tekstu bez finalnych assetów.
+
 ### Dalsza kolejność Stage 6
 
-- **6B:** rekrutacja, relacje, wiadomości, scenki i osobiste historie,
 - **6C:** rozwój kompanów oraz ich osobiste wyposażenie,
 - **6D:** Przygotowanie do wyprawy i presety,
 - **6E:** oddzielone od UI taktyki AI,

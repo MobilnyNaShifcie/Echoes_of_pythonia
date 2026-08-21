@@ -231,9 +231,9 @@ func _show_party_hub() -> void:
 		_show_main_menu()
 		return
 	var party_hub: PartyHubScreenClass = _replace_screen(PARTY_HUB_SCENE)
-	party_hub.configure(_current_session)
 	party_hub.back_requested.connect(_show_guild)
 	party_hub.state_changed.connect(_save_current_session_silently)
+	party_hub.configure(_current_session)
 	app_status_label.text = (
 		"Drużyna: %d/3 aktywnych"
 		% (_current_session.party.active_companions(_current_session.day).size())
