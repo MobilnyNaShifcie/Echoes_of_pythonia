@@ -2,6 +2,7 @@ class_name TurnBasedCombatEngine
 extends RefCounted
 
 const CombatEffectsClass := preload("res://core/combat/combat_effects.gd")
+const CombatDamageRulesClass := preload("res://core/combat/combat_damage_rules.gd")
 const FateCombatResolverClass := preload("res://core/combat/fate_combat_resolver.gd")
 const CombatHitResolverClass := preload("res://core/combat/combat_hit_resolver.gd")
 const CombatProgressionRulesClass := preload("res://core/combat/combat_progression_rules.gd")
@@ -855,10 +856,10 @@ func _resolve_enemy_hit(
 				"ŻELAZNA KONTRA: przeciwnik otrzymuje %d obrażeń." % report.warrior_counter_damage
 			)
 		return 0
-	var damage := maxi(1, attack_value - player.stats.defense)
+	var damage := CombatDamageRulesClass.calculate_damage(attack_value, player.stats.defense)
 	damage = player.stats.elemental_resistances.reduce_damage(damage, damage_type)
 	if defending:
-		damage = int(damage / 2.0)
+		damage = CombatDamageRulesClass.apply_defend_reduction(damage)
 	damage = effects.reduce_damage_by_guard(damage)
 	effects.consume_guard_hit()
 	if pierrot_reflect_ready and damage > 0:

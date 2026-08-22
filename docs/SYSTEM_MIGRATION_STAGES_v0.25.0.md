@@ -582,9 +582,47 @@ istniejącej mapy i `AdventureService` bez duplikowania zasad eksploracji.
 6E nie wykonuje tur, obrażeń, statusów ani akcji kompanów. Wspólne reguły
 obrażeń i osobny silnik walki drużynowej pozostają wyłącznym zakresem 6F.
 
+### Etap 6F — osobny silnik walki drużynowej (ukończony)
+
+- audyt `systems/rift_combat.py`, `combat/damage.py`, adaptera
+  `companion_to_player()` i istniejącego Godotowego `TurnBasedCombatEngine`
+  potwierdził, że walka drużynowa musi pozostać osobnym subsystemem. Dotychczasowy
+  silnik 1v1 nie przejął składu drużyny, AI kompanów ani zasad Szczelin,
+- `CombatDamageRules` wydziela bezstanowe, współdzielone obliczenia minimum
+  obrażeń, penetracji pancerza, redukcji Obrony, mnożników z Pythonowym
+  half-even rounding i rzutów procentowych. `CombatHitResolver` oraz zwykły
+  `TurnBasedCombatEngine` używają tych helperów bez zmiany dotychczasowych
+  rezultatów 1v1,
+- nowy `PartyCombatEngine` zachowuje terminalową kolejność rundy: akcja gracza,
+  akcje stojących kompanów w kolejności składu, krwawienie i akcja przeciwnika.
+  Obsługuje atak, Obronę, odblokowane skille, skorygowany koszt Many, fallback do
+  ataku podstawowego, krytyki, penetrację, Krwawienie, obniżenie DEF, techniki i
+  kombinacje Łowcy, Kości Losu Pierrota, Podwójny Splot, Prowokację oraz furię
+  bossa poniżej 35% PŻ,
+- `PartyCombatant` jest adapterem bohatera lub `CompanionState` do jednej walki.
+  Dla kompana wylicza profil z jego atrybutów, talentów i osobistego wyposażenia,
+  rozwiązuje terminalowe sentinele PŻ/Many, a po rundzie synchronizuje zasoby z
+  powrotem do jawnego stanu kompana,
+- `PartyCombatRoundResult` przenosi wynik domenowy bez zależności od UI: linie
+  raportu, kolejność AI, wybrane skille, cele i obrażenia przeciwnika oraz stan
+  zwycięstwa/porażki. RNG jest wstrzykiwany, więc pełna runda pozostaje
+  powtarzalna w testach,
+- zachowano terminalową semantykę overkill: raport pokazuje wyliczone obrażenia,
+  a przechowywane PŻ przeciwnika jest ograniczone do zera. Katalog efektów
+  klasowych rozpoznaje wszystkie 16 Unikatów Szczelin z v0.24.7; silnik 6F
+  wykonuje dokładnie te ich interakcje, które wykonuje terminalowy
+  `RiftBattleEngine`,
+- nie utworzono sztucznej areny ani wejścia UI. Legalny przepływ walki
+  drużynowej zostanie podłączony dopiero do lifecycle Szczelin w 6I/6J, dzięki
+  czemu ekran nie będzie generował nagród ani stanu wyprawy poza subsystemem,
+- 6F nie implementuje powalenia, pomocy, ciężkich ran ani śmierci. Kompan z
+  zerowym PŻ przestaje wykonywać akcje, ale jego `dead` i `injury_until_day`
+  pozostają nietknięte; jawne zagrożenia i konsekwencje należą wyłącznie do 6G,
+- schemat zapisu pozostaje `v14`: stan walki jest chwilowy, a utrwalane PŻ/Many,
+  taktyki i wyposażenie kompanów były już własnością kodeków Stage 6A–6D.
+
 ### Dalsza kolejność Stage 6
 
-- **6F:** wspólne zasady obrażeń i osobny silnik walki drużynowej,
 - **6G:** powalenie, ciężkie rany i jawnie zapowiadana permanentna śmierć,
 - **6H:** dwa terminalowe lochy SOLO przeniesione 1:1,
 - **6I:** lifecycle Szczelin,

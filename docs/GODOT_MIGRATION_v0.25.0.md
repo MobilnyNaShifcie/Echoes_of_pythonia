@@ -299,8 +299,16 @@ withdraws the missing stock from Guild Storage after an atomic carry-weight
 check. The new placeholder preparation screen displays hero and companion
 resources, warnings, supplies, and quick links to existing management screens.
 Overload blocks departure while other warnings require explicit confirmation.
-AI and party combat remain in their dedicated
-subsequent vertical slices rather than placeholders that grant progress.
+Stage 6E moves all four companion tactics into a presentation-independent AI
+service. Stage 6F then adds shared stateless damage helpers and a separate
+`PartyCombatEngine`; the existing 1v1 engine remains independent. A party round
+runs the player, companions in party order, status ticks, and the enemy while
+reusing the migrated skills, injected deterministic RNG, companion resources,
+equipment effects, and terminal boss-frenzy rules. The engine deliberately has
+no artificial UI entry or rewards before the Rift lifecycle is migrated. It
+also does not mutate heavy injuries or death: downed/rescue/lethal-warning
+behavior remains the explicit Stage 6G boundary. The save schema remains v14
+because only already-persisted companion HP and Mana leave the transient battle.
 Their calendar periods, generated definitions, objective progress, and claimed
 rewards survive reloads; existing schema-v8 files receive a safe empty board
 before the next period is generated.

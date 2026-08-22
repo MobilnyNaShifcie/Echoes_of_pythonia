@@ -2,6 +2,7 @@ class_name CombatHitResolver
 extends RefCounted
 
 const MathClass := preload("res://core/math/legacy_math.gd")
+const DamageRulesClass := preload("res://core/combat/combat_damage_rules.gd")
 const PassiveProgressionServiceClass := preload(
 	"res://core/progression/passive_progression_service.gd"
 )
@@ -29,21 +30,19 @@ func resolve(
 	bonus_critical_chance := 0.0,
 	is_skill := false,
 ) -> Dictionary:
-	if not guaranteed_hit and rng.randf() < enemy.dodge / 100.0:
+	if not guaranteed_hit and DamageRulesClass.roll_percent(rng, enemy.dodge):
 		return {"damage": 0, "dodged": true, "critical": false}
 	var effective_multiplier := multiplier
 	if is_skill and player.stats.skill_damage > 0.0:
 		effective_multiplier *= 1.0 + player.stats.skill_damage / 100.0
 	var attack_value := maxi(1, MathClass.python_roundi(power * effective_multiplier))
 	var enemy_defense: int = effects.effective_enemy_defense(enemy.defense)
-	var penetration := clampf(player.stats.armor_penetration + armor_penetration, 0.0, 90.0)
-	if penetration > 0.0:
-		enemy_defense = maxi(
-			0, MathClass.python_roundi(enemy_defense * (1.0 - penetration / 100.0))
-		)
+	enemy_defense = DamageRulesClass.apply_armor_penetration(
+		enemy_defense, player.stats.armor_penetration + armor_penetration
+	)
 	if magical:
 		enemy_defense = int(enemy_defense / 2.0)
-	var damage := maxi(1, attack_value - enemy_defense)
+	var damage := DamageRulesClass.calculate_damage(attack_value, enemy_defense)
 	if damage_type != "physical":
 		damage = enemy.elemental_resistances.reduce_damage(damage, damage_type)
 	elif not magical:
@@ -63,7 +62,7 @@ func resolve(
 	)
 	if PassiveProgressionServiceClass.specialization_for(player, "critical_damage") == "precision":
 		critical_chance += 3.0
-	if critical_chance > 0.0 and rng.randf() < minf(100.0, critical_chance) / 100.0:
+	if DamageRulesClass.roll_percent(rng, critical_chance):
 		var critical_multiplier: float = (
 			PassiveProgressionServiceClass.critical_multiplier(player)
 			+ player.stats.crit_damage / 100.0
@@ -76,6 +75,6 @@ func resolve(
 			and enemy.current_hp / float(maxi(1, enemy.max_hp)) < 0.30
 		):
 			critical_multiplier *= 1.20
-		damage = maxi(1, MathClass.python_roundi(damage * critical_multiplier))
+		damage = DamageRulesClass.apply_multiplier(damage, critical_multiplier)
 		critical = true
 	return {"damage": enemy.take_damage(damage), "dodged": false, "critical": critical}
