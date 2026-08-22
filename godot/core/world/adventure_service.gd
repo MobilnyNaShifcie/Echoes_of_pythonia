@@ -12,6 +12,7 @@ const EquipmentAffixServiceClass := preload("res://core/items/equipment_affix_se
 const RareBookDropServiceClass := preload("res://core/items/rare_book_drop_service.gd")
 const MathClass := preload("res://core/math/legacy_math.gd")
 const WeatherServiceClass := preload("res://core/world/weather_service.gd")
+const EliteEncounterServiceClass := preload("res://core/world/elite_encounter_service.gd")
 const AchievementServiceClass := preload("res://core/progression/achievement_service.gd")
 
 
@@ -44,6 +45,28 @@ static func explore_region(session, region_id: String, rng: RandomNumberGenerato
 	var encounter_weather_code: String = session.weather_code
 	var result := _roll_region_exploration(region_id, period, rng.randf(), rng.randi(), rng.randi())
 	result["weather_code"] = encounter_weather_code
+	result["elite_modifier_id"] = ""
+	if not result.enemy_id.is_empty():
+		var encounter_enemy = EnemyCatalogClass.create_enemy(result.enemy_id)
+		WeatherServiceClass.apply_to_enemy(encounter_enemy, encounter_weather_code)
+		var elite_result := (
+			EliteEncounterServiceClass
+			. roll_for_region(
+				encounter_enemy,
+				period,
+				encounter_weather_code,
+				region_id,
+				session.world_encounters,
+				rng,
+			)
+		)
+		if not elite_result.ok:
+			result["enemy_id"] = ""
+			result["blocked"] = true
+			result["message"] = elite_result.message
+			return result
+		result.elite_modifier_id = elite_result.modifier_id
+		result.message = "Na szlaku pojawia się: %s." % encounter_enemy.display_name
 	session.camp_rest_available = true
 	session.advance_hours(1, rng)
 	result["weather_changes"] = session.last_weather_changes.duplicate(true)
@@ -114,7 +137,16 @@ static func resolve_victory(
 	)
 	if session.player.character_class_code == "pierrot":
 		drop_multiplier *= 1.0 + minf(0.05, session.player.attributes.luck * 0.001)
-	var loot_drops := LootCatalogClass.roll_loot(enemy.enemy_id, rng, drop_multiplier)
+	drop_multiplier *= enemy.loot_chance_multiplier
+	var loot_drops := (
+		LootCatalogClass
+		. roll_loot(
+			enemy.enemy_id,
+			rng,
+			drop_multiplier,
+			not enemy.elite_modifier_id.is_empty(),
+		)
+	)
 	if bool(rules.get("include_rare_books", false)):
 		loot_drops.append_array(RareBookDropServiceClass.roll_for_enemy(enemy.enemy_id, rng))
 	var equipment_quality := str(
@@ -137,8 +169,14 @@ static func resolve_victory(
 			enemy.enemy_id,
 			str(rules.get("contract_region_id", session.current_location_id)),
 			enemy.rank == "miniboss",
+			enemy.elite_modifier_id,
 		)
 	)
+	var elite_discovery_note := EliteEncounterServiceClass.record_discovery(
+		session.world_encounters, enemy
+	)
+	if not elite_discovery_note.is_empty():
+		session.log_event(elite_discovery_note)
 	var achievement_weather: String = weather_code if use_weather else session.weather_code
 	var unlocked_achievements := AchievementServiceClass.record_victory(
 		session, enemy.enemy_id, achievement_weather
@@ -155,6 +193,9 @@ static func resolve_victory(
 		"weather_code": weather_code,
 		"reward_multiplier": multiplier,
 		"drop_chance_multiplier": drop_multiplier,
+		"equipment_quality": equipment_quality,
+		"elite_modifier_id": enemy.elite_modifier_id,
+		"elite_discovery_note": elite_discovery_note,
 	}
 	session.last_activity = _format_victory(enemy.display_name, summary)
 	session.log_event(session.last_activity)

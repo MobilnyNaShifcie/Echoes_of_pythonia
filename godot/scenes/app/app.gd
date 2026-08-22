@@ -372,8 +372,10 @@ func _show_world_map(selected_region_id := "") -> void:
 	app_status_label.text = "Wyprawa: %s" % region.display_name
 
 
-func _show_expedition_combat(enemy_id: String, weather_code: String) -> void:
-	_show_combat(enemy_id, "expedition", weather_code)
+func _show_expedition_combat(
+	enemy_id: String, weather_code: String, elite_modifier_id: String
+) -> void:
+	_show_combat(enemy_id, "expedition", weather_code, null, "", elite_modifier_id)
 
 
 func _show_combat(
@@ -382,14 +384,26 @@ func _show_combat(
 	weather_code := "sunny",
 	engine_script = null,
 	battle_title := "",
+	elite_modifier_id := "",
 ) -> void:
 	if _current_session == null:
 		_show_main_menu()
 		return
 	var combat: CombatScreenClass = _replace_screen(COMBAT_SCENE)
-	combat.configure(_current_session, enemy_id, context, weather_code, engine_script, battle_title)
+	(
+		combat
+		. configure(
+			_current_session,
+			enemy_id,
+			context,
+			weather_code,
+			engine_script,
+			battle_title,
+			elite_modifier_id,
+		)
+	)
 	combat.finished.connect(_on_combat_finished)
-	app_status_label.text = "Walka: %s" % EnemyCatalogClass.display_name_for(enemy_id)
+	app_status_label.text = "Walka: %s" % combat.enemy_display_name()
 
 
 func _on_combat_finished(context: String, result: String) -> void:

@@ -2,7 +2,7 @@ class_name WorldMapScreen
 extends Control
 
 signal back_requested
-signal encounter_requested(enemy_id: String, weather_code: String)
+signal encounter_requested(enemy_id: String, weather_code: String, elite_modifier_id: String)
 signal dungeon_requested(dungeon_id: String)
 
 const AdventureServiceClass := preload("res://core/world/adventure_service.gd")
@@ -75,7 +75,14 @@ func _explore() -> void:
 	_render_session()
 	event_label.text = result.message
 	if not result.enemy_id.is_empty():
-		encounter_requested.emit(result.enemy_id, result.weather_code)
+		(
+			encounter_requested
+			. emit(
+				result.enemy_id,
+				result.weather_code,
+				str(result.get("elite_modifier_id", "")),
+			)
+		)
 
 
 func _rest_at_camp() -> void:

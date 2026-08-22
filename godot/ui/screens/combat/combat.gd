@@ -11,6 +11,7 @@ const GameSessionClass := preload("res://core/game/game_session.gd")
 const HunterComboCatalogClass := preload("res://core/combat/hunter_combo_catalog.gd")
 const ItemCatalogClass := preload("res://core/items/item_catalog.gd")
 const RegionCatalogClass := preload("res://core/world/region_catalog.gd")
+const EliteEncounterServiceClass := preload("res://core/world/elite_encounter_service.gd")
 const SkillCatalogClass := preload("res://core/skills/skill_catalog.gd")
 const TalentProgressionServiceClass := preload(
 	"res://core/progression/talent_progression_service.gd"
@@ -31,6 +32,7 @@ var _last_fate_outcome := ""
 var _last_hunter_combo := ""
 var _encounter_weather_code := WeatherServiceClass.SUNNY
 var _battle_title := ""
+var _configuration_error := ""
 
 @onready var encounter_label: Label = %EncounterLabel
 @onready var weather_label: Label = %EnemyNameLabel
@@ -95,6 +97,7 @@ func configure(
 	weather_code := WeatherServiceClass.SUNNY,
 	engine_script = null,
 	battle_title := "",
+	elite_modifier_id := "",
 ) -> void:
 	_session = session
 	_context = context
@@ -105,14 +108,21 @@ func configure(
 	)
 	_enemy = EnemyCatalogClass.create_enemy(enemy_id)
 	_battle_title = battle_title
+	_configuration_error = ""
 	if _context == "expedition":
 		WeatherServiceClass.apply_to_enemy(_enemy, _encounter_weather_code)
+		if not elite_modifier_id.is_empty():
+			var elite_result := EliteEncounterServiceClass.apply_modifier(
+				_enemy, elite_modifier_id, _encounter_weather_code
+			)
+			if not elite_result.ok:
+				_configuration_error = elite_result.message
 	_engine = (
 		engine_script.new(_session.player, _enemy, _rng)
 		if engine_script != null
 		else CombatEngineClass.new(_session.player, _enemy, _rng)
 	)
-	_battle_actions_enabled = true
+	_battle_actions_enabled = _configuration_error.is_empty()
 	_last_fate_dice.clear()
 	_last_fate_outcome = ""
 	_last_hunter_combo = ""
@@ -121,7 +131,16 @@ func configure(
 		_append_log("Rozpoczyna się walka z: %s." % _enemy.display_name)
 		if not _enemy.weather_note.is_empty():
 			_append_log(_enemy.weather_note + ".")
+		if not _enemy.elite_note.is_empty():
+			_append_log("[ELITA] %s." % _enemy.elite_note)
+		if not _configuration_error.is_empty():
+			_append_log("Błąd przygotowania walki: %s" % _configuration_error)
 		_render()
+		_set_actions_enabled(_configuration_error.is_empty())
+
+
+func enemy_display_name() -> String:
+	return _enemy.display_name if _enemy != null else ""
 
 
 func _attack() -> void:
@@ -261,6 +280,8 @@ func _resolve_turn(report: Dictionary, action_text: String) -> void:
 					% report.reflected_damage
 				)
 			)
+	if report.get("enemy_healed", 0) > 0:
+		_append_log("%s odzyskuje %d PŻ." % [_enemy.display_name, report.enemy_healed])
 	if report.get("enemy_bleed_damage", 0) > 0:
 		_append_log("Krwawienie zadaje przeciwnikowi %d obrażeń." % report.enemy_bleed_damage)
 	if report.get("player_regenerated", 0) > 0:
@@ -327,6 +348,8 @@ func _resolve_victory() -> String:
 		text += "\nKontrakt „%s”: %d/%d" % [update.title, update.current, update.required]
 	for achievement in rewards.unlocked_achievements:
 		text += "\nOsiągnięcie: %s — tytuł „%s”" % [achievement.display_name, achievement.title]
+	if not rewards.elite_discovery_note.is_empty():
+		text += "\n%s" % rewards.elite_discovery_note
 	return text
 
 
@@ -360,6 +383,8 @@ func _render() -> void:
 	else:
 		var region = RegionCatalogClass.get_definition(_session.current_location_id)
 		encounter_label.text = "%s — WALKA TUROWA" % region.display_name.to_upper()
+		if not _enemy.elite_modifier_id.is_empty():
+			encounter_label.text += " — ELITA"
 	player_name_label.text = player.titled_display_name()
 	player_stats_label.text = (
 		"PŻ %d/%d  •  MANA %d/%d  •  ATK %d  •  DEF %d  •  UNIK %.1f%%"
@@ -384,6 +409,8 @@ func _render() -> void:
 		enemy_name_label.tooltip_text = WeatherServiceClass.description_for(_encounter_weather_code)
 		if not _enemy.weather_note.is_empty():
 			enemy_name_label.tooltip_text += "\n" + _enemy.weather_note
+		if not _enemy.elite_note.is_empty():
+			enemy_name_label.tooltip_text += "\nElita: " + _enemy.elite_note
 	else:
 		enemy_name_label.tooltip_text = "Pogoda powierzchni nie wpływa na walkę w lochu."
 	enemy_stats_label.text = (

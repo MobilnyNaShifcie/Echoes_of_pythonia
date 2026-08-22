@@ -486,14 +486,6 @@ static func dependency_note(contract) -> String:
 	var missing: Array[String] = []
 	for objective in contract.objectives:
 		if (
-			(
-				objective.objective_type
-				in [ContractObjectiveClass.KILL_ELITE, ContractObjectiveClass.KILL_ELITE_REGION]
-			)
-			and "losowe elity — etap świata 4F" not in missing
-		):
-			missing.append("losowe elity — etap świata 4F")
-		elif (
 			objective.objective_type == ContractObjectiveClass.COMPLETE_DUNGEON
 			and "lochy — etap 6" not in missing
 		):

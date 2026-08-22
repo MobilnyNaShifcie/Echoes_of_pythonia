@@ -2,6 +2,17 @@
 
 ## [0.25.0-dev] — Pierwsza grywalna pętla w Godot 4
 
+- ukończono Stage 8B: zwykłe spotkania wszystkich pięciu regionów mogą stać
+  się jedną z pięciu zgodnych elit, z terminalową szansą dnia, nocy i Zorzy
+  oraz osobnym licznikiem `+2 p.p.` po nieudanym spotkaniu w każdym regionie,
+- pogoda jest nakładana przed modyfikatorem elity; Wściekłe, Opancerzone,
+  Wampiryczne, Przeklęte i Żywiołowe warianty zmieniają realną walkę, w tym
+  leczenie wampiryczne, odporność na statusy i żywioł zależny od pogody,
+- zwycięstwo nad elitą zwiększa EXP, złoto, jakość i szansę łupu, aktualizuje
+  kontrakty, a pierwszy pokonany typ zapisuje się w Dzienniku Przygód; ekran
+  walki pokazuje nazwę, oznaczenie i opis elity bez przejmowania reguł domeny,
+- Stage 8B korzysta z trwałego stanu 8A, więc schemat pozostaje `v17`;
+  regionalni bossowie i ich odrodzenie pozostają wyłącznie zakresem 8C–8D,
 - ukończono Stage 8A: `OpenWorldEncounterState` przechowuje odkryte typy elit,
   regionalne serie bez elity i liczniki odrodzenia bossów bez uruchamiania
   jeszcze mechanik Stage 8B–8D,

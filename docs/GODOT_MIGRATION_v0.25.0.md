@@ -386,6 +386,17 @@ through schema-v16 Godot saves receive an empty state. Terminal v15 imports now
 preserve all three recorded values in the migrated copy and report no unmapped
 fields. Elite generation and regional-boss gameplay remain isolated future
 vertical slices rather than UI or save-service responsibilities.
+Stage 8B activates terminal random elites as a separate open-world subsystem.
+`EliteCatalog` owns the five authored modifiers and their complete enemy
+compatibility table, while `EliteEncounterService` owns eligibility, day/night
+and Aurora chances, per-region miss streaks, weather-first modifier application,
+grammar, rewards, and one-time discoveries. The ordinary combat engine only
+shares the small enemy lifesteal hook; exploration passes the exact rolled
+modifier to the existing combat screen without rerolling it. Victory feeds the
+existing loot-quality, contract, inventory, achievement, and Adventure Log
+services. No elite rule lives in UI and the save schema remains v17 because
+8A already persisted every durable value. Regional bosses and their respawn
+lifecycle remain isolated stages 8C–8D.
 Their calendar periods, generated definitions, objective progress, and claimed
 rewards survive reloads; existing schema-v8 files receive a safe empty board
 before the next period is generated.

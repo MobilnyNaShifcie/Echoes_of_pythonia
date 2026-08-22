@@ -14,6 +14,7 @@ var experience_reward := 0
 var gold_min := 0
 var gold_max := 0
 var rank := "normal"
+var grammatical_gender := "masculine"
 var special_name := ""
 var special_chance := 0.0
 var special_attack_bonus := 0
@@ -23,6 +24,10 @@ var physical_damage_reduction := 0
 var basic_damage_type := "physical"
 var special_damage_type := ""
 var status_resistance := 0.0
+var elite_modifier_id := ""
+var elite_note := ""
+var life_steal_percent := 0.0
+var loot_chance_multiplier := 1.0
 var elemental_resistances := ElementalResistancesClass.new()
 var attacks_made := 0
 var weather_code := "sunny"
@@ -42,6 +47,7 @@ func _init(data: Dictionary) -> void:
 	gold_min = data.get("gold_min", 0)
 	gold_max = data.get("gold_max", gold_min)
 	rank = data.get("rank", "normal")
+	grammatical_gender = str(data.get("grammatical_gender", "masculine"))
 	special_name = data.get("special_name", "")
 	special_chance = data.get("special_chance", 0.0)
 	special_attack_bonus = data.get("special_attack_bonus", 0)
@@ -51,6 +57,10 @@ func _init(data: Dictionary) -> void:
 	basic_damage_type = str(data.get("basic_damage_type", "physical"))
 	special_damage_type = str(data.get("special_damage_type", ""))
 	status_resistance = clampf(float(data.get("status_resistance", 0.0)), 0.0, 1.0)
+	elite_modifier_id = str(data.get("elite_modifier_id", ""))
+	elite_note = str(data.get("elite_note", ""))
+	life_steal_percent = maxf(0.0, float(data.get("life_steal_percent", 0.0)))
+	loot_chance_multiplier = maxf(0.0, float(data.get("loot_chance_multiplier", 1.0)))
 	elemental_resistances = ElementalResistancesClass.new(data.get("elemental_resistances", {}))
 
 

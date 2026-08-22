@@ -53,6 +53,7 @@ static func create(combat) -> Dictionary:
 		"player_regenerated": 0,
 		"enemy_damage": 0,
 		"enemy_extra_damage": 0,
+		"enemy_healed": 0,
 		"enemy_bleed_damage": 0,
 		"enemy_dodged": false,
 		"player_dodged": false,

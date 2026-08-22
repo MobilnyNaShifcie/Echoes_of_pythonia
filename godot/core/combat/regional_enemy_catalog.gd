@@ -58,6 +58,7 @@ const DATA := {
 	"gallows_wraith":
 	{
 		"display_name": "Zjawa Wisielca",
+		"grammatical_gender": "feminine",
 		"max_hp": 20,
 		"attack": 7,
 		"defense": 2,
@@ -130,6 +131,7 @@ const DATA := {
 	"swamp_witch":
 	{
 		"display_name": "Bagienna Wiedźma",
+		"grammatical_gender": "feminine",
 		"max_hp": 32,
 		"attack": 11,
 		"defense": 2,
@@ -218,6 +220,7 @@ const DATA := {
 	"desert_harpy":
 	{
 		"display_name": "Pustynna Harpia",
+		"grammatical_gender": "feminine",
 		"max_hp": 190,
 		"attack": 22,
 		"defense": 5,
@@ -234,6 +237,7 @@ const DATA := {
 	"red_salamander":
 	{
 		"display_name": "Czerwona Salamandra",
+		"grammatical_gender": "feminine",
 		"max_hp": 250,
 		"attack": 25,
 		"defense": 7,
@@ -366,6 +370,7 @@ const DATA := {
 	"black_sea_siren":
 	{
 		"display_name": "Syrena Czarnego Morza",
+		"grammatical_gender": "feminine",
 		"max_hp": 660,
 		"attack": 45,
 		"defense": 16,

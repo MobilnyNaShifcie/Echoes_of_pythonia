@@ -868,7 +868,13 @@ func _resolve_enemy_hit(
 		report.reflected_damage += reflected
 		report.reflect_ready = false
 		return 0
-	return player.stats.take_damage(damage)
+	var dealt := player.stats.take_damage(damage)
+	if dealt > 0 and enemy.life_steal_percent > 0.0:
+		var heal_amount := maxi(
+			1, MathClass.python_roundi(dealt * enemy.life_steal_percent / 100.0)
+		)
+		report.enemy_healed += enemy.heal(heal_amount)
+	return dealt
 
 
 func warrior_block_chance() -> float:

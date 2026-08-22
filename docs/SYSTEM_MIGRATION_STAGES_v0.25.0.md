@@ -840,6 +840,34 @@ obrażeń i osobny silnik walki drużynowej pozostają wyłącznym zakresem 6F.
   subtestów, 396/396 testów GUT z 4029 asercjami, formatter, lint, bootstrap oraz
   eksport i smoke test Windows.
 
+### Etap 8B — losowe elity otwartego świata (ukończony)
+
+- `EliteCatalog` przechowuje pięć terminalowych modyfikatorów oraz pełną tabelę
+  zgodności dla 31 zwykłych przeciwników otwartego świata. Minibossowie, bossowie
+  i przeciwnicy lochów nie przechodzą przez ten subsystem,
+- `EliteEncounterService` zachowuje szanse `10%` w dzień, `15%` w nocy i `25%`
+  podczas Zorzy Polarnej. Każde kwalifikujące spotkanie bez elity dodaje `2 p.p.`
+  wyłącznie w swoim regionie, do niegwarantowanego limitu `95%`; sukces zeruje
+  tylko ten licznik,
+- kolejność jest zgodna z terminalem: powstaje zwykły przeciwnik, działa pogoda,
+  a następnie dokładnie raz losowana i nakładana jest elita. Mapa przekazuje do
+  walki konkretne ID modyfikatora, więc utworzenie sceny nie wykonuje rerollu,
+- Wściekła, Opancerzona, Wampiryczna, Przeklęta i Żywiołowa elita stosują
+  terminalową bazę statystyk, nagrody i gramatyczne prefiksy. Walka obsługuje
+  leczenie wampiryczne, odporność na statusy oraz pogodowy typ i odporność
+  wariantu żywiołowego,
+- zwycięstwo wykorzystuje mnożnik szansy łupu `1.20`, elitarną jakość
+  wyposażenia, cele kontraktów i jednorazowy wpis odkrycia w Dzienniku Przygód.
+  Ekran walki tylko prezentuje nazwę, znacznik i opis elity,
+- schemat pozostaje `v17`, ponieważ odkrycia i regionalne liczniki są już
+  własnością `OpenWorldEncounterState` z 8A. Stage 8B nie dodaje bossów
+  regionalnych ani nie zmniejsza ich liczników odrodzenia; to zakres 8C–8D,
+- regresje obejmują pełną tabelę zgodności, szanse i pity, deterministyczne RNG,
+  wszystkie pięć modyfikatorów, pogodę i gramatykę, leczenie wampiryczne,
+  przepływ mapa → walka, kontrakty, nagrody, łup i odkrycia. Checkpoint przeszedł
+  534 testy Python + 8 subtestów, 405/405 testów GUT z 4257 asercjami,
+  formatter, lint, bootstrap oraz eksport i smoke test Windows.
+
 ## Kryterium ukończenia etapu
 
 Etap jest ukończony, gdy reguły zgadzają się z wersją terminalową, ekran da się
