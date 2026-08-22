@@ -16,6 +16,7 @@ const WeatherServiceClass := preload("res://core/world/weather_service.gd")
 var _session: GameSessionClass
 var _rng := RandomNumberGenerator.new()
 var _selected_region_id := GameSessionClass.STARTING_LOCATION_ID
+var _selection_locked := false
 
 @onready var eyebrow_label: Label = %EyebrowLabel
 @onready var title_label: Label = %TitleLabel
@@ -43,15 +44,22 @@ func _ready() -> void:
 	region_list.grab_focus()
 
 
-func configure(session: GameSessionClass) -> void:
+func configure(session: GameSessionClass, selected_region_id := "") -> void:
 	_session = session
-	if _session != null and _session.known_region_ids.has(_session.current_location_id):
+	if _session != null and _session.known_region_ids.has(selected_region_id):
+		_selected_region_id = selected_region_id
+		_selection_locked = true
+	elif _session != null and _session.known_region_ids.has(_session.current_location_id):
 		_selected_region_id = _session.current_location_id
+		_selection_locked = false
 	if is_node_ready():
 		_render()
 
 
 func _select_region(index: int) -> void:
+	if _selection_locked:
+		_refresh_region_list()
+		return
 	_selected_region_id = str(region_list.get_item_metadata(index))
 	_render_region()
 
@@ -97,6 +105,7 @@ func _refresh_region_list() -> void:
 			)
 		)
 		region_list.set_item_metadata(row, region_id)
+		region_list.set_item_disabled(row, _selection_locked and region_id != _selected_region_id)
 		if region_id == _selected_region_id:
 			selected_index = row
 	if region_list.item_count > 0:

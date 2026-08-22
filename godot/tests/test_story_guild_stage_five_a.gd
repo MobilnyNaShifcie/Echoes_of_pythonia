@@ -143,7 +143,7 @@ func test_all_act_one_quest_states_survive_current_save_schema() -> void:
 	var service := SaveGameServiceClass.new("user://stage_five_a_not_written")
 	var payload: Dictionary = service._serialize_session(session)
 
-	assert_eq(payload.schema_version, 13)
+	assert_eq(payload.schema_version, 14)
 	var result := service._deserialize_payload(payload, 1)
 	assert_true(result.ok, result.message)
 	assert_true(result.session.quest_log.is_completed(QuestServiceClass.STORY_QUEST_ID))

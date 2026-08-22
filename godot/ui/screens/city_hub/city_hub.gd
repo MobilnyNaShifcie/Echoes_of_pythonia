@@ -23,7 +23,7 @@ var _session: GameSessionClass
 
 
 func _ready() -> void:
-	%GateButton.pressed.connect(world_map_requested.emit)
+	%GateButton.pressed.connect(service_requested.emit.bind("preparation"))
 	%QuartermasterButton.pressed.connect(service_requested.emit.bind("quartermaster"))
 	%BlacksmithButton.pressed.connect(service_requested.emit.bind("blacksmith"))
 	%WorkshopButton.pressed.connect(service_requested.emit.bind("workshop"))

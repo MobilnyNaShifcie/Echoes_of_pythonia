@@ -30,9 +30,12 @@ const TalentProgressionServiceClass := preload(
 const WeatherServiceClass := preload("res://core/world/weather_service.gd")
 const EquipmentSaveCodecClass := preload("res://core/save/equipment_save_codec.gd")
 const PartySaveCodecClass := preload("res://core/save/party_save_codec.gd")
+const ExpeditionPreparationSaveCodecClass := preload(
+	"res://core/save/expedition_preparation_save_codec.gd"
+)
 
 const FORMAT_ID := "echoes_of_pythonia_godot_migration"
-const SCHEMA_VERSION := 13
+const SCHEMA_VERSION := 14
 const GAME_VERSION := "0.25.0"
 const DEFAULT_SAVE_ROOT := "user://godot_migration_saves"
 const SLOT_COUNT := NewGameServiceClass.SAVE_SLOT_COUNT
@@ -185,6 +188,8 @@ func _serialize_session(session: GameSessionClass) -> Dictionary:
 			"camp_rest_available": session.camp_rest_available,
 			"guild_storage": _serialize_inventory(session.guild_storage.inventory),
 			"party": PartySaveCodecClass.serialize(session.party),
+			"expedition_preparation":
+			ExpeditionPreparationSaveCodecClass.serialize(session.expedition_preparation),
 			"quest_log":
 			{
 				"active": session.quest_log.active.duplicate(true),
@@ -377,6 +382,8 @@ func _restore_session_fields(session: GameSessionClass, data: Dictionary) -> Dic
 		return _failure("Zapis nie zawiera Magazynu Gildii.")
 	if not data.get("party") is Dictionary:
 		return _failure("Zapis nie zawiera stanu drużyny.")
+	if not data.get("expedition_preparation") is Dictionary:
+		return _failure("Zapis nie zawiera stanu przygotowania wyprawy.")
 	var location_id := str(data.get("current_location_id", ""))
 	var city_id := str(data.get("current_city_id", ""))
 	if not data.get("known_region_ids") is Array:
@@ -420,6 +427,12 @@ func _restore_session_fields(session: GameSessionClass, data: Dictionary) -> Dic
 	if not party_result.ok:
 		return _failure("Nieprawidłowy stan drużyny: %s" % party_result.message)
 	session.party = party_result.party
+	var preparation_result := ExpeditionPreparationSaveCodecClass.deserialize(
+		data.expedition_preparation, data.known_region_ids
+	)
+	if not preparation_result.ok:
+		return _failure("Nieprawidłowe przygotowanie wyprawy: %s" % preparation_result.message)
+	session.expedition_preparation = preparation_result.state
 
 	session.current_location_id = location_id
 	session.known_region_ids.assign(data.known_region_ids)
@@ -564,6 +577,8 @@ func _migrate_payload(payload: Dictionary) -> Dictionary:
 			}
 		if version <= 12:
 			session["party"] = PartySaveCodecClass.empty_data()
+		if version <= 13:
+			session["expedition_preparation"] = (ExpeditionPreparationSaveCodecClass.empty_data())
 		migrated.schema_version = SCHEMA_VERSION
 	if not error.is_empty():
 		return _failure(error)

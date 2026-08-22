@@ -515,9 +515,44 @@ globalnego defaultu `CompanionState.current_hp` w fundamencie 6A.
   sygnaturowej, a zapis 6B z pustym buildem jest deterministycznie uzupełniany
   przy pierwszym wejściu bez zmiany zapisanej rotacji kandydatów.
 
+### Etap 6D — przygotowanie do wyprawy i presety (ukończony)
+
+- audyt `systems/expedition_preparation.py`, `ui/expedition_prep_view.py` oraz
+  przepływu w `game/application.py` potwierdził, że 6D jest oddzielnym
+  subsystemem przygotowania, a nie częścią mapy, UI drużyny ani przyszłego AI,
+- jawne modele `ExpeditionPreparationState` i `ExpeditionPreset` przechowują
+  wybrany region oraz cztery terminalowe presety `SOLO`, `BOSS`, `DUNGEON` i
+  `SZCZELINA`; preset zapisuje skład i docelowe ilości zapasów, nie stan
+  chwilowego formularza UI,
+- `ExpeditionPreparationService` wybiera wyłącznie znane regiony, tworzy,
+  stosuje i czyści presety, generuje ostrzeżenia oraz waliduje wyruszenie;
+  ekran tylko przekazuje input i prezentuje wynik,
+- zastosowanie presetu oblicza cały transfer przed mutacją. Pobiera z Magazynu
+  Gildii wyłącznie brakujące sztuki, raportuje niedobory, nigdy nie tworzy
+  przedmiotów i nie zmienia składu ani zapasów, jeżeli transfer przekroczyłby
+  udźwig,
+- aktywny skład pokazuje PŻ, Manę i wybraną taktykę kompanów. 6D nie interpretuje
+  taktyki i nie dodaje zachowania AI, które pozostaje wyłączną odpowiedzialnością
+  6E,
+- przed wyprawą można pobrać zapasy z Magazynu i użyć mikstury lub prowiantu.
+  Wspólny `ConsumableService` zachowuje zasadę terminalową, że przedmiot nie jest
+  zużywany, jeżeli nie odnowiłby ani jednego punktu PŻ lub Many,
+- przeciążenie jest twardą blokadą wyruszenia. Niskie PŻ, brak leczenia oraz
+  ciężko ranni kompani są jawnymi ostrzeżeniami, które gracz może potwierdzić
+  świadomie drugim kliknięciem,
+- placeholderowy ekran jest dostępny zarówno z Bramy Zachodniej, jak i kafelka
+  przygotowania. Zawiera szybkie przejścia do istniejącej drużyny, ekwipunku,
+  Magazynu Gildii i Karczmy, bez tworzenia drugiego hubu tych systemów,
+- osobny `ExpeditionPreparationSaveCodec` utrzymuje walidację poza
+  `SaveGameService`. Schemat Godota `v14` zapisuje cel oraz komplet presetów;
+  pliki `v1`–`v13` migrują do pustego, bezpiecznego stanu przygotowania.
+
+6D nie uruchamia taktyk AI, walki drużynowej, lochów ani Szczelin. Oficjalne
+wejście do otwartego świata przechodzi przez przygotowanie, po czym korzysta z
+istniejącej mapy i `AdventureService` bez duplikowania zasad eksploracji.
+
 ### Dalsza kolejność Stage 6
 
-- **6D:** Przygotowanie do wyprawy i presety,
 - **6E:** oddzielone od UI taktyki AI,
 - **6F:** wspólne zasady obrażeń i osobny silnik walki drużynowej,
 - **6G:** powalenie, ciężkie rany i jawnie zapowiadana permanentna śmierć,

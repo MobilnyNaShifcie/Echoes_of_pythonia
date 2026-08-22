@@ -10,6 +10,7 @@ const GuildStorageClass := preload("res://core/economy/guild_storage.gd")
 const RegionCatalogClass := preload("res://core/world/region_catalog.gd")
 const WeatherServiceClass := preload("res://core/world/weather_service.gd")
 const PartyStateClass := preload("res://core/companions/party_state.gd")
+const ExpeditionPreparationStateClass := preload("res://core/world/expedition_preparation_state.gd")
 const CompanionRelationshipServiceClass := preload(
 	"res://core/companions/companion_relationship_service.gd"
 )
@@ -43,6 +44,7 @@ var weather_remaining_hours := WeatherServiceClass.DURATION_HOURS
 var camp_rest_available := true
 var last_weather_changes: Array[Dictionary] = []
 var party := PartyStateClass.new()
+var expedition_preparation := ExpeditionPreparationStateClass.new()
 
 
 func _init(slot: int, player_profile: PlayerProfileClass) -> void:

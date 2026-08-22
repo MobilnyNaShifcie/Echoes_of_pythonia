@@ -1,0 +1,248 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://ui/screens/expedition_preparation/expedition_preparation.gd" id="1"]
+
+[node name="ExpeditionPreparationScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="Page" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Header" type="HBoxContainer" parent="Page"]
+layout_mode = 2
+
+[node name="Identity" type="VBoxContainer" parent="Page/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Eyebrow" type="Label" parent="Page/Header/Identity"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
+text = "BRAMA ZACHODNIA  •  STAGE 6D"
+
+[node name="Title" type="Label" parent="Page/Header/Identity"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Przygotowanie do wyprawy"
+
+[node name="BackButton" type="Button" parent="Page/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Wróć do Varenhold"
+
+[node name="TargetRow" type="HBoxContainer" parent="Page"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="Page/TargetRow"]
+layout_mode = 2
+text = "Cel wyprawy:"
+
+[node name="TargetSelector" type="OptionButton" parent="Page/TargetRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Body" type="HBoxContainer" parent="Page"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="ReadinessPanel" type="PanelContainer" parent="Page/Body"]
+custom_minimum_size = Vector2(430, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Content" type="VBoxContainer" parent="Page/Body/ReadinessPanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Page/Body/ReadinessPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
+theme_override_font_sizes/font_size = 20
+text = "Gotowość drużyny"
+
+[node name="PlayerLabel" type="Label" parent="Page/Body/ReadinessPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Bohater"
+
+[node name="CarryLabel" type="Label" parent="Page/Body/ReadinessPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Udźwig"
+
+[node name="PartyLabel" type="Label" parent="Page/Body/ReadinessPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+text = "Tryb SOLO"
+autowrap_mode = 2
+
+[node name="PartyButton" type="Button" parent="Page/Body/ReadinessPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Ustaw skład drużyny"
+
+[node name="EquipmentButton" type="Button" parent="Page/Body/ReadinessPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Ekwipunek bohatera"
+
+[node name="StorageButton" type="Button" parent="Page/Body/ReadinessPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Magazyn Gildii"
+
+[node name="InnButton" type="Button" parent="Page/Body/ReadinessPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Karczma — odpoczynek"
+
+[node name="SuppliesPanel" type="PanelContainer" parent="Page/Body"]
+custom_minimum_size = Vector2(470, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Content" type="VBoxContainer" parent="Page/Body/SuppliesPanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Page/Body/SuppliesPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
+theme_override_font_sizes/font_size = 20
+text = "Zapasy"
+
+[node name="SupplySelector" type="OptionButton" parent="Page/Body/SuppliesPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="SupplySummaryLabel" type="Label" parent="Page/Body/SuppliesPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+text = "Brak zapasów"
+autowrap_mode = 2
+
+[node name="WithdrawRow" type="HBoxContainer" parent="Page/Body/SuppliesPanel/Content"]
+layout_mode = 2
+
+[node name="WithdrawQuantity" type="SpinBox" parent="Page/Body/SuppliesPanel/Content/WithdrawRow"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 1.0
+max_value = 99.0
+value = 1.0
+
+[node name="WithdrawButton" type="Button" parent="Page/Body/SuppliesPanel/Content/WithdrawRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Zabierz z Magazynu"
+
+[node name="UseButton" type="Button" parent="Page/Body/SuppliesPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Użyj jednej sztuki przed wyprawą"
+
+[node name="TargetRow" type="HBoxContainer" parent="Page/Body/SuppliesPanel/Content"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Page/Body/SuppliesPanel/Content/TargetRow"]
+layout_mode = 2
+text = "Cel presetu:"
+
+[node name="TargetQuantity" type="SpinBox" parent="Page/Body/SuppliesPanel/Content/TargetRow"]
+unique_name_in_owner = true
+layout_mode = 2
+min_value = 0.0
+max_value = 99.0
+
+[node name="SetTargetButton" type="Button" parent="Page/Body/SuppliesPanel/Content/TargetRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Ustaw ilość docelową"
+
+[node name="PresetsPanel" type="PanelContainer" parent="Page/Body"]
+custom_minimum_size = Vector2(430, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Content" type="VBoxContainer" parent="Page/Body/PresetsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Page/Body/PresetsPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
+theme_override_font_sizes/font_size = 20
+text = "Presety wyprawowe"
+
+[node name="PresetSelector" type="OptionButton" parent="Page/Body/PresetsPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="PresetSummaryLabel" type="Label" parent="Page/Body/PresetsPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+text = "Preset nieskonfigurowany"
+autowrap_mode = 2
+
+[node name="SavePresetButton" type="Button" parent="Page/Body/PresetsPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Zapisz aktualny skład i cele"
+
+[node name="ApplyPresetButton" type="Button" parent="Page/Body/PresetsPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Zastosuj preset"
+
+[node name="ClearPresetButton" type="Button" parent="Page/Body/PresetsPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Wyczyść preset"
+
+[node name="Footer" type="HBoxContainer" parent="Page"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="WarningsPanel" type="PanelContainer" parent="Page/Footer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="WarningsLabel" type="Label" parent="Page/Footer/WarningsPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.68, 0.32, 1)
+text = "Brak ostrzeżeń"
+autowrap_mode = 2
+
+[node name="DepartButton" type="Button" parent="Page/Footer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(330, 64)
+layout_mode = 2
+text = "Wyrusz do wybranego regionu"
+
+[node name="StatusLabel" type="Label" parent="Page"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.44, 0.8, 0.58, 1)
+text = "Wybierz cel, sprawdź skład i przygotuj zapasy."
+autowrap_mode = 2

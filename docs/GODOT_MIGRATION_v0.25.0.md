@@ -237,7 +237,8 @@ matching the swap and unequip behavior of v0.24.7. The Godot build now writes a
 separate migration schema containing every system currently available in the
 windowed build. Its four files live below `user://godot_migration_saves` and do
 not read or overwrite terminal save schema v15. That legacy schema also contains
-party, expeditions, and world state which have not been migrated yet;
+Rifts, dungeons, party combat, and further world state which have not been fully
+migrated yet;
 therefore importing terminal saves remains disabled until no supported field
 could be silently discarded. Detailed ordering and acceptance criteria are in
 `SYSTEM_MIGRATION_STAGES_v0.25.0.md`.
@@ -249,12 +250,12 @@ already have sources in the migrated world, and the inn performs paid full
 recovery with its daily cooldown. Final item art, shop animation, and audio
 remain outside this domain slice and continue to use placeholder presentation.
 
-Stages 3C through 3F, stages 4A–4E, stages 5A–5E, and stages 6A–6C are complete. Dice history,
+Stages 3C through 3F, stages 4A–4E, stages 5A–5E, and stages 6A–6D are complete. Dice history,
 Fate Tokens,
 temporary dodge,
 mirror readiness, Hunter sequence, delayed effects, explosive charges, Arcane
 Weave, elemental sequence, Provoke, block bonus, and retaliation readiness are
-intentionally encounter-local. Godot save schema v13 keeps durable talent ranks,
+intentionally encounter-local. Godot save schema v14 keeps durable talent ranks,
 book-unlocked class paths, passive ranks, Masteries, specializations, Hunter
 progression, compatibility identifiers from earlier slices, and the list of
 known regions. Unread books remain ordinary inventory stacks. All five regions
@@ -289,9 +290,16 @@ through dedicated domain services. Attribute, talent, and gear generation use
 separate named RNG substreams after the frozen Stage 6B candidate fields. The
 existing Party Hub exposes the resulting build without owning its rules, and
 dismissal returns every player-owned item before the companion leaves. Save
-schema remains v13 because the Stage 6A party codec already owns the complete
+Stage 6C itself kept schema v13 because the Stage 6A party codec already owned the complete
 build and equipment state; empty Stage 6B builds are backfilled once without
-rerolling the candidate rotation. AI and party combat remain in their dedicated
+rerolling the candidate rotation. Stage 6D adds a separate expedition
+preparation state and codec, raising the Godot schema to v14. Its four presets
+store active companion IDs and target consumable quantities; applying one only
+withdraws the missing stock from Guild Storage after an atomic carry-weight
+check. The new placeholder preparation screen displays hero and companion
+resources, warnings, supplies, and quick links to existing management screens.
+Overload blocks departure while other warnings require explicit confirmation.
+AI and party combat remain in their dedicated
 subsequent vertical slices rather than placeholders that grant progress.
 Their calendar periods, generated definitions, objective progress, and claimed
 rewards survive reloads; existing schema-v8 files receive a safe empty board

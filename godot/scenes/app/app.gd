@@ -14,6 +14,9 @@ const CityServiceScreenClass := preload("res://ui/screens/city_service/city_serv
 const ClassSelectionScreenClass := preload("res://ui/screens/class_selection/class_selection.gd")
 const CombatScreenClass := preload("res://ui/screens/combat/combat.gd")
 const EquipmentScreenClass := preload("res://ui/screens/equipment/equipment.gd")
+const ExpeditionPreparationScreenClass := preload(
+	"res://ui/screens/expedition_preparation/expedition_preparation.gd"
+)
 const GuildScreenClass := preload("res://ui/screens/guild/guild.gd")
 const PartyHubScreenClass := preload("res://ui/screens/party_hub/party_hub.gd")
 const LoadGameScreenClass := preload("res://ui/screens/load_game/load_game.gd")
@@ -35,6 +38,9 @@ const CITY_SERVICE_SCENE := preload("res://ui/screens/city_service/city_service.
 const CLASS_SELECTION_SCENE := preload("res://ui/screens/class_selection/class_selection.tscn")
 const COMBAT_SCENE := preload("res://ui/screens/combat/combat.tscn")
 const EQUIPMENT_SCENE := preload("res://ui/screens/equipment/equipment.tscn")
+const EXPEDITION_PREPARATION_SCENE := preload(
+	"res://ui/screens/expedition_preparation/expedition_preparation.tscn"
+)
 const GUILD_SCENE := preload("res://ui/screens/guild/guild.tscn")
 const PARTY_HUB_SCENE := preload("res://ui/screens/party_hub/party_hub.tscn")
 const LOAD_GAME_SCENE := preload("res://ui/screens/load_game/load_game.tscn")
@@ -266,12 +272,63 @@ func _show_city_service(service_id: String) -> void:
 	if service_id == "black_market":
 		_show_black_market()
 		return
+	if service_id == "preparation":
+		_show_expedition_preparation()
+		return
 	var service: CityServiceScreenClass = _replace_screen(CITY_SERVICE_SCENE)
 	service.back_requested.connect(_show_city_hub)
 	service.world_map_requested.connect(_show_world_map)
 	service.state_changed.connect(_save_current_session_silently)
 	service.configure(_current_session, service_id)
 	app_status_label.text = "Varenhold: %s" % CityServiceScreenClass.display_name_for(service_id)
+
+
+func _show_expedition_preparation() -> void:
+	if _current_session == null:
+		_show_main_menu()
+		return
+	var preparation: ExpeditionPreparationScreenClass = _replace_screen(
+		EXPEDITION_PREPARATION_SCENE
+	)
+	preparation.back_requested.connect(_show_city_hub)
+	preparation.party_requested.connect(_show_preparation_party)
+	preparation.equipment_requested.connect(_show_preparation_equipment)
+	preparation.storage_requested.connect(_show_preparation_storage)
+	preparation.inn_requested.connect(_show_preparation_inn)
+	preparation.departure_requested.connect(_show_world_map)
+	preparation.state_changed.connect(_save_current_session_silently)
+	preparation.configure(_current_session)
+	app_status_label.text = "Przygotowanie do wyprawy"
+
+
+func _show_preparation_party() -> void:
+	var party_hub: PartyHubScreenClass = _replace_screen(PARTY_HUB_SCENE)
+	party_hub.back_requested.connect(_show_expedition_preparation)
+	party_hub.state_changed.connect(_save_current_session_silently)
+	party_hub.configure(_current_session)
+	app_status_label.text = "Przygotowanie: skład drużyny"
+
+
+func _show_preparation_equipment() -> void:
+	var equipment_screen: EquipmentScreenClass = _replace_screen(EQUIPMENT_SCENE)
+	equipment_screen.configure(_current_session)
+	equipment_screen.back_requested.connect(_show_expedition_preparation)
+	app_status_label.text = "Przygotowanie: ekwipunek bohatera"
+
+
+func _show_preparation_storage() -> void:
+	var economy: CityEconomyScreenClass = _replace_screen(CITY_ECONOMY_SCENE)
+	economy.configure(_current_session, "quartermaster")
+	economy.back_requested.connect(_show_expedition_preparation)
+	app_status_label.text = "Przygotowanie: Magazyn Gildii"
+
+
+func _show_preparation_inn() -> void:
+	var service: CityServiceScreenClass = _replace_screen(CITY_SERVICE_SCENE)
+	service.back_requested.connect(_show_expedition_preparation)
+	service.state_changed.connect(_save_current_session_silently)
+	service.configure(_current_session, "inn")
+	app_status_label.text = "Przygotowanie: Karczma"
 
 
 func _show_black_market() -> void:
@@ -291,12 +348,12 @@ func _save_current_session_silently() -> void:
 		app_status_label.text = result.message
 
 
-func _show_world_map() -> void:
+func _show_world_map(selected_region_id := "") -> void:
 	if _current_session == null:
 		_show_main_menu()
 		return
 	var world_map: WorldMapScreenClass = _replace_screen(WORLD_MAP_SCENE)
-	world_map.configure(_current_session)
+	world_map.configure(_current_session, selected_region_id)
 	world_map.back_requested.connect(_show_city_hub)
 	world_map.encounter_requested.connect(_show_expedition_combat)
 	var region = RegionCatalogClass.get_definition(_current_session.current_location_id)

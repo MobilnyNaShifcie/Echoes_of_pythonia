@@ -129,6 +129,7 @@ func _rest() -> void:
 	status_label.text = result.message
 	if result.ok:
 		_session.last_activity = result.message
+		state_changed.emit()
 
 
 func _meet_informant() -> void:
