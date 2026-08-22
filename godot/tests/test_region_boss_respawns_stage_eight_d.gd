@@ -18,8 +18,13 @@ func test_victory_starts_six_expedition_respawn_and_defeat_does_not() -> void:
 	var victory := RegionBossChallengeServiceClass.resolve_victory(
 		session, EnemyCatalogClass.create_enemy("azhar"), _rng(8105)
 	)
-	assert_true(victory.boss_respawn.started)
-	assert_eq(victory.boss_respawn.remaining, 6)
+	assert_true(victory.ok)
+	assert_true(session.world_encounters.region_boss_respawns.is_empty())
+	var finished := RegionBossChallengeServiceClass.finish_attempt(
+		session, "azhar", "victory", _rng(8106)
+	)
+	assert_true(finished.boss_respawn.started)
+	assert_eq(finished.boss_respawn.remaining, 6)
 	assert_eq(session.world_encounters.region_boss_respawns, {"azhar": 6})
 	assert_false(RegionBossRespawnServiceClass.is_available(session.world_encounters, "azhar"))
 

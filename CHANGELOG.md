@@ -2,6 +2,17 @@
 
 ## [0.25.0-dev] — Pierwsza grywalna pętla w Godot 4
 
+- ukończono Stage 8E: końcowy audyt parytetu otwartego świata potwierdził
+  działające elity, obu bossów regionalnych, sześciowyprawowe odrodzenie oraz
+  pełny save/load i import kopii terminalowego `v0.24.7/v15`,
+- poprawiono kolejność zakończenia walki z bossem: zgodnie z terminalem najpierw
+  upływa godzina próby, a dopiero potem zwycięstwo uruchamia licznik odrodzenia
+  i zapisuje komunikat z właściwą godziną w Dzienniku Przygód,
+- regresje 8E zamrażają kompletny kontrakt Stage 8 i potwierdzają, że
+  zaimportowane liczniki elit oraz bossów pozostają aktywnym stanem domenowym po
+  kolejnych cyklach save/load; schemat pozostaje `v17`,
+- końcowy audyt nie znalazł dalszych luk parytetu Stage 8. Finalne grafiki,
+  dźwięki i rozbudowane animacje nadal nie zostały rozpoczęte,
 - ukończono Stage 8D: zwycięstwo nad regionalnym bossem rozpoczyna osobny
   licznik sześciu zwykłych wypraw w jego regionie i blokuje natychmiastowy
   rewanż aż do pełnego odrodzenia,

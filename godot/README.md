@@ -24,8 +24,8 @@ equivalent, tested GDScript implementation.
 - `ui/` — reusable controls, themes, and presentation logic
 
 The current playable migration includes stages 0–3, stages 4A–4E, stages
-5A–5E, stages 6A–6K, Stage 7, and stages 8A–8D, including all eight class talent paths, 41 talents, passive Masteries, and
-specializations. All sixteen
+5A–5E, stages 6A–6K, Stage 7, and stages 8A–8E, including all eight class
+talent paths, 41 talents, passive Masteries, and specializations. All sixteen
 base Path skills are active. Pierrot uses a dedicated
 Fate Engine with encounter-local Fate Tokens and exact 1d6/2d6/3d6 tables.
 Hunter has all additional Volley Techniques and named combinations. Mage has
@@ -136,8 +136,11 @@ Guild milestones, and the one-hour attempt cost. Boss rules remain outside UI;
 Stage 8D now starts a six-expedition regional respawn only after victory,
 decrements it exclusively through ordinary expeditions in the matching region,
 blocks premature rematches, updates the map counter, and records the boss's
-return. Existing schema-v17 state preserves the complete lifecycle. See
-`../docs/STAGE_7_PARITY_REPORT_v0.25.0.md` for the parity matrix.
+return. Stage 8E closes the final parity audit, including live behavior after
+terminal-v15 import and repeated save/load. It also aligns boss-attempt order
+with the terminal runtime: one hour passes before a victorious respawn is
+started and logged. Existing schema-v17 state preserves the complete lifecycle.
+See `../docs/STAGE_8_PARITY_REPORT_v0.25.0.md` for the current parity matrix.
 
 Open the project with the pinned local editor from the repository root:
 

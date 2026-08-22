@@ -920,6 +920,34 @@ obrażeń i osobny silnik walki drużynowej pozostają wyłącznym zakresem 6F.
   testy Python + 8 subtestów, 423/423 testy GUT z 4448 asercjami, formatter,
   lint, bootstrap oraz eksport i smoke test Windows.
 
+### Etap 8E — końcowy audyt parytetu otwartego świata (ukończony)
+
+- końcowy audyt ponownie porównał terminalowe `data/elites.py`,
+  `systems/elite_system.py`, regionalne silniki bossów,
+  `systems/region_boss_respawn.py`, zapis `v15` oraz ich odpowiedniki Godota,
+- wszystkie trzy dawne luki Stage 7 są nie tylko mapowane, ale wykonują swoje
+  reguły po imporcie i kolejnych cyklach save/load: odkrycia elit, regionalne
+  serie bez elity i liczniki odrodzenia bossów,
+- domknięto jedyną wykrytą różnicę kolejności: `resolve_victory()` rozlicza
+  nagrody i kamień milowy bez uruchamiania odrodzenia, a `finish_attempt()`
+  najpierw nalicza terminalową godzinę próby i dopiero po zwycięstwie rozpoczyna
+  sześciowyprawowy licznik. Wpis dziennika otrzymuje dzięki temu właściwy czas,
+- UI walki nadal wyłącznie prezentuje wynik zwrócony przez serwis. Nie przenosi
+  do siebie przyznawania nagród, upływu czasu, uruchamiania odrodzenia ani
+  logowania zdarzeń,
+- parytet RNG oznacza zgodność reguł, deterministyczność w Godocie i trwałość
+  zapisanych wyników, nie bitowo identyczny strumień Python `random.Random` i
+  Godot `RandomNumberGenerator`, zgodnie z decyzją architektoniczną Stage 6B,
+- schemat pozostaje `v17`; audyt nie wymaga nowych danych trwałych ani migracji.
+  Szczegółową macierz zawiera `STAGE_8_PARITY_REPORT_v0.25.0.md`,
+- regresje obejmują zamrożony katalog Stage 8, kolejność czasu i odrodzenia,
+  odrzucenie nieznanego wyniku bez mutacji, dwa cykle save/load oraz aktywne
+  użycie danych zaimportowanych z terminalowego `v15`. Checkpoint przeszedł 534
+  testy Python + 8 subtestów, 427/427 testów GUT z 4491 asercjami, formatter,
+  lint, bootstrap oraz eksport i smoke test Windows,
+- Stage 8 jest zamknięty. Finalne grafiki, dźwięki i rozbudowane animacje nie
+  zostały rozpoczęte.
+
 ## Kryterium ukończenia etapu
 
 Etap jest ukończony, gdy reguły zgadzają się z wersją terminalową, ekran da się

@@ -178,6 +178,14 @@ func test_region_boss_victory_grants_weather_rewards_boss_quality_and_milestone_
 	assert_eq(first.guild_milestone.reputation, 100)
 	assert_eq(session.guild_reputation, 100)
 	assert_has(session.guild_milestones, "boss:azhar")
+	assert_true(
+		session.world_encounters.region_boss_respawns.is_empty(),
+		"Nagrody nie uruchamiają odrodzenia przed zakończeniem próby.",
+	)
+	var attempt := RegionBossChallengeServiceClass.finish_attempt(
+		session, "azhar", "victory", _rng(3)
+	)
+	assert_true(attempt.boss_respawn.started)
 	assert_eq(session.world_encounters.region_boss_respawns, {"azhar": 6})
 
 	var repeated := EnemyCatalogClass.create_enemy("azhar")
@@ -187,17 +195,16 @@ func test_region_boss_victory_grants_weather_rewards_boss_quality_and_milestone_
 	assert_eq(session.guild_reputation, 100)
 
 
-func test_finishing_any_boss_attempt_advances_one_hour_without_mutating_respawn_directly() -> void:
+func test_finishing_boss_attempt_advances_time_and_only_victory_starts_respawn() -> void:
 	var session = NewGameServiceClass.new().create_session("Aria", 1)
 	session.camp_rest_available = false
-	session.world_encounters.region_boss_respawns = {"azhar": 4}
 	var result := RegionBossChallengeServiceClass.finish_attempt(
 		session, "azhar", "victory", _rng(3)
 	)
 	assert_true(result.ok)
 	assert_eq(session.hour, 9)
 	assert_true(session.camp_rest_available)
-	assert_eq(session.world_encounters.region_boss_respawns, {"azhar": 4})
+	assert_eq(session.world_encounters.region_boss_respawns, {"azhar": 6})
 
 
 func test_world_map_and_combat_placeholder_expose_real_boss_flow() -> void:

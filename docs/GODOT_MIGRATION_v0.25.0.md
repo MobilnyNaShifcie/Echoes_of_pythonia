@@ -417,6 +417,16 @@ the remaining trips with Polish inflection. The sixth trip removes the counter,
 re-enables the challenge, and records the return in the Adventure Log. Existing
 schema-v17 persistence and the terminal-v15 importer already own this state, so
 no save-schema change is required.
+Stage 8E completes the final open-world parity audit. It verifies that elite
+discoveries and miss streaks, regional-boss definitions and phases, respawn
+counters, schema-v17 save/load, and terminal-v15 copy imports remain live
+domain behavior rather than passive data. The audit fixed one ordering gap:
+boss rewards resolve first, the attempt then advances world time by one hour,
+and only a victory starts and logs the six-expedition respawn at the new time,
+matching terminal v0.24.7. UI only presents the returned result. No new durable
+state or schema bump was needed, and final art, audio, and advanced animation
+remain deliberately unstarted. The complete matrix is documented in
+`STAGE_8_PARITY_REPORT_v0.25.0.md`.
 Their calendar periods, generated definitions, objective progress, and claimed
 rewards survive reloads; existing schema-v8 files receive a safe empty board
 before the next period is generated.

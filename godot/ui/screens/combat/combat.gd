@@ -318,9 +318,12 @@ func _finish_battle() -> void:
 				_session.log_event(_session.last_activity)
 				result_label.text = "Ucieczka udana. Wracasz na szlak."
 	if _context == "region_boss":
-		RegionBossChallengeServiceClass.finish_attempt(
+		var attempt := RegionBossChallengeServiceClass.finish_attempt(
 			_session, _enemy.enemy_id, _engine.result, _rng
 		)
+		var boss_respawn: Dictionary = attempt.get("boss_respawn", {})
+		if bool(boss_respawn.get("started", false)):
+			result_label.text += "\n%s" % boss_respawn.message
 	_render()
 	continue_button.grab_focus()
 
@@ -362,9 +365,6 @@ func _resolve_victory() -> String:
 	var milestone: Dictionary = rewards.get("guild_milestone", {})
 	if bool(milestone.get("awarded", false)):
 		text += "\n%s" % milestone.message
-	var boss_respawn: Dictionary = rewards.get("boss_respawn", {})
-	if bool(boss_respawn.get("started", false)):
-		text += "\n%s" % boss_respawn.message
 	return text
 
 

@@ -3,8 +3,14 @@ extends GutTest
 const BuildServiceClass := preload("res://core/companions/companion_build_service.gd")
 const CompanionCatalogClass := preload("res://core/companions/companion_catalog.gd")
 const CompanionStateClass := preload("res://core/companions/companion_state.gd")
+const EliteEncounterServiceClass := preload("res://core/world/elite_encounter_service.gd")
+const EnemyCatalogClass := preload("res://core/combat/enemy_catalog.gd")
 const NewGameServiceClass := preload("res://core/game/new_game_service.gd")
 const PartySaveCodecClass := preload("res://core/save/party_save_codec.gd")
+const RegionBossChallengeServiceClass := preload(
+	"res://core/world/region_boss_challenge_service.gd"
+)
+const RegionBossRespawnServiceClass := preload("res://core/world/region_boss_respawn_service.gd")
 const SaveGameServiceClass := preload("res://core/save/save_game_service.gd")
 const SkillCatalogClass := preload("res://core/skills/skill_catalog.gd")
 const TerminalSaveV15ImporterClass := preload("res://core/save/terminal_save_v15_importer.gd")
@@ -197,6 +203,29 @@ func test_imported_copy_survives_load_save_load_full_cycle() -> void:
 	assert_eq(first_load.session.world_encounters.elite_discoveries, ["furious"])
 	assert_eq(first_load.session.world_encounters.elite_miss_streaks, {"twilight_plains": 2})
 	assert_eq(first_load.session.world_encounters.region_boss_respawns, {"azhar": 3})
+	var elite_roll := (
+		EliteEncounterServiceClass
+		. resolve_roll(
+			EnemyCatalogClass.create_enemy("wolf"),
+			"day",
+			first_load.session.weather_code,
+			"twilight_plains",
+			first_load.session.world_encounters,
+			0.99,
+			0,
+		)
+	)
+	assert_true(elite_roll.ok)
+	assert_eq(first_load.session.world_encounters.elite_miss_streaks.twilight_plains, 3)
+	var blocked_boss := RegionBossChallengeServiceClass.prepare_challenge(
+		first_load.session, "ashen_borderlands"
+	)
+	assert_false(blocked_boss.ok)
+	assert_eq(blocked_boss.remaining, 3)
+	var respawn_step := RegionBossRespawnServiceClass.record_region_expedition(
+		first_load.session, "ashen_borderlands"
+	)
+	assert_eq(respawn_step.remaining, 2)
 	var personal_item_count: int = (
 		first_load.session.party.companions[0].personal_instance_ids.size()
 	)
@@ -210,8 +239,8 @@ func test_imported_copy_survives_load_save_load_full_cycle() -> void:
 	)
 	assert_eq(second_load.session.party.companions[0].current_hp, 0)
 	assert_eq(second_load.session.world_encounters.elite_discoveries, ["furious"])
-	assert_eq(second_load.session.world_encounters.elite_miss_streaks, {"twilight_plains": 2})
-	assert_eq(second_load.session.world_encounters.region_boss_respawns, {"azhar": 3})
+	assert_eq(second_load.session.world_encounters.elite_miss_streaks, {"twilight_plains": 3})
+	assert_eq(second_load.session.world_encounters.region_boss_respawns, {"azhar": 2})
 	assert_eq(FileAccess.get_sha256(_source_path), source_hash)
 
 

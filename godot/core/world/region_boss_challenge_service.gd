@@ -65,10 +65,8 @@ static func resolve_victory(session, enemy, rng: RandomNumberGenerator) -> Dicti
 	)
 	var victory_activity: String = session.last_activity
 	var milestone := GuildMilestoneServiceClass.record(session, "boss:%s" % definition.boss_id)
-	var respawn := RegionBossRespawnServiceClass.start_after_victory(session, definition.boss_id)
 	summary["ok"] = true
 	summary["guild_milestone"] = milestone
-	summary["boss_respawn"] = respawn
 	session.last_activity = victory_activity
 	if bool(milestone.get("awarded", false)):
 		session.last_activity += " " + str(milestone.message)
@@ -81,11 +79,20 @@ static func finish_attempt(
 	var definition = RegionBossCatalogClass.get_definition(boss_id)
 	if session == null or definition == null:
 		return {"ok": false, "message": "Nie można zakończyć nieznanego wyzwania."}
+	if result not in ["victory", "defeat", "fled"]:
+		return {"ok": false, "message": "Nieznany wynik wyzwania bossa regionu."}
 	session.camp_rest_available = true
 	session.advance_hours(1, rng)
-	return {
+	var summary := {
 		"ok": true,
 		"boss_id": boss_id,
 		"result": result,
 		"weather_changes": session.last_weather_changes.duplicate(true),
+		"boss_respawn": {"started": false},
 	}
+	# Terminal v0.24.7 uruchamia i loguje odrodzenie dopiero po koszcie czasu próby.
+	if result == "victory":
+		summary["boss_respawn"] = RegionBossRespawnServiceClass.start_after_victory(
+			session, boss_id
+		)
+	return summary
