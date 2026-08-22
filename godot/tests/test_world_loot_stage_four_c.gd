@@ -37,7 +37,7 @@ func test_all_open_world_enemies_have_valid_terminal_loot_tables() -> void:
 				encounter_ids[enemy_id] = true
 
 	assert_eq(encounter_ids.size(), 36)
-	assert_eq(LootCatalogClass.TABLES.size(), 36)
+	assert_gte(LootCatalogClass.TABLES.size(), encounter_ids.size())
 	for enemy_id: String in encounter_ids:
 		assert_true(LootCatalogClass.has_table(enemy_id), "Brak tabeli łupu: %s" % enemy_id)
 		var table := LootCatalogClass.get_table(enemy_id)
@@ -48,7 +48,7 @@ func test_all_open_world_enemies_have_valid_terminal_loot_tables() -> void:
 
 
 func test_regional_catalog_contains_complete_stage_four_c_item_data() -> void:
-	assert_eq(RegionalItemCatalogClass.DEFINITIONS.size(), 72)
+	assert_gte(RegionalItemCatalogClass.DEFINITIONS.size(), 72)
 	var boots = ItemCatalogClass.get_definition("spiderstep_boots")
 	assert_eq(boots.display_name, "Buty Pajęczego Kroku")
 	assert_eq(boots.item_power, 2)

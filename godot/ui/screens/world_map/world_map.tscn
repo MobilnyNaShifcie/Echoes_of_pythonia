@@ -176,6 +176,12 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Wyrusz na wyprawę  •  +1 godzina"
 
+[node name="DungeonButton" type="Button" parent="Page/Body/ThreatPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Loch SOLO"
+visible = false
+
 [node name="QuestLabel" type="Label" parent="Page"]
 unique_name_in_owner = true
 layout_mode = 2

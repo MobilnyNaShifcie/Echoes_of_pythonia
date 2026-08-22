@@ -319,6 +319,16 @@ the 2–5 day heavy-injury duration. The existing Party Hub now renders the
 persisted Fallen Board. The schema remains v14 because Stage 6A already stores
 injury deadlines, messages, equipment ownership, and memorials; in-battle
 countdowns intentionally remain transient.
+Stage 6H adds the two terminal SOLO dungeons through a dedicated transient
+`DungeonRunState` and `DungeonService`. The Sunken Order Crypt and Black Fleet
+Wreck preserve their entry items, random rooms, authored branches, recovery,
+one-hour encounters, unsecured-loot snapshot, safe retreat, and completion
+milestones. Dungeon fights reuse the ordinary 1v1 engine without surface
+weather rewards; narrow Grand Master and Admiral Varek subclasses own only
+their phase mechanics. Neither `PartyCombatEngine` nor Rift state is referenced.
+The run itself is intentionally not persisted, matching the terminal checkpoint
+boundary, while all resulting inventory, progression, contracts, milestones,
+and journal entries already survive schema v14.
 Their calendar periods, generated definitions, objective progress, and claimed
 rewards survive reloads; existing schema-v8 files receive a safe empty board
 before the next period is generated.

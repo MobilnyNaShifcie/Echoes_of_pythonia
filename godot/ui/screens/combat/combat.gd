@@ -30,6 +30,7 @@ var _last_fate_dice: Array[int] = []
 var _last_fate_outcome := ""
 var _last_hunter_combo := ""
 var _encounter_weather_code := WeatherServiceClass.SUNNY
+var _battle_title := ""
 
 @onready var encounter_label: Label = %EncounterLabel
 @onready var weather_label: Label = %EnemyNameLabel
@@ -92,6 +93,8 @@ func configure(
 	enemy_id: String,
 	context := "expedition",
 	weather_code := WeatherServiceClass.SUNNY,
+	engine_script = null,
+	battle_title := "",
 ) -> void:
 	_session = session
 	_context = context
@@ -101,9 +104,14 @@ func configure(
 		else WeatherServiceClass.SUNNY
 	)
 	_enemy = EnemyCatalogClass.create_enemy(enemy_id)
-	if _context != "prologue":
+	_battle_title = battle_title
+	if _context == "expedition":
 		WeatherServiceClass.apply_to_enemy(_enemy, _encounter_weather_code)
-	_engine = CombatEngineClass.new(_session.player, _enemy, _rng)
+	_engine = (
+		engine_script.new(_session.player, _enemy, _rng)
+		if engine_script != null
+		else CombatEngineClass.new(_session.player, _enemy, _rng)
+	)
 	_battle_actions_enabled = true
 	_last_fate_dice.clear()
 	_last_fate_outcome = ""
@@ -220,6 +228,10 @@ func _resolve_turn(report: Dictionary, action_text: String) -> void:
 		_append_log(note)
 	for note: String in report.get("class_effect_notes", []):
 		_append_log(note)
+	for note: String in report.get("boss_notes", []):
+		_append_log(note)
+	if report.get("boss_aura_damage", 0) > 0:
+		_append_log("Klątwa Głębin zadaje %d obrażeń od Wody." % int(report.boss_aura_damage))
 	if report.get("player_healed", 0) > 0:
 		_append_log("Odzyskujesz %d PŻ." % report.player_healed)
 	if report.get("player_mana_restored", 0) > 0:
@@ -266,7 +278,7 @@ func _damage_type_suffix(damage_type: String) -> String:
 
 func _finish_battle() -> void:
 	_set_actions_enabled(false)
-	if _context == "expedition":
+	if _context in ["expedition", "dungeon"]:
 		_session.camp_rest_available = true
 	result_panel.visible = true
 	match _engine.result:
@@ -275,9 +287,12 @@ func _finish_battle() -> void:
 		CombatEngineClass.DEFEAT:
 			result_label.text = _resolve_defeat()
 		CombatEngineClass.FLED:
-			_session.last_activity = "Ucieczka z walki z: %s." % _enemy.display_name
-			_session.log_event(_session.last_activity)
-			result_label.text = "Ucieczka udana. Wracasz na szlak."
+			if _context == "dungeon":
+				result_label.text = "Ucieczka udana. Wycofujesz się z lochu z dotychczasowym łupem."
+			else:
+				_session.last_activity = "Ucieczka z walki z: %s." % _enemy.display_name
+				_session.log_event(_session.last_activity)
+				result_label.text = "Ucieczka udana. Wracasz na szlak."
 	_render()
 	continue_button.grab_focus()
 
@@ -289,7 +304,11 @@ func _resolve_victory() -> String:
 		_session.last_activity = "Pokonano Przeklętego Stracha na Wróble."
 		_session.log_event(_session.last_activity)
 		return "Zwycięstwo. Po walce odzyskujesz pełne PŻ i możesz przeszukać pobojowisko."
-	var rewards := AdventureServiceClass.resolve_victory(_session, _enemy, _rng)
+	var rewards := (
+		AdventureServiceClass.resolve_dungeon_victory(_session, _enemy, _rng)
+		if _context == "dungeon"
+		else AdventureServiceClass.resolve_victory(_session, _enemy, _rng)
+	)
 	var text := "Zwycięstwo  •  +%d EXP  •  +%d złota" % [rewards.experience, rewards.gold]
 	if rewards.levels_gained > 0:
 		text += "  •  Awans: +%d poziom" % rewards.levels_gained
@@ -316,6 +335,8 @@ func _resolve_defeat() -> String:
 		_session.player.stats.restore_full()
 		_session.prologue_stage = 1
 		return "Porażka. Możesz ponownie podjąć walkę prologu."
+	if _context == "dungeon":
+		return "Porażka. Rozliczenie niezabezpieczonego łupu nastąpi po opuszczeniu lochu."
 	return AdventureServiceClass.resolve_defeat(_session, _enemy.display_name).message
 
 
@@ -329,6 +350,13 @@ func _render() -> void:
 	var player = _session.player
 	if _context == "prologue":
 		encounter_label.text = "WALKA FABULARNA — PROLOG"
+	elif _context == "dungeon":
+		encounter_label.text = (
+			_battle_title.to_upper() if not _battle_title.is_empty() else "LOCH — WALKA SOLO"
+		)
+		var warnings := _engine.boss_status_lines()
+		if not warnings.is_empty():
+			encounter_label.text += "\n" + "\n".join(warnings)
 	else:
 		var region = RegionCatalogClass.get_definition(_session.current_location_id)
 		encounter_label.text = "%s — WALKA TUROWA" % region.display_name.to_upper()
@@ -349,13 +377,15 @@ func _render() -> void:
 	player_hp_bar.value = player.stats.current_hp
 	player_hp_bar.tooltip_text = "PŻ %d/%d" % [player.stats.current_hp, player.stats.max_hp]
 	enemy_name_label.text = _enemy.display_name
-	if _context != "prologue":
+	if _context == "expedition":
 		enemy_name_label.text += (
 			"  •  %s" % WeatherServiceClass.display_name_for(_encounter_weather_code)
 		)
 		enemy_name_label.tooltip_text = WeatherServiceClass.description_for(_encounter_weather_code)
 		if not _enemy.weather_note.is_empty():
 			enemy_name_label.tooltip_text += "\n" + _enemy.weather_note
+	else:
+		enemy_name_label.tooltip_text = "Pogoda powierzchni nie wpływa na walkę w lochu."
 	enemy_stats_label.text = (
 		"PŻ %d/%d  •  ATK %d  •  DEF %d  •  UNIK %.1f%%"
 		% [

@@ -883,6 +883,10 @@ func warrior_block_chance() -> float:
 	)
 
 
+func boss_status_lines() -> Array[String]:
+	return []
+
+
 func _passive_specialization(passive_code: String) -> String:
 	return PassiveProgressionServiceClass.specialization_for(player, passive_code)
 

@@ -3,9 +3,11 @@ extends Control
 
 signal back_requested
 signal encounter_requested(enemy_id: String, weather_code: String)
+signal dungeon_requested(dungeon_id: String)
 
 const AdventureServiceClass := preload("res://core/world/adventure_service.gd")
 const CampRestServiceClass := preload("res://core/economy/camp_rest_service.gd")
+const DungeonCatalogClass := preload("res://core/dungeons/dungeon_catalog.gd")
 const EnemyCatalogClass := preload("res://core/combat/enemy_catalog.gd")
 const GameSessionClass := preload("res://core/game/game_session.gd")
 const QuestServiceClass := preload("res://core/quests/quest_service.gd")
@@ -30,6 +32,7 @@ var _selection_locked := false
 @onready var weather_label: Label = %WeatherLabel
 @onready var camp_button: Button = %CampButton
 @onready var explore_button: Button = %ExploreButton
+@onready var dungeon_button: Button = %DungeonButton
 @onready var event_label: Label = %EventLabel
 @onready var quest_label: Label = %QuestLabel
 
@@ -37,6 +40,7 @@ var _selection_locked := false
 func _ready() -> void:
 	%BackButton.pressed.connect(back_requested.emit)
 	explore_button.pressed.connect(_explore)
+	dungeon_button.pressed.connect(_enter_dungeon)
 	camp_button.pressed.connect(_rest_at_camp)
 	region_list.item_selected.connect(_select_region)
 	_rng.randomize()
@@ -81,6 +85,12 @@ func _rest_at_camp() -> void:
 	_render_session()
 	_render_region()
 	event_label.text = result.message
+
+
+func _enter_dungeon() -> void:
+	var dungeon = DungeonCatalogClass.dungeon_for_region(_selected_region_id)
+	if dungeon != null:
+		dungeon_requested.emit(dungeon.dungeon_id)
 
 
 func _render() -> void:
@@ -196,6 +206,10 @@ func _render_region() -> void:
 	threats_label.text = _format_encounters(region)
 	explore_button.disabled = false
 	explore_button.text = "Wyrusz na wyprawę  •  +1 godzina"
+	var dungeon = DungeonCatalogClass.dungeon_for_region(_selected_region_id)
+	dungeon_button.visible = dungeon != null
+	if dungeon != null:
+		dungeon_button.text = "Loch SOLO: %s" % dungeon.display_name
 
 
 func _format_encounters(region: RegionDefinitionClass) -> String:

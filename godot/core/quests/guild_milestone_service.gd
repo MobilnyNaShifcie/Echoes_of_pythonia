@@ -42,7 +42,7 @@ static func get_all() -> Array[GuildMilestoneDefinitionClass]:
 				"Ukończenie Krypty Zatopionego Zakonu",
 				150,
 				"Loch: Krypta Zatopionego Zakonu",
-				"Lochy zostaną podłączone w etapie 6.",
+				"",
 			)
 		),
 		(
@@ -52,7 +52,7 @@ static func get_all() -> Array[GuildMilestoneDefinitionClass]:
 				"Ukończenie Wraku Czarnej Floty",
 				250,
 				"Loch: Wrak Czarnej Floty",
-				"Lochy zostaną podłączone w etapie 6.",
+				"",
 			)
 		),
 	]

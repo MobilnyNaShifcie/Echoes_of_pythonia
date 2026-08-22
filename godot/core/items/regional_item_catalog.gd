@@ -16,6 +16,75 @@ const DEFINITIONS := {
 		"item_power": 0,
 		"required_level": 0
 	},
+	"order_seal":
+	{
+		"name": "Pieczęć Zatopionego Zakonu",
+		"description": "Ciężka pieczęć noszona przez członków zakonu pochowanych pod Głuchą Wodą.",
+		"category": "material",
+		"rarity": "uncommon",
+		"stackable": true,
+		"item_power": 0,
+		"required_level": 0
+	},
+	"grandmaster_chain":
+	{
+		"name": "Łańcuch Wielkiego Mistrza",
+		"description": "Fragment ceremonialnego łańcucha dowódcy Zatopionego Zakonu.",
+		"category": "material",
+		"rarity": "rare",
+		"stackable": true,
+		"item_power": 0,
+		"required_level": 0
+	},
+	"crown_fragment":
+	{
+		"name": "Fragment Zatopionej Korony",
+		"description":
+		"Odłamek korony nasiąknięty magią głębin. Reaguje na stare pieczęcie zakonu.",
+		"category": "material",
+		"rarity": "rare",
+		"stackable": true,
+		"item_power": 0,
+		"required_level": 0
+	},
+	"grandmaster_sword":
+	{
+		"name": "Miecz Wielkiego Mistrza",
+		"description":
+		"Ciężkie ostrze ostatniego dowódcy Zakonu. Stworzone do przełamywania obrony.",
+		"category": "equipment",
+		"rarity": "epic",
+		"stackable": false,
+		"slot": "weapon",
+		"attack": 13,
+		"item_power": 4,
+		"required_level": 10
+	},
+	"sunken_order_cloak":
+	{
+		"name": "Płaszcz Zatopionego Zakonu",
+		"description": "Warstwowy pancerz i płaszcz odporny na zimną wodę krypt.",
+		"category": "equipment",
+		"rarity": "epic",
+		"stackable": false,
+		"slot": "chest",
+		"defense": 8,
+		"max_hp": 30,
+		"water_resistance": 15,
+		"item_power": 4,
+		"required_level": 10
+	},
+	"varek_sabre_fragment":
+	{
+		"name": "Fragment Szabli Vareka",
+		"description":
+		"Odłamany fragment czarnej klingi Admirała Vareka. Metal pozostaje lodowaty nawet przy ogniu.",
+		"category": "material",
+		"rarity": "epic",
+		"stackable": true,
+		"item_power": 0,
+		"required_level": 0
+	},
 	"ancient_scale":
 	{
 		"name": "Prastara Łuska",

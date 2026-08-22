@@ -3,6 +3,7 @@ extends RefCounted
 
 const EnemyClass := preload("res://core/combat/enemy.gd")
 const RegionalEnemyCatalogClass := preload("res://core/combat/regional_enemy_catalog.gd")
+const DungeonEnemyCatalogClass := preload("res://core/combat/dungeon_enemy_catalog.gd")
 const DATA := {
 	"prologue_scarecrow":
 	{
@@ -162,8 +163,14 @@ static func display_name_for(enemy_id: String) -> String:
 static func get_data(enemy_id: String) -> Dictionary:
 	if DATA.has(enemy_id):
 		return DATA[enemy_id].duplicate(true)
-	return RegionalEnemyCatalogClass.DATA.get(enemy_id, {}).duplicate(true)
+	if RegionalEnemyCatalogClass.DATA.has(enemy_id):
+		return RegionalEnemyCatalogClass.DATA[enemy_id].duplicate(true)
+	return DungeonEnemyCatalogClass.DATA.get(enemy_id, {}).duplicate(true)
 
 
 static func has_enemy(enemy_id: String) -> bool:
-	return DATA.has(enemy_id) or RegionalEnemyCatalogClass.DATA.has(enemy_id)
+	return (
+		DATA.has(enemy_id)
+		or RegionalEnemyCatalogClass.DATA.has(enemy_id)
+		or DungeonEnemyCatalogClass.DATA.has(enemy_id)
+	)

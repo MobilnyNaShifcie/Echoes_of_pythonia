@@ -652,9 +652,41 @@ obrażeń i osobny silnik walki drużynowej pozostają wyłącznym zakresem 6F.
   zasoby, wiadomości i pełne wpisy poległych, dlatego schemat pozostaje `v14`.
   Liczniki Powalenia są celowo stanem chwilowej walki i nie są zapisywane.
 
+### Etap 6H — dwa terminalowe lochy SOLO (ukończony)
+
+- `DungeonCatalog`, `DungeonRunState` i `DungeonService` przenoszą Kryptę
+  Zatopionego Zakonu oraz Wrak Czarnej Floty jako osobny subsystem. Przebieg
+  pozostaje SOLO i korzysta ze zwykłego `TurnBasedCombatEngine`; nie importuje
+  ani `PartyCombatEngine`, ani przyszłego lifecycle Szczelin,
+- oba lochy zachowują terminalowe wejściówki zużywane atomowo, poziomy
+  rekomendowane, trzy losowe komnaty, osobne rozwidlenia, obowiązkową elitę,
+  finałowego bossa, godzinę za każde starcie oraz dodatkową godzinę za skrzynię
+  w zalanym korytarzu lub Skarbiec Czarnej Floty,
+- PŻ i Mana przechodzą między walkami. Zatopiona Kaplica przywraca 25%, Kajuta
+  Medyka 30%, z Pythonowym zaokrągleniem half-even. Pogoda powierzchni przesuwa
+  się wraz z czasem świata, lecz nie modyfikuje walk ani nagród w lochu,
+- bezpieczny odwrót i ucieczka zachowują cały łup. Snapshot wykonany po zużyciu
+  wejściówki pozwala porażce usunąć wyłącznie dodatnie przyrosty stosów i nowe
+  instancje wyposażenia z tej wyprawy; zdobyte EXP i złoto pozostają, a bohater
+  odzyskuje pełne zasoby,
+- dwanaście brakujących przeciwników, ich terminalowe statystyki, odporności i
+  tabele łupu zostały dodane wraz z materiałami Krypty i fragmentem szabli
+  Vareka. Sprzęt wypada z jakością `dungeon`, a Strażnicy i bossowie zachowują
+  szanse na Księgi Mistrzostwa oraz Księgi Ścieżki,
+- `GrandMasterCombatEngine` zachowuje fazy 60%/25% i wodną aurę, a
+  `AdmiralVarekCombatEngine` zapowiadaną Salwę Armatnią oraz fazę Ostatniego
+  Rozkazu. Są to wąskie podklasy zwykłej walki 1v1, nie rozszerzenie walki
+  drużynowej,
+- ukończenie korzysta z istniejących punktów integracji kontraktów i kamieni
+  milowych Gildii. Przejściowy przebieg lochu nie jest zapisywany — tak jak w
+  terminalu zapis następuje po jego zakończeniu — więc schema pozostaje `v14`,
+- placeholder lochu jest dostępny z właściwego regionu mapy, zawiera pełny
+  przepływ decyzji i nie posiada finalnych assetów. Testy obejmują oba pełne
+  warianty, SOLO, wejście, snapshot łupu, odwrót, porażkę, odpoczynek, czas,
+  bossów, nagrody i integrację UI.
+
 ### Dalsza kolejność Stage 6
 
-- **6H:** dwa terminalowe lochy SOLO przeniesione 1:1,
 - **6I:** lifecycle Szczelin,
 - **6J:** kompletne ekspedycje i walki drużynowe Szczelin,
 - **6K:** audyt parytetu Stage 6 i save/load.

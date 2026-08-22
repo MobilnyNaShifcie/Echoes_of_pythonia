@@ -17,6 +17,8 @@ static func create(combat) -> Dictionary:
 		"skill_total_damage": 0,
 		"skill_notes": [],
 		"class_effect_notes": [],
+		"boss_notes": [],
+		"boss_aura_damage": 0,
 		"fate_dice": [],
 		"fate_total": 0,
 		"fate_outcome": "",

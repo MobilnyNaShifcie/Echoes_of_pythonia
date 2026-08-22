@@ -149,6 +149,51 @@ const TABLES := {
 		{"item_id": "cursed_compass", "chance": 1.0},
 		{"item_id": "black_fleet_medallion", "chance": 1.0},
 		{"item_id": "captain_signet", "chance": 0.12}
+	],
+	"drowned_acolyte":
+	[{"item_id": "order_seal", "chance": 0.55}, {"item_id": "cursed_resin", "chance": 0.25}],
+	"drowned_priestess":
+	[{"item_id": "order_seal", "chance": 0.7}, {"item_id": "mist_essence", "chance": 0.4}],
+	"iron_gate_guardian":
+	[
+		{"item_id": "order_seal", "chance": 1.0},
+		{"item_id": "sunken_plate", "chance": 0.6},
+		{"item_id": "strong_healing_potion", "chance": 0.2}
+	],
+	"crypt_warden":
+	[{"item_id": "grandmaster_chain", "chance": 1.0}, {"item_id": "order_seal", "chance": 0.75}],
+	"order_grandmaster":
+	[
+		{"item_id": "crown_fragment", "chance": 1.0},
+		{"item_id": "order_seal", "chance": 1.0},
+		{"item_id": "grandmaster_sword", "chance": 0.12},
+		{"item_id": "sunken_order_cloak", "chance": 0.1},
+		{"item_id": "abyss_ring", "chance": 0.08}
+	],
+	"cursed_sailor":
+	[{"item_id": "frozen_cloth", "chance": 0.7}, {"item_id": "cursed_compass", "chance": 0.18}],
+	"black_fleet_drowned":
+	[{"item_id": "frozen_cloth", "chance": 0.6}, {"item_id": "black_pearl", "chance": 0.18}],
+	"cursed_gunner":
+	[{"item_id": "common_essence", "chance": 0.4}, {"item_id": "cursed_compass", "chance": 0.25}],
+	"spectral_marksman":
+	[{"item_id": "common_essence", "chance": 0.45}, {"item_id": "black_pearl", "chance": 0.18}],
+	"black_fleet_boatswain":
+	[
+		{"item_id": "cursed_compass", "chance": 0.65},
+		{"item_id": "strong_healing_potion", "chance": 0.22}
+	],
+	"black_fleet_first_officer":
+	[
+		{"item_id": "cursed_compass", "chance": 1.0},
+		{"item_id": "black_pearl", "chance": 0.55},
+		{"item_id": "grandmaster_elixir", "chance": 0.2}
+	],
+	"admiral_varek":
+	[
+		{"item_id": "varek_sabre_fragment", "chance": 1.0},
+		{"item_id": "cursed_compass", "chance": 1.0},
+		{"item_id": "varek_sabre", "chance": 0.1}
 	]
 }
 

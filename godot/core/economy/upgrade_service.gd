@@ -25,8 +25,10 @@ const MATERIAL_PROFILE_BY_ITEM_POWER := {
 		"elite": "silentwater_heart",
 		"boss": "silentwater_heart",
 	},
+	4: {"regional": "order_seal", "elite": "grandmaster_chain", "boss": "crown_fragment"},
 	5: {"regional": "salamander_scale", "elite": "hearth_core", "boss": "azhar_sigil"},
 	6: {"regional": "ice_chitin", "elite": "cursed_compass", "boss": "leviathan_scale"},
+	7: {"regional": "black_pearl", "elite": "cursed_compass", "boss": "varek_sabre_fragment"},
 }
 
 

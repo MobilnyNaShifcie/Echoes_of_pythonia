@@ -9,6 +9,7 @@ const ContractServiceClass := preload("res://core/quests/contract_service.gd")
 const RegionCatalogClass := preload("res://core/world/region_catalog.gd")
 const CarryWeightServiceClass := preload("res://core/economy/carry_weight_service.gd")
 const EquipmentAffixServiceClass := preload("res://core/items/equipment_affix_service.gd")
+const RareBookDropServiceClass := preload("res://core/items/rare_book_drop_service.gd")
 const MathClass := preload("res://core/math/legacy_math.gd")
 const WeatherServiceClass := preload("res://core/world/weather_service.gd")
 const AchievementServiceClass := preload("res://core/progression/achievement_service.gd")
@@ -95,9 +96,12 @@ static func _roll_region_exploration(
 	return {"enemy_id": "", "message": "Droga pozostaje niepokojąco pusta."}
 
 
-static func resolve_victory(session, enemy, rng: RandomNumberGenerator) -> Dictionary:
+static func resolve_victory(
+	session, enemy, rng: RandomNumberGenerator, rules: Dictionary = {}
+) -> Dictionary:
+	var use_weather := bool(rules.get("use_weather", true))
 	var weather_code: String = enemy.weather_code
-	var multiplier := WeatherServiceClass.reward_multiplier(weather_code)
+	var multiplier := WeatherServiceClass.reward_multiplier(weather_code) if use_weather else 1.0
 	var experience := maxi(1, MathClass.python_roundi(enemy.experience_reward * multiplier))
 	var levels_gained: int = session.player.gain_experience(experience)
 	var base_gold := rng.randi_range(enemy.gold_min, enemy.gold_max)
@@ -105,14 +109,21 @@ static func resolve_victory(session, enemy, rng: RandomNumberGenerator) -> Dicti
 	session.player.add_gold(gold)
 	session.victories += 1
 	var loot_names: Array[String] = []
-	var drop_multiplier := WeatherServiceClass.drop_chance_multiplier(weather_code)
+	var drop_multiplier := (
+		WeatherServiceClass.drop_chance_multiplier(weather_code) if use_weather else 1.0
+	)
+	if session.player.character_class_code == "pierrot":
+		drop_multiplier *= 1.0 + minf(0.05, session.player.attributes.luck * 0.001)
 	var loot_drops := LootCatalogClass.roll_loot(enemy.enemy_id, rng, drop_multiplier)
+	if bool(rules.get("include_rare_books", false)):
+		loot_drops.append_array(RareBookDropServiceClass.roll_for_enemy(enemy.enemy_id, rng))
+	var equipment_quality := str(
+		rules.get("equipment_quality", _equipment_quality_for_enemy(enemy))
+	)
 	for drop: Dictionary in loot_drops:
 		var item_id: String = drop.item_id
 		var quantity := int(drop.quantity)
-		if not session.player.inventory.add(
-			item_id, quantity, rng, _equipment_quality_for_enemy(enemy)
-		):
+		if not session.player.inventory.add(item_id, quantity, rng, equipment_quality):
 			continue
 		var definition = ItemCatalogClass.get_definition(item_id)
 		var display_name: String = definition.display_name
@@ -124,12 +135,13 @@ static func resolve_victory(session, enemy, rng: RandomNumberGenerator) -> Dicti
 			session.player,
 			session.contract_board,
 			enemy.enemy_id,
-			session.current_location_id,
+			str(rules.get("contract_region_id", session.current_location_id)),
 			enemy.rank == "miniboss",
 		)
 	)
+	var achievement_weather: String = weather_code if use_weather else session.weather_code
 	var unlocked_achievements := AchievementServiceClass.record_victory(
-		session, enemy.enemy_id, weather_code
+		session, enemy.enemy_id, achievement_weather
 	)
 	var summary := {
 		"experience": experience,
@@ -147,6 +159,20 @@ static func resolve_victory(session, enemy, rng: RandomNumberGenerator) -> Dicti
 	session.last_activity = _format_victory(enemy.display_name, summary)
 	session.log_event(session.last_activity)
 	return summary
+
+
+static func resolve_dungeon_victory(session, enemy, rng: RandomNumberGenerator) -> Dictionary:
+	return resolve_victory(
+		session,
+		enemy,
+		rng,
+		{
+			"use_weather": false,
+			"equipment_quality": EquipmentAffixServiceClass.QUALITY_DUNGEON,
+			"contract_region_id": "",
+			"include_rare_books": true,
+		},
+	)
 
 
 static func _equipment_quality_for_enemy(enemy) -> String:

@@ -4,6 +4,8 @@ const EnemyCatalogClass := preload("res://core/combat/enemy_catalog.gd")
 const GameSessionClass := preload("res://core/game/game_session.gd")
 const GuildProgressionServiceClass := preload("res://core/quests/guild_progression_service.gd")
 const RegionCatalogClass := preload("res://core/world/region_catalog.gd")
+const DungeonServiceClass := preload("res://core/dungeons/dungeon_service.gd")
+const DungeonRunStateClass := preload("res://core/dungeons/dungeon_run_state.gd")
 const CharacterSheetScreenClass := preload("res://ui/screens/character_sheet/character_sheet.gd")
 const AdventureLogScreenClass := preload("res://ui/screens/adventure_log/adventure_log.gd")
 const AchievementsScreenClass := preload("res://ui/screens/achievements/achievements.gd")
@@ -14,6 +16,7 @@ const CityServiceScreenClass := preload("res://ui/screens/city_service/city_serv
 const ClassSelectionScreenClass := preload("res://ui/screens/class_selection/class_selection.gd")
 const CombatScreenClass := preload("res://ui/screens/combat/combat.gd")
 const EquipmentScreenClass := preload("res://ui/screens/equipment/equipment.gd")
+const DungeonScreenClass := preload("res://ui/screens/dungeon/dungeon.gd")
 const ExpeditionPreparationScreenClass := preload(
 	"res://ui/screens/expedition_preparation/expedition_preparation.gd"
 )
@@ -38,6 +41,7 @@ const CITY_SERVICE_SCENE := preload("res://ui/screens/city_service/city_service.
 const CLASS_SELECTION_SCENE := preload("res://ui/screens/class_selection/class_selection.tscn")
 const COMBAT_SCENE := preload("res://ui/screens/combat/combat.tscn")
 const EQUIPMENT_SCENE := preload("res://ui/screens/equipment/equipment.tscn")
+const DUNGEON_SCENE := preload("res://ui/screens/dungeon/dungeon.tscn")
 const EXPEDITION_PREPARATION_SCENE := preload(
 	"res://ui/screens/expedition_preparation/expedition_preparation.tscn"
 )
@@ -54,12 +58,15 @@ const WORLD_MAP_SCENE := preload("res://ui/screens/world_map/world_map.tscn")
 
 var _current_session: GameSessionClass
 var _save_service := SaveGameServiceClass.new()
+var _active_dungeon_run: DungeonRunStateClass
+var _dungeon_rng := RandomNumberGenerator.new()
 
 @onready var screen_host: Control = %ScreenHost
 @onready var app_status_label: Label = %AppStatusLabel
 
 
 func _ready() -> void:
+	_dungeon_rng.randomize()
 	_show_main_menu()
 
 
@@ -356,6 +363,7 @@ func _show_world_map(selected_region_id := "") -> void:
 	world_map.configure(_current_session, selected_region_id)
 	world_map.back_requested.connect(_show_city_hub)
 	world_map.encounter_requested.connect(_show_expedition_combat)
+	world_map.dungeon_requested.connect(_show_dungeon)
 	var region = RegionCatalogClass.get_definition(_current_session.current_location_id)
 	app_status_label.text = "Wyprawa: %s" % region.display_name
 
@@ -364,12 +372,18 @@ func _show_expedition_combat(enemy_id: String, weather_code: String) -> void:
 	_show_combat(enemy_id, "expedition", weather_code)
 
 
-func _show_combat(enemy_id: String, context: String, weather_code := "sunny") -> void:
+func _show_combat(
+	enemy_id: String,
+	context: String,
+	weather_code := "sunny",
+	engine_script = null,
+	battle_title := "",
+) -> void:
 	if _current_session == null:
 		_show_main_menu()
 		return
 	var combat: CombatScreenClass = _replace_screen(COMBAT_SCENE)
-	combat.configure(_current_session, enemy_id, context, weather_code)
+	combat.configure(_current_session, enemy_id, context, weather_code, engine_script, battle_title)
 	combat.finished.connect(_on_combat_finished)
 	app_status_label.text = "Walka: %s" % EnemyCatalogClass.display_name_for(enemy_id)
 
@@ -377,16 +391,82 @@ func _show_combat(enemy_id: String, context: String, weather_code := "sunny") ->
 func _on_combat_finished(context: String, result: String) -> void:
 	if context == "prologue":
 		_show_prologue()
+	elif context == "dungeon":
+		_on_dungeon_combat_finished(result)
 	elif result == "defeat":
 		_show_city_hub()
 	else:
 		_show_world_map()
 
 
+func _show_dungeon(dungeon_id: String) -> void:
+	if _current_session == null:
+		_show_main_menu()
+		return
+	var dungeon: DungeonScreenClass = _replace_screen(DUNGEON_SCENE)
+	var run := (
+		_active_dungeon_run
+		if _active_dungeon_run != null and _active_dungeon_run.dungeon_id == dungeon_id
+		else null
+	)
+	dungeon.configure(_current_session, dungeon_id, run)
+	dungeon.start_requested.connect(_start_dungeon)
+	dungeon.action_requested.connect(_on_dungeon_action)
+	dungeon.exit_requested.connect(_leave_dungeon)
+	app_status_label.text = "Loch SOLO: %s" % dungeon_id
+
+
+func _start_dungeon(dungeon_id: String) -> void:
+	var result := DungeonServiceClass.start(_current_session, dungeon_id, _dungeon_rng)
+	if not result.ok:
+		var screen := screen_host.get_child(0) as DungeonScreenClass
+		screen.show_message(result.message)
+		return
+	_active_dungeon_run = result.run
+	_show_dungeon(dungeon_id)
+
+
+func _on_dungeon_action(action: String) -> void:
+	if _active_dungeon_run == null:
+		return
+	var result := DungeonServiceClass.choose(
+		_active_dungeon_run, _current_session, action, _dungeon_rng
+	)
+	if not result.ok:
+		var screen := screen_host.get_child(0) as DungeonScreenClass
+		screen.show_message(result.message)
+		return
+	if result.get("combat", false):
+		_show_combat(
+			str(result.enemy_id),
+			"dungeon",
+			"sunny",
+			DungeonServiceClass.engine_script_for(str(result.enemy_id)),
+			str(result.battle_title),
+		)
+		return
+	_show_dungeon(_active_dungeon_run.dungeon_id)
+
+
+func _on_dungeon_combat_finished(result: String) -> void:
+	if _active_dungeon_run == null:
+		_show_world_map()
+		return
+	DungeonServiceClass.resolve_combat(_active_dungeon_run, _current_session, result, _dungeon_rng)
+	if _active_dungeon_run.is_finished():
+		_save_current_session_silently()
+	_show_dungeon(_active_dungeon_run.dungeon_id)
+
+
+func _leave_dungeon(region_id: String) -> void:
+	_active_dungeon_run = null
+	_show_world_map(region_id)
+
+
 func _show_project_status() -> void:
 	app_status_label.text = (
 		"v0.25.0: prolog, Varenhold, ekonomia, walka klasowa, "
-		+ "progresja, pięć regionów, Akt I, Gildia i Czarny Rynek w Godot 4"
+		+ "progresja, pięć regionów, Akt I, Gildia, Czarny Rynek i dwa lochy SOLO"
 	)
 
 
