@@ -407,6 +407,16 @@ contract, quest, inventory, and achievement services. UI contains no boss
 rules. The save schema remains v17 because Stage 8A already persists the boss
 respawn counters; Stage 8C deliberately leaves those counters unchanged so the
 six-expedition lifecycle remains an isolated Stage 8D responsibility.
+Stage 8D closes that final encounter-state behavior with a dedicated
+`RegionBossRespawnService`. Only a regional-boss victory starts its six-trip
+counter. Every accepted ordinary expedition in that boss's own region consumes
+one step regardless of a quiet outcome or combat result; other regions, camp
+rests, dungeons, and boss attempts consume none. Active counters block the
+challenge without changing time, location, or contracts, and the map presents
+the remaining trips with Polish inflection. The sixth trip removes the counter,
+re-enables the challenge, and records the return in the Adventure Log. Existing
+schema-v17 persistence and the terminal-v15 importer already own this state, so
+no save-schema change is required.
 Their calendar periods, generated definitions, objective progress, and claimed
 rewards survive reloads; existing schema-v8 files receive a safe empty board
 before the next period is generated.

@@ -20,6 +20,7 @@ const RegionBossCatalogClass := preload("res://core/world/region_boss_catalog.gd
 const RegionBossChallengeServiceClass := preload(
 	"res://core/world/region_boss_challenge_service.gd"
 )
+const RegionBossRespawnServiceClass := preload("res://core/world/region_boss_respawn_service.gd")
 const WeatherServiceClass := preload("res://core/world/weather_service.gd")
 
 var _session: GameSessionClass
@@ -82,6 +83,7 @@ func _explore() -> void:
 		return
 	var result := AdventureServiceClass.explore_region(_session, _selected_region_id, _rng)
 	_render_session()
+	_render_region()
 	event_label.text = result.message
 	if not result.enemy_id.is_empty():
 		(
@@ -113,8 +115,9 @@ func _challenge_region_boss() -> void:
 	if _session == null:
 		return
 	var result := RegionBossChallengeServiceClass.prepare_challenge(_session, _selected_region_id)
-	event_label.text = result.message
 	_render_session()
+	_render_region()
+	event_label.text = result.message
 	if not result.ok:
 		return
 	(
@@ -244,11 +247,28 @@ func _render_region() -> void:
 	var boss = RegionBossCatalogClass.boss_for_region(_selected_region_id)
 	boss_button.visible = boss != null
 	if boss != null:
-		boss_button.text = "%s  •  BOSS • poziom %d+" % [boss.display_name, boss.recommended_level]
-		boss_button.tooltip_text = boss.challenge_description
-		var warning := boss.level_warning(_session.player.level)
-		if not warning.is_empty():
-			boss_button.tooltip_text += "\n" + warning
+		var remaining := RegionBossRespawnServiceClass.remaining(
+			_session.world_encounters, boss.boss_id
+		)
+		if remaining > 0:
+			boss_button.text = (
+				"%s  •  Odrodzenie: %s"
+				% [
+					boss.display_name,
+					RegionBossRespawnServiceClass.format_expedition_count(remaining)
+				]
+			)
+			boss_button.tooltip_text = RegionBossRespawnServiceClass.blocked_message(
+				boss.boss_id, remaining
+			)
+		else:
+			boss_button.text = (
+				"%s  •  BOSS • poziom %d+" % [boss.display_name, boss.recommended_level]
+			)
+			boss_button.tooltip_text = boss.challenge_description
+			var warning := boss.level_warning(_session.player.level)
+			if not warning.is_empty():
+				boss_button.tooltip_text += "\n" + warning
 	var dungeon = DungeonCatalogClass.dungeon_for_region(_selected_region_id)
 	dungeon_button.visible = dungeon != null
 	if dungeon != null:

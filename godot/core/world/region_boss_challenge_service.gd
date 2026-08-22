@@ -5,6 +5,7 @@ const AdventureServiceClass := preload("res://core/world/adventure_service.gd")
 const ContractServiceClass := preload("res://core/quests/contract_service.gd")
 const GuildMilestoneServiceClass := preload("res://core/quests/guild_milestone_service.gd")
 const RegionBossCatalogClass := preload("res://core/world/region_boss_catalog.gd")
+const RegionBossRespawnServiceClass := preload("res://core/world/region_boss_respawn_service.gd")
 
 
 static func prepare_challenge(session, region_id: String) -> Dictionary:
@@ -15,6 +16,17 @@ static func prepare_challenge(session, region_id: String) -> Dictionary:
 	var definition = RegionBossCatalogClass.boss_for_region(region_id)
 	if definition == null:
 		return {"ok": false, "message": "Ten region nie ma jawnego wyzwania bossa."}
+	var remaining := RegionBossRespawnServiceClass.remaining(
+		session.world_encounters, definition.boss_id
+	)
+	if remaining > 0:
+		return {
+			"ok": false,
+			"blocked": true,
+			"message": RegionBossRespawnServiceClass.blocked_message(definition.boss_id, remaining),
+			"boss_id": definition.boss_id,
+			"remaining": remaining,
+		}
 	ContractServiceClass.ensure_board(session.contract_board, session.player)
 	session.current_location_id = region_id
 	var message := "Podjęto wyzwanie: %s." % definition.display_name
@@ -53,8 +65,10 @@ static func resolve_victory(session, enemy, rng: RandomNumberGenerator) -> Dicti
 	)
 	var victory_activity: String = session.last_activity
 	var milestone := GuildMilestoneServiceClass.record(session, "boss:%s" % definition.boss_id)
+	var respawn := RegionBossRespawnServiceClass.start_after_victory(session, definition.boss_id)
 	summary["ok"] = true
 	summary["guild_milestone"] = milestone
+	summary["boss_respawn"] = respawn
 	session.last_activity = victory_activity
 	if bool(milestone.get("awarded", false)):
 		session.last_activity += " " + str(milestone.message)

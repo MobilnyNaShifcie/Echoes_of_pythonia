@@ -895,6 +895,31 @@ obrażeń i osobny silnik walki drużynowej pozostają wyłącznym zakresem 6F.
   Checkpoint przeszedł 534 testy Python + 8 subtestów, 414/414 testów GUT z
   4370 asercjami, formatter, lint, bootstrap oraz eksport i smoke test Windows.
 
+### Etap 8D — odrodzenie regionalnych bossów (ukończony)
+
+- osobny `RegionBossRespawnService` przenosi terminalowy lifecycle obu bossów
+  bez umieszczania zasad w ekranie mapy, walce ani `AdventureService`,
+- wyłącznie zwycięstwo nad Azharem lub Lewiatanem rozpoczyna licznik dokładnie
+  sześciu wypraw. Porażka i ucieczka z wyzwania nie uruchamiają ani nie
+  zmieniają odrodzenia,
+- każda przyjęta zwykła wyprawa w regionie danego bossa zmniejsza licznik o
+  jeden, niezależnie od spokojnego zdarzenia, zwycięstwa, porażki lub ucieczki
+  z napotkanej walki. Przeciążenie blokujące start nie zużywa wyprawy,
+- wyprawy w innych regionach, odpoczynek przy ognisku, wejście do lochu i sama
+  walka z bossem nie zmniejszają licznika. Po szóstej wyprawie wpis jest
+  usuwany, boss znów jest dostępny, a zdarzenie trafia do Dziennika Przygód,
+- podczas odrodzenia `prepare_challenge()` zwraca jawny, niemutujący stan
+  blokady przed utworzeniem kontraktów, zmianą regionu lub zużyciem czasu. Mapa
+  pokazuje licznik oraz terminalową odmianę `wyprawa/wyprawy/wypraw`,
+- schemat pozostaje `v17`: `OpenWorldEncounterState` i istniejący codec z 8A
+  już zapisują osobne liczniki obu bossów, a importer terminalowego v15 mapuje
+  ich zapisane wartości bez regeneracji,
+- regresje obejmują start wyłącznie po zwycięstwie, oba wyniki zwykłej wyprawy,
+  izolację regionów, dokładnie sześć kroków, wyłączenia ogniska/lochu/bossa,
+  blokadę bez mutacji, UI, polską fleksję i save/load. Checkpoint przeszedł 534
+  testy Python + 8 subtestów, 423/423 testy GUT z 4448 asercjami, formatter,
+  lint, bootstrap oraz eksport i smoke test Windows.
+
 ## Kryterium ukończenia etapu
 
 Etap jest ukończony, gdy reguły zgadzają się z wersją terminalową, ekran da się

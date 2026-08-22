@@ -362,6 +362,9 @@ func _resolve_victory() -> String:
 	var milestone: Dictionary = rewards.get("guild_milestone", {})
 	if bool(milestone.get("awarded", false)):
 		text += "\n%s" % milestone.message
+	var boss_respawn: Dictionary = rewards.get("boss_respawn", {})
+	if bool(boss_respawn.get("started", false)):
+		text += "\n%s" % boss_respawn.message
 	return text
 
 

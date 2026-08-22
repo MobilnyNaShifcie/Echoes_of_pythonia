@@ -24,7 +24,7 @@ equivalent, tested GDScript implementation.
 - `ui/` — reusable controls, themes, and presentation logic
 
 The current playable migration includes stages 0–3, stages 4A–4E, stages
-5A–5E, stages 6A–6K, Stage 7, and stages 8A–8C, including all eight class talent paths, 41 talents, passive Masteries, and
+5A–5E, stages 6A–6K, Stage 7, and stages 8A–8D, including all eight class talent paths, 41 talents, passive Masteries, and
 specializations. All sixteen
 base Path skills are active. Pierrot uses a dedicated
 Fate Engine with encounter-local Fate Tokens and exact 1d6/2d6/3d6 tables.
@@ -133,7 +133,10 @@ schema remains v17. Stage 8C adds the voluntary Azhar and Leviathan regional
 boss challenges with exact combat data, weather snapshots, dedicated three-phase
 engines, terminal loot and rare-book/class-equipment chances, story objectives,
 Guild milestones, and the one-hour attempt cost. Boss rules remain outside UI;
-the six-expedition respawn lifecycle is still reserved exclusively for Stage 8D. See
+Stage 8D now starts a six-expedition regional respawn only after victory,
+decrements it exclusively through ordinary expeditions in the matching region,
+blocks premature rematches, updates the map counter, and records the boss's
+return. Existing schema-v17 state preserves the complete lifecycle. See
 `../docs/STAGE_7_PARITY_REPORT_v0.25.0.md` for the parity matrix.
 
 Open the project with the pinned local editor from the repository root:

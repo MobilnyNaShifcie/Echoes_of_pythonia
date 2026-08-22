@@ -178,7 +178,7 @@ func test_region_boss_victory_grants_weather_rewards_boss_quality_and_milestone_
 	assert_eq(first.guild_milestone.reputation, 100)
 	assert_eq(session.guild_reputation, 100)
 	assert_has(session.guild_milestones, "boss:azhar")
-	assert_true(session.world_encounters.region_boss_respawns.is_empty())
+	assert_eq(session.world_encounters.region_boss_respawns, {"azhar": 6})
 
 	var repeated := EnemyCatalogClass.create_enemy("azhar")
 	WeatherServiceClass.apply_to_enemy(repeated, WeatherServiceClass.SUNNY)
@@ -187,7 +187,7 @@ func test_region_boss_victory_grants_weather_rewards_boss_quality_and_milestone_
 	assert_eq(session.guild_reputation, 100)
 
 
-func test_finishing_any_boss_attempt_advances_one_hour_without_starting_stage_8d_respawn() -> void:
+func test_finishing_any_boss_attempt_advances_one_hour_without_mutating_respawn_directly() -> void:
 	var session = NewGameServiceClass.new().create_session("Aria", 1)
 	session.camp_rest_available = false
 	session.world_encounters.region_boss_respawns = {"azhar": 4}

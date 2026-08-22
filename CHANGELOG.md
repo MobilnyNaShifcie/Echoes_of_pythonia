@@ -2,6 +2,17 @@
 
 ## [0.25.0-dev] — Pierwsza grywalna pętla w Godot 4
 
+- ukończono Stage 8D: zwycięstwo nad regionalnym bossem rozpoczyna osobny
+  licznik sześciu zwykłych wypraw w jego regionie i blokuje natychmiastowy
+  rewanż aż do pełnego odrodzenia,
+- licznik zmniejszają zarówno spokojne wyprawy, jak i wyprawy zakończone walką,
+  niezależnie od jej wyniku; inne regiony, ognisko, lochy i sama próba walki
+  z bossem nie wpływają na odrodzenie,
+- mapa pokazuje pozostałą liczbę wypraw z poprawną polską odmianą, zablokowana
+  próba wyświetla wyjaśnienie bez zużycia czasu, a powrót bossa trafia do
+  Dziennika Przygód,
+- `RegionBossRespawnService` pozostaje poza UI, korzysta ze stanu dodanego w
+  8A i zachowuje pełny save/load/import bez podnoszenia schematu ponad `v17`,
 - ukończono Stage 8C: Azhar, Władca Pustkowi oraz Lewiatan Północy są
   dobrowolnymi wyzwaniami regionów, korzystającymi z terminalowych statystyk,
   rekomendowanych poziomów, pogody i osobnych trzyfazowych silników walki,
@@ -11,8 +22,8 @@
   Gildii i wpis w Dzienniku Przygód,
 - próba walki zużywa jedną godzinę świata i ponownie udostępnia obóz polowy;
   ekran mapy oraz walki jedynie prezentują i wywołują reguły domenowe,
-- schemat zapisu pozostaje `v17`; Stage 8C celowo nie uruchamia ani nie
-  zmniejsza liczników odrodzenia bossów, które należą wyłącznie do Stage 8D,
+- schemat zapisu pozostaje `v17`; sam Stage 8C nie uruchamiał jeszcze ani nie
+  zmniejszał liczników odrodzenia bossów, które zostały domknięte w Stage 8D,
 - ukończono Stage 8B: zwykłe spotkania wszystkich pięciu regionów mogą stać
   się jedną z pięciu zgodnych elit, z terminalową szansą dnia, nocy i Zorzy
   oraz osobnym licznikiem `+2 p.p.` po nieudanym spotkaniu w każdym regionie,

@@ -11,6 +11,7 @@ const CarryWeightServiceClass := preload("res://core/economy/carry_weight_servic
 const EquipmentAffixServiceClass := preload("res://core/items/equipment_affix_service.gd")
 const RareBookDropServiceClass := preload("res://core/items/rare_book_drop_service.gd")
 const ClassLootServiceClass := preload("res://core/items/class_loot_service.gd")
+const RegionBossRespawnServiceClass := preload("res://core/world/region_boss_respawn_service.gd")
 const MathClass := preload("res://core/math/legacy_math.gd")
 const WeatherServiceClass := preload("res://core/world/weather_service.gd")
 const EliteEncounterServiceClass := preload("res://core/world/elite_encounter_service.gd")
@@ -70,6 +71,9 @@ static func explore_region(session, region_id: String, rng: RandomNumberGenerato
 		result.message = "Na szlaku pojawia się: %s." % encounter_enemy.display_name
 	session.camp_rest_available = true
 	session.advance_hours(1, rng)
+	result["boss_respawn"] = (RegionBossRespawnServiceClass.record_region_expedition(
+		session, region_id
+	))
 	result["weather_changes"] = session.last_weather_changes.duplicate(true)
 	var weather_change := WeatherServiceClass.format_changes(session.last_weather_changes)
 	if not weather_change.is_empty():
