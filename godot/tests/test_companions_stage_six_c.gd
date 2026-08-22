@@ -267,7 +267,7 @@ func test_full_build_and_mixed_ownership_round_trip_without_schema_bump() -> voi
 
 	var service := SaveGameServiceClass.new("user://stage_six_c_not_written")
 	var payload: Dictionary = service._serialize_session(session)
-	assert_eq(payload.schema_version, 14)
+	assert_eq(payload.schema_version, 15)
 	var loaded := service._deserialize_payload(payload, 1)
 	assert_true(loaded.ok, loaded.message)
 	var restored = loaded.session.party.companions[0]

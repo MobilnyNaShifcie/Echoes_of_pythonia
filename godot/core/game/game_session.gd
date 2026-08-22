@@ -11,6 +11,9 @@ const RegionCatalogClass := preload("res://core/world/region_catalog.gd")
 const WeatherServiceClass := preload("res://core/world/weather_service.gd")
 const PartyStateClass := preload("res://core/companions/party_state.gd")
 const ExpeditionPreparationStateClass := preload("res://core/world/expedition_preparation_state.gd")
+const RiftStateClass := preload("res://core/rifts/rift_state.gd")
+const RiftLifecycleServiceClass := preload("res://core/rifts/rift_lifecycle_service.gd")
+const GuildProgressionServiceClass := preload("res://core/quests/guild_progression_service.gd")
 const CompanionRelationshipServiceClass := preload(
 	"res://core/companions/companion_relationship_service.gd"
 )
@@ -48,6 +51,7 @@ var camp_rest_available := true
 var last_weather_changes: Array[Dictionary] = []
 var party := PartyStateClass.new()
 var expedition_preparation := ExpeditionPreparationStateClass.new()
+var rifts := RiftStateClass.new()
 
 
 func _init(slot: int, player_profile: PlayerProfileClass) -> void:
@@ -66,6 +70,12 @@ func advance_hours(hours := 1, rng: RandomNumberGenerator = null) -> bool:
 	for companion_name: String in CompanionCasualtyServiceClass.refresh_injuries(party, day):
 		log_event("%s wraca do sił i znów może wyruszać z drużyną." % companion_name)
 	CompanionRelationshipServiceClass.ensure_daily_party_message(party, day, player.display_name)
+	var guild_rank := GuildProgressionServiceClass.rank_for_reputation(guild_reputation)
+	var rift_result := RiftLifecycleServiceClass.ensure_state(
+		rifts, player.display_name, day, guild_rank.code
+	)
+	if rift_result.ok and rift_result.changed:
+		log_event(rift_result.notice)
 	for change: Dictionary in last_weather_changes:
 		log_event("Pogoda zmienia się: %s." % WeatherServiceClass.display_name_for(str(change.to)))
 	return true

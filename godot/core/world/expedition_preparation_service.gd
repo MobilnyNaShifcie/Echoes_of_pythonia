@@ -227,6 +227,10 @@ static func warnings(session) -> Array[String]:
 
 
 static func departure_status(session, accept_warnings := false) -> Dictionary:
+	if session.rifts.expedition != null:
+		return _failure(
+			"Trwa ekspedycja Szczeliny. Najpierw ją zakończ albo porzuć na tablicy alarmów."
+		)
 	var location_id: String = session.expedition_preparation.selected_location_id
 	if location_id.is_empty():
 		return _failure("Najpierw wybierz cel wyprawy.")

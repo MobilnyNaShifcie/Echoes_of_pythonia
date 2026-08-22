@@ -86,7 +86,7 @@ func test_current_schema_preserves_milestones_and_journal_and_migrates_schema_ni
 	var service := SaveGameServiceClass.new("user://stage_five_c_not_written")
 	var payload: Dictionary = service._serialize_session(session)
 
-	assert_eq(payload.schema_version, 14)
+	assert_eq(payload.schema_version, 15)
 	var loaded := service._deserialize_payload(payload, 1)
 	assert_true(loaded.ok, loaded.message)
 	assert_eq(loaded.session.guild_milestones, ["boss:azhar"])

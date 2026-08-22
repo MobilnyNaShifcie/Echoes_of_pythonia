@@ -131,8 +131,15 @@ func _toggle_selected() -> void:
 	var companion := _selected_companion()
 	if companion == null:
 		return
-	var result := CompanionServiceClass.set_active(
-		_session.party, companion.companion_id, not companion.active, _session.day
+	var result := (
+		CompanionServiceClass
+		. set_active(
+			_session.party,
+			companion.companion_id,
+			not companion.active,
+			_session.day,
+			_session.rifts.expedition != null,
+		)
 	)
 	_show_result(result.message, result.ok)
 	if result.ok:
@@ -143,7 +150,7 @@ func _toggle_selected() -> void:
 func _set_solo() -> void:
 	if _session == null:
 		return
-	var result := CompanionServiceClass.set_solo(_session.party)
+	var result := CompanionServiceClass.set_solo(_session.party, _session.rifts.expedition != null)
 	_show_result(result.message, result.ok)
 	if result.ok and result.changed > 0:
 		state_changed.emit()
@@ -154,8 +161,15 @@ func _dismiss_selected() -> void:
 	var companion := _selected_companion()
 	if companion == null:
 		return
-	var result := CompanionRecruitmentServiceClass.dismiss_companion(
-		_session.party, _session.player, companion.companion_id, _session.day
+	var result := (
+		CompanionRecruitmentServiceClass
+		. dismiss_companion(
+			_session.party,
+			_session.player,
+			companion.companion_id,
+			_session.day,
+			_session.rifts.expedition != null,
+		)
 	)
 	_show_result(result.message, result.ok)
 	if result.ok:
@@ -252,8 +266,16 @@ func _recruit_selected() -> void:
 	var rank_code := CompanionRecruitmentServiceClass.rank_code_for_reputation(
 		_session.guild_reputation
 	)
-	var result := CompanionRecruitmentServiceClass.recruit_candidate(
-		_session.party, candidate, _session.player, rank_code
+	var result := (
+		CompanionRecruitmentServiceClass
+		. recruit_candidate(
+			_session.party,
+			candidate,
+			_session.player,
+			rank_code,
+			_session.rifts.completed_total,
+			_session.rifts.expedition != null,
+		)
 	)
 	_show_result(result.message, result.ok and result.get("success", false))
 	if result.ok:
@@ -538,7 +560,7 @@ func _render_candidates() -> void:
 	var selected_index := -1
 	for candidate in _session.party.candidates:
 		var score := CompanionRecruitmentServiceClass.willingness_score(
-			candidate, _session.player, rank_code
+			candidate, _session.player, rank_code, _session.rifts.completed_total
 		)
 		var row := (
 			candidate_list
@@ -581,7 +603,7 @@ func _render_candidate_details() -> void:
 		_session.guild_reputation
 	)
 	var score := CompanionRecruitmentServiceClass.willingness_score(
-		candidate, _session.player, rank_code
+		candidate, _session.player, rank_code, _session.rifts.completed_total
 	)
 	var path = TalentCatalogClass.get_path_definition(candidate.companion.path_id)
 	candidate_name_label.text = candidate.companion.display_name

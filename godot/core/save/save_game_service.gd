@@ -33,9 +33,10 @@ const PartySaveCodecClass := preload("res://core/save/party_save_codec.gd")
 const ExpeditionPreparationSaveCodecClass := preload(
 	"res://core/save/expedition_preparation_save_codec.gd"
 )
+const RiftSaveCodecClass := preload("res://core/save/rift_save_codec.gd")
 
 const FORMAT_ID := "echoes_of_pythonia_godot_migration"
-const SCHEMA_VERSION := 14
+const SCHEMA_VERSION := 15
 const GAME_VERSION := "0.25.0"
 const DEFAULT_SAVE_ROOT := "user://godot_migration_saves"
 const SLOT_COUNT := NewGameServiceClass.SAVE_SLOT_COUNT
@@ -190,6 +191,7 @@ func _serialize_session(session: GameSessionClass) -> Dictionary:
 			"party": PartySaveCodecClass.serialize(session.party),
 			"expedition_preparation":
 			ExpeditionPreparationSaveCodecClass.serialize(session.expedition_preparation),
+			"rifts": RiftSaveCodecClass.serialize(session.rifts),
 			"quest_log":
 			{
 				"active": session.quest_log.active.duplicate(true),
@@ -384,6 +386,8 @@ func _restore_session_fields(session: GameSessionClass, data: Dictionary) -> Dic
 		return _failure("Zapis nie zawiera stanu drużyny.")
 	if not data.get("expedition_preparation") is Dictionary:
 		return _failure("Zapis nie zawiera stanu przygotowania wyprawy.")
+	if not data.get("rifts") is Dictionary:
+		return _failure("Zapis nie zawiera stanu Szczelin.")
 	var location_id := str(data.get("current_location_id", ""))
 	var city_id := str(data.get("current_city_id", ""))
 	if not data.get("known_region_ids") is Array:
@@ -433,6 +437,10 @@ func _restore_session_fields(session: GameSessionClass, data: Dictionary) -> Dic
 	if not preparation_result.ok:
 		return _failure("Nieprawidłowe przygotowanie wyprawy: %s" % preparation_result.message)
 	session.expedition_preparation = preparation_result.state
+	var rift_result := RiftSaveCodecClass.deserialize(data.rifts)
+	if not rift_result.ok:
+		return _failure("Nieprawidłowy stan Szczelin: %s" % rift_result.message)
+	session.rifts = rift_result.state
 
 	session.current_location_id = location_id
 	session.known_region_ids.assign(data.known_region_ids)
@@ -579,6 +587,8 @@ func _migrate_payload(payload: Dictionary) -> Dictionary:
 			session["party"] = PartySaveCodecClass.empty_data()
 		if version <= 13:
 			session["expedition_preparation"] = (ExpeditionPreparationSaveCodecClass.empty_data())
+		if version <= 14:
+			session["rifts"] = RiftSaveCodecClass.empty_data()
 		migrated.schema_version = SCHEMA_VERSION
 	if not error.is_empty():
 		return _failure(error)

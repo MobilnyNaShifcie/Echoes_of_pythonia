@@ -237,8 +237,8 @@ matching the swap and unequip behavior of v0.24.7. The Godot build now writes a
 separate migration schema containing every system currently available in the
 windowed build. Its four files live below `user://godot_migration_saves` and do
 not read or overwrite terminal save schema v15. That legacy schema also contains
-Rifts, dungeons, party combat, and further world state which have not been fully
-migrated yet;
+complete Rift expeditions, party combat, and further world state which have not
+been fully migrated yet;
 therefore importing terminal saves remains disabled until no supported field
 could be silently discarded. Detailed ordering and acceptance criteria are in
 `SYSTEM_MIGRATION_STAGES_v0.25.0.md`.
@@ -255,7 +255,7 @@ Fate Tokens,
 temporary dodge,
 mirror readiness, Hunter sequence, delayed effects, explosive charges, Arcane
 Weave, elemental sequence, Provoke, block bonus, and retaliation readiness are
-intentionally encounter-local. Godot save schema v14 keeps durable talent ranks,
+intentionally encounter-local. Godot save schema v15 keeps durable talent ranks,
 book-unlocked class paths, passive ranks, Masteries, specializations, Hunter
 progression, compatibility identifiers from earlier slices, and the list of
 known regions. Unread books remain ordinary inventory stacks. All five regions
@@ -328,7 +328,20 @@ weather rewards; narrow Grand Master and Admiral Varek subclasses own only
 their phase mechanics. Neither `PartyCombatEngine` nor Rift state is referenced.
 The run itself is intentionally not persisted, matching the terminal checkpoint
 boundary, while all resulting inventory, progression, contracts, milestones,
-and journal entries already survive schema v14.
+and journal entries already survive the current schema v15.
+Stage 6I adds the terminal Rift lifecycle without activating expedition content.
+`RiftState`, `RiftInstance`, and the reserved `RiftExpedition` own the durable
+world state, while `RiftLifecycleService` deterministically spawns ranked Guild
+alarms, expires ignored Rifts through another authored searcher team, enforces
+rank and party-size gates, binds the active composition, and safely abandons a
+reservation. An active reservation protects even an expired Rift until it is
+abandoned, matching v0.24.7. The Guild now exposes a placeholder Rift board, but
+it cannot execute segments, grant rewards, close a Rift, or start party combat;
+those remain the explicit Stage 6J boundary. A separate `RiftSaveCodec` raises
+the Godot-only schema to v15 and migrates schema-v14 saves to a safe empty Rift
+state. This does not enable terminal-save-v15 import: both formats remain
+separate and terminal values will be imported only after the Stage 7 parity
+audit.
 Their calendar periods, generated definitions, objective progress, and claimed
 rewards survive reloads; existing schema-v8 files receive a safe empty board
 before the next period is generated.

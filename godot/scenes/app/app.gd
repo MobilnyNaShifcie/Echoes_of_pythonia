@@ -17,6 +17,8 @@ const ClassSelectionScreenClass := preload("res://ui/screens/class_selection/cla
 const CombatScreenClass := preload("res://ui/screens/combat/combat.gd")
 const EquipmentScreenClass := preload("res://ui/screens/equipment/equipment.gd")
 const DungeonScreenClass := preload("res://ui/screens/dungeon/dungeon.gd")
+const RiftBoardScreenClass := preload("res://ui/screens/rift_board/rift_board.gd")
+const RiftLifecycleServiceClass := preload("res://core/rifts/rift_lifecycle_service.gd")
 const ExpeditionPreparationScreenClass := preload(
 	"res://ui/screens/expedition_preparation/expedition_preparation.gd"
 )
@@ -42,6 +44,7 @@ const CLASS_SELECTION_SCENE := preload("res://ui/screens/class_selection/class_s
 const COMBAT_SCENE := preload("res://ui/screens/combat/combat.tscn")
 const EQUIPMENT_SCENE := preload("res://ui/screens/equipment/equipment.tscn")
 const DUNGEON_SCENE := preload("res://ui/screens/dungeon/dungeon.tscn")
+const RIFT_BOARD_SCENE := preload("res://ui/screens/rift_board/rift_board.tscn")
 const EXPEDITION_PREPARATION_SCENE := preload(
 	"res://ui/screens/expedition_preparation/expedition_preparation.tscn"
 )
@@ -235,6 +238,7 @@ func _show_guild() -> void:
 	guild.configure(_current_session)
 	guild.back_requested.connect(_show_city_hub)
 	guild.party_requested.connect(_show_party_hub)
+	guild.rifts_requested.connect(_show_rift_board)
 	var rank := GuildProgressionServiceClass.rank_for_reputation(_current_session.guild_reputation)
 	app_status_label.text = "Gildia Poszukiwaczy: ranga %s" % rank.code
 
@@ -466,8 +470,40 @@ func _leave_dungeon(region_id: String) -> void:
 func _show_project_status() -> void:
 	app_status_label.text = (
 		"v0.25.0: prolog, Varenhold, ekonomia, walka klasowa, "
-		+ "progresja, pięć regionów, Akt I, Gildia, Czarny Rynek i dwa lochy SOLO"
+		+ "progresja, pięć regionów, Akt I, Gildia, Czarny Rynek, dwa lochy SOLO "
+		+ "i lifecycle Szczelin"
 	)
+
+
+func _show_rift_board() -> void:
+	if _current_session == null:
+		_show_main_menu()
+		return
+	var changed := _refresh_rift_world()
+	var board: RiftBoardScreenClass = _replace_screen(RIFT_BOARD_SCENE)
+	board.back_requested.connect(_show_guild)
+	board.state_changed.connect(_save_current_session_silently)
+	board.configure(_current_session)
+	if changed:
+		_save_current_session_silently()
+	app_status_label.text = "Alarmy Szczelin"
+
+
+func _refresh_rift_world() -> bool:
+	var rank := GuildProgressionServiceClass.rank_for_reputation(_current_session.guild_reputation)
+	var result := (
+		RiftLifecycleServiceClass
+		. ensure_state(
+			_current_session.rifts,
+			_current_session.player.display_name,
+			_current_session.day,
+			rank.code,
+		)
+	)
+	if result.ok and result.changed:
+		_current_session.log_event(result.notice)
+		_current_session.last_activity = result.notice
+	return result.ok and result.changed
 
 
 func _replace_screen(scene: PackedScene) -> Control:

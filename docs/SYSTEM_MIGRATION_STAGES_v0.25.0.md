@@ -685,9 +685,40 @@ obrażeń i osobny silnik walki drużynowej pozostają wyłącznym zakresem 6F.
   warianty, SOLO, wejście, snapshot łupu, odwrót, porażkę, odpoczynek, czas,
   bossów, nagrody i integrację UI.
 
+### Etap 6I — lifecycle Szczelin (ukończony)
+
+- `RiftState`, `RiftInstance`, `RiftExpedition` oraz `RiftModifier` przenoszą
+  trwały kontrakt terminalowej v0.24.7 bez luźnych pól w `GameSession`.
+  `RiftCatalog` zachowuje rangi F–S, długości 12–24 segmentów, wymagania dwóch
+  albo trzech kompanów, pięć motywów, sześć anomalii, bossów i pięć nazw innych
+  drużyn Poszukiwaczy,
+- `RiftLifecycleService` jest jedynym właścicielem pojawiania się alarmu,
+  czasu życia 2–4 dni, ważenia rangi względem rangi Gildii, deterministycznego
+  przejęcia wygasłej Szczeliny i odstępów między kolejnymi alarmami. Generator
+  zachowuje parytet reguł oraz deterministyczność Godota; zgodnie z decyzją 6B
+  nie próbuje odtwarzać bitowego strumienia Pythonowego `random.Random`,
+- rozpoczęcie sprawdza rangę Gildii i rzeczywistą liczbę aktywnych kompanów,
+  po czym zapisuje dokładne ID związanego składu. Aktywna ekspedycja chroni
+  Szczelinę przed innymi drużynami nawet po terminie alarmu. Porzucenie usuwa
+  rezerwację, a wygasły alarm może zostać natychmiast rozstrzygnięty przez świat,
+- związany skład blokuje aktywowanie/dezaktywowanie kompanów, tryb SOLO,
+  rekrutację, rozstanie, zastosowanie presetu i zwykłe wyjście na wyprawę.
+  Sprzęt, taktyki, rozmowy i inne operacje, których terminal nie blokował, nie
+  otrzymały sztucznych ograniczeń,
+- osobny `RiftSaveCodec` przechowuje alarm, rezerwację, terminy, komunikat oraz
+  historię zamknięć według rang. Godotowy schemat wzrasta z `v14` do `v15`, a
+  wcześniejsze zapisy otrzymują pusty `RiftState` z `next_spawn_day = 2`.
+  Jest to nadal format Godota i nie aktywuje importu terminalowego save v15,
+- w Gildii działa placeholder „Alarmy Szczelin”, pokazujący motyw, anomalie,
+  Władcę, termin, wymagania i związany skład. Może utworzyć albo po dwukrotnym
+  potwierdzeniu porzucić rezerwację, lecz nie wykonuje segmentów, nie przyznaje
+  nagród, nie zamyka Szczeliny i nie uruchamia `PartyCombatEngine`,
+- testy obejmują deterministyczność, harmonogram, wygaśnięcie, ochronę aktywnej
+  ekspedycji, bramki rangi/składu, blokady, porzucenie, save/load, migrację v14,
+  walidację kodeka i nawigację UI.
+
 ### Dalsza kolejność Stage 6
 
-- **6I:** lifecycle Szczelin,
 - **6J:** kompletne ekspedycje i walki drużynowe Szczelin,
 - **6K:** audyt parytetu Stage 6 i save/load.
 

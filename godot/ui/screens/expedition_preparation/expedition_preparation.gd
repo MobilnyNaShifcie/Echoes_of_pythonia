@@ -153,7 +153,9 @@ func _save_preset() -> void:
 
 
 func _apply_preset() -> void:
-	var result := ExpeditionPreparationServiceClass.apply_preset(_session, _selected_preset_id())
+	var result := ExpeditionPreparationServiceClass.apply_preset(
+		_session, _selected_preset_id(), _session.rifts.expedition != null
+	)
 	status_label.text = _format_apply_result(result)
 	if result.ok:
 		state_changed.emit()

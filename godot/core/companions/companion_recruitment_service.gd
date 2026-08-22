@@ -143,10 +143,13 @@ static func recruit_candidate(
 	candidate: CandidateClass,
 	player,
 	guild_rank_code: String,
-	rifts_closed := 0
+	rifts_closed := 0,
+	composition_locked := false
 ) -> Dictionary:
 	if party == null or candidate == null or candidate.companion == null:
 		return _failure("Nie znaleziono kandydata.")
+	if composition_locked:
+		return _failure("Nie możesz zmieniać składu stałej drużyny w trakcie ekspedycji Szczeliny.")
 	if party.companions.size() >= CompanionServiceClass.MAX_COMPANIONS:
 		return _failure(
 			"Masz już maksymalną liczbę kompanów (%d)." % CompanionServiceClass.MAX_COMPANIONS
@@ -202,10 +205,16 @@ static func recruit_candidate(
 
 
 static func dismiss_companion(
-	party: PartyStateClass, player, companion_id: String, current_day: int
+	party: PartyStateClass,
+	player,
+	companion_id: String,
+	current_day: int,
+	composition_locked := false
 ) -> Dictionary:
 	if party == null or player == null:
 		return _failure("Brak stanu drużyny.")
+	if composition_locked:
+		return _failure("Nie możesz rozstać się z kompanem w trakcie ekspedycji Szczeliny.")
 	var companion := party.companion_by_id(companion_id)
 	if companion == null:
 		return _failure("Nie znaleziono kompana.")
