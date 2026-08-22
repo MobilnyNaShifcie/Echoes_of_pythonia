@@ -309,6 +309,16 @@ no artificial UI entry or rewards before the Rift lifecycle is migrated. It
 also does not mutate heavy injuries or death: downed/rescue/lethal-warning
 behavior remains the explicit Stage 6G boundary. The save schema remains v14
 because only already-persisted companion HP and Mana leave the transient battle.
+Stage 6G completes that boundary with transient downed timers, player and
+companion rescue actions, and deterministic consequence reports. Permanent
+death is never rolled: only a high-rank Rift boss can announce an execution,
+and the warning must expire without rescue or victory. A separate
+`CompanionCasualtyService` applies heavy injuries or memorials outside combat
+and UI, returns all player-owned gear on death, and uses injected RNG only for
+the 2–5 day heavy-injury duration. The existing Party Hub now renders the
+persisted Fallen Board. The schema remains v14 because Stage 6A already stores
+injury deadlines, messages, equipment ownership, and memorials; in-battle
+countdowns intentionally remain transient.
 Their calendar periods, generated definitions, objective progress, and claimed
 rewards survive reloads; existing schema-v8 files receive a safe empty board
 before the next period is generated.

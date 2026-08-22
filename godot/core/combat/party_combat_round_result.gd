@@ -16,6 +16,13 @@ var enemy_target_ids: Array[String] = []
 var enemy_damage_by_fighter := {}
 var enemy_bleed_damage := 0
 var enemy_frenzy := false
+var downed_timers := {}
+var lethal_downed_ids: Array[String] = []
+var rescue_actor_ids: Array[String] = []
+var rescued_fighter_ids: Array[String] = []
+var critically_injured: Array[String] = []
+var killed: Array[String] = []
+var casualties_applied := false
 
 
 func add_enemy_damage(fighter_id: String, damage: int) -> void:

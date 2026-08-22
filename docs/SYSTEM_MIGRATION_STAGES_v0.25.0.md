@@ -621,9 +621,39 @@ obrażeń i osobny silnik walki drużynowej pozostają wyłącznym zakresem 6F.
 - schemat zapisu pozostaje `v14`: stan walki jest chwilowy, a utrwalane PŻ/Many,
   taktyki i wyposażenie kompanów były już własnością kodeków Stage 6A–6D.
 
+### Etap 6G — Powalenie, ciężkie rany i jawna Egzekucja (ukończony)
+
+- `PartyCombatant` przechowuje chwilowe `downed_timer`, `removed` i
+  `lethal_downed`, a `PartyCombatRoundResult` jawnie raportuje uratowanych,
+  pomagających, pozostałe liczniki, ciężko rannych i poległych. Stan jednej walki
+  nadal nie przecieka do `CompanionState` ani do UI,
+- zwykłe Powalenie daje 4 rundy na pomoc i po wyczerpaniu licznika kończy się
+  stanem `CIĘŻKO RANNY`. Gracz podnosi kompana do 28% PŻ, a pierwszy zdolny
+  kompan rezygnuje z własnego ataku, aby podnieść Powalonego bohatera do 25% PŻ,
+- permanentna śmierć nie wykonuje żadnego rzutu RNG. Wyłącznie boss Szczeliny
+  rangi B, A albo S może oznaczyć Powalonego kompana jawnym komunikatem
+  `EGZEKUCJA` i licznikiem 3 rund. Pomoc albo zakończenie walki przerywa
+  zagrożenie; dopiero wyzerowanie widocznego licznika raportuje śmierć,
+- audyt ujawnił błąd wykonywalnej specyfikacji v0.24.7: podstawowy atak
+  Powalonego gracza odrzucał akcję przed turą automatycznej pomocy, natomiast
+  skill i Obrona mogły wykonać nielegalną akcję przed podniesieniem. Migracja 1:1
+  powodowałaby odpowiednio zakleszczenie albo działanie mimo Powalenia. Godot
+  rozwiązuje to jednym jawnym `player_wait_for_help()`; próba zwykłej akcji w
+  tym stanie wyłącznie przesuwa rundę do reakcji kompanów i sama nie atakuje,
+- osobny `CompanionCasualtyService` stosuje wynik poza silnikiem i poza UI.
+  Tylko długość ciężkiej rany korzysta ze wstrzykniętego RNG (2–5 dni Pythonii);
+  ścieżka Egzekucji nie konsumuje RNG, atomowo zwraca całe wyposażenie należące
+  do gracza, usuwa kompana z rosteru, zapisuje wpis Tablicy Poległych oraz
+  ręcznie napisaną reakcję ocalałego,
+- istniejący ekran „Drużyna i kompani” otrzymał zakładkę Tablicy Poległych oraz
+  zachowuje określenie `Powrót do sił`. Upływ dnia czyści zakończone ciężkie
+  rany przez serwis domenowy,
+- istniejący `PartySaveCodec` z etapu 6A już przechowuje `injury_until_day`,
+  zasoby, wiadomości i pełne wpisy poległych, dlatego schemat pozostaje `v14`.
+  Liczniki Powalenia są celowo stanem chwilowej walki i nie są zapisywane.
+
 ### Dalsza kolejność Stage 6
 
-- **6G:** powalenie, ciężkie rany i jawnie zapowiadana permanentna śmierć,
 - **6H:** dwa terminalowe lochy SOLO przeniesione 1:1,
 - **6I:** lifecycle Szczelin,
 - **6J:** kompletne ekspedycje i walki drużynowe Szczelin,

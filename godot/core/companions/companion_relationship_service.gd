@@ -86,10 +86,16 @@ static func ensure_daily_party_message(
 			false,
 		)
 	)
+	append_message(party, message)
+	return {"ok": true, "created": true, "message_value": message}
+
+
+static func append_message(party: PartyStateClass, message: MessageClass) -> void:
+	if party == null or message == null:
+		return
 	party.messages.append(message)
 	if party.messages.size() > MESSAGE_LIMIT:
 		party.messages = party.messages.slice(party.messages.size() - MESSAGE_LIMIT)
-	return {"ok": true, "created": true, "message_value": message}
 
 
 static func mark_messages_read(party: PartyStateClass) -> int:

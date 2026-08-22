@@ -22,6 +22,9 @@ const TalentProgressionServiceClass := preload(
 const ONGOING := "ongoing"
 const VICTORY := "victory"
 const DEFEAT := "defeat"
+const NORMAL_DOWNED_ROUNDS := 4
+const LETHAL_DOWNED_ROUNDS := 3
+const LETHAL_RIFT_RANKS := ["B", "A", "S"]
 
 var player: PlayerProfileClass
 var companions: Array[CompanionStateClass] = []
@@ -31,6 +34,7 @@ var companion_fighters: Array[PartyCombatantClass] = []
 var effects := CombatEffectsClass.new()
 var rng: RandomNumberGenerator
 var skill_mana_multiplier := 1.0
+var rift_rank_code := ""
 var result := ONGOING
 var round_number := 1
 var taunt_companion_id := ""
@@ -44,6 +48,7 @@ func _init(
 	combat_enemy: EnemyClass,
 	random_number_generator: RandomNumberGenerator = null,
 	mana_multiplier := 1.0,
+	initial_rift_rank_code := "",
 ) -> void:
 	player = player_profile
 	enemy = combat_enemy
@@ -51,6 +56,7 @@ func _init(
 		random_number_generator if random_number_generator != null else RandomNumberGenerator.new()
 	)
 	skill_mana_multiplier = maxf(0.0, mana_multiplier)
+	rift_rank_code = initial_rift_rank_code
 	player_fighter = PartyCombatantClass.from_player(player)
 	for value in companion_states:
 		var companion: CompanionStateClass = value
@@ -74,12 +80,30 @@ func standing_party() -> Array[PartyCombatantClass]:
 	return fighters
 
 
+func living_party() -> Array[PartyCombatantClass]:
+	var fighters: Array[PartyCombatantClass] = []
+	for fighter: PartyCombatantClass in all_fighters():
+		if not fighter.removed:
+			fighters.append(fighter)
+	return fighters
+
+
+func downed_companions() -> Array[PartyCombatantClass]:
+	var fighters: Array[PartyCombatantClass] = []
+	for fighter: PartyCombatantClass in companion_fighters:
+		if fighter.is_downed():
+			fighters.append(fighter)
+	return fighters
+
+
 func enemy_alive() -> bool:
 	return enemy != null and enemy.is_alive()
 
 
 func player_basic_attack() -> PartyCombatRoundResultClass:
 	var report := _new_report()
+	if player_fighter.is_downed():
+		return _wait_for_companion_help(report)
 	var error := _player_action_error()
 	if not error.is_empty():
 		return _reject(report, error)
@@ -110,6 +134,8 @@ func player_basic_attack() -> PartyCombatRoundResultClass:
 
 func player_skill(skill_id: String) -> PartyCombatRoundResultClass:
 	var report := _new_report()
+	if player_fighter.is_downed():
+		return _wait_for_companion_help(report)
 	var error := _player_action_error()
 	if error.is_empty():
 		error = _player_skill_error(skill_id)
@@ -123,6 +149,8 @@ func player_skill(skill_id: String) -> PartyCombatRoundResultClass:
 
 func player_defend() -> PartyCombatRoundResultClass:
 	var report := _new_report()
+	if player_fighter.is_downed():
+		return _wait_for_companion_help(report)
 	var error := _player_action_error()
 	if not error.is_empty():
 		return _reject(report, error)
@@ -132,12 +160,58 @@ func player_defend() -> PartyCombatRoundResultClass:
 	return _finish_party_round(report)
 
 
+func player_wait_for_help() -> PartyCombatRoundResultClass:
+	var report := _new_report()
+	if result != ONGOING:
+		return _reject(report, "Ta walka drużynowa już się zakończyła.")
+	if not player_fighter.is_downed():
+		return _reject(report, "Bohater nie jest Powalony.")
+	return _wait_for_companion_help(report)
+
+
+func player_help(companion_id: String) -> PartyCombatRoundResultClass:
+	var report := _new_report()
+	if player_fighter.is_downed():
+		return _wait_for_companion_help(report)
+	var error := _player_action_error()
+	if not error.is_empty():
+		return _reject(report, error)
+	var target: PartyCombatantClass
+	for fighter: PartyCombatantClass in companion_fighters:
+		if fighter.companion_id == companion_id:
+			target = fighter
+			break
+	if target == null or not target.is_downed():
+		return _reject(report, "Ten kompan nie potrzebuje teraz pomocy.")
+	target.downed_timer = 0
+	target.lethal_downed = false
+	target.profile.stats.current_hp = maxi(
+		1, MathClass.python_roundi(target.profile.stats.max_hp * 0.28)
+	)
+	report.turn_consumed = true
+	report.rescue_actor_ids.append(player_fighter.fighter_id)
+	report.rescued_fighter_ids.append(target.fighter_id)
+	report.lines.append(
+		(
+			"Podnosisz %s. Wraca do walki z %d PŻ."
+			% [target.display_name, target.profile.stats.current_hp]
+		)
+	)
+	return _finish_party_round(report)
+
+
 func _player_action_error() -> String:
 	if result != ONGOING:
 		return "Ta walka drużynowa już się zakończyła."
 	if not player_fighter.is_standing():
 		return "Nie możesz teraz wykonać akcji."
 	return ""
+
+
+func _wait_for_companion_help(report: PartyCombatRoundResultClass) -> PartyCombatRoundResultClass:
+	report.turn_consumed = true
+	report.lines.append("%s jest POWALONY i czeka na pomoc drużyny." % player.display_name)
+	return _finish_party_round(report)
 
 
 func _player_skill_error(skill_id: String) -> String:
@@ -422,8 +496,23 @@ func _cast_fate(fighter: PartyCombatantClass, effect: String, lines: Array[Strin
 
 
 func _companion_turns(report: PartyCombatRoundResultClass) -> void:
+	var player_downed := player_fighter.is_downed()
+	var helper_used := false
 	for fighter: PartyCombatantClass in companion_fighters:
 		if not fighter.is_standing():
+			continue
+		if player_downed and not helper_used:
+			player_fighter.downed_timer = 0
+			player_fighter.lethal_downed = false
+			player_fighter.profile.stats.current_hp = maxi(
+				1, MathClass.python_roundi(player_fighter.profile.stats.max_hp * 0.25)
+			)
+			report.rescue_actor_ids.append(fighter.fighter_id)
+			report.rescued_fighter_ids.append(player_fighter.fighter_id)
+			report.lines.append(
+				"%s porzuca atak i podnosi %s!" % [fighter.display_name, player.display_name]
+			)
+			helper_used = true
 			continue
 		report.companion_action_order.append(fighter.companion_id)
 		var context := _ai_context_for(fighter)
@@ -533,6 +622,78 @@ func _enemy_turn(report: PartyCombatRoundResultClass) -> void:
 		report.lines.append(
 			"%s trafia %s: %d obrażeń." % [enemy.display_name, target.display_name, taken]
 		)
+		if target.profile.stats.current_hp <= 0:
+			_down_fighter(target, report)
+
+
+func _down_fighter(fighter: PartyCombatantClass, report: PartyCombatRoundResultClass) -> void:
+	if fighter.is_downed() or fighter.removed:
+		return
+	var lethal := (
+		enemy.rank == "boss"
+		and rift_rank_code in LETHAL_RIFT_RANKS
+		and not fighter.player_controlled
+	)
+	fighter.downed_timer = LETHAL_DOWNED_ROUNDS if lethal else NORMAL_DOWNED_ROUNDS
+	fighter.lethal_downed = lethal
+	if lethal:
+		report.lines.append(
+			(
+				"%s zostaje POWALONY. %s przygotowuje EGZEKUCJĘ — masz %d rundy na reakcję!"
+				% [fighter.display_name, enemy.display_name, fighter.downed_timer]
+			)
+		)
+	else:
+		report.lines.append(
+			(
+				"%s zostaje POWALONY — %d rundy na pomoc."
+				% [fighter.display_name, fighter.downed_timer]
+			)
+		)
+
+
+func _tick_downed(report: PartyCombatRoundResultClass) -> void:
+	for fighter: PartyCombatantClass in all_fighters():
+		if not fighter.is_downed():
+			continue
+		fighter.downed_timer -= 1
+		if fighter.downed_timer > 0:
+			if fighter.lethal_downed:
+				report.lines.append(
+					(
+						"EGZEKUCJA %s: pozostało %d rund."
+						% [fighter.display_name, fighter.downed_timer]
+					)
+				)
+			continue
+		fighter.removed = true
+		if fighter.player_controlled:
+			report.lines.append(
+				"%s nie odzyskuje przytomności. Ekspedycja jest przegrana." % fighter.display_name
+			)
+			report.defeat = true
+		elif fighter.lethal_downed:
+			report.lines.append(
+				(
+					"EGZEKUCJA. %s ginie, ponieważ drużyna nie zdążyła zareagować."
+					% fighter.display_name
+				)
+			)
+			report.killed.append(fighter.companion_id)
+		else:
+			report.lines.append(
+				"%s zostaje ciężko ranny i odpada z dalszej walki." % fighter.display_name
+			)
+			report.critically_injured.append(fighter.companion_id)
+
+
+func _record_downed_state(report: PartyCombatRoundResultClass) -> void:
+	for fighter: PartyCombatantClass in all_fighters():
+		if not fighter.is_downed():
+			continue
+		report.downed_timers[fighter.fighter_id] = fighter.downed_timer
+		if fighter.lethal_downed:
+			report.lethal_downed_ids.append(fighter.fighter_id)
 
 
 func _finish_party_round(report: PartyCombatRoundResultClass) -> PartyCombatRoundResultClass:
@@ -542,20 +703,30 @@ func _finish_party_round(report: PartyCombatRoundResultClass) -> PartyCombatRoun
 	if not enemy_alive():
 		return _finish_victory(report)
 	_enemy_turn(report)
+	_tick_downed(report)
 	if not enemy_alive():
 		return _finish_victory(report)
-	if not player_fighter.is_standing() or standing_party().is_empty():
+	if report.defeat or not _has_available_fighter():
 		result = DEFEAT
 		report.defeat = true
+	_record_downed_state(report)
 	_sync_companions()
 	report.enemy_hp_after = enemy.current_hp
 	round_number += 1
 	return report
 
 
+func _has_available_fighter() -> bool:
+	for fighter: PartyCombatantClass in all_fighters():
+		if fighter.is_standing() or fighter.is_downed():
+			return true
+	return false
+
+
 func _finish_victory(report: PartyCombatRoundResultClass) -> PartyCombatRoundResultClass:
 	result = VICTORY
 	report.victory = true
+	_record_downed_state(report)
 	_sync_companions()
 	report.enemy_hp_after = enemy.current_hp
 	return report

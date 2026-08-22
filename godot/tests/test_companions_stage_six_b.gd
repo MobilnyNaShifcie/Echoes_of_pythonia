@@ -469,7 +469,7 @@ func test_party_hub_exposes_candidates_roster_histories_and_messages() -> void:
 	screen.configure(session)
 	add_child_autofree(screen)
 	await get_tree().process_frame
-	assert_eq(screen.tabs.get_tab_count(), 3)
+	assert_eq(screen.tabs.get_tab_count(), 4)
 	assert_eq(screen.candidate_list.item_count, 2)
 	assert_false(screen.talk_buttons[0].disabled)
 	screen.talk_buttons[0].pressed.emit()

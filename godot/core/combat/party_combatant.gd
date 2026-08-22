@@ -13,6 +13,9 @@ var profile: PlayerProfileClass
 var companion: CompanionStateClass
 var player_controlled := false
 var defending := false
+var downed_timer := 0
+var removed := false
+var lethal_downed := false
 
 
 static func from_player(player: PlayerProfileClass):
@@ -35,7 +38,11 @@ static func from_companion(source: CompanionStateClass):
 
 
 func is_standing() -> bool:
-	return profile != null and profile.stats.current_hp > 0
+	return not removed and downed_timer <= 0 and profile != null and profile.stats.current_hp > 0
+
+
+func is_downed() -> bool:
+	return not removed and downed_timer > 0
 
 
 func sync_source_resources() -> void:

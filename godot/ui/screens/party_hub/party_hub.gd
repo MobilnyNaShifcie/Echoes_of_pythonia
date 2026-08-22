@@ -6,6 +6,9 @@ signal state_changed
 
 const CompanionCatalogClass := preload("res://core/companions/companion_catalog.gd")
 const CompanionBuildServiceClass := preload("res://core/companions/companion_build_service.gd")
+const CompanionCasualtyServiceClass := preload(
+	"res://core/companions/companion_casualty_service.gd"
+)
 const CompanionCandidateClass := preload("res://core/companions/companion_candidate.gd")
 const CompanionEquipmentServiceClass := preload(
 	"res://core/companions/companion_equipment_service.gd"
@@ -28,6 +31,7 @@ var _selected_companion_id := ""
 var _selected_candidate_id := ""
 var _selected_companion_slot := ""
 var _selected_player_item_index := -1
+var _selected_fallen_id := ""
 
 @onready var summary_label: Label = %SummaryLabel
 @onready var tabs: TabContainer = %ModeTabs
@@ -57,6 +61,8 @@ var _selected_player_item_index := -1
 @onready var messages_list: ItemList = %MessagesList
 @onready var message_detail_label: Label = %MessageDetailLabel
 @onready var mark_read_button: Button = %MarkReadButton
+@onready var fallen_list: ItemList = %FallenList
+@onready var fallen_detail_label: Label = %FallenDetailLabel
 @onready var result_label: Label = %ResultLabel
 
 
@@ -64,6 +70,7 @@ func _ready() -> void:
 	tabs.set_tab_title(0, "Moi kompani")
 	tabs.set_tab_title(1, "Kandydaci")
 	tabs.set_tab_title(2, "Wiadomości")
+	tabs.set_tab_title(3, "Tablica Poległych")
 	%BackButton.pressed.connect(back_requested.emit)
 	tabs.tab_changed.connect(_tab_changed)
 	roster_list.item_selected.connect(_select_companion)
@@ -86,6 +93,7 @@ func _ready() -> void:
 	recruit_button.pressed.connect(_recruit_selected)
 	messages_list.item_selected.connect(_select_message)
 	mark_read_button.pressed.connect(_mark_messages_read)
+	fallen_list.item_selected.connect(_select_fallen)
 	_render()
 
 
@@ -110,7 +118,8 @@ func _refresh_daily_state() -> bool:
 	var message_result := CompanionRelationshipServiceClass.ensure_daily_party_message(
 		_session.party, _session.day, _session.player.display_name
 	)
-	return candidates_changed or message_result.get("created", false)
+	var recovered := CompanionCasualtyServiceClass.refresh_injuries(_session.party, _session.day)
+	return candidates_changed or message_result.get("created", false) or not recovered.is_empty()
 
 
 func _select_companion(index: int) -> void:
@@ -264,6 +273,25 @@ func _select_message(index: int) -> void:
 	)
 
 
+func _select_fallen(index: int) -> void:
+	if _session == null or index < 0 or index >= _session.party.fallen.size():
+		fallen_detail_label.text = "Wybierz wpis z Tablicy Poległych."
+		return
+	var fallen = _session.party.fallen[index]
+	_selected_fallen_id = fallen.companion_id
+	fallen_detail_label.text = (
+		"%s\n%s • poziom %d\nDzień %d • Szczelina rangi %s\n\n%s"
+		% [
+			fallen.display_name,
+			_class_name(fallen.class_code),
+			fallen.level,
+			fallen.day,
+			fallen.rift_rank,
+			fallen.cause,
+		]
+	)
+
+
 func _mark_messages_read() -> void:
 	if _session == null:
 		return
@@ -285,6 +313,7 @@ func _render() -> void:
 	_render_roster()
 	_render_candidates()
 	_render_messages()
+	_render_fallen()
 
 
 func _render_summary() -> void:
@@ -604,6 +633,33 @@ func _render_messages() -> void:
 	else:
 		messages_list.select(messages_list.item_count - 1)
 		_select_message(messages_list.item_count - 1)
+
+
+func _render_fallen() -> void:
+	fallen_list.clear()
+	if _session == null:
+		return
+	var selected_index := -1
+	for index in _session.party.fallen.size():
+		var fallen = _session.party.fallen[index]
+		fallen_list.add_item(
+			(
+				"%s • %s • poziom %d • dzień %d"
+				% [fallen.display_name, _class_name(fallen.class_code), fallen.level, fallen.day]
+			)
+		)
+		if fallen.companion_id == _selected_fallen_id:
+			selected_index = index
+	if fallen_list.item_count == 0:
+		fallen_detail_label.text = (
+			"Tablica jest pusta. Permanentna śmierć nigdy nie jest losowa: "
+			+ "może nastąpić dopiero po zignorowaniu jawnie zapowiedzianej Egzekucji."
+		)
+		return
+	if selected_index < 0:
+		selected_index = fallen_list.item_count - 1
+	fallen_list.select(selected_index)
+	_select_fallen(selected_index)
 
 
 func _selected_companion() -> CompanionStateClass:

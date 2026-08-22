@@ -14,6 +14,9 @@ const ExpeditionPreparationStateClass := preload("res://core/world/expedition_pr
 const CompanionRelationshipServiceClass := preload(
 	"res://core/companions/companion_relationship_service.gd"
 )
+const CompanionCasualtyServiceClass := preload(
+	"res://core/companions/companion_casualty_service.gd"
+)
 const STARTING_LOCATION_ID := "twilight_plains"
 const STARTING_CITY_ID := "varenhold"
 const STARTING_DAY := 1
@@ -60,6 +63,8 @@ func advance_hours(hours := 1, rng: RandomNumberGenerator = null) -> bool:
 	day += int(total_hours / 24.0)
 	hour = total_hours % 24
 	WeatherServiceClass.advance(self, hours, rng)
+	for companion_name: String in CompanionCasualtyServiceClass.refresh_injuries(party, day):
+		log_event("%s wraca do sił i znów może wyruszać z drużyną." % companion_name)
 	CompanionRelationshipServiceClass.ensure_daily_party_message(party, day, player.display_name)
 	for change: Dictionary in last_weather_changes:
 		log_event("Pogoda zmienia się: %s." % WeatherServiceClass.display_name_for(str(change.to)))

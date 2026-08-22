@@ -376,6 +376,51 @@ text = "Brak wiadomości."
 autowrap_mode = 2
 vertical_alignment = 1
 
+[node name="FallenTab" type="HBoxContainer" parent="Page/ModeTabs"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="FallenListPanel" type="PanelContainer" parent="Page/ModeTabs/FallenTab"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FallenBox" type="VBoxContainer" parent="Page/ModeTabs/FallenTab/FallenListPanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="SectionTitle" type="Label" parent="Page/ModeTabs/FallenTab/FallenListPanel/FallenBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
+theme_override_font_sizes/font_size = 20
+text = "Tablica Poległych"
+
+[node name="FallenList" type="ItemList" parent="Page/ModeTabs/FallenTab/FallenListPanel/FallenBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+allow_reselect = true
+
+[node name="Warning" type="Label" parent="Page/ModeTabs/FallenTab/FallenListPanel/FallenBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.61, 0.68, 0.77, 1)
+text = "Śmierć może nastąpić tylko po jawnej Egzekucji i czasie na reakcję."
+autowrap_mode = 2
+
+[node name="FallenDetailsPanel" type="PanelContainer" parent="Page/ModeTabs/FallenTab"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FallenDetailLabel" type="Label" parent="Page/ModeTabs/FallenTab/FallenDetailsPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Tablica jest pusta."
+autowrap_mode = 2
+vertical_alignment = 1
+
 [node name="ResultLabel" type="Label" parent="Page"]
 unique_name_in_owner = true
 layout_mode = 2
