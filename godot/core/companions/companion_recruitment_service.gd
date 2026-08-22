@@ -47,10 +47,10 @@ static func ensure_daily_candidates(
 				"return-%s-%d" % [companion.companion_id, current_day],
 				companion,
 				current_day,
-				clampi(55 - int(companion.relation / 2.0), 15, 90),
+				clampi(55 - _floor_divide(companion.relation, 2), 15, 90),
 			)
 		)
-		candidate.impression = maxi(0, int(companion.relation / 3.0))
+		candidate.impression = maxi(0, _floor_divide(companion.relation, 3))
 		candidate.returning = true
 		party.candidates.append(candidate)
 		available_templates = available_templates.filter(
@@ -97,7 +97,7 @@ static func willingness_score(
 	if path != null and path.requires_book():
 		score -= 5
 	if candidate.returning:
-		score += 12 + mini(12, int(candidate.companion.relation / 4.0))
+		score += 12 + mini(12, _floor_divide(candidate.companion.relation, 4))
 	return clampi(score, 5, 95)
 
 
@@ -267,6 +267,14 @@ static func _party_has_template(party: PartyStateClass, template_id: String) -> 
 
 static func _rank_index(rank_code: String) -> int:
 	return maxi(0, RANK_CODES.find(rank_code))
+
+
+static func _floor_divide(numerator: int, denominator: int) -> int:
+	assert(denominator != 0, "Floor division requires a non-zero denominator.")
+	var quotient := int(float(numerator) / float(denominator))
+	if numerator % denominator != 0 and (numerator < 0) != (denominator < 0):
+		quotient -= 1
+	return quotient
 
 
 static func _rng_for(parts: Array) -> RandomNumberGenerator:

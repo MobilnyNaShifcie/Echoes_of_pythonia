@@ -71,6 +71,184 @@ func test_rank_filters_and_daily_candidates_are_deterministic_and_persisted() ->
 	assert_eq(_candidate_snapshot(second_session.party.candidates), first_rotation)
 
 
+func test_godot_candidate_generator_matches_frozen_stage_six_b_snapshots() -> void:
+	var test_cases: Array[Dictionary] = [
+		{
+			"name": "Aria",
+			"day": 2,
+			"level": 0,
+			"rank": "E",
+			"snapshot":
+			[
+				_candidate_data(
+					"cand-dorian-2-0-7939",
+					"dorian",
+					"hunter",
+					5,
+					"hunter_volley",
+					"dorian-2-0-7939",
+					"dorian_story",
+					80,
+				),
+				_candidate_data(
+					"cand-talia-2-1-1076",
+					"talia",
+					"hunter",
+					5,
+					"hunter_phantom_archer",
+					"talia-2-1-1076",
+					"talia_caravan",
+					56,
+				),
+			],
+		},
+		{
+			"name": "Mobilny",
+			"day": 17,
+			"level": 20,
+			"rank": "C",
+			"snapshot":
+			[
+				_candidate_data(
+					"cand-brann-17-0-3205",
+					"brann",
+					"hunter",
+					14,
+					"hunter_volley",
+					"brann-17-0-3205",
+					"brann_fleet",
+					68,
+				),
+				_candidate_data(
+					"cand-mira-17-1-4250",
+					"mira",
+					"pierrot",
+					23,
+					"pierrot_chaos",
+					"mira-17-1-4250",
+					"mira_name",
+					50,
+				),
+			],
+		},
+		{
+			"name": "Echo",
+			"day": 41,
+			"level": 37,
+			"rank": "S",
+			"snapshot":
+			[
+				_candidate_data(
+					"cand-cassian-41-0-3470",
+					"cassian",
+					"mage",
+					34,
+					"mage_elements",
+					"cassian-41-0-3470",
+					"cassian_crown",
+					32,
+				),
+				_candidate_data(
+					"cand-orenna-41-1-7802",
+					"orenna",
+					"warrior",
+					35,
+					"warrior_assault",
+					"orenna-41-1-7802",
+					"orenna_bell",
+					38,
+				),
+			],
+		},
+	]
+	for test_case: Dictionary in test_cases:
+		var session = _session_for(test_case.name, test_case.level)
+		assert_true(
+			RecruitmentServiceClass.ensure_daily_candidates(
+				session.party, session.player, test_case.day, test_case.rank
+			)
+		)
+		assert_eq(
+			_candidate_snapshot(session.party.candidates),
+			test_case.snapshot,
+			"%s/day %d/rank %s" % [test_case.name, test_case.day, test_case.rank],
+		)
+
+
+func test_returning_candidate_matches_frozen_stage_six_b_snapshot() -> void:
+	var session = _session_for("Powrot", 20)
+	var companion := _companion("kael-golden", "kael", "warrior", "kael_garrison")
+	companion.relation = -5
+	companion.dismissed_day = 1
+	session.party.dismissed_companions.append(companion)
+	assert_true(
+		RecruitmentServiceClass.ensure_daily_candidates(session.party, session.player, 4, "S")
+	)
+	assert_eq(
+		_candidate_snapshot(session.party.candidates),
+		[
+			_candidate_data(
+				"return-kael-golden-4",
+				"kael",
+				"warrior",
+				5,
+				"warrior_assault",
+				"kael-golden",
+				"kael_garrison",
+				58,
+			),
+			_candidate_data(
+				"cand-orenna-4-1-6719",
+				"orenna",
+				"mage",
+				23,
+				"mage_elements",
+				"orenna-4-1-6719",
+				"orenna_bell",
+				26,
+			),
+		],
+	)
+
+
+func test_negative_returning_relations_use_python_floor_division() -> void:
+	for expectation: Dictionary in [
+		{"relation": -1, "roll": 56, "returning_bonus": 11},
+		{"relation": -3, "roll": 57, "returning_bonus": 11},
+		{"relation": -5, "roll": 58, "returning_bonus": 10},
+		{"relation": -9, "roll": 60, "returning_bonus": 9},
+	]:
+		var session = _session_for("Powrot", 20)
+		var companion := _companion(
+			"kael-negative-%d" % absi(expectation.relation),
+			"kael",
+			"warrior",
+			"kael_garrison",
+		)
+		companion.relation = expectation.relation
+		companion.dismissed_day = 1
+		session.party.dismissed_companions.append(companion)
+		RecruitmentServiceClass.ensure_daily_candidates(session.party, session.player, 4, "S")
+		var candidate: CandidateClass = session.party.candidates[0]
+		assert_true(candidate.returning, "relation %d" % expectation.relation)
+		assert_eq(
+			candidate.recruitment_roll,
+			expectation.roll,
+			"recruitment roll for relation %d" % expectation.relation,
+		)
+		assert_eq(candidate.impression, 0, "impression for relation %d" % expectation.relation)
+		candidate.returning = false
+		var score_without_returning_bonus := RecruitmentServiceClass.willingness_score(
+			candidate, session.player, "F"
+		)
+		candidate.returning = true
+		assert_eq(
+			RecruitmentServiceClass.willingness_score(candidate, session.player, "F"),
+			score_without_returning_bonus + expectation.returning_bonus,
+			"willingness bonus for relation %d" % expectation.relation,
+		)
+
+
 func test_authored_talk_is_single_use_and_recruitment_has_persisted_success_and_failure() -> void:
 	var session = _rank_s_session()
 	RecruitmentServiceClass.ensure_daily_candidates(session.party, session.player, session.day, "S")
@@ -304,6 +482,12 @@ func _session():
 	return NewGameServiceClass.new().create_session("Aria", 1, _rng(1))
 
 
+func _session_for(display_name: String, level: int):
+	var session = NewGameServiceClass.new().create_session(display_name, 1, _rng(1))
+	session.player.level = level
+	return session
+
+
 func _rank_s_session():
 	var session = _session()
 	session.guild_reputation = 4500
@@ -328,17 +512,40 @@ func _companion(
 
 func _candidate_snapshot(candidates: Array) -> Array:
 	return candidates.map(
-		func(candidate) -> Array:
-			return [
-				candidate.candidate_id,
-				candidate.companion.template_id,
-				candidate.companion.class_code,
-				candidate.companion.level,
-				candidate.companion.path_id,
-				candidate.recruitment_roll,
-				candidate.companion.quest_arc_id,
-			]
+		func(candidate) -> Dictionary:
+			return {
+				"candidate_id": candidate.candidate_id,
+				"template_id": candidate.companion.template_id,
+				"class_code": candidate.companion.class_code,
+				"level": candidate.companion.level,
+				"path_id": candidate.companion.path_id,
+				"companion_id": candidate.companion.companion_id,
+				"quest_arc_id": candidate.companion.quest_arc_id,
+				"recruitment_roll": candidate.recruitment_roll,
+			}
 	)
+
+
+func _candidate_data(
+	candidate_id: String,
+	template_id: String,
+	class_code: String,
+	level: int,
+	path_id: String,
+	companion_id: String,
+	quest_arc_id: String,
+	recruitment_roll: int
+) -> Dictionary:
+	return {
+		"candidate_id": candidate_id,
+		"template_id": template_id,
+		"class_code": class_code,
+		"level": level,
+		"path_id": path_id,
+		"companion_id": companion_id,
+		"quest_arc_id": quest_arc_id,
+		"recruitment_roll": recruitment_roll,
+	}
 
 
 func _rng(seed_value: int) -> RandomNumberGenerator:

@@ -469,9 +469,32 @@ Pełne buildy, rozwój oraz osobiste i powierzone wyposażenie kandydatów nale�
 do 6C. 6B nie tworzy ich przedwcześnie i nie dodaje zastępczych przedmiotów.
 Prezentacja nadal używa prostych paneli i tekstu bez finalnych assetów.
 
+#### Kontrakt RNG po Stage 6B
+
+- Stage 6 zachowuje parytet reguł, deterministyczność po stronie Godota,
+  stabilność po save/load i ochronę przed ponownym losowaniem, ale nie wymaga
+  bitowo identycznego strumienia RNG z Pythonowym `random.Random`/MT19937.
+- Golden testy zamrażają Godotową tożsamość, kolejność, ścieżkę, historię i
+  `recruitment_roll` kandydatów 6B. Generatory dodawane w 6C muszą korzystać z
+  osobnych, nazwanych substreamów i nie mogą konsumować ani zmieniać strumienia
+  generatora 6B.
+- Przyszły importer terminalowego save v15 ma odczytywać pełne zapisane stany
+  kandydatów i kompanów. Nie wolno mu regenerować tych wyników na podstawie
+  terminalowego seeda.
+
+Przed ukończeniem pełnego buildu kompana w 6C trzeba jawnie rozstrzygnąć
+semantykę `current_hp`: terminalowy nowy kandydat zaczyna z `current_hp = 0`, a
+wartość `<= 0` oznacza inicjalizację do pełnego HP przy tworzeniu combatanta.
+Godot musi uzyskać jednoznaczny odpowiednik po wygenerowaniu buildu bez zmiany
+globalnego defaultu `CompanionState.current_hp` w fundamencie 6A.
+
 ### Dalsza kolejność Stage 6
 
-- **6C:** rozwój kompanów oraz ich osobiste wyposażenie,
+- **6C:** rozwój kompanów oraz ich osobiste wyposażenie; po udostępnieniu
+  przekazywania sprzętu między graczem i kompanem `dismiss_companion` musi
+  przed usunięciem z rosteru zwrócić wszystkie przedmioty należące do gracza
+  zgodnie z terminalowym `return_player_owned_gear()`, co musi zabezpieczać
+  osobny test regresyjny,
 - **6D:** Przygotowanie do wyprawy i presety,
 - **6E:** oddzielone od UI taktyki AI,
 - **6F:** wspólne zasady obrażeń i osobny silnik walki drużynowej,
