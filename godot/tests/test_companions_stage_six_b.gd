@@ -443,7 +443,7 @@ func test_schema_thirteen_round_trips_candidates_messages_and_personal_progress(
 
 	var service := SaveGameServiceClass.new("user://stage_six_b_not_written")
 	var payload: Dictionary = service._serialize_session(session)
-	assert_eq(payload.schema_version, 15)
+	assert_eq(payload.schema_version, 16)
 	var loaded := service._deserialize_payload(payload, 1)
 	assert_true(loaded.ok, loaded.message)
 	assert_eq(loaded.session.party.candidates.size(), 2)

@@ -119,8 +119,8 @@ func test_schema_thirteen_round_trips_full_party_state() -> void:
 	kael.active = true
 	kael.level = 8
 	kael.experience = 123
-	kael.path_id = "heavy_knight"
-	kael.talents = {"taunt": 2}
+	kael.path_id = "warrior_heavy_knight"
+	kael.talents = {"heavy_knight_core": 1}
 	kael.attributes.strength = 5
 	kael.attributes.vitality = 4
 	kael.relation = 17
@@ -154,7 +154,7 @@ func test_schema_thirteen_round_trips_full_party_state() -> void:
 
 	var service := SaveGameServiceClass.new("user://stage_six_a_not_written")
 	var payload: Dictionary = service._serialize_session(session)
-	assert_eq(payload.schema_version, 15)
+	assert_eq(payload.schema_version, 16)
 	var loaded := service._deserialize_payload(payload, 1)
 	assert_true(loaded.ok, loaded.message)
 	assert_eq(loaded.session.party.companions.size(), 1)
@@ -235,6 +235,16 @@ func _companion(
 	var definition = CompanionCatalogClass.get_definition(template_id)
 	var companion := CompanionStateClass.new(
 		companion_id, template_id, definition.display_name, class_code
+	)
+	companion.level = 5
+	companion.path_id = (
+		{
+			"warrior": "warrior_assault",
+			"hunter": "hunter_volley",
+			"mage": "mage_destruction",
+			"pierrot": "pierrot_caprice",
+		}
+		. get(class_code, "")
 	)
 	companion.current_hp = 20
 	companion.current_mana = 10 if class_code in ["mage", "pierrot"] else 0

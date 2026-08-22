@@ -149,7 +149,7 @@ func test_corrupt_and_future_saves_are_rejected_without_loading_a_session() -> v
 
 func test_save_uses_a_dedicated_godot_directory() -> void:
 	assert_eq(SaveGameServiceClass.DEFAULT_SAVE_ROOT, "user://godot_migration_saves")
-	assert_eq(SaveGameServiceClass.SCHEMA_VERSION, 15)
+	assert_eq(SaveGameServiceClass.SCHEMA_VERSION, 16)
 
 
 func test_round_trip_preserves_hunter_techniques_and_discovered_combos() -> void:

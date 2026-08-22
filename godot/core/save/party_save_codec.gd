@@ -11,9 +11,11 @@ const PartyMessageClass := preload("res://core/companions/party_message.gd")
 const PartyStateClass := preload("res://core/companions/party_state.gd")
 const PlayerAttributesClass := preload("res://core/player/attributes.gd")
 const EquipmentSaveCodecClass := preload("res://core/save/equipment_save_codec.gd")
+const TalentCatalogClass := preload("res://core/progression/talent_catalog.gd")
 
 const VALID_CLASS_CODES := ["warrior", "hunter", "mage", "pierrot"]
 const VALID_RIFT_RANKS := ["", "F", "E", "D", "C", "B", "A", "S"]
+const MESSAGE_LIMIT := 60
 
 
 static func empty_data() -> Dictionary:
@@ -70,6 +72,9 @@ static func deserialize(data: Dictionary, current_day: int) -> Dictionary:
 
 	var party := PartyStateClass.new()
 	var known_ids := {}
+	var live_ids := {}
+	var dismissed_ids := {}
+	var dismissed_by_id := {}
 	var active_count := 0
 	for companion_data in data.companions:
 		var result := _deserialize_companion(companion_data, current_day, false)
@@ -79,6 +84,7 @@ static func deserialize(data: Dictionary, current_day: int) -> Dictionary:
 		if known_ids.has(companion.companion_id):
 			return _failure("Zapis zawiera powtórzony identyfikator kompana.")
 		known_ids[companion.companion_id] = true
+		live_ids[companion.companion_id] = true
 		active_count += 1 if companion.active else 0
 		party.companions.append(companion)
 	if active_count > CompanionServiceClass.MAX_ACTIVE_COMPANIONS:
@@ -92,9 +98,12 @@ static func deserialize(data: Dictionary, current_day: int) -> Dictionary:
 		if known_ids.has(companion.companion_id):
 			return _failure("Zapis zawiera powtórzony identyfikator kompana.")
 		known_ids[companion.companion_id] = true
+		dismissed_ids[companion.companion_id] = true
+		dismissed_by_id[companion.companion_id] = companion
 		party.dismissed_companions.append(companion)
 
 	var candidate_ids := {}
+	var candidate_companion_ids := {}
 	for candidate_data in data.candidates:
 		var result := _deserialize_candidate(candidate_data, current_day)
 		if not result.ok:
@@ -102,7 +111,23 @@ static func deserialize(data: Dictionary, current_day: int) -> Dictionary:
 		var candidate: CompanionCandidateClass = result.candidate
 		if candidate_ids.has(candidate.candidate_id):
 			return _failure("Zapis zawiera powtórzonego kandydata.")
+		if candidate_companion_ids.has(candidate.companion.companion_id):
+			return _failure("Zapis zawiera powtórzony stan kompana wśród kandydatów.")
+		if candidate.returning:
+			if not dismissed_ids.has(candidate.companion.companion_id):
+				return _failure("Powracający kandydat nie znajduje się wśród byłych kompanów.")
+			if (
+				_serialize_companion(dismissed_by_id[candidate.companion.companion_id])
+				!= _serialize_companion(candidate.companion)
+			):
+				return _failure("Stan powracającego kandydata różni się od byłego kompana.")
+		elif (
+			live_ids.has(candidate.companion.companion_id)
+			or dismissed_ids.has(candidate.companion.companion_id)
+		):
+			return _failure("Nowy kandydat koliduje z zapisanym kompanem.")
 		candidate_ids[candidate.candidate_id] = true
+		candidate_companion_ids[candidate.companion.companion_id] = true
 		party.candidates.append(candidate)
 
 	for message_data in data.messages:
@@ -110,10 +135,17 @@ static func deserialize(data: Dictionary, current_day: int) -> Dictionary:
 		if not result.ok:
 			return result
 		party.messages.append(result.message_value)
+	if party.messages.size() > MESSAGE_LIMIT:
+		party.messages = party.messages.slice(party.messages.size() - MESSAGE_LIMIT)
+	var fallen_ids := {}
 	for fallen_data in data.fallen:
 		var result := _deserialize_fallen(fallen_data)
 		if not result.ok:
 			return result
+		var fallen_id: String = result.fallen_companion.companion_id
+		if known_ids.has(fallen_id) or fallen_ids.has(fallen_id):
+			return _failure("Tablica Poległych zawiera powtórzony identyfikator kompana.")
+		fallen_ids[fallen_id] = true
 		party.fallen.append(result.fallen_companion)
 	var banter_result := _restore_unique_strings(data.seen_banter, "scenkę między kompanami")
 	if not banter_result.ok:
@@ -149,6 +181,8 @@ static func _serialize_companion(companion: CompanionStateClass) -> Dictionary:
 		"tactic": companion.tactic,
 		"current_hp": companion.current_hp,
 		"current_mana": companion.current_mana,
+		"hp_initialized": companion.hp_initialized,
+		"mana_initialized": companion.mana_initialized,
 		"dismissed_day": companion.dismissed_day,
 	}
 
@@ -182,9 +216,19 @@ static func _deserialize_companion(data, current_day: int, dismissed: bool) -> D
 	]:
 		if not _is_non_negative_integer(data.get(field)):
 			return _failure("Kompan zawiera nieprawidłową wartość pola: %s." % field)
-	if int(data.level) < 1 or not data.get("relation") is int:
+	if (
+		int(data.level) < 5
+		or not data.get("relation") is int
+		or int(data.relation) < -100
+		or int(data.relation) > 100
+	):
 		return _failure("Kompan ma nieprawidłowy poziom albo relację.")
-	if not data.get("dead") is bool or not data.get("active") is bool:
+	if (
+		not data.get("dead") is bool
+		or not data.get("active") is bool
+		or not data.get("hp_initialized") is bool
+		or not data.get("mana_initialized") is bool
+	):
 		return _failure("Kompan ma nieprawidłowe flagi stanu.")
 	if dismissed and data.active:
 		return _failure("Były kompan nie może należeć do aktywnego składu.")
@@ -204,10 +248,13 @@ static func _deserialize_companion(data, current_day: int, dismissed: bool) -> D
 	var companion := CompanionStateClass.new(
 		str(data.companion_id), template_id, str(data.name), class_code
 	)
+	var path_id := str(data.get("path_id", ""))
+	if not TalentCatalogClass.is_valid_path_for_class(path_id, class_code):
+		return _failure("Ścieżka kompana nie pasuje do jego klasy.")
 	var attributes_result := _restore_attributes(companion.attributes, data.attributes)
 	if not attributes_result.ok:
 		return attributes_result
-	var talents_result := _restore_non_negative_map(data.talents, "talent kompana")
+	var talents_result := _restore_talents(data.talents)
 	if not talents_result.ok:
 		return talents_result
 	var equipment_result := EquipmentSaveCodecClass.restore_equipment(
@@ -229,7 +276,7 @@ static func _deserialize_companion(data, current_day: int, dismissed: bool) -> D
 
 	companion.level = int(data.level)
 	companion.experience = int(data.experience)
-	companion.path_id = str(data.get("path_id", ""))
+	companion.path_id = path_id
 	companion.talents = talents_result.values
 	companion.personal_instance_ids.assign(personal_result.values)
 	companion.personal_storage.assign(storage_result.items)
@@ -244,6 +291,8 @@ static func _deserialize_companion(data, current_day: int, dismissed: bool) -> D
 	companion.tactic = tactic
 	companion.current_hp = int(data.current_hp)
 	companion.current_mana = int(data.current_mana)
+	companion.hp_initialized = bool(data.hp_initialized)
+	companion.mana_initialized = bool(data.mana_initialized)
 	companion.dismissed_day = int(data.dismissed_day)
 	var story = CompanionStoryCatalogClass.get_story(companion.template_id)
 	if not companion.quest_arc_id.is_empty():
@@ -409,14 +458,21 @@ static func _restore_attributes(attributes: PlayerAttributesClass, data: Diction
 	return {"ok": true}
 
 
-static func _restore_non_negative_map(data: Dictionary, label: String) -> Dictionary:
+static func _restore_talents(data: Dictionary) -> Dictionary:
 	var values := {}
-	for key_value in data:
-		if not key_value is String or str(key_value).is_empty():
-			return _failure("Zapis zawiera nieprawidłowy %s." % label)
-		if not _is_non_negative_integer(data[key_value]):
-			return _failure("Zapis zawiera nieprawidłowy %s." % label)
-		values[str(key_value)] = int(data[key_value])
+	for talent_id_value in data:
+		if not talent_id_value is String or str(talent_id_value).is_empty():
+			return _failure("Zapis zawiera nieprawidłowy talent kompana.")
+		var talent_id := str(talent_id_value)
+		var talent = TalentCatalogClass.get_talent(talent_id)
+		var rank_value = data[talent_id_value]
+		if (
+			talent == null
+			or not _is_positive_integer(rank_value)
+			or int(rank_value) > talent.max_rank
+		):
+			return _failure("Zapis zawiera nieprawidłowy talent kompana.")
+		values[talent_id] = int(rank_value)
 	return {"ok": true, "values": values}
 
 

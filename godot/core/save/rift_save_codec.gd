@@ -55,8 +55,8 @@ static func deserialize(data: Dictionary) -> Dictionary:
 			return _failure("Nieprawidłowa historia rang Szczelin.")
 		completed_by_rank[rank_code] = int(count_value)
 		counted_total += int(count_value)
-	if counted_total > int(data.completed_total):
-		return _failure("Historia rang przekracza łączną liczbę zamkniętych Szczelin.")
+	if counted_total != int(data.completed_total):
+		return _failure("Historia rang nie zgadza się z liczbą zamkniętych Szczelin.")
 
 	var rift_result := _deserialize_rift(data.get("active_rift"))
 	if not rift_result.ok:
@@ -71,6 +71,18 @@ static func deserialize(data: Dictionary) -> Dictionary:
 			return _failure("Ekspedycja nie pasuje do aktywnej Szczeliny.")
 		if expedition.segment_index >= active.segment_count:
 			return _failure("Postęp ekspedycji wykracza poza długość Szczeliny.")
+		var minimum_companions: int = RiftCatalogClass.MIN_COMPANIONS[active.rank_code]
+		if (
+			expedition.party_companion_ids.size() < minimum_companions
+			or expedition.party_companion_ids.size() > 3
+		):
+			return _failure("Zapis zawiera nieprawidłowy rozmiar drużyny Szczeliny.")
+		var passed_camps := 0
+		for camp_index: int in [4, 9, 14, 19]:
+			if camp_index < expedition.segment_index and camp_index < active.segment_count - 1:
+				passed_camps += 1
+		if expedition.camp_visits > passed_camps:
+			return _failure("Liczba obozowisk wykracza poza postęp ekspedycji.")
 
 	var state := RiftStateClass.new()
 	state.active_rift = active
@@ -110,10 +122,8 @@ static func _deserialize_rift(data) -> Dictionary:
 		return _failure("Nieprawidłowa Szczelina w zapisie.")
 	var rank_code := str(data.get("rank_code", ""))
 	var theme_id := str(data.get("theme_id", ""))
-	if (
-		not RiftCatalogClass.is_valid_rank(rank_code)
-		or RiftCatalogClass.get_theme(theme_id) == null
-	):
+	var theme = RiftCatalogClass.get_theme(theme_id)
+	if not RiftCatalogClass.is_valid_rank(rank_code) or theme == null:
 		return _failure("Nieprawidłowa Szczelina w zapisie.")
 	if not data.get("modifier_ids") is Array:
 		return _failure("Szczelina nie zawiera prawidłowych anomalii.")
@@ -122,16 +132,21 @@ static func _deserialize_rift(data) -> Dictionary:
 		if (
 			not modifier_value is String
 			or RiftCatalogClass.get_modifier(str(modifier_value)) == null
+			or str(modifier_value) in modifier_ids
 		):
-			return _failure("Nieznany modyfikator Szczeliny w zapisie.")
+			return _failure("Nieznany albo powtórzony modyfikator Szczeliny w zapisie.")
 		modifier_ids.append(str(modifier_value))
+	var rank_index := RiftCatalogClass.rank_index(rank_code)
+	var expected_modifiers := 1 + (1 if rank_index >= 3 else 0) + (1 if rank_index >= 5 else 0)
+	if modifier_ids.size() != expected_modifiers:
+		return _failure("Liczba anomalii nie pasuje do rangi Szczeliny.")
 	if (
 		not _is_positive_integer(data.get("discovered_day"))
 		or not _is_positive_integer(data.get("expires_day"))
 		or int(data.expires_day) < int(data.discovered_day)
 		or not _is_integer(data.get("seed"))
 		or not _is_positive_integer(data.get("segment_count"))
-		or int(data.segment_count) < 2
+		or int(data.segment_count) != int(RiftCatalogClass.SEGMENTS[rank_code])
 	):
 		return _failure("Nieprawidłowy czas lub długość Szczeliny.")
 	if (
@@ -143,6 +158,20 @@ static func _deserialize_rift(data) -> Dictionary:
 		or not data.get("closed_by") is String
 	):
 		return _failure("Szczelina ma nieprawidłową strukturę.")
+	if str(data.rift_id).strip_edges().is_empty():
+		return _failure("Szczelina nie ma identyfikatora.")
+	if bool(data.closed) or not str(data.closed_by).is_empty():
+		return _failure("Zamknięta Szczelina nie może pozostać aktywnym alarmem.")
+	if str(data.theme_name) != str(theme.name):
+		return _failure("Nazwa motywu Szczeliny nie zgadza się z katalogiem.")
+	var matching_boss := false
+	for boss_value in theme.bosses:
+		var boss: Array = boss_value
+		if str(boss[0]) == str(data.boss_id) and str(boss[1]) == str(data.boss_name):
+			matching_boss = true
+			break
+	if not matching_boss:
+		return _failure("Władca Szczeliny nie pasuje do jej motywu.")
 	return {
 		"ok": true,
 		"rift":
@@ -195,7 +224,7 @@ static func _deserialize_expedition(data) -> Dictionary:
 		or not _is_non_negative_integer(data.get("segment_index"))
 		or not data.get("party_companion_ids") is Array
 		or not data.get("secured_rewards") is Dictionary
-		or not _is_non_negative_integer(data.get("started_day"))
+		or not _is_positive_integer(data.get("started_day"))
 		or not _is_non_negative_integer(data.get("camp_visits"))
 		or not data.get("defeated") is bool
 	):

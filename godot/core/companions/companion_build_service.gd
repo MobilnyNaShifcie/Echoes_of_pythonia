@@ -127,6 +127,8 @@ static func ensure_initial_build(companion: CompanionStateClass) -> bool:
 	# it to the freshly calculated maximum; persisted positive values are preserved.
 	companion.current_hp = 0
 	companion.current_mana = 0
+	companion.hp_initialized = false
+	companion.mana_initialized = false
 	return true
 
 
@@ -175,6 +177,8 @@ static func gain_experience(companion: CompanionStateClass, amount: int) -> int:
 		)
 		companion.current_hp = 0
 		companion.current_mana = 0
+		companion.hp_initialized = false
+		companion.mana_initialized = false
 	return levels
 
 
@@ -206,13 +210,13 @@ static func resolved_resources(companion: CompanionStateClass) -> Dictionary:
 		"current_hp":
 		(
 			int(limits.max_hp)
-			if companion != null and companion.current_hp <= 0
+			if companion != null and not companion.hp_initialized
 			else mini(companion.current_hp, int(limits.max_hp))
 		),
 		"current_mana":
 		(
 			int(limits.max_mana)
-			if companion != null and companion.current_mana <= 0
+			if companion != null and not companion.mana_initialized
 			else mini(companion.current_mana, int(limits.max_mana))
 		),
 		"max_hp": int(limits.max_hp),
@@ -227,6 +231,8 @@ static func sync_resources(
 		return
 	companion.current_hp = maxi(0, current_hp)
 	companion.current_mana = maxi(0, current_mana)
+	companion.hp_initialized = true
+	companion.mana_initialized = true
 
 
 static func _attributes_for_level(

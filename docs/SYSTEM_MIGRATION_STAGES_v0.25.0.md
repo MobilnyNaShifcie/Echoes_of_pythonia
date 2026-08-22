@@ -761,9 +761,36 @@ obrażeń i osobny silnik walki drużynowej pozostają wyłącznym zakresem 6F.
   zwycięstwo, porażkę, pełne nagrody, jednorazowe zamknięcie, deterministyczność,
   granice architektoniczne oraz pełny przepływ istniejącego UI.
 
-### Dalsza kolejność Stage 6
+### Etap 6K — końcowy audyt parytetu i save/load (ukończony)
 
-- **6K:** audyt parytetu Stage 6 i save/load.
+- przeprowadzono końcowy audyt Stage 6A–6J względem wykonywalnej specyfikacji
+  terminalowej v0.24.7. Potwierdzono rozdzielenie zwykłej walki, walki
+  drużynowej, lochów SOLO i Szczelin oraz zachowanie katalogów, bramek,
+  konsekwencji i przepływów domenowych. Polityka RNG pozostaje bez zmian:
+  zachowujemy reguły i deterministyczność Godota, lecz nie bitowo identyczny
+  strumień Pythonowego `random.Random`,
+- usunięto niejednoznaczność `current_hp/current_mana == 0`. Jawne flagi
+  inicjalizacji rozróżniają niewygenerowany zasób od prawidłowo wyczerpanego
+  zasobu. Zapobiega to leczeniu powalonego kompana albo odnawianiu jego Many po
+  zapisie i wczytaniu. Godotowy schemat wzrasta z `v15` do `v16`; migracja
+  wcześniejszych zapisów jednorazowo zachowuje ich dotychczasową semantykę,
+- przejściowy licznik powalenia nadal nie jest zapisywany, tak jak w terminalu.
+  Żyjący kompan, który kończy starcie jako powalony, jest jednak stabilizowany
+  na 1 PŻ przed synchronizacją trwałego stanu, dzięki czemu ponowne wczytanie
+  nie prowadzi do pełnego leczenia ani nierozwiązywalnego stanu,
+- `PartySaveCodec` waliduje teraz terminalowe granice poziomu i relacji,
+  zgodność ścieżki z klasą, talenty i ich rangi, unikalność tożsamości oraz
+  zgodność powracających kandydatów z listą rozstanych kompanów. Okno wiadomości
+  jest ponownie ograniczane do ostatnich 60 wpisów także podczas odczytu,
+- `RiftSaveCodec` waliduje spójność liczników ukończeń, rozmiaru składu,
+  segmentów, obozowisk, modyfikatorów, motywu, Władcy i stanu zamknięcia.
+  Dodatkowy walidator Stage 6 sprawdza daty względem świata oraz powiązania
+  ekspedycji z żyjącymi lub poległymi członkami zapisanego składu,
+- test pełnego snapshotu Stage 6 obejmuje jednocześnie drużynę, kompanów,
+  przygotowanie wyprawy i Szczeliny w cyklu zapis–odczyt–ponowny zapis.
+  Terminalowy format `v15` i Godotowy format `v16` nadal mają osobne
+  identyfikatory; importer terminalowych zapisów pozostaje wyłączony do Stage 7,
+- Stage 6 jest zamknięty. Stage 7 nie został rozpoczęty i wymaga osobnej decyzji.
 
 ## Etap 7 — parytet i bezpieczne przejście
 

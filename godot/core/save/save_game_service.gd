@@ -34,9 +34,10 @@ const ExpeditionPreparationSaveCodecClass := preload(
 	"res://core/save/expedition_preparation_save_codec.gd"
 )
 const RiftSaveCodecClass := preload("res://core/save/rift_save_codec.gd")
+const StageSixSaveValidatorClass := preload("res://core/save/stage_six_save_validator.gd")
 
 const FORMAT_ID := "echoes_of_pythonia_godot_migration"
-const SCHEMA_VERSION := 15
+const SCHEMA_VERSION := 16
 const GAME_VERSION := "0.25.0"
 const DEFAULT_SAVE_ROOT := "user://godot_migration_saves"
 const SLOT_COUNT := NewGameServiceClass.SAVE_SLOT_COUNT
@@ -441,6 +442,9 @@ func _restore_session_fields(session: GameSessionClass, data: Dictionary) -> Dic
 	if not rift_result.ok:
 		return _failure("Nieprawidłowy stan Szczelin: %s" % rift_result.message)
 	session.rifts = rift_result.state
+	var stage_six_error := StageSixSaveValidatorClass.validate(session, int(data.day))
+	if not stage_six_error.is_empty():
+		return _failure("Niespójny stan Stage 6: %s" % stage_six_error)
 
 	session.current_location_id = location_id
 	session.known_region_ids.assign(data.known_region_ids)
@@ -589,10 +593,38 @@ func _migrate_payload(payload: Dictionary) -> Dictionary:
 			session["expedition_preparation"] = (ExpeditionPreparationSaveCodecClass.empty_data())
 		if version <= 14:
 			session["rifts"] = RiftSaveCodecClass.empty_data()
+		if version <= 15:
+			_backfill_companion_resource_initialization(session.get("party", {}))
 		migrated.schema_version = SCHEMA_VERSION
 	if not error.is_empty():
 		return _failure(error)
 	return {"ok": true, "payload": migrated}
+
+
+func _backfill_companion_resource_initialization(party_data) -> void:
+	if not party_data is Dictionary:
+		return
+	for field: String in ["companions", "dismissed_companions"]:
+		var values = party_data.get(field, [])
+		if not values is Array:
+			continue
+		for companion_data in values:
+			_backfill_single_companion_resources(companion_data)
+	var candidates = party_data.get("candidates", [])
+	if not candidates is Array:
+		return
+	for candidate_data in candidates:
+		if candidate_data is Dictionary:
+			_backfill_single_companion_resources(candidate_data.get("companion"))
+
+
+func _backfill_single_companion_resources(companion_data) -> void:
+	if not companion_data is Dictionary:
+		return
+	# Schema v15 and earlier used zero as the sentinel. Preserve that meaning once
+	# during migration; schema v16 can then persist a genuinely depleted zero.
+	companion_data["hp_initialized"] = int(companion_data.get("current_hp", 0)) > 0
+	companion_data["mana_initialized"] = int(companion_data.get("current_mana", 0)) > 0
 
 
 func _restore_class_combat_progression(player: PlayerProfileClass, data: Dictionary) -> Dictionary:

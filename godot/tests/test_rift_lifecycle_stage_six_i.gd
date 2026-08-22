@@ -200,7 +200,7 @@ func test_schema_fifteen_round_trip_preserves_active_rift_and_reservation() -> v
 	var payload := service._serialize_session(session)
 	var loaded := service._deserialize_payload(payload, session.save_slot)
 
-	assert_eq(payload.schema_version, 15)
+	assert_eq(payload.schema_version, 16)
 	assert_true(loaded.ok, loaded.message)
 	assert_eq(loaded.session.rifts.active_rift.rift_id, "save-rift")
 	assert_eq(loaded.session.rifts.expedition.party_companion_ids, ["a", "b"])
@@ -334,6 +334,8 @@ func _companion(companion_id: String, display_name: String) -> CompanionStateCla
 	var template_id := "mira" if display_name == "Mira" else "kael"
 	var class_code := "pierrot" if template_id == "mira" else "warrior"
 	var companion := CompanionStateClass.new(companion_id, template_id, display_name, class_code)
+	companion.level = 5
+	companion.path_id = "pierrot_chaos" if class_code == "pierrot" else "warrior_assault"
 	companion.active = true
 	return companion
 

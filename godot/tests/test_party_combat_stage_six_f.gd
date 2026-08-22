@@ -199,6 +199,8 @@ func test_companion_resources_are_resolved_and_synchronized_between_rounds() -> 
 	var companion := _companion("resources", "mage", 12, CompanionStateClass.TACTIC_AGGRESSIVE)
 	companion.current_hp = 0
 	companion.current_mana = 0
+	companion.hp_initialized = false
+	companion.mana_initialized = false
 	var combat := PartyCombatEngineClass.new(
 		_player("Dowódca", "warrior", 12), [companion], _enemy(200, 1, 0), _rng(404)
 	)
@@ -225,7 +227,9 @@ func test_companion_reaching_zero_hp_does_not_start_stage_six_g_injuries() -> vo
 	var report = combat.player_basic_attack()
 
 	assert_eq(report.enemy_target_ids, ["boundary"])
-	assert_eq(knight.current_hp, 0)
+	# Downed timers are encounter-local, so a surviving companion is stabilized
+	# at 1 HP before durable resources are synchronized.
+	assert_eq(knight.current_hp, 1)
 	assert_false(knight.dead)
 	assert_eq(knight.injury_until_day, 0)
 

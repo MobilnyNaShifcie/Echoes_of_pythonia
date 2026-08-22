@@ -39,6 +39,10 @@ var active := false
 var tactic := TACTIC_BALANCED
 var current_hp := 1
 var current_mana := 0
+# Zero is a valid depleted resource. These flags distinguish it from the
+# terminal-compatible sentinel used by a freshly generated or levelled build.
+var hp_initialized := true
+var mana_initialized := true
 var dismissed_day := 0
 
 

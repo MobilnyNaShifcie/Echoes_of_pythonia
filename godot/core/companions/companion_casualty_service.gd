@@ -104,6 +104,7 @@ static func critically_injure(companion: CompanionStateClass, current_day: int, 
 	companion.active = false
 	companion.injury_until_day = maxi(companion.injury_until_day, current_day + maxi(1, days))
 	companion.current_hp = 1
+	companion.hp_initialized = true
 
 
 static func kill_companion(

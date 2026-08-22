@@ -237,10 +237,11 @@ matching the swap and unequip behavior of v0.24.7. The Godot build now writes a
 separate migration schema containing every system currently available in the
 windowed build. Its four files live below `user://godot_migration_saves` and do
 not read or overwrite terminal save schema v15. Although Rift expeditions and
-party combat are now migrated, the legacy format still contains fields whose
-full import mapping has not passed the Stage 6K/7 parity audit. Therefore
-importing terminal saves remains disabled until no supported value could be
-silently discarded. Detailed ordering and acceptance criteria are in
+party combat are now migrated and the Stage 6K parity audit is complete, the
+legacy format still requires the dedicated read-only mapping and migration-copy
+report assigned to Stage 7. Therefore importing terminal saves remains disabled
+until no supported value could be silently discarded. Detailed ordering and
+acceptance criteria are in
 `SYSTEM_MIGRATION_STAGES_v0.25.0.md`.
 
 The current city service screens are intentionally asymmetric. The merchant
@@ -250,12 +251,12 @@ already have sources in the migrated world, and the inn performs paid full
 recovery with its daily cooldown. Final item art, shop animation, and audio
 remain outside this domain slice and continue to use placeholder presentation.
 
-Stages 3C through 3F, stages 4A–4E, stages 5A–5E, and stages 6A–6D are complete. Dice history,
+Stages 3C through 3F, stages 4A–4E, stages 5A–5E, and stages 6A–6K are complete. Dice history,
 Fate Tokens,
 temporary dodge,
 mirror readiness, Hunter sequence, delayed effects, explosive charges, Arcane
 Weave, elemental sequence, Provoke, block bonus, and retaliation readiness are
-intentionally encounter-local. Godot save schema v15 keeps durable talent ranks,
+intentionally encounter-local. Godot save schema v16 keeps durable talent ranks,
 book-unlocked class paths, passive ranks, Masteries, specializations, Hunter
 progression, compatibility identifiers from earlier slices, and the list of
 known regions. Unread books remain ordinary inventory stacks. All five regions
@@ -328,7 +329,7 @@ weather rewards; narrow Grand Master and Admiral Varek subclasses own only
 their phase mechanics. Neither `PartyCombatEngine` nor Rift state is referenced.
 The run itself is intentionally not persisted, matching the terminal checkpoint
 boundary, while all resulting inventory, progression, contracts, milestones,
-and journal entries already survive the current schema v15.
+and journal entries already survive the current schema v16.
 Stage 6I adds the terminal Rift lifecycle before expedition content is activated.
 `RiftState`, `RiftInstance`, and the reserved `RiftExpedition` own the durable
 world state, while `RiftLifecycleService` deterministically spawns ranked Guild
@@ -355,6 +356,15 @@ logic and now presents the complete placeholder flow without a second hub.
 Schema remains v15: completed segments, party resources, casualties, and the
 reservation survive save/load, while the in-memory combat engine is deliberately
 recreated for the current segment after reload, matching the terminal boundary.
+Stage 6K closes the full Stage 6 parity and save/load audit. Explicit companion
+resource-initialization flags remove the former ambiguity between an unbuilt
+resource and a valid zero-HP or zero-Mana state; the Godot-only schema therefore
+rises to v16 with a one-time migration for older Godot saves. Party and Rift
+codecs now enforce the terminal domain bounds, identity links, authored Rift
+shape, calendar consistency, and a bounded message history. A populated
+party/preparation/Rift snapshot is protected through save-load-save regression
+tests. The terminal schema-v15 format remains separate and its importer is still
+disabled until Stage 7; Stage 7 has not begun.
 Their calendar periods, generated definitions, objective progress, and claimed
 rewards survive reloads; existing schema-v8 files receive a safe empty board
 before the next period is generated.

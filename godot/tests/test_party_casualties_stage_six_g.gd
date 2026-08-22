@@ -344,6 +344,14 @@ func _companion(companion_id: String, class_code: String) -> CompanionStateClass
 		companion_id, template_id, definition.display_name, class_code
 	)
 	companion.level = 12
+	companion.path_id = str(
+		{
+			"warrior": "warrior_assault",
+			"hunter": "hunter_volley",
+			"mage": "mage_elements",
+			"pierrot": "pierrot_chaos",
+		}[class_code]
+	)
 	companion.attributes.strength = 6
 	companion.attributes.intelligence = 4
 	companion.attributes.endurance = 4

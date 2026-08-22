@@ -709,6 +709,7 @@ func _finish_party_round(report: PartyCombatRoundResultClass) -> PartyCombatRoun
 	if report.defeat or not _has_available_fighter():
 		result = DEFEAT
 		report.defeat = true
+	_stabilize_transient_downed_resources()
 	_record_downed_state(report)
 	_sync_companions()
 	report.enemy_hp_after = enemy.current_hp
@@ -726,6 +727,7 @@ func _has_available_fighter() -> bool:
 func _finish_victory(report: PartyCombatRoundResultClass) -> PartyCombatRoundResultClass:
 	result = VICTORY
 	report.victory = true
+	_stabilize_transient_downed_resources()
 	_record_downed_state(report)
 	_sync_companions()
 	report.enemy_hp_after = enemy.current_hp
@@ -735,6 +737,15 @@ func _finish_victory(report: PartyCombatRoundResultClass) -> PartyCombatRoundRes
 func _sync_companions() -> void:
 	for fighter: PartyCombatantClass in companion_fighters:
 		fighter.sync_source_resources()
+
+
+func _stabilize_transient_downed_resources() -> void:
+	# Downed timers intentionally remain encounter-local. Persist one HP while the
+	# timer exists so reloading the segment can neither deadlock at zero nor turn
+	# the old zero sentinel into a free full heal.
+	for fighter: PartyCombatantClass in all_fighters():
+		if fighter.is_downed() and fighter.profile.stats.current_hp <= 0:
+			fighter.profile.stats.current_hp = 1
 
 
 func _skill_cost(skill: SkillDefinitionClass) -> int:
