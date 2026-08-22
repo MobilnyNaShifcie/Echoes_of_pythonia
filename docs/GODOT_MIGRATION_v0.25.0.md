@@ -397,6 +397,16 @@ existing loot-quality, contract, inventory, achievement, and Adventure Log
 services. No elite rule lives in UI and the save schema remains v17 because
 8A already persisted every durable value. Regional bosses and their respawn
 lifecycle remain isolated stages 8C–8D.
+Stage 8C activates the two terminal regional bosses as explicit, voluntary
+challenges. `RegionBossCatalog` owns their definitions and exact combat data,
+`RegionBossChallengeService` owns preparation, weather snapshots, rewards,
+Guild milestones, journal integration, the one-hour attempt cost, and camp
+reset, while dedicated Azhar and Leviathan engines own only their three combat
+phases. Victory reuses the existing adventure, loot, rare-book, class-loot,
+contract, quest, inventory, and achievement services. UI contains no boss
+rules. The save schema remains v17 because Stage 8A already persists the boss
+respawn counters; Stage 8C deliberately leaves those counters unchanged so the
+six-expedition lifecycle remains an isolated Stage 8D responsibility.
 Their calendar periods, generated definitions, objective progress, and claimed
 rewards survive reloads; existing schema-v8 files receive a safe empty board
 before the next period is generated.

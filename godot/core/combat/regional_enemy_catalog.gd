@@ -301,6 +301,24 @@ const DATA := {
 		"elemental_resistances": {"fire": 50},
 		"status_resistance": 0.25,
 	},
+	"azhar":
+	{
+		"display_name": "Azhar, Władca Pustkowi",
+		"max_hp": 1850,
+		"attack": 34,
+		"defense": 14,
+		"dodge": 12.0,
+		"experience_reward": 1500,
+		"gold_min": 650,
+		"gold_max": 850,
+		"rank": "boss",
+		"special_name": "Gniew Pustyni",
+		"special_chance": 0.28,
+		"special_attack_bonus": 10,
+		"special_damage_type": "earth",
+		"elemental_resistances": {"earth": 35, "wind": 25},
+		"status_resistance": 0.40,
+	},
 	"frozen_castaway":
 	{
 		"display_name": "Zamarznięty Rozbitek",
@@ -402,5 +420,23 @@ const DATA := {
 		"special_damage_type": "water",
 		"elemental_resistances": {"water": 55, "frost": 35},
 		"status_resistance": 0.3,
+	},
+	"leviathan_north":
+	{
+		"display_name": "Lewiatan Północy",
+		"max_hp": 3050,
+		"attack": 52,
+		"defense": 22,
+		"dodge": 6.0,
+		"experience_reward": 2350,
+		"gold_min": 950,
+		"gold_max": 1250,
+		"rank": "boss",
+		"special_name": "Fala Północy",
+		"special_chance": 0.32,
+		"special_attack_bonus": 15,
+		"special_damage_type": "water",
+		"elemental_resistances": {"water": 60, "frost": 55, "wind": 25},
+		"status_resistance": 0.45,
 	},
 }

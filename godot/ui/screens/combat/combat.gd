@@ -11,6 +11,9 @@ const GameSessionClass := preload("res://core/game/game_session.gd")
 const HunterComboCatalogClass := preload("res://core/combat/hunter_combo_catalog.gd")
 const ItemCatalogClass := preload("res://core/items/item_catalog.gd")
 const RegionCatalogClass := preload("res://core/world/region_catalog.gd")
+const RegionBossChallengeServiceClass := preload(
+	"res://core/world/region_boss_challenge_service.gd"
+)
 const EliteEncounterServiceClass := preload("res://core/world/elite_encounter_service.gd")
 const SkillCatalogClass := preload("res://core/skills/skill_catalog.gd")
 const TalentProgressionServiceClass := preload(
@@ -109,9 +112,9 @@ func configure(
 	_enemy = EnemyCatalogClass.create_enemy(enemy_id)
 	_battle_title = battle_title
 	_configuration_error = ""
-	if _context == "expedition":
+	if _uses_surface_weather():
 		WeatherServiceClass.apply_to_enemy(_enemy, _encounter_weather_code)
-		if not elite_modifier_id.is_empty():
+		if _context == "expedition" and not elite_modifier_id.is_empty():
 			var elite_result := EliteEncounterServiceClass.apply_modifier(
 				_enemy, elite_modifier_id, _encounter_weather_code
 			)
@@ -299,7 +302,7 @@ func _damage_type_suffix(damage_type: String) -> String:
 
 func _finish_battle() -> void:
 	_set_actions_enabled(false)
-	if _context in ["expedition", "dungeon"]:
+	if _context in ["expedition", "dungeon", "region_boss"]:
 		_session.camp_rest_available = true
 	result_panel.visible = true
 	match _engine.result:
@@ -314,6 +317,10 @@ func _finish_battle() -> void:
 				_session.last_activity = "Ucieczka z walki z: %s." % _enemy.display_name
 				_session.log_event(_session.last_activity)
 				result_label.text = "Ucieczka udana. Wracasz na szlak."
+	if _context == "region_boss":
+		RegionBossChallengeServiceClass.finish_attempt(
+			_session, _enemy.enemy_id, _engine.result, _rng
+		)
 	_render()
 	continue_button.grab_focus()
 
@@ -325,11 +332,13 @@ func _resolve_victory() -> String:
 		_session.last_activity = "Pokonano Przeklętego Stracha na Wróble."
 		_session.log_event(_session.last_activity)
 		return "Zwycięstwo. Po walce odzyskujesz pełne PŻ i możesz przeszukać pobojowisko."
-	var rewards := (
-		AdventureServiceClass.resolve_dungeon_victory(_session, _enemy, _rng)
-		if _context == "dungeon"
-		else AdventureServiceClass.resolve_victory(_session, _enemy, _rng)
-	)
+	var rewards: Dictionary
+	if _context == "dungeon":
+		rewards = AdventureServiceClass.resolve_dungeon_victory(_session, _enemy, _rng)
+	elif _context == "region_boss":
+		rewards = RegionBossChallengeServiceClass.resolve_victory(_session, _enemy, _rng)
+	else:
+		rewards = AdventureServiceClass.resolve_victory(_session, _enemy, _rng)
 	var text := "Zwycięstwo  •  +%d EXP  •  +%d złota" % [rewards.experience, rewards.gold]
 	if rewards.levels_gained > 0:
 		text += "  •  Awans: +%d poziom" % rewards.levels_gained
@@ -350,6 +359,9 @@ func _resolve_victory() -> String:
 		text += "\nOsiągnięcie: %s — tytuł „%s”" % [achievement.display_name, achievement.title]
 	if not rewards.elite_discovery_note.is_empty():
 		text += "\n%s" % rewards.elite_discovery_note
+	var milestone: Dictionary = rewards.get("guild_milestone", {})
+	if bool(milestone.get("awarded", false)):
+		text += "\n%s" % milestone.message
 	return text
 
 
@@ -380,6 +392,9 @@ func _render() -> void:
 		var warnings := _engine.boss_status_lines()
 		if not warnings.is_empty():
 			encounter_label.text += "\n" + "\n".join(warnings)
+	elif _context == "region_boss":
+		var region = RegionCatalogClass.get_definition(_session.current_location_id)
+		encounter_label.text = "%s — %s" % [region.display_name.to_upper(), _battle_title]
 	else:
 		var region = RegionCatalogClass.get_definition(_session.current_location_id)
 		encounter_label.text = "%s — WALKA TUROWA" % region.display_name.to_upper()
@@ -402,7 +417,7 @@ func _render() -> void:
 	player_hp_bar.value = player.stats.current_hp
 	player_hp_bar.tooltip_text = "PŻ %d/%d" % [player.stats.current_hp, player.stats.max_hp]
 	enemy_name_label.text = _enemy.display_name
-	if _context == "expedition":
+	if _uses_surface_weather():
 		enemy_name_label.text += (
 			"  •  %s" % WeatherServiceClass.display_name_for(_encounter_weather_code)
 		)
@@ -437,6 +452,10 @@ func _render() -> void:
 	_render_double_weave_action()
 	_refresh_consumable_selector()
 	_render_consumable_action()
+
+
+func _uses_surface_weather() -> bool:
+	return _context in ["expedition", "region_boss"]
 
 
 func _render_fate_panel() -> void:

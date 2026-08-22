@@ -22,7 +22,7 @@ static func get_all() -> Array[GuildMilestoneDefinitionClass]:
 				"Pokonanie Azhara, Władcy Pustkowi",
 				100,
 				"Boss regionalny: Azhar",
-				"Bossowie regionalni zostaną podłączeni w etapie świata 4F.",
+				"",
 			)
 		),
 		(
@@ -32,7 +32,7 @@ static func get_all() -> Array[GuildMilestoneDefinitionClass]:
 				"Pokonanie Lewiatana Północy",
 				150,
 				"Boss regionalny: Lewiatan Północy",
-				"Bossowie regionalni zostaną podłączeni w etapie świata 4F.",
+				"",
 			)
 		),
 		(

@@ -868,6 +868,33 @@ obrażeń i osobny silnik walki drużynowej pozostają wyłącznym zakresem 6F.
   534 testy Python + 8 subtestów, 405/405 testów GUT z 4257 asercjami,
   formatter, lint, bootstrap oraz eksport i smoke test Windows.
 
+### Etap 8C — regionalni bossowie (ukończony)
+
+- `RegionBossCatalog` i jawne `RegionBossDefinition` przenoszą Azhara, Władcę
+  Pustkowi oraz Lewiatana Północy z ich regionami, rekomendowanymi poziomami,
+  bazowymi statystykami, odpornościami, nagrodami i tekstem wyzwania,
+- `RegionBossChallengeService` jest właścicielem przygotowania dobrowolnego
+  wyzwania, snapshotu pogody, rozliczenia zwycięstwa, jednorazowych kamieni
+  milowych Gildii oraz kosztu jednej godziny i ponownego otwarcia obozu. UI
+  jedynie zbiera wybór, uruchamia serwis i prezentuje rezultat,
+- `AzharCombatEngine` i `LeviathanNorthCombatEngine` rozszerzają zwykłą walkę
+  tylko o terminalowe trzy fazy danego bossa. Nie wciągają PartyCombatEngine,
+  Szczelin ani logiki odrodzenia do podstawowego silnika,
+- pogoda jest utrwalana przed otwarciem walki i działa przez istniejący system
+  modyfikatorów. Pokonanie bossa przyznaje terminalowe EXP i złoto, bossową
+  tabelę łupu, szanse Ksiąg Ścieżki i Mistrzostwa oraz klasowe wyposażenie,
+- trofea zasilają istniejące cele fabularne i kontraktowe, pierwsze zwycięstwa
+  zapisują kamienie milowe oraz Dziennik Przygód, a powtórne rozliczenie nie
+  przyznaje ponownie reputacji za ten sam kamień milowy,
+- schemat pozostaje `v17`, ponieważ 8A już przechowuje liczniki odrodzenia.
+  Stage 8C celowo ich nie uruchamia, nie zmniejsza i nie blokuje wyzwania;
+  pełny sześciowyprawowy lifecycle należy wyłącznie do Stage 8D,
+- regresje obejmują katalog i dokładne statystyki, fazy obu bossów, ostrzeżenia
+  poziomu, snapshot pogody, łup, księgi, klasowe wyposażenie, fabułę, Gildię,
+  koszt czasu, obóz, brak przedwczesnej mutacji respawnu oraz przepływ UI.
+  Checkpoint przeszedł 534 testy Python + 8 subtestów, 414/414 testów GUT z
+  4370 asercjami, formatter, lint, bootstrap oraz eksport i smoke test Windows.
+
 ## Kryterium ukończenia etapu
 
 Etap jest ukończony, gdy reguły zgadzają się z wersją terminalową, ekran da się

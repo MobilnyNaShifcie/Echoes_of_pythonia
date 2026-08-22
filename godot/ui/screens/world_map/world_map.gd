@@ -3,6 +3,9 @@ extends Control
 
 signal back_requested
 signal encounter_requested(enemy_id: String, weather_code: String, elite_modifier_id: String)
+signal boss_requested(
+	boss_id: String, weather_code: String, engine_script: Script, battle_title: String
+)
 signal dungeon_requested(dungeon_id: String)
 
 const AdventureServiceClass := preload("res://core/world/adventure_service.gd")
@@ -13,6 +16,10 @@ const GameSessionClass := preload("res://core/game/game_session.gd")
 const QuestServiceClass := preload("res://core/quests/quest_service.gd")
 const RegionCatalogClass := preload("res://core/world/region_catalog.gd")
 const RegionDefinitionClass := preload("res://core/world/region_definition.gd")
+const RegionBossCatalogClass := preload("res://core/world/region_boss_catalog.gd")
+const RegionBossChallengeServiceClass := preload(
+	"res://core/world/region_boss_challenge_service.gd"
+)
 const WeatherServiceClass := preload("res://core/world/weather_service.gd")
 
 var _session: GameSessionClass
@@ -32,6 +39,7 @@ var _selection_locked := false
 @onready var weather_label: Label = %WeatherLabel
 @onready var camp_button: Button = %CampButton
 @onready var explore_button: Button = %ExploreButton
+@onready var boss_button: Button = %BossButton
 @onready var dungeon_button: Button = %DungeonButton
 @onready var event_label: Label = %EventLabel
 @onready var quest_label: Label = %QuestLabel
@@ -40,6 +48,7 @@ var _selection_locked := false
 func _ready() -> void:
 	%BackButton.pressed.connect(back_requested.emit)
 	explore_button.pressed.connect(_explore)
+	boss_button.pressed.connect(_challenge_region_boss)
 	dungeon_button.pressed.connect(_enter_dungeon)
 	camp_button.pressed.connect(_rest_at_camp)
 	region_list.item_selected.connect(_select_region)
@@ -98,6 +107,25 @@ func _enter_dungeon() -> void:
 	var dungeon = DungeonCatalogClass.dungeon_for_region(_selected_region_id)
 	if dungeon != null:
 		dungeon_requested.emit(dungeon.dungeon_id)
+
+
+func _challenge_region_boss() -> void:
+	if _session == null:
+		return
+	var result := RegionBossChallengeServiceClass.prepare_challenge(_session, _selected_region_id)
+	event_label.text = result.message
+	_render_session()
+	if not result.ok:
+		return
+	(
+		boss_requested
+		. emit(
+			result.boss_id,
+			result.weather_code,
+			result.engine_script,
+			result.battle_title,
+		)
+	)
 
 
 func _render() -> void:
@@ -213,6 +241,14 @@ func _render_region() -> void:
 	threats_label.text = _format_encounters(region)
 	explore_button.disabled = false
 	explore_button.text = "Wyrusz na wyprawę  •  +1 godzina"
+	var boss = RegionBossCatalogClass.boss_for_region(_selected_region_id)
+	boss_button.visible = boss != null
+	if boss != null:
+		boss_button.text = "%s  •  BOSS • poziom %d+" % [boss.display_name, boss.recommended_level]
+		boss_button.tooltip_text = boss.challenge_description
+		var warning := boss.level_warning(_session.player.level)
+		if not warning.is_empty():
+			boss_button.tooltip_text += "\n" + warning
 	var dungeon = DungeonCatalogClass.dungeon_for_region(_selected_region_id)
 	dungeon_button.visible = dungeon != null
 	if dungeon != null:

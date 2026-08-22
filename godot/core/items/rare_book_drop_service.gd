@@ -14,12 +14,16 @@ const PATH_BOOK_IDS := [
 	"path_fortuna_book",
 ]
 const MASTERY_CHANCES := {
+	"azhar": 0.01,
+	"leviathan_north": 0.01,
 	"crypt_warden": 0.02,
 	"black_fleet_first_officer": 0.02,
 	"order_grandmaster": 0.04,
 	"admiral_varek": 0.04,
 }
 const PATH_CHANCES := {
+	"azhar": 0.005,
+	"leviathan_north": 0.005,
 	"crypt_warden": 0.01,
 	"black_fleet_first_officer": 0.01,
 	"order_grandmaster": 0.02,

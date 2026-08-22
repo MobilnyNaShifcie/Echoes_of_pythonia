@@ -10,6 +10,7 @@ const RegionCatalogClass := preload("res://core/world/region_catalog.gd")
 const CarryWeightServiceClass := preload("res://core/economy/carry_weight_service.gd")
 const EquipmentAffixServiceClass := preload("res://core/items/equipment_affix_service.gd")
 const RareBookDropServiceClass := preload("res://core/items/rare_book_drop_service.gd")
+const ClassLootServiceClass := preload("res://core/items/class_loot_service.gd")
 const MathClass := preload("res://core/math/legacy_math.gd")
 const WeatherServiceClass := preload("res://core/world/weather_service.gd")
 const EliteEncounterServiceClass := preload("res://core/world/elite_encounter_service.gd")
@@ -149,6 +150,12 @@ static func resolve_victory(
 	)
 	if bool(rules.get("include_rare_books", false)):
 		loot_drops.append_array(RareBookDropServiceClass.roll_for_enemy(enemy.enemy_id, rng))
+	if bool(rules.get("include_class_loot", false)):
+		loot_drops.append_array(
+			ClassLootServiceClass.roll_for_enemy(
+				enemy.enemy_id, enemy.rank, not enemy.elite_modifier_id.is_empty(), rng
+			)
+		)
 	var equipment_quality := str(
 		rules.get("equipment_quality", _equipment_quality_for_enemy(enemy))
 	)

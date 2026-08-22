@@ -2,6 +2,17 @@
 
 ## [0.25.0-dev] — Pierwsza grywalna pętla w Godot 4
 
+- ukończono Stage 8C: Azhar, Władca Pustkowi oraz Lewiatan Północy są
+  dobrowolnymi wyzwaniami regionów, korzystającymi z terminalowych statystyk,
+  rekomendowanych poziomów, pogody i osobnych trzyfazowych silników walki,
+- zwycięstwa przyznają dokładne bazowe EXP i złoto, bossowe tabele łupu,
+  Księgi Ścieżki i Mistrzostwa oraz klasowe wyposażenie; trofea aktualizują
+  misje fabularne, a pierwsze pokonanie każdego bossa zapisuje kamień milowy
+  Gildii i wpis w Dzienniku Przygód,
+- próba walki zużywa jedną godzinę świata i ponownie udostępnia obóz polowy;
+  ekran mapy oraz walki jedynie prezentują i wywołują reguły domenowe,
+- schemat zapisu pozostaje `v17`; Stage 8C celowo nie uruchamia ani nie
+  zmniejsza liczników odrodzenia bossów, które należą wyłącznie do Stage 8D,
 - ukończono Stage 8B: zwykłe spotkania wszystkich pięciu regionów mogą stać
   się jedną z pięciu zgodnych elit, z terminalową szansą dnia, nocy i Zorzy
   oraz osobnym licznikiem `+2 p.p.` po nieudanym spotkaniu w każdym regionie,
@@ -11,8 +22,7 @@
 - zwycięstwo nad elitą zwiększa EXP, złoto, jakość i szansę łupu, aktualizuje
   kontrakty, a pierwszy pokonany typ zapisuje się w Dzienniku Przygód; ekran
   walki pokazuje nazwę, oznaczenie i opis elity bez przejmowania reguł domeny,
-- Stage 8B korzysta z trwałego stanu 8A, więc schemat pozostaje `v17`;
-  regionalni bossowie i ich odrodzenie pozostają wyłącznie zakresem 8C–8D,
+- Stage 8B korzysta z trwałego stanu 8A, więc schemat pozostaje `v17`,
 - ukończono Stage 8A: `OpenWorldEncounterState` przechowuje odkryte typy elit,
   regionalne serie bez elity i liczniki odrodzenia bossów bez uruchamiania
   jeszcze mechanik Stage 8B–8D,

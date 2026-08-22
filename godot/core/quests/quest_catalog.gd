@@ -208,7 +208,7 @@ const DATA := {
 		"consume_objective_items": false,
 		"story_arc": "Akt I — Ślady Przebudzenia",
 		"chapter": "Rozdział V — Popiół pamięta",
-		"dependency_note": "Azhar oczekuje na migrację bossów regionalnych.",
+		"dependency_note": "",
 		"completion_text":
 		(
 			"Pieczęć Azhara nie jest identyczna, ale jej rdzeń tworzy część tego samego "
@@ -238,7 +238,7 @@ const DATA := {
 		"consume_objective_items": false,
 		"story_arc": "Akt I — Ślady Przebudzenia",
 		"chapter": "Rozdział VI — Dzwony pod lodem",
-		"dependency_note": "Lewiatan Północy oczekuje na migrację bossów regionalnych.",
+		"dependency_note": "",
 		"completion_text":
 		(
 			"Na łusce Lewiatana pojawia się wzór dopiero po ogrzaniu jej nad płomieniem. "

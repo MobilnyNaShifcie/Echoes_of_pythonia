@@ -1,10 +1,11 @@
 # Stage 7 — końcowy parytet i bezpieczne przejście
 
-> Aktualizacja po Stage 8B: trzy jawne luki opisane w tym historycznym raporcie
+> Aktualizacja po Stage 8C: trzy jawne luki opisane w tym historycznym raporcie
 > mają już bezpieczny odpowiednik w `OpenWorldEncounterState`. Importer mapuje
 > ich zapisane wartości do Godotowego schematu `v17`, a `audit.not_migrated`
-> pozostaje pusty. Stage 8B uruchamia pełne zasady losowych elit; definicje
-> bossów regionalnych i ich respawn pozostają osobnymi etapami 8C–8D.
+> pozostaje pusty. Stage 8B uruchamia pełne zasady losowych elit, a Stage 8C
+> definicje, wyzwania i nagrody regionalnych bossów. Jedynie sześciowyprawowy
+> lifecycle ich odrodzenia pozostaje osobnym Stage 8D.
 
 ## Zakres audytu
 

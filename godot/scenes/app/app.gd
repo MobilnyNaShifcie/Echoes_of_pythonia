@@ -367,6 +367,7 @@ func _show_world_map(selected_region_id := "") -> void:
 	world_map.configure(_current_session, selected_region_id)
 	world_map.back_requested.connect(_show_city_hub)
 	world_map.encounter_requested.connect(_show_expedition_combat)
+	world_map.boss_requested.connect(_show_region_boss_combat)
 	world_map.dungeon_requested.connect(_show_dungeon)
 	var region = RegionCatalogClass.get_definition(_current_session.current_location_id)
 	app_status_label.text = "Wyprawa: %s" % region.display_name
@@ -376,6 +377,12 @@ func _show_expedition_combat(
 	enemy_id: String, weather_code: String, elite_modifier_id: String
 ) -> void:
 	_show_combat(enemy_id, "expedition", weather_code, null, "", elite_modifier_id)
+
+
+func _show_region_boss_combat(
+	boss_id: String, weather_code: String, engine_script: Script, battle_title: String
+) -> void:
+	_show_combat(boss_id, "region_boss", weather_code, engine_script, battle_title)
 
 
 func _show_combat(

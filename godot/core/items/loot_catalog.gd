@@ -125,6 +125,14 @@ const TABLES := {
 		{"item_id": "common_essence", "chance": 0.5},
 		{"item_id": "hearth_gauntlets", "chance": 0.15}
 	],
+	"azhar":
+	[
+		{"item_id": "azhar_sigil", "chance": 1.0},
+		{"item_id": "common_essence", "chance": 0.75},
+		{"item_id": "azhar_blade", "chance": 0.10},
+		{"item_id": "azhar_crown", "chance": 0.08},
+		{"item_id": "azhar_ring", "chance": 0.08}
+	],
 	"frozen_castaway": [{"item_id": "frozen_cloth", "chance": 0.75}],
 	"ice_bear":
 	[
@@ -149,6 +157,12 @@ const TABLES := {
 		{"item_id": "cursed_compass", "chance": 1.0},
 		{"item_id": "black_fleet_medallion", "chance": 1.0},
 		{"item_id": "captain_signet", "chance": 0.12}
+	],
+	"leviathan_north":
+	[
+		{"item_id": "leviathan_scale", "chance": 1.0},
+		{"item_id": "common_essence", "chance": 0.80},
+		{"item_id": "leviathan_ring", "chance": 0.08}
 	],
 	"drowned_acolyte":
 	[{"item_id": "order_seal", "chance": 0.55}, {"item_id": "cursed_resin", "chance": 0.25}],
