@@ -24,7 +24,7 @@ equivalent, tested GDScript implementation.
 - `ui/` — reusable controls, themes, and presentation logic
 
 The current playable migration includes stages 0–3, stages 4A–4E, stages
-5A–5E, and stages 6A–6B, including all eight class talent paths, 41 talents, passive Masteries, and
+5A–5E, stages 6A–6K, and Stage 7, including all eight class talent paths, 41 talents, passive Masteries, and
 specializations. All sixteen
 base Path skills are active. Pierrot uses a dedicated
 Fate Engine with encounter-local Fate Tokens and exact 1d6/2d6/3d6 tables.
@@ -111,7 +111,18 @@ Rift-based story gates, and candidate decisions remain domain-owned and survive
 reload. The existing Party screen exposes roster, candidate, message, and
 personal-story flows using placeholder panels. Existing schema v13 already
 contained every required field, so 6B validates that data without a schema bump.
-Companion builds and personal equipment intentionally remain in stage 6C.
+Stages 6C–6K subsequently complete companion builds and equipment, preparation,
+AI tactics, party combat, casualties, SOLO dungeons, Rifts, and the final
+Stage 6 save/load audit; the detailed boundaries are recorded in the migration
+documents.
+
+Stage 7 adds the safe terminal-save transition. The existing Load Game screen
+can inspect an exact terminal `v0.24.7` schema-`v15` file and import it only as a
+new Godot schema-`v16` copy in an empty slot. The original is opened read-only
+and guarded by SHA-256 checks. Every successful copy receives a JSON report of
+normalizations and unsupported world counters. Full mapping, refusal,
+rollback, source-immutability, UI, and save-load-save-load tests protect the
+flow. See `../docs/STAGE_7_PARITY_REPORT_v0.25.0.md` for the parity matrix.
 
 Open the project with the pinned local editor from the repository root:
 
@@ -125,3 +136,13 @@ and GUT tests with one command:
 ```powershell
 .\scripts\check.ps1
 ```
+
+Create the versioned Windows debug build after installing the pinned Godot
+export templates:
+
+```powershell
+.\scripts\export-windows.ps1
+```
+
+The output is written under `build/windows/`, which is intentionally ignored by
+Git. Final art and audio production has not started.

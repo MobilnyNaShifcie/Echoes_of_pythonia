@@ -218,7 +218,7 @@ static func _deserialize_companion(data, current_day: int, dismissed: bool) -> D
 			return _failure("Kompan zawiera nieprawidłową wartość pola: %s." % field)
 	if (
 		int(data.level) < 5
-		or not data.get("relation") is int
+		or not _is_integer(data.get("relation"))
 		or int(data.relation) < -100
 		or int(data.relation) > 100
 	):
@@ -337,7 +337,7 @@ static func _deserialize_candidate(data, current_day: int) -> Dictionary:
 		not _is_non_negative_integer(data.get("generated_day"))
 		or not _is_positive_integer(data.get("recruitment_roll"))
 		or int(data.recruitment_roll) > 100
-		or not data.get("impression") is int
+		or not _is_integer(data.get("impression"))
 		or not data.get("talked") is bool
 		or not data.get("recruitment_attempted") is bool
 		or not data.get("returning") is bool
@@ -502,6 +502,10 @@ static func _validate_item_ownership(companion: CompanionStateClass) -> String:
 
 static func _is_non_negative_integer(value) -> bool:
 	return (value is int or value is float and value == floor(value)) and value >= 0
+
+
+static func _is_integer(value) -> bool:
+	return value is int or value is float and value == floor(value)
 
 
 static func _is_positive_integer(value) -> bool:

@@ -82,6 +82,10 @@ func any_save_exists() -> bool:
 	return false
 
 
+func slot_path(slot: int) -> String:
+	return _slot_path(slot) if _is_valid_slot(slot) else ""
+
+
 # Early returns keep malformed save data from reaching object construction in all
 # deserializers below.
 # gdlint: disable=max-returns

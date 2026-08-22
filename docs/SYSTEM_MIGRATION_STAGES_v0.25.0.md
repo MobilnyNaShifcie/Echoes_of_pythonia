@@ -790,15 +790,30 @@ obrażeń i osobny silnik walki drużynowej pozostają wyłącznym zakresem 6F.
   przygotowanie wyprawy i Szczeliny w cyklu zapis–odczyt–ponowny zapis.
   Terminalowy format `v15` i Godotowy format `v16` nadal mają osobne
   identyfikatory; importer terminalowych zapisów pozostaje wyłączony do Stage 7,
-- Stage 6 jest zamknięty. Stage 7 nie został rozpoczęty i wymaga osobnej decyzji.
+- Stage 6 jest zamknięty. Stage 7 został osobno zaakceptowany i ukończony poniżej.
 
-## Etap 7 — parytet i bezpieczne przejście
+## Etap 7 — parytet i bezpieczne przejście (ukończony)
 
-- audyt wszystkich systemów wobec `v0.24.7`,
-- importer terminalowego schematu `v15` działający tylko do odczytu,
-- migracja kopii starego zapisu i raport elementów, których nie można przenieść,
-- testy pełnego cyklu, eksport Windows, sterowanie i podstawowa dostępność,
-- dopiero potem rozpoczęcie osobno akceptowanej warstwy finalnych assetów.
+- końcowy audyt objął wszystkie sekcje terminalowego zapisu `v0.24.7/v15` i
+  odpowiadające im subsystemy Godota. Szczegółową macierz zawiera
+  `STAGE_7_PARITY_REPORT_v0.25.0.md`,
+- dedykowany importer akceptuje wyłącznie dokładny terminalowy format `v15`,
+  otwiera źródło tylko do odczytu i tworzy kopię wyłącznie w pustym slocie
+  Godota. Oryginał jest chroniony sumami SHA-256 przed, w trakcie i po operacji,
+- każda kopia otrzymuje osobny raport JSON z wersjami, sumami, normalizacjami,
+  wynikiem round-trip i pełnymi wartościami pól bez odpowiednika. Importer nigdy
+  nie nadpisuje istniejącego zapisu ani raportu,
+- testy pełnego cyklu pokrywają walidację, mapowanie, odmowę nadpisania,
+  rollback, niezmienność źródła, ekran `Wczytaj grę` oraz terminal `v15` → Godot
+  `v16` → save/load/save/load z drużyną i osobistym wyposażeniem,
+- wersjonowany eksport Windows pakuje zasoby runtime bez GUT i testów. Kontrolki
+  placeholderowego UI zachowują obsługę myszy, klawiatury, widoczny fokus i
+  skalowany viewport Full HD,
+- trzy terminalowe stany świata bez bezpiecznego odpowiednika
+  (`elite_discoveries`, `elite_miss_streaks`, `region_boss_respawns`) są
+  walidowane i jawnie zapisywane w raporcie, nigdy po cichu odrzucane,
+- warstwa finalnych assetów pozostaje osobnym, nie rozpoczętym etapem wymagającym
+  akceptacji gracza.
 
 ## Kryterium ukończenia etapu
 

@@ -364,7 +364,20 @@ codecs now enforce the terminal domain bounds, identity links, authored Rift
 shape, calendar consistency, and a bounded message history. A populated
 party/preparation/Rift snapshot is protected through save-load-save regression
 tests. The terminal schema-v15 format remains separate and its importer is still
-disabled until Stage 7; Stage 7 has not begun.
+disabled until Stage 7.
+Stage 7 completes the safe transition boundary. A dedicated read-only importer
+accepts only terminal `v0.24.7` schema `v15`, maps supported state into the
+separate Godot schema `v16`, validates it through `SaveGameService`, writes only
+to an empty Godot slot, verifies a disk round trip, and emits a separate JSON
+audit report. SHA-256 checks protect the terminal source throughout; the source
+is never moved, rewritten, or deleted. The existing Load Game screen exposes
+the flow without owning migration rules. Elite discovery/pity counters and
+regional-boss respawn counters have no safe Godot equivalent yet, so their
+validated values are recorded explicitly under `not_migrated` rather than
+silently discarded. A Windows Desktop debug preset, export script, packaged
+runtime smoke test, keyboard focus checks, and full-cycle regressions close the
+stage. Final art, audio, and advanced animation remain unstarted and require a
+separate approval.
 Their calendar periods, generated definitions, objective progress, and claimed
 rewards survive reloads; existing schema-v8 files receive a safe empty board
 before the next period is generated.
