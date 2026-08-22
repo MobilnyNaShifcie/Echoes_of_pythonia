@@ -141,6 +141,27 @@ layout_mode = 2
 disabled = true
 text = "Rozstań się z kompanem"
 
+[node name="TacticSeparator" type="HSeparator" parent="Page/ModeTabs/RosterTab/DetailsPanel/DetailsScroll/Details"]
+layout_mode = 2
+
+[node name="TacticTitle" type="Label" parent="Page/ModeTabs/RosterTab/DetailsPanel/DetailsScroll/Details"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
+theme_override_font_sizes/font_size = 18
+text = "Taktyka AI"
+
+[node name="TacticOption" type="OptionButton" parent="Page/ModeTabs/RosterTab/DetailsPanel/DetailsScroll/Details"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+
+[node name="TacticDescriptionLabel" type="Label" parent="Page/ModeTabs/RosterTab/DetailsPanel/DetailsScroll/Details"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.78, 0.86, 1)
+text = "Wybierz kompana, aby ustawić jego zachowanie w walce."
+autowrap_mode = 2
+
 [node name="EquipmentSeparator" type="HSeparator" parent="Page/ModeTabs/RosterTab/DetailsPanel/DetailsScroll/Details"]
 layout_mode = 2
 

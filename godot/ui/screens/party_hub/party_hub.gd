@@ -19,6 +19,7 @@ const CompanionRelationshipServiceClass := preload(
 const CompanionServiceClass := preload("res://core/companions/companion_service.gd")
 const CompanionStateClass := preload("res://core/companions/companion_state.gd")
 const CompanionStoryCatalogClass := preload("res://core/companions/companion_story_catalog.gd")
+const CompanionTacticServiceClass := preload("res://core/companions/companion_tactic_service.gd")
 const GameSessionClass := preload("res://core/game/game_session.gd")
 const TalentCatalogClass := preload("res://core/progression/talent_catalog.gd")
 
@@ -41,6 +42,8 @@ var _selected_player_item_index := -1
 @onready var toggle_button: Button = %ToggleButton
 @onready var solo_button: Button = %SoloButton
 @onready var dismiss_button: Button = %DismissButton
+@onready var tactic_option: OptionButton = %TacticOption
+@onready var tactic_description_label: Label = %TacticDescriptionLabel
 @onready var companion_equipment_list: ItemList = %CompanionEquipmentList
 @onready var player_equipment_list: ItemList = %PlayerEquipmentList
 @onready var equipment_detail_label: Label = %EquipmentDetailLabel
@@ -67,6 +70,10 @@ func _ready() -> void:
 	toggle_button.pressed.connect(_toggle_selected)
 	solo_button.pressed.connect(_set_solo)
 	dismiss_button.pressed.connect(_dismiss_selected)
+	for tactic_code: String in CompanionTacticServiceClass.TACTIC_ORDER:
+		tactic_option.add_item(CompanionStateClass.tactic_display_name(tactic_code))
+		tactic_option.set_item_metadata(tactic_option.item_count - 1, tactic_code)
+	tactic_option.item_selected.connect(_change_selected_tactic)
 	companion_equipment_list.item_selected.connect(_select_companion_equipment)
 	player_equipment_list.item_selected.connect(_select_player_equipment)
 	equip_player_item_button.pressed.connect(_equip_player_item)
@@ -148,6 +155,20 @@ func _dismiss_selected() -> void:
 		_selected_player_item_index = -1
 		state_changed.emit()
 	_render()
+
+
+func _change_selected_tactic(index: int) -> void:
+	var companion := _selected_companion()
+	if companion == null or index < 0 or index >= tactic_option.item_count:
+		return
+	var tactic_code := str(tactic_option.get_item_metadata(index))
+	var result := CompanionTacticServiceClass.set_tactic(
+		_session.party, companion.companion_id, tactic_code
+	)
+	_show_result(result.message, result.ok)
+	if result.ok and result.changed:
+		state_changed.emit()
+	_render_companion_details()
 
 
 func _select_companion_equipment(index: int) -> void:
@@ -313,6 +334,7 @@ func _render_companion_details() -> void:
 		personal_title_label.text = "Historia osobista"
 		personal_text_label.text = "Brak historii do wyświetlenia."
 		_set_companion_buttons_disabled(true)
+		_render_tactic(null)
 		_render_equipment()
 		return
 	detail_name_label.text = "%s  •  poziom %d" % [companion.display_name, companion.level]
@@ -353,6 +375,7 @@ func _render_companion_details() -> void:
 	toggle_button.text = "Pozostaw w Varenhold" if companion.active else "Dodaj do aktywnego składu"
 	solo_button.disabled = _session.party.active_companions(_session.day).is_empty()
 	dismiss_button.disabled = companion.dead
+	_render_tactic(companion)
 	_render_equipment()
 	_render_personal_stage(companion)
 
@@ -604,10 +627,24 @@ func _set_companion_buttons_disabled(disabled: bool) -> void:
 	toggle_button.disabled = disabled
 	solo_button.disabled = disabled
 	dismiss_button.disabled = disabled
+	tactic_option.disabled = disabled
 	personal_choice_one.disabled = disabled
 	personal_choice_two.disabled = disabled
 	equip_player_item_button.disabled = disabled
 	return_player_item_button.disabled = disabled
+
+
+func _render_tactic(companion: CompanionStateClass) -> void:
+	if companion == null:
+		tactic_option.disabled = true
+		tactic_description_label.text = "Wybierz kompana, aby ustawić jego zachowanie w walce."
+		return
+	tactic_option.disabled = false
+	for index in tactic_option.item_count:
+		if str(tactic_option.get_item_metadata(index)) == companion.tactic:
+			tactic_option.select(index)
+			break
+	tactic_description_label.text = CompanionTacticServiceClass.description(companion.tactic)
 
 
 func _attribute_summary(companion: CompanionStateClass) -> String:

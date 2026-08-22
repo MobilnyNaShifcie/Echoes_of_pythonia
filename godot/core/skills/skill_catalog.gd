@@ -98,6 +98,25 @@ static func get_unlocked_skills(player) -> Array[SkillDefinitionClass]:
 	return result
 
 
+static func get_unlocked_skills_for_companion(companion) -> Array[SkillDefinitionClass]:
+	var result: Array[SkillDefinitionClass] = []
+	if companion == null:
+		return result
+	for skill: SkillDefinitionClass in get_skills_for_class(companion.class_code):
+		if companion.level >= skill.unlock_level:
+			result.append(skill)
+	for skill_id: String in TALENT_SKILL_ORDER_BY_CLASS.get(companion.class_code, []):
+		var skill: SkillDefinitionClass = get_definition(skill_id)
+		if (
+			skill != null
+			and companion.level >= skill.unlock_level
+			and int(companion.talents.get(skill.required_talent_id, 0)) > 0
+			and not result.has(skill)
+		):
+			result.append(skill)
+	return result
+
+
 static func get_combat_ready_skills(player) -> Array[SkillDefinitionClass]:
 	var result: Array[SkillDefinitionClass] = []
 	for skill: SkillDefinitionClass in get_unlocked_skills(player):

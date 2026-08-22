@@ -551,9 +551,39 @@ globalnego defaultu `CompanionState.current_hp` w fundamencie 6A.
 wejście do otwartego świata przechodzi przez przygotowanie, po czym korzysta z
 istniejącej mapy i `AdventureService` bez duplikowania zasad eksploracji.
 
+### Etap 6E — taktyki AI kompanów (ukończony)
+
+- audyt `systems/companions.py`, `systems/rift_combat.py` i terminalowych modeli
+  potwierdził cztery zapisane taktyki: Agresywną, Zrównoważoną, Ostrożną oraz
+  Obronną. `CompanionTacticService` jest ich właścicielem domenowym; UI jedynie
+  przekazuje wybrany kod i prezentuje opis,
+- `CompanionAiContext` oddziela politykę AI od przyszłego silnika walki. Zawiera
+  bieżące PŻ/Manę oraz zasoby stojących członków drużyny, ale nie wykonuje akcji,
+  nie mutuje walki i nie przyznaje żadnych rezultatów,
+- wybór AI zachowuje terminalowe progi: Obronna reaguje poniżej 80% PŻ lub na
+  członka drużyny poniżej 35% PŻ, Ostrożna broni się poniżej 50% PŻ i nie zużywa
+  skilla poniżej 25% Many. Porównania pozostają ścisłe (`<`), także na granicach,
+- Agresywna wybiera najsilniejszy dostępny skill ofensywny według
+  `multiplier × max(1, hits)`. Zrównoważona i Ostrożna zachowują tożsamość klas:
+  Łowca losuje odblokowaną technikę, Pierrot losuje skill Losu, a pozostałe
+  klasy wybierają najsilniejszy dostępny fallback,
+- Ciężki Rycerz z odpowiednimi talentami priorytetowo używa Prowokacji, gdy
+  drużyna jest zagrożona, zarówno przy taktyce Obronnej, jak i Zrównoważonej,
+- RNG jest jawnie wstrzykiwany przez przyszły subsystem walki, dzięki czemu
+  decyzje są deterministyczne w testach. Pusty identyfikator skilla stanowi
+  jawny kontrakt ataku podstawowego dla 6F,
+- `SkillCatalog` potrafi wyliczyć skille kompana bez tworzenia adaptera gracza,
+  uwzględniając poziom, klasę i aktywne skille odblokowane talentami,
+- istniejący ekran „Drużyna i kompani” otrzymał wybór taktyki i jej opis bez
+  tworzenia nowego hubu oraz bez przeniesienia decyzji AI do UI,
+- schemat pozostaje `v14`, ponieważ `PartySaveCodec` już zapisuje i waliduje kod
+  taktyki. Test regresyjny potwierdza zachowanie ustawienia po save/load.
+
+6E nie wykonuje tur, obrażeń, statusów ani akcji kompanów. Wspólne reguły
+obrażeń i osobny silnik walki drużynowej pozostają wyłącznym zakresem 6F.
+
 ### Dalsza kolejność Stage 6
 
-- **6E:** oddzielone od UI taktyki AI,
 - **6F:** wspólne zasady obrażeń i osobny silnik walki drużynowej,
 - **6G:** powalenie, ciężkie rany i jawnie zapowiadana permanentna śmierć,
 - **6H:** dwa terminalowe lochy SOLO przeniesione 1:1,
