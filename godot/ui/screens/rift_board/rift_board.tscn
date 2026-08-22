@@ -109,6 +109,81 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.73, 0.78, 0.85, 1)
 autowrap_mode = 2
 
+[node name="CombatPanel" type="PanelContainer" parent="Page/RiftPanel/Content"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="Content" type="VBoxContainer" parent="Page/RiftPanel/Content/CombatPanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="EnemyLabel" type="Label" parent="Page/RiftPanel/Content/CombatPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.91, 0.42, 0.57, 1)
+theme_override_font_sizes/font_size = 18
+text = "Przeciwnik"
+
+[node name="FightersLabel" type="Label" parent="Page/RiftPanel/Content/CombatPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.73, 0.8, 0.9, 1)
+text = "Stan drużyny"
+autowrap_mode = 2
+
+[node name="CombatLogLabel" type="Label" parent="Page/RiftPanel/Content/CombatPanel/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.83, 0.85, 0.9, 1)
+text = "Przebieg rundy"
+autowrap_mode = 2
+
+[node name="Selectors" type="HBoxContainer" parent="Page/RiftPanel/Content/CombatPanel/Content"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="SkillSelector" type="OptionButton" parent="Page/RiftPanel/Content/CombatPanel/Content/Selectors"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HelpSelector" type="OptionButton" parent="Page/RiftPanel/Content/CombatPanel/Content/Selectors"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CombatActions" type="HBoxContainer" parent="Page/RiftPanel/Content/CombatPanel/Content"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 8
+
+[node name="AttackButton" type="Button" parent="Page/RiftPanel/Content/CombatPanel/Content/CombatActions"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 46)
+layout_mode = 2
+text = "Atak"
+
+[node name="SkillButton" type="Button" parent="Page/RiftPanel/Content/CombatPanel/Content/CombatActions"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 46)
+layout_mode = 2
+text = "Umiejętność"
+
+[node name="DefendButton" type="Button" parent="Page/RiftPanel/Content/CombatPanel/Content/CombatActions"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 46)
+layout_mode = 2
+text = "Obrona"
+
+[node name="HelpButton" type="Button" parent="Page/RiftPanel/Content/CombatPanel/Content/CombatActions"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(220, 46)
+layout_mode = 2
+text = "Pomóż kompanowi"
+
 [node name="Actions" type="HBoxContainer" parent="Page/RiftPanel/Content"]
 layout_mode = 2
 alignment = 1
@@ -131,5 +206,5 @@ text = "Porzuć ekspedycję"
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.55, 0.65, 0.77, 1)
-text = "Lifecycle Szczelin działa niezależnie od ekspedycji i walki drużynowej."
+text = "Ekspedycja Szczeliny jest gotowa."
 autowrap_mode = 2

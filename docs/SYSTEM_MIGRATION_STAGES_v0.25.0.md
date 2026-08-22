@@ -717,9 +717,52 @@ obrażeń i osobny silnik walki drużynowej pozostają wyłącznym zakresem 6F.
   ekspedycji, bramki rangi/składu, blokady, porzucenie, save/load, migrację v14,
   walidację kodeka i nawigację UI.
 
+### Etap 6J — pełne ekspedycje i walka drużynowa Szczelin (ukończony)
+
+- `RiftSegmentService` zachowuje terminalową strukturę 12–24 segmentów:
+  deterministyczne zwykłe starcia, elity i wydarzenia, stałe obozowiska,
+  środkowego minibossa tam, gdzie jego indeks nie jest obozowiskiem, oraz
+  Władcę w ostatnim segmencie. Pięć wydarzeń, przeciwnicy wszystkich motywów,
+  skalowanie rangi/głębokości/drużyny i cztery mechaniczne anomalie są
+  przeniesione z v0.24.7,
+- `RiftExpeditionService` jest właścicielem przebiegu ekspedycji: wyznacza
+  bieżący segment, wiąże żyjących i zdolnych do walki członków zapisanego
+  składu, obsługuje wydarzenia i odpoczynek, tworzy walkę drużynową oraz
+  rozlicza każdą rundę, konsekwencje, EXP, porażkę i ostateczne zamknięcie.
+  Ekran jedynie zbiera akcję gracza i prezentuje rezultat,
+- walki używają istniejącego `PartyCombatEngine` z 6F oraz
+  `CompanionCasualtyService` z 6G. Zwykły `TurnBasedCombatEngine` pozostaje
+  niezależny, a lifecycle 6I nadal nie importuje żadnego silnika walki.
+  Permanentna śmierć nadal wynika wyłącznie z jawnej Egzekucji i jej licznika,
+  nigdy z losowego procentowego proca,
+- obozowiska przywracają 25% PŻ i Many bohatera oraz żyjących członków
+  związanego składu i uruchamiają istniejące sceny obozowe. Zwycięstwa nad
+  starciami przyznają kompanom terminalowy EXP zależny od rangi i typu
+  segmentu; ich PŻ/Mana są synchronizowane między walkami,
+- pokonanie Władcy przyznaje zakres złota i EXP właściwy dla rangi, 60% EXP
+  ocalałym kompanom (minimum 50), relację `+3`, wspólną Szczelinę oraz szansę
+  na jeden z 16 klasowych Unikatów jakości bossa. Następnie alarm jest zamykany
+  jeden raz, historia rang aktualizowana, a kolejny termin odkładany o 3–6 dni.
+  Porażka usuwa tylko próbę i pozostawia niezakończony alarm, zgodnie z
+  terminalem,
+- deterministyczne losowania segmentów, przeciwników, walk, konsekwencji i
+  nagród korzystają z nazwanych podstrumieni Godota. Zachowujemy parytet reguł,
+  nie bitowy strumień Pythonowego `random.Random`, zgodnie z decyzją 6B,
+- istniejący ekran „Alarmy Szczelin” został rozwinięty bez drugiego hubu.
+  Obsługuje segmenty, cztery akcje walki drużynowej, wybór umiejętności,
+  ratowanie powalonych, stan drużyny, rezultat i nagrody; nadal korzysta
+  wyłącznie z placeholderów,
+- schema pozostaje `v15`. Trwały jest indeks segmentu, związany skład,
+  obozowiska, zasoby i konsekwencje; sam obiekt trwającej walki pozostaje
+  przejściowy, tak jak w terminalu. Ponowne wczytanie rozpoczyna bieżący segment
+  od początku, nie regeneruje alarmu ani nie cofa rozliczonych segmentów,
+- testy obejmują harmonogram i wydarzenia, wzory przeciwników i anomalie,
+  związany skład, integrację `PartyCombatEngine`, odpoczynek, save/load,
+  zwycięstwo, porażkę, pełne nagrody, jednorazowe zamknięcie, deterministyczność,
+  granice architektoniczne oraz pełny przepływ istniejącego UI.
+
 ### Dalsza kolejność Stage 6
 
-- **6J:** kompletne ekspedycje i walki drużynowe Szczelin,
 - **6K:** audyt parytetu Stage 6 i save/load.
 
 ## Etap 7 — parytet i bezpieczne przejście

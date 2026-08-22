@@ -236,11 +236,11 @@ Equipment in the backpack remains a separate instance with its own identifier,
 matching the swap and unequip behavior of v0.24.7. The Godot build now writes a
 separate migration schema containing every system currently available in the
 windowed build. Its four files live below `user://godot_migration_saves` and do
-not read or overwrite terminal save schema v15. That legacy schema also contains
-complete Rift expeditions, party combat, and further world state which have not
-been fully migrated yet;
-therefore importing terminal saves remains disabled until no supported field
-could be silently discarded. Detailed ordering and acceptance criteria are in
+not read or overwrite terminal save schema v15. Although Rift expeditions and
+party combat are now migrated, the legacy format still contains fields whose
+full import mapping has not passed the Stage 6K/7 parity audit. Therefore
+importing terminal saves remains disabled until no supported value could be
+silently discarded. Detailed ordering and acceptance criteria are in
 `SYSTEM_MIGRATION_STAGES_v0.25.0.md`.
 
 The current city service screens are intentionally asymmetric. The merchant
@@ -329,19 +329,32 @@ their phase mechanics. Neither `PartyCombatEngine` nor Rift state is referenced.
 The run itself is intentionally not persisted, matching the terminal checkpoint
 boundary, while all resulting inventory, progression, contracts, milestones,
 and journal entries already survive the current schema v15.
-Stage 6I adds the terminal Rift lifecycle without activating expedition content.
+Stage 6I adds the terminal Rift lifecycle before expedition content is activated.
 `RiftState`, `RiftInstance`, and the reserved `RiftExpedition` own the durable
 world state, while `RiftLifecycleService` deterministically spawns ranked Guild
 alarms, expires ignored Rifts through another authored searcher team, enforces
 rank and party-size gates, binds the active composition, and safely abandons a
 reservation. An active reservation protects even an expired Rift until it is
-abandoned, matching v0.24.7. The Guild now exposes a placeholder Rift board, but
-it cannot execute segments, grant rewards, close a Rift, or start party combat;
-those remain the explicit Stage 6J boundary. A separate `RiftSaveCodec` raises
+abandoned, matching v0.24.7. The Guild exposes the placeholder Rift board
+introduced at that boundary. A separate `RiftSaveCodec` raises
 the Godot-only schema to v15 and migrates schema-v14 saves to a safe empty Rift
 state. This does not enable terminal-save-v15 import: both formats remain
 separate and terminal values will be imported only after the Stage 7 parity
 audit.
+Stage 6J activates full Rift expeditions through a separate
+`RiftSegmentService` and `RiftExpeditionService`. The terminal 12–24 segment
+schedule, authored events, camps, elites, minibosses, bosses, rank/depth/party
+scaling, mechanical modifiers, persistent companion resources, segment EXP,
+defeat behavior, completion rewards, 16 class uniques, relationship progress,
+and one-time closure are now connected to the lifecycle from 6I. Party battles
+reuse `PartyCombatEngine` and the explicit casualty rules from 6F–6G; the
+ordinary 1v1 engine and the lifecycle remain independent. Named Godot RNG
+substreams preserve deterministic rules without claiming bit-identical Python
+`random.Random` output. The existing Rift board owns no reward or combat-result
+logic and now presents the complete placeholder flow without a second hub.
+Schema remains v15: completed segments, party resources, casualties, and the
+reservation survive save/load, while the in-memory combat engine is deliberately
+recreated for the current segment after reload, matching the terminal boundary.
 Their calendar periods, generated definitions, objective progress, and claimed
 rewards survive reloads; existing schema-v8 files receive a safe empty board
 before the next period is generated.

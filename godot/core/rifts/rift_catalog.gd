@@ -15,6 +15,39 @@ const OTHER_SEARCHER_TEAMS := [
 	"Drużyna Bez Imienia",
 	"Żelazne Kruki",
 ]
+const RANK_SCALES := {
+	"F": 1.00,
+	"E": 1.10,
+	"D": 1.22,
+	"C": 1.38,
+	"B": 1.58,
+	"A": 1.82,
+	"S": 2.12,
+}
+const GOLD_REWARDS := {
+	"F": [900, 1400],
+	"E": [1400, 2200],
+	"D": [2200, 3500],
+	"C": [3500, 5200],
+	"B": [5200, 7800],
+	"A": [7800, 11500],
+	"S": [11500, 17000],
+}
+const EXPERIENCE_REWARDS := {
+	"F": 220,
+	"E": 320,
+	"D": 450,
+	"C": 620,
+	"B": 850,
+	"A": 1150,
+	"S": 1550,
+}
+const UNIQUE_POOLS := {
+	"warrior": ["rift_bastion_shield", "last_guard_plate", "oathbreaker_edge", "warden_chain"],
+	"hunter": ["third_echo_quiver", "riftglass_bow", "silent_volley_cloak", "afterimage_ring"],
+	"mage": ["split_weave_artifact", "twin_star_staff", "empty_mana_robe", "storm_archive_relic"],
+	"pierrot": ["two_lies_dice", "deck_without_ace", "seven_chances_lance", "crooked_smile_mask"],
+}
 
 # Authored names and prose are preserved from terminal v0.24.7.
 # gdlint: disable=max-line-length
@@ -24,6 +57,8 @@ const THEMES := {
 		"name": "Pęknięcie Krwawego Księżyca",
 		"intro":
 		"Nad rozdartym niebem wisi czerwony księżyc, choć w Pythonii jest środek dnia. Ziemia pulsuje jak rana.",
+		"enemy_names": ["Krwawy Tułacz", "Rozdarty Rycerz", "Ogar Pęknięcia", "Szkarłatne Widmo"],
+		"elite_names": ["Herold Krwawego Księżyca", "Rzeźnik Rozdarcia"],
 		"bosses":
 		[
 			["blood_devourer", "Pożeracz Krwawego Księżyca"],
@@ -35,6 +70,9 @@ const THEMES := {
 		"name": "Zamarznięta Pustka",
 		"intro":
 		"Śnieg unosi się ku górze, a każdy oddech zamarza w powietrzu na kilka sekund. Za horyzontem nie ma nic poza bielą.",
+		"enemy_names":
+		["Pustkowy Rozbitek", "Lodowe Widmo", "Bestia Białej Ciszy", "Zamarznięty Strażnik"],
+		"elite_names": ["Żniwiarz Białej Ciszy", "Pęknięty Kolos"],
 		"bosses":
 		[
 			["white_maw", "Paszcza Białej Pustki"],
@@ -46,6 +84,9 @@ const THEMES := {
 		"name": "Popielne Zwierciadło",
 		"intro":
 		"Każdy krok zostawia dwa ślady: jeden w popiele i drugi po niewłaściwej stronie własnego cienia.",
+		"enemy_names":
+		["Popielny Sobowtór", "Pusty Wędrowiec", "Zwierciadlane Ostrze", "Cień bez Twarzy"],
+		"elite_names": ["Kopia Bez Imienia", "Strażnik Drugiej Strony"],
 		"bosses":
 		[
 			["mirror_lord", "Władca Krzywego Odbicia"],
@@ -57,6 +98,9 @@ const THEMES := {
 		"name": "Archiwum Burzy",
 		"intro":
 		"W powietrzu wiszą fragmenty kamiennych stron zapisanych błyskawicami. Każdy grzmot brzmi jak przewracana karta.",
+		"enemy_names":
+		["Runiczny Wartownik", "Burzowy Skryba", "Żywa Pieczęć", "Arkaniczny Łupieżca"],
+		"elite_names": ["Egzekutor Zakazanej Strony", "Strażnik Archiwum"],
 		"bosses":
 		[
 			["archive_keeper", "Kustosz Burzowego Archiwum"],
@@ -68,6 +112,9 @@ const THEMES := {
 		"name": "Czarna Przypływowa Szczelina",
 		"intro":
 		"Pod stopami chlupie czarna woda, choć nie ma tu morza. W oddali dzwoni okręt, którego nie da się zobaczyć.",
+		"enemy_names":
+		["Topielec Szczeliny", "Marynarz Bez Portu", "Czarny Krab Otchłani", "Widmowy Harpunik"],
+		"elite_names": ["Bosman Bez Okrętu", "Kapitan Czarnej Toni"],
 		"bosses":
 		[
 			["tide_colossus", "Kolos Czarnej Toni"],

@@ -236,7 +236,7 @@ func test_rift_codec_rejects_mismatched_or_out_of_range_expeditions() -> void:
 	assert_false(RiftSaveCodecClass.deserialize(data).ok)
 
 
-func test_rift_board_is_reachable_and_stops_before_stage_six_j_content() -> void:
+func test_rift_board_is_reachable_and_opens_the_first_expedition_segment() -> void:
 	var session = _session()
 	var first := _companion("a", "Kael")
 	var second := _companion("b", "Mira")
@@ -252,7 +252,16 @@ func test_rift_board_is_reachable_and_stops_before_stage_six_j_content() -> void
 	assert_signal_emitted(screen, "state_changed")
 	assert_not_null(session.rifts.expedition)
 	assert_true(screen.abandon_button.visible)
-	assert_string_contains(screen.start_button.text, "Stage 6J")
+	assert_true(
+		(
+			screen.start_button.text
+			in [
+				"Przejdź przez wydarzenie",
+				"Rozpocznij starcie",
+			]
+		),
+		screen.start_button.text,
+	)
 
 	var guild = GUILD_SCENE.instantiate()
 	add_child_autofree(guild)
@@ -270,14 +279,11 @@ func test_rift_board_is_reachable_and_stops_before_stage_six_j_content() -> void
 	assert_true(app.screen_host.get_child(0) is RiftBoardScreen)
 
 
-func test_stage_six_i_subsystem_does_not_import_party_combat_or_rift_battles() -> void:
-	for path: String in [
-		"res://core/rifts/rift_lifecycle_service.gd",
-		"res://ui/screens/rift_board/rift_board.gd",
-	]:
-		var source := FileAccess.get_file_as_string(path)
-		assert_false("PartyCombatEngine" in source, path)
-		assert_false("RiftBattleEngine" in source, path)
+func test_stage_six_i_lifecycle_remains_independent_from_combat_engines() -> void:
+	var path := "res://core/rifts/rift_lifecycle_service.gd"
+	var source := FileAccess.get_file_as_string(path)
+	assert_false("PartyCombatEngine" in source, path)
+	assert_false("RiftBattleEngine" in source, path)
 
 
 func _rift(
