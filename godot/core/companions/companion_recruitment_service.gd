@@ -4,6 +4,10 @@ extends RefCounted
 const CandidateClass := preload("res://core/companions/companion_candidate.gd")
 const CatalogClass := preload("res://core/companions/companion_catalog.gd")
 const CompanionServiceClass := preload("res://core/companions/companion_service.gd")
+const CompanionBuildServiceClass := preload("res://core/companions/companion_build_service.gd")
+const CompanionEquipmentServiceClass := preload(
+	"res://core/companions/companion_equipment_service.gd"
+)
 const CompanionStateClass := preload("res://core/companions/companion_state.gd")
 const MessageClass := preload("res://core/companions/party_message.gd")
 const PartyStateClass := preload("res://core/companions/party_state.gd")
@@ -21,8 +25,11 @@ const RANK_CODES := ["F", "E", "D", "C", "B", "A", "S"]
 static func ensure_daily_candidates(
 	party: PartyStateClass, player, current_day: int, guild_rank_code: String
 ) -> bool:
-	if party == null or player == null or party.candidates_day == current_day:
+	if party == null or player == null:
 		return false
+	var builds_changed := CompanionBuildServiceClass.ensure_party_builds(party)
+	if party.candidates_day == current_day:
+		return builds_changed
 	party.candidates_day = current_day
 	party.candidates.clear()
 	var rank_index := _rank_index(guild_rank_code)
@@ -195,13 +202,16 @@ static func recruit_candidate(
 
 
 static func dismiss_companion(
-	party: PartyStateClass, companion_id: String, current_day: int
+	party: PartyStateClass, player, companion_id: String, current_day: int
 ) -> Dictionary:
-	if party == null:
+	if party == null or player == null:
 		return _failure("Brak stanu drużyny.")
 	var companion := party.companion_by_id(companion_id)
 	if companion == null:
 		return _failure("Nie znaleziono kompana.")
+	var gear_result := CompanionEquipmentServiceClass.return_player_owned_gear(player, companion)
+	if not gear_result.ok:
+		return gear_result
 	var story = StoryCatalogClass.get_story(companion.template_id)
 	companion.active = false
 	companion.dismissed_day = current_day
@@ -210,7 +220,12 @@ static func dismiss_companion(
 		func(item: CompanionStateClass) -> bool: return item.companion_id != companion_id
 	)
 	party.dismissed_companions.append(companion)
-	return {"ok": true, "message": story.farewell, "companion": companion}
+	return {
+		"ok": true,
+		"message": story.farewell,
+		"companion": companion,
+		"returned_items": gear_result.returned_items,
+	}
 
 
 static func rank_code_for_reputation(reputation: int) -> String:
@@ -247,7 +262,7 @@ static func _generate_new_candidate(
 	var story = StoryCatalogClass.get_story(definition.template_id)
 	var arc = story.arcs[rng.randi_range(0, story.arcs.size() - 1)]
 	companion.quest_arc_id = arc.arc_id
-	return (
+	var candidate := (
 		CandidateClass
 		. new(
 			"cand-%s" % companion_id,
@@ -256,6 +271,10 @@ static func _generate_new_candidate(
 			rng.randi_range(20, 92),
 		)
 	)
+	# Build generation deliberately happens after every frozen Stage 6B draw.
+	# Its three named RNG substreams cannot alter identity, arc or recruitment roll.
+	CompanionBuildServiceClass.ensure_initial_build(companion)
+	return candidate
 
 
 static func _party_has_template(party: PartyStateClass, template_id: String) -> bool:

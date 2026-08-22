@@ -313,7 +313,11 @@ func test_dismissed_companion_keeps_history_and_can_return_only_after_delay() ->
 	companion.memories.assign(["kael_garrison:heard"])
 	assert_true(CompanionServiceClass.add_companion(session.party, companion).ok)
 	assert_true(
-		RecruitmentServiceClass.dismiss_companion(session.party, companion.companion_id, 1).ok
+		(
+			RecruitmentServiceClass
+			. dismiss_companion(session.party, session.player, companion.companion_id, 1)
+			. ok
+		)
 	)
 	assert_true(session.party.companions.is_empty())
 	assert_eq(session.party.dismissed_companions[0].relation, 24)

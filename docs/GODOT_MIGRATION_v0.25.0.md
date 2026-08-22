@@ -249,7 +249,7 @@ already have sources in the migrated world, and the inn performs paid full
 recovery with its daily cooldown. Final item art, shop animation, and audio
 remain outside this domain slice and continue to use placeholder presentation.
 
-Stages 3C through 3F, stages 4A–4E, stages 5A–5E, and stages 6A–6B are complete. Dice history,
+Stages 3C through 3F, stages 4A–4E, stages 5A–5E, and stages 6A–6C are complete. Dice history,
 Fate Tokens,
 temporary dodge,
 mirror readiness, Hunter sequence, delayed effects, explosive charges, Arcane
@@ -283,9 +283,16 @@ models, exposes tested composition controls through the Guild, and validates
 party equipment ownership independently of `SaveGameService`. Stage 6B adds
 deterministic daily candidates, persisted one-attempt recruitment, returning
 companions, authored relations, messages, banter, and personal histories for all
-twelve templates. Companion builds and personal equipment, AI, and party combat
-remain in their dedicated subsequent vertical slices rather than placeholders
-that grant progress.
+twelve templates. Stage 6C adds deterministic companion attributes, talents,
+level progression, full personal equipment, and player-owned equipment transfer
+through dedicated domain services. Attribute, talent, and gear generation use
+separate named RNG substreams after the frozen Stage 6B candidate fields. The
+existing Party Hub exposes the resulting build without owning its rules, and
+dismissal returns every player-owned item before the companion leaves. Save
+schema remains v13 because the Stage 6A party codec already owns the complete
+build and equipment state; empty Stage 6B builds are backfilled once without
+rerolling the candidate rotation. AI and party combat remain in their dedicated
+subsequent vertical slices rather than placeholders that grant progress.
 Their calendar periods, generated definitions, objective progress, and claimed
 rewards survive reloads; existing schema-v8 files receive a safe empty board
 before the next period is generated.

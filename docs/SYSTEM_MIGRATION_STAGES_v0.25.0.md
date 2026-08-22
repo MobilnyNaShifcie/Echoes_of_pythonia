@@ -488,13 +488,35 @@ wartość `<= 0` oznacza inicjalizację do pełnego HP przy tworzeniu combatanta
 Godot musi uzyskać jednoznaczny odpowiednik po wygenerowaniu buildu bez zmiany
 globalnego defaultu `CompanionState.current_hp` w fundamencie 6A.
 
+### Etap 6C — rozwój i osobiste wyposażenie kompanów (ukończony)
+
+- `CompanionBuildService` odtwarza terminalowe rozłożenie `4 × poziom`
+  punktów atrybutów, przydział punktów obu drzewek, klasową progresję broni i
+  drugiej ręki, pule zwykłych slotów, ulepszenia, afiksy oraz rzadkie unikaty
+  Szczelin. Rozwój po zdobyciu EXP korzysta z tej samej krzywej poziomów,
+  dodaje cztery atrybuty na poziom i rozwija główną ścieżkę kompana,
+- atrybuty, talenty i wyposażenie mają trzy osobne nazwane substreamy RNG.
+  Powstają dopiero po ustaleniu wszystkich pól objętych snapshotami 6B, więc
+  nie zmieniają klasy, poziomu, ścieżki, ID, historii ani rzutu rekrutacji,
+- `current_hp = 0` i `current_mana = 0` są jawnymi sentinelami nowego buildu i
+  po awansie. `resolved_resources()` zamienia wartości `<= 0` na wyliczone
+  maksimum przy tworzeniu profilu walki, zachowując globalny default 6A,
+- `CompanionEquipmentService` jest właścicielem przekazywania sprzętu,
+  walidacji poziomu i klasy oraz rozróżnienia osobistego przedmiotu kompana od
+  przedmiotu gracza. Osobisty przedmiot zastąpiony w slocie trafia do prywatnego
+  schowka i wraca po odebraniu przedmiotu gracza,
+- `dismiss_companion` najpierw atomowo zwraca wszystkie player-owned items do
+  plecaka i odtwarza osobiste sloty. Osobny test regresyjny zabezpiecza przed
+  utratą sprzętu podczas rozstania,
+- istniejący ekran „Drużyna i kompani” pokazuje build, zasoby, atrybuty,
+  talenty i dwie listy wyposażenia oraz wywołuje wyłącznie serwisy domenowe,
+- schemat pozostaje `v13`: kodeki 6A już przechowywały pełny stan buildu i
+  własności. Odczyt akceptuje brak nowego opcjonalnego rolla broni
+  sygnaturowej, a zapis 6B z pustym buildem jest deterministycznie uzupełniany
+  przy pierwszym wejściu bez zmiany zapisanej rotacji kandydatów.
+
 ### Dalsza kolejność Stage 6
 
-- **6C:** rozwój kompanów oraz ich osobiste wyposażenie; po udostępnieniu
-  przekazywania sprzętu między graczem i kompanem `dismiss_companion` musi
-  przed usunięciem z rosteru zwrócić wszystkie przedmioty należące do gracza
-  zgodnie z terminalowym `return_player_owned_gear()`, co musi zabezpieczać
-  osobny test regresyjny,
 - **6D:** Przygotowanie do wyprawy i presety,
 - **6E:** oddzielone od UI taktyki AI,
 - **6F:** wspólne zasady obrażeń i osobny silnik walki drużynowej,

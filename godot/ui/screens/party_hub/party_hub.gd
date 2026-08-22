@@ -5,7 +5,11 @@ signal back_requested
 signal state_changed
 
 const CompanionCatalogClass := preload("res://core/companions/companion_catalog.gd")
+const CompanionBuildServiceClass := preload("res://core/companions/companion_build_service.gd")
 const CompanionCandidateClass := preload("res://core/companions/companion_candidate.gd")
+const CompanionEquipmentServiceClass := preload(
+	"res://core/companions/companion_equipment_service.gd"
+)
 const CompanionRecruitmentServiceClass := preload(
 	"res://core/companions/companion_recruitment_service.gd"
 )
@@ -21,6 +25,8 @@ const TalentCatalogClass := preload("res://core/progression/talent_catalog.gd")
 var _session: GameSessionClass
 var _selected_companion_id := ""
 var _selected_candidate_id := ""
+var _selected_companion_slot := ""
+var _selected_player_item_index := -1
 
 @onready var summary_label: Label = %SummaryLabel
 @onready var tabs: TabContainer = %ModeTabs
@@ -35,6 +41,11 @@ var _selected_candidate_id := ""
 @onready var toggle_button: Button = %ToggleButton
 @onready var solo_button: Button = %SoloButton
 @onready var dismiss_button: Button = %DismissButton
+@onready var companion_equipment_list: ItemList = %CompanionEquipmentList
+@onready var player_equipment_list: ItemList = %PlayerEquipmentList
+@onready var equipment_detail_label: Label = %EquipmentDetailLabel
+@onready var equip_player_item_button: Button = %EquipPlayerItemButton
+@onready var return_player_item_button: Button = %ReturnPlayerItemButton
 @onready var candidate_list: ItemList = %CandidateList
 @onready var candidate_name_label: Label = %CandidateNameLabel
 @onready var candidate_detail_label: Label = %CandidateDetailLabel
@@ -56,6 +67,10 @@ func _ready() -> void:
 	toggle_button.pressed.connect(_toggle_selected)
 	solo_button.pressed.connect(_set_solo)
 	dismiss_button.pressed.connect(_dismiss_selected)
+	companion_equipment_list.item_selected.connect(_select_companion_equipment)
+	player_equipment_list.item_selected.connect(_select_player_equipment)
+	equip_player_item_button.pressed.connect(_equip_player_item)
+	return_player_item_button.pressed.connect(_return_player_item)
 	personal_choice_one.pressed.connect(_complete_personal_choice.bind(0))
 	personal_choice_two.pressed.connect(_complete_personal_choice.bind(1))
 	candidate_list.item_selected.connect(_select_candidate)
@@ -124,11 +139,51 @@ func _dismiss_selected() -> void:
 	if companion == null:
 		return
 	var result := CompanionRecruitmentServiceClass.dismiss_companion(
-		_session.party, companion.companion_id, _session.day
+		_session.party, _session.player, companion.companion_id, _session.day
 	)
 	_show_result(result.message, result.ok)
 	if result.ok:
 		_selected_companion_id = ""
+		_selected_companion_slot = ""
+		_selected_player_item_index = -1
+		state_changed.emit()
+	_render()
+
+
+func _select_companion_equipment(index: int) -> void:
+	_selected_companion_slot = str(companion_equipment_list.get_item_metadata(index))
+	_render_equipment_detail()
+
+
+func _select_player_equipment(index: int) -> void:
+	_selected_player_item_index = int(player_equipment_list.get_item_metadata(index))
+	_render_equipment_detail()
+
+
+func _equip_player_item() -> void:
+	var companion := _selected_companion()
+	if companion == null:
+		return
+	var result := CompanionEquipmentServiceClass.equip_player_item(
+		_session.player, companion, _selected_player_item_index
+	)
+	_show_result(result.message, result.ok)
+	if result.ok:
+		_selected_companion_slot = result.item.slot
+		_selected_player_item_index = -1
+		state_changed.emit()
+	_render()
+
+
+func _return_player_item() -> void:
+	var companion := _selected_companion()
+	if companion == null:
+		return
+	var result := CompanionEquipmentServiceClass.remove_player_item(
+		_session.player, companion, _selected_companion_slot
+	)
+	_show_result(result.message, result.ok)
+	if result.ok:
 		state_changed.emit()
 	_render()
 
@@ -258,6 +313,7 @@ func _render_companion_details() -> void:
 		personal_title_label.text = "Historia osobista"
 		personal_text_label.text = "Brak historii do wyświetlenia."
 		_set_companion_buttons_disabled(true)
+		_render_equipment()
 		return
 	detail_name_label.text = "%s  •  poziom %d" % [companion.display_name, companion.level]
 	var state := "AKTYWNY SKŁAD" if companion.active else "VARENHOLD"
@@ -266,17 +322,30 @@ func _render_companion_details() -> void:
 	elif companion.is_injured(_session.day):
 		state = "CIĘŻKO RANNY • powrót do sił: %d dni" % (companion.injury_until_day - _session.day)
 	var path = TalentCatalogClass.get_path_definition(companion.path_id)
-	var path_name: String = path.display_name if path != null else "build zostanie uzupełniony w 6C"
+	var path_name: String = path.display_name if path != null else "Nieznana ścieżka"
+	var limits := CompanionBuildServiceClass.resource_limits(companion)
+	var resources := CompanionBuildServiceClass.resolved_resources(companion)
 	detail_state_label.text = (
-		"%s\n%s • %s\nHP %d  •  Mana %d  •  Relacja %+d\nTaktyka: %s\n\n%s"
+		(
+			"%s\n%s • %s\nPŻ %d/%d  •  Mana %d/%d  •  Relacja %+d\n"
+			+ "ATK %d  •  DEF %d  •  UNIK %.1f%%\nTaktyka: %s\n"
+			+ "Atrybuty: %s\nTalenty: %s\n\n%s"
+		)
 		% [
 			state,
 			_class_name(companion.class_code),
 			path_name,
-			companion.current_hp,
-			companion.current_mana,
+			resources.current_hp,
+			resources.max_hp,
+			resources.current_mana,
+			resources.max_mana,
 			companion.relation,
+			limits.attack,
+			limits.defense,
+			limits.dodge,
 			CompanionStateClass.tactic_display_name(companion.tactic),
+			_attribute_summary(companion),
+			_talent_summary(companion),
 			CompanionRelationshipServiceClass.idle_line(companion, _session.day),
 		]
 	)
@@ -284,7 +353,95 @@ func _render_companion_details() -> void:
 	toggle_button.text = "Pozostaw w Varenhold" if companion.active else "Dodaj do aktywnego składu"
 	solo_button.disabled = _session.party.active_companions(_session.day).is_empty()
 	dismiss_button.disabled = companion.dead
+	_render_equipment()
 	_render_personal_stage(companion)
+
+
+func _render_equipment() -> void:
+	companion_equipment_list.clear()
+	player_equipment_list.clear()
+	var companion := _selected_companion()
+	if companion == null or _session == null:
+		equipment_detail_label.text = "Wybierz kompana."
+		equip_player_item_button.disabled = true
+		return_player_item_button.disabled = true
+		return
+
+	var selected_companion_index := -1
+	var slots: Array = companion.equipment.slots.keys()
+	slots.sort()
+	for slot_value in slots:
+		var slot := str(slot_value)
+		var item = companion.equipment.get_item(slot)
+		var ownership := "osobisty" if companion.owns_item(item) else "gracza"
+		var row := companion_equipment_list.add_item(
+			"%s — %s [%s]" % [_slot_name(slot), item.formatted_name(), ownership]
+		)
+		companion_equipment_list.set_item_metadata(row, slot)
+		if slot == _selected_companion_slot:
+			selected_companion_index = row
+	if companion_equipment_list.item_count > 0:
+		if selected_companion_index < 0:
+			selected_companion_index = 0
+			_selected_companion_slot = str(
+				companion_equipment_list.get_item_metadata(selected_companion_index)
+			)
+		companion_equipment_list.select(selected_companion_index)
+	else:
+		_selected_companion_slot = ""
+
+	var selected_player_row := -1
+	for index in _session.player.inventory.equipment_items.size():
+		var item = _session.player.inventory.equipment_items[index]
+		var row := player_equipment_list.add_item(
+			"%s — %s" % [_slot_name(item.slot), item.formatted_name()]
+		)
+		player_equipment_list.set_item_metadata(row, index)
+		if index == _selected_player_item_index:
+			selected_player_row = row
+	if selected_player_row >= 0:
+		player_equipment_list.select(selected_player_row)
+	elif _selected_player_item_index >= _session.player.inventory.equipment_items.size():
+		_selected_player_item_index = -1
+	_render_equipment_detail()
+
+
+func _render_equipment_detail() -> void:
+	var companion := _selected_companion()
+	if companion == null or _session == null:
+		return
+	var lines: Array[String] = []
+	var equipped_item = companion.equipment.get_item(_selected_companion_slot)
+	if equipped_item != null:
+		(
+			lines
+			. append(
+				(
+					"Założone: %s (%s)"
+					% [
+						equipped_item.formatted_name(),
+						"osobiste" if companion.owns_item(equipped_item) else "należy do gracza",
+					]
+				)
+			)
+		)
+	if (
+		_selected_player_item_index >= 0
+		and _selected_player_item_index < _session.player.inventory.equipment_items.size()
+	):
+		var player_item = _session.player.inventory.equipment_items[_selected_player_item_index]
+		var error := CompanionEquipmentServiceClass.get_equip_error(companion, player_item)
+		lines.append(
+			(
+				"Z plecaka: %s%s"
+				% [player_item.formatted_name(), "\n%s" % error if not error.is_empty() else ""]
+			)
+		)
+		equip_player_item_button.disabled = not error.is_empty()
+	else:
+		equip_player_item_button.disabled = true
+	return_player_item_button.disabled = equipped_item == null or companion.owns_item(equipped_item)
+	equipment_detail_label.text = "\n".join(lines) if not lines.is_empty() else "Wybierz przedmiot."
 
 
 func _render_personal_stage(companion: CompanionStateClass) -> void:
@@ -449,6 +606,53 @@ func _set_companion_buttons_disabled(disabled: bool) -> void:
 	dismiss_button.disabled = disabled
 	personal_choice_one.disabled = disabled
 	personal_choice_two.disabled = disabled
+	equip_player_item_button.disabled = disabled
+	return_player_item_button.disabled = disabled
+
+
+func _attribute_summary(companion: CompanionStateClass) -> String:
+	var values := companion.attributes
+	return (
+		"SIŁ %d, WIT %d, INT %d, ZRĘ %d, WYT %d, SZC %d"
+		% [
+			values.strength,
+			values.vitality,
+			values.intelligence,
+			values.dexterity,
+			values.endurance,
+			values.luck,
+		]
+	)
+
+
+func _talent_summary(companion: CompanionStateClass) -> String:
+	var names: Array[String] = []
+	for talent_id: String in companion.talents:
+		var talent = TalentCatalogClass.get_talent(talent_id)
+		if talent != null:
+			names.append(
+				"%s %d/%d" % [talent.display_name, companion.talents[talent_id], talent.max_rank]
+			)
+	return ", ".join(names) if not names.is_empty() else "brak"
+
+
+func _slot_name(slot: String) -> String:
+	return (
+		{
+			"weapon": "Broń",
+			"off_hand": "Druga ręka",
+			"head": "Głowa",
+			"chest": "Zbroja",
+			"hands": "Rękawice",
+			"feet": "Buty",
+			"belt": "Pas",
+			"necklace": "Naszyjnik",
+			"bracelet": "Bransoleta",
+			"earrings": "Kolczyki",
+			"ring": "Pierścień",
+		}
+		. get(slot, slot)
+	)
 
 
 func _companion_row(companion: CompanionStateClass) -> String:

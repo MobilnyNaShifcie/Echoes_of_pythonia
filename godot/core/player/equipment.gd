@@ -40,7 +40,7 @@ func get_item(slot: String) -> EquipmentItemClass:
 	return slots.get(slot)
 
 
-func total_bonuses() -> Dictionary:
+func total_bonuses(character_class_code := "") -> Dictionary:
 	var bonuses := {
 		"attack": 0,
 		"defense": 0,
@@ -55,6 +55,7 @@ func total_bonuses() -> Dictionary:
 		"armor_penetration": 0.0,
 		"damage_vs_elite": 0.0,
 		"damage_vs_boss": 0.0,
+		"average_damage": 0.0,
 		"elemental_resistances": ElementalResistancesClass.new(),
 		"active_set_names": [],
 	}
@@ -80,6 +81,14 @@ func total_bonuses() -> Dictionary:
 		bonuses.damage_vs_elite += affix_bonuses.get("damage_vs_elite", 0.0)
 		bonuses.damage_vs_boss += affix_bonuses.get("damage_vs_boss", 0.0)
 		var definition = item.definition
+		if definition.class_bonus_class_code == character_class_code:
+			bonuses.attack += definition.class_bonus_attack
+			bonuses.defense += definition.class_bonus_defense
+			bonuses.max_hp += definition.class_bonus_max_hp
+			bonuses.max_mana += definition.class_bonus_max_mana
+			bonuses.dodge += definition.class_bonus_dodge
+		if item.average_damage_percent != null:
+			bonuses.average_damage += float(item.average_damage_percent)
 		var item_resistances := {
 			"fire": definition.fire_resistance + roundi(affix_bonuses.get("fire_resistance", 0.0)),
 			"wind": definition.wind_resistance + roundi(affix_bonuses.get("wind_resistance", 0.0)),
@@ -121,6 +130,7 @@ func total_bonuses() -> Dictionary:
 		"armor_penetration",
 		"damage_vs_elite",
 		"damage_vs_boss",
+		"average_damage",
 	]:
 		bonuses[stat_id] = snappedf(float(bonuses[stat_id]), 0.1)
 	return bonuses

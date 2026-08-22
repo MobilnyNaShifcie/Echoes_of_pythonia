@@ -2,6 +2,16 @@
 
 ## [0.25.0-dev] — Pierwsza grywalna pętla w Godot 4
 
+- ukończono Stage 6C: kompani otrzymują deterministyczne atrybuty, talenty,
+  rozwój poziomów oraz pełne osobiste wyposażenie zgodne z pulami v0.24.7,
+- generatory buildu używają osobnych substreamów RNG i nie zmieniają
+  zamrożonych w 6B ID, klas, poziomów, ścieżek, historii ani rzutów rekrutacji,
+- istniejący ekran „Drużyna i kompani” pozwala przekazywać wyposażenie z
+  plecaka; osobisty sprzęt kompana pozostaje jego własnością, a rozstanie
+  zwraca graczowi wszystkie powierzone przedmioty,
+- semantyka `current_hp/current_mana <= 0` inicjalizuje pełne zasoby po
+  utworzeniu buildu lub awansie; schemat pozostaje `v13` i potrafi bez
+  rerollowania uzupełnić zapisane w 6B puste buildy,
 - ukończono Stage 6B: Gildia pokazuje dwóch utrwalonych kandydatów dziennie,
   respektuje rangi, ręcznie napisane rozmowy i jedną próbę rekrutacji oraz
   zachowuje byłych kompanów, którzy mogą powrócić po terminalowym czasie,

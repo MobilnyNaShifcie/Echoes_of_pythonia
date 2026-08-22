@@ -10,6 +10,7 @@ var upgrade_level := 0
 var instance_id := ""
 var generated_item_power := 0
 var affixes: Array[EquipmentAffixClass] = []
+var average_damage_percent = null
 
 var item_id: String:
 	get:
@@ -32,7 +33,8 @@ func _init(
 	item_definition: ItemDefinitionClass,
 	initial_upgrade_level := 0,
 	initial_affixes: Array = [],
-	initial_item_power := -1
+	initial_item_power := -1,
+	initial_average_damage_percent = null
 ) -> void:
 	definition = item_definition
 	upgrade_level = clampi(initial_upgrade_level, 0, MAX_UPGRADE_LEVEL)
@@ -44,6 +46,7 @@ func _init(
 	for affix in initial_affixes:
 		if affix != null:
 			affixes.append(affix)
+	average_damage_percent = initial_average_damage_percent
 	instance_id = Crypto.new().generate_random_bytes(16).hex_encode()
 
 

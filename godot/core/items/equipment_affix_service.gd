@@ -4,6 +4,7 @@ extends RefCounted
 const EquipmentAffixClass := preload("res://core/items/equipment_affix.gd")
 const EquipmentItemClass := preload("res://core/items/equipment_item.gd")
 const MathClass := preload("res://core/math/legacy_math.gd")
+const SignatureWeaponServiceClass := preload("res://core/items/signature_weapon_service.gd")
 
 const QUALITY_NORMAL := "normal"
 const QUALITY_ELITE := "elite"
@@ -133,7 +134,16 @@ static func generate_item(definition, rng: RandomNumberGenerator = null, quality
 		actual_rng = RandomNumberGenerator.new()
 		actual_rng.randomize()
 	var affixes := roll_affixes(definition, actual_rng, quality)
-	return EquipmentItemClass.new(definition, 0, affixes, definition.item_power)
+	return (
+		EquipmentItemClass
+		. new(
+			definition,
+			0,
+			affixes,
+			definition.item_power,
+			SignatureWeaponServiceClass.roll_average_damage_percent(definition.item_id, actual_rng),
+		)
+	)
 
 
 static func deterministic_item(definition, upgrade_level: int, instance_id: String):
@@ -144,6 +154,9 @@ static func deterministic_item(definition, upgrade_level: int, instance_id: Stri
 	var affixes := roll_affixes(definition, rng, QUALITY_NORMAL)
 	var item = EquipmentItemClass.new(definition, upgrade_level, affixes, definition.item_power)
 	item.instance_id = instance_id
+	item.average_damage_percent = SignatureWeaponServiceClass.deterministic_average_damage_percent(
+		definition.item_id, instance_id
+	)
 	return item
 
 

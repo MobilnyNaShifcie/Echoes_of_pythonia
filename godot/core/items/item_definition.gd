@@ -25,6 +25,12 @@ extends Resource
 @export var restore_mana_percent := 0.0
 @export var set_id := ""
 @export var class_effect_id := ""
+@export var class_bonus_class_code := ""
+@export var class_bonus_attack := 0
+@export var class_bonus_defense := 0
+@export var class_bonus_max_hp := 0
+@export var class_bonus_max_mana := 0
+@export var class_bonus_dodge := 0.0
 @export var fire_resistance := 0
 @export var wind_resistance := 0
 @export var frost_resistance := 0

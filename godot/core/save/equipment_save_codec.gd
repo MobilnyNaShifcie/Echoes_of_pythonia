@@ -5,6 +5,7 @@ const EquipmentItemClass := preload("res://core/items/equipment_item.gd")
 const EquipmentAffixClass := preload("res://core/items/equipment_affix.gd")
 const EquipmentAffixServiceClass := preload("res://core/items/equipment_affix_service.gd")
 const ItemCatalogClass := preload("res://core/items/item_catalog.gd")
+const SignatureWeaponServiceClass := preload("res://core/items/signature_weapon_service.gd")
 const PlayerEquipmentClass := preload("res://core/player/equipment.gd")
 
 const VALID_SLOTS := [
@@ -50,6 +51,7 @@ static func serialize_item(item: EquipmentItemClass) -> Dictionary:
 		"instance_id": item.instance_id,
 		"item_power": item.item_power,
 		"affixes": serialize_affixes(item.affixes),
+		"average_damage_percent": item.average_damage_percent,
 	}
 
 
@@ -95,7 +97,14 @@ static func deserialize_item(data: Dictionary) -> Dictionary:
 	var affix_error := EquipmentAffixServiceClass.validate(definition, affixes)
 	if not affix_error.is_empty():
 		return _failure("Nieprawidłowe afiksy przedmiotu: %s" % affix_error)
-	var item := EquipmentItemClass.new(definition, upgrade_level, affixes, item_power)
+	var average_damage_percent = data.get("average_damage_percent")
+	if average_damage_percent != null and not _is_integer(average_damage_percent):
+		return _failure("Przedmiot ma nieprawidłowe Średnie Obrażenia.")
+	if not SignatureWeaponServiceClass.is_valid(item_id, average_damage_percent):
+		return _failure("Średnie Obrażenia nie zgadzają się z bronią sygnaturową.")
+	var item := EquipmentItemClass.new(
+		definition, upgrade_level, affixes, item_power, average_damage_percent
+	)
 	item.instance_id = instance_id
 	return {"ok": true, "item": item}
 
@@ -133,6 +142,10 @@ static func _is_non_negative_integer(value) -> bool:
 
 static func _is_positive_integer(value) -> bool:
 	return _is_non_negative_integer(value) and int(value) > 0
+
+
+static func _is_integer(value) -> bool:
+	return value is int or value is float and value == floor(value)
 
 
 static func _failure(message: String) -> Dictionary:

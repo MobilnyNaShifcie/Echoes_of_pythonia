@@ -154,7 +154,7 @@ func spend_attribute_points(attribute_code: String, amount := 1) -> bool:
 
 
 func recalculate_stats() -> void:
-	var equipment_bonuses := equipment.total_bonuses()
+	var equipment_bonuses := equipment.total_bonuses(character_class_code)
 	var attribute_bonuses := attributes.calculate_bonuses()
 	var class_definition = PlayerClassCatalogClass.get_definition(character_class_code)
 	var class_base_mana: int = class_definition.base_mana if class_definition != null else 0
@@ -178,6 +178,7 @@ func recalculate_stats() -> void:
 	stats.armor_penetration = equipment_bonuses.armor_penetration
 	stats.damage_vs_elite = equipment_bonuses.damage_vs_elite
 	stats.damage_vs_boss = equipment_bonuses.damage_vs_boss
+	stats.average_damage = equipment_bonuses.average_damage
 
 
 func has_active_equipment_effect(effect_id: String) -> bool:
