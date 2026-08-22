@@ -72,7 +72,7 @@ func test_resource_initialization_is_unambiguous_and_schema_fifteen_migrates() -
 	session.party.companions.append(companion)
 	var service := SaveGameServiceClass.new("user://stage_six_k_resources_not_written")
 	var payload := service._serialize_session(session)
-	assert_eq(payload.schema_version, 16)
+	assert_eq(payload.schema_version, 17)
 	var loaded := service._deserialize_payload(payload, 1)
 	assert_true(loaded.ok, loaded.message)
 	var restored = loaded.session.party.companions[0]

@@ -1,5 +1,11 @@
 # Stage 7 — końcowy parytet i bezpieczne przejście
 
+> Aktualizacja po Stage 8A: trzy jawne luki opisane w tym historycznym raporcie
+> mają już bezpieczny odpowiednik w `OpenWorldEncounterState`. Importer mapuje
+> ich zapisane wartości do Godotowego schematu `v17`, a `audit.not_migrated`
+> pozostaje pusty. Stage 8A utrwala wyłącznie stan; zasady elit i bossów
+> regionalnych należą do etapów 8B–8D.
+
 ## Zakres audytu
 
 Stage 7 porównuje wykonywalną specyfikację terminalową `v0.24.7` (schemat

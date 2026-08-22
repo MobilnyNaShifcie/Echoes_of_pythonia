@@ -214,7 +214,7 @@ func test_completion_rng_is_deterministic_and_uses_no_new_save_schema() -> void:
 	var first := _completion_snapshot(8128)
 	var second := _completion_snapshot(8128)
 	assert_eq(first, second)
-	assert_eq(SaveGameServiceClass.SCHEMA_VERSION, 16)
+	assert_eq(SaveGameServiceClass.SCHEMA_VERSION, 17)
 
 
 func test_rift_board_runs_event_and_party_battle_without_a_second_hub() -> void:

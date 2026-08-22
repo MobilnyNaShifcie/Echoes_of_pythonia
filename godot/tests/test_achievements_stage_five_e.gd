@@ -97,7 +97,7 @@ func test_schema_twelve_preserves_achievements_and_migrates_schema_eleven() -> v
 	var service := SaveGameServiceClass.new("user://stage_five_e_not_written")
 	var payload: Dictionary = service._serialize_session(session)
 
-	assert_eq(payload.schema_version, 16)
+	assert_eq(payload.schema_version, 17)
 	var loaded := service._deserialize_payload(payload, 1)
 	assert_true(loaded.ok, loaded.message)
 	assert_eq(loaded.session.player.achievement_book.unlocked_ids, ["first_blood"])

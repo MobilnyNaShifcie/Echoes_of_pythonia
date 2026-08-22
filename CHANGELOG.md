@@ -2,6 +2,13 @@
 
 ## [0.25.0-dev] — Pierwsza grywalna pętla w Godot 4
 
+- ukończono Stage 8A: `OpenWorldEncounterState` przechowuje odkryte typy elit,
+  regionalne serie bez elity i liczniki odrodzenia bossów bez uruchamiania
+  jeszcze mechanik Stage 8B–8D,
+- osobny codec waliduje ten stan, a schemat Godota `v17` zachowuje go przez
+  save/load i bezpiecznie migruje wcześniejsze zapisy z pustymi wartościami,
+- importer terminalowego `v0.24.7/v15` przenosi teraz wszystkie trzy dawne luki
+  Stage 7 do kopii zapisu; `audit.not_migrated` pozostaje pusty,
 - ukończono Stage 6C: kompani otrzymują deterministyczne atrybuty, talenty,
   rozwój poziomów oraz pełne osobiste wyposażenie zgodne z pulami v0.24.7,
 - generatory buildu używają osobnych substreamów RNG i nie zmieniają

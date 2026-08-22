@@ -378,6 +378,14 @@ silently discarded. A Windows Desktop debug preset, export script, packaged
 runtime smoke test, keyboard focus checks, and full-cycle regressions close the
 stage. Final art, audio, and advanced animation remain unstarted and require a
 separate approval.
+Stage 8A closes the three persistence gaps left by that audit without enabling
+new encounter behavior. `OpenWorldEncounterState` owns elite discoveries,
+per-region elite miss streaks, and regional-boss respawn counters, while a
+dedicated codec validates and persists them in Godot schema v17. Schema-v1
+through schema-v16 Godot saves receive an empty state. Terminal v15 imports now
+preserve all three recorded values in the migrated copy and report no unmapped
+fields. Elite generation and regional-boss gameplay remain isolated future
+vertical slices rather than UI or save-service responsibilities.
 Their calendar periods, generated definitions, objective progress, and claimed
 rewards survive reloads; existing schema-v8 files receive a safe empty board
 before the next period is generated.

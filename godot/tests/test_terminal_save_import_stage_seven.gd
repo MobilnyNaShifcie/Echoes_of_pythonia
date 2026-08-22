@@ -32,7 +32,7 @@ func after_each() -> void:
 	_remove_tree(_save_root)
 
 
-func test_mapper_preserves_supported_progress_and_reports_explicit_gaps() -> void:
+func test_mapper_preserves_supported_progress_and_maps_stage_eight_world_state() -> void:
 	var payload := _terminal_payload()
 	payload.player.gold = 347
 	payload.quests.completed = ["awakening_missing_recruits"]
@@ -57,10 +57,11 @@ func test_mapper_preserves_supported_progress_and_reports_explicit_gaps() -> voi
 	assert_false(result.payload.session.party.companions[0].hp_initialized)
 	assert_false(result.payload.session.party.companions[0].mana_initialized)
 	assert_eq(result.payload.session.expedition_preparation.presets.rift.preset_id, "rift")
-	assert_eq(result.audit.not_migrated.size(), 3)
-	assert_eq(result.audit.not_migrated[0].value, ["furious"])
-	assert_eq(result.audit.not_migrated[1].value, {"twilight_plains": 2})
-	assert_eq(result.audit.not_migrated[2].value, {"azhar": 3})
+	assert_eq(result.payload.session.world_encounters.elite_discoveries, ["furious"])
+	assert_eq(result.payload.session.world_encounters.elite_miss_streaks, {"twilight_plains": 2})
+	assert_eq(result.payload.session.world_encounters.region_boss_respawns, {"azhar": 3})
+	assert_true(result.audit.not_migrated.is_empty())
+	assert_true("world_encounters" in result.audit.mapped_sections)
 	assert_eq(result.audit.normalized[0].values, ["quest:awakening_missing_recruits"])
 
 
@@ -135,7 +136,8 @@ func test_import_creates_new_copy_and_report_without_touching_source() -> void:
 	assert_eq(result.report.source.sha256_before, source_hash)
 	assert_eq(result.report.source.sha256_after, source_hash)
 	assert_true(result.report.round_trip_verified)
-	assert_eq(result.report.audit.not_migrated.size(), 3)
+	assert_true(result.report.audit.not_migrated.is_empty())
+	assert_true("world_encounters" in result.report.audit.mapped_sections)
 
 
 func test_import_refuses_to_overwrite_an_existing_godot_slot() -> void:
@@ -192,6 +194,9 @@ func test_imported_copy_survives_load_save_load_full_cycle() -> void:
 	assert_eq(first_load.session.party.companions.size(), 1)
 	assert_eq(first_load.session.party.companions[0].companion_id, "kael-imported")
 	assert_false(first_load.session.party.companions[0].hp_initialized)
+	assert_eq(first_load.session.world_encounters.elite_discoveries, ["furious"])
+	assert_eq(first_load.session.world_encounters.elite_miss_streaks, {"twilight_plains": 2})
+	assert_eq(first_load.session.world_encounters.region_boss_respawns, {"azhar": 3})
 	var personal_item_count: int = (
 		first_load.session.party.companions[0].personal_instance_ids.size()
 	)
@@ -204,6 +209,9 @@ func test_imported_copy_survives_load_save_load_full_cycle() -> void:
 		personal_item_count,
 	)
 	assert_eq(second_load.session.party.companions[0].current_hp, 0)
+	assert_eq(second_load.session.world_encounters.elite_discoveries, ["furious"])
+	assert_eq(second_load.session.world_encounters.elite_miss_streaks, {"twilight_plains": 2})
+	assert_eq(second_load.session.world_encounters.region_boss_respawns, {"azhar": 3})
 	assert_eq(FileAccess.get_sha256(_source_path), source_hash)
 
 

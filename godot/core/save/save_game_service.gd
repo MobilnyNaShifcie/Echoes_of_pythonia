@@ -34,10 +34,11 @@ const ExpeditionPreparationSaveCodecClass := preload(
 	"res://core/save/expedition_preparation_save_codec.gd"
 )
 const RiftSaveCodecClass := preload("res://core/save/rift_save_codec.gd")
+const WorldEncounterSaveCodecClass := preload("res://core/save/world_encounter_save_codec.gd")
 const StageSixSaveValidatorClass := preload("res://core/save/stage_six_save_validator.gd")
 
 const FORMAT_ID := "echoes_of_pythonia_godot_migration"
-const SCHEMA_VERSION := 16
+const SCHEMA_VERSION := 17
 const GAME_VERSION := "0.25.0"
 const DEFAULT_SAVE_ROOT := "user://godot_migration_saves"
 const SLOT_COUNT := NewGameServiceClass.SAVE_SLOT_COUNT
@@ -197,6 +198,7 @@ func _serialize_session(session: GameSessionClass) -> Dictionary:
 			"expedition_preparation":
 			ExpeditionPreparationSaveCodecClass.serialize(session.expedition_preparation),
 			"rifts": RiftSaveCodecClass.serialize(session.rifts),
+			"world_encounters": WorldEncounterSaveCodecClass.serialize(session.world_encounters),
 			"quest_log":
 			{
 				"active": session.quest_log.active.duplicate(true),
@@ -393,6 +395,8 @@ func _restore_session_fields(session: GameSessionClass, data: Dictionary) -> Dic
 		return _failure("Zapis nie zawiera stanu przygotowania wyprawy.")
 	if not data.get("rifts") is Dictionary:
 		return _failure("Zapis nie zawiera stanu Szczelin.")
+	if not data.get("world_encounters") is Dictionary:
+		return _failure("Zapis nie zawiera stanu spotkań otwartego świata.")
 	var location_id := str(data.get("current_location_id", ""))
 	var city_id := str(data.get("current_city_id", ""))
 	if not data.get("known_region_ids") is Array:
@@ -446,6 +450,12 @@ func _restore_session_fields(session: GameSessionClass, data: Dictionary) -> Dic
 	if not rift_result.ok:
 		return _failure("Nieprawidłowy stan Szczelin: %s" % rift_result.message)
 	session.rifts = rift_result.state
+	var world_encounter_result := WorldEncounterSaveCodecClass.deserialize(data.world_encounters)
+	if not world_encounter_result.ok:
+		return _failure(
+			"Nieprawidłowy stan spotkań otwartego świata: %s" % world_encounter_result.message
+		)
+	session.world_encounters = world_encounter_result.state
 	var stage_six_error := StageSixSaveValidatorClass.validate(session, int(data.day))
 	if not stage_six_error.is_empty():
 		return _failure("Niespójny stan Stage 6: %s" % stage_six_error)
@@ -599,6 +609,8 @@ func _migrate_payload(payload: Dictionary) -> Dictionary:
 			session["rifts"] = RiftSaveCodecClass.empty_data()
 		if version <= 15:
 			_backfill_companion_resource_initialization(session.get("party", {}))
+		if version <= 16:
+			session["world_encounters"] = WorldEncounterSaveCodecClass.empty_data()
 		migrated.schema_version = SCHEMA_VERSION
 	if not error.is_empty():
 		return _failure(error)

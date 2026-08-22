@@ -11,6 +11,7 @@ const RegionCatalogClass := preload("res://core/world/region_catalog.gd")
 const WeatherServiceClass := preload("res://core/world/weather_service.gd")
 const PartyStateClass := preload("res://core/companions/party_state.gd")
 const ExpeditionPreparationStateClass := preload("res://core/world/expedition_preparation_state.gd")
+const OpenWorldEncounterStateClass := preload("res://core/world/open_world_encounter_state.gd")
 const RiftStateClass := preload("res://core/rifts/rift_state.gd")
 const RiftLifecycleServiceClass := preload("res://core/rifts/rift_lifecycle_service.gd")
 const GuildProgressionServiceClass := preload("res://core/quests/guild_progression_service.gd")
@@ -52,6 +53,7 @@ var last_weather_changes: Array[Dictionary] = []
 var party := PartyStateClass.new()
 var expedition_preparation := ExpeditionPreparationStateClass.new()
 var rifts := RiftStateClass.new()
+var world_encounters := OpenWorldEncounterStateClass.new()
 
 
 func _init(slot: int, player_profile: PlayerProfileClass) -> void:

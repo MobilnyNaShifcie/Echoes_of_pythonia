@@ -24,7 +24,7 @@ equivalent, tested GDScript implementation.
 - `ui/` — reusable controls, themes, and presentation logic
 
 The current playable migration includes stages 0–3, stages 4A–4E, stages
-5A–5E, stages 6A–6K, and Stage 7, including all eight class talent paths, 41 talents, passive Masteries, and
+5A–5E, stages 6A–6K, Stage 7, and Stage 8A, including all eight class talent paths, 41 talents, passive Masteries, and
 specializations. All sixteen
 base Path skills are active. Pierrot uses a dedicated
 Fate Engine with encounter-local Fate Tokens and exact 1d6/2d6/3d6 tables.
@@ -118,9 +118,11 @@ documents.
 
 Stage 7 adds the safe terminal-save transition. The existing Load Game screen
 can inspect an exact terminal `v0.24.7` schema-`v15` file and import it only as a
-new Godot schema-`v16` copy in an empty slot. The original is opened read-only
+new Godot schema-`v17` copy in an empty slot. The original is opened read-only
 and guarded by SHA-256 checks. Every successful copy receives a JSON report of
-normalizations and unsupported world counters. Full mapping, refusal,
+normalizations. Stage 8A adds a dedicated persistent open-world encounter state,
+so elite discoveries, elite miss streaks, and regional-boss respawn counters
+are now fully mapped instead of reported as unsupported. Full mapping, refusal,
 rollback, source-immutability, UI, and save-load-save-load tests protect the
 flow. See `../docs/STAGE_7_PARITY_REPORT_v0.25.0.md` for the parity matrix.
 

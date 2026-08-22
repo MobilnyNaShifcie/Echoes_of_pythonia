@@ -815,6 +815,31 @@ obrażeń i osobny silnik walki drużynowej pozostają wyłącznym zakresem 6F.
 - warstwa finalnych assetów pozostaje osobnym, nie rozpoczętym etapem wymagającym
   akceptacji gracza.
 
+## Etap 8 — domknięcie parytetu otwartego świata
+
+### Etap 8A — trwały stan spotkań otwartego świata (ukończony)
+
+- `OpenWorldEncounterState` jest jawnym właścicielem trzech stanów, które po
+  Stage 7 nie miały jeszcze bezpiecznego odpowiednika: odkrytych modyfikatorów
+  elit, liczników spotkań bez elity oraz liczników odrodzenia bossów regionów,
+- `WorldEncounterSaveCodec` serializuje te dane i odrzuca nieznane typy elit,
+  regiony, bossów, duplikaty odkryć oraz ujemne albo ułamkowe liczniki. Dane nie
+  zostały dodane jako luźne pola `GameSession`,
+- Godotowy schemat zapisu wzrasta z `v16` do `v17`. Zapisy `v1–v16` otrzymują
+  bezpieczny pusty stan spotkań świata, natomiast zapis utworzony już w `v17`
+  zachowuje pełny stan przez save/load,
+- importer terminalowego `v0.24.7/v15` mapuje teraz wszystkie trzy zapisane
+  wartości do `world_encounters`. Raport kopii wymienia tę sekcję jako
+  zmapowaną i nie raportuje już tych pól w `audit.not_migrated`,
+- 8A nie uruchamia losowania elit, nie modyfikuje zwykłych wypraw, nie dodaje
+  Azahara ani Lewiatana Północy i nie zmniejsza liczników odrodzenia. Reguły
+  spotkań należą do kolejnych osobnych vertical slice'ów 8B–8D,
+- testy zabezpieczają pusty stan nowej gry, walidację codeca, round-trip,
+  migrację `v16 → v17` oraz pełny terminal `v15 → Godot v17 → save/load` bez
+  utraty dawnych trzech luk parytetu. Checkpoint przeszedł 534 testy Python + 8
+  subtestów, 396/396 testów GUT z 4029 asercjami, formatter, lint, bootstrap oraz
+  eksport i smoke test Windows.
+
 ## Kryterium ukończenia etapu
 
 Etap jest ukończony, gdy reguły zgadzają się z wersją terminalową, ekran da się

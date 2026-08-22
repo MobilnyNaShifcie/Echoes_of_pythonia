@@ -2,6 +2,7 @@ class_name TerminalSaveV15Mapper
 extends RefCounted
 
 const RegionCatalogClass := preload("res://core/world/region_catalog.gd")
+const WorldEncounterSaveCodecClass := preload("res://core/save/world_encounter_save_codec.gd")
 
 const TERMINAL_SCHEMA_VERSION := 15
 const TERMINAL_GAME_VERSION := "0.24.7"
@@ -12,8 +13,6 @@ const WORLD_MILESTONES := [
 	"dungeon:black_fleet_wreck",
 ]
 const PRESET_IDS := ["solo", "boss", "dungeon", "rift"]
-const ELITE_MODIFIER_IDS := ["furious", "armored", "vampiric", "cursed", "elemental"]
-const REGION_BOSS_IDS := ["azhar", "leviathan_north"]
 
 
 # The mapper only reshapes the terminal payload. SaveGameService remains the
@@ -45,10 +44,6 @@ static func map_to_godot(
 			return _failure("Terminalowy zapis nie zawiera sekcji: %s." % field)
 	if not source.get("adventure_log") is Array:
 		return _failure("Terminalowy zapis nie zawiera Dziennika Przygód.")
-	var terminal_only_result := _validate_terminal_only_sections(source)
-	if not terminal_only_result.ok:
-		return terminal_only_result
-
 	var player_result := _map_player(source.player)
 	if not player_result.ok:
 		return player_result
@@ -67,6 +62,9 @@ static func map_to_godot(
 	var preparation_result := _map_preparation(source.expedition_preparation)
 	if not preparation_result.ok:
 		return preparation_result
+	var world_encounter_result := _map_world_encounters(source)
+	if not world_encounter_result.ok:
+		return world_encounter_result
 
 	var world: Dictionary = source.world
 	var session := {
@@ -95,6 +93,7 @@ static func map_to_godot(
 		"party": party_result.party,
 		"expedition_preparation": preparation_result.preparation,
 		"rifts": source.rifts.duplicate(true),
+		"world_encounters": world_encounter_result.data,
 		"quest_log": quest_result.quest_log,
 		"contracts": contract_result.contracts,
 		"player": player_result.player,
@@ -109,7 +108,7 @@ static func map_to_godot(
 	return {
 		"ok": true,
 		"payload": payload,
-		"audit": _build_audit(source, guild_result.normalized_milestones),
+		"audit": _build_audit(guild_result.normalized_milestones),
 	}
 
 
@@ -305,21 +304,19 @@ static func _map_preparation(data: Dictionary) -> Dictionary:
 	return {"ok": true, "preparation": preparation}
 
 
-static func _build_audit(source: Dictionary, normalized_milestones: Array[String]) -> Dictionary:
-	var unsupported: Array[Dictionary] = []
-	for field: String in ["elite_discoveries", "elite_miss_streaks", "region_boss_respawns"]:
-		var value = source.get(field, [] if field == "elite_discoveries" else {})
-		(
-			unsupported
-			. append(
-				{
-					"field": field,
-					"reason": _unsupported_reason(field),
-					"value":
-					value.duplicate(true) if value is Array or value is Dictionary else value,
-				}
-			)
-		)
+static func _map_world_encounters(source: Dictionary) -> Dictionary:
+	var data := {
+		"elite_discoveries": source.get("elite_discoveries"),
+		"elite_miss_streaks": source.get("elite_miss_streaks"),
+		"region_boss_respawns": source.get("region_boss_respawns"),
+	}
+	var result := WorldEncounterSaveCodecClass.deserialize(data)
+	if not result.ok:
+		return _failure("Nieprawidłowy stan spotkań otwartego świata: %s" % result.message)
+	return {"ok": true, "data": WorldEncounterSaveCodecClass.serialize(result.state)}
+
+
+static func _build_audit(normalized_milestones: Array[String]) -> Dictionary:
 	return {
 		"mapped_sections":
 		[
@@ -334,6 +331,7 @@ static func _build_audit(source: Dictionary, normalized_milestones: Array[String
 			"party",
 			"expedition_preparation",
 			"rifts",
+			"world_encounters",
 		],
 		"normalized":
 		[
@@ -361,56 +359,12 @@ static func _build_audit(source: Dictionary, normalized_milestones: Array[String
 				"reason": "Terminal v15 nie przechowuje tego pomocniczego licznika Godota.",
 			},
 		],
-		"not_migrated": unsupported,
+		"not_migrated": [],
 	}
-
-
-static func _validate_terminal_only_sections(source: Dictionary) -> Dictionary:
-	if not source.get("elite_discoveries") is Array:
-		return _failure("Terminalowy rejestr odkrytych elit ma nieprawidłową strukturę.")
-	for modifier_value in source.elite_discoveries:
-		if not modifier_value is String or not str(modifier_value) in ELITE_MODIFIER_IDS:
-			return _failure("Terminalowy zapis zawiera nieznany typ elity.")
-	if not source.get("elite_miss_streaks") is Dictionary:
-		return _failure("Terminalowe liczniki elit mają nieprawidłową strukturę.")
-	for location_value in source.elite_miss_streaks:
-		if (
-			not location_value is String
-			or not RegionCatalogClass.is_valid_region_id(location_value)
-		):
-			return _failure("Terminalowy zapis zawiera nieznany region licznika elit.")
-		if not _is_non_negative_integer(source.elite_miss_streaks[location_value]):
-			return _failure("Terminalowy licznik spotkań bez elity jest nieprawidłowy.")
-	if not source.get("region_boss_respawns") is Dictionary:
-		return _failure("Terminalowe liczniki bossów mają nieprawidłową strukturę.")
-	for boss_value in source.region_boss_respawns:
-		if not boss_value is String or not str(boss_value) in REGION_BOSS_IDS:
-			return _failure("Terminalowy zapis zawiera nieznanego bossa regionu.")
-		if not _is_non_negative_integer(source.region_boss_respawns[boss_value]):
-			return _failure("Terminalowy licznik odrodzenia bossa jest nieprawidłowy.")
-	return {"ok": true}
-
-
-static func _unsupported_reason(field: String) -> String:
-	match field:
-		"elite_discoveries":
-			return "Godot nie ma jeszcze trwałego rejestru odkrytych modyfikatorów elit."
-		"elite_miss_streaks":
-			return "Godot nie ma terminalowego licznika ochrony przed serią bez elity."
-		"region_boss_respawns":
-			return (
-				"Bossowie regionalni i ich liczniki odrodzenia nie są jeszcze "
-				+ "aktywnym subsystemem Godota."
-			)
-	return "Brak bezpiecznego odpowiednika w Godocie."
 
 
 static func _is_integer(value) -> bool:
 	return (value is int or value is float) and is_equal_approx(float(value), floorf(float(value)))
-
-
-static func _is_non_negative_integer(value) -> bool:
-	return _is_integer(value) and int(value) >= 0
 
 
 static func _failure(message: String) -> Dictionary:

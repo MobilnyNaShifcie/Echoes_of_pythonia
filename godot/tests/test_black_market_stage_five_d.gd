@@ -134,7 +134,7 @@ func test_schema_eleven_preserves_market_and_schema_ten_gets_locked_default() ->
 	var service := SaveGameServiceClass.new("user://stage_five_d_not_written")
 	var payload: Dictionary = service._serialize_session(session)
 
-	assert_eq(payload.schema_version, 16)
+	assert_eq(payload.schema_version, 17)
 	var loaded := service._deserialize_payload(payload, 1)
 	assert_true(loaded.ok, loaded.message)
 	assert_true(loaded.session.black_market.unlocked)
