@@ -5,6 +5,9 @@ const COMBATANT_VISUAL_SCENE := preload(
 	"res://ui/components/combatant_visual/combatant_visual.tscn"
 )
 const CombatScreenClass := preload("res://ui/screens/combat/combat.gd")
+const CombatActionCardClass := preload(
+	"res://ui/components/combat_action_card/combat_action_card.gd"
+)
 const CombatantVisualClass := preload("res://ui/components/combatant_visual/combatant_visual.gd")
 const CombatPresentationCatalogClass := preload(
 	"res://ui/presentation/combat_presentation_catalog.gd"
@@ -67,6 +70,8 @@ func test_combat_scene_reserves_full_hd_space_for_art_vfx_and_centered_actions()
 		1.0,
 	)
 	assert_eq(screen.get_node("Page/Lower/ActionsDock/Actions/ActionGrid").columns, 4)
+	assert_true(screen.empty_skills_label.visible)
+	assert_false(screen.skill_cards_scroll.visible)
 	assert_string_contains(screen.battlefield_placeholder.text, "ZMIERZCHOWE RÓWNINY")
 	assert_false(screen.battlefield_placeholder.visible)
 	assert_true(screen.battlefield_texture.visible)
@@ -80,6 +85,8 @@ func test_combat_scene_reserves_full_hd_space_for_art_vfx_and_centered_actions()
 	screen.log_toggle_button.pressed.emit()
 	assert_true(screen.log_panel.visible)
 	assert_eq(screen.log_toggle_button.text, "Ukryj dziennik")
+	assert_string_contains(screen.turn_state_label.text, "RUNDA 1")
+	assert_eq(screen.target_name_label.text, "Wilk")
 	host.free()
 
 
@@ -123,3 +130,53 @@ func test_selected_class_controls_hero_placeholder_and_never_defaults_to_pierrot
 	screen.configure(session, "wolf", "expedition")
 	assert_eq(screen.player_visual.mode(), CombatantVisualClass.Mode.PLACEHOLDER)
 	assert_string_contains(screen.player_visual.role_label.text, "PIERROT")
+	assert_string_contains(screen.class_resource_label.text, "ŻETONY")
+
+
+func test_skill_cards_are_live_actions_and_preserve_the_legacy_skill_adapter() -> void:
+	var session = NewGameServiceClass.new().create_session("Aria", 1)
+	session.player.level = 5
+	assert_true(session.player.choose_class("warrior"))
+	var screen := COMBAT_SCENE.instantiate() as CombatScreenClass
+	screen.configure(session, "wolf", "expedition")
+	add_child_autofree(screen)
+
+	assert_false(screen.empty_skills_label.visible)
+	assert_true(screen.skill_cards_scroll.visible)
+	assert_eq(screen.skill_cards.get_child_count(), screen.skill_selector.item_count)
+	var first_card := screen.skill_cards.get_child(0) as CombatActionCardClass
+	assert_eq(first_card.action_id, "power_slash")
+	assert_string_contains(first_card.text, "POTĘŻNE CIĘCIE")
+	assert_string_contains(first_card.text, "MANY")
+	assert_false(first_card.disabled)
+	var mana_before: int = session.player.stats.current_mana
+	first_card.pressed.emit()
+	assert_lt(session.player.stats.current_mana, mana_before)
+	assert_string_contains(screen.combat_log.get_parsed_text(), "Potężne Cięcie")
+	assert_string_contains(screen.turn_state_label.text, "RUNDA 2")
+	assert_string_contains(screen.class_resource_label.text, "BLOK")
+
+
+func test_combat_hud_uses_three_non_overlapping_full_hd_command_zones() -> void:
+	var host := Control.new()
+	host.size = Vector2(1920, 1080)
+	add_child(host)
+	var session = NewGameServiceClass.new().create_session("Aria", 1)
+	session.player.level = 5
+	assert_true(session.player.choose_class("hunter"))
+	var screen := COMBAT_SCENE.instantiate() as CombatScreenClass
+	screen.configure(session, "wolf", "expedition")
+	host.add_child(screen)
+	await get_tree().process_frame
+
+	var lower: HBoxContainer = screen.get_node("Page/Lower")
+	var player_hud: PanelContainer = lower.get_node("PlayerCommandHud")
+	var action_dock: PanelContainer = lower.get_node("ActionsDock")
+	var target_hud: PanelContainer = lower.get_node("TargetCommandHud")
+	assert_lte(player_hud.get_global_rect().end.x, action_dock.get_global_rect().position.x)
+	assert_lte(action_dock.get_global_rect().end.x, target_hud.get_global_rect().position.x)
+	assert_lte(lower.get_global_rect().end.y, screen.get_global_rect().end.y)
+	assert_string_contains(screen.class_resource_label.text, "SEKWENCJA")
+	assert_eq(screen.player_turn_icon.text, "Ł")
+	assert_eq(screen.enemy_turn_icon.text, "W")
+	host.free()

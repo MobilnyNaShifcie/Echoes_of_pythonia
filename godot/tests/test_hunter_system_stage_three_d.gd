@@ -154,9 +154,8 @@ func test_hunter_catalog_and_combat_panels_expose_placeholder_state() -> void:
 	_select_skill(combat_screen, "phantom_arrow")
 	combat_screen.skill_button.pressed.emit()
 
-	assert_true(combat_screen.hunter_panel.visible)
-	assert_string_contains(combat_screen.hunter_sequence_label.text, "Widmowa")
-	assert_string_contains(combat_screen.hunter_resources_label.text, "ECHA 1")
+	assert_string_contains(combat_screen.class_resource_label.text, "Widmowa")
+	assert_string_contains(combat_screen.class_resource_label.text, "ECHA 1")
 	combat_screen.attack_button.pressed.emit()
 	assert_string_contains(combat_screen.combat_log.get_parsed_text(), "WIDMOWE ECHO materializuje")
 
@@ -173,11 +172,11 @@ func test_hunter_mechanic_panel_fits_the_720p_combat_header() -> void:
 	host.add_child(screen)
 	await get_tree().process_frame
 
-	assert_true(screen.hunter_panel.visible)
-	assert_lte(screen.hunter_panel.get_global_rect().end.x, screen.get_global_rect().end.x)
+	var class_hud: PanelContainer = screen.get_node("Page/Lower/PlayerCommandHud")
+	assert_lte(class_hud.get_global_rect().end.x, screen.get_global_rect().end.x)
 	assert_lte(
-		screen.hunter_panel.get_global_rect().end.y,
-		screen.get_node("Page/Arena").get_global_rect().position.y,
+		class_hud.get_global_rect().end.y,
+		screen.get_global_rect().end.y,
 	)
 	host.free()
 

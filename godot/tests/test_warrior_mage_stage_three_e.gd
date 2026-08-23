@@ -191,8 +191,7 @@ func test_warrior_and_mage_placeholder_panels_expose_live_combat_state() -> void
 	var warrior_screen := COMBAT_SCENE.instantiate() as CombatScreenClass
 	warrior_screen.configure(warrior_session, "nature_guardian", "stage_three_e_preview")
 	add_child_autofree(warrior_screen)
-	assert_true(warrior_screen.warrior_panel.visible)
-	assert_string_contains(warrior_screen.warrior_defense_label.text, "BLOK 5%")
+	assert_string_contains(warrior_screen.class_resource_label.text, "BLOK 5%")
 	assert_eq(warrior_screen.skill_selector.item_count, 3)
 
 	var mage_session = NewGameServiceClass.new().create_session("Lyra", 1)
@@ -210,9 +209,8 @@ func test_warrior_and_mage_placeholder_panels_expose_live_combat_state() -> void
 	_select_skill(mage_screen, "fire_bolt")
 	for _cast in 3:
 		mage_screen.skill_button.pressed.emit()
-	assert_true(mage_screen.mage_panel.visible)
 	assert_true(mage_screen.weave_row.visible)
-	assert_string_contains(mage_screen.mage_weave_label.text, "3/3")
+	assert_string_contains(mage_screen.class_resource_label.text, "3/3")
 	assert_false(mage_screen.double_weave_button.disabled)
 
 
@@ -228,14 +226,11 @@ func test_warrior_and_mage_panels_fit_the_720p_combat_header() -> void:
 		screen.configure(session, "prologue_scarecrow", "prologue")
 		host.add_child(screen)
 		await get_tree().process_frame
-		var panel: PanelContainer = (
-			screen.warrior_panel if class_code == "warrior" else screen.mage_panel
-		)
-		assert_true(panel.visible)
-		assert_lte(panel.get_global_rect().end.x, screen.get_global_rect().end.x)
+		var class_hud: PanelContainer = screen.get_node("Page/Lower/PlayerCommandHud")
+		assert_lte(class_hud.get_global_rect().end.x, screen.get_global_rect().end.x)
 		assert_lte(
-			panel.get_global_rect().end.y,
-			screen.get_node("Page/Arena").get_global_rect().position.y,
+			class_hud.get_global_rect().end.y,
+			screen.get_global_rect().end.y,
 		)
 		host.free()
 

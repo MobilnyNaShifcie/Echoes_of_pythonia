@@ -141,101 +141,8 @@ theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
 text = "ZMIERZCHOWE RÓWNINY — WALKA TUROWA"
 autowrap_mode = 2
 
-[node name="HunterPanel" type="PanelContainer" parent="Page/EncounterHeader"]
-unique_name_in_owner = true
-visible = false
-custom_minimum_size = Vector2(590, 0)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleMechanic")
-
-[node name="Content" type="HBoxContainer" parent="Page/EncounterHeader/HunterPanel"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="HunterSequenceLabel" type="Label" parent="Page/EncounterHeader/HunterPanel/Content"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.37, 0.7, 0.84, 1)
-text = "SEKWENCJA —"
-
-[node name="HunterResourcesLabel" type="Label" parent="Page/EncounterHeader/HunterPanel/Content"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.62, 0.72, 0.82, 1)
-text = "ŁADUNKI 0/3  •  ECHA 0  •  DESZCZ 0"
-
-[node name="HunterComboLabel" type="Label" parent="Page/EncounterHeader/HunterPanel/Content"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.48, 0.8, 0.68, 1)
-text = "FINISHER OCZEKUJE"
-text_overrun_behavior = 3
-
-[node name="WarriorPanel" type="PanelContainer" parent="Page/EncounterHeader"]
-unique_name_in_owner = true
-visible = false
-custom_minimum_size = Vector2(560, 0)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleMechanic")
-
-[node name="Content" type="HBoxContainer" parent="Page/EncounterHeader/WarriorPanel"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="WarriorDefenseLabel" type="Label" parent="Page/EncounterHeader/WarriorPanel/Content"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.45, 0.69, 0.86, 1)
-text = "BLOK 5%  •  GARDA —"
-
-[node name="WarriorOffenseLabel" type="Label" parent="Page/EncounterHeader/WarriorPanel/Content"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.84, 0.5, 0.42, 1)
-text = "PANCERZ —  •  KRWAWIENIE —"
-
-[node name="WarriorRetributionLabel" type="Label" parent="Page/EncounterHeader/WarriorPanel/Content"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.84, 0.72, 0.38, 1)
-text = "ODWET —"
-text_overrun_behavior = 3
-
-[node name="MagePanel" type="PanelContainer" parent="Page/EncounterHeader"]
-unique_name_in_owner = true
-visible = false
-custom_minimum_size = Vector2(570, 0)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleMechanic")
-
-[node name="Content" type="HBoxContainer" parent="Page/EncounterHeader/MagePanel"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="MageElementsLabel" type="Label" parent="Page/EncounterHeader/MagePanel/Content"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.57, 0.69, 0.92, 1)
-text = "ŻYWIOŁY —"
-
-[node name="MageWeaveLabel" type="Label" parent="Page/EncounterHeader/MagePanel/Content"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.67, 0.49, 0.88, 1)
-text = "SPLOT 0/3"
-
-[node name="MageReadyLabel" type="Label" parent="Page/EncounterHeader/MagePanel/Content"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.46, 0.81, 0.78, 1)
-text = "ARKANA — TALENT 3F"
-text_overrun_behavior = 3
-
 [node name="Arena" type="Control" parent="Page"]
-custom_minimum_size = Vector2(0, 240)
+custom_minimum_size = Vector2(0, 222)
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -287,46 +194,93 @@ text = "TŁO POLA WALKI — PLACEHOLDER REGIONU"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="TurnQueueBackdrop" type="PanelContainer" parent="Page/Arena"]
+layout_mode = 1
+anchors_preset = 10
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -360.0
+offset_top = 8.0
+offset_right = 360.0
+offset_bottom = 58.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleMechanic")
+
 [node name="TurnOrder" type="HBoxContainer" parent="Page/Arena"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 10
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -188.0
-offset_top = 10.0
-offset_right = 188.0
-offset_bottom = 52.0
+offset_left = -348.0
+offset_top = 12.0
+offset_right = 348.0
+offset_bottom = 54.0
 grow_horizontal = 2
 alignment = 1
-theme_override_constants/separation = 10
+theme_override_constants/separation = 8
+
+[node name="PlayerTurnIcon" type="Label" parent="Page/Arena/TurnOrder"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.64, 0.82, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "P"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="PlayerTurnLabel" type="Label" parent="Page/Arena/TurnOrder"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(84, 36)
+custom_minimum_size = Vector2(120, 36)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.56, 0.73, 0.9, 1)
 text = "BOHATER"
 horizontal_alignment = 1
 vertical_alignment = 1
+text_overrun_behavior = 3
+
+[node name="QueueArrow" type="Label" parent="Page/Arena/TurnOrder"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.48, 0.55, 0.65, 1)
+text = "▶"
+vertical_alignment = 1
 
 [node name="TurnStateLabel" type="Label" parent="Page/Arena/TurnOrder"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(160, 36)
+custom_minimum_size = Vector2(220, 36)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
-text = "WYBIERZ AKCJĘ"
+text = "RUNDA 1  •  WYBIERZ AKCJĘ"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="QueueArrow2" type="Label" parent="Page/Arena/TurnOrder"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.48, 0.55, 0.65, 1)
+text = "▶"
+vertical_alignment = 1
+
+[node name="EnemyTurnIcon" type="Label" parent="Page/Arena/TurnOrder"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.49, 0.63, 1)
+theme_override_font_sizes/font_size = 18
+text = "W"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="EnemyTurnLabel" type="Label" parent="Page/Arena/TurnOrder"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(84, 36)
+custom_minimum_size = Vector2(120, 36)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.84, 0.43, 0.56, 1)
 text = "WRÓG"
 horizontal_alignment = 1
 vertical_alignment = 1
+text_overrun_behavior = 3
 
 [node name="PlayerVisual" parent="Page/Arena" instance=ExtResource("2_visual")]
 unique_name_in_owner = true
@@ -414,30 +368,48 @@ anchor_top = 1.0
 anchor_right = 0.39
 anchor_bottom = 1.0
 offset_left = 18.0
-offset_top = -116.0
+offset_top = -132.0
 offset_right = -10.0
 offset_bottom = -14.0
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StylePlayerHud")
 
-[node name="Content" type="VBoxContainer" parent="Page/Arena/PlayerPanel"]
+[node name="Content" type="HBoxContainer" parent="Page/Arena/PlayerPanel"]
 layout_mode = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 10
 
-[node name="Role" type="Label" parent="Page/Arena/PlayerPanel/Content"]
+[node name="Portrait" type="PanelContainer" parent="Page/Arena/PlayerPanel/Content"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleMechanic")
+
+[node name="Glyph" type="Label" parent="Page/Arena/PlayerPanel/Content/Portrait"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.48, 0.67, 0.86, 1)
+theme_override_font_sizes/font_size = 30
+text = "◇"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Details" type="VBoxContainer" parent="Page/Arena/PlayerPanel/Content"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="Role" type="Label" parent="Page/Arena/PlayerPanel/Content/Details"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.5, 0.62, 0.76, 1)
 theme_override_font_sizes/font_size = 13
 text = "BOHATER"
 
-[node name="PlayerNameLabel" type="Label" parent="Page/Arena/PlayerPanel/Content"]
+[node name="PlayerNameLabel" type="Label" parent="Page/Arena/PlayerPanel/Content/Details"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Bohater"
 text_overrun_behavior = 3
 
-[node name="PlayerHpBar" type="ProgressBar" parent="Page/Arena/PlayerPanel/Content"]
+[node name="PlayerHpBar" type="ProgressBar" parent="Page/Arena/PlayerPanel/Content/Details"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 18)
 layout_mode = 2
@@ -445,12 +417,20 @@ max_value = 20.0
 value = 20.0
 show_percentage = false
 
-[node name="PlayerStatsLabel" type="Label" parent="Page/Arena/PlayerPanel/Content"]
+[node name="PlayerStatsLabel" type="Label" parent="Page/Arena/PlayerPanel/Content/Details"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.72, 0.79, 0.87, 1)
 theme_override_font_sizes/font_size = 14
 text = "PŻ 20/20  •  MANA 0/0  •  ATK 3  •  DEF 2"
+text_overrun_behavior = 3
+
+[node name="PlayerEffectLabel" type="Label" parent="Page/Arena/PlayerPanel/Content/Details"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.52, 0.68, 0.82, 1)
+theme_override_font_sizes/font_size = 12
+text = "EFEKTY: brak"
 text_overrun_behavior = 3
 
 [node name="Versus" type="Label" parent="Page/Arena"]
@@ -480,31 +460,49 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 10.0
-offset_top = -116.0
+offset_top = -132.0
 offset_right = -18.0
 offset_bottom = -14.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleEnemyHud")
 
-[node name="Content" type="VBoxContainer" parent="Page/Arena/EnemyPanel"]
+[node name="Content" type="HBoxContainer" parent="Page/Arena/EnemyPanel"]
 layout_mode = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 10
 
-[node name="Role" type="Label" parent="Page/Arena/EnemyPanel/Content"]
+[node name="Portrait" type="PanelContainer" parent="Page/Arena/EnemyPanel/Content"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleMechanic")
+
+[node name="Glyph" type="Label" parent="Page/Arena/EnemyPanel/Content/Portrait"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.38, 0.51, 1)
+theme_override_font_sizes/font_size = 30
+text = "◇"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Details" type="VBoxContainer" parent="Page/Arena/EnemyPanel/Content"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="Role" type="Label" parent="Page/Arena/EnemyPanel/Content/Details"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.74, 0.38, 0.48, 1)
 theme_override_font_sizes/font_size = 13
 text = "PRZECIWNIK"
 
-[node name="EnemyNameLabel" type="Label" parent="Page/Arena/EnemyPanel/Content"]
+[node name="EnemyNameLabel" type="Label" parent="Page/Arena/EnemyPanel/Content/Details"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Przeciwnik"
 text_overrun_behavior = 3
 
-[node name="EnemyHpBar" type="ProgressBar" parent="Page/Arena/EnemyPanel/Content"]
+[node name="EnemyHpBar" type="ProgressBar" parent="Page/Arena/EnemyPanel/Content/Details"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 18)
 layout_mode = 2
@@ -512,12 +510,20 @@ max_value = 10.0
 value = 10.0
 show_percentage = false
 
-[node name="EnemyStatsLabel" type="Label" parent="Page/Arena/EnemyPanel/Content"]
+[node name="EnemyStatsLabel" type="Label" parent="Page/Arena/EnemyPanel/Content/Details"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.72, 0.79, 0.87, 1)
 theme_override_font_sizes/font_size = 14
 text = "PŻ 10/10  •  ATK 2  •  DEF 1"
+text_overrun_behavior = 3
+
+[node name="EnemyEffectLabel" type="Label" parent="Page/Arena/EnemyPanel/Content/Details"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.79, 0.52, 0.62, 1)
+theme_override_font_sizes/font_size = 12
+text = "EFEKTY: brak"
 text_overrun_behavior = 3
 
 [node name="LogPanel" type="PanelContainer" parent="Page/Arena"]
@@ -531,7 +537,7 @@ anchor_bottom = 1.0
 offset_left = 18.0
 offset_top = -342.0
 offset_right = -10.0
-offset_bottom = -126.0
+offset_bottom = -142.0
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleLog")
 
@@ -542,14 +548,58 @@ fit_content = false
 scroll_active = true
 
 [node name="Lower" type="HBoxContainer" parent="Page"]
-custom_minimum_size = Vector2(0, 118)
+custom_minimum_size = Vector2(0, 188)
 layout_mode = 2
 alignment = 1
+theme_override_constants/separation = 8
+
+[node name="PlayerCommandHud" type="PanelContainer" parent="Page/Lower"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StylePlayerHud")
+
+[node name="Content" type="VBoxContainer" parent="Page/Lower/PlayerCommandHud"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="Page/Lower/PlayerCommandHud/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.51, 0.68, 0.86, 1)
+theme_override_font_sizes/font_size = 13
+text = "HUD KLASY"
+
+[node name="CommandClassLabel" type="Label" parent="Page/Lower/PlayerCommandHud/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "POSZUKIWACZ"
+autowrap_mode = 2
+
+[node name="Separator" type="HSeparator" parent="Page/Lower/PlayerCommandHud/Content"]
+layout_mode = 2
+
+[node name="ClassResourceLabel" type="Label" parent="Page/Lower/PlayerCommandHud/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.74, 0.81, 0.89, 1)
+text = "DROGA JESZCZE NIEWYBRANA"
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="CommandStatusLabel" type="Label" parent="Page/Lower/PlayerCommandHud/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.48, 0.66, 0.8, 1)
+theme_override_font_sizes/font_size = 13
+text = "EFEKTY: brak"
+autowrap_mode = 2
 
 [node name="ActionsDock" type="PanelContainer" parent="Page/Lower"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(980, 0)
+custom_minimum_size = Vector2(720, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleActionDock")
 
 [node name="Actions" type="VBoxContainer" parent="Page/Lower/ActionsDock"]
@@ -563,26 +613,51 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
-text = "WYBIERZ AKCJĘ"
+text = "KARTY UMIEJĘTNOŚCI"
 
-[node name="LogToggleButton" type="Button" parent="Page/Lower/ActionsDock/Actions/TitleRow"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(180, 0)
+[node name="Hint" type="Label" parent="Page/Lower/ActionsDock/Actions/TitleRow"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.46, 0.54, 0.64, 1)
 theme_override_font_sizes/font_size = 14
-text = "Pokaż dziennik"
+text = "Najedź, aby zobaczyć opis"
 
-[node name="SkillRow" type="HBoxContainer" parent="Page/Lower/ActionsDock/Actions"]
+[node name="EmptySkillsLabel" type="Label" parent="Page/Lower/ActionsDock/Actions"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 108)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.48, 0.55, 0.65, 1)
+text = "Umiejętności odblokujesz po wyborze Drogi."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="SkillCardsScroll" type="ScrollContainer" parent="Page/Lower/ActionsDock/Actions"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 112)
+layout_mode = 2
+horizontal_scroll_mode = 2
+vertical_scroll_mode = 0
+
+[node name="SkillCards" type="HBoxContainer" parent="Page/Lower/ActionsDock/Actions/SkillCardsScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+theme_override_constants/separation = 8
+
+[node name="LegacySkillControls" type="HBoxContainer" parent="Page/Lower/ActionsDock/Actions"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 7
 
-[node name="SkillSelector" type="OptionButton" parent="Page/Lower/ActionsDock/Actions/SkillRow"]
+[node name="SkillSelector" type="OptionButton" parent="Page/Lower/ActionsDock/Actions/LegacySkillControls"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
 
-[node name="SkillButton" type="Button" parent="Page/Lower/ActionsDock/Actions/SkillRow"]
+[node name="SkillButton" type="Button" parent="Page/Lower/ActionsDock/Actions/LegacySkillControls"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(190, 0)
 layout_mode = 2
@@ -607,12 +682,6 @@ custom_minimum_size = Vector2(190, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "Podwójny Splot"
-
-[node name="ConsumableSelector" type="OptionButton" parent="Page/Lower/ActionsDock/Actions"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-theme_override_font_sizes/font_size = 14
 
 [node name="ActionGrid" type="GridContainer" parent="Page/Lower/ActionsDock/Actions"]
 layout_mode = 2
@@ -647,6 +716,55 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
 text = "Ucieczka (50%)"
+
+[node name="TargetCommandHud" type="PanelContainer" parent="Page/Lower"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleEnemyHud")
+
+[node name="Content" type="VBoxContainer" parent="Page/Lower/TargetCommandHud"]
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="TargetRoundLabel" type="Label" parent="Page/Lower/TargetCommandHud/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
+theme_override_font_sizes/font_size = 13
+text = "RUNDA 1"
+
+[node name="TargetNameLabel" type="Label" parent="Page/Lower/TargetCommandHud/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "PRZECIWNIK"
+text_overrun_behavior = 3
+
+[node name="TargetStatusLabel" type="Label" parent="Page/Lower/TargetCommandHud/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.81, 0.55, 0.65, 1)
+text = "EFEKTY: brak"
+autowrap_mode = 2
+
+[node name="ItemLabel" type="Label" parent="Page/Lower/TargetCommandHud/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.62, 0.72, 1)
+theme_override_font_sizes/font_size = 12
+text = "SZYBKI PRZEDMIOT"
+
+[node name="ConsumableSelector" type="OptionButton" parent="Page/Lower/TargetCommandHud/Content"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+
+[node name="LogToggleButton" type="Button" parent="Page/Lower/TargetCommandHud/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "Pokaż dziennik"
 
 [node name="ResultPanel" type="PanelContainer" parent="Page"]
 unique_name_in_owner = true

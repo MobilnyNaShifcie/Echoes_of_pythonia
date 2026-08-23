@@ -5,6 +5,12 @@ signal finished(context: String, result: String)
 
 const AdventureServiceClass := preload("res://core/world/adventure_service.gd")
 const CombatEngineClass := preload("res://core/combat/combat_engine.gd")
+const COMBAT_ACTION_CARD_SCENE := preload(
+	"res://ui/components/combat_action_card/combat_action_card.tscn"
+)
+const CombatActionCardClass := preload(
+	"res://ui/components/combat_action_card/combat_action_card.gd"
+)
 const CombatantVisualClass := preload("res://ui/components/combatant_visual/combatant_visual.gd")
 const CombatPresentationCatalogClass := preload(
 	"res://ui/presentation/combat_presentation_catalog.gd"
@@ -21,9 +27,6 @@ const RegionBossChallengeServiceClass := preload(
 )
 const EliteEncounterServiceClass := preload("res://core/world/elite_encounter_service.gd")
 const SkillCatalogClass := preload("res://core/skills/skill_catalog.gd")
-const TalentProgressionServiceClass := preload(
-	"res://core/progression/talent_progression_service.gd"
-)
 const WeatherServiceClass := preload("res://core/world/weather_service.gd")
 const HEALING_ITEM_IDS := [
 	"weak_healing_potion", "strong_healing_potion", "hunter_provisions", "grandmaster_elixir"
@@ -41,6 +44,7 @@ var _last_hunter_combo := ""
 var _encounter_weather_code := WeatherServiceClass.SUNNY
 var _battle_title := ""
 var _configuration_error := ""
+var _round_number := 1
 
 @onready var encounter_label: Label = %EncounterLabel
 @onready var weather_label: Label = %EnemyNameLabel
@@ -51,29 +55,21 @@ var _configuration_error := ""
 @onready var player_turn_label: Label = %PlayerTurnLabel
 @onready var enemy_turn_label: Label = %EnemyTurnLabel
 @onready var turn_state_label: Label = %TurnStateLabel
+@onready var player_turn_icon: Label = %PlayerTurnIcon
+@onready var enemy_turn_icon: Label = %EnemyTurnIcon
 @onready var vfx_placeholder: Label = %VfxPlaceholder
 @onready var fate_panel: PanelContainer = %FatePanel
 @onready var fate_status_label: Label = %FateStatusLabel
 @onready var dice_row: HBoxContainer = %DiceRow
 @onready var fate_outcome_label: Label = %FateOutcomeLabel
-@onready var hunter_panel: PanelContainer = %HunterPanel
-@onready var hunter_sequence_label: Label = %HunterSequenceLabel
-@onready var hunter_resources_label: Label = %HunterResourcesLabel
-@onready var hunter_combo_label: Label = %HunterComboLabel
-@onready var warrior_panel: PanelContainer = %WarriorPanel
-@onready var warrior_defense_label: Label = %WarriorDefenseLabel
-@onready var warrior_offense_label: Label = %WarriorOffenseLabel
-@onready var warrior_retribution_label: Label = %WarriorRetributionLabel
-@onready var mage_panel: PanelContainer = %MagePanel
-@onready var mage_elements_label: Label = %MageElementsLabel
-@onready var mage_weave_label: Label = %MageWeaveLabel
-@onready var mage_ready_label: Label = %MageReadyLabel
 @onready var player_name_label: Label = %PlayerNameLabel
 @onready var player_stats_label: Label = %PlayerStatsLabel
 @onready var player_hp_bar: ProgressBar = %PlayerHpBar
+@onready var player_effect_label: Label = %PlayerEffectLabel
 @onready var enemy_name_label: Label = %EnemyNameLabel
 @onready var enemy_stats_label: Label = %EnemyStatsLabel
 @onready var enemy_hp_bar: ProgressBar = %EnemyHpBar
+@onready var enemy_effect_label: Label = %EnemyEffectLabel
 @onready var log_panel: PanelContainer = %LogPanel
 @onready var combat_log: RichTextLabel = %CombatLog
 @onready var log_toggle_button: Button = %LogToggleButton
@@ -81,6 +77,9 @@ var _configuration_error := ""
 @onready var defend_button: Button = %DefendButton
 @onready var skill_selector: OptionButton = %SkillSelector
 @onready var skill_button: Button = %SkillButton
+@onready var skill_cards_scroll: ScrollContainer = %SkillCardsScroll
+@onready var skill_cards: HBoxContainer = %SkillCards
+@onready var empty_skills_label: Label = %EmptySkillsLabel
 @onready var weave_row: HBoxContainer = %WeaveRow
 @onready var second_spell_selector: OptionButton = %SecondSpellSelector
 @onready var double_weave_button: Button = %DoubleWeaveButton
@@ -90,6 +89,12 @@ var _configuration_error := ""
 @onready var result_panel: PanelContainer = %ResultPanel
 @onready var result_label: Label = %ResultLabel
 @onready var continue_button: Button = %ContinueButton
+@onready var command_class_label: Label = %CommandClassLabel
+@onready var class_resource_label: Label = %ClassResourceLabel
+@onready var command_status_label: Label = %CommandStatusLabel
+@onready var target_round_label: Label = %TargetRoundLabel
+@onready var target_name_label: Label = %TargetNameLabel
+@onready var target_status_label: Label = %TargetStatusLabel
 
 
 func _ready() -> void:
@@ -129,6 +134,7 @@ func configure(
 	_enemy = EnemyCatalogClass.create_enemy(enemy_id)
 	_battle_title = battle_title
 	_configuration_error = ""
+	_round_number = 1
 	if _uses_surface_weather():
 		WeatherServiceClass.apply_to_enemy(_enemy, _encounter_weather_code)
 		if _context == "expedition" and not elite_modifier_id.is_empty():
@@ -213,7 +219,14 @@ func _use_skill() -> void:
 		_append_log("Nie masz jeszcze dostępnej umiejętności bojowej.")
 		return
 	var skill_id := str(skill_selector.get_item_metadata(skill_selector.selected))
+	_use_skill_id(skill_id)
+
+
+func _use_skill_id(skill_id: String) -> void:
 	var skill = SkillCatalogClass.get_definition(skill_id)
+	if skill == null:
+		_append_log("Nieznana umiejętność bojowa.")
+		return
 	_resolve_turn(
 		_engine.player_use_skill(skill_id),
 		"Używasz: %s (-%d Many)." % [skill.display_name, skill.mana_cost],
@@ -290,6 +303,8 @@ func _resolve_turn(report: Dictionary, action_text: String) -> void:
 		_last_fate_outcome = str(report.get("fate_outcome", ""))
 	if not str(report.get("hunter_combo_name", "")).is_empty():
 		_last_hunter_combo = str(report.hunter_combo_name)
+	if bool(report.get("turn_consumed", false)):
+		_round_number += 1
 	_append_log("\n" + action_text)
 	if report.get("enemy_dodged", false):
 		_append_log("Przeciwnik unika ciosu.")
@@ -474,6 +489,7 @@ func _render() -> void:
 	player_hp_bar.max_value = player.stats.max_hp
 	player_hp_bar.value = player.stats.current_hp
 	player_hp_bar.tooltip_text = "PŻ %d/%d" % [player.stats.current_hp, player.stats.max_hp]
+	player_effect_label.text = _player_effect_summary()
 	enemy_name_label.text = _enemy.display_name
 	if _uses_surface_weather():
 		enemy_name_label.text += (
@@ -499,13 +515,12 @@ func _render() -> void:
 	enemy_hp_bar.max_value = _enemy.max_hp
 	enemy_hp_bar.value = _enemy.current_hp
 	enemy_hp_bar.tooltip_text = "PŻ %d/%d" % [_enemy.current_hp, _enemy.max_hp]
+	enemy_effect_label.text = _enemy_effect_summary()
 	flee_button.visible = _context != "prologue"
 	_render_fate_panel()
-	_render_hunter_panel()
-	_render_warrior_panel()
-	_render_mage_panel()
 	_refresh_skill_selector()
 	_render_skill_action()
+	_refresh_skill_cards()
 	_refresh_second_spell_selector()
 	_render_double_weave_action()
 	_refresh_consumable_selector()
@@ -515,9 +530,19 @@ func _render() -> void:
 func _render_battlefield_context() -> void:
 	player_turn_label.text = _session.player.display_name.to_upper()
 	enemy_turn_label.text = _enemy.display_name.to_upper()
+	player_turn_icon.text = _player_class_display_name().left(1).to_upper()
+	enemy_turn_icon.text = _enemy.display_name.left(1).to_upper()
 	turn_state_label.text = (
-		"WYBIERZ AKCJĘ" if _engine.result == CombatEngineClass.ONGOING else "WALKA ZAKOŃCZONA"
+		"RUNDA %d  •  WYBIERZ AKCJĘ" % _round_number
+		if _engine.result == CombatEngineClass.ONGOING
+		else "WALKA ZAKOŃCZONA"
 	)
+	command_class_label.text = _player_class_display_name().to_upper()
+	class_resource_label.text = _class_resource_summary()
+	command_status_label.text = _player_effect_summary()
+	target_round_label.text = "RUNDA %d" % _round_number
+	target_name_label.text = _enemy.display_name
+	target_status_label.text = _enemy_effect_summary()
 	if _context == "prologue":
 		battlefield_placeholder.text = "TŁO FABULARNE PROLOGU — PLACEHOLDER"
 	elif _context == "dungeon":
@@ -534,7 +559,7 @@ func _uses_surface_weather() -> bool:
 func _render_fate_panel() -> void:
 	var is_pierrot := _session.player.character_class_code == "pierrot"
 	fate_panel.visible = is_pierrot
-	vfx_placeholder.visible = not is_pierrot
+	vfx_placeholder.visible = false
 	if not is_pierrot:
 		return
 	var mirror_status := "  •  ODBICIE GOTOWE" if _engine.pierrot_reflect_ready else ""
@@ -560,87 +585,12 @@ func _render_fate_panel() -> void:
 	)
 
 
-func _render_hunter_panel() -> void:
-	var is_hunter := _session.player.character_class_code == "hunter"
-	hunter_panel.visible = is_hunter
-	if not is_hunter:
-		return
-	var sequence_text := "—"
-	if not _engine.hunter_sequence.is_empty():
-		sequence_text = HunterComboCatalogClass.sequence_text(_engine.hunter_sequence)
-	hunter_sequence_label.text = "SEKWENCJA %s" % sequence_text
-	hunter_resources_label.text = (
-		"ŁADUNKI %d/3  •  ECHA %d  •  DESZCZ %d"
-		% [
-			_engine.hunter_explosive_charges,
-			_engine.hunter_phantom_pending.size(),
-			_engine.hunter_rain_pending.size(),
-		]
-	)
-	hunter_combo_label.text = (
-		"FINISHER OCZEKUJE" if _last_hunter_combo.is_empty() else _last_hunter_combo
-	)
-
-
-func _render_warrior_panel() -> void:
-	var is_warrior := _session.player.character_class_code == "warrior"
-	warrior_panel.visible = is_warrior
-	if not is_warrior:
-		return
-	var guard := "—"
-	if _engine.effects.player_guard_hits > 0:
-		guard = (
-			"%d%% ×%d" % [_engine.effects.player_guard_percent, _engine.effects.player_guard_hits]
-		)
-	warrior_defense_label.text = (
-		"BLOK %.0f%%  •  GARDA %s" % [_engine.warrior_block_chance(), guard]
-	)
-	var armor_break := "—"
-	if _engine.effects.enemy_defense_reduction_actions > 0:
-		armor_break = (
-			"-%d ×%d"
-			% [
-				_engine.effects.enemy_defense_reduction,
-				_engine.effects.enemy_defense_reduction_actions,
-			]
-		)
-	var bleed := "—"
-	if _engine.effects.enemy_bleed_turns > 0:
-		bleed = "%d ×%d" % [_engine.effects.enemy_bleed_damage, _engine.effects.enemy_bleed_turns]
-	warrior_offense_label.text = "PANCERZ %s  •  KRWAWIENIE %s" % [armor_break, bleed]
-	warrior_retribution_label.text = (
-		"ODWET %.0f%% DEF" % (_engine.warrior_retribution_ratio * 100.0)
-		if _engine.warrior_retribution_ready
-		else "ODWET —"
-	)
-
-
-func _render_mage_panel() -> void:
-	var is_mage := _session.player.character_class_code == "mage"
-	mage_panel.visible = is_mage
-	if not is_mage:
-		return
-	var elements: Array[String] = []
-	for damage_type: String in _engine.mage_element_sequence:
-		elements.append(ElementalResistancesClass.display_name(damage_type))
-	mage_elements_label.text = (
-		"ŻYWIOŁY —" if elements.is_empty() else "ŻYWIOŁY " + " → ".join(elements)
-	)
-	var has_arcana := _has_mechanic("arcana_core")
-	mage_weave_label.text = ("SPLOT %d/3" % _engine.mage_arcane_weave if has_arcana else "SPLOT —")
-	if _engine.can_double_cast():
-		mage_ready_label.text = "PODWÓJNY SPLOT GOTOWY"
-	elif has_arcana and _has_mechanic("arcana_double_weave"):
-		mage_ready_label.text = "SPLOT SIĘ ŁADUJE"
-	else:
-		mage_ready_label.text = "ARKANA — TALENT 3F"
-
-
 func _set_actions_enabled(enabled: bool) -> void:
 	_battle_actions_enabled = enabled
 	attack_button.disabled = not enabled
 	defend_button.disabled = not enabled
 	_render_skill_action()
+	_refresh_skill_cards()
 	_render_double_weave_action()
 	potion_button.disabled = not enabled or consumable_selector.item_count == 0
 	flee_button.disabled = not enabled
@@ -681,6 +631,152 @@ func _render_skill_action() -> void:
 	skill_button.text = "Użyj umiejętności"
 	skill_button.tooltip_text = skill.description if error.is_empty() else error
 	skill_button.disabled = not _battle_actions_enabled or not error.is_empty()
+
+
+func _refresh_skill_cards() -> void:
+	if _session == null or _engine == null or skill_cards == null:
+		return
+	var skills := SkillCatalogClass.get_combat_ready_skills(_session.player)
+	empty_skills_label.visible = skills.is_empty()
+	skill_cards_scroll.visible = not skills.is_empty()
+	if skills.is_empty():
+		_clear_skill_cards()
+		empty_skills_label.text = (
+			"Umiejętności odblokujesz po wyborze Drogi."
+			if _session.player.character_class_code == "none"
+			else "Brak odblokowanych umiejętności bojowych."
+		)
+		return
+	if _skill_cards_need_rebuild(skills):
+		_clear_skill_cards()
+		for skill in skills:
+			var card := COMBAT_ACTION_CARD_SCENE.instantiate() as CombatActionCardClass
+			card.action_id = skill.skill_id
+			card.pressed.connect(_use_skill_id.bind(skill.skill_id))
+			skill_cards.add_child(card)
+	var accent := _class_accent_color()
+	for index in skills.size():
+		var skill = skills[index]
+		var error := _engine.get_skill_use_error(skill.skill_id)
+		var card := skill_cards.get_child(index) as CombatActionCardClass
+		var description: String = skill.description
+		if not error.is_empty():
+			description += "\n\nNiedostępne: %s" % error
+		(
+			card
+			. configure(
+				skill.skill_id,
+				index + 1,
+				skill.display_name,
+				"%d MANY" % skill.mana_cost,
+				description,
+				_battle_actions_enabled and error.is_empty(),
+				accent,
+			)
+		)
+
+
+func _skill_cards_need_rebuild(skills: Array) -> bool:
+	if skill_cards.get_child_count() != skills.size():
+		return true
+	for index in skills.size():
+		var card := skill_cards.get_child(index) as CombatActionCardClass
+		if card == null or card.action_id != skills[index].skill_id:
+			return true
+	return false
+
+
+func _clear_skill_cards() -> void:
+	for child in skill_cards.get_children():
+		child.free()
+
+
+func _class_accent_color() -> Color:
+	match _session.player.character_class_code:
+		"warrior":
+			return Color(0.78, 0.39, 0.3)
+		"hunter":
+			return Color(0.28, 0.67, 0.74)
+		"mage":
+			return Color(0.55, 0.43, 0.86)
+		"pierrot":
+			return Color(0.91, 0.22, 0.39)
+	return Color(0.44, 0.57, 0.72)
+
+
+func _class_resource_summary() -> String:
+	match _session.player.character_class_code:
+		"warrior":
+			var guard := "—"
+			if _engine.effects.player_guard_hits > 0:
+				guard = (
+					"%d%% ×%d"
+					% [_engine.effects.player_guard_percent, _engine.effects.player_guard_hits]
+				)
+			return (
+				"BLOK %.0f%%  •  GARDA %s\nODWET %s"
+				% [
+					_engine.warrior_block_chance(),
+					guard,
+					"GOTOWY" if _engine.warrior_retribution_ready else "—"
+				]
+			)
+		"hunter":
+			var sequence := "—"
+			if not _engine.hunter_sequence.is_empty():
+				sequence = HunterComboCatalogClass.sequence_text(_engine.hunter_sequence)
+			return (
+				"SEKWENCJA %s\nŁADUNKI %d/3  •  ECHA %d  •  DESZCZ %d\nFINISHER %s"
+				% [
+					sequence,
+					_engine.hunter_explosive_charges,
+					_engine.hunter_phantom_pending.size(),
+					_engine.hunter_rain_pending.size(),
+					"—" if _last_hunter_combo.is_empty() else _last_hunter_combo,
+				]
+			)
+		"mage":
+			var elements: Array[String] = []
+			for damage_type: String in _engine.mage_element_sequence:
+				elements.append(ElementalResistancesClass.display_name(damage_type))
+			return (
+				"ŻYWIOŁY %s\nSPLOT %d/3  •  WYDANA MANA %d"
+				% [
+					"—" if elements.is_empty() else " → ".join(elements),
+					_engine.mage_arcane_weave,
+					_engine.mage_mana_spent,
+				]
+			)
+		"pierrot":
+			return (
+				"LOS %d  •  ŻETONY %d/%d"
+				% [_session.player.attributes.luck, _engine.fate_tokens, _engine.fate_token_cap()]
+			)
+	return "DROGA JESZCZE NIEWYBRANA"
+
+
+func _player_effect_summary() -> String:
+	var effects: Array[String] = []
+	if _engine.effects.player_guard_hits > 0:
+		effects.append("Garda")
+	if _engine.pierrot_reflect_ready:
+		effects.append("Odbicie")
+	if _engine.warrior_retribution_ready:
+		effects.append("Odwet")
+	if _engine.hunter_instinct_ready:
+		effects.append("Instynkt")
+	return "EFEKTY: brak" if effects.is_empty() else "EFEKTY: " + "  •  ".join(effects)
+
+
+func _enemy_effect_summary() -> String:
+	var effects: Array[String] = []
+	if _engine.effects.enemy_defense_reduction_actions > 0:
+		effects.append("Osłabiony pancerz")
+	if _engine.effects.enemy_bleed_turns > 0:
+		effects.append("Krwawienie")
+	if not _enemy.elite_modifier_id.is_empty():
+		effects.append("Elita")
+	return "EFEKTY: brak" if effects.is_empty() else "EFEKTY: " + "  •  ".join(effects)
 
 
 func _refresh_second_spell_selector() -> void:
@@ -779,10 +875,3 @@ func _render_consumable_action() -> void:
 func _append_log(message: String) -> void:
 	combat_log.append_text(message + "\n")
 	combat_log.scroll_to_line(combat_log.get_line_count())
-
-
-func _has_mechanic(mechanic_id: String) -> bool:
-	return (
-		mechanic_id in _session.player.unlocked_class_mechanic_ids
-		or TalentProgressionServiceClass.has_talent(_session.player, mechanic_id)
-	)

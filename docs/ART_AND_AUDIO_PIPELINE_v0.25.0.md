@@ -150,3 +150,26 @@ The first approved static integration covers the Region 1 golden combat slice:
 rules. Adding a new static asset must not consume RNG or change an encounter.
 The approved files, provenance, rights status, and checksums are recorded in
 `godot/assets/ASSET_MANIFEST.md`.
+
+## Combat HUD 2.0 placeholder contract
+
+The golden combat shell now reserves stable presentation zones for the target
+layout without requiring final artwork:
+
+- the top queue identifies the player and opponent and exposes the current
+  combat round,
+- compact combatant HUDs include portrait slots, resources, and live effect
+  summaries,
+- the lower center uses horizontally scrollable, directly actionable skill
+  cards so additional skills never overlap or shrink existing cards,
+- the lower side HUDs expose class-specific resources and current target state,
+- basic attack, defense, consumable, escape, Mage double weave, collapsible
+  combat log, and Pierrot dice remain functional,
+- cards and class resources are selected from the actual player class; Pierrot
+  presentation never appears for another class.
+
+The round display is presentation-only and counts consumed player action
+cycles. The ordinary combat engine still resolves the player and immediate
+enemy response synchronously; the HUD does not invent an initiative mechanic.
+Portraits, card illustrations, status icons, animations, and audio remain
+placeholders subject to the approval gate.
