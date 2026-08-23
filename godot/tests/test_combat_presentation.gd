@@ -124,7 +124,9 @@ func test_region_one_uses_every_technically_valid_approved_enemy_asset() -> void
 		"wolf": "res://assets/combat/enemies/wolf.png",
 		"boar": "res://assets/combat/enemies/boar.png",
 		"bandit": "res://assets/combat/enemies/bandit.png",
+		"cursed_scarecrow": "res://assets/combat/enemies/cursed_scarecrow.png",
 		"plains_spirit": "res://assets/combat/enemies/plains_spirit.png",
+		"night_guard": "res://assets/combat/enemies/night_guard.png",
 		"hunter": "res://assets/combat/enemies/hunter.png",
 		"nature_guardian": "res://assets/combat/enemies/nature_guardian.png",
 	}
@@ -132,12 +134,7 @@ func test_region_one_uses_every_technically_valid_approved_enemy_asset() -> void
 		var texture := CombatPresentationCatalogClass.enemy_texture(enemy_id)
 		assert_not_null(texture, enemy_id)
 		assert_eq(texture.resource_path, expected_paths[enemy_id], enemy_id)
-	assert_eq(
-		CombatPresentationCatalogClass.missing_region_one_enemy_assets(),
-		["cursed_scarecrow", "night_guard"],
-	)
-	assert_null(CombatPresentationCatalogClass.enemy_texture("cursed_scarecrow"))
-	assert_null(CombatPresentationCatalogClass.enemy_texture("night_guard"))
+	assert_true(CombatPresentationCatalogClass.missing_region_one_enemy_assets().is_empty())
 
 
 func test_region_one_profiles_crop_padding_and_share_a_ground_line() -> void:
@@ -148,7 +145,9 @@ func test_region_one_profiles_crop_padding_and_share_a_ground_line() -> void:
 		assert_gt(crop.size.x, 0.0, enemy_id)
 		assert_gt(crop.size.y, 0.0, enemy_id)
 		assert_almost_eq(frame.end.y, 0.96, 0.001, enemy_id)
-	for enemy_id: String in ["plains_spirit", "hunter", "nature_guardian"]:
+	for enemy_id: String in [
+		"cursed_scarecrow", "plains_spirit", "night_guard", "hunter", "nature_guardian"
+	]:
 		var tall_presentation := CombatPresentationCatalogClass.enemy_presentation(enemy_id)
 		var tall_frame: Rect2 = tall_presentation.frame
 		assert_almost_eq(tall_frame.end.y, 0.96, 0.001, enemy_id)

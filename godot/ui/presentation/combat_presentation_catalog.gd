@@ -52,9 +52,19 @@ const ENEMY_PRESENTATIONS := {
 		"crop": Rect2(8, 53, 1046, 1339),
 		"frame": Rect2(0.1, 0.01, 0.8, 0.95),
 	},
+	"cursed_scarecrow":
+	{
+		"texture": preload("res://assets/combat/enemies/cursed_scarecrow.png"),
+		"frame": Rect2(0.05, 0.0, 0.9, 0.96),
+	},
 	"plains_spirit":
 	{
 		"texture": preload("res://assets/combat/enemies/plains_spirit.png"),
+		"frame": Rect2(0.1, 0.0, 0.8, 0.96),
+	},
+	"night_guard":
+	{
+		"texture": preload("res://assets/combat/enemies/night_guard.png"),
 		"frame": Rect2(0.1, 0.0, 0.8, 0.96),
 	},
 	"hunter":
