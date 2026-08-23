@@ -298,6 +298,12 @@ func _show_expedition_preparation() -> void:
 	if _current_session == null:
 		_show_main_menu()
 		return
+	if _current_session.party.active_companions(_current_session.day).is_empty():
+		_current_session.last_activity = (
+			"Zwykła wyprawa nie wymaga osobnych przygotowań. " + "Wybierz region."
+		)
+		_show_world_map()
+		return
 	var preparation: ExpeditionPreparationScreenClass = _replace_screen(
 		EXPEDITION_PREPARATION_SCENE
 	)
@@ -309,7 +315,7 @@ func _show_expedition_preparation() -> void:
 	preparation.departure_requested.connect(_show_world_map)
 	preparation.state_changed.connect(_save_current_session_silently)
 	preparation.configure(_current_session)
-	app_status_label.text = "Przygotowanie do wyprawy"
+	app_status_label.text = "Przygotowanie wyprawy drużynowej"
 
 
 func _show_preparation_party() -> void:

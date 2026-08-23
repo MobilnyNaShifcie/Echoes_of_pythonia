@@ -13,12 +13,9 @@ horizontal_scroll_mode = 0
 script = ExtResource("1")
 
 [node name="Page" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_constants/separation = 6
 
 [node name="Header" type="HBoxContainer" parent="Page"]
@@ -50,7 +47,8 @@ text = "F — Nowicjusz  •  0/100 reputacji do rangi E"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 4
-text = "Wróć do Varenhold"
+custom_minimum_size = Vector2(150, 48)
+text = "Cofnij"
 
 [node name="BoardTabs" type="HBoxContainer" parent="Page"]
 layout_mode = 2
@@ -66,19 +64,19 @@ text = "Fabuła"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Daily [E]"
+text = "Dzienne"
 
 [node name="WeeklyButton" type="Button" parent="Page/BoardTabs"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Weekly [D]"
+text = "Tygodniowy"
 
 [node name="MilestonesButton" type="Button" parent="Page/BoardTabs"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Kamienie"
+text = "Archiwum"
 
 [node name="RumorsButton" type="Button" parent="Page/BoardTabs"]
 unique_name_in_owner = true
@@ -90,7 +88,7 @@ text = "Plotki"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Drużyna"
+text = "Kompani i rekrutacja"
 
 [node name="RiftsButton" type="Button" parent="Page/BoardTabs"]
 unique_name_in_owner = true
@@ -100,12 +98,14 @@ text = "Szczeliny"
 
 [node name="Body" type="HBoxContainer" parent="Page"]
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 12
 
 [node name="BoardPanel" type="PanelContainer" parent="Page/Body"]
-custom_minimum_size = Vector2(520, 0)
+custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="Content" type="VBoxContainer" parent="Page/Body/BoardPanel"]
 layout_mode = 2
@@ -129,10 +129,11 @@ allow_reselect = true
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.53, 0.62, 0.73, 1)
-text = "Poziom i poprzedni rozdział sterują dostępnością. Późne cele zachowują postęp do czasu migracji bossów i lochów."
+text = "Kolejne rozdziały odblokowują się wraz z poziomem bohatera i postępem fabuły."
 autowrap_mode = 2
 
 [node name="QuestPanel" type="PanelContainer" parent="Page/Body"]
+custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -201,7 +202,7 @@ unique_name_in_owner = true
 visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.88, 0.55, 0.38, 1)
-text = "ZALEŻNOŚĆ MIGRACJI"
+text = "WYMAGANIE"
 autowrap_mode = 2
 
 [node name="ActionButton" type="Button" parent="Page/Body/QuestPanel/Content"]

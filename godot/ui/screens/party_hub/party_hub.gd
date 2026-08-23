@@ -67,7 +67,7 @@ var _selected_fallen_id := ""
 
 
 func _ready() -> void:
-	tabs.set_tab_title(0, "Moi kompani")
+	tabs.set_tab_title(0, "Drużyna")
 	tabs.set_tab_title(1, "Kandydaci")
 	tabs.set_tab_title(2, "Wiadomości")
 	tabs.set_tab_title(3, "Tablica Poległych")
@@ -102,6 +102,8 @@ func configure(session: GameSessionClass) -> void:
 	var changed := _refresh_daily_state()
 	if is_node_ready():
 		_render()
+		if _session.party.companions.is_empty() and not _session.party.candidates.is_empty():
+			tabs.current_tab = 1
 	if changed:
 		state_changed.emit()
 
@@ -592,7 +594,14 @@ func _render_candidate_details() -> void:
 	var candidate = _selected_candidate()
 	if candidate == null:
 		candidate_name_label.text = "Brak kandydatów"
-		candidate_detail_label.text = "Dzisiaj nikt dostępny nie szuka stałej drużyny."
+		var rank_code := CompanionRecruitmentServiceClass.rank_code_for_reputation(
+			_session.guild_reputation
+		)
+		candidate_detail_label.text = (
+			"Pierwsi kandydaci pojawią się po awansie do rangi E."
+			if rank_code == "F"
+			else "Dzisiaj nikt dostępny nie szuka stałej drużyny."
+		)
 		for button in talk_buttons:
 			button.disabled = true
 		recruit_button.disabled = true

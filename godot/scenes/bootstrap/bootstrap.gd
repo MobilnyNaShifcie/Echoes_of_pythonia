@@ -6,6 +6,4 @@ const PROJECT_VERSION := "0.25.0"
 
 
 func _ready() -> void:
-	status_label.text = (
-		"Szkielet v%s działa. Następny krok: migracja modelu domenowego." % PROJECT_VERSION
-	)
+	status_label.text = "Echoes of Pythonia v%s jest gotowe." % PROJECT_VERSION

@@ -241,8 +241,7 @@ func test_guild_placeholder_switches_between_story_daily_and_weekly() -> void:
 	screen.show_weekly_contract()
 	assert_eq(screen.quest_list.item_count, 1)
 	assert_string_contains(screen.arc_label.text, "TYGODNIOWY")
-	assert_false(screen.dependency_label.text.contains("elity"))
-	assert_string_contains(screen.dependency_label.text, "lochy")
+	assert_false(screen.dependency_label.visible)
 	screen.show_story_board()
 	assert_eq(screen.quest_list.item_count, 9)
 

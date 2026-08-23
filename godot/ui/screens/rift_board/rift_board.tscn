@@ -46,7 +46,7 @@ text = "Zamknięte Szczeliny: 0"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 4
-text = "Wróć do Gildii"
+text = "Cofnij"
 
 [node name="RiftPanel" type="PanelContainer" parent="Page"]
 custom_minimum_size = Vector2(0, 470)

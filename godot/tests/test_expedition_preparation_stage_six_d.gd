@@ -357,7 +357,8 @@ func test_preparation_screen_renders_full_stage_six_d_flow_and_emits_departure()
 	screen.configure(session)
 
 	assert_eq(screen.target_selector.item_count, session.known_region_ids.size() + 1)
-	assert_eq(screen.preset_selector.item_count, 4)
+	assert_eq(screen.preset_selector.item_count, 3)
+	assert_false("SOLO" in screen.preset_selector.get_item_text(0))
 	assert_true("SOLO" in screen.party_label.text)
 	assert_true("Udźwig" in screen.carry_label.text)
 
@@ -368,7 +369,7 @@ func test_preparation_screen_renders_full_stage_six_d_flow_and_emits_departure()
 	assert_signal_emitted(screen, "departure_requested")
 
 
-func test_app_routes_preparation_without_reusing_the_old_city_placeholder() -> void:
+func test_app_skips_preparation_for_solo_and_opens_it_for_an_active_party() -> void:
 	var session = _session()
 	session.prologue_completed = true
 	var app = APP_SCENE.instantiate()
@@ -377,6 +378,11 @@ func test_app_routes_preparation_without_reusing_the_old_city_placeholder() -> v
 	app._show_expedition_preparation()
 	await get_tree().process_frame
 	assert_eq(app.screen_host.get_child_count(), 1)
+	assert_true(app.screen_host.get_child(0) is WorldMapScreen)
+
+	session.party.companions.append(_companion("companion-1", "Kael", true))
+	app._show_expedition_preparation()
+	await get_tree().process_frame
 	assert_true(app.screen_host.get_child(0) is ExpeditionPreparationScreen)
 
 

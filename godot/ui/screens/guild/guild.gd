@@ -34,6 +34,7 @@ var _selected_rumor_index := 0
 @onready var weekly_button: Button = %WeeklyButton
 @onready var milestones_button: Button = %MilestonesButton
 @onready var rumors_button: Button = %RumorsButton
+@onready var party_button: Button = %PartyButton
 @onready var board_title: Label = %BoardTitle
 @onready var quest_list: ItemList = %QuestList
 @onready var notice_label: Label = %NoticeLabel
@@ -163,6 +164,9 @@ func _render() -> void:
 	weekly_button.disabled = _mode == MODE_WEEKLY
 	milestones_button.disabled = _mode == MODE_MILESTONES
 	rumors_button.disabled = _mode == MODE_RUMORS
+	party_button.text = "Kompani i rekrutacja"
+	if not _session.party.candidates.is_empty():
+		party_button.text += " (%d)" % _session.party.candidates.size()
 	_refresh_list()
 	_render_details()
 
@@ -210,7 +214,6 @@ func _refresh_milestone_list() -> void:
 
 
 func _refresh_rumor_list() -> void:
-	var rank := GuildProgressionServiceClass.rank_for_reputation(_session.guild_reputation)
 	var rumors := (
 		GuildRumorCatalogClass
 		. available(
@@ -219,15 +222,12 @@ func _refresh_rumor_list() -> void:
 			_session.black_market.unlocked,
 		)
 	)
-	board_title.text = "Plotki dostępne dla rangi %s" % rank.code
-	notice_label.text = (
-		"Plotki odblokowują się wraz z rangą i wydarzeniami świata. "
-		+ "Informator oraz plotki Czarnego Rynku pojawią się w etapie 5D."
-	)
+	board_title.text = "Zasłyszane plotki"
+	notice_label.text = ("Nowe informacje pojawiają się wraz z wydarzeniami w świecie.")
 	_selected_rumor_index = clampi(_selected_rumor_index, 0, maxi(0, rumors.size() - 1))
 	for index in rumors.size():
 		var rumor = rumors[index]
-		var row := quest_list.add_item("Plotka %02d  •  ranga %s" % [index + 1, rumor.minimum_rank])
+		var row := quest_list.add_item("Plotka %02d" % [index + 1])
 		quest_list.set_item_metadata(row, str(index))
 	_select_list_row(_selected_rumor_index, false)
 
@@ -235,8 +235,7 @@ func _refresh_rumor_list() -> void:
 func _refresh_quest_list() -> void:
 	board_title.text = "Akt I — dziewięć rozdziałów"
 	notice_label.text = (
-		"Poziom i poprzedni rozdział sterują dostępnością. Późne cele pokazują "
-		+ "swoje zależności migracji."
+		"Kolejne rozdziały odblokowują się wraz z poziomem bohatera " + "i postępem fabuły."
 	)
 	var selected_index := 0
 	var quests := QuestServiceClass.get_all_story_quests()
@@ -320,8 +319,7 @@ func _render_milestone_details() -> void:
 	)
 	progress_label.text = "Status: %s" % ("zdobyty" if completed else "niezdobyty")
 	reward_label.text = "Nagroda: %d reputacji Gildii" % milestone.reputation
-	dependency_label.visible = not completed and not milestone.dependency_note.is_empty()
-	dependency_label.text = "ZALEŻNOŚĆ MIGRACJI: %s" % milestone.dependency_note
+	dependency_label.visible = false
 	status_label.text = ("ZAPISANO W ARCHIWUM" if completed else "OCZEKUJE NA WYDARZENIE")
 	action_button.text = "Przyznawane automatycznie"
 	action_button.disabled = true
@@ -341,7 +339,7 @@ func _render_rumor_details() -> void:
 	_selected_rumor_index = clampi(_selected_rumor_index, 0, rumors.size() - 1)
 	var rumor = rumors[_selected_rumor_index]
 	arc_label.text = "SZEPTY W SALI GILDII"
-	chapter_label.text = "Dostępna od rangi %s" % rumor.minimum_rank
+	chapter_label.text = "Zasłyszana w sali Gildii"
 	quest_title_label.text = "Zasłyszana plotka"
 	description_label.text = rumor.text
 	progress_label.text = (
@@ -368,8 +366,7 @@ func _render_quest_details() -> void:
 		"Zalecany poziom: %d  •  Nagroda: %d EXP, %d złota, %d reputacji Gildii"
 		% [quest.recommended_level, quest.reward_exp, quest.reward_gold, quest.guild_reputation]
 	)
-	dependency_label.visible = not quest.dependency_note.is_empty()
-	dependency_label.text = "ZALEŻNOŚĆ MIGRACJI: %s" % quest.dependency_note
+	dependency_label.visible = false
 	_render_quest_action(quest)
 
 
@@ -404,9 +401,7 @@ func _render_contract_details() -> void:
 	if not contract.reward_item_id.is_empty():
 		var item = ItemCatalogClass.get_definition(contract.reward_item_id)
 		reward_label.text += "  •  %s ×%d" % [item.display_name, contract.reward_item_quantity]
-	var dependency := ContractServiceClass.dependency_note(contract)
-	dependency_label.visible = not dependency.is_empty()
-	dependency_label.text = "ZALEŻNOŚĆ MIGRACJI: %s" % dependency
+	dependency_label.visible = false
 	_render_contract_action(contract)
 
 

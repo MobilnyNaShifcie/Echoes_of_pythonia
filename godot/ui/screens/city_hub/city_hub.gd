@@ -23,7 +23,7 @@ var _session: GameSessionClass
 
 
 func _ready() -> void:
-	%GateButton.pressed.connect(service_requested.emit.bind("preparation"))
+	%GateButton.pressed.connect(world_map_requested.emit)
 	%QuartermasterButton.pressed.connect(service_requested.emit.bind("quartermaster"))
 	%BlacksmithButton.pressed.connect(service_requested.emit.bind("blacksmith"))
 	%WorkshopButton.pressed.connect(service_requested.emit.bind("workshop"))
@@ -81,3 +81,7 @@ func _render() -> void:
 	black_market_button.text = (
 		"Czarny Rynek" if _session.black_market.unlocked else "Czarny Rynek — zablokowany"
 	)
+	var has_active_party := not _session.party.active_companions(_session.day).is_empty()
+	%PreparationButton.visible = has_active_party
+	%PreparationButton.disabled = not has_active_party
+	%PreparationHint.visible = not has_active_party

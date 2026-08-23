@@ -73,6 +73,9 @@ func test_combat_layout_does_not_overlap_header_or_footer_at_720p() -> void:
 	)
 	combat.result_panel.visible = true
 	await get_tree().process_frame
+	var continue_size: Vector2 = combat.continue_button.size
+	combat.result_label.text += "\n" + "Dodatkowy wpis do raportu zwycięstwa.\n".repeat(3)
+	await get_tree().process_frame
 	var header_separator: HSeparator = app.get_node("SafeArea/Page/HeaderSeparator")
 	var footer_separator: HSeparator = app.get_node("SafeArea/Page/FooterSeparator")
 
@@ -84,6 +87,7 @@ func test_combat_layout_does_not_overlap_header_or_footer_at_720p() -> void:
 		combat.result_panel.get_global_rect().end.y,
 		footer_separator.get_global_rect().position.y,
 	)
+	assert_eq(combat.continue_button.size, continue_size)
 	host.free()
 
 
@@ -117,6 +121,35 @@ func test_economy_layout_fits_between_header_and_footer_at_720p() -> void:
 	host.free()
 
 
+func test_world_map_scrolls_inside_safe_area_and_uses_two_visible_columns() -> void:
+	var host := Control.new()
+	host.size = Vector2(1280, 720)
+	add_child(host)
+	var app = APP_SCENE.instantiate()
+	host.add_child(app)
+	var session = NewGameServiceClass.new().create_session("Aria", 1)
+	session.prologue_completed = true
+	app._on_session_created(session)
+	app._show_world_map()
+	await get_tree().process_frame
+	var world_map = app.screen_host.get_child(0)
+	var header_separator: HSeparator = app.get_node("SafeArea/Page/HeaderSeparator")
+	var footer_separator: HSeparator = app.get_node("SafeArea/Page/FooterSeparator")
+
+	assert_gte(
+		world_map.title_label.get_global_rect().position.y,
+		header_separator.get_global_rect().end.y,
+	)
+	assert_lte(
+		world_map.get_global_rect().end.y,
+		footer_separator.get_global_rect().position.y,
+	)
+	assert_eq(world_map.get_node("Page/Body").get_child_count(), 2)
+	assert_false(world_map.threats_label.is_visible_in_tree())
+	assert_false(world_map.weather_label.is_visible_in_tree())
+	host.free()
+
+
 func test_character_progression_screens_fit_at_720p() -> void:
 	var host := Control.new()
 	host.size = Vector2(1280, 720)
@@ -144,9 +177,10 @@ func test_character_progression_screens_fit_at_720p() -> void:
 	var equipment = app.screen_host.get_child(0)
 	assert_eq(equipment.get_script(), EquipmentScreenClass)
 	assert_lte(
-		equipment.feedback_label.get_global_rect().end.y,
+		equipment.get_global_rect().end.y,
 		footer_separator.get_global_rect().position.y,
 	)
+	assert_true(equipment.get_v_scroll_bar().visible)
 
 	app._show_class_selection()
 	await get_tree().process_frame

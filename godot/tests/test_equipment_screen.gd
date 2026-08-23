@@ -91,3 +91,41 @@ func test_class_restricted_equipment_is_visible_but_cannot_be_equipped() -> void
 	assert_true(screen.equip_button.disabled)
 	assert_string_contains(screen.feedback_label.text, "wymaga klasy: Łowca")
 	assert_string_contains(screen.details_label.text, "Łowca")
+
+
+func test_mmo_layout_exposes_all_slots_tabs_and_hover_details() -> void:
+	var session = NewGameServiceClass.new().create_session("Aria", 1)
+	session.player.inventory.add("wolf_fur", 2)
+	var screen := EQUIPMENT_SCENE.instantiate() as EquipmentScreenClass
+	screen.configure(session)
+	add_child_autofree(screen)
+
+	assert_eq(screen.slot_buttons.size(), 11)
+	assert_eq(screen.category_tabs.tab_count, 5)
+	assert_eq(screen.category_tabs.get_tab_title(0), "Wszystko")
+	assert_eq(screen.category_tabs.get_tab_title(3), "Materiały")
+	assert_gt(screen.inventory_grid.get_child_count(), 0)
+
+	screen._show_equipped_details("weapon")
+	assert_string_contains(screen.details_label.text, "Stary Miecz +0")
+	assert_string_contains(screen.slot_buttons.weapon.text, "Stary Miecz +0")
+
+
+func test_drag_contract_equips_to_slot_and_returns_item_to_backpack() -> void:
+	var session = NewGameServiceClass.new().create_session("Aria", 1)
+	session.player.level = 2
+	session.player.inventory.add("sharpened_sword")
+	var screen := EQUIPMENT_SCENE.instantiate() as EquipmentScreenClass
+	screen.configure(session)
+	add_child_autofree(screen)
+	var drag_data := {"kind": "equipment", "index": 0}
+
+	assert_true(screen._slot_can_drop_data(Vector2.ZERO, drag_data, "weapon"))
+	screen._slot_drop_data(Vector2.ZERO, drag_data, "weapon")
+	assert_eq(session.player.get_equipped_item_name("weapon"), "Ostrzony Miecz +0")
+
+	var equipped_drag := {"kind": "equipped", "slot": "weapon"}
+	assert_true(screen._backpack_can_drop_data(Vector2.ZERO, equipped_drag))
+	screen._backpack_drop_data(Vector2.ZERO, equipped_drag)
+	assert_eq(session.player.get_equipped_item_name("weapon"), "Brak")
+	assert_eq(session.player.inventory.equipment_items.size(), 2)

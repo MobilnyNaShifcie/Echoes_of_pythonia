@@ -34,7 +34,7 @@ text = "Wybór Drogi"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 4
-text = "Wróć do Varenhold"
+text = "Cofnij"
 [node name="Columns" type="HBoxContainer" parent="Page"]
 layout_mode = 2
 size_flags_vertical = 3

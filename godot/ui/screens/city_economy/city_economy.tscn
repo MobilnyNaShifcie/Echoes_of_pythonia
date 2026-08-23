@@ -42,7 +42,7 @@ text = "Usługa"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 4
-text = "Wróć do Varenhold"
+text = "Cofnij"
 
 [node name="SummaryLabel" type="Label" parent="Page"]
 unique_name_in_owner = true

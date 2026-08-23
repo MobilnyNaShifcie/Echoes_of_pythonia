@@ -47,7 +47,7 @@ text = "Kompanie 0/4 • aktywny skład 0/3 • nowe wiadomości 0"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 4
-text = "Wróć do Gildii"
+text = "Cofnij"
 
 [node name="Separator" type="HSeparator" parent="Page"]
 layout_mode = 2
@@ -75,7 +75,7 @@ theme_override_constants/separation = 8
 layout_mode = 2
 theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
 theme_override_font_sizes/font_size = 20
-text = "Roster kompanów"
+text = "Moi kompani"
 
 [node name="RosterList" type="ItemList" parent="Page/ModeTabs/RosterTab/RosterPanel/Roster"]
 unique_name_in_owner = true
@@ -272,7 +272,7 @@ allow_reselect = true
 [node name="RotationNote" type="Label" parent="Page/ModeTabs/CandidatesTab/CandidateListPanel/CandidateListBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.55, 0.65, 0.77, 1)
-text = "Rotacja zmienia się raz na dzień Pythonii i jest zapisywana."
+text = "Nowe osoby mogą pojawić się następnego dnia."
 autowrap_mode = 2
 
 [node name="CandidateDetailsPanel" type="PanelContainer" parent="Page/ModeTabs/CandidatesTab"]

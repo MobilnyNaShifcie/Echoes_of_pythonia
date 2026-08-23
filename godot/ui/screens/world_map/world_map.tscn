@@ -2,22 +2,20 @@
 
 [ext_resource type="Script" path="res://ui/screens/world_map/world_map.gd" id="1"]
 
-[node name="WorldMapScreen" type="Control"]
+[node name="WorldMapScreen" type="ScrollContainer"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+horizontal_scroll_mode = 0
 script = ExtResource("1")
 
 [node name="Page" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_constants/separation = 10
 
 [node name="Header" type="HBoxContainer" parent="Page"]
@@ -32,6 +30,7 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
 text = "REGION 1  •  NIEBEZPIECZEŃSTWO 1"
+text_overrun_behavior = 3
 
 [node name="TitleLabel" type="Label" parent="Page/Header/Identity"]
 unique_name_in_owner = true
@@ -39,6 +38,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.93, 0.95, 0.98, 1)
 theme_override_font_sizes/font_size = 30
 text = "Zmierzchowe Równiny"
+text_overrun_behavior = 3
 
 [node name="TimeLabel" type="Label" parent="Page/Header/Identity"]
 unique_name_in_owner = true
@@ -48,23 +48,25 @@ text = "Dzień 1  •  08:00  •  DZIEŃ"
 
 [node name="BackButton" type="Button" parent="Page/Header"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 48)
 layout_mode = 2
 size_flags_vertical = 4
-text = "Wróć do Varenhold"
+text = "Cofnij"
 
 [node name="PlayerLabel" type="Label" parent="Page"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.72, 0.79, 0.87, 1)
 text = "Bohater  •  Poziom 0  •  PŻ 20/20"
+autowrap_mode = 2
 
 [node name="Body" type="HBoxContainer" parent="Page"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 12
+theme_override_constants/separation = 14
 
 [node name="RegionsPanel" type="PanelContainer" parent="Page/Body"]
-custom_minimum_size = Vector2(260, 0)
+custom_minimum_size = Vector2(330, 0)
 layout_mode = 2
 
 [node name="Content" type="VBoxContainer" parent="Page/Body/RegionsPanel"]
@@ -79,15 +81,15 @@ text = "Znane regiony"
 
 [node name="RegionList" type="ItemList" parent="Page/Body/RegionsPanel/Content"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(250, 260)
+custom_minimum_size = Vector2(310, 260)
 layout_mode = 2
 size_flags_vertical = 3
 allow_reselect = true
 
-[node name="Notice" type="Label" parent="Page/Body/RegionsPanel/Content"]
+[node name="RegionHint" type="Label" parent="Page/Body/RegionsPanel/Content"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.53, 0.62, 0.73, 1)
-text = "Wszystkie regiony są znane od początku, zgodnie z wersją terminalową."
+text = "Wybierz region, aby zobaczyć mapę i dostępne działania."
 autowrap_mode = 2
 
 [node name="RegionPanel" type="PanelContainer" parent="Page/Body"]
@@ -104,6 +106,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.73, 0.79, 0.86, 1)
 text = "Opis regionu"
 autowrap_mode = 2
+max_lines_visible = 3
 
 [node name="RiskLabel" type="Label" parent="Page/Body/RegionPanel/Content"]
 unique_name_in_owner = true
@@ -111,9 +114,10 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
 text = "Zalecany poziom: 0–2"
 autowrap_mode = 2
+max_lines_visible = 2
 
 [node name="MapPlaceholder" type="ColorRect" parent="Page/Body/RegionPanel/Content"]
-custom_minimum_size = Vector2(390, 180)
+custom_minimum_size = Vector2(520, 245)
 layout_mode = 2
 size_flags_vertical = 3
 color = Color(0.055, 0.078, 0.085, 1)
@@ -127,76 +131,78 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.48, 0.59, 0.67, 1)
-text = "SCHEMAT REGIONU — PLACEHOLDER"
+theme_override_font_sizes/font_size = 22
+text = "MAPA REGIONU\nZMIERZCHOWE RÓWNINY"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="ThreatPanel" type="PanelContainer" parent="Page/Body"]
-custom_minimum_size = Vector2(285, 0)
-layout_mode = 2
-
-[node name="Content" type="VBoxContainer" parent="Page/Body/ThreatPanel"]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="Title" type="Label" parent="Page/Body/ThreatPanel/Content"]
+[node name="ActionTitle" type="Label" parent="Page/Body/RegionPanel/Content"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
-theme_override_font_sizes/font_size = 20
-text = "Możliwe spotkania"
+text = "DOSTĘPNE DZIAŁANIA"
+horizontal_alignment = 1
 
-[node name="ThreatsLabel" type="Label" parent="Page/Body/ThreatPanel/Content"]
+[node name="ActionGrid" type="GridContainer" parent="Page/Body/RegionPanel/Content"]
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 2
+
+[node name="ExploreButton" type="Button" parent="Page/Body/RegionPanel/Content/ActionGrid"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
-size_flags_vertical = 3
-theme_override_colors/font_color = Color(0.73, 0.79, 0.86, 1)
-text = "DZIEŃ\n• Dziki Pies\n\nNOC\n• Duch Równin"
-
-[node name="WeatherTitle" type="Label" parent="Page/Body/ThreatPanel/Content"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
-theme_override_font_sizes/font_size = 20
-text = "Pogoda i obóz"
-
-[node name="WeatherLabel" type="Label" parent="Page/Body/ThreatPanel/Content"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.64, 0.74, 0.84, 1)
-text = "SŁONECZNIE  •  zmiana za 6 godz."
-autowrap_mode = 2
-
-[node name="CampButton" type="Button" parent="Page/Body/ThreatPanel/Content"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Odpocznij przy ognisku  •  +2 godziny"
-
-[node name="ExploreButton" type="Button" parent="Page/Body/ThreatPanel/Content"]
-unique_name_in_owner = true
-layout_mode = 2
+size_flags_horizontal = 3
 text = "Wyrusz na wyprawę  •  +1 godzina"
 
-[node name="BossButton" type="Button" parent="Page/Body/ThreatPanel/Content"]
+[node name="CampButton" type="Button" parent="Page/Body/RegionPanel/Content/ActionGrid"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
+size_flags_horizontal = 3
+text = "Odpocznij przy ognisku  •  +2 godziny"
+
+[node name="BossButton" type="Button" parent="Page/Body/RegionPanel/Content/ActionGrid"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
 text = "Wyzwanie bossa"
-visible = false
 
-[node name="DungeonButton" type="Button" parent="Page/Body/ThreatPanel/Content"]
+[node name="DungeonButton" type="Button" parent="Page/Body/RegionPanel/Content/ActionGrid"]
 unique_name_in_owner = true
-layout_mode = 2
-text = "Loch SOLO"
 visible = false
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Loch SOLO"
 
-[node name="QuestLabel" type="Label" parent="Page"]
+[node name="QuestLabel" type="Label" parent="Page/Body/RegionPanel/Content"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.78, 0.58, 0.72, 1)
 text = "Nowa misja fabularna czeka w Gildii."
+autowrap_mode = 2
 
-[node name="EventLabel" type="Label" parent="Page"]
+[node name="EventLabel" type="Label" parent="Page/Body/RegionPanel/Content"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.44, 0.8, 0.58, 1)
 text = "Każda wyprawa przesuwa czas o godzinę."
 autowrap_mode = 2
+
+[node name="HiddenState" type="VBoxContainer" parent="Page"]
+visible = false
+layout_mode = 2
+
+[node name="ThreatsLabel" type="Label" parent="Page/HiddenState"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "DZIEŃ\n• Dziki Pies\n\nNOC\n• Duch Równin"
+
+[node name="WeatherLabel" type="Label" parent="Page/HiddenState"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "SŁONECZNIE  •  zmiana za 6 godz."

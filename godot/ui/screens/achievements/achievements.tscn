@@ -48,7 +48,7 @@ text = "[Wędrowiec] Bohater  •  0/7 osiągnięć"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 4
-text = "Wróć do Varenhold"
+text = "Cofnij"
 
 [node name="Separator" type="HSeparator" parent="Page"]
 layout_mode = 2
@@ -151,5 +151,5 @@ size_flags_vertical = 3
 [node name="PlaceholderNote" type="Label" parent="Page/Content/TitlePanel/Titles"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.42, 0.49, 0.58, 1)
-text = "Etap 5E: funkcjonalny placeholder. Finalne ikony i oprawa powstaną później."
+text = "Wybierz wpis, aby poznać warunek i nagrodę."
 autowrap_mode = 2

@@ -332,7 +332,13 @@ layout_mode = 2
 [node name="Result" type="HBoxContainer" parent="Page/ResultPanel"]
 layout_mode = 2
 
-[node name="ResultLabel" type="Label" parent="Page/ResultPanel/Result"]
+[node name="ResultTextScroll" type="ScrollContainer" parent="Page/ResultPanel/Result"]
+custom_minimum_size = Vector2(0, 84)
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_scroll_mode = 0
+
+[node name="ResultLabel" type="Label" parent="Page/ResultPanel/Result/ResultTextScroll"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -342,5 +348,7 @@ autowrap_mode = 2
 
 [node name="ContinueButton" type="Button" parent="Page/ResultPanel/Result"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 56)
 layout_mode = 2
+size_flags_vertical = 4
 text = "Kontynuuj"

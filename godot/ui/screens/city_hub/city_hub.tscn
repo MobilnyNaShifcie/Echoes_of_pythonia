@@ -16,6 +16,159 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 20
+[node name="MenuPanel" type="PanelContainer" parent="Layout"]
+custom_minimum_size = Vector2(440, 0)
+layout_mode = 2
+[node name="MenuScroll" type="ScrollContainer" parent="Layout/MenuPanel"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+[node name="Menu" type="VBoxContainer" parent="Layout/MenuPanel/MenuScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+[node name="Title" type="Label" parent="Layout/MenuPanel/MenuScroll/Menu"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.92, 0.96, 1)
+theme_override_font_sizes/font_size = 24
+text = "Plan miasta"
+horizontal_alignment = 1
+[node name="TravelTitle" type="Label" parent="Layout/MenuPanel/MenuScroll/Menu"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.65, 0.77, 1)
+text = "WYPRAWY"
+horizontal_alignment = 1
+[node name="TravelGrid" type="GridContainer" parent="Layout/MenuPanel/MenuScroll/Menu"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 1
+[node name="GateButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/TravelGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Wybierz region i rozpocznij wyprawę SOLO."
+text = "Brama Zachodnia — wyprawa SOLO"
+alignment = 1
+[node name="PreparationButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/TravelGrid"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Przygotuj skład, wyposażenie i zapasy aktywnej drużyny."
+text = "Przygotuj wyprawę drużynową"
+alignment = 1
+[node name="PreparationHint" type="Label" parent="Layout/MenuPanel/MenuScroll/Menu"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.48, 0.56, 0.66, 1)
+theme_override_font_sizes/font_size = 14
+text = "Wyprawy drużynowe pojawią się po wybraniu aktywnego kompana."
+horizontal_alignment = 1
+autowrap_mode = 2
+[node name="ServicesTitle" type="Label" parent="Layout/MenuPanel/MenuScroll/Menu"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.65, 0.77, 1)
+text = "GILDIA I USŁUGI"
+horizontal_alignment = 1
+[node name="ServicesGrid" type="GridContainer" parent="Layout/MenuPanel/MenuScroll/Menu"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/v_separation = 8
+columns = 1
+[node name="GuildButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/ServicesGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Gildia Poszukiwaczy"
+alignment = 1
+[node name="QuartermasterButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/ServicesGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Kwatermistrz i magazyn"
+alignment = 1
+[node name="BlacksmithButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/ServicesGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Kuźnia Garrana"
+alignment = 1
+[node name="WorkshopButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/ServicesGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Warsztat Mireli"
+alignment = 1
+[node name="MerchantButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/ServicesGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Kram Orena"
+alignment = 1
+[node name="InnButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/ServicesGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Karczma"
+alignment = 1
+[node name="HeroTitle" type="Label" parent="Layout/MenuPanel/MenuScroll/Menu"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.65, 0.77, 1)
+text = "BOHATER"
+horizontal_alignment = 1
+[node name="HeroGrid" type="GridContainer" parent="Layout/MenuPanel/MenuScroll/Menu"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/v_separation = 8
+columns = 1
+[node name="HeroButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/HeroGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Karta bohatera i ekwipunek"
+alignment = 1
+[node name="AdventureLogButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/HeroGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Dziennik Przygód"
+alignment = 1
+[node name="AchievementsButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/HeroGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Osiągnięcia i tytuły"
+alignment = 1
+[node name="ClassButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "Droga bohatera — poziom 5"
+alignment = 1
+[node name="BlackMarketButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Czarny Rynek odblokowuje się przez progres Gildii."
+disabled = true
+text = "Czarny Rynek — zablokowany"
+alignment = 1
+[node name="MainMenuButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Powrót do menu głównego"
+alignment = 1
 [node name="City" type="VBoxContainer" parent="Layout"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -47,8 +200,25 @@ layout_mode = 2
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.61, 0.68, 0.77, 1)
-text = "Kamienne miasto otoczone grubym murem. Na jego ulicach mieszają się kupcy, najemnicy i poszukiwacze wracający z terenów, na które rozsądni ludzie nie zapuszczają się nocą."
+text = "Kamienne miasto otoczone grubym murem. Na jego ulicach mieszają się kupcy, najemnicy i poszukiwacze wracający z niebezpiecznych wypraw."
 autowrap_mode = 2
+[node name="CityView" type="ColorRect" parent="Layout/City"]
+custom_minimum_size = Vector2(560, 260)
+layout_mode = 2
+size_flags_vertical = 3
+color = Color(0.055, 0.078, 0.095, 1)
+[node name="Label" type="Label" parent="Layout/City/CityView"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.48, 0.59, 0.67, 1)
+theme_override_font_sizes/font_size = 22
+text = "VARENHOLD\nDZIELNICA GILDII"
+horizontal_alignment = 1
+vertical_alignment = 1
 [node name="ActivityPanel" type="PanelContainer" parent="Layout/City"]
 layout_mode = 2
 [node name="ActivityLabel" type="Label" parent="Layout/City/ActivityPanel"]
@@ -57,108 +227,3 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.45, 0.78, 0.59, 1)
 text = "Wybierz miejsce w mieście."
 autowrap_mode = 2
-[node name="MenuPanel" type="PanelContainer" parent="Layout"]
-custom_minimum_size = Vector2(520, 0)
-layout_mode = 2
-[node name="MenuScroll" type="ScrollContainer" parent="Layout/MenuPanel"]
-layout_mode = 2
-horizontal_scroll_mode = 0
-[node name="Menu" type="VBoxContainer" parent="Layout/MenuPanel/MenuScroll"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 8
-[node name="Title" type="Label" parent="Layout/MenuPanel/MenuScroll/Menu"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.9, 0.92, 0.96, 1)
-theme_override_font_sizes/font_size = 24
-text = "Plan miasta"
-horizontal_alignment = 1
-[node name="Grid" type="GridContainer" parent="Layout/MenuPanel/MenuScroll/Menu"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/h_separation = 8
-theme_override_constants/v_separation = 8
-columns = 1
-[node name="GateButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/Grid"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Brama Zachodnia"
-alignment = 1
-[node name="GuildButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/Grid"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Gildia Poszukiwaczy"
-alignment = 1
-[node name="QuartermasterButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/Grid"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Kwatermistrz i magazyn"
-alignment = 1
-[node name="BlacksmithButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/Grid"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Kuźnia Garrana"
-alignment = 1
-[node name="WorkshopButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/Grid"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Warsztat Mireli"
-alignment = 1
-[node name="MerchantButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/Grid"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Kram Orena"
-alignment = 1
-[node name="InnButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/Grid"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Karczma"
-alignment = 1
-[node name="HeroButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/Grid"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Bohater"
-alignment = 1
-[node name="AdventureLogButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/Grid"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Dziennik Przygód"
-alignment = 1
-[node name="AchievementsButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/Grid"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Osiągnięcia i tytuły"
-alignment = 1
-[node name="PreparationButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/Grid"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Przygotowanie wyprawy"
-alignment = 1
-[node name="ClassButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Droga bohatera — poziom 5"
-alignment = 1
-[node name="BlackMarketButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu"]
-unique_name_in_owner = true
-layout_mode = 2
-tooltip_text = "Czarny Rynek odblokowuje się przez progres Gildii."
-disabled = true
-text = "Czarny Rynek — zablokowany"
-alignment = 1
-[node name="MainMenuButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Powrót do menu głównego"
-alignment = 1

@@ -2,22 +2,20 @@
 
 [ext_resource type="Script" path="res://ui/screens/equipment/equipment.gd" id="1_equipment"]
 
-[node name="EquipmentScreen" type="Control"]
+[node name="EquipmentScreen" type="ScrollContainer"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+horizontal_scroll_mode = 0
 script = ExtResource("1_equipment")
 
 [node name="Page" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_constants/separation = 12
 
 [node name="Header" type="HBoxContainer" parent="Page"]
@@ -45,106 +43,257 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.68, 0.78, 1)
 text = "Bohater  •  PŻ 20/20  •  ATK 3  •  DEF 2"
+autowrap_mode = 2
 
 [node name="BackButton" type="Button" parent="Page/Header"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(190, 0)
+custom_minimum_size = Vector2(150, 48)
 layout_mode = 2
 size_flags_vertical = 4
-text = "Wróć do karty"
+text = "Cofnij"
 
-[node name="Columns" type="HBoxContainer" parent="Page"]
+[node name="Workspace" type="HBoxContainer" parent="Page"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 14
 
-[node name="EquippedPanel" type="PanelContainer" parent="Page/Columns"]
+[node name="PaperdollPanel" type="PanelContainer" parent="Page/Workspace"]
+custom_minimum_size = Vector2(570, 610)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Content" type="VBoxContainer" parent="Page/Columns/EquippedPanel"]
+[node name="Content" type="VBoxContainer" parent="Page/Workspace/PaperdollPanel"]
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 7
 
-[node name="Title" type="Label" parent="Page/Columns/EquippedPanel/Content"]
+[node name="Title" type="Label" parent="Page/Workspace/PaperdollPanel/Content"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
 theme_override_font_sizes/font_size = 20
-text = "Założone wyposażenie"
+text = "Wyposażenie bohatera"
 
-[node name="EquippedList" type="ItemList" parent="Page/Columns/EquippedPanel/Content"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(350, 190)
+[node name="Hint" type="Label" parent="Page/Workspace/PaperdollPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.53, 0.62, 0.73, 1)
+text = "Przeciągnij przedmiot z plecaka na właściwy slot."
+autowrap_mode = 2
+
+[node name="Paperdoll" type="Control" parent="Page/Workspace/PaperdollPanel/Content"]
+custom_minimum_size = Vector2(540, 500)
 layout_mode = 2
 size_flags_vertical = 3
-allow_reselect = true
 
-[node name="UnequipButton" type="Button" parent="Page/Columns/EquippedPanel/Content"]
+[node name="Silhouette" type="ColorRect" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll"]
+layout_mode = 0
+offset_left = 190.0
+offset_top = 75.0
+offset_right = 350.0
+offset_bottom = 445.0
+mouse_filter = 2
+color = Color(0.08, 0.105, 0.13, 1)
+
+[node name="Label" type="Label" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Silhouette"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.35, 0.43, 0.51, 1)
+text = "SYLWETKA\nBOHATERA"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HeadSlot" type="Button" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 205.0
+offset_top = 8.0
+offset_right = 335.0
+offset_bottom = 68.0
+text = "Hełm\nPuste"
+
+[node name="EarringsSlot" type="Button" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 30.0
+offset_top = 32.0
+offset_right = 175.0
+offset_bottom = 92.0
+text = "Kolczyki\nPuste"
+
+[node name="NecklaceSlot" type="Button" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 365.0
+offset_top = 32.0
+offset_right = 510.0
+offset_bottom = 92.0
+text = "Naszyjnik\nPuste"
+
+[node name="WeaponSlot" type="Button" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 10.0
+offset_top = 135.0
+offset_right = 175.0
+offset_bottom = 205.0
+text = "Broń\nPuste"
+
+[node name="ChestSlot" type="Button" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 195.0
+offset_top = 115.0
+offset_right = 345.0
+offset_bottom = 185.0
+text = "Zbroja\nPuste"
+
+[node name="OffHandSlot" type="Button" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 365.0
+offset_top = 135.0
+offset_right = 530.0
+offset_bottom = 205.0
+text = "Druga ręka\nPuste"
+
+[node name="HandsSlot" type="Button" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 10.0
+offset_top = 245.0
+offset_right = 175.0
+offset_bottom = 315.0
+text = "Rękawice\nPuste"
+
+[node name="BeltSlot" type="Button" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 195.0
+offset_top = 220.0
+offset_right = 345.0
+offset_bottom = 280.0
+text = "Pas\nPuste"
+
+[node name="BraceletSlot" type="Button" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 365.0
+offset_top = 245.0
+offset_right = 530.0
+offset_bottom = 315.0
+text = "Bransoleta\nPuste"
+
+[node name="RingSlot" type="Button" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 365.0
+offset_top = 340.0
+offset_right = 530.0
+offset_bottom = 410.0
+text = "Pierścień\nPuste"
+
+[node name="FeetSlot" type="Button" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 195.0
+offset_top = 420.0
+offset_right = 345.0
+offset_bottom = 490.0
+text = "Buty\nPuste"
+
+[node name="UnequipButton" type="Button" parent="Page/Workspace/PaperdollPanel/Content"]
 unique_name_in_owner = true
 layout_mode = 2
 disabled = true
-text = "Zdejmij do plecaka"
+text = "Zdejmij wybrany przedmiot do plecaka"
 
-[node name="InventoryPanel" type="PanelContainer" parent="Page/Columns"]
+[node name="BackpackPanel" type="PanelContainer" parent="Page/Workspace"]
+custom_minimum_size = Vector2(480, 610)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Content" type="VBoxContainer" parent="Page/Columns/InventoryPanel"]
+[node name="Content" type="VBoxContainer" parent="Page/Workspace/BackpackPanel"]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Title" type="Label" parent="Page/Columns/InventoryPanel/Content"]
+[node name="Title" type="Label" parent="Page/Workspace/BackpackPanel/Content"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
 theme_override_font_sizes/font_size = 20
-text = "Wyposażenie w plecaku"
+text = "Plecak"
 
-[node name="InventoryList" type="ItemList" parent="Page/Columns/InventoryPanel/Content"]
+[node name="CategoryTabs" type="TabBar" parent="Page/Workspace/BackpackPanel/Content"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(300, 190)
+layout_mode = 2
+
+[node name="InventoryDropZone" type="PanelContainer" parent="Page/Workspace/BackpackPanel/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 310)
 layout_mode = 2
 size_flags_vertical = 3
-allow_reselect = true
 
-[node name="EquipButton" type="Button" parent="Page/Columns/InventoryPanel/Content"]
-unique_name_in_owner = true
+[node name="InventoryScroll" type="ScrollContainer" parent="Page/Workspace/BackpackPanel/Content/InventoryDropZone"]
 layout_mode = 2
-disabled = true
-text = "Załóż zaznaczone"
+horizontal_scroll_mode = 0
 
-[node name="ReadBookButton" type="Button" parent="Page/Columns/InventoryPanel/Content"]
+[node name="InventoryGrid" type="GridContainer" parent="Page/Workspace/BackpackPanel/Content/InventoryDropZone/InventoryScroll"]
 unique_name_in_owner = true
-layout_mode = 2
-disabled = true
-text = "Przeczytaj księgę"
-
-[node name="DetailsPanel" type="PanelContainer" parent="Page/Columns"]
-custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/h_separation = 6
+theme_override_constants/v_separation = 6
+columns = 4
 
-[node name="Content" type="VBoxContainer" parent="Page/Columns/DetailsPanel"]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="Title" type="Label" parent="Page/Columns/DetailsPanel/Content"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
-theme_override_font_sizes/font_size = 20
-text = "Szczegóły"
-
-[node name="Separator" type="HSeparator" parent="Page/Columns/DetailsPanel/Content"]
+[node name="DetailsPanel" type="PanelContainer" parent="Page/Workspace/BackpackPanel/Content"]
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 
-[node name="DetailsLabel" type="Label" parent="Page/Columns/DetailsPanel/Content"]
+[node name="DetailsLabel" type="Label" parent="Page/Workspace/BackpackPanel/Content/DetailsPanel"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.82, 0.86, 0.92, 1)
-text = "Zaznacz przedmiot, aby zobaczyć jego opis i statystyki."
+text = "Najedź na przedmiot, aby zobaczyć jego opis i statystyki."
 autowrap_mode = 2
+text_overrun_behavior = 3
+max_lines_visible = 7
+
+[node name="Actions" type="HBoxContainer" parent="Page/Workspace/BackpackPanel/Content"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="EquipButton" type="Button" parent="Page/Workspace/BackpackPanel/Content/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+disabled = true
+text = "Załóż wybrany"
+
+[node name="ReadBookButton" type="Button" parent="Page/Workspace/BackpackPanel/Content/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+disabled = true
+text = "Przeczytaj księgę"
 
 [node name="FeedbackLabel" type="Label" parent="Page"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.42, 0.78, 0.56, 1)
-text = "Kliknij założony przedmiot, aby przenieść go do plecaka."
+text = "Przeciągnij wyposażenie na sylwetkę albo wybierz przedmiot przyciskiem."
+autowrap_mode = 2
+
+[node name="CompatibilityLists" type="VBoxContainer" parent="Page"]
+visible = false
+layout_mode = 2
+
+[node name="EquippedList" type="ItemList" parent="Page/CompatibilityLists"]
+unique_name_in_owner = true
+layout_mode = 2
+allow_reselect = true
+
+[node name="InventoryList" type="ItemList" parent="Page/CompatibilityLists"]
+unique_name_in_owner = true
+layout_mode = 2
+allow_reselect = true

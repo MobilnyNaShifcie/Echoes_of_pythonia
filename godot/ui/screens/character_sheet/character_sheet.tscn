@@ -52,14 +52,14 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(190, 0)
 layout_mode = 2
 size_flags_vertical = 4
-text = "Wróć do sesji"
+text = "Cofnij"
 
 [node name="EquipmentButton" type="Button" parent="Page/Heading"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(210, 0)
 layout_mode = 2
 size_flags_vertical = 4
-text = "Zarządzaj ekwipunkiem"
+text = "Ekwipunek"
 
 [node name="SkillsButton" type="Button" parent="Page/Heading"]
 unique_name_in_owner = true
@@ -261,7 +261,7 @@ theme_override_constants/separation = 10
 layout_mode = 2
 theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
 theme_override_font_sizes/font_size = 21
-text = "Wyposażenie"
+text = "Podgląd wyposażenia"
 
 [node name="Separator" type="HSeparator" parent="Page/BodyScroll/Columns/EquipmentPanel/Content"]
 layout_mode = 2

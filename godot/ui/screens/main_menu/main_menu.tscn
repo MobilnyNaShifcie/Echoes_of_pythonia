@@ -29,7 +29,7 @@ alignment = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
 theme_override_font_sizes/font_size = 18
-text = "ROZDZIAŁ I  •  MIGRACJA v0.25.0"
+text = "ROZDZIAŁ I  •  ECHA PRZEBUDZENIA"
 
 [node name="Heading" type="Label" parent="Layout/Introduction"]
 layout_mode = 2
@@ -42,7 +42,7 @@ custom_minimum_size = Vector2(520, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.68, 0.78, 1)
 theme_override_font_sizes/font_size = 18
-text = "Pierwszy grywalny fragment wersji okienkowej.\nZacznij od utworzenia bohatera i wybierz jego slot zapisu."
+text = "Varenhold czeka na kolejnego Poszukiwacza.\nUtwórz bohatera albo wróć do zapisanej opowieści."
 autowrap_mode = 2
 
 [node name="MenuPanel" type="PanelContainer" parent="Layout"]
@@ -99,6 +99,7 @@ alignment = 0
 
 [node name="ProjectStatusButton" type="Button" parent="Layout/MenuPanel/Menu"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 text = "Stan projektu"
 alignment = 0

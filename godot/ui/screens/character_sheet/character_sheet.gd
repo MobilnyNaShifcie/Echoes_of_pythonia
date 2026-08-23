@@ -107,14 +107,23 @@ func _render_character() -> void:
 	class_button.text = (
 		"Wybierz Drogę bohatera" if player.can_choose_class else "Zobacz Drogi bohatera"
 	)
-	equipment_label.text = (
-		"Broń\n%s\n\nDruga ręka\n%s\n\nZbroja\n%s"
-		% [
-			player.get_equipped_item_name(PlayerEquipmentClass.WEAPON),
-			player.get_equipped_item_name(PlayerEquipmentClass.OFF_HAND),
-			player.get_equipped_item_name(PlayerEquipmentClass.CHEST),
-		]
-	)
+	var equipment_lines: Array[String] = []
+	var slot_names := {
+		PlayerEquipmentClass.WEAPON: "Broń",
+		PlayerEquipmentClass.OFF_HAND: "Druga ręka",
+		PlayerEquipmentClass.HEAD: "Hełm",
+		PlayerEquipmentClass.CHEST: "Zbroja",
+		PlayerEquipmentClass.HANDS: "Rękawice",
+		PlayerEquipmentClass.FEET: "Buty",
+		PlayerEquipmentClass.BELT: "Pas",
+		PlayerEquipmentClass.NECKLACE: "Naszyjnik",
+		PlayerEquipmentClass.BRACELET: "Bransoleta",
+		PlayerEquipmentClass.EARRINGS: "Kolczyki",
+		PlayerEquipmentClass.RING: "Pierścień",
+	}
+	for slot: String in slot_names:
+		equipment_lines.append("%s: %s" % [slot_names[slot], player.get_equipped_item_name(slot)])
+	equipment_label.text = "\n".join(equipment_lines)
 
 
 func _spend_attribute(attribute_code: String) -> void:

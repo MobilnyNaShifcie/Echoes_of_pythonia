@@ -130,6 +130,10 @@ func test_guild_tabs_and_city_journal_are_navigable_without_terminal() -> void:
 	guild.show_rumors()
 	assert_eq(guild.quest_list.item_count, 5)
 	assert_string_contains(guild.quest_title_label.text, "Zasłyszana plotka")
+	assert_false(guild.board_title.text.to_lower().contains("rangi"))
+	assert_false(guild.chapter_label.text.to_lower().contains("rangi"))
+	for index in guild.quest_list.item_count:
+		assert_false(guild.quest_list.get_item_text(index).to_lower().contains("ranga"))
 
 	var app = APP_SCENE.instantiate()
 	add_child_autofree(app)

@@ -53,6 +53,8 @@ const EQUIPMENT_TYPE_NAMES := {
 	"fate_dice": "Kości Losu",
 	"fate_cards": "Karty Losu",
 }
+const CATEGORY_FILTERS := ["all", "equipment", "consumable", "material", "other"]
+const CATEGORY_NAMES := ["Wszystko", "Wyposażenie", "Użytkowe", "Materiały", "Pozostałe"]
 
 var _session: GameSessionClass
 
@@ -64,6 +66,22 @@ var _session: GameSessionClass
 @onready var read_book_button: Button = %ReadBookButton
 @onready var details_label: Label = %DetailsLabel
 @onready var feedback_label: Label = %FeedbackLabel
+@onready var category_tabs: TabBar = %CategoryTabs
+@onready var inventory_grid: GridContainer = %InventoryGrid
+@onready var inventory_drop_zone: PanelContainer = %InventoryDropZone
+@onready var slot_buttons := {
+	PlayerEquipmentClass.WEAPON: %WeaponSlot,
+	PlayerEquipmentClass.OFF_HAND: %OffHandSlot,
+	PlayerEquipmentClass.HEAD: %HeadSlot,
+	PlayerEquipmentClass.CHEST: %ChestSlot,
+	PlayerEquipmentClass.HANDS: %HandsSlot,
+	PlayerEquipmentClass.FEET: %FeetSlot,
+	PlayerEquipmentClass.BELT: %BeltSlot,
+	PlayerEquipmentClass.NECKLACE: %NecklaceSlot,
+	PlayerEquipmentClass.BRACELET: %BraceletSlot,
+	PlayerEquipmentClass.EARRINGS: %EarringsSlot,
+	PlayerEquipmentClass.RING: %RingSlot,
+}
 
 
 func _ready() -> void:
@@ -73,6 +91,29 @@ func _ready() -> void:
 	unequip_button.pressed.connect(_unequip_selected)
 	equip_button.pressed.connect(_equip_selected)
 	read_book_button.pressed.connect(_read_selected_book)
+	for tab_name: String in CATEGORY_NAMES:
+		category_tabs.add_tab(tab_name)
+	category_tabs.tab_changed.connect(_category_changed)
+	for slot: String in SLOT_ORDER:
+		var button: Button = slot_buttons[slot]
+		button.pressed.connect(_select_equipped_slot.bind(slot))
+		button.mouse_entered.connect(_show_equipped_details.bind(slot))
+		(
+			button
+			. set_drag_forwarding(
+				_slot_get_drag_data.bind(slot),
+				_slot_can_drop_data.bind(slot),
+				_slot_drop_data.bind(slot),
+			)
+		)
+	(
+		inventory_drop_zone
+		. set_drag_forwarding(
+			_empty_drag_data,
+			_backpack_can_drop_data,
+			_backpack_drop_data,
+		)
+	)
 	_refresh()
 	%BackButton.grab_focus()
 
@@ -109,10 +150,187 @@ func _refresh() -> void:
 	)
 	_refresh_equipped_items()
 	_refresh_inventory_items()
+	_refresh_paperdoll()
+	_refresh_inventory_grid()
 	unequip_button.disabled = true
 	equip_button.disabled = true
 	read_book_button.disabled = true
-	details_label.text = "Zaznacz przedmiot, aby zobaczyć jego opis i statystyki."
+	details_label.text = "Najedź na przedmiot, aby zobaczyć jego opis i statystyki."
+
+
+func _category_changed(_index: int) -> void:
+	_refresh_inventory_grid()
+
+
+func _refresh_paperdoll() -> void:
+	for slot: String in SLOT_ORDER:
+		var button: Button = slot_buttons[slot]
+		var item: EquipmentItemClass = _session.player.equipment.get_item(slot)
+		button.text = (
+			"%s\n%s"
+			% [SLOT_NAMES[slot], "Puste" if item == null else _short_name(item.formatted_name())]
+		)
+		button.tooltip_text = (
+			"Upuść tutaj przedmiot: %s." % SLOT_NAMES[slot]
+			if item == null
+			else _format_item_details(item)
+		)
+
+
+func _refresh_inventory_grid() -> void:
+	for child in inventory_grid.get_children():
+		child.free()
+	if _session == null:
+		return
+	var filter_id: String = CATEGORY_FILTERS[category_tabs.current_tab]
+	var visible_count := 0
+	var items = _session.player.inventory.equipment_items
+	for index in items.size():
+		if filter_id not in ["all", "equipment"]:
+			continue
+		var item: EquipmentItemClass = items[index]
+		_add_inventory_cell(
+			"%s\n%s" % [_short_name(item.formatted_name()), SLOT_NAMES[item.slot]],
+			{"kind": "equipment", "index": index},
+			_format_item_details(item, true),
+		)
+		visible_count += 1
+	var stack_ids: Array = _session.player.inventory.stacks.keys()
+	stack_ids.sort()
+	for item_id: String in stack_ids:
+		var definition = ItemCatalogClass.get_definition(item_id)
+		if not _stack_matches_filter(definition.category, filter_id):
+			continue
+		_add_inventory_cell(
+			(
+				"%s\n×%d"
+				% [_short_name(definition.display_name), _session.player.inventory.count(item_id)]
+			),
+			{"kind": "stack", "item_id": item_id},
+			_format_stack_details(item_id),
+		)
+		visible_count += 1
+	if visible_count == 0:
+		var empty := Button.new()
+		empty.custom_minimum_size = Vector2(150, 82)
+		empty.disabled = true
+		empty.text = "Brak przedmiotów\nw tej zakładce"
+		inventory_grid.add_child(empty)
+
+
+func _add_inventory_cell(text_value: String, metadata: Dictionary, tooltip: String) -> void:
+	var cell := Button.new()
+	cell.custom_minimum_size = Vector2(150, 82)
+	cell.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	cell.text = text_value
+	cell.tooltip_text = tooltip
+	cell.pressed.connect(_select_inventory_metadata.bind(metadata))
+	cell.mouse_entered.connect(_show_inventory_metadata.bind(metadata))
+	(
+		cell
+		. set_drag_forwarding(
+			_inventory_get_drag_data.bind(metadata),
+			_inventory_cell_can_drop_data,
+			_inventory_cell_drop_data,
+		)
+	)
+	inventory_grid.add_child(cell)
+
+
+func _select_equipped_slot(slot: String) -> void:
+	for index in equipped_list.item_count:
+		if str(equipped_list.get_item_metadata(index)) == slot:
+			equipped_list.select(index)
+			_on_equipped_selected(index)
+			return
+
+
+func _select_inventory_metadata(metadata: Dictionary) -> void:
+	for index in inventory_list.item_count:
+		if inventory_list.get_item_metadata(index) == metadata:
+			inventory_list.select(index)
+			_on_inventory_selected(index)
+			return
+
+
+func _show_equipped_details(slot: String) -> void:
+	var item: EquipmentItemClass = _session.player.equipment.get_item(slot)
+	if item != null:
+		details_label.text = _format_item_details(item)
+
+
+func _show_inventory_metadata(metadata: Dictionary) -> void:
+	if metadata.get("kind", "") == "equipment":
+		var index := int(metadata.get("index", -1))
+		if index >= 0 and index < _session.player.inventory.equipment_items.size():
+			details_label.text = _format_item_details(
+				_session.player.inventory.equipment_items[index], true
+			)
+		return
+	if metadata.get("kind", "") == "stack":
+		details_label.text = _format_stack_details(str(metadata.get("item_id", "")))
+
+
+func _inventory_get_drag_data(_position: Vector2, metadata: Dictionary) -> Variant:
+	if metadata.get("kind", "") != "equipment":
+		return null
+	return metadata.duplicate(true)
+
+
+func _slot_get_drag_data(_position: Vector2, slot: String) -> Variant:
+	if _session.player.equipment.get_item(slot) == null:
+		return null
+	return {"kind": "equipped", "slot": slot}
+
+
+func _slot_can_drop_data(_position: Vector2, data: Variant, slot: String) -> bool:
+	if not data is Dictionary or data.get("kind", "") != "equipment":
+		return false
+	var index := int(data.get("index", -1))
+	var items = _session.player.inventory.equipment_items
+	return index >= 0 and index < items.size() and items[index].slot == slot
+
+
+func _slot_drop_data(_position: Vector2, data: Variant, slot: String) -> void:
+	if not _slot_can_drop_data(Vector2.ZERO, data, slot):
+		return
+	_select_inventory_metadata(data)
+	_equip_selected()
+
+
+func _empty_drag_data(_position: Vector2) -> Variant:
+	return null
+
+
+func _backpack_can_drop_data(_position: Vector2, data: Variant) -> bool:
+	return data is Dictionary and data.get("kind", "") == "equipped"
+
+
+func _backpack_drop_data(_position: Vector2, data: Variant) -> void:
+	if not _backpack_can_drop_data(Vector2.ZERO, data):
+		return
+	_select_equipped_slot(str(data.get("slot", "")))
+	_unequip_selected()
+
+
+func _inventory_cell_can_drop_data(_position: Vector2, data: Variant) -> bool:
+	return _backpack_can_drop_data(Vector2.ZERO, data)
+
+
+func _inventory_cell_drop_data(_position: Vector2, data: Variant) -> void:
+	_backpack_drop_data(Vector2.ZERO, data)
+
+
+func _stack_matches_filter(category: String, filter_id: String) -> bool:
+	if filter_id == "all":
+		return true
+	if filter_id == "other":
+		return category not in ["consumable", "material"]
+	return category == filter_id
+
+
+func _short_name(value: String) -> String:
+	return value if value.length() <= 22 else value.left(20) + "…"
 
 
 func _refresh_equipped_items() -> void:

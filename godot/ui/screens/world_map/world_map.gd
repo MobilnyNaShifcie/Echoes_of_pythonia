@@ -224,23 +224,14 @@ func _render_region() -> void:
 	title_label.text = region.display_name
 	description_label.text = region.description
 	risk_label.text = (
-		(
-			"Zalecany poziom: %s  •  Szansa spotkania: %.0f%%\n%s\n"
-			+ "Zalecany poziom jest ostrzeżeniem i nie blokuje regionu."
-		)
+		("Zalecany poziom: %s  •  Szansa spotkania: %.0f%%\n%s")
 		% [
 			region.recommended_level_text(),
 			region.encounter_chance * 100.0,
 			region.level_guidance(_session.player.level),
 		]
 	)
-	map_placeholder_label.text = (
-		(
-			"SCHEMAT REGIONU — PLACEHOLDER\n\n%s\n\n"
-			+ "Docelowe kafelki mapy i grafika powstaną po migracji logiki świata."
-		)
-		% region.display_name.to_upper()
-	)
+	map_placeholder_label.text = "MAPA REGIONU\n%s" % region.display_name.to_upper()
 	threats_label.text = _format_encounters(region)
 	explore_button.disabled = false
 	explore_button.text = "Wyrusz na wyprawę  •  +1 godzina"

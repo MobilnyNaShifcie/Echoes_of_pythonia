@@ -16,6 +16,7 @@ const ExpeditionPreparationServiceClass := preload(
 )
 const GameSessionClass := preload("res://core/game/game_session.gd")
 const ItemCatalogClass := preload("res://core/items/item_catalog.gd")
+const PlayerEquipmentClass := preload("res://core/player/equipment.gd")
 const RegionCatalogClass := preload("res://core/world/region_catalog.gd")
 
 var _session: GameSessionClass
@@ -25,6 +26,7 @@ var _confirm_departure := false
 @onready var target_selector: OptionButton = %TargetSelector
 @onready var player_label: Label = %PlayerLabel
 @onready var carry_label: Label = %CarryLabel
+@onready var equipment_preview_label: Label = %EquipmentPreviewLabel
 @onready var party_label: Label = %PartyLabel
 @onready var supply_selector: OptionButton = %SupplySelector
 @onready var supply_summary_label: Label = %SupplySummaryLabel
@@ -222,6 +224,14 @@ func _render_dynamic() -> void:
 		"Udźwig %.1f/%.1f kg  •  %s" % [load.current_kg, load.capacity_kg, load.display_name]
 	)
 	carry_label.modulate = Color(0.9, 0.35, 0.35) if load.overloaded else Color(0.72, 0.79, 0.87)
+	equipment_preview_label.text = (
+		"Broń: %s\nDruga ręka: %s\nZbroja: %s"
+		% [
+			player.get_equipped_item_name(PlayerEquipmentClass.WEAPON),
+			player.get_equipped_item_name(PlayerEquipmentClass.OFF_HAND),
+			player.get_equipped_item_name(PlayerEquipmentClass.CHEST),
+		]
+	)
 	party_label.text = _format_party()
 	_refresh_supply_selector()
 	_render_selected_supply()
@@ -254,6 +264,8 @@ func _refresh_preset_selector() -> void:
 	preset_selector.clear()
 	var selected_index := 0
 	for preset_id: String in ExpeditionPreparationServiceClass.PRESET_ORDER:
+		if preset_id == "solo":
+			continue
 		var preset = _session.expedition_preparation.preset_for(preset_id)
 		var suffix := "GOTOWY" if preset.configured else "NIESKONFIGUROWANY"
 		preset_selector.add_item(
@@ -406,7 +418,7 @@ func _selected_supply_id() -> String:
 
 func _selected_preset_id() -> String:
 	if preset_selector == null or preset_selector.item_count == 0:
-		return "solo"
+		return "boss"
 	return str(preset_selector.get_item_metadata(preset_selector.selected))
 
 
