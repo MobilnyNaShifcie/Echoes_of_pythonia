@@ -12,9 +12,10 @@ func configure(
 	description: String,
 	available: bool,
 	accent: Color,
+	badge_text := "AKCJA",
 ) -> void:
 	action_id = identifier
-	text = "◇  KARTA %d\n%s\n%s" % [position, display_name.to_upper(), cost_text]
+	text = "◇  SLOT %d  •  %s\n%s\n%s" % [position, badge_text, display_name.to_upper(), cost_text]
 	tooltip_text = description
 	disabled = not available
 	add_theme_color_override("font_color", Color(0.9, 0.93, 0.97))

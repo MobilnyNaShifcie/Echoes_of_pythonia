@@ -171,7 +171,7 @@ func test_combat_uses_weather_captured_by_the_expedition() -> void:
 
 	assert_eq(screen._enemy.max_hp, 11)
 	assert_eq(screen._enemy.attack, 5)
-	assert_string_contains(screen.weather_label.text, "ZORZA POLARNA")
+	assert_string_contains(screen.enemy_effect_label.text, "[ZORZA POLARNA]")
 	assert_string_contains(screen._enemy.weather_note, "Wzmocniony")
 
 

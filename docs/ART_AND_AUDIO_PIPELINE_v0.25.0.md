@@ -151,6 +151,15 @@ rules. Adding a new static asset must not consume RNG or change an encounter.
 The approved files, provenance, rights status, and checksums are recorded in
 `godot/assets/ASSET_MANIFEST.md`.
 
+The Region 1 static combat pass now additionally integrates Dziki Pies, Slime,
+Spaczony Dzik, Bandyta, Duch Równin, Myśliwy, Strażnik Natury, and the Pierrot
+hero. Each integrated combatant uses an independent crop and normalized stage
+frame, keeping its proportions and ground contact stable without editing the
+source bitmap. `cursed_scarecrow` and `night_guard` remain explicit placeholders
+until transparent-background exports replace the supplied opaque RGB files.
+Pierrot is selected only for the `pierrot` class; the other three hero classes
+never borrow her artwork.
+
 ## Combat HUD 2.0 placeholder contract
 
 The golden combat shell now reserves stable presentation zones for the target

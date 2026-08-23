@@ -235,7 +235,7 @@ func test_world_map_and_combat_placeholder_expose_real_boss_flow() -> void:
 	assert_true(combat._engine is LeviathanNorthCombatEngineClass)
 	assert_eq(combat._enemy.weather_code, WeatherServiceClass.FROST)
 	assert_string_contains(combat.encounter_label.text, "WYZWANIE LEWIATANA")
-	assert_string_contains(combat.enemy_name_label.text, "MRÓZ")
+	assert_string_contains(combat.enemy_effect_label.text, "[MRÓZ]")
 	assert_false(combat.flee_button.disabled)
 
 

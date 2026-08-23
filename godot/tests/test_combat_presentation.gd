@@ -28,7 +28,15 @@ func test_combatant_visual_supports_placeholder_static_and_animated_presentation
 	assert_eq(visual.mode(), CombatantVisualClass.Mode.STATIC_TEXTURE)
 	assert_true(visual.static_texture.visible)
 	assert_eq(visual.static_texture.texture, texture)
+	assert_eq(visual.source_texture(), texture)
 	assert_false(visual.placeholder.visible)
+	var cropped_presentation := {
+		"crop": Rect2(1, 2, 16, 24),
+		"frame": Rect2(0.1, 0.05, 0.8, 0.91),
+	}
+	visual.show_static(texture, "BOHATER", "Aria", cropped_presentation)
+	assert_true(visual.static_texture.texture is AtlasTexture)
+	assert_eq(visual.presentation_frame(), cropped_presentation.frame)
 
 	var animated_root := Control.new()
 	animated_root.name = "AnimatedFighter"
@@ -109,11 +117,41 @@ func test_region_one_battlefield_uses_session_day_and_night_without_rng() -> voi
 	)
 
 
-func test_wolf_is_static_but_unintegrated_enemies_keep_their_placeholder() -> void:
-	var wolf_texture := CombatPresentationCatalogClass.enemy_texture("wolf")
-	assert_not_null(wolf_texture)
-	assert_eq(wolf_texture.resource_path, "res://assets/combat/enemies/wolf.png")
-	assert_null(CombatPresentationCatalogClass.enemy_texture("wild_dog"))
+func test_region_one_uses_every_technically_valid_approved_enemy_asset() -> void:
+	var expected_paths := {
+		"wild_dog": "res://assets/combat/enemies/wild_dog.png",
+		"slime": "res://assets/combat/enemies/slime.png",
+		"wolf": "res://assets/combat/enemies/wolf.png",
+		"boar": "res://assets/combat/enemies/boar.png",
+		"bandit": "res://assets/combat/enemies/bandit.png",
+		"plains_spirit": "res://assets/combat/enemies/plains_spirit.png",
+		"hunter": "res://assets/combat/enemies/hunter.png",
+		"nature_guardian": "res://assets/combat/enemies/nature_guardian.png",
+	}
+	for enemy_id: String in expected_paths:
+		var texture := CombatPresentationCatalogClass.enemy_texture(enemy_id)
+		assert_not_null(texture, enemy_id)
+		assert_eq(texture.resource_path, expected_paths[enemy_id], enemy_id)
+	assert_eq(
+		CombatPresentationCatalogClass.missing_region_one_enemy_assets(),
+		["cursed_scarecrow", "night_guard"],
+	)
+	assert_null(CombatPresentationCatalogClass.enemy_texture("cursed_scarecrow"))
+	assert_null(CombatPresentationCatalogClass.enemy_texture("night_guard"))
+
+
+func test_region_one_profiles_crop_padding_and_share_a_ground_line() -> void:
+	for enemy_id: String in ["wild_dog", "slime", "wolf", "boar", "bandit"]:
+		var presentation := CombatPresentationCatalogClass.enemy_presentation(enemy_id)
+		var crop: Rect2 = presentation.crop
+		var frame: Rect2 = presentation.frame
+		assert_gt(crop.size.x, 0.0, enemy_id)
+		assert_gt(crop.size.y, 0.0, enemy_id)
+		assert_almost_eq(frame.end.y, 0.96, 0.001, enemy_id)
+	for enemy_id: String in ["plains_spirit", "hunter", "nature_guardian"]:
+		var tall_presentation := CombatPresentationCatalogClass.enemy_presentation(enemy_id)
+		var tall_frame: Rect2 = tall_presentation.frame
+		assert_almost_eq(tall_frame.end.y, 0.96, 0.001, enemy_id)
 
 
 func test_selected_class_controls_hero_placeholder_and_never_defaults_to_pierrot() -> void:
@@ -128,9 +166,38 @@ func test_selected_class_controls_hero_placeholder_and_never_defaults_to_pierrot
 
 	session.player.character_class_code = "pierrot"
 	screen.configure(session, "wolf", "expedition")
-	assert_eq(screen.player_visual.mode(), CombatantVisualClass.Mode.PLACEHOLDER)
+	assert_eq(screen.player_visual.mode(), CombatantVisualClass.Mode.STATIC_TEXTURE)
+	assert_eq(
+		screen.player_visual.source_texture().resource_path,
+		"res://assets/combat/heroes/pierrot.png",
+	)
 	assert_string_contains(screen.player_visual.role_label.text, "PIERROT")
 	assert_string_contains(screen.class_resource_label.text, "ŻETONY")
+	assert_null(CombatPresentationCatalogClass.hero_texture("hunter"))
+
+
+func test_night_weather_elite_and_miniboss_contexts_keep_art_independent() -> void:
+	var session = NewGameServiceClass.new().create_session("Aria", 1)
+	session.hour = 22
+	var screen := COMBAT_SCENE.instantiate() as CombatScreenClass
+	screen.configure(session, "wild_dog", "expedition", "aurora", null, "", "furious")
+	add_child_autofree(screen)
+	assert_eq(
+		screen.battlefield_texture.texture.resource_path,
+		"res://assets/combat/backgrounds/twilight_plains_night.png",
+	)
+	assert_eq(screen.enemy_visual.mode(), CombatantVisualClass.Mode.STATIC_TEXTURE)
+	assert_string_contains(screen.enemy_role_label.text, "ELITA")
+	assert_string_contains(screen.enemy_effect_label.text, "[ELITA]")
+	assert_string_contains(screen.enemy_effect_label.text, "[ZORZA POLARNA]")
+	assert_eq(screen.enemy_name_label.text, "Wściekły Dziki Pies")
+	assert_false("ZORZA POLARNA" in screen.enemy_name_label.text)
+
+	screen.configure(session, "nature_guardian", "expedition", "storm")
+	assert_eq(screen.enemy_visual.mode(), CombatantVisualClass.Mode.STATIC_TEXTURE)
+	assert_eq(screen.enemy_role_label.text, "MINIBOSS")
+	assert_string_contains(screen.enemy_effect_label.text, "[MINIBOSS]")
+	assert_string_contains(screen.enemy_effect_label.text, "[BURZA]")
 
 
 func test_skill_cards_are_live_actions_and_preserve_the_legacy_skill_adapter() -> void:
@@ -149,6 +216,7 @@ func test_skill_cards_are_live_actions_and_preserve_the_legacy_skill_adapter() -
 	assert_string_contains(first_card.text, "POTĘŻNE CIĘCIE")
 	assert_string_contains(first_card.text, "MANY")
 	assert_false(first_card.disabled)
+	assert_string_contains(first_card.text, "FIZYCZNE")
 	var mana_before: int = session.player.stats.current_mana
 	first_card.pressed.emit()
 	assert_lt(session.player.stats.current_mana, mana_before)
@@ -180,3 +248,43 @@ func test_combat_hud_uses_three_non_overlapping_full_hd_command_zones() -> void:
 	assert_eq(screen.player_turn_icon.text, "Ł")
 	assert_eq(screen.enemy_turn_icon.text, "W")
 	host.free()
+
+
+func test_region_one_screen_flow_reaches_rewards_continue_and_defeat() -> void:
+	var victory_session = NewGameServiceClass.new().create_session("Aria", 1)
+	var victory_screen := COMBAT_SCENE.instantiate() as CombatScreenClass
+	victory_screen.configure(victory_session, "wild_dog", "expedition")
+	add_child_autofree(victory_screen)
+	watch_signals(victory_screen)
+	victory_screen._enemy.current_hp = 1
+	victory_screen.attack_button.pressed.emit()
+	assert_true(victory_screen.result_panel.visible)
+	assert_string_contains(victory_screen.result_label.text, "Zwycięstwo")
+	assert_string_contains(victory_screen.result_label.text, "EXP")
+	assert_string_contains(victory_screen.result_label.text, "złota")
+	assert_eq(victory_session.victories, 1)
+	victory_screen.continue_button.pressed.emit()
+	assert_signal_emitted_with_parameters(victory_screen, "finished", ["expedition", "victory"])
+
+	var defeat_session = NewGameServiceClass.new().create_session("Aria", 2)
+	defeat_session.player.stats.current_hp = 1
+	var defeat_screen := COMBAT_SCENE.instantiate() as CombatScreenClass
+	defeat_screen.configure(defeat_session, "wolf", "expedition")
+	add_child_autofree(defeat_screen)
+	defeat_screen._enemy.attack = 100
+	defeat_screen._enemy.dodge = 0.0
+	defeat_screen.attack_button.pressed.emit()
+	assert_true(defeat_screen.result_panel.visible)
+	assert_string_contains(defeat_screen.result_label.text, "Porażka")
+	assert_eq(defeat_screen.continue_button.text, "Kontynuuj")
+
+
+func test_region_boss_without_approved_art_keeps_an_explicit_placeholder() -> void:
+	var session = NewGameServiceClass.new().create_session("Aria", 1)
+	session.current_location_id = "ashen_borderlands"
+	var screen := COMBAT_SCENE.instantiate() as CombatScreenClass
+	screen.configure(session, "azhar", "region_boss", "sunny", null, "WYZWANIE AZHARA")
+	add_child_autofree(screen)
+	assert_eq(screen.enemy_role_label.text, "BOSS")
+	assert_eq(screen.enemy_visual.mode(), CombatantVisualClass.Mode.PLACEHOLDER)
+	assert_string_contains(screen.enemy_visual.name_label.text, "Azhar")

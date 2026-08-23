@@ -67,6 +67,7 @@ var _round_number := 1
 @onready var player_hp_bar: ProgressBar = %PlayerHpBar
 @onready var player_effect_label: Label = %PlayerEffectLabel
 @onready var enemy_name_label: Label = %EnemyNameLabel
+@onready var enemy_role_label: Label = %EnemyRoleLabel
 @onready var enemy_stats_label: Label = %EnemyStatsLabel
 @onready var enemy_hp_bar: ProgressBar = %EnemyHpBar
 @onready var enemy_effect_label: Label = %EnemyEffectLabel
@@ -180,20 +181,26 @@ func _configure_presentations() -> void:
 	battlefield_texture.visible = background != null
 	battlefield_placeholder.visible = background == null
 
-	var hero_texture := CombatPresentationCatalogClass.hero_texture(
+	var hero_presentation := CombatPresentationCatalogClass.hero_presentation(
 		_session.player.character_class_code
 	)
+	var hero_texture := hero_presentation.get("texture") as Texture2D
 	var hero_role := "BOHATER • %s" % _player_class_display_name().to_upper()
 	if hero_texture == null:
 		player_visual.show_placeholder(hero_role, _session.player.titled_display_name())
 	else:
-		player_visual.show_static(hero_texture, hero_role, _session.player.titled_display_name())
+		player_visual.show_static(
+			hero_texture, hero_role, _session.player.titled_display_name(), hero_presentation
+		)
 
-	var opponent_texture := CombatPresentationCatalogClass.enemy_texture(_enemy.enemy_id)
+	var opponent_presentation := CombatPresentationCatalogClass.enemy_presentation(_enemy.enemy_id)
+	var opponent_texture := opponent_presentation.get("texture") as Texture2D
 	if opponent_texture == null:
 		enemy_visual.show_placeholder("PRZECIWNIK", _enemy.display_name)
 	else:
-		enemy_visual.show_static(opponent_texture, "PRZECIWNIK", _enemy.display_name)
+		enemy_visual.show_static(
+			opponent_texture, "PRZECIWNIK", _enemy.display_name, opponent_presentation
+		)
 
 
 func _player_class_display_name() -> String:
@@ -492,9 +499,6 @@ func _render() -> void:
 	player_effect_label.text = _player_effect_summary()
 	enemy_name_label.text = _enemy.display_name
 	if _uses_surface_weather():
-		enemy_name_label.text += (
-			"  •  %s" % WeatherServiceClass.display_name_for(_encounter_weather_code)
-		)
 		enemy_name_label.tooltip_text = WeatherServiceClass.description_for(_encounter_weather_code)
 		if not _enemy.weather_note.is_empty():
 			enemy_name_label.tooltip_text += "\n" + _enemy.weather_note
@@ -543,6 +547,15 @@ func _render_battlefield_context() -> void:
 	target_round_label.text = "RUNDA %d" % _round_number
 	target_name_label.text = _enemy.display_name
 	target_status_label.text = _enemy_effect_summary()
+	match _enemy.rank:
+		"boss":
+			enemy_role_label.text = "BOSS"
+		"miniboss":
+			enemy_role_label.text = "MINIBOSS"
+		"elite":
+			enemy_role_label.text = "PRZECIWNIK • ELITA"
+		_:
+			enemy_role_label.text = "PRZECIWNIK"
 	if _context == "prologue":
 		battlefield_placeholder.text = "TŁO FABULARNE PROLOGU — PLACEHOLDER"
 	elif _context == "dungeon":
@@ -672,8 +685,28 @@ func _refresh_skill_cards() -> void:
 				description,
 				_battle_actions_enabled and error.is_empty(),
 				accent,
+				_skill_badge(skill),
 			)
 		)
+
+
+func _skill_badge(skill) -> String:
+	var badge := "FIZYCZNE"
+	if skill.effect.begins_with("fate_") or skill.character_class_code == "pierrot":
+		badge = "LOS"
+	elif skill.effect in ["guard", "defense_up", "dodge_up", "provoke"]:
+		badge = "OBRONA"
+	else:
+		match skill.damage_type:
+			"fire":
+				badge = "OGIEŃ"
+			"water":
+				badge = "WODA"
+			"lightning":
+				badge = "BŁYSK"
+			"earth":
+				badge = "ZIEMIA"
+	return badge
 
 
 func _skill_cards_need_rebuild(skills: Array) -> bool:
@@ -758,25 +791,31 @@ func _class_resource_summary() -> String:
 func _player_effect_summary() -> String:
 	var effects: Array[String] = []
 	if _engine.effects.player_guard_hits > 0:
-		effects.append("Garda")
+		effects.append("[GARDA]")
 	if _engine.pierrot_reflect_ready:
-		effects.append("Odbicie")
+		effects.append("[ODBICIE]")
 	if _engine.warrior_retribution_ready:
-		effects.append("Odwet")
+		effects.append("[ODWET]")
 	if _engine.hunter_instinct_ready:
-		effects.append("Instynkt")
-	return "EFEKTY: brak" if effects.is_empty() else "EFEKTY: " + "  •  ".join(effects)
+		effects.append("[INSTYNKT]")
+	return "STATUS: —" if effects.is_empty() else "STATUS: " + "  ".join(effects)
 
 
 func _enemy_effect_summary() -> String:
 	var effects: Array[String] = []
 	if _engine.effects.enemy_defense_reduction_actions > 0:
-		effects.append("Osłabiony pancerz")
+		effects.append("[PANCERZ −]")
 	if _engine.effects.enemy_bleed_turns > 0:
-		effects.append("Krwawienie")
+		effects.append("[KRWAWIENIE]")
 	if not _enemy.elite_modifier_id.is_empty():
-		effects.append("Elita")
-	return "EFEKTY: brak" if effects.is_empty() else "EFEKTY: " + "  •  ".join(effects)
+		effects.append("[ELITA]")
+	if _enemy.rank == "miniboss":
+		effects.append("[MINIBOSS]")
+	if _uses_surface_weather() and _encounter_weather_code != WeatherServiceClass.SUNNY:
+		effects.append(
+			"[%s]" % WeatherServiceClass.display_name_for(_encounter_weather_code).to_upper()
+		)
+	return "STATUS: —" if effects.is_empty() else "STATUS: " + "  ".join(effects)
 
 
 func _refresh_second_spell_selector() -> void:
