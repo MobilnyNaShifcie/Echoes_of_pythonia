@@ -217,9 +217,14 @@ func test_pierrot_fate_panel_fits_the_720p_combat_header() -> void:
 
 	assert_true(screen.fate_panel.visible)
 	assert_lte(screen.fate_panel.get_global_rect().end.x, screen.get_global_rect().end.x)
+	var arena: Control = screen.get_node("Page/Arena")
+	assert_gte(
+		screen.fate_panel.get_global_rect().position.y,
+		arena.get_global_rect().position.y,
+	)
 	assert_lte(
 		screen.fate_panel.get_global_rect().end.y,
-		screen.get_node("Page/Arena").get_global_rect().position.y
+		arena.get_global_rect().end.y,
 	)
 	host.free()
 

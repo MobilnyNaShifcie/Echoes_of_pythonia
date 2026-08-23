@@ -5,6 +5,7 @@ signal finished(context: String, result: String)
 
 const AdventureServiceClass := preload("res://core/world/adventure_service.gd")
 const CombatEngineClass := preload("res://core/combat/combat_engine.gd")
+const CombatantVisualClass := preload("res://ui/components/combatant_visual/combatant_visual.gd")
 const ElementalResistancesClass := preload("res://core/combat/elemental_resistances.gd")
 const EnemyCatalogClass := preload("res://core/combat/enemy_catalog.gd")
 const GameSessionClass := preload("res://core/game/game_session.gd")
@@ -39,6 +40,13 @@ var _configuration_error := ""
 
 @onready var encounter_label: Label = %EncounterLabel
 @onready var weather_label: Label = %EnemyNameLabel
+@onready var battlefield_placeholder: Label = %BattlefieldPlaceholder
+@onready var player_visual: CombatantVisualClass = %PlayerVisual
+@onready var enemy_visual: CombatantVisualClass = %EnemyVisual
+@onready var player_turn_label: Label = %PlayerTurnLabel
+@onready var enemy_turn_label: Label = %EnemyTurnLabel
+@onready var turn_state_label: Label = %TurnStateLabel
+@onready var vfx_placeholder: Label = %VfxPlaceholder
 @onready var fate_panel: PanelContainer = %FatePanel
 @onready var fate_status_label: Label = %FateStatusLabel
 @onready var dice_row: HBoxContainer = %DiceRow
@@ -61,7 +69,9 @@ var _configuration_error := ""
 @onready var enemy_name_label: Label = %EnemyNameLabel
 @onready var enemy_stats_label: Label = %EnemyStatsLabel
 @onready var enemy_hp_bar: ProgressBar = %EnemyHpBar
+@onready var log_panel: PanelContainer = %LogPanel
 @onready var combat_log: RichTextLabel = %CombatLog
+@onready var log_toggle_button: Button = %LogToggleButton
 @onready var attack_button: Button = %AttackButton
 @onready var defend_button: Button = %DefendButton
 @onready var skill_selector: OptionButton = %SkillSelector
@@ -87,8 +97,10 @@ func _ready() -> void:
 	consumable_selector.item_selected.connect(_on_consumable_selected)
 	potion_button.pressed.connect(_use_potion)
 	flee_button.pressed.connect(_flee)
+	log_toggle_button.pressed.connect(_toggle_combat_log)
 	continue_button.pressed.connect(_continue)
 	_rng.randomize()
+	_configure_visual_placeholders()
 	_render()
 	attack_button.grab_focus()
 
@@ -131,6 +143,7 @@ func configure(
 	_last_hunter_combo = ""
 	if is_node_ready():
 		combat_log.clear()
+		_configure_visual_placeholders()
 		_append_log("Rozpoczyna się walka z: %s." % _enemy.display_name)
 		if not _enemy.weather_note.is_empty():
 			_append_log(_enemy.weather_note + ".")
@@ -144,6 +157,18 @@ func configure(
 
 func enemy_display_name() -> String:
 	return _enemy.display_name if _enemy != null else ""
+
+
+func _configure_visual_placeholders() -> void:
+	if _session == null or _enemy == null:
+		return
+	player_visual.show_placeholder("BOHATER", _session.player.titled_display_name())
+	enemy_visual.show_placeholder("PRZECIWNIK", _enemy.display_name)
+
+
+func _toggle_combat_log() -> void:
+	log_panel.visible = not log_panel.visible
+	log_toggle_button.text = "Ukryj dziennik" if log_panel.visible else "Pokaż dziennik"
 
 
 func _attack() -> void:
@@ -403,6 +428,7 @@ func _render() -> void:
 		encounter_label.text = "%s — WALKA TUROWA" % region.display_name.to_upper()
 		if not _enemy.elite_modifier_id.is_empty():
 			encounter_label.text += " — ELITA"
+	_render_battlefield_context()
 	player_name_label.text = player.titled_display_name()
 	player_stats_label.text = (
 		"PŻ %d/%d  •  MANA %d/%d  •  ATK %d  •  DEF %d  •  UNIK %.1f%%"
@@ -457,6 +483,21 @@ func _render() -> void:
 	_render_consumable_action()
 
 
+func _render_battlefield_context() -> void:
+	player_turn_label.text = _session.player.display_name.to_upper()
+	enemy_turn_label.text = _enemy.display_name.to_upper()
+	turn_state_label.text = (
+		"WYBIERZ AKCJĘ" if _engine.result == CombatEngineClass.ONGOING else "WALKA ZAKOŃCZONA"
+	)
+	if _context == "prologue":
+		battlefield_placeholder.text = "TŁO FABULARNE PROLOGU — PLACEHOLDER"
+	elif _context == "dungeon":
+		battlefield_placeholder.text = "TŁO LOCHU — PLACEHOLDER"
+	else:
+		var region = RegionCatalogClass.get_definition(_session.current_location_id)
+		battlefield_placeholder.text = ("TŁO POLA WALKI — %s" % region.display_name.to_upper())
+
+
 func _uses_surface_weather() -> bool:
 	return _context in ["expedition", "region_boss"]
 
@@ -464,6 +505,7 @@ func _uses_surface_weather() -> bool:
 func _render_fate_panel() -> void:
 	var is_pierrot := _session.player.character_class_code == "pierrot"
 	fate_panel.visible = is_pierrot
+	vfx_placeholder.visible = not is_pierrot
 	if not is_pierrot:
 		return
 	var mirror_status := "  •  ODBICIE GOTOWE" if _engine.pierrot_reflect_ready else ""

@@ -1,6 +1,115 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=10 format=3]
 
-[ext_resource type="Script" path="res://ui/screens/combat/combat.gd" id="1"]
+[ext_resource type="Script" path="res://ui/screens/combat/combat.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://ui/components/combatant_visual/combatant_visual.tscn" id="2_visual"]
+
+[sub_resource type="StyleBoxFlat" id="StyleMechanic"]
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+content_margin_bottom = 8.0
+bg_color = Color(0.035, 0.058, 0.095, 0.88)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.19, 0.28, 0.39, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[sub_resource type="StyleBoxFlat" id="StyleBattlefield"]
+bg_color = Color(0.012, 0.027, 0.044, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.14, 0.23, 0.32, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StylePlayerHud"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.025, 0.052, 0.086, 0.94)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.28, 0.45, 0.62, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleEnemyHud"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.07, 0.03, 0.055, 0.94)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.54, 0.22, 0.35, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleActionDock"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+bg_color = Color(0.018, 0.034, 0.058, 0.97)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.32, 0.4, 0.54, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleLog"]
+content_margin_left = 14.0
+content_margin_top = 12.0
+content_margin_right = 14.0
+content_margin_bottom = 12.0
+bg_color = Color(0.012, 0.025, 0.043, 0.97)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.29, 0.38, 0.49, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleResult"]
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+bg_color = Color(0.02, 0.055, 0.064, 0.98)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.27, 0.62, 0.48, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="CombatScreen" type="Control"]
 layout_mode = 3
@@ -9,7 +118,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1")
+script = ExtResource("1_script")
 
 [node name="Page" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -18,7 +127,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 6
 
 [node name="EncounterHeader" type="HBoxContainer" parent="Page"]
 layout_mode = 2
@@ -30,41 +139,14 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
 text = "ZMIERZCHOWE RÓWNINY — WALKA TUROWA"
-
-[node name="FatePanel" type="PanelContainer" parent="Page/EncounterHeader"]
-unique_name_in_owner = true
-visible = false
-custom_minimum_size = Vector2(475, 0)
-layout_mode = 2
-
-[node name="Content" type="HBoxContainer" parent="Page/EncounterHeader/FatePanel"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="FateStatusLabel" type="Label" parent="Page/EncounterHeader/FatePanel/Content"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.83, 0.59, 0.69, 1)
-text = "LOS 0  •  ŻETONY 0/6"
-
-[node name="DiceRow" type="HBoxContainer" parent="Page/EncounterHeader/FatePanel/Content"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_constants/separation = 4
-
-[node name="FateOutcomeLabel" type="Label" parent="Page/EncounterHeader/FatePanel/Content"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.89, 0.32, 0.47, 1)
-text = "RZUT OCZEKUJE"
-text_overrun_behavior = 3
+autowrap_mode = 2
 
 [node name="HunterPanel" type="PanelContainer" parent="Page/EncounterHeader"]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(590, 0)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleMechanic")
 
 [node name="Content" type="HBoxContainer" parent="Page/EncounterHeader/HunterPanel"]
 layout_mode = 2
@@ -95,6 +177,7 @@ unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(560, 0)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleMechanic")
 
 [node name="Content" type="HBoxContainer" parent="Page/EncounterHeader/WarriorPanel"]
 layout_mode = 2
@@ -125,6 +208,7 @@ unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(570, 0)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleMechanic")
 
 [node name="Content" type="HBoxContainer" parent="Page/EncounterHeader/MagePanel"]
 layout_mode = 2
@@ -150,34 +234,189 @@ theme_override_colors/font_color = Color(0.46, 0.81, 0.78, 1)
 text = "ARKANA — TALENT 3F"
 text_overrun_behavior = 3
 
-[node name="Arena" type="HBoxContainer" parent="Page"]
+[node name="Arena" type="Control" parent="Page"]
+custom_minimum_size = Vector2(0, 240)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 16
+
+[node name="BattlefieldFrame" type="PanelContainer" parent="Page/Arena"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBattlefield")
+
+[node name="BattlefieldPlaceholder" type="Label" parent="Page/Arena"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.18, 0.27, 0.35, 1)
+theme_override_font_sizes/font_size = 22
+text = "TŁO POLA WALKI — PLACEHOLDER REGIONU"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TurnOrder" type="HBoxContainer" parent="Page/Arena"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -188.0
+offset_top = 10.0
+offset_right = 188.0
+offset_bottom = 52.0
+grow_horizontal = 2
+alignment = 1
+theme_override_constants/separation = 10
+
+[node name="PlayerTurnLabel" type="Label" parent="Page/Arena/TurnOrder"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(84, 36)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.56, 0.73, 0.9, 1)
+text = "BOHATER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TurnStateLabel" type="Label" parent="Page/Arena/TurnOrder"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 36)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
+text = "WYBIERZ AKCJĘ"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EnemyTurnLabel" type="Label" parent="Page/Arena/TurnOrder"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(84, 36)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.43, 0.56, 1)
+text = "WRÓG"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerVisual" parent="Page/Arena" instance=ExtResource("2_visual")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 0.44
+anchor_bottom = 0.86
+offset_left = 20.0
+offset_top = 42.0
+offset_right = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EnemyVisual" parent="Page/Arena" instance=ExtResource("2_visual")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_left = 0.56
+anchor_right = 1.0
+anchor_bottom = 0.86
+offset_left = 12.0
+offset_top = 42.0
+offset_right = -20.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="VfxStage" type="VBoxContainer" parent="Page/Arena"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -105.0
+offset_right = 180.0
+offset_bottom = 95.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+theme_override_constants/separation = 8
+
+[node name="VfxPlaceholder" type="Label" parent="Page/Arena/VfxStage"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.36, 0.47, 0.58, 1)
+text = "STREFA EFEKTÓW I RZUTÓW"
+horizontal_alignment = 1
+
+[node name="FatePanel" type="PanelContainer" parent="Page/Arena/VfxStage"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleMechanic")
+
+[node name="Content" type="VBoxContainer" parent="Page/Arena/VfxStage/FatePanel"]
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="FateStatusLabel" type="Label" parent="Page/Arena/VfxStage/FatePanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.83, 0.59, 0.69, 1)
+text = "LOS 0  •  ŻETONY 0/6"
+horizontal_alignment = 1
+
+[node name="DiceRow" type="HBoxContainer" parent="Page/Arena/VfxStage/FatePanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 8
+
+[node name="FateOutcomeLabel" type="Label" parent="Page/Arena/VfxStage/FatePanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.89, 0.32, 0.47, 1)
+text = "RZUT OCZEKUJE"
+horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="PlayerPanel" type="PanelContainer" parent="Page/Arena"]
-layout_mode = 2
-size_flags_horizontal = 3
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 0.39
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = -116.0
+offset_right = -10.0
+offset_bottom = -14.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StylePlayerHud")
 
 [node name="Content" type="VBoxContainer" parent="Page/Arena/PlayerPanel"]
 layout_mode = 2
-alignment = 1
-theme_override_constants/separation = 6
+theme_override_constants/separation = 4
 
 [node name="Role" type="Label" parent="Page/Arena/PlayerPanel/Content"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.5, 0.62, 0.76, 1)
+theme_override_font_sizes/font_size = 13
 text = "BOHATER"
 
 [node name="PlayerNameLabel" type="Label" parent="Page/Arena/PlayerPanel/Content"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 20
 text = "Bohater"
+text_overrun_behavior = 3
 
 [node name="PlayerHpBar" type="ProgressBar" parent="Page/Arena/PlayerPanel/Content"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 26)
+custom_minimum_size = Vector2(0, 18)
 layout_mode = 2
 max_value = 20.0
 value = 20.0
@@ -187,39 +426,64 @@ show_percentage = false
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.72, 0.79, 0.87, 1)
-text = "ATK 3  •  DEF 2"
+theme_override_font_sizes/font_size = 14
+text = "PŻ 20/20  •  MANA 0/0  •  ATK 3  •  DEF 2"
+text_overrun_behavior = 3
 
 [node name="Versus" type="Label" parent="Page/Arena"]
-layout_mode = 2
-size_flags_vertical = 4
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = 96.0
+offset_right = 24.0
+offset_bottom = 130.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 theme_override_colors/font_color = Color(0.78, 0.56, 0.7, 1)
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 22
 text = "VS"
+horizontal_alignment = 1
 
 [node name="EnemyPanel" type="PanelContainer" parent="Page/Arena"]
-layout_mode = 2
-size_flags_horizontal = 3
+layout_mode = 1
+anchors_preset = 12
+anchor_left = 0.61
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -116.0
+offset_right = -18.0
+offset_bottom = -14.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleEnemyHud")
 
 [node name="Content" type="VBoxContainer" parent="Page/Arena/EnemyPanel"]
 layout_mode = 2
-alignment = 1
-theme_override_constants/separation = 6
+theme_override_constants/separation = 4
 
 [node name="Role" type="Label" parent="Page/Arena/EnemyPanel/Content"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.74, 0.38, 0.48, 1)
+theme_override_font_sizes/font_size = 13
 text = "PRZECIWNIK"
 
 [node name="EnemyNameLabel" type="Label" parent="Page/Arena/EnemyPanel/Content"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 20
 text = "Przeciwnik"
 text_overrun_behavior = 3
 
 [node name="EnemyHpBar" type="ProgressBar" parent="Page/Arena/EnemyPanel/Content"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 26)
+custom_minimum_size = Vector2(0, 18)
 layout_mode = 2
 max_value = 10.0
 value = 10.0
@@ -229,111 +493,150 @@ show_percentage = false
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.72, 0.79, 0.87, 1)
-text = "ATK 2  •  DEF 1"
+theme_override_font_sizes/font_size = 14
+text = "PŻ 10/10  •  ATK 2  •  DEF 1"
+text_overrun_behavior = 3
 
-[node name="Lower" type="HBoxContainer" parent="Page"]
-layout_mode = 2
-theme_override_constants/separation = 14
-
-[node name="LogPanel" type="PanelContainer" parent="Page/Lower"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="CombatLog" type="RichTextLabel" parent="Page/Lower/LogPanel"]
+[node name="LogPanel" type="PanelContainer" parent="Page/Arena"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 100)
+visible = false
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 0.39
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = -342.0
+offset_right = -10.0
+offset_bottom = -126.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleLog")
+
+[node name="CombatLog" type="RichTextLabel" parent="Page/Arena/LogPanel"]
+unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 3
 fit_content = false
 scroll_active = true
 
-[node name="Actions" type="VBoxContainer" parent="Page/Lower"]
-custom_minimum_size = Vector2(420, 0)
+[node name="Lower" type="HBoxContainer" parent="Page"]
+custom_minimum_size = Vector2(0, 118)
+layout_mode = 2
+alignment = 1
+
+[node name="ActionsDock" type="PanelContainer" parent="Page/Lower"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(980, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleActionDock")
+
+[node name="Actions" type="VBoxContainer" parent="Page/Lower/ActionsDock"]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="Title" type="Label" parent="Page/Lower/Actions"]
+[node name="TitleRow" type="HBoxContainer" parent="Page/Lower/ActionsDock/Actions"]
 layout_mode = 2
+
+[node name="Title" type="Label" parent="Page/Lower/ActionsDock/Actions/TitleRow"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
 text = "WYBIERZ AKCJĘ"
 
-[node name="SkillRow" type="HBoxContainer" parent="Page/Lower/Actions"]
+[node name="LogToggleButton" type="Button" parent="Page/Lower/ActionsDock/Actions/TitleRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Pokaż dziennik"
+
+[node name="SkillRow" type="HBoxContainer" parent="Page/Lower/ActionsDock/Actions"]
 layout_mode = 2
 theme_override_constants/separation = 7
 
-[node name="SkillSelector" type="OptionButton" parent="Page/Lower/Actions/SkillRow"]
+[node name="SkillSelector" type="OptionButton" parent="Page/Lower/ActionsDock/Actions/SkillRow"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
 
-[node name="SkillButton" type="Button" parent="Page/Lower/Actions/SkillRow"]
+[node name="SkillButton" type="Button" parent="Page/Lower/ActionsDock/Actions/SkillRow"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(155, 0)
+custom_minimum_size = Vector2(190, 0)
 layout_mode = 2
+theme_override_font_sizes/font_size = 14
 text = "Użyj umiejętności"
 
-[node name="WeaveRow" type="HBoxContainer" parent="Page/Lower/Actions"]
+[node name="WeaveRow" type="HBoxContainer" parent="Page/Lower/ActionsDock/Actions"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 theme_override_constants/separation = 7
 
-[node name="SecondSpellSelector" type="OptionButton" parent="Page/Lower/Actions/WeaveRow"]
+[node name="SecondSpellSelector" type="OptionButton" parent="Page/Lower/ActionsDock/Actions/WeaveRow"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
 
-[node name="DoubleWeaveButton" type="Button" parent="Page/Lower/Actions/WeaveRow"]
+[node name="DoubleWeaveButton" type="Button" parent="Page/Lower/ActionsDock/Actions/WeaveRow"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(155, 0)
+custom_minimum_size = Vector2(190, 0)
 layout_mode = 2
+theme_override_font_sizes/font_size = 14
 text = "Podwójny Splot"
 
-[node name="ConsumableSelector" type="OptionButton" parent="Page/Lower/Actions"]
+[node name="ConsumableSelector" type="OptionButton" parent="Page/Lower/ActionsDock/Actions"]
 unique_name_in_owner = true
-layout_mode = 2
 visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
 
-[node name="ActionGrid" type="GridContainer" parent="Page/Lower/Actions"]
+[node name="ActionGrid" type="GridContainer" parent="Page/Lower/ActionsDock/Actions"]
 layout_mode = 2
 theme_override_constants/h_separation = 7
 theme_override_constants/v_separation = 7
-columns = 2
+columns = 4
 
-[node name="AttackButton" type="Button" parent="Page/Lower/Actions/ActionGrid"]
+[node name="AttackButton" type="Button" parent="Page/Lower/ActionsDock/Actions/ActionGrid"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
 text = "Atak"
 
-[node name="DefendButton" type="Button" parent="Page/Lower/Actions/ActionGrid"]
+[node name="DefendButton" type="Button" parent="Page/Lower/ActionsDock/Actions/ActionGrid"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
 text = "Obrona"
 
-[node name="PotionButton" type="Button" parent="Page/Lower/Actions/ActionGrid"]
+[node name="PotionButton" type="Button" parent="Page/Lower/ActionsDock/Actions/ActionGrid"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
 text = "Mikstura (+20 PŻ)  ×0"
 
-[node name="FleeButton" type="Button" parent="Page/Lower/Actions/ActionGrid"]
+[node name="FleeButton" type="Button" parent="Page/Lower/ActionsDock/Actions/ActionGrid"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 14
 text = "Ucieczka (50%)"
 
 [node name="ResultPanel" type="PanelContainer" parent="Page"]
 unique_name_in_owner = true
 visible = false
+custom_minimum_size = Vector2(0, 82)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleResult")
 
 [node name="Result" type="HBoxContainer" parent="Page/ResultPanel"]
 layout_mode = 2
 
 [node name="ResultTextScroll" type="ScrollContainer" parent="Page/ResultPanel/Result"]
-custom_minimum_size = Vector2(0, 84)
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 size_flags_horizontal = 3
 horizontal_scroll_mode = 0
@@ -343,6 +646,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.44, 0.8, 0.58, 1)
+theme_override_font_sizes/font_size = 15
 text = "Zwycięstwo"
 autowrap_mode = 2
 

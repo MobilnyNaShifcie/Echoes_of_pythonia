@@ -121,3 +121,20 @@ not shape later assets unless the owner asks to revisit them.
    regions.
 5. Add final music, ambience, UI sounds, and combat effects through the same
    preview and approval process.
+
+## Implemented presentation foundation
+
+The combat screen now has a placeholder-only composition matching the approved
+direction: a full battlefield area, separate large hero and enemy slots, a
+central VFX/dice stage, a top turn strip, compact combatant HUDs, a centered
+action dock, and a collapsible combat log.
+
+`CombatantVisual` is the presentation boundary for combatant artwork. It can
+show a temporary placeholder, a static `Texture2D`, or an instantiated animated
+`PackedScene`. Combat rules do not depend on the selected presentation mode, so
+static approved artwork can be connected first and replaced by rigged scenes
+later without changing the combat engine.
+
+No final image has been copied into the production asset tree in this slice.
+Battlefield selection and the asset catalog remain later integration work and
+must continue to follow the author approval gate above.
