@@ -975,6 +975,30 @@ obrażeń i osobny silnik walki drużynowej pozostają wyłącznym zakresem 6F.
   blokadę inputu, oba tryby prezentacji, stany kart, paski zasobów, panel wyniku
   oraz układ 720p.
 
+### Etap 9B — karta postaci i wspólny język ekwipunku (ukończony)
+
+- ekran ekwipunku otrzymał centralne, wymienne miejsce na pełną grafikę
+  bohatera oraz jedenaście małych półprzezroczystych slotów. Puste i zajęte
+  miejsca pozostają czytelne, ale nie zasłaniają przyszłej ilustracji,
+- wspólne `InventoryItemSlot` i `InventoryGridView` zastępują tekstowe kafelki
+  przestrzenną siatką. Tymczasowe skróty są wyłącznie placeholderami pod
+  zatwierdzone ikony przedmiotów,
+- wizualne rozmiary `1×1`, `1×2` i `2×2` są rozmieszczane przez deterministyczny
+  `ItemGridLayout`. Nie tworzą drugiego limitu pojemności i nie zmieniają
+  terminalowej zasady udźwigu ani save schema,
+- najechanie nadal pokazuje pełny opis, wymagania, statystyki i porównanie.
+  Przeciąganie, podwójne kliknięcie oraz ukryty fallback wyboru wywołują
+  istniejące operacje domenowe zamiast mutować przedmioty w warstwie UI,
+- Kram Orena, Kuźnia Garrana, Warsztat Mireli i Kwatermistrz korzystają z tego
+  samego komponentu siatki. Każdy ekran rezerwuje miejsce na grafikę NPC,
+  prezentuje ofertę pośrodku i przyjmuje przeciągnięty przedmiot na stanowisku
+  właściwej operacji,
+- layout Full HD oraz regresyjny `1280×720` zachowują bezpieczny obszar;
+  zawartość stanowiska transakcji przewija się lokalnie zamiast wypychać stopkę.
+  Finalne grafiki postaci, NPC i przedmiotów nadal wymagają osobnej akceptacji,
+- checkpoint przeszedł 534 testy Python + 8 subtestów, 452/452 testy GUT z
+  4737 asercjami, formatter, lint, bootstrap oraz eksport i smoke test Windows.
+
 ## Kryterium ukończenia etapu
 
 Etap jest ukończony, gdy reguły zgadzają się z wersją terminalową, ekran da się

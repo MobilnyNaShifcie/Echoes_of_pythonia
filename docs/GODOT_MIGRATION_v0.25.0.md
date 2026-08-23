@@ -435,6 +435,13 @@ result reveal. Pierrot dice display the engine-provided 1d6/2d6/3d6 values and
 never roll presentation RNG. Reduced motion resolves the same queue instantly
 and is the default for headless regression tests. No save schema, balance,
 reward, or audio behavior changes in this slice.
+Stage 9B replaces the provisional equipment lists with reusable spatial-grid
+components. The hero screen reserves a central full-body art area surrounded by
+translucent equipment slots, while Oren, Garran, Mirela, and the Guild
+quartermaster share an NPC portrait, offer grid, hover tooltip, and drag target
+composition. Grid footprints remain visual and deterministic; terminal carry
+weight stays authoritative and schema v17 is unchanged. Final character, NPC,
+and item art remains behind the documented approval gate.
 Their calendar periods, generated definitions, objective progress, and claimed
 rewards survive reloads; existing schema-v8 files receive a safe empty board
 before the next period is generated.

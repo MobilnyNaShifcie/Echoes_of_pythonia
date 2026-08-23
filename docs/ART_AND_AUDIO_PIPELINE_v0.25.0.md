@@ -201,3 +201,25 @@ Headless tests select this mode by default so gameplay assertions remain
 synchronous. This foundation intentionally uses procedural UI and existing
 approved static art; final VFX sprites, card illustrations, audio, and character
 animation still require preview and owner approval.
+
+## Stage 9B equipment presentation contract
+
+Character equipment and NPC commerce now share one placeholder-first visual
+language. The character or NPC owns the left presentation space, inventory or
+offer content uses a visible spatial grid, and an operation target receives
+dragged items. Equipment slots are translucent so final character art remains
+visible. Full item information remains available through a custom hover tooltip;
+drag-and-drop must never remove that discovery path.
+
+The grid footprint is presentation metadata only in v0.25.0. Weight remains the
+sole inventory-capacity rule, and deterministic automatic packing creates no new
+save state. Current defaults are `1×1` for small stacks and accessories, `1×2`
+for weapons and off-hand equipment, and `2×2` for chest armor. These defaults
+may be refined with the owner before final item art is integrated.
+
+Future approved item images must contain only the object on transparency, with
+no baked frame, rarity color, quantity, text, or selection state. The UI owns
+those layers so one source image can be reused in the backpack, equipment,
+merchant, storage, loot, and companion views. Character and NPC placeholders
+are explicit replacement boundaries; no generated final art was added in this
+stage.

@@ -16,6 +16,7 @@ const BookServiceClass := preload("res://core/progression/book_service.gd")
 const PlayerEquipmentClass := preload("res://core/player/equipment.gd")
 const CarryWeightServiceClass := preload("res://core/economy/carry_weight_service.gd")
 const UpgradeServiceClass := preload("res://core/economy/upgrade_service.gd")
+const ItemGridLayoutClass := preload("res://ui/components/inventory_grid/item_grid_layout.gd")
 const SLOT_ORDER := [
 	PlayerEquipmentClass.WEAPON,
 	PlayerEquipmentClass.OFF_HAND,
@@ -42,6 +43,19 @@ const SLOT_NAMES := {
 	"earrings": "Kolczyki",
 	"ring": "Pierścień",
 }
+const SLOT_CODES := {
+	"weapon": "BR",
+	"off_hand": "II",
+	"head": "HEŁ",
+	"chest": "ZBR",
+	"hands": "RĘK",
+	"feet": "BUT",
+	"belt": "PAS",
+	"necklace": "NAS",
+	"bracelet": "BRA",
+	"earrings": "KOL",
+	"ring": "PIE",
+}
 const EQUIPMENT_TYPE_NAMES := {
 	"sword": "Miecz",
 	"bow": "Łuk",
@@ -67,7 +81,7 @@ var _session: GameSessionClass
 @onready var details_label: Label = %DetailsLabel
 @onready var feedback_label: Label = %FeedbackLabel
 @onready var category_tabs: TabBar = %CategoryTabs
-@onready var inventory_grid: GridContainer = %InventoryGrid
+@onready var inventory_grid: InventoryGridView = %InventoryGrid
 @onready var inventory_drop_zone: PanelContainer = %InventoryDropZone
 @onready var slot_buttons := {
 	PlayerEquipmentClass.WEAPON: %WeaponSlot,
@@ -94,6 +108,10 @@ func _ready() -> void:
 	for tab_name: String in CATEGORY_NAMES:
 		category_tabs.add_tab(tab_name)
 	category_tabs.tab_changed.connect(_category_changed)
+	inventory_grid.entry_selected.connect(_select_inventory_metadata)
+	inventory_grid.entry_hovered.connect(_show_inventory_metadata)
+	inventory_grid.entry_activated.connect(_activate_inventory_metadata)
+	inventory_grid.data_dropped.connect(_backpack_drop_data_from_grid)
 	for slot: String in SLOT_ORDER:
 		var button: Button = slot_buttons[slot]
 		button.pressed.connect(_select_equipped_slot.bind(slot))
@@ -106,14 +124,6 @@ func _ready() -> void:
 				_slot_drop_data.bind(slot),
 			)
 		)
-	(
-		inventory_drop_zone
-		. set_drag_forwarding(
-			_empty_drag_data,
-			_backpack_can_drop_data,
-			_backpack_drop_data,
-		)
-	)
 	_refresh()
 	%BackButton.grab_focus()
 
@@ -164,77 +174,61 @@ func _category_changed(_index: int) -> void:
 
 func _refresh_paperdoll() -> void:
 	for slot: String in SLOT_ORDER:
-		var button: Button = slot_buttons[slot]
+		var button: InventoryItemSlot = slot_buttons[slot]
 		var item: EquipmentItemClass = _session.player.equipment.get_item(slot)
-		button.text = (
-			"%s\n%s"
-			% [SLOT_NAMES[slot], "Puste" if item == null else _short_name(item.formatted_name())]
-		)
+		button.text = "%s\n%s" % ["◇" if item == null else "◆", SLOT_CODES[slot]]
 		button.tooltip_text = (
-			"Upuść tutaj przedmiot: %s." % SLOT_NAMES[slot]
+			"%s — puste\nPrzeciągnij tutaj pasujący przedmiot." % SLOT_NAMES[slot]
 			if item == null
-			else _format_item_details(item)
+			else "%s\n\n%s" % [SLOT_NAMES[slot], _format_item_details(item)]
 		)
 
 
 func _refresh_inventory_grid() -> void:
-	for child in inventory_grid.get_children():
-		child.free()
 	if _session == null:
 		return
 	var filter_id: String = CATEGORY_FILTERS[category_tabs.current_tab]
-	var visible_count := 0
+	var entries: Array[Dictionary] = []
 	var items = _session.player.inventory.equipment_items
 	for index in items.size():
 		if filter_id not in ["all", "equipment"]:
 			continue
 		var item: EquipmentItemClass = items[index]
-		_add_inventory_cell(
-			"%s\n%s" % [_short_name(item.formatted_name()), SLOT_NAMES[item.slot]],
-			{"kind": "equipment", "index": index},
-			_format_item_details(item, true),
+		var metadata := {"kind": "equipment", "index": index}
+		(
+			entries
+			. append(
+				{
+					"title": item.formatted_name(),
+					"placeholder": _item_placeholder(item.formatted_name()),
+					"tooltip": _format_item_details(item, true),
+					"metadata": metadata,
+					"drag_payload": metadata,
+					"footprint": ItemGridLayoutClass.footprint_for("equipment", item.slot),
+				}
+			)
 		)
-		visible_count += 1
 	var stack_ids: Array = _session.player.inventory.stacks.keys()
 	stack_ids.sort()
 	for item_id: String in stack_ids:
 		var definition = ItemCatalogClass.get_definition(item_id)
 		if not _stack_matches_filter(definition.category, filter_id):
 			continue
-		_add_inventory_cell(
-			(
-				"%s\n×%d"
-				% [_short_name(definition.display_name), _session.player.inventory.count(item_id)]
-			),
-			{"kind": "stack", "item_id": item_id},
-			_format_stack_details(item_id),
+		var quantity := _session.player.inventory.count(item_id)
+		(
+			entries
+			. append(
+				{
+					"title": definition.display_name,
+					"placeholder":
+					"%s\n×%d" % [_item_placeholder(definition.display_name), quantity],
+					"tooltip": _format_stack_details(item_id),
+					"metadata": {"kind": "stack", "item_id": item_id},
+					"footprint": ItemGridLayoutClass.footprint_for(definition.category),
+				}
+			)
 		)
-		visible_count += 1
-	if visible_count == 0:
-		var empty := Button.new()
-		empty.custom_minimum_size = Vector2(150, 82)
-		empty.disabled = true
-		empty.text = "Brak przedmiotów\nw tej zakładce"
-		inventory_grid.add_child(empty)
-
-
-func _add_inventory_cell(text_value: String, metadata: Dictionary, tooltip: String) -> void:
-	var cell := Button.new()
-	cell.custom_minimum_size = Vector2(150, 82)
-	cell.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	cell.text = text_value
-	cell.tooltip_text = tooltip
-	cell.pressed.connect(_select_inventory_metadata.bind(metadata))
-	cell.mouse_entered.connect(_show_inventory_metadata.bind(metadata))
-	(
-		cell
-		. set_drag_forwarding(
-			_inventory_get_drag_data.bind(metadata),
-			_inventory_cell_can_drop_data,
-			_inventory_cell_drop_data,
-		)
-	)
-	inventory_grid.add_child(cell)
+	inventory_grid.set_entries(entries)
 
 
 func _select_equipped_slot(slot: String) -> void:
@@ -269,6 +263,14 @@ func _show_inventory_metadata(metadata: Dictionary) -> void:
 		return
 	if metadata.get("kind", "") == "stack":
 		details_label.text = _format_stack_details(str(metadata.get("item_id", "")))
+
+
+func _activate_inventory_metadata(metadata: Dictionary) -> void:
+	_select_inventory_metadata(metadata)
+	if metadata.get("kind", "") == "equipment":
+		_equip_selected()
+	elif BookCatalogClass.is_book(str(metadata.get("item_id", ""))):
+		_read_selected_book()
 
 
 func _inventory_get_drag_data(_position: Vector2, metadata: Dictionary) -> Variant:
@@ -307,6 +309,10 @@ func _backpack_can_drop_data(_position: Vector2, data: Variant) -> bool:
 
 
 func _backpack_drop_data(_position: Vector2, data: Variant) -> void:
+	_backpack_drop_data_from_grid(data)
+
+
+func _backpack_drop_data_from_grid(data: Variant) -> void:
 	if not _backpack_can_drop_data(Vector2.ZERO, data):
 		return
 	_select_equipped_slot(str(data.get("slot", "")))
@@ -318,7 +324,7 @@ func _inventory_cell_can_drop_data(_position: Vector2, data: Variant) -> bool:
 
 
 func _inventory_cell_drop_data(_position: Vector2, data: Variant) -> void:
-	_backpack_drop_data(Vector2.ZERO, data)
+	_backpack_drop_data_from_grid(data)
 
 
 func _stack_matches_filter(category: String, filter_id: String) -> bool:
@@ -331,6 +337,18 @@ func _stack_matches_filter(category: String, filter_id: String) -> bool:
 
 func _short_name(value: String) -> String:
 	return value if value.length() <= 22 else value.left(20) + "…"
+
+
+func _item_placeholder(display_name: String) -> String:
+	var words := display_name.replace("+", " ").split(" ", false)
+	var code := ""
+	for word: String in words:
+		if word.is_empty() or word.is_valid_int():
+			continue
+		code += word.left(1).to_upper()
+		if code.length() >= 2:
+			break
+	return code if not code.is_empty() else "?"
 
 
 func _refresh_equipped_items() -> void:

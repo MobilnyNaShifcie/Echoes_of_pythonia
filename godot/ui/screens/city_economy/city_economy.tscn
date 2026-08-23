@@ -1,24 +1,49 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://ui/screens/city_economy/city_economy.gd" id="1"]
+[ext_resource type="PackedScene" path="res://ui/components/inventory_grid/inventory_grid_view.tscn" id="2_grid"]
+[ext_resource type="Script" path="res://ui/components/character_paperdoll/character_paperdoll.gd" id="3_portrait"]
 
-[node name="CityEconomyScreen" type="Control"]
+[sub_resource type="StyleBoxFlat" id="PortraitStyle"]
+bg_color = Color(0.02, 0.032, 0.05, 0.62)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.18, 0.26, 0.36, 0.82)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="DropStyle"]
+bg_color = Color(0.055, 0.08, 0.12, 0.72)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.72, 0.54, 0.21, 0.88)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="CityEconomyScreen" type="ScrollContainer"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+horizontal_scroll_mode = 0
 script = ExtResource("1")
 
 [node name="Page" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 8
+custom_minimum_size = Vector2(1090, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 9
 
 [node name="Header" type="HBoxContainer" parent="Page"]
 layout_mode = 2
@@ -30,7 +55,7 @@ size_flags_horizontal = 3
 [node name="Eyebrow" type="Label" parent="Page/Header/Identity"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
-text = "GOSPODARKA VARENHOLD"
+text = "HANDEL I RZEMIOSŁO"
 
 [node name="TitleLabel" type="Label" parent="Page/Header/Identity"]
 unique_name_in_owner = true
@@ -40,6 +65,7 @@ text = "Usługa"
 
 [node name="BackButton" type="Button" parent="Page/Header"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 48)
 layout_mode = 2
 size_flags_vertical = 4
 text = "Cofnij"
@@ -53,58 +79,152 @@ autowrap_mode = 2
 
 [node name="ModeSelector" type="OptionButton" parent="Page"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 46)
 layout_mode = 2
 
 [node name="Body" type="HBoxContainer" parent="Page"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 14
-
-[node name="ListPanel" type="PanelContainer" parent="Page/Body"]
-custom_minimum_size = Vector2(620, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ItemList" type="ItemList" parent="Page/Body/ListPanel"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-select_mode = 0
-allow_reselect = true
-
-[node name="DetailsPanel" type="PanelContainer" parent="Page/Body"]
-custom_minimum_size = Vector2(500, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Details" type="VBoxContainer" parent="Page/Body/DetailsPanel"]
-layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="DetailsTitle" type="Label" parent="Page/Body/DetailsPanel/Details"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
-theme_override_font_sizes/font_size = 22
-text = "Szczegóły"
-
-[node name="DetailsLabel" type="Label" parent="Page/Body/DetailsPanel/Details"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-text = "Wybierz pozycję."
-autowrap_mode = 2
-
-[node name="QuantityRow" type="HBoxContainer" parent="Page/Body/DetailsPanel/Details"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Page/Body/DetailsPanel/Details/QuantityRow"]
+[node name="NpcPanel" type="PanelContainer" parent="Page/Body"]
+custom_minimum_size = Vector2(260, 280)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Ilość / liczba poziomów"
+size_flags_stretch_ratio = 0.65
+theme_override_styles/panel = SubResource("PortraitStyle")
 
-[node name="QuantityBox" type="SpinBox" parent="Page/Body/DetailsPanel/Details/QuantityRow"]
+[node name="NpcContent" type="VBoxContainer" parent="Page/Body/NpcPanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="NpcRoleLabel" type="Label" parent="Page/Body/NpcPanel/NpcContent"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
+theme_override_font_sizes/font_size = 20
+text = "NPC"
+horizontal_alignment = 1
+
+[node name="NpcVisual" type="Control" parent="Page/Body/NpcPanel/NpcContent"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(230, 180)
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("3_portrait")
+caption = "MIEJSCE NA GRAFIKĘ NPC"
+
+[node name="NpcHintLabel" type="Label" parent="Page/Body/NpcPanel/NpcContent"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.53, 0.62, 0.73, 1)
+text = "Grafika zostanie podmieniona bez zmiany układu."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="CataloguePanel" type="PanelContainer" parent="Page/Body"]
+custom_minimum_size = Vector2(500, 280)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.35
+
+[node name="Catalogue" type="VBoxContainer" parent="Page/Body/CataloguePanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="CatalogueHeader" type="HBoxContainer" parent="Page/Body/CataloguePanel/Catalogue"]
+layout_mode = 2
+
+[node name="CatalogueTitle" type="Label" parent="Page/Body/CataloguePanel/Catalogue/CatalogueHeader"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
+theme_override_font_sizes/font_size = 20
+text = "Oferta"
+
+[node name="CatalogueHint" type="Label" parent="Page/Body/CataloguePanel/Catalogue/CatalogueHeader"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.53, 0.62, 0.73, 1)
+text = "Najedź po szczegóły"
+
+[node name="ServiceGridScroll" type="ScrollContainer" parent="Page/Body/CataloguePanel/Catalogue"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="ServiceGrid" parent="Page/Body/CataloguePanel/Catalogue/ServiceGridScroll" instance=ExtResource("2_grid")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 7
+visible_rows = 3
+cell_size = Vector2(62, 62)
+gap = 5.0
+
+[node name="GridHint" type="Label" parent="Page/Body/CataloguePanel/Catalogue"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.53, 0.62, 0.73, 1)
+text = "Przeciągnij wybraną pozycję na stanowisko albo użyj podwójnego kliknięcia."
+autowrap_mode = 2
+
+[node name="TransactionPanel" type="PanelContainer" parent="Page/Body"]
+custom_minimum_size = Vector2(300, 280)
+layout_mode = 2
+
+[node name="TransactionScroll" type="ScrollContainer" parent="Page/Body/TransactionPanel"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="Transaction" type="VBoxContainer" parent="Page/Body/TransactionPanel/TransactionScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="TransactionTitle" type="Label" parent="Page/Body/TransactionPanel/TransactionScroll/Transaction"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
+theme_override_font_sizes/font_size = 20
+text = "Stanowisko"
+
+[node name="TransactionDropZone" type="PanelContainer" parent="Page/Body/TransactionPanel/TransactionScroll/Transaction"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+theme_override_styles/panel = SubResource("DropStyle")
+
+[node name="DropHintLabel" type="Label" parent="Page/Body/TransactionPanel/TransactionScroll/Transaction/TransactionDropZone"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.78, 0.86, 1)
+theme_override_font_sizes/font_size = 18
+text = "PRZECIĄGNIJ TUTAJ\nWYBRANY PRZEDMIOT"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="SelectionLabel" type="Label" parent="Page/Body/TransactionPanel/TransactionScroll/Transaction"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.79, 0.88, 1)
+text = "Wybierz pozycję z siatki."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="QuantityRow" type="HBoxContainer" parent="Page/Body/TransactionPanel/TransactionScroll/Transaction"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Page/Body/TransactionPanel/TransactionScroll/Transaction/QuantityRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Ilość"
+
+[node name="QuantityBox" type="SpinBox" parent="Page/Body/TransactionPanel/TransactionScroll/Transaction/QuantityRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(130, 0)
 layout_mode = 2
 min_value = 1.0
 max_value = 99.0
@@ -112,10 +232,18 @@ value = 1.0
 allow_greater = false
 allow_lesser = false
 
-[node name="ActionButton" type="Button" parent="Page/Body/DetailsPanel/Details"]
+[node name="ActionButton" type="Button" parent="Page/Body/TransactionPanel/TransactionScroll/Transaction"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 text = "Wykonaj operację"
+
+[node name="InteractionHelp" type="Label" parent="Page/Body/TransactionPanel/TransactionScroll/Transaction"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.53, 0.62, 0.73, 1)
+text = "Upuszczenie przedmiotu zatwierdza operację."
+horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="StatusLabel" type="Label" parent="Page"]
 unique_name_in_owner = true
@@ -124,3 +252,16 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.44, 0.8, 0.58, 1)
 text = "Wybierz operację."
 autowrap_mode = 2
+
+[node name="Compatibility" type="Control" parent="Page"]
+visible = false
+layout_mode = 2
+
+[node name="ItemList" type="ItemList" parent="Page/Compatibility"]
+unique_name_in_owner = true
+layout_mode = 0
+allow_reselect = true
+
+[node name="DetailsLabel" type="Label" parent="Page/Compatibility"]
+unique_name_in_owner = true
+layout_mode = 0

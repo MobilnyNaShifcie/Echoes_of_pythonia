@@ -108,7 +108,8 @@ func test_mmo_layout_exposes_all_slots_tabs_and_hover_details() -> void:
 
 	screen._show_equipped_details("weapon")
 	assert_string_contains(screen.details_label.text, "Stary Miecz +0")
-	assert_string_contains(screen.slot_buttons.weapon.text, "Stary Miecz +0")
+	assert_eq(screen.slot_buttons.weapon.text, "◆\nBR")
+	assert_string_contains(screen.slot_buttons.weapon.tooltip_text, "Stary Miecz +0")
 
 
 func test_drag_contract_equips_to_slot_and_returns_item_to_backpack() -> void:
