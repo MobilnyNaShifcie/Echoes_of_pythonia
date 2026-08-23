@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://ui/components/combat_action_card/combat_action_card.gd" id="1_script"]
 
 [node name="CombatActionCard" type="Button"]
-custom_minimum_size = Vector2(166, 108)
+custom_minimum_size = Vector2(176, 124)
 size_flags_vertical = 3
 focus_mode = 2
 mouse_default_cursor_shape = 2

@@ -948,6 +948,33 @@ obrażeń i osobny silnik walki drużynowej pozostają wyłącznym zakresem 6F.
 - Stage 8 jest zamknięty. Finalne grafiki, dźwięki i rozbudowane animacje nie
   zostały rozpoczęte.
 
+## Etap 9 — produkcyjna prezentacja
+
+### Etap 9A — czytelność i feeling zwykłej walki (ukończony)
+
+- `CombatPresentationPlan` tłumaczy raport istniejącego `CombatEngine` na
+  osobną kolejkę zdarzeń prezentacyjnych. Nie oblicza obrażeń, nie wykonuje
+  rzutów i nie zmienia stanu domenowego,
+- `CombatPresentationController` odtwarza kolejność tury, krótkie ruchy postaci,
+  błyski trafienia, tekst obrażeń, krytyki, uniki, bloki, leczenie i płynne
+  przejścia PŻ/Many. Input jest zablokowany do końca odtwarzania, więc gracz nie
+  może wysłać dwóch akcji w trakcie jednej tury,
+- kości Pierrota obsługują istniejące warianty `1k6`, `2k6` i `3k6`. Animacja
+  pokazuje wyłącznie wartości zapisane w raporcie silnika; kosmetyczne klatki
+  przejściowe nie używają RNG,
+- karty umiejętności mają jawne stany `GOTOWA`, `BLOKADA`, `W TOKU` i
+  `ZAKOŃCZONA`, a wynik walki posiada stały tytuł i niezmienny rozmiar przycisku
+  kontynuacji,
+- gracz może przełączyć prezentację na ograniczone animacje. Tryb headless
+  używa go domyślnie, dzięki czemu testy zachowują synchroniczny, wiarygodny
+  kontrakt,
+- layout pozostaje zgodny z Full HD i nie wychodzi poza bezpieczny obszar także
+  przy regresyjnym viewportcie `1280×720`. Stage 9A nie zmienia save schema,
+  zasad walki, balansu ani audio,
+- testy zamrażają mapowanie raportu bez mutacji, realny wynik kości Pierrota,
+  blokadę inputu, oba tryby prezentacji, stany kart, paski zasobów, panel wyniku
+  oraz układ 720p.
+
 ## Kryterium ukończenia etapu
 
 Etap jest ukończony, gdy reguły zgadzają się z wersją terminalową, ekran da się

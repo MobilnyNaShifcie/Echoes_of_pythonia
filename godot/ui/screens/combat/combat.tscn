@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3]
+[gd_scene load_steps=14 format=3]
 
 [ext_resource type="Script" path="res://ui/screens/combat/combat.gd" id="1_script"]
 [ext_resource type="PackedScene" path="res://ui/components/combatant_visual/combatant_visual.tscn" id="2_visual"]
@@ -111,6 +111,34 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
+[sub_resource type="StyleBoxFlat" id="StyleResourceBackground"]
+bg_color = Color(0.018, 0.027, 0.041, 0.92)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StylePlayerHealth"]
+bg_color = Color(0.68, 0.17, 0.28, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StylePlayerMana"]
+bg_color = Color(0.18, 0.42, 0.76, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleEnemyHealth"]
+bg_color = Color(0.8, 0.19, 0.38, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
 [node name="CombatScreen" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -145,6 +173,23 @@ autowrap_mode = 2
 custom_minimum_size = Vector2(0, 222)
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="MotionToggleButton" type="Button" parent="Page/Arena"]
+unique_name_in_owner = true
+z_index = 5
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -210.0
+offset_top = 10.0
+offset_right = -20.0
+offset_bottom = 42.0
+grow_horizontal = 0
+focus_mode = 1
+theme_override_font_sizes/font_size = 13
+text = "Animacje: pełne"
+tooltip_text = "Przełącz między pełną a ograniczoną prezentacją walki."
 
 [node name="BattlefieldFrame" type="PanelContainer" parent="Page/Arena"]
 layout_mode = 1
@@ -307,6 +352,16 @@ offset_right = -20.0
 grow_horizontal = 0
 grow_vertical = 2
 
+[node name="FeedbackLayer" type="Control" parent="Page/Arena"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
 [node name="VfxStage" type="VBoxContainer" parent="Page/Arena"]
 layout_mode = 1
 anchors_preset = 8
@@ -409,13 +464,28 @@ theme_override_font_sizes/font_size = 20
 text = "Bohater"
 text_overrun_behavior = 3
 
-[node name="PlayerHpBar" type="ProgressBar" parent="Page/Arena/PlayerPanel/Content/Details"]
+[node name="PlayerResourceBars" type="VBoxContainer" parent="Page/Arena/PlayerPanel/Content/Details"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="PlayerHpBar" type="ProgressBar" parent="Page/Arena/PlayerPanel/Content/Details/PlayerResourceBars"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 18)
+custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
 max_value = 20.0
 value = 20.0
 show_percentage = false
+theme_override_styles/background = SubResource("StyleResourceBackground")
+theme_override_styles/fill = SubResource("StylePlayerHealth")
+
+[node name="PlayerManaBar" type="ProgressBar" parent="Page/Arena/PlayerPanel/Content/Details/PlayerResourceBars"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 7)
+layout_mode = 2
+max_value = 20.0
+show_percentage = false
+theme_override_styles/background = SubResource("StyleResourceBackground")
+theme_override_styles/fill = SubResource("StylePlayerMana")
 
 [node name="PlayerStatsLabel" type="Label" parent="Page/Arena/PlayerPanel/Content/Details"]
 unique_name_in_owner = true
@@ -505,11 +575,13 @@ text_overrun_behavior = 3
 
 [node name="EnemyHpBar" type="ProgressBar" parent="Page/Arena/EnemyPanel/Content/Details"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 18)
+custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
 max_value = 10.0
 value = 10.0
 show_percentage = false
+theme_override_styles/background = SubResource("StyleResourceBackground")
+theme_override_styles/fill = SubResource("StyleEnemyHealth")
 
 [node name="EnemyStatsLabel" type="Label" parent="Page/Arena/EnemyPanel/Content/Details"]
 unique_name_in_owner = true
@@ -776,6 +848,15 @@ theme_override_styles/panel = SubResource("StyleResult")
 
 [node name="Result" type="HBoxContainer" parent="Page/ResultPanel"]
 layout_mode = 2
+
+[node name="ResultTitleLabel" type="Label" parent="Page/ResultPanel/Result"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(138, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.52, 0.9, 0.66, 1)
+theme_override_font_sizes/font_size = 18
+text = "ZWYCIĘSTWO"
+vertical_alignment = 1
 
 [node name="ResultTextScroll" type="ScrollContainer" parent="Page/ResultPanel/Result"]
 custom_minimum_size = Vector2(0, 60)

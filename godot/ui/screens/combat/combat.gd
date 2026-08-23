@@ -15,6 +15,10 @@ const CombatantVisualClass := preload("res://ui/components/combatant_visual/comb
 const CombatPresentationCatalogClass := preload(
 	"res://ui/presentation/combat_presentation_catalog.gd"
 )
+const CombatPresentationControllerClass := preload(
+	"res://ui/presentation/combat_presentation_controller.gd"
+)
+const CombatPresentationPlanClass := preload("res://ui/presentation/combat_presentation_plan.gd")
 const ElementalResistancesClass := preload("res://core/combat/elemental_resistances.gd")
 const EnemyCatalogClass := preload("res://core/combat/enemy_catalog.gd")
 const GameSessionClass := preload("res://core/game/game_session.gd")
@@ -45,8 +49,10 @@ var _encounter_weather_code := WeatherServiceClass.SUNNY
 var _battle_title := ""
 var _configuration_error := ""
 var _round_number := 1
+var _presentation_controller: CombatPresentationControllerClass
 
 @onready var encounter_label: Label = %EncounterLabel
+@onready var motion_toggle_button: Button = %MotionToggleButton
 @onready var weather_label: Label = %EnemyNameLabel
 @onready var battlefield_texture: TextureRect = %BattlefieldTexture
 @onready var battlefield_placeholder: Label = %BattlefieldPlaceholder
@@ -65,6 +71,7 @@ var _round_number := 1
 @onready var player_name_label: Label = %PlayerNameLabel
 @onready var player_stats_label: Label = %PlayerStatsLabel
 @onready var player_hp_bar: ProgressBar = %PlayerHpBar
+@onready var player_mana_bar: ProgressBar = %PlayerManaBar
 @onready var player_effect_label: Label = %PlayerEffectLabel
 @onready var enemy_name_label: Label = %EnemyNameLabel
 @onready var enemy_role_label: Label = %EnemyRoleLabel
@@ -88,6 +95,7 @@ var _round_number := 1
 @onready var potion_button: Button = %PotionButton
 @onready var flee_button: Button = %FleeButton
 @onready var result_panel: PanelContainer = %ResultPanel
+@onready var result_title_label: Label = %ResultTitleLabel
 @onready var result_label: Label = %ResultLabel
 @onready var continue_button: Button = %ContinueButton
 @onready var command_class_label: Label = %CommandClassLabel
@@ -112,8 +120,21 @@ func _ready() -> void:
 	continue_button.pressed.connect(_continue)
 	_rng.randomize()
 	_configure_presentations()
+	_configure_presentation_controller()
 	_render()
 	attack_button.grab_focus()
+
+
+func _configure_presentation_controller() -> void:
+	_presentation_controller = CombatPresentationControllerClass.new()
+	add_child(_presentation_controller)
+	_presentation_controller.configure(self)
+	_presentation_controller.playback_finished.connect(_finish_presented_turn)
+
+
+func set_reduced_motion(enabled: bool) -> void:
+	if _presentation_controller != null:
+		_presentation_controller.set_reduced_motion(enabled)
 
 
 func configure(
@@ -214,11 +235,17 @@ func _toggle_combat_log() -> void:
 
 
 func _attack() -> void:
-	_resolve_turn(_engine.player_attack(), "Atakujesz przeciwnika.")
+	if not _can_accept_action():
+		return
+	var before := _presentation_controller.resource_snapshot(_session.player, _enemy)
+	_resolve_turn(_engine.player_attack(), "Atakujesz przeciwnika.", before)
 
 
 func _defend() -> void:
-	_resolve_turn(_engine.player_defend(), "Przyjmujesz pozycję obronną.")
+	if not _can_accept_action():
+		return
+	var before := _presentation_controller.resource_snapshot(_session.player, _enemy)
+	_resolve_turn(_engine.player_defend(), "Przyjmujesz pozycję obronną.", before)
 
 
 func _use_skill() -> void:
@@ -230,17 +257,23 @@ func _use_skill() -> void:
 
 
 func _use_skill_id(skill_id: String) -> void:
+	if not _can_accept_action():
+		return
 	var skill = SkillCatalogClass.get_definition(skill_id)
 	if skill == null:
 		_append_log("Nieznana umiejętność bojowa.")
 		return
+	var before := _presentation_controller.resource_snapshot(_session.player, _enemy)
 	_resolve_turn(
 		_engine.player_use_skill(skill_id),
 		"Używasz: %s (-%d Many)." % [skill.display_name, skill.mana_cost],
+		before,
 	)
 
 
 func _use_double_weave() -> void:
+	if not _can_accept_action():
+		return
 	if skill_selector.item_count == 0 or second_spell_selector.item_count == 0:
 		_append_log("Podwójny Splot wymaga dwóch zaklęć Maga.")
 		return
@@ -250,9 +283,11 @@ func _use_double_weave() -> void:
 	)
 	var first = SkillCatalogClass.get_definition(first_skill_id)
 	var second = SkillCatalogClass.get_definition(second_skill_id)
+	var before := _presentation_controller.resource_snapshot(_session.player, _enemy)
 	_resolve_turn(
 		_engine.player_use_skill_pair(first_skill_id, second_skill_id),
 		"Splatasz zaklęcia: %s + %s." % [first.display_name, second.display_name],
+		before,
 	)
 
 
@@ -266,10 +301,13 @@ func _on_second_spell_selected(_index: int) -> void:
 
 
 func _use_potion() -> void:
+	if not _can_accept_action():
+		return
 	if consumable_selector.item_count == 0:
 		_append_log("Nie masz przedmiotu leczącego.")
 		return
 	var item_id := str(consumable_selector.get_item_metadata(consumable_selector.selected))
+	var before := _presentation_controller.resource_snapshot(_session.player, _enemy)
 	if not _session.player.inventory.remove_item(item_id):
 		_append_log("Nie masz wybranego przedmiotu leczącego.")
 		return
@@ -284,7 +322,8 @@ func _use_potion() -> void:
 	)
 	_resolve_turn(
 		_engine.player_use_restoration(heal_amount, mana_amount),
-		"Używasz: %s." % definition.display_name
+		"Używasz: %s." % definition.display_name,
+		before,
 	)
 
 
@@ -293,10 +332,13 @@ func _on_consumable_selected(_index: int) -> void:
 
 
 func _flee() -> void:
-	_resolve_turn(_engine.player_flee(), "Próbujesz uciec.")
+	if not _can_accept_action():
+		return
+	var before := _presentation_controller.resource_snapshot(_session.player, _enemy)
+	_resolve_turn(_engine.player_flee(), "Próbujesz uciec.", before)
 
 
-func _resolve_turn(report: Dictionary, action_text: String) -> void:
+func _resolve_turn(report: Dictionary, action_text: String, before: Dictionary = {}) -> void:
 	if report.is_empty():
 		return
 	var error := str(report.get("error", ""))
@@ -304,6 +346,7 @@ func _resolve_turn(report: Dictionary, action_text: String) -> void:
 		_append_log(error)
 		_render()
 		return
+	_set_actions_enabled(false)
 	var rolled_dice: Array = report.get("fate_dice", [])
 	if not rolled_dice.is_empty():
 		_last_fate_dice.assign(rolled_dice)
@@ -366,8 +409,29 @@ func _resolve_turn(report: Dictionary, action_text: String) -> void:
 	if report.get("player_regenerated", 0) > 0:
 		_append_log("Regenerujesz %d PŻ." % report.player_regenerated)
 	_render()
+	var after := _presentation_controller.resource_snapshot(_session.player, _enemy)
+	var events := CombatPresentationPlanClass.from_report(report)
+	if _presentation_controller != null:
+		_presentation_controller.present(events, before, after, _round_number)
+	else:
+		_finish_presented_turn()
+
+
+func _finish_presented_turn() -> void:
 	if _engine.result != CombatEngineClass.ONGOING:
 		_finish_battle()
+	else:
+		_set_actions_enabled(true)
+		attack_button.grab_focus()
+
+
+func _can_accept_action() -> bool:
+	return (
+		_battle_actions_enabled
+		and _engine != null
+		and _engine.result == CombatEngineClass.ONGOING
+		and (_presentation_controller == null or not _presentation_controller.is_busy())
+	)
 
 
 func _damage_type_suffix(damage_type: String) -> String:
@@ -383,10 +447,16 @@ func _finish_battle() -> void:
 	result_panel.visible = true
 	match _engine.result:
 		CombatEngineClass.VICTORY:
+			result_title_label.text = "ZWYCIĘSTWO"
+			result_title_label.add_theme_color_override("font_color", Color(0.52, 0.9, 0.66))
 			result_label.text = _resolve_victory()
 		CombatEngineClass.DEFEAT:
+			result_title_label.text = "PORAŻKA"
+			result_title_label.add_theme_color_override("font_color", Color(0.96, 0.4, 0.48))
 			result_label.text = _resolve_defeat()
 		CombatEngineClass.FLED:
+			result_title_label.text = "ODWRÓT"
+			result_title_label.add_theme_color_override("font_color", Color(0.74, 0.78, 0.86))
 			if _context == "dungeon":
 				result_label.text = "Ucieczka udana. Wycofujesz się z lochu z dotychczasowym łupem."
 			else:
@@ -401,6 +471,8 @@ func _finish_battle() -> void:
 		if bool(boss_respawn.get("started", false)):
 			result_label.text += "\n%s" % boss_respawn.message
 	_render()
+	if _presentation_controller != null:
+		_presentation_controller.reveal_result(result_panel)
 	continue_button.grab_focus()
 
 
@@ -496,6 +568,11 @@ func _render() -> void:
 	player_hp_bar.max_value = player.stats.max_hp
 	player_hp_bar.value = player.stats.current_hp
 	player_hp_bar.tooltip_text = "PŻ %d/%d" % [player.stats.current_hp, player.stats.max_hp]
+	player_mana_bar.max_value = maxi(1, player.stats.max_mana)
+	player_mana_bar.value = player.stats.current_mana
+	player_mana_bar.tooltip_text = (
+		"Mana %d/%d" % [player.stats.current_mana, player.stats.max_mana]
+	)
 	player_effect_label.text = _player_effect_summary()
 	enemy_name_label.text = _enemy.display_name
 	if _uses_surface_weather():
@@ -585,17 +662,8 @@ func _render_fate_panel() -> void:
 			mirror_status,
 		]
 	)
-	for die_label in dice_row.get_children():
-		die_label.free()
-	for value: int in _last_fate_dice:
-		var die_label := Label.new()
-		die_label.text = "[ %d ]" % value
-		die_label.add_theme_color_override("font_color", Color(0.94, 0.28, 0.43))
-		die_label.tooltip_text = "Tymczasowa kość k6 — wynik %d" % value
-		dice_row.add_child(die_label)
-	fate_outcome_label.text = (
-		"RZUT OCZEKUJE" if _last_fate_outcome.is_empty() else _last_fate_outcome
-	)
+	if _presentation_controller != null:
+		_presentation_controller.render_dice(_last_fate_dice, _last_fate_outcome)
 
 
 func _set_actions_enabled(enabled: bool) -> void:
@@ -607,6 +675,7 @@ func _set_actions_enabled(enabled: bool) -> void:
 	_render_double_weave_action()
 	potion_button.disabled = not enabled or consumable_selector.item_count == 0
 	flee_button.disabled = not enabled
+	motion_toggle_button.disabled = not enabled
 
 
 func _refresh_skill_selector() -> void:
@@ -673,6 +742,13 @@ func _refresh_skill_cards() -> void:
 		var error := _engine.get_skill_use_error(skill.skill_id)
 		var card := skill_cards.get_child(index) as CombatActionCardClass
 		var description: String = skill.description
+		var visual_state := "GOTOWA"
+		if not _battle_actions_enabled:
+			visual_state = (
+				"ZAKOŃCZONA" if _engine.result != CombatEngineClass.ONGOING else "W TOKU"
+			)
+		elif not error.is_empty():
+			visual_state = "BLOKADA"
 		if not error.is_empty():
 			description += "\n\nNiedostępne: %s" % error
 		(
@@ -686,6 +762,7 @@ func _refresh_skill_cards() -> void:
 				_battle_actions_enabled and error.is_empty(),
 				accent,
 				_skill_badge(skill),
+				visual_state,
 			)
 		)
 

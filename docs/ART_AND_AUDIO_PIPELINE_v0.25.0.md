@@ -181,3 +181,23 @@ cycles. The ordinary combat engine still resolves the player and immediate
 enemy response synchronously; the HUD does not invent an initiative mechanic.
 Portraits, card illustrations, status icons, animations, and audio remain
 placeholders subject to the approval gate.
+
+## Stage 9A combat presentation contract
+
+The first combat-feel pass is deliberately data-driven. `CombatEngine` remains
+the sole source of combat results. `CombatPresentationPlan` converts its report
+into a read-only sequence, while `CombatPresentationController` is allowed to
+animate only that sequence. Presentation code must never roll combat dice,
+recalculate damage, award rewards, advance the round, or mutate a save.
+
+The current reusable vocabulary includes turn focus, action input lock, short
+combatant lunges, hit flashes, floating damage/heal/block/dodge feedback,
+smoothed HP and Mana bars, and a stable result reveal. Pierrot's visual dice
+support one, two, or three engine-provided d6 results and use no presentation
+RNG. Skill cards expose ready, blocked, playing, and completed states.
+
+A player-facing reduced-motion toggle resolves the same queue immediately.
+Headless tests select this mode by default so gameplay assertions remain
+synchronous. This foundation intentionally uses procedural UI and existing
+approved static art; final VFX sprites, card illustrations, audio, and character
+animation still require preview and owner approval.

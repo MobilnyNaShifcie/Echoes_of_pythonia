@@ -2,6 +2,7 @@ class_name CombatActionCard
 extends Button
 
 var action_id := ""
+var state_text := "GOTOWA"
 
 
 func configure(
@@ -13,9 +14,14 @@ func configure(
 	available: bool,
 	accent: Color,
 	badge_text := "AKCJA",
+	visual_state := "GOTOWA",
 ) -> void:
 	action_id = identifier
-	text = "◇  SLOT %d  •  %s\n%s\n%s" % [position, badge_text, display_name.to_upper(), cost_text]
+	state_text = visual_state
+	text = (
+		"◇  SLOT %d  •  %s\n%s\n%s\n[%s]"
+		% [position, badge_text, display_name.to_upper(), cost_text, visual_state]
+	)
 	tooltip_text = description
 	disabled = not available
 	add_theme_color_override("font_color", Color(0.9, 0.93, 0.97))
@@ -24,9 +30,14 @@ func configure(
 	add_theme_stylebox_override("normal", _card_style(accent, 0.55, Color(0.025, 0.04, 0.065)))
 	add_theme_stylebox_override("hover", _card_style(accent, 0.95, Color(0.045, 0.065, 0.1)))
 	add_theme_stylebox_override("pressed", _card_style(accent, 1.0, Color(0.06, 0.075, 0.11)))
+	add_theme_stylebox_override("focus", _card_style(accent, 1.0, Color(0.04, 0.06, 0.095)))
 	add_theme_stylebox_override(
 		"disabled", _card_style(Color(0.25, 0.29, 0.36), 0.45, Color(0.02, 0.027, 0.04))
 	)
+
+
+func visual_state() -> String:
+	return state_text
 
 
 func _card_style(border_color: Color, border_alpha: float, background: Color) -> StyleBoxFlat:

@@ -427,6 +427,14 @@ matching terminal v0.24.7. UI only presents the returned result. No new durable
 state or schema bump was needed, and final art, audio, and advanced animation
 remain deliberately unstarted. The complete matrix is documented in
 `STAGE_8_PARITY_REPORT_v0.25.0.md`.
+Stage 9A begins the production presentation layer without reopening migrated
+combat rules. A pure `CombatPresentationPlan` maps the existing combat report
+to UI events, and `CombatPresentationController` plays those events with input
+locking, turn focus, combatant feedback, smooth resource bars, and a stable
+result reveal. Pierrot dice display the engine-provided 1d6/2d6/3d6 values and
+never roll presentation RNG. Reduced motion resolves the same queue instantly
+and is the default for headless regression tests. No save schema, balance,
+reward, or audio behavior changes in this slice.
 Their calendar periods, generated definitions, objective progress, and claimed
 rewards survive reloads; existing schema-v8 files receive a safe empty board
 before the next period is generated.
