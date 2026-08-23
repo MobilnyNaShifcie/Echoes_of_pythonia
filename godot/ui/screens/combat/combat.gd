@@ -6,11 +6,15 @@ signal finished(context: String, result: String)
 const AdventureServiceClass := preload("res://core/world/adventure_service.gd")
 const CombatEngineClass := preload("res://core/combat/combat_engine.gd")
 const CombatantVisualClass := preload("res://ui/components/combatant_visual/combatant_visual.gd")
+const CombatPresentationCatalogClass := preload(
+	"res://ui/presentation/combat_presentation_catalog.gd"
+)
 const ElementalResistancesClass := preload("res://core/combat/elemental_resistances.gd")
 const EnemyCatalogClass := preload("res://core/combat/enemy_catalog.gd")
 const GameSessionClass := preload("res://core/game/game_session.gd")
 const HunterComboCatalogClass := preload("res://core/combat/hunter_combo_catalog.gd")
 const ItemCatalogClass := preload("res://core/items/item_catalog.gd")
+const PlayerClassCatalogClass := preload("res://core/player/player_class_catalog.gd")
 const RegionCatalogClass := preload("res://core/world/region_catalog.gd")
 const RegionBossChallengeServiceClass := preload(
 	"res://core/world/region_boss_challenge_service.gd"
@@ -40,6 +44,7 @@ var _configuration_error := ""
 
 @onready var encounter_label: Label = %EncounterLabel
 @onready var weather_label: Label = %EnemyNameLabel
+@onready var battlefield_texture: TextureRect = %BattlefieldTexture
 @onready var battlefield_placeholder: Label = %BattlefieldPlaceholder
 @onready var player_visual: CombatantVisualClass = %PlayerVisual
 @onready var enemy_visual: CombatantVisualClass = %EnemyVisual
@@ -100,7 +105,7 @@ func _ready() -> void:
 	log_toggle_button.pressed.connect(_toggle_combat_log)
 	continue_button.pressed.connect(_continue)
 	_rng.randomize()
-	_configure_visual_placeholders()
+	_configure_presentations()
 	_render()
 	attack_button.grab_focus()
 
@@ -143,7 +148,7 @@ func configure(
 	_last_hunter_combo = ""
 	if is_node_ready():
 		combat_log.clear()
-		_configure_visual_placeholders()
+		_configure_presentations()
 		_append_log("Rozpoczyna się walka z: %s." % _enemy.display_name)
 		if not _enemy.weather_note.is_empty():
 			_append_log(_enemy.weather_note + ".")
@@ -159,11 +164,35 @@ func enemy_display_name() -> String:
 	return _enemy.display_name if _enemy != null else ""
 
 
-func _configure_visual_placeholders() -> void:
+func _configure_presentations() -> void:
 	if _session == null or _enemy == null:
 		return
-	player_visual.show_placeholder("BOHATER", _session.player.titled_display_name())
-	enemy_visual.show_placeholder("PRZECIWNIK", _enemy.display_name)
+	var background := CombatPresentationCatalogClass.battlefield_texture(
+		_session.current_location_id, _session.period_code(), _context
+	)
+	battlefield_texture.texture = background
+	battlefield_texture.visible = background != null
+	battlefield_placeholder.visible = background == null
+
+	var hero_texture := CombatPresentationCatalogClass.hero_texture(
+		_session.player.character_class_code
+	)
+	var hero_role := "BOHATER • %s" % _player_class_display_name().to_upper()
+	if hero_texture == null:
+		player_visual.show_placeholder(hero_role, _session.player.titled_display_name())
+	else:
+		player_visual.show_static(hero_texture, hero_role, _session.player.titled_display_name())
+
+	var opponent_texture := CombatPresentationCatalogClass.enemy_texture(_enemy.enemy_id)
+	if opponent_texture == null:
+		enemy_visual.show_placeholder("PRZECIWNIK", _enemy.display_name)
+	else:
+		enemy_visual.show_static(opponent_texture, "PRZECIWNIK", _enemy.display_name)
+
+
+func _player_class_display_name() -> String:
+	var definition = PlayerClassCatalogClass.get_definition(_session.player.character_class_code)
+	return definition.display_name if definition != null else "Nieznana klasa"
 
 
 func _toggle_combat_log() -> void:

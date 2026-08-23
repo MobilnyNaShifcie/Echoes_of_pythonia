@@ -135,6 +135,18 @@ show a temporary placeholder, a static `Texture2D`, or an instantiated animated
 static approved artwork can be connected first and replaced by rigged scenes
 later without changing the combat engine.
 
-No final image has been copied into the production asset tree in this slice.
-Battlefield selection and the asset catalog remain later integration work and
-must continue to follow the author approval gate above.
+The first approved static integration covers the Region 1 golden combat slice:
+
+- Zmierzchowe Równiny select their day or night background from the current
+  session time for surface expedition and region-boss combat,
+- Wilk uses its approved transparent combat illustration,
+- combatants without an integrated asset keep a named placeholder,
+- the hero asset is selected by `character_class_code`; Pierrot is never used
+  as a generic or default hero,
+- dungeon and prologue contexts do not reuse the surface background by
+  accident.
+
+`CombatPresentationCatalog` owns presentation lookup independently from combat
+rules. Adding a new static asset must not consume RNG or change an encounter.
+The approved files, provenance, rights status, and checksums are recorded in
+`godot/assets/ASSET_MANIFEST.md`.
