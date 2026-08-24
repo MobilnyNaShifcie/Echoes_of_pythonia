@@ -2,6 +2,16 @@
 
 ## [0.25.0-dev] — Pierwsza grywalna pętla w Godot 4
 
+- ukończono Stage 9D: walka i katalog korzystają ze wspólnej produkcyjnej karty
+  umiejętności z ilustracją, nazwą, kosztem, stanem, typem i oznaczeniem kości,
+- dodano zatwierdzone grafiki dla Potężnego Cięcia, Precyzyjnego Strzału,
+  Ognistego Pocisku i Pchnięcia Losu; pozostałe umiejętności zachowują jawne
+  placeholdery bez pożyczania cudzych obrazów,
+- Pchnięcie Losu pokazuje Lancę Losu bez kości w grafice. Wariant `1K6` i wynik
+  rzutu nadal wyświetla dynamicznie UI na podstawie raportu silnika,
+- automatyczny gate zamraża format i hashe golden slice, a regresje obejmują
+  wspólne źródło grafiki, clipping, katalog oraz układ Full HD i 1280×720;
+  mechanika walki i schema save `v18` pozostają bez zmian,
 - ukończono Stage 9C: tworzenie nowej gry zapisuje wybraną płeć bez zmiany
   statystyk, bohater pozostaje neutralnym Poszukiwaczem do poziomu 5, a walka
   i ekwipunek wybierają zatwierdzoną grafikę po klasie i płci,

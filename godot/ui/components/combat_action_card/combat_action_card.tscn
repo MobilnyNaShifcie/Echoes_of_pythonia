@@ -1,14 +1,183 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://ui/components/combat_action_card/combat_action_card.gd" id="1_script"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBox_placeholder"]
+bg_color = Color(0.025, 0.04, 0.065, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.36, 0.45, 0.58, 0.8)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_footer"]
+bg_color = Color(0.01, 0.018, 0.03, 0.9)
+border_width_top = 1
+border_color = Color(0.28, 0.36, 0.48, 0.65)
+
 [node name="CombatActionCard" type="Button"]
-custom_minimum_size = Vector2(176, 124)
+clip_contents = true
+custom_minimum_size = Vector2(168, 212)
 size_flags_vertical = 3
 focus_mode = 2
 mouse_default_cursor_shape = 2
-theme_override_font_sizes/font_size = 14
-text = "◇  KARTA 1\nUMIEJĘTNOŚĆ\n0 MANY"
+theme_override_font_sizes/font_size = 1
+text = "KARTA UMIEJĘTNOŚCI"
 alignment = 1
-autowrap_mode = 2
+clip_text = true
 script = ExtResource("1_script")
+
+[node name="Artwork" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="ArtworkTint" type="ColorRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.01, 0.018, 0.03, 0.28)
+
+[node name="Placeholder" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -42.0
+offset_right = 64.0
+offset_bottom = 42.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBox_placeholder")
+
+[node name="PlaceholderLabel" type="Label" parent="Placeholder"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.52, 0.61, 0.72, 1)
+theme_override_font_sizes/font_size = 11
+text = "ILUSTRACJA\nW PRZYGOTOWANIU"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Header" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 38.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 9
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 9
+
+[node name="Row" type="HBoxContainer" parent="Header"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="SlotLabel" type="Label" parent="Header/Row"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.68, 0.75, 0.84, 1)
+theme_override_font_sizes/font_size = 10
+text = "KARTA 01"
+
+[node name="Spacer" type="Control" parent="Header/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="BadgeLabel" type="Label" parent="Header/Row"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.75, 0.83, 0.94, 1)
+theme_override_font_sizes/font_size = 10
+text = "FIZYCZNE"
+
+[node name="Footer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -78.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBox_footer")
+
+[node name="Margin" type="MarginContainer" parent="Footer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 9
+theme_override_constants/margin_top = 7
+theme_override_constants/margin_right = 9
+theme_override_constants/margin_bottom = 7
+
+[node name="Content" type="VBoxContainer" parent="Footer/Margin"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 3
+
+[node name="TitleLabel" type="Label" parent="Footer/Margin/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.93, 0.95, 0.98, 1)
+theme_override_font_sizes/font_size = 13
+text = "UMIEJĘTNOŚĆ"
+text_overrun_behavior = 3
+
+[node name="Meta" type="HBoxContainer" parent="Footer/Margin/Content"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 6
+
+[node name="MechanicLabel" type="Label" parent="Footer/Margin/Content/Meta"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.85, 0.45, 0.66, 1)
+theme_override_font_sizes/font_size = 11
+text = "1K6"
+
+[node name="CostLabel" type="Label" parent="Footer/Margin/Content/Meta"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.68, 0.75, 0.84, 1)
+theme_override_font_sizes/font_size = 11
+text = "6 MANY"
+horizontal_alignment = 2
+
+[node name="StateLabel" type="Label" parent="Footer/Margin/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.55, 0.72, 0.9, 1)
+theme_override_font_sizes/font_size = 10
+text = "GOTOWA"
+horizontal_alignment = 2

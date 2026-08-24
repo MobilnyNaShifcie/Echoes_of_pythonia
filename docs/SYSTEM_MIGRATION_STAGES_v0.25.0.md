@@ -1035,6 +1035,31 @@ obrażeń i osobny silnik walki drużynowej pozostają wyłącznym zakresem 6F.
   465/465 testów GUT z 5053 asercjami, formatter, lint i bootstrap Godota.
   Stage 9C nie zmienia zasad walki, balansu ani ekonomii.
 
+### Etap 9D — karty umiejętności i golden slice (ukończony)
+
+- wspólny `CombatActionCard` prezentuje tę samą ilustrację umiejętności w walce
+  i katalogu, a sam generuje ramkę, nazwę, koszt Many, stan, typ działania oraz
+  oznaczenie `1K6/2K6/3K6`,
+- zatwierdzony golden slice obejmuje `Potężne Cięcie`, `Precyzyjny Strzał`,
+  `Ognisty Pocisk` i `Pchnięcie Losu`. Pozostałe 22 skille mają jawny
+  placeholder i nigdy nie pożyczają grafiki innej umiejętności,
+- ilustracje pokazują broń lub efekt zamiast sylwetki bohatera. Planowany wyjątek
+  `Błazeński Unik` może użyć sylwetki w ruchu; paleta wynika z klasy i mechaniki,
+  więc wszystkie karty nie są sztucznie barwione na czerwono,
+- `Pchnięcie Losu` pokazuje tylko Lancę Losu. UI wyświetla liczbę kości, a
+  istniejący engine i prezentacja 9A nadal odpowiadają za właściwy rzut i jego
+  animację po użyciu,
+- katalog zachowuje ukryty `ItemList` jako adapter istniejących testów i
+  nawigacji, ale widoczny interfejs składa się z przewijanych kart z podglądem
+  szczegółów także dla zablokowanych umiejętności,
+- gate PowerShell zamraża obecność, rozmiar i hashe czterech zatwierdzonych
+  źródeł, a GUT sprawdza przypisania, placeholdery, clipping, oba ekrany i
+  layout Full HD oraz `1280×720`,
+- Stage 9D nie zmienia zasad walki, balansu, RNG, ekonomii ani schema save `v18`,
+- checkpoint zweryfikowano pełnym baseline'em: 534 testy Pythona i 8 subtestów,
+  470/470 testów GUT z 5131 asercjami, formatterem, lintem, walidatorami assetów
+  oraz bootstrapem Godota na izolowanej kopii projektu.
+
 ## Kryterium ukończenia etapu
 
 Etap jest ukończony, gdy reguły zgadzają się z wersją terminalową, ekran da się

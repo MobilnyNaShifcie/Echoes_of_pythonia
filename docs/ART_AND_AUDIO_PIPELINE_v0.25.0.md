@@ -290,3 +290,20 @@ checks for dimensions, transparent margins, hidden RGB, and bright low-alpha
 edges. Supported 1920×1080 and 1280×720 layouts keep every approved base hero
 inside its combat stage. No item footprint, artwork choice, or gender changes
 combat, inventory-capacity, economy, or reward rules.
+
+## Stage 9D skill-card golden-slice contract
+
+Skill-card artwork communicates the weapon, projectile, element, movement or
+result of the ability rather than repeating the hero portrait. `Błazeński Unik`
+is the sole planned silhouette exception because movement is the mechanic.
+Class and effect determine the palette; Pierrot's magenta is not a global card
+filter. `Pchnięcie Losu` shows the Fate Lance only, while the existing UI rolls
+and displays its engine-provided die result after activation.
+
+Approved source art is an opaque 1086×1448 PNG in a 3:4 composition with no
+baked frame, copy, Mana cost, state, rarity or dice count. Godot owns all those
+layers. The shared card component uses the same `SkillDefinition.card_art` in
+combat and the skill catalogue, clips it to the card, and exposes a named
+placeholder for every unfinished skill. It never borrows another ability's
+illustration. The four-image slice and automated gate are specified in
+`SKILL_CARD_GOLDEN_SLICE_v0.25.0.md`.

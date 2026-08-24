@@ -709,7 +709,7 @@ autowrap_mode = 2
 [node name="SkillCardsScroll" type="ScrollContainer" parent="Page/Lower/ActionsDock/Actions"]
 unique_name_in_owner = true
 visible = false
-custom_minimum_size = Vector2(0, 112)
+custom_minimum_size = Vector2(0, 216)
 layout_mode = 2
 horizontal_scroll_mode = 2
 vertical_scroll_mode = 0

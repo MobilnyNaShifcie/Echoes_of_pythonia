@@ -11,6 +11,12 @@ const HunterComboCatalogClass := preload("res://core/combat/hunter_combo_catalog
 const PlayerClassCatalogClass := preload("res://core/player/player_class_catalog.gd")
 const SkillCatalogClass := preload("res://core/skills/skill_catalog.gd")
 const SkillDefinitionClass := preload("res://core/skills/skill_definition.gd")
+const COMBAT_ACTION_CARD_SCENE := preload(
+	"res://ui/components/combat_action_card/combat_action_card.tscn"
+)
+const CombatActionCardClass := preload(
+	"res://ui/components/combat_action_card/combat_action_card.gd"
+)
 const TalentProgressionServiceClass := preload(
 	"res://core/progression/talent_progression_service.gd"
 )
@@ -22,6 +28,7 @@ var _preview_class_code := "warrior"
 @onready var summary_label: Label = %SummaryLabel
 @onready var path_selector: OptionButton = %PathSelector
 @onready var skill_list: ItemList = %SkillList
+@onready var skill_cards: HFlowContainer = %SkillCards
 @onready var skill_name_label: Label = %SkillNameLabel
 @onready var skill_meta_label: Label = %SkillMetaLabel
 @onready var skill_description_label: Label = %SkillDescriptionLabel
@@ -71,6 +78,7 @@ func _render() -> void:
 	var player := _session.player
 	class_label.text = "Droga: %s  •  Poziom %d" % [player.character_class_name, player.level]
 	skill_list.clear()
+	_clear_skill_cards()
 	var skills := SkillCatalogClass.get_preview_skills_for_class(_preview_class_code)
 	if skills.is_empty():
 		summary_label.text = "Brak umiejętności w wybranym katalogu."
@@ -93,6 +101,35 @@ func _render() -> void:
 		skill_list.set_item_metadata(index, skill.skill_id)
 		if not unlocked:
 			skill_list.set_item_custom_fg_color(index, Color(0.48, 0.56, 0.66))
+		var card := COMBAT_ACTION_CARD_SCENE.instantiate() as CombatActionCardClass
+		skill_cards.add_child(card)
+		var visual_state := "ODBLOKOWANA"
+		if player.character_class_code != skill.character_class_code:
+			visual_state = "PODGLĄD"
+		elif not unlocked:
+			visual_state = (
+				"TALENT" if skill.unlock_source == "talent" else "POZIOM %d" % skill.unlock_level
+			)
+		(
+			card
+			. configure(
+				skill.skill_id,
+				index + 1,
+				skill.display_name,
+				"%d MANY" % skill.mana_cost,
+				skill.description,
+				unlocked,
+				CombatActionCardClass.accent_for_class(skill.character_class_code),
+				CombatActionCardClass.badge_for_skill(skill),
+				visual_state,
+				{
+					"artwork": skill.card_art,
+					"mechanic": skill.dice_notation(),
+					"inspection_mode": true,
+				},
+			)
+		)
+		card.pressed.connect(_select_skill_card.bind(index))
 	var preview_definition = PlayerClassCatalogClass.get_definition(_preview_class_code)
 	if player.character_class_code == _preview_class_code:
 		if _preview_class_code == "hunter":
@@ -145,6 +182,11 @@ func _show_skill_details(index: int) -> void:
 	if _session == null or index < 0 or index >= skill_list.item_count:
 		return
 	var skill_id := str(skill_list.get_item_metadata(index))
+	skill_list.select(index)
+	for card_index in skill_cards.get_child_count():
+		var card := skill_cards.get_child(card_index) as CombatActionCardClass
+		if card != null:
+			card.set_selected(card_index == index)
 	var skill: SkillDefinitionClass = SkillCatalogClass.get_definition(skill_id)
 	var player := _session.player
 	skill_name_label.text = skill.display_name
@@ -166,6 +208,15 @@ func _show_skill_details(index: int) -> void:
 	else:
 		skill_status_label.text = "ODBLOKOWANA — dostępna w panelu akcji podczas walki"
 		skill_status_label.modulate = Color(0.42, 0.78, 0.56)
+
+
+func _select_skill_card(index: int) -> void:
+	_show_skill_details(index)
+
+
+func _clear_skill_cards() -> void:
+	for child in skill_cards.get_children():
+		child.free()
 
 
 func _show_empty_details() -> void:

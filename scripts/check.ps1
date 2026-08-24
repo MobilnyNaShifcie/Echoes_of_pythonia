@@ -52,7 +52,14 @@ $env:LOCALAPPDATA = Join-Path $validationProfile 'AppData\Local'
 New-Item -ItemType Directory -Path $env:APPDATA, $env:LOCALAPPDATA -Force | Out-Null
 
 Write-Host 'Validating golden-slice item assets...'
-& (Join-Path $PSScriptRoot 'check-item-assets.ps1')
+& powershell -NoProfile -ExecutionPolicy Bypass -File `
+    (Join-Path $PSScriptRoot 'check-item-assets.ps1')
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+Write-Host 'Validating golden-slice skill-card assets...'
+& powershell -NoProfile -ExecutionPolicy Bypass -File `
+    (Join-Path $PSScriptRoot 'check-skill-card-assets.ps1')
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
 Write-Host 'Checking GDScript formatting...'
 & $gdformatExecutable --check @gdscriptPaths

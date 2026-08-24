@@ -1,12 +1,14 @@
-[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://core/skills/skill_definition.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/skills/pierrot/fate_thrust.png" id="2_art"]
 
 [resource]
 script = ExtResource("1")
 skill_id = "fate_thrust"
 display_name = "Pchnięcie Losu"
 character_class_code = "pierrot"
+card_art = ExtResource("2_art")
 unlock_level = 5
 mana_cost = 5
 description = "Atak Lancą Losu i rzut 1k6. Każda ścianka zmienia rezultat."

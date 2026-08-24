@@ -769,27 +769,13 @@ func _refresh_skill_cards() -> void:
 				accent,
 				_skill_badge(skill),
 				visual_state,
+				{"artwork": skill.card_art, "mechanic": skill.dice_notation()},
 			)
 		)
 
 
 func _skill_badge(skill) -> String:
-	var badge := "FIZYCZNE"
-	if skill.effect.begins_with("fate_") or skill.character_class_code == "pierrot":
-		badge = "LOS"
-	elif skill.effect in ["guard", "defense_up", "dodge_up", "provoke"]:
-		badge = "OBRONA"
-	else:
-		match skill.damage_type:
-			"fire":
-				badge = "OGIEŃ"
-			"water":
-				badge = "WODA"
-			"lightning":
-				badge = "BŁYSK"
-			"earth":
-				badge = "ZIEMIA"
-	return badge
+	return CombatActionCardClass.badge_for_skill(skill)
 
 
 func _skill_cards_need_rebuild(skills: Array) -> bool:
@@ -808,16 +794,7 @@ func _clear_skill_cards() -> void:
 
 
 func _class_accent_color() -> Color:
-	match _session.player.character_class_code:
-		"warrior":
-			return Color(0.78, 0.39, 0.3)
-		"hunter":
-			return Color(0.28, 0.67, 0.74)
-		"mage":
-			return Color(0.55, 0.43, 0.86)
-		"pierrot":
-			return Color(0.91, 0.22, 0.39)
-	return Color(0.44, 0.57, 0.72)
+	return CombatActionCardClass.accent_for_class(_session.player.character_class_code)
 
 
 func _class_resource_summary() -> String:

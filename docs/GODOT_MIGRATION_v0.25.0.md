@@ -450,6 +450,13 @@ smithing, storage, loot, and hover details; UI-generated frames and deterministi
 visual footprints do not change terminal weight or capacity rules. Save schema
 v18 adds only the explicit `gender_code`; legacy Godot saves and read-only v15
 imports remain valid with `unspecified` rather than a guessed appearance.
+Stage 9D replaces text-only skill actions with one shared production card used
+by combat and the skill catalogue. Four approved 3:4 illustrations cover the
+base level-five abilities of Warrior, Hunter, Mage and Pierrot. All unfinished
+skills retain explicit placeholders rather than reusing unrelated art. Card
+frames, names, Mana, state, effect and dice-count badges remain UI-owned, while
+Pierrot's actual dice results continue to come only from the combat report. No
+combat rule, balance value, RNG stream or save-schema field changes.
 Their calendar periods, generated definitions, objective progress, and claimed
 rewards survive reloads; existing schema-v8 files receive a safe empty board
 before the next period is generated.

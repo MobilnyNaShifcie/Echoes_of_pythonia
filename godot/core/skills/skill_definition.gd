@@ -4,6 +4,7 @@ extends Resource
 @export var skill_id := ""
 @export var display_name := ""
 @export var character_class_code := ""
+@export var card_art: Texture2D
 @export var unlock_level := 0
 @export var mana_cost := 0
 @export_multiline var description := ""
@@ -34,3 +35,14 @@ func is_offensive() -> bool:
 
 func is_combat_ready() -> bool:
 	return execution_kind in ["generic", "fate"]
+
+
+func dice_notation() -> String:
+	match effect:
+		"fate_1d6", "fate_feint":
+			return "1K6"
+		"fate_2d6":
+			return "2K6"
+		"fate_3d6", "fate_va_banque":
+			return "3K6"
+	return ""

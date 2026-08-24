@@ -79,7 +79,7 @@ size_flags_vertical = 3
 theme_override_constants/separation = 16
 
 [node name="CatalogPanel" type="PanelContainer" parent="Page/Body"]
-custom_minimum_size = Vector2(510, 0)
+custom_minimum_size = Vector2(620, 0)
 layout_mode = 2
 
 [node name="Content" type="VBoxContainer" parent="Page/Body/CatalogPanel"]
@@ -97,9 +97,23 @@ layout_mode = 2
 
 [node name="SkillList" type="ItemList" parent="Page/Body/CatalogPanel/Content"]
 unique_name_in_owner = true
+visible = false
+layout_mode = 2
+allow_reselect = true
+
+[node name="SkillCardsScroll" type="ScrollContainer" parent="Page/Body/CatalogPanel/Content"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-allow_reselect = true
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="SkillCards" type="HFlowContainer" parent="Page/Body/CatalogPanel/Content/SkillCardsScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
 
 [node name="DetailsPanel" type="PanelContainer" parent="Page/Body"]
 layout_mode = 2
