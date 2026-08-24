@@ -1,0 +1,111 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://ui/screens/main_menu/main_menu.gd" id="1_menu"]
+
+[node name="MainMenuScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_menu")
+
+[node name="Layout" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 64
+
+[node name="Introduction" type="VBoxContainer" parent="Layout"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="ChapterLabel" type="Label" parent="Layout/Introduction"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
+theme_override_font_sizes/font_size = 18
+text = "ROZDZIAŁ I  •  ECHA PRZEBUDZENIA"
+
+[node name="Heading" type="Label" parent="Layout/Introduction"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.93, 0.95, 0.98, 1)
+theme_override_font_sizes/font_size = 40
+text = "Echa starego świata\nbudzą się na nowo."
+
+[node name="Description" type="Label" parent="Layout/Introduction"]
+custom_minimum_size = Vector2(520, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.68, 0.78, 1)
+theme_override_font_sizes/font_size = 18
+text = "Varenhold czeka na kolejnego Poszukiwacza.\nUtwórz bohatera albo wróć do zapisanej opowieści."
+autowrap_mode = 2
+
+[node name="MenuPanel" type="PanelContainer" parent="Layout"]
+custom_minimum_size = Vector2(430, 0)
+layout_mode = 2
+
+[node name="Menu" type="VBoxContainer" parent="Layout/MenuPanel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Layout/MenuPanel/Menu"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.92, 0.96, 1)
+theme_override_font_sizes/font_size = 28
+text = "Główne menu"
+
+[node name="Hint" type="Label" parent="Layout/MenuPanel/Menu"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.48, 0.56, 0.66, 1)
+text = "Wybierz dalszy krok."
+
+[node name="Spacer" type="Control" parent="Layout/MenuPanel/Menu"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="ContinueButton" type="Button" parent="Layout/MenuPanel/Menu"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "Kontynuuj grę"
+alignment = 0
+
+[node name="NewGameButton" type="Button" parent="Layout/MenuPanel/Menu"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Nowa gra"
+alignment = 0
+
+[node name="LoadButton" type="Button" parent="Layout/MenuPanel/Menu"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Wczytaj zapis utworzony przez wersję Godot."
+disabled = true
+text = "Wczytaj grę"
+alignment = 0
+
+[node name="SaveButton" type="Button" parent="Layout/MenuPanel/Menu"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Zapisz aktywną sesję w wybranym slocie Godota."
+disabled = true
+text = "Zapisz grę"
+alignment = 0
+
+[node name="ProjectStatusButton" type="Button" parent="Layout/MenuPanel/Menu"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "Stan projektu"
+alignment = 0
+
+[node name="ExitButton" type="Button" parent="Layout/MenuPanel/Menu"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Wyjście"
+alignment = 0

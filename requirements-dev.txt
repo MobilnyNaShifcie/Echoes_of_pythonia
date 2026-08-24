@@ -1,0 +1,5 @@
+# Python regression suite for the legacy implementation
+pytest==9.1.1
+
+# Formatting and linting for the Godot 4 GDScript codebase
+gdtoolkit==4.5.0

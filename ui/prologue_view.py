@@ -14,7 +14,7 @@ def show_prologue_opening() -> None:
         "Z lasów znikają całe patrole, a stare ruiny znów pojawiają się\n"
         "w raportach Gildii.\n\n"
         "Mimo to do Varenhold każdego dnia przybywają nowi ludzie.\n"
-        "Jedni szukają Golda. Inni sławy. Niektórzy po prostu nie mają\n"
+        "Jedni szukają złota. Inni sławy. Niektórzy po prostu nie mają\n"
         "już dokąd wrócić.\n\n"
         "Ty jesteś jednym z nich."
     )
@@ -24,7 +24,7 @@ def show_prologue_wagon() -> None:
     print_header(); print(); print("DROGA DO VARENHOLD"); print("-" * 58)
     print(
         "Pod wieczór karawana zatrzymuje się przy rozbitym królewskim wozie.\n"
-        "Strażnicy nie żyją. Skrzynie z Goldem są nietknięte.\n\n"
+        "Strażnicy nie żyją. Skrzynie ze złotem są nietknięte.\n\n"
         "Brakuje tylko jednej, niewielkiej skrzyni.\n\n"
         "Woźnica spogląda na ślady prowadzące w pole.\n"
         "— Jeśli zostawili złoto, to nie pieniędzy szukali.\n\n"
@@ -68,7 +68,7 @@ def show_prologue_gate() -> None:
     print(
         "Przed bramą strażnicy przeszukują karawanę. Jeden z podróżnych\n"
         "zostaje zatrzymany, gdy spod jego płaszcza wypada stara księga.\n\n"
-        "— Handel wiedzą bojową jest zakazany na mocy królewskiego edyktu.\n"
+        "— Handel wiedzą bojową jest zakazany na mocy królewskiego dekretu.\n"
         "— To tylko stary manuskrypt!\n"
         "— W takim razie nie będziesz miał nic przeciwko, jeśli go spalimy.\n\n"
         "Nikt w kolejce nie protestuje. Ty zapamiętujesz płomień."

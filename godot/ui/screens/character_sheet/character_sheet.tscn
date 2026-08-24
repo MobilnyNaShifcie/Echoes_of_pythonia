@@ -1,0 +1,318 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://ui/screens/character_sheet/character_sheet.gd" id="1_sheet"]
+
+[sub_resource type="StyleBoxFlat" id="AttributePointsStyle"]
+bg_color = Color(0.09, 0.075, 0.035, 0.78)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.72, 0.54, 0.21, 0.88)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 12.0
+content_margin_bottom = 6.0
+
+[node name="CharacterSheetScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sheet")
+
+[node name="Page" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 14
+
+[node name="Heading" type="HBoxContainer" parent="Page"]
+layout_mode = 2
+
+[node name="Identity" type="VBoxContainer" parent="Page/Heading"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="Eyebrow" type="Label" parent="Page/Heading/Identity"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
+theme_override_font_sizes/font_size = 16
+text = "KARTA BOHATERA"
+
+[node name="HeroNameLabel" type="Label" parent="Page/Heading/Identity"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.93, 0.95, 0.98, 1)
+theme_override_font_sizes/font_size = 32
+text = "Bohater"
+
+[node name="ProgressionLabel" type="Label" parent="Page/Heading/Identity"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.68, 0.78, 1)
+text = "Poszukiwacz  •  Poziom 0"
+
+[node name="BackButton" type="Button" parent="Page/Heading"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(190, 0)
+layout_mode = 2
+size_flags_vertical = 4
+text = "Cofnij"
+
+[node name="EquipmentButton" type="Button" parent="Page/Heading"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(210, 0)
+layout_mode = 2
+size_flags_vertical = 4
+text = "Ekwipunek"
+
+[node name="SkillsButton" type="Button" parent="Page/Heading"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_vertical = 4
+text = "Umiejętności"
+
+[node name="ProgressionButton" type="Button" parent="Page/Heading"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(190, 0)
+layout_mode = 2
+size_flags_vertical = 4
+text = "Talenty i pasywy"
+
+[node name="BodyScroll" type="ScrollContainer" parent="Page"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Columns" type="HBoxContainer" parent="Page/BodyScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="StatsPanel" type="PanelContainer" parent="Page/BodyScroll/Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Content" type="VBoxContainer" parent="Page/BodyScroll/Columns/StatsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Page/BodyScroll/Columns/StatsPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
+theme_override_font_sizes/font_size = 21
+text = "Statystyki główne"
+
+[node name="Separator" type="HSeparator" parent="Page/BodyScroll/Columns/StatsPanel/Content"]
+layout_mode = 2
+
+[node name="PrimaryStatsLabel" type="Label" parent="Page/BodyScroll/Columns/StatsPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.82, 0.86, 0.92, 1)
+text = "PŻ      20 / 20\nMANA    0 / 0\nATK     3\nDEF     2\nUNIK    0.0%"
+
+[node name="AttributesPanel" type="PanelContainer" parent="Page/BodyScroll/Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Content" type="VBoxContainer" parent="Page/BodyScroll/Columns/AttributesPanel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="AttributeHeader" type="HBoxContainer" parent="Page/BodyScroll/Columns/AttributesPanel/Content"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
+theme_override_font_sizes/font_size = 21
+text = "Atrybuty"
+
+[node name="AttributePointsBadge" type="PanelContainer" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeHeader"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("AttributePointsStyle")
+
+[node name="Content" type="HBoxContainer" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeHeader/AttributePointsBadge"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeHeader/AttributePointsBadge/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.76, 0.83, 1)
+theme_override_font_sizes/font_size = 13
+text = "WOLNE PUNKTY"
+
+[node name="AttributePointsValue" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeHeader/AttributePointsBadge/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.78, 0.36, 1)
+theme_override_font_sizes/font_size = 18
+text = "0"
+horizontal_alignment = 2
+
+[node name="Separator" type="HSeparator" parent="Page/BodyScroll/Columns/AttributesPanel/Content"]
+layout_mode = 2
+
+[node name="AttributeGrid" type="GridContainer" parent="Page/BodyScroll/Columns/AttributesPanel/Content"]
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 6
+columns = 3
+
+[node name="StrengthName" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Siła"
+[node name="StrengthValue" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+[node name="StrengthButton" type="Button" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(54, 32)
+layout_mode = 2
+text = "+1"
+
+[node name="VitalityName" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Witalność"
+[node name="VitalityValue" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+[node name="VitalityButton" type="Button" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(54, 32)
+layout_mode = 2
+text = "+1"
+
+[node name="IntelligenceName" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Inteligencja"
+[node name="IntelligenceValue" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+[node name="IntelligenceButton" type="Button" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(54, 32)
+layout_mode = 2
+text = "+1"
+
+[node name="DexterityName" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Zręczność"
+[node name="DexterityValue" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+[node name="DexterityButton" type="Button" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(54, 32)
+layout_mode = 2
+text = "+1"
+
+[node name="EnduranceName" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Wytrzymałość"
+[node name="EnduranceValue" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+[node name="EnduranceButton" type="Button" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(54, 32)
+layout_mode = 2
+text = "+1"
+
+[node name="LuckName" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Szczęście (Pierrot)"
+[node name="LuckValue" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+[node name="LuckButton" type="Button" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(54, 32)
+layout_mode = 2
+disabled = true
+text = "+1"
+
+[node name="LuckHint" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.48, 0.56, 0.66, 1)
+theme_override_font_sizes/font_size = 14
+text = "Szczęście odblokowuje droga Pierrota."
+autowrap_mode = 2
+
+[node name="AttributeFeedbackLabel" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42, 0.78, 0.56, 1)
+theme_override_font_sizes/font_size = 14
+text = "Wybierz +1, aby wydać wolny punkt."
+autowrap_mode = 2
+
+[node name="ClassButton" type="Button" parent="Page/BodyScroll/Columns/AttributesPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Zobacz Drogi bohatera"
+
+[node name="EquipmentPanel" type="PanelContainer" parent="Page/BodyScroll/Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Content" type="VBoxContainer" parent="Page/BodyScroll/Columns/EquipmentPanel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Page/BodyScroll/Columns/EquipmentPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
+theme_override_font_sizes/font_size = 21
+text = "Podgląd wyposażenia"
+
+[node name="Separator" type="HSeparator" parent="Page/BodyScroll/Columns/EquipmentPanel/Content"]
+layout_mode = 2
+
+[node name="EquipmentLabel" type="Label" parent="Page/BodyScroll/Columns/EquipmentPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.82, 0.86, 0.92, 1)
+text = "Broń\nStary Miecz +0\n\nZbroja\nZużyta Skórzana Zbroja +0"
+autowrap_mode = 2

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/skills/skill_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+skill_id = "defensive_stance"
+display_name = "Postawa Obronna"
+character_class_code = "warrior"
+unlock_level = 9
+mana_cost = 7
+description = "Zmniejsza otrzymywane obrażenia o 40% przez 2 następne ataki przeciwnika."
+effect = "guard"
+effect_value = 40
+effect_duration = 2
+guaranteed_hit = true

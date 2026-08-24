@@ -1,0 +1,111 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://ui/screens/load_game/load_game.gd" id="1_load"]
+
+[node name="LoadGameScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_load")
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="Center"]
+custom_minimum_size = Vector2(820, 0)
+layout_mode = 2
+
+[node name="Content" type="VBoxContainer" parent="Center/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Eyebrow" type="Label" parent="Center/Panel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
+text = "ZAPISY WERSJI GODOT"
+horizontal_alignment = 1
+
+[node name="Title" type="Label" parent="Center/Panel/Content"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Wczytaj grę"
+horizontal_alignment = 1
+
+[node name="Explanation" type="Label" parent="Center/Panel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.58, 0.66, 0.76, 1)
+text = "Sloty Godota są oddzielone od zapisów v0.24.7. Import zawsze tworzy nową kopię."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="SlotSelector" type="OptionButton" parent="Center/Panel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Wybierz slot Godota do wczytania albo pusty slot dla importowanej kopii."
+
+[node name="DetailsPanel" type="PanelContainer" parent="Center/Panel/Content"]
+layout_mode = 2
+
+[node name="DetailsLabel" type="Label" parent="Center/Panel/Content/DetailsPanel"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+text = "Wybierz slot zapisu."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="ImportSeparator" type="HSeparator" parent="Center/Panel/Content"]
+layout_mode = 2
+
+[node name="ImportTitle" type="Label" parent="Center/Panel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
+theme_override_font_sizes/font_size = 20
+text = "Import kopii zapisu terminalowego v15"
+
+[node name="TerminalSourceSelector" type="OptionButton" parent="Center/Panel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Wybierz oryginalny zapis terminalowy. Importer otwiera go tylko do odczytu."
+
+[node name="ImportDetailsLabel" type="Label" parent="Center/Panel/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.58, 0.66, 0.76, 1)
+text = "Importer wyszukuje terminalowe zapisy v15."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Actions" type="HBoxContainer" parent="Center/Panel/Content"]
+layout_mode = 2
+alignment = 2
+theme_override_constants/separation = 10
+
+[node name="BackButton" type="Button" parent="Center/Panel/Content/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Wróć"
+
+[node name="ImportButton" type="Button" parent="Center/Panel/Content/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+tooltip_text = "Utwórz kopię zapisu w wybranym pustym slocie i zapisz raport migracji."
+text = "Importuj kopię"
+
+[node name="LoadButton" type="Button" parent="Center/Panel/Content/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "Wczytaj wybrany slot"

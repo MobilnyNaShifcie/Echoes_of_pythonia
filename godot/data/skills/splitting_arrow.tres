@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/skills/skill_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+skill_id = "splitting_arrow"
+display_name = "Rozszczepiająca Strzała"
+character_class_code = "hunter"
+unlock_level = 5
+mana_cost = 8
+description = "Główny strzał trafia za 105%, a dwa odłamki uderzają po 30% mocy."
+scaling = "hunter"
+multiplier = 1.05
+hits = 1
+effect = "splitting"
+effect_value = 30
+required_weapon_type = "bow"
+unlock_source = "talent"
+required_talent_id = "hunter_splitting_arrow"
+hunter_technique = "splitting"

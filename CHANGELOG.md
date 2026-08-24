@@ -1,5 +1,130 @@
 # Changelog
 
+## [0.25.0-dev] — Pierwsza grywalna pętla w Godot 4
+
+- ukończono Stage 9D: walka i katalog korzystają ze wspólnej produkcyjnej karty
+  umiejętności z ilustracją, nazwą, kosztem, stanem, typem i oznaczeniem kości,
+- dodano zatwierdzone grafiki dla Potężnego Cięcia, Precyzyjnego Strzału,
+  Ognistego Pocisku i Pchnięcia Losu; pozostałe umiejętności zachowują jawne
+  placeholdery bez pożyczania cudzych obrazów,
+- Pchnięcie Losu pokazuje Lancę Losu bez kości w grafice. Wariant `1K6` i wynik
+  rzutu nadal wyświetla dynamicznie UI na podstawie raportu silnika,
+- automatyczny gate zamraża format i hashe golden slice, a regresje obejmują
+  wspólne źródło grafiki, clipping, katalog oraz układ Full HD i 1280×720;
+  mechanika walki i schema save `v18` pozostają bez zmian,
+- ukończono Stage 9C: tworzenie nowej gry zapisuje wybraną płeć bez zmiany
+  statystyk, bohater pozostaje neutralnym Poszukiwaczem do poziomu 5, a walka
+  i ekwipunek wybierają zatwierdzoną grafikę po klasie i płci,
+- Wojownik, Łowca, Mag i Pierrot mają komplet żeńskich i męskich wariantów
+  klas bazowych; Ciężki Rycerz pozostaje osobną prezentacją specjalizacji,
+- dziesięć zatwierdzonych ikon przedmiotów przechodzi przez wspólne
+  `ItemDefinition.icon` do plecaka, wyposażenia, handlu, kuźni, magazynu,
+  tooltipów i łupu. Ramki, rzadkość, liczba sztuk i tekst nadal generuje UI,
+- schemat `v18` dodaje wyłącznie `gender_code`; starsze zapisy i import kopii
+  terminalowego v15 zachowują bezpieczne `unspecified` bez zgadywania wyglądu,
+- ukończono Stage 8E: końcowy audyt parytetu otwartego świata potwierdził
+  działające elity, obu bossów regionalnych, sześciowyprawowe odrodzenie oraz
+  pełny save/load i import kopii terminalowego `v0.24.7/v15`,
+- poprawiono kolejność zakończenia walki z bossem: zgodnie z terminalem najpierw
+  upływa godzina próby, a dopiero potem zwycięstwo uruchamia licznik odrodzenia
+  i zapisuje komunikat z właściwą godziną w Dzienniku Przygód,
+- regresje 8E zamrażają kompletny kontrakt Stage 8 i potwierdzają, że
+  zaimportowane liczniki elit oraz bossów pozostają aktywnym stanem domenowym po
+  kolejnych cyklach save/load; schemat pozostaje `v17`,
+- końcowy audyt nie znalazł dalszych luk parytetu Stage 8. Finalne grafiki,
+  dźwięki i rozbudowane animacje nadal nie zostały rozpoczęte,
+- ukończono Stage 8D: zwycięstwo nad regionalnym bossem rozpoczyna osobny
+  licznik sześciu zwykłych wypraw w jego regionie i blokuje natychmiastowy
+  rewanż aż do pełnego odrodzenia,
+- licznik zmniejszają zarówno spokojne wyprawy, jak i wyprawy zakończone walką,
+  niezależnie od jej wyniku; inne regiony, ognisko, lochy i sama próba walki
+  z bossem nie wpływają na odrodzenie,
+- mapa pokazuje pozostałą liczbę wypraw z poprawną polską odmianą, zablokowana
+  próba wyświetla wyjaśnienie bez zużycia czasu, a powrót bossa trafia do
+  Dziennika Przygód,
+- `RegionBossRespawnService` pozostaje poza UI, korzysta ze stanu dodanego w
+  8A i zachowuje pełny save/load/import bez podnoszenia schematu ponad `v17`,
+- ukończono Stage 8C: Azhar, Władca Pustkowi oraz Lewiatan Północy są
+  dobrowolnymi wyzwaniami regionów, korzystającymi z terminalowych statystyk,
+  rekomendowanych poziomów, pogody i osobnych trzyfazowych silników walki,
+- zwycięstwa przyznają dokładne bazowe EXP i złoto, bossowe tabele łupu,
+  Księgi Ścieżki i Mistrzostwa oraz klasowe wyposażenie; trofea aktualizują
+  misje fabularne, a pierwsze pokonanie każdego bossa zapisuje kamień milowy
+  Gildii i wpis w Dzienniku Przygód,
+- próba walki zużywa jedną godzinę świata i ponownie udostępnia obóz polowy;
+  ekran mapy oraz walki jedynie prezentują i wywołują reguły domenowe,
+- schemat zapisu pozostaje `v17`; sam Stage 8C nie uruchamiał jeszcze ani nie
+  zmniejszał liczników odrodzenia bossów, które zostały domknięte w Stage 8D,
+- ukończono Stage 8B: zwykłe spotkania wszystkich pięciu regionów mogą stać
+  się jedną z pięciu zgodnych elit, z terminalową szansą dnia, nocy i Zorzy
+  oraz osobnym licznikiem `+2 p.p.` po nieudanym spotkaniu w każdym regionie,
+- pogoda jest nakładana przed modyfikatorem elity; Wściekłe, Opancerzone,
+  Wampiryczne, Przeklęte i Żywiołowe warianty zmieniają realną walkę, w tym
+  leczenie wampiryczne, odporność na statusy i żywioł zależny od pogody,
+- zwycięstwo nad elitą zwiększa EXP, złoto, jakość i szansę łupu, aktualizuje
+  kontrakty, a pierwszy pokonany typ zapisuje się w Dzienniku Przygód; ekran
+  walki pokazuje nazwę, oznaczenie i opis elity bez przejmowania reguł domeny,
+- Stage 8B korzysta z trwałego stanu 8A, więc schemat pozostaje `v17`,
+- ukończono Stage 8A: `OpenWorldEncounterState` przechowuje odkryte typy elit,
+  regionalne serie bez elity i liczniki odrodzenia bossów bez uruchamiania
+  jeszcze mechanik Stage 8B–8D,
+- osobny codec waliduje ten stan, a schemat Godota `v17` zachowuje go przez
+  save/load i bezpiecznie migruje wcześniejsze zapisy z pustymi wartościami,
+- importer terminalowego `v0.24.7/v15` przenosi teraz wszystkie trzy dawne luki
+  Stage 7 do kopii zapisu; `audit.not_migrated` pozostaje pusty,
+- ukończono Stage 6C: kompani otrzymują deterministyczne atrybuty, talenty,
+  rozwój poziomów oraz pełne osobiste wyposażenie zgodne z pulami v0.24.7,
+- generatory buildu używają osobnych substreamów RNG i nie zmieniają
+  zamrożonych w 6B ID, klas, poziomów, ścieżek, historii ani rzutów rekrutacji,
+- istniejący ekran „Drużyna i kompani” pozwala przekazywać wyposażenie z
+  plecaka; osobisty sprzęt kompana pozostaje jego własnością, a rozstanie
+  zwraca graczowi wszystkie powierzone przedmioty,
+- semantyka `current_hp/current_mana <= 0` inicjalizuje pełne zasoby po
+  utworzeniu buildu lub awansie; schemat pozostaje `v13` i potrafi bez
+  rerollowania uzupełnić zapisane w 6B puste buildy,
+- ukończono Stage 6B: Gildia pokazuje dwóch utrwalonych kandydatów dziennie,
+  respektuje rangi, ręcznie napisane rozmowy i jedną próbę rekrutacji oraz
+  zachowuje byłych kompanów, którzy mogą powrócić po terminalowym czasie,
+- relacje, unikalne wspomnienia, wiadomości read/unread, jednorazowe scenki
+  par i postęp wspólnych Szczelin należą do osobnych serwisów domenowych,
+- wszystkie 12 postaci otrzymało terminalowe dialogi oraz 16 wariantów
+  osobistych historii z bramkami `unlock_rifts`; istniejący ekran drużyny ma
+  zakładki rosteru, kandydatów i wiadomości bez finalnych assetów,
+- schemat Godot pozostaje `v13`, ponieważ fundament 6A już zapisywał wszystkie
+  pola 6B; kodek dodatkowo waliduje kandydatów, wątki i tagi pamięci,
+- ukończono Stage 6A: dodano jawne modele `CompanionState` i `PartyState`,
+  katalog 12 ręcznie napisanych kompanów oraz limity 4 osób w rosterze i 3 w
+  aktywnym składzie,
+- Gildia prowadzi teraz do funkcjonalnego placeholdera „Drużyna i kompani”,
+  który ustawia skład albo tryb SOLO bez przejmowania logiki domenowej,
+- wydzielono kodeki wyposażenia i drużyny; schemat Godot `v13` zapisuje pełny
+  stan kompanów, kandydatów, wiadomości, własności sprzętu i Tablicy Poległych,
+  a zapisy `v1`–`v12` otrzymują bezpieczną pustą drużynę,
+- zmieniono plan Varenhold na pojedynczą kolumnę kafelków od góry do dołu;
+  przy mniejszych oknach panel przewija się bez naruszania reszty układu,
+- w prologu zastąpiono określenia `Gold/Goldem` słowami `złoto/złotem`, a
+  królewski `edykt` przemianowano na `dekret`,
+- ustawiono docelową rozdzielczość Full HD `1920×1080` i zabezpieczono ekran
+  walki przed nachodzeniem na nagłówek oraz stopkę także przy `1280×720`,
+- przetłumaczono techniczne identyfikatory w stopce oraz nazwy `Slot`,
+  `Item Power` i `HP`, aby interfejs nie mieszał języka polskiego z kodem gry,
+- przeniesiono pięcioetapowy prolog wraz z obowiązkową, turową walką fabularną,
+- dodano pełną nawigację Varenhold oraz działające ekrany Gildii, klas, bohatera,
+  ekwipunku, kupca, karczmy, przygotowania wyprawy, kuźni i warsztatu,
+- odtworzono pierwszą misję fabularną **Ci, którzy nie wrócili**, jej cel,
+  nagrody i 40 punktów reputacji Gildii,
+- dodano modułową mapę Zmierzchowych Równin z oryginalnymi tabelami spotkań
+  dnia i nocy oraz zdarzeniami bez walki,
+- przeniesiono wszystkich przeciwników pierwszego regionu, ich statystyki,
+  zachowania specjalne, nagrody i tabele łupów,
+- dodano grywalną walkę turową: atak, obronę, ucieczkę, użycie mikstury,
+  zwycięstwo, porażkę i powrót na mapę lub do miasta,
+- rozszerzono plecak o materiały, stosy, mikstury oraz szczegóły przedmiotów,
+- dodano podgląd czterech Dróg bohatera i zachowano stały wybór klasy na
+  poziomie 5 wraz z właściwym wyposażeniem startowym,
+- dodano testy GUT dla walki, wypraw, misji, klas, plecaka i nawigacji całego
+  pionowego wycinka; kompletna regresja terminalowa nadal pozostaje zielona.
+
 ## [0.24.7] — Przygotowanie do wyprawy
 
 - dodano w Varenhold osobny ekran **Przygotowanie do wyprawy**, spinający w jednym miejscu cel, HP/Manę, udźwig, aktywną drużynę, zapasy i ostrzeżenia przed wyruszeniem,

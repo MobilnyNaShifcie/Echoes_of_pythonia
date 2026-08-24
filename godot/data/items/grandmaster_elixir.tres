@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/items/item_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+item_id = "grandmaster_elixir"
+display_name = "Eliksir Arcymistrza"
+description = "Przywraca 35% maksymalnego PŻ i 20% maksymalnej Many."
+category = "consumable"
+rarity = "epic"
+stackable = true
+heal_hp_percent = 35.0
+restore_mana_percent = 20.0

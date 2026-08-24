@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/skills/skill_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+skill_id = "double_roll"
+display_name = "Podwójny Rzut"
+character_class_code = "pierrot"
+unlock_level = 7
+mana_cost = 7
+description = "Rzut 2k6: dublety, Szczęśliwa Siódemka i skrajne wyniki mają własne efekty."
+scaling = "fate"
+effect = "fate_2d6"
+guaranteed_hit = true
+required_weapon_type = "fate_lance"
+execution_kind = "fate"

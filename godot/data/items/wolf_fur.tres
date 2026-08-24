@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=3 format=3]
+[ext_resource type="Script" path="res://core/items/item_definition.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/items/materials/wolf_fur.png" id="2_icon"]
+[resource]
+script = ExtResource("1")
+item_id = "wolf_fur"
+display_name = "Futro Wilka"
+description = "Grube futro pochodzące z równinnego wilka."
+icon = ExtResource("2_icon")
+category = "material"
+stackable = true

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/skills/skill_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+skill_id = "va_banque"
+display_name = "Va Banque"
+character_class_code = "pierrot"
+unlock_level = 5
+mana_cost = 10
+description = "Zużywa wszystkie Żetony Losu i wykonuje rzut 3k6. Każdy żeton zwiększa stawkę."
+scaling = "fate"
+effect = "fate_va_banque"
+guaranteed_hit = true
+required_weapon_type = "fate_lance"
+execution_kind = "fate"
+unlock_source = "talent"
+required_talent_id = "pierrot_va_banque"

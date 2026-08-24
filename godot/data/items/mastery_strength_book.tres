@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=3 format=3]
+[ext_resource type="Script" path="res://core/items/item_definition.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/items/books/mastery_strength_book.png" id="2_icon"]
+[resource]
+script = ExtResource("1")
+item_id = "mastery_strength_book"
+display_name = "Traktat Siły"
+description = "Ciężki tom poświęcony rozwijaniu siły uderzenia ponad granice zwykłego treningu."
+icon = ExtResource("2_icon")
+category = "book"
+rarity = "rare"
+stackable = true

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=2 format=3]
+[ext_resource type="Script" path="res://core/items/item_definition.gd" id="1"]
+[resource]
+script = ExtResource("1")
+item_id = "nature_amulet"
+display_name = "Amulet Natury"
+description = "Amulet nasycony energią Strażnika Natury."
+rarity = "rare"
+slot = "necklace"
+item_power = 1
+required_level = 3
+attack = 2
+max_mana = 8
+set_id = "nature_guardian"

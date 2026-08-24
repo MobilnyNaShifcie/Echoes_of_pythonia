@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="SkillDefinition" format=3 uid="uid://shr0h84menfk"]
+
+[ext_resource type="Script" uid="uid://bc561av1opjja" path="res://core/skills/skill_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+skill_id = "bleeding_shot"
+display_name = "Krwawiący Strzał"
+character_class_code = "hunter"
+unlock_level = 7
+mana_cost = 7
+description = "Zadaje 100% obrażeń i nakłada krwawienie: 2 obrażenia przez 3 tury."
+scaling = "hunter"
+multiplier = 1.0
+hits = 1
+effect = "bleed"
+effect_value = 2
+effect_duration = 3
+required_weapon_type = "bow"
+hunter_technique = "blood"

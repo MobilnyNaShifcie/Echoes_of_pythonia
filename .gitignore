@@ -28,3 +28,10 @@ dist/
 .vscode/
 .DS_Store
 Thumbs.db
+
+# Godot generated data and local credentials
+.godot/
+godot/export_credentials.cfg
+
+# Project-local developer tools and downloaded runtimes
+.tools/

@@ -1,0 +1,170 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://ui/screens/black_market/black_market.gd" id="1"]
+
+[node name="BlackMarketScreen" type="ScrollContainer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+script = ExtResource("1")
+
+[node name="Page" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Header" type="HBoxContainer" parent="Page"]
+layout_mode = 2
+
+[node name="Identity" type="VBoxContainer" parent="Page/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Eyebrow" type="Label" parent="Page/Header/Identity"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78, 0.56, 0.7, 1)
+text = "UKRYTA DZIELNICA VARENHOLD"
+
+[node name="Title" type="Label" parent="Page/Header/Identity"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.93, 0.95, 0.98, 1)
+theme_override_font_sizes/font_size = 30
+text = "Czarny Rynek"
+
+[node name="DeliveryLabel" type="Label" parent="Page/Header/Identity"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.65, 0.77, 1)
+text = "Obecna dostawa: 2099-01-01  •  następna: 2099-01-02"
+
+[node name="BackButton" type="Button" parent="Page/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+text = "Cofnij"
+
+[node name="WalletLabel" type="Label" parent="Page"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
+text = "Bohater  •  Złoto 0"
+
+[node name="Tabs" type="HBoxContainer" parent="Page"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="BuyTab" type="Button" parent="Page/Tabs"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Oferta zakupu"
+
+[node name="SellTab" type="Button" parent="Page/Tabs"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Skup ksiąg"
+
+[node name="Body" type="HBoxContainer" parent="Page"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="OfferPanel" type="PanelContainer" parent="Page/Body"]
+custom_minimum_size = Vector2(480, 300)
+layout_mode = 2
+
+[node name="Content" type="VBoxContainer" parent="Page/Body/OfferPanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Page/Body/OfferPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
+theme_override_font_sizes/font_size = 22
+text = "Towary obecnej dostawy"
+
+[node name="OfferList" type="ItemList" parent="Page/Body/OfferPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+allow_reselect = true
+
+[node name="Notice" type="Label" parent="Page/Body/OfferPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.53, 0.62, 0.73, 1)
+text = "Cztery jednosztukowe oferty. Dostawa i wyniki targowania przetrwają restart gry."
+autowrap_mode = 2
+
+[node name="DetailPanel" type="PanelContainer" parent="Page/Body"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Content" type="VBoxContainer" parent="Page/Body/DetailPanel"]
+layout_mode = 2
+theme_override_constants/separation = 9
+
+[node name="CategoryLabel" type="Label" parent="Page/Body/DetailPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78, 0.56, 0.7, 1)
+text = "RZADKI TOWAR"
+
+[node name="ItemTitleLabel" type="Label" parent="Page/Body/DetailPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.93, 0.95, 0.98, 1)
+theme_override_font_sizes/font_size = 24
+text = "Przedmiot"
+
+[node name="DescriptionLabel" type="Label" parent="Page/Body/DetailPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.73, 0.78, 0.85, 1)
+text = "Opis przedmiotu."
+autowrap_mode = 2
+
+[node name="Separator" type="HSeparator" parent="Page/Body/DetailPanel/Content"]
+layout_mode = 2
+
+[node name="PriceLabel" type="Label" parent="Page/Body/DetailPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
+text = "Cena: 0 złota"
+autowrap_mode = 2
+
+[node name="StatusLabel" type="Label" parent="Page/Body/DetailPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.65, 0.77, 1)
+text = "JEDNA PRÓBA TARGOWANIA"
+
+[node name="Spacer" type="Control" parent="Page/Body/DetailPanel/Content"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BargainButton" type="Button" parent="Page/Body/DetailPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Spróbuj się targować"
+
+[node name="ActionButton" type="Button" parent="Page/Body/DetailPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Kup"
+
+[node name="ResultLabel" type="Label" parent="Page"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.44, 0.8, 0.58, 1)
+text = ""
+autowrap_mode = 2

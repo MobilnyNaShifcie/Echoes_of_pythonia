@@ -1,0 +1,220 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://ui/screens/guild/guild.gd" id="1"]
+
+[node name="GuildScreen" type="ScrollContainer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+script = ExtResource("1")
+
+[node name="Page" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 6
+
+[node name="Header" type="HBoxContainer" parent="Page"]
+layout_mode = 2
+
+[node name="Identity" type="VBoxContainer" parent="Page/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RankLabel" type="Label" parent="Page/Header/Identity"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
+text = "RANGA F — NOWICJUSZ"
+
+[node name="Title" type="Label" parent="Page/Header/Identity"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.93, 0.95, 0.98, 1)
+theme_override_font_sizes/font_size = 30
+text = "Gildia Poszukiwaczy"
+
+[node name="RankProgressLabel" type="Label" parent="Page/Header/Identity"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.65, 0.77, 1)
+text = "F — Nowicjusz  •  0/100 reputacji do rangi E"
+
+[node name="BackButton" type="Button" parent="Page/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+custom_minimum_size = Vector2(150, 48)
+text = "Cofnij"
+
+[node name="BoardTabs" type="HBoxContainer" parent="Page"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="StoryButton" type="Button" parent="Page/BoardTabs"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Fabuła"
+
+[node name="DailyButton" type="Button" parent="Page/BoardTabs"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Dzienne"
+
+[node name="WeeklyButton" type="Button" parent="Page/BoardTabs"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Tygodniowy"
+
+[node name="MilestonesButton" type="Button" parent="Page/BoardTabs"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Archiwum"
+
+[node name="RumorsButton" type="Button" parent="Page/BoardTabs"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Plotki"
+
+[node name="PartyButton" type="Button" parent="Page/BoardTabs"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Kompani i rekrutacja"
+
+[node name="RiftsButton" type="Button" parent="Page/BoardTabs"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Szczeliny"
+
+[node name="Body" type="HBoxContainer" parent="Page"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="BoardPanel" type="PanelContainer" parent="Page/Body"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Content" type="VBoxContainer" parent="Page/Body/BoardPanel"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="BoardTitle" type="Label" parent="Page/Body/BoardPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
+theme_override_font_sizes/font_size = 22
+text = "Akt I — dziewięć rozdziałów"
+
+[node name="QuestList" type="ItemList" parent="Page/Body/BoardPanel/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(500, 170)
+layout_mode = 2
+size_flags_vertical = 3
+allow_reselect = true
+
+[node name="NoticeLabel" type="Label" parent="Page/Body/BoardPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.53, 0.62, 0.73, 1)
+text = "Kolejne rozdziały odblokowują się wraz z poziomem bohatera i postępem fabuły."
+autowrap_mode = 2
+
+[node name="QuestPanel" type="PanelContainer" parent="Page/Body"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Content" type="VBoxContainer" parent="Page/Body/QuestPanel"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Top" type="HBoxContainer" parent="Page/Body/QuestPanel/Content"]
+layout_mode = 2
+
+[node name="ArcLabel" type="Label" parent="Page/Body/QuestPanel/Content/Top"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.78, 0.56, 0.7, 1)
+text = "AKT I — ŚLADY PRZEBUDZENIA"
+
+[node name="StatusLabel" type="Label" parent="Page/Body/QuestPanel/Content/Top"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.44, 0.8, 0.58, 1)
+text = "DOSTĘPNE NA TABLICY"
+
+[node name="ChapterLabel" type="Label" parent="Page/Body/QuestPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.53, 0.62, 0.73, 1)
+text = "Rozdział I — Droga, która ucichła"
+
+[node name="QuestTitleLabel" type="Label" parent="Page/Body/QuestPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.93, 0.95, 0.98, 1)
+theme_override_font_sizes/font_size = 24
+text = "Ci, którzy nie wrócili"
+
+[node name="DescriptionLabel" type="Label" parent="Page/Body/QuestPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.73, 0.78, 0.85, 1)
+text = "Opis zadania fabularnego."
+autowrap_mode = 2
+max_lines_visible = 6
+
+[node name="Separator" type="HSeparator" parent="Page/Body/QuestPanel/Content"]
+layout_mode = 2
+
+[node name="ProgressLabel" type="Label" parent="Page/Body/QuestPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.82, 0.86, 0.92, 1)
+text = "Pokonaj: Wilk  •  0/2"
+autowrap_mode = 2
+max_lines_visible = 3
+
+[node name="RewardLabel" type="Label" parent="Page/Body/QuestPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
+text = "Nagroda: 45 EXP, 70 złota, 40 reputacji Gildii"
+autowrap_mode = 2
+max_lines_visible = 2
+
+[node name="DependencyLabel" type="Label" parent="Page/Body/QuestPanel/Content"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.55, 0.38, 1)
+text = "WYMAGANIE"
+autowrap_mode = 2
+
+[node name="ActionButton" type="Button" parent="Page/Body/QuestPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Przyjmij zadanie"
+
+[node name="ResultLabel" type="Label" parent="Page"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.44, 0.8, 0.58, 1)
+autowrap_mode = 2
+text_overrun_behavior = 3
+max_lines_visible = 2

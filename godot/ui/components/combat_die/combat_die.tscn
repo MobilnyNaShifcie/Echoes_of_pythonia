@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://ui/components/combat_die/combat_die.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleDie"]
+content_margin_left = 8.0
+content_margin_top = 6.0
+content_margin_right = 8.0
+content_margin_bottom = 6.0
+bg_color = Color(0.075, 0.025, 0.06, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.92, 0.19, 0.42, 0.95)
+corner_radius_top_left = 9
+corner_radius_top_right = 9
+corner_radius_bottom_right = 9
+corner_radius_bottom_left = 9
+shadow_color = Color(0.72, 0.04, 0.25, 0.32)
+shadow_size = 5
+
+[node name="CombatDie" type="PanelContainer"]
+custom_minimum_size = Vector2(52, 52)
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleDie")
+script = ExtResource("1_script")
+
+[node name="ValueLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.72, 0.8, 1)
+theme_override_colors/font_outline_color = Color(0.12, 0.01, 0.06, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 25
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1

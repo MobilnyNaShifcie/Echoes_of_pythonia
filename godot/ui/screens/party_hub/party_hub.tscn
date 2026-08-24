@@ -1,0 +1,429 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://ui/screens/party_hub/party_hub.gd" id="1"]
+
+[node name="PartyHubScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="Page" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Header" type="HBoxContainer" parent="Page"]
+layout_mode = 2
+
+[node name="Identity" type="VBoxContainer" parent="Page/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Eyebrow" type="Label" parent="Page/Header/Identity"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
+text = "GILDIA POSZUKIWACZY"
+
+[node name="Title" type="Label" parent="Page/Header/Identity"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Drużyna i kompani"
+
+[node name="SummaryLabel" type="Label" parent="Page/Header/Identity"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.65, 0.77, 1)
+text = "Kompanie 0/4 • aktywny skład 0/3 • nowe wiadomości 0"
+
+[node name="BackButton" type="Button" parent="Page/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+text = "Cofnij"
+
+[node name="Separator" type="HSeparator" parent="Page"]
+layout_mode = 2
+
+[node name="ModeTabs" type="TabContainer" parent="Page"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+current_tab = 0
+
+[node name="RosterTab" type="HBoxContainer" parent="Page/ModeTabs"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="RosterPanel" type="PanelContainer" parent="Page/ModeTabs/RosterTab"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Roster" type="VBoxContainer" parent="Page/ModeTabs/RosterTab/RosterPanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="SectionTitle" type="Label" parent="Page/ModeTabs/RosterTab/RosterPanel/Roster"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
+theme_override_font_sizes/font_size = 20
+text = "Moi kompani"
+
+[node name="RosterList" type="ItemList" parent="Page/ModeTabs/RosterTab/RosterPanel/Roster"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+allow_reselect = true
+
+[node name="EmptyLabel" type="Label" parent="Page/ModeTabs/RosterTab/RosterPanel/Roster"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.61, 0.68, 0.77, 1)
+text = "Nie masz jeszcze kompanów. Zajrzyj do zakładki Kandydaci."
+autowrap_mode = 2
+
+[node name="DetailsPanel" type="PanelContainer" parent="Page/ModeTabs/RosterTab"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DetailsScroll" type="ScrollContainer" parent="Page/ModeTabs/RosterTab/DetailsPanel"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="Details" type="VBoxContainer" parent="Page/ModeTabs/RosterTab/DetailsPanel/DetailsScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="DetailNameLabel" type="Label" parent="Page/ModeTabs/RosterTab/DetailsPanel/DetailsScroll/Details"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Brak kompanów"
+
+[node name="DetailStateLabel" type="Label" parent="Page/ModeTabs/RosterTab/DetailsPanel/DetailsScroll/Details"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.78, 0.86, 1)
+text = "Nowa sesja zaczyna z pustą drużyną."
+autowrap_mode = 2
+
+[node name="Actions" type="HBoxContainer" parent="Page/ModeTabs/RosterTab/DetailsPanel/DetailsScroll/Details"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ToggleButton" type="Button" parent="Page/ModeTabs/RosterTab/DetailsPanel/DetailsScroll/Details/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+disabled = true
+text = "Wybierz kompana"
+
+[node name="SoloButton" type="Button" parent="Page/ModeTabs/RosterTab/DetailsPanel/DetailsScroll/Details/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+disabled = true
+text = "Wyruszaj SOLO"
+
+[node name="DismissButton" type="Button" parent="Page/ModeTabs/RosterTab/DetailsPanel/DetailsScroll/Details"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "Rozstań się z kompanem"
+
+[node name="TacticSeparator" type="HSeparator" parent="Page/ModeTabs/RosterTab/DetailsPanel/DetailsScroll/Details"]
+layout_mode = 2
+
+[node name="TacticTitle" type="Label" parent="Page/ModeTabs/RosterTab/DetailsPanel/DetailsScroll/Details"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
+theme_override_font_sizes/font_size = 18
+text = "Taktyka AI"
+
+[node name="TacticOption" type="OptionButton" parent="Page/ModeTabs/RosterTab/DetailsPanel/DetailsScroll/Details"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+
+[node name="TacticDescriptionLabel" type="Label" parent="Page/ModeTabs/RosterTab/DetailsPanel/DetailsScroll/Details"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.78, 0.86, 1)
+text = "Wybierz kompana, aby ustawić jego zachowanie w walce."
+autowrap_mode = 2
+
+[node name="EquipmentSeparator" type="HSeparator" parent="Page/ModeTabs/RosterTab/DetailsPanel/DetailsScroll/Details"]
+layout_mode = 2
+
+[node name="EquipmentTitle" type="Label" parent="Page/ModeTabs/RosterTab/DetailsPanel/DetailsScroll/Details"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
+theme_override_font_sizes/font_size = 18
+text = "Wyposażenie kompana"
+
+[node name="EquipmentColumns" type="HBoxContainer" parent="Page/ModeTabs/RosterTab/DetailsPanel/DetailsScroll/Details"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="CompanionEquipmentList" type="ItemList" parent="Page/ModeTabs/RosterTab/DetailsPanel/DetailsScroll/Details/EquipmentColumns"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 145)
+layout_mode = 2
+size_flags_horizontal = 3
+allow_reselect = true
+
+[node name="PlayerEquipmentList" type="ItemList" parent="Page/ModeTabs/RosterTab/DetailsPanel/DetailsScroll/Details/EquipmentColumns"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 145)
+layout_mode = 2
+size_flags_horizontal = 3
+allow_reselect = true
+
+[node name="EquipmentDetailLabel" type="Label" parent="Page/ModeTabs/RosterTab/DetailsPanel/DetailsScroll/Details"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.78, 0.86, 1)
+text = "Wybierz przedmiot."
+autowrap_mode = 2
+
+[node name="EquipmentActions" type="HBoxContainer" parent="Page/ModeTabs/RosterTab/DetailsPanel/DetailsScroll/Details"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="EquipPlayerItemButton" type="Button" parent="Page/ModeTabs/RosterTab/DetailsPanel/DetailsScroll/Details/EquipmentActions"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+disabled = true
+text = "Przekaż z plecaka"
+
+[node name="ReturnPlayerItemButton" type="Button" parent="Page/ModeTabs/RosterTab/DetailsPanel/DetailsScroll/Details/EquipmentActions"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+disabled = true
+text = "Zwróć do plecaka"
+
+[node name="PersonalSeparator" type="HSeparator" parent="Page/ModeTabs/RosterTab/DetailsPanel/DetailsScroll/Details"]
+layout_mode = 2
+
+[node name="PersonalTitleLabel" type="Label" parent="Page/ModeTabs/RosterTab/DetailsPanel/DetailsScroll/Details"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
+theme_override_font_sizes/font_size = 18
+text = "Historia osobista"
+autowrap_mode = 2
+
+[node name="PersonalTextLabel" type="Label" parent="Page/ModeTabs/RosterTab/DetailsPanel/DetailsScroll/Details"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Brak historii do wyświetlenia."
+autowrap_mode = 2
+
+[node name="PersonalChoiceOne" type="Button" parent="Page/ModeTabs/RosterTab/DetailsPanel/DetailsScroll/Details"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "Wybór 1"
+
+[node name="PersonalChoiceTwo" type="Button" parent="Page/ModeTabs/RosterTab/DetailsPanel/DetailsScroll/Details"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "Wybór 2"
+
+[node name="CandidatesTab" type="HBoxContainer" parent="Page/ModeTabs"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="CandidateListPanel" type="PanelContainer" parent="Page/ModeTabs/CandidatesTab"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CandidateListBox" type="VBoxContainer" parent="Page/ModeTabs/CandidatesTab/CandidateListPanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="SectionTitle" type="Label" parent="Page/ModeTabs/CandidatesTab/CandidateListPanel/CandidateListBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
+theme_override_font_sizes/font_size = 20
+text = "Dzisiejsi kandydaci"
+
+[node name="CandidateList" type="ItemList" parent="Page/ModeTabs/CandidatesTab/CandidateListPanel/CandidateListBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+allow_reselect = true
+
+[node name="RotationNote" type="Label" parent="Page/ModeTabs/CandidatesTab/CandidateListPanel/CandidateListBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.65, 0.77, 1)
+text = "Nowe osoby mogą pojawić się następnego dnia."
+autowrap_mode = 2
+
+[node name="CandidateDetailsPanel" type="PanelContainer" parent="Page/ModeTabs/CandidatesTab"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CandidateScroll" type="ScrollContainer" parent="Page/ModeTabs/CandidatesTab/CandidateDetailsPanel"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="CandidateDetails" type="VBoxContainer" parent="Page/ModeTabs/CandidatesTab/CandidateDetailsPanel/CandidateScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 7
+
+[node name="CandidateNameLabel" type="Label" parent="Page/ModeTabs/CandidatesTab/CandidateDetailsPanel/CandidateScroll/CandidateDetails"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Brak kandydatów"
+
+[node name="CandidateDetailLabel" type="Label" parent="Page/ModeTabs/CandidatesTab/CandidateDetailsPanel/CandidateScroll/CandidateDetails"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.78, 0.86, 1)
+text = "Wybierz kandydata."
+autowrap_mode = 2
+
+[node name="TalkHeader" type="Label" parent="Page/ModeTabs/CandidatesTab/CandidateDetailsPanel/CandidateScroll/CandidateDetails"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
+text = "Pierwsza rozmowa"
+
+[node name="TalkOne" type="Button" parent="Page/ModeTabs/CandidatesTab/CandidateDetailsPanel/CandidateScroll/CandidateDetails"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "Rozmowa 1"
+
+[node name="TalkTwo" type="Button" parent="Page/ModeTabs/CandidatesTab/CandidateDetailsPanel/CandidateScroll/CandidateDetails"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "Rozmowa 2"
+
+[node name="TalkThree" type="Button" parent="Page/ModeTabs/CandidatesTab/CandidateDetailsPanel/CandidateScroll/CandidateDetails"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "Rozmowa 3"
+
+[node name="RecruitButton" type="Button" parent="Page/ModeTabs/CandidatesTab/CandidateDetailsPanel/CandidateScroll/CandidateDetails"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "Zaproponuj współpracę"
+
+[node name="MessagesTab" type="HBoxContainer" parent="Page/ModeTabs"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="MessageListPanel" type="PanelContainer" parent="Page/ModeTabs/MessagesTab"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MessageBox" type="VBoxContainer" parent="Page/ModeTabs/MessagesTab/MessageListPanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="SectionTitle" type="Label" parent="Page/ModeTabs/MessagesTab/MessageListPanel/MessageBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
+theme_override_font_sizes/font_size = 20
+text = "Wiadomości drużyny"
+
+[node name="MessagesList" type="ItemList" parent="Page/ModeTabs/MessagesTab/MessageListPanel/MessageBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+allow_reselect = true
+
+[node name="MarkReadButton" type="Button" parent="Page/ModeTabs/MessagesTab/MessageListPanel/MessageBox"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "Oznacz wszystkie jako przeczytane"
+
+[node name="MessageDetailsPanel" type="PanelContainer" parent="Page/ModeTabs/MessagesTab"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MessageDetailLabel" type="Label" parent="Page/ModeTabs/MessagesTab/MessageDetailsPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Brak wiadomości."
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="FallenTab" type="HBoxContainer" parent="Page/ModeTabs"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="FallenListPanel" type="PanelContainer" parent="Page/ModeTabs/FallenTab"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FallenBox" type="VBoxContainer" parent="Page/ModeTabs/FallenTab/FallenListPanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="SectionTitle" type="Label" parent="Page/ModeTabs/FallenTab/FallenListPanel/FallenBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
+theme_override_font_sizes/font_size = 20
+text = "Tablica Poległych"
+
+[node name="FallenList" type="ItemList" parent="Page/ModeTabs/FallenTab/FallenListPanel/FallenBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+allow_reselect = true
+
+[node name="Warning" type="Label" parent="Page/ModeTabs/FallenTab/FallenListPanel/FallenBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.61, 0.68, 0.77, 1)
+text = "Śmierć może nastąpić tylko po jawnej Egzekucji i czasie na reakcję."
+autowrap_mode = 2
+
+[node name="FallenDetailsPanel" type="PanelContainer" parent="Page/ModeTabs/FallenTab"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FallenDetailLabel" type="Label" parent="Page/ModeTabs/FallenTab/FallenDetailsPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Tablica jest pusta."
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="ResultLabel" type="Label" parent="Page"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.45, 0.78, 0.59, 1)
+text = "Zarządzaj składem, relacjami i rekrutacją."
+autowrap_mode = 2

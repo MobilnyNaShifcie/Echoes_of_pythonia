@@ -1,0 +1,23 @@
+{
+  "godot": "4.7.1-stable",
+  "addons": [
+    {
+      "name": "GUT",
+      "version": "9.7.0",
+      "repository": "https://github.com/bitwes/Gut",
+      "commit": "3e53dbc69ff6ba4d975edf302bbce23c40686e1e"
+    },
+    {
+      "name": "Godot State Charts",
+      "version": "0.22.5",
+      "repository": "https://github.com/derkork/godot-statecharts",
+      "commit": "76d226a3efac66a72aea825382b320c94808f409"
+    },
+    {
+      "name": "Dialogic",
+      "version": "2.0-alpha-20",
+      "repository": "https://github.com/dialogic-godot/dialogic",
+      "commit": "e301e1bb5e62e6de22c6b7748c4372d0570bb4a7"
+    }
+  ]
+}

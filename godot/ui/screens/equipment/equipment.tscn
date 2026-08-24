@@ -1,0 +1,323 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://ui/screens/equipment/equipment.gd" id="1_equipment"]
+[ext_resource type="PackedScene" path="res://ui/components/inventory_grid/inventory_item_slot.tscn" id="2_item_slot"]
+[ext_resource type="PackedScene" path="res://ui/components/inventory_grid/inventory_grid_view.tscn" id="3_item_grid"]
+[ext_resource type="Script" path="res://ui/components/character_paperdoll/character_paperdoll.gd" id="4_paperdoll"]
+
+[sub_resource type="StyleBoxFlat" id="StageStyle"]
+bg_color = Color(0.018, 0.028, 0.043, 0.42)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.16, 0.23, 0.32, 0.78)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="EquipmentScreen" type="ScrollContainer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+script = ExtResource("1_equipment")
+
+[node name="Page" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(1160, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="Header" type="HBoxContainer" parent="Page"]
+layout_mode = 2
+
+[node name="Identity" type="VBoxContainer" parent="Page/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="Eyebrow" type="Label" parent="Page/Header/Identity"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
+theme_override_font_sizes/font_size = 16
+text = "KARTA POSTACI"
+
+[node name="Title" type="Label" parent="Page/Header/Identity"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.93, 0.95, 0.98, 1)
+theme_override_font_sizes/font_size = 30
+text = "Ekwipunek"
+
+[node name="HeroStatsLabel" type="Label" parent="Page/Header/Identity"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.68, 0.78, 1)
+text = "Bohater  •  PŻ 20/20  •  ATK 3  •  DEF 2"
+autowrap_mode = 2
+
+[node name="BackButton" type="Button" parent="Page/Header"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 48)
+layout_mode = 2
+size_flags_vertical = 4
+text = "Cofnij"
+
+[node name="Workspace" type="HBoxContainer" parent="Page"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 14
+
+[node name="PaperdollPanel" type="PanelContainer" parent="Page/Workspace"]
+custom_minimum_size = Vector2(650, 690)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Content" type="VBoxContainer" parent="Page/Workspace/PaperdollPanel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="SectionHeader" type="HBoxContainer" parent="Page/Workspace/PaperdollPanel/Content"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Page/Workspace/PaperdollPanel/Content/SectionHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
+theme_override_font_sizes/font_size = 20
+text = "Wyposażenie bohatera"
+
+[node name="Hint" type="Label" parent="Page/Workspace/PaperdollPanel/Content/SectionHeader"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.53, 0.62, 0.73, 1)
+text = "Przeciągnij • najedź po szczegóły"
+
+[node name="Paperdoll" type="PanelContainer" parent="Page/Workspace/PaperdollPanel/Content"]
+custom_minimum_size = Vector2(620, 590)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StageStyle")
+
+[node name="Stage" type="Control" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll"]
+custom_minimum_size = Vector2(620, 590)
+layout_mode = 2
+
+[node name="CharacterVisual" type="Control" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 130.0
+offset_top = 18.0
+offset_right = 490.0
+offset_bottom = 568.0
+script = ExtResource("4_paperdoll")
+caption = ""
+
+[node name="HeadSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 272.0
+offset_top = 18.0
+offset_right = 348.0
+offset_bottom = 94.0
+text = "HEŁ"
+
+[node name="EarringsSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 28.0
+offset_top = 80.0
+offset_right = 104.0
+offset_bottom = 156.0
+text = "KOL"
+
+[node name="NecklaceSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 516.0
+offset_top = 80.0
+offset_right = 592.0
+offset_bottom = 156.0
+text = "NAS"
+
+[node name="WeaponSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 28.0
+offset_top = 190.0
+offset_right = 104.0
+offset_bottom = 304.0
+text = "BR"
+
+[node name="ChestSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 272.0
+offset_top = 180.0
+offset_right = 348.0
+offset_bottom = 256.0
+text = "ZBR"
+
+[node name="OffHandSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 516.0
+offset_top = 190.0
+offset_right = 592.0
+offset_bottom = 304.0
+text = "II"
+
+[node name="HandsSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 28.0
+offset_top = 330.0
+offset_right = 104.0
+offset_bottom = 406.0
+text = "RĘK"
+
+[node name="BraceletSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 516.0
+offset_top = 330.0
+offset_right = 592.0
+offset_bottom = 406.0
+text = "BRA"
+
+[node name="RingSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 28.0
+offset_top = 452.0
+offset_right = 104.0
+offset_bottom = 528.0
+text = "PIE"
+
+[node name="BeltSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 516.0
+offset_top = 452.0
+offset_right = 592.0
+offset_bottom = 528.0
+text = "PAS"
+
+[node name="FeetSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 272.0
+offset_top = 494.0
+offset_right = 348.0
+offset_bottom = 570.0
+text = "BUT"
+
+[node name="UnequipButton" type="Button" parent="Page/Workspace/PaperdollPanel/Content"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+disabled = true
+text = "Zdejmij wybrany przedmiot do plecaka"
+
+[node name="BackpackPanel" type="PanelContainer" parent="Page/Workspace"]
+custom_minimum_size = Vector2(610, 690)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Content" type="VBoxContainer" parent="Page/Workspace/BackpackPanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="BackpackHeader" type="HBoxContainer" parent="Page/Workspace/BackpackPanel/Content"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Page/Workspace/BackpackPanel/Content/BackpackHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
+theme_override_font_sizes/font_size = 20
+text = "Plecak"
+
+[node name="GridLegend" type="Label" parent="Page/Workspace/BackpackPanel/Content/BackpackHeader"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.53, 0.62, 0.73, 1)
+text = "Rozmiar pola = rozmiar przedmiotu"
+
+[node name="CategoryTabs" type="TabBar" parent="Page/Workspace/BackpackPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="InventoryDropZone" type="PanelContainer" parent="Page/Workspace/BackpackPanel/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 520)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="InventoryScroll" type="ScrollContainer" parent="Page/Workspace/BackpackPanel/Content/InventoryDropZone"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="InventoryGrid" parent="Page/Workspace/BackpackPanel/Content/InventoryDropZone/InventoryScroll" instance=ExtResource("3_item_grid")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 8
+visible_rows = 6
+cell_size = Vector2(66, 66)
+gap = 5.0
+accepts_drops = true
+stretch_cells_to_width = true
+stretch_cells_to_height = true
+
+[node name="InteractionHint" type="Label" parent="Page/Workspace/BackpackPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.53, 0.62, 0.73, 1)
+text = "Najedź po szczegóły • przeciągnij na slot • podwójne kliknięcie: szybka akcja"
+autowrap_mode = 2
+
+[node name="Actions" type="HBoxContainer" parent="Page/Workspace/BackpackPanel/Content"]
+visible = false
+layout_mode = 2
+
+[node name="EquipButton" type="Button" parent="Page/Workspace/BackpackPanel/Content/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "Załóż wybrany"
+
+[node name="ReadBookButton" type="Button" parent="Page/Workspace/BackpackPanel/Content/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "Przeczytaj księgę"
+
+[node name="FeedbackLabel" type="Label" parent="Page"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42, 0.78, 0.56, 1)
+text = "Przeciągnij wyposażenie na sylwetkę albo użyj podwójnego kliknięcia."
+autowrap_mode = 2
+
+[node name="Compatibility" type="Control" parent="Page"]
+visible = false
+layout_mode = 2
+
+[node name="DetailsLabel" type="Label" parent="Page/Compatibility"]
+unique_name_in_owner = true
+layout_mode = 0
+
+[node name="EquippedList" type="ItemList" parent="Page/Compatibility"]
+unique_name_in_owner = true
+layout_mode = 0
+allow_reselect = true
+
+[node name="InventoryList" type="ItemList" parent="Page/Compatibility"]
+unique_name_in_owner = true
+layout_mode = 0
+allow_reselect = true

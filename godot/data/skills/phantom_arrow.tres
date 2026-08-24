@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/skills/skill_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+skill_id = "phantom_arrow"
+display_name = "Widmowa Strzała"
+character_class_code = "hunter"
+unlock_level = 5
+mana_cost = 7
+description = "Trafia teraz i zostawia Echo materializujące się po następnej akcji Łowcy."
+scaling = "hunter"
+multiplier = 1.0
+hits = 1
+effect = "phantom_echo"
+effect_value = 60
+required_weapon_type = "bow"
+unlock_source = "talent"
+required_talent_id = "hunter_phantom_arrow"
+hunter_technique = "phantom"

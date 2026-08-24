@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PlayerClassDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://core/player/player_class_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+class_code = "none"
+display_name = "Poszukiwacz"
+description = "Bez wybranej Drogi."
+primary_attributes = "Brak"
