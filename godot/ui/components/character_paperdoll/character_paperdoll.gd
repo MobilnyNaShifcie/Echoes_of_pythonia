@@ -4,13 +4,28 @@ extends Control
 @export var accent_color := Color(0.36, 0.47, 0.62, 0.72)
 @export var caption := "MIEJSCE NA GRAFIKĘ POSTACI"
 
+var _character_texture: Texture2D
+
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	queue_redraw()
 
 
+func show_character(texture: Texture2D, fallback_caption := "MIEJSCE NA GRAFIKĘ POSTACI") -> void:
+	_character_texture = texture
+	caption = fallback_caption
+	queue_redraw()
+
+
+func character_texture() -> Texture2D:
+	return _character_texture
+
+
 func _draw() -> void:
+	if _character_texture != null:
+		_draw_character_texture()
+		return
 	var center := Vector2(size.x * 0.5, size.y * 0.46)
 	var scale_factor := minf(size.x / 360.0, size.y / 520.0)
 	var outline := Color(accent_color, 0.58)
@@ -53,6 +68,17 @@ func _draw() -> void:
 			13,
 			Color(0.43, 0.52, 0.63, 0.78)
 		)
+
+
+func _draw_character_texture() -> void:
+	var texture_size := _character_texture.get_size()
+	if texture_size.x <= 0.0 or texture_size.y <= 0.0:
+		return
+	var available := Vector2(maxf(1.0, size.x - 16.0), maxf(1.0, size.y - 16.0))
+	var fit_scale := minf(available.x / texture_size.x, available.y / texture_size.y)
+	var draw_size := texture_size * fit_scale
+	var draw_rect := Rect2((size - draw_size) * 0.5, draw_size)
+	draw_texture_rect(_character_texture, draw_rect, false)
 
 
 func _draw_limb(from: Vector2, to: Vector2, color: Color) -> void:

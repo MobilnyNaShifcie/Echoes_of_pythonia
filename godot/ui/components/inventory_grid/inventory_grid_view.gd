@@ -14,6 +14,8 @@ const ITEM_SLOT_SCENE := preload("res://ui/components/inventory_grid/inventory_i
 @export var cell_size := Vector2(68, 68)
 @export var gap := 5.0
 @export var accepts_drops := false
+@export var stretch_cells_to_width := false
+@export var stretch_cells_to_height := false
 
 var _entries: Array[Dictionary] = []
 var _content_rows := 6
@@ -21,7 +23,10 @@ var _content_rows := 6
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
+	clip_contents = true
+	resized.connect(_layout_slots)
 	_refresh_minimum_size()
+	_layout_slots()
 	queue_redraw()
 
 
@@ -43,17 +48,16 @@ func _rebuild() -> void:
 		var footprint: Vector2i = placement.footprint
 		_content_rows = maxi(_content_rows, int(placement.row) + footprint.y)
 		var slot: InventoryItemSlot = ITEM_SLOT_SCENE.instantiate()
-		slot.position = _cell_position(int(placement.column), int(placement.row))
-		slot.size = Vector2(
-			cell_size.x * footprint.x + gap * (footprint.x - 1),
-			cell_size.y * footprint.y + gap * (footprint.y - 1)
-		)
+		slot.set_meta("grid_column", int(placement.column))
+		slot.set_meta("grid_row", int(placement.row))
+		slot.set_meta("grid_footprint", footprint)
 		slot.configure(placement)
 		slot.metadata_selected.connect(entry_selected.emit)
 		slot.metadata_hovered.connect(entry_hovered.emit)
 		slot.metadata_activated.connect(entry_activated.emit)
 		add_child(slot)
 	_refresh_minimum_size()
+	_layout_slots()
 	queue_redraw()
 
 
@@ -64,16 +68,46 @@ func _refresh_minimum_size() -> void:
 	)
 
 
-func _cell_position(column: int, row: int) -> Vector2:
-	return Vector2(column * (cell_size.x + gap), row * (cell_size.y + gap))
+func _layout_slots() -> void:
+	var effective_cell := _effective_cell_size()
+	for child in get_children():
+		if not child is InventoryItemSlot:
+			continue
+		var slot := child as InventoryItemSlot
+		var column := int(slot.get_meta("grid_column", 0))
+		var row := int(slot.get_meta("grid_row", 0))
+		var footprint: Vector2i = slot.get_meta("grid_footprint", Vector2i.ONE)
+		slot.position = _cell_position(column, row, effective_cell)
+		slot.size = Vector2(
+			effective_cell.x * footprint.x + gap * (footprint.x - 1),
+			effective_cell.y * footprint.y + gap * (footprint.y - 1)
+		)
+	queue_redraw()
+
+
+func _effective_cell_size() -> Vector2:
+	var result := cell_size
+	if stretch_cells_to_width and size.x > 0.0:
+		var available_width := size.x - maxi(0, columns - 1) * gap
+		result.x = maxf(cell_size.x, available_width / columns)
+	if stretch_cells_to_height and size.y > 0.0:
+		var available_height := size.y - maxi(0, _content_rows - 1) * gap
+		result.y = maxf(cell_size.y, available_height / _content_rows)
+	return result
+
+
+func _cell_position(column: int, row: int, effective_cell := Vector2.ZERO) -> Vector2:
+	var used_cell := effective_cell if effective_cell != Vector2.ZERO else _effective_cell_size()
+	return Vector2(column * (used_cell.x + gap), row * (used_cell.y + gap))
 
 
 func _draw() -> void:
 	var fill := Color(0.025, 0.038, 0.058, 0.32)
 	var border := Color(0.18, 0.25, 0.35, 0.72)
+	var effective_cell := _effective_cell_size()
 	for row in _content_rows:
 		for column in columns:
-			var rect := Rect2(_cell_position(column, row), cell_size)
+			var rect := Rect2(_cell_position(column, row, effective_cell), effective_cell)
 			draw_rect(rect, fill, true)
 			draw_rect(rect, border, false, 1.0)
 

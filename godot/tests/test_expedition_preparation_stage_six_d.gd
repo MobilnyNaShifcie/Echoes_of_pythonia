@@ -332,7 +332,7 @@ func test_schema_thirteen_migrates_to_fourteen_with_empty_preparation() -> void:
 
 	var restored := service._deserialize_payload(payload, session.save_slot)
 	assert_true(restored.ok)
-	assert_eq(SaveGameServiceClass.SCHEMA_VERSION, 17)
+	assert_eq(SaveGameServiceClass.SCHEMA_VERSION, 18)
 	assert_eq(restored.session.expedition_preparation.selected_location_id, "")
 	assert_eq(restored.session.expedition_preparation.presets.size(), 4)
 

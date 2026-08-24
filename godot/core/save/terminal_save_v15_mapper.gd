@@ -133,6 +133,7 @@ static func _map_player(data: Dictionary) -> Dictionary:
 		"player":
 		{
 			"display_name": data.get("name"),
+			"gender_code": "unspecified",
 			"level": data.get("level"),
 			"experience": data.get("experience"),
 			"gold": data.get("gold"),

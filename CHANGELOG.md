@@ -2,6 +2,16 @@
 
 ## [0.25.0-dev] — Pierwsza grywalna pętla w Godot 4
 
+- ukończono Stage 9C: tworzenie nowej gry zapisuje wybraną płeć bez zmiany
+  statystyk, bohater pozostaje neutralnym Poszukiwaczem do poziomu 5, a walka
+  i ekwipunek wybierają zatwierdzoną grafikę po klasie i płci,
+- Wojownik, Łowca, Mag i Pierrot mają komplet żeńskich i męskich wariantów
+  klas bazowych; Ciężki Rycerz pozostaje osobną prezentacją specjalizacji,
+- dziesięć zatwierdzonych ikon przedmiotów przechodzi przez wspólne
+  `ItemDefinition.icon` do plecaka, wyposażenia, handlu, kuźni, magazynu,
+  tooltipów i łupu. Ramki, rzadkość, liczba sztuk i tekst nadal generuje UI,
+- schemat `v18` dodaje wyłącznie `gender_code`; starsze zapisy i import kopii
+  terminalowego v15 zachowują bezpieczne `unspecified` bez zgadywania wyglądu,
 - ukończono Stage 8E: końcowy audyt parytetu otwartego świata potwierdził
   działające elity, obu bossów regionalnych, sześciowyprawowe odrodzenie oraz
   pełny save/load i import kopii terminalowego `v0.24.7/v15`,

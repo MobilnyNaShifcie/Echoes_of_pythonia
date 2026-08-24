@@ -1,10 +1,12 @@
-[gd_resource type="Resource" script_class="ItemDefinition" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=3 format=3]
 [ext_resource type="Script" path="res://core/items/item_definition.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/items/equipment/training_shield.png" id="2_icon"]
 [resource]
 script = ExtResource("1")
 item_id = "training_shield"
 display_name = "Tarcza Rekruta"
 description = "Prosta tarcza treningowa. Ciężki Rycerz potrafi wycisnąć z niej znacznie więcej niż zwykły Wojownik."
+icon = ExtResource("2_icon")
 slot = "off_hand"
 equipment_type = "shield"
 item_power = 2

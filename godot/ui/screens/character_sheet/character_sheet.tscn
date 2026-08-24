@@ -1,6 +1,22 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://ui/screens/character_sheet/character_sheet.gd" id="1_sheet"]
+
+[sub_resource type="StyleBoxFlat" id="AttributePointsStyle"]
+bg_color = Color(0.09, 0.075, 0.035, 0.78)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.72, 0.54, 0.21, 0.88)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 12.0
+content_margin_bottom = 6.0
 
 [node name="CharacterSheetScreen" type="Control"]
 layout_mode = 3
@@ -116,11 +132,39 @@ size_flags_horizontal = 3
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Title" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content"]
+[node name="AttributeHeader" type="HBoxContainer" parent="Page/BodyScroll/Columns/AttributesPanel/Content"]
 layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
 theme_override_font_sizes/font_size = 21
 text = "Atrybuty"
+
+[node name="AttributePointsBadge" type="PanelContainer" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeHeader"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("AttributePointsStyle")
+
+[node name="Content" type="HBoxContainer" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeHeader/AttributePointsBadge"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeHeader/AttributePointsBadge/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.76, 0.83, 1)
+theme_override_font_sizes/font_size = 13
+text = "WOLNE PUNKTY"
+
+[node name="AttributePointsValue" type="Label" parent="Page/BodyScroll/Columns/AttributesPanel/Content/AttributeHeader/AttributePointsBadge/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.78, 0.36, 1)
+theme_override_font_sizes/font_size = 18
+text = "0"
+horizontal_alignment = 2
 
 [node name="Separator" type="HSeparator" parent="Page/BodyScroll/Columns/AttributesPanel/Content"]
 layout_mode = 2

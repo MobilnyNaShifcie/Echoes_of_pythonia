@@ -999,6 +999,42 @@ obrażeń i osobny silnik walki drużynowej pozostają wyłącznym zakresem 6F.
 - checkpoint przeszedł 534 testy Python + 8 subtestów, 452/452 testy GUT z
   4737 asercjami, formatter, lint, bootstrap oraz eksport i smoke test Windows.
 
+### Etap 9C — golden slice przedmiotów i tożsamość bohatera (ukończony)
+
+- tworzenie nowej gry łączy imię, slot zapisu i trwały wybór płci. Postać nadal
+  zaczyna bez Drogi jako Poszukiwacz albo Poszukiwaczka, a jednorazowy wybór
+  klasy i jej sprzętu pozostaje odblokowany od poziomu 5 zgodnie z terminalową
+  v0.24.7,
+- płeć jest danymi domenowymi bohatera, ale nie zmienia statystyk ani zasad
+  walki. `NewGameService` waliduje wybór i przekazuje go do `PlayerProfile`;
+  UI jedynie zbiera decyzję i pokazuje odpowiadającą jej neutralną grafikę,
+- grafiki postaci są wybierane po parze `character_class_code + gender_code`.
+  Zatwierdzone warianty obu płci dla Wojownika, Łowcy, Maga i Pierrota są
+  współdzielone przez walkę oraz ekran ekwipunku. Neutralne
+  `seeker_female.png` i `seeker_male.png` pozostają aktywne przed wyborem klasy;
+  brakująca kombinacja nigdy nie pożycza grafiki innej płci,
+- bazowy męski Wojownik używa skromniejszego wariantu pancerza, natomiast
+  wcześniej zatwierdzona grafika jest zachowana dla ścieżki
+  `warrior_heavy_knight` i pojawia się dopiero po zdobyciu talentu
+  `heavy_knight_core`. Specjalizacje pozostają osobnymi prezentacjami i nie
+  nadpisują wariantów klas bazowych,
+- golden slice obejmuje 10 zatwierdzonych ikon reprezentujących wyposażenie
+  `1×1`, `1×2` i `2×2`, miksturę, materiały oraz księgę. Każdy plik zawiera
+  wyłącznie przedmiot na prawdziwym kanale alfa; ramka, rzadkość, liczba sztuk,
+  nazwa i stan zaznaczenia należą do UI,
+- jedno `ItemDefinition.icon` zasila plecak, wyposażenie, sklep, kuźnię,
+  Magazyn Gildii, tooltip i ekran łupu. Automatyczny gate sprawdza wymiary,
+  margines, ukryty RGB i jasne krawędzie, a test GUT zamraża wszystkie siedem
+  kontekstów bez tworzenia nowego stanu zapisu,
+- schemat Godota wzrasta z `v17` do `v18` wyłącznie o `gender_code`. Starsze
+  zapisy Godota oraz read-only import terminalowego v15 dostają wartość
+  `unspecified`; gra nie zgaduje płci ani nie regeneruje wyglądu. Nowa gra
+  utworzona przez UI wymaga jawnego wyboru kobiety albo mężczyzny,
+- layouty i komplet ośmiu wariantów klas bazowych są sprawdzane w Full HD oraz
+  regresyjnym `1280×720`. Checkpoint przeszedł 534 testy Python + 8 subtestów,
+  465/465 testów GUT z 5053 asercjami, formatter, lint i bootstrap Godota.
+  Stage 9C nie zmienia zasad walki, balansu ani ekonomii.
+
 ## Kryterium ukończenia etapu
 
 Etap jest ukończony, gdy reguły zgadzają się z wersją terminalową, ekran da się

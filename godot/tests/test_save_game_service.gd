@@ -37,6 +37,7 @@ func test_empty_slots_have_clear_summaries() -> void:
 
 func test_round_trip_preserves_the_current_migrated_state() -> void:
 	var session = NewGameServiceClass.new().create_session("Aria", 2)
+	assert_true(session.player.choose_gender("female"))
 	session.day = 4
 	session.hour = 21
 	session.prologue_stage = 5
@@ -90,6 +91,7 @@ func test_round_trip_preserves_the_current_migrated_state() -> void:
 	assert_eq(loaded.last_inn_rest_day, 3)
 	assert_eq(loaded.quest_log.active[QuestServiceClass.STORY_QUEST_ID], 1)
 	assert_eq(loaded.player.display_name, "Aria")
+	assert_eq(loaded.player.gender_code, "female")
 	assert_eq(loaded.player.level, 5)
 	assert_eq(loaded.player.experience, 12)
 	assert_eq(loaded.player.gold, 87)
@@ -149,7 +151,7 @@ func test_corrupt_and_future_saves_are_rejected_without_loading_a_session() -> v
 
 func test_save_uses_a_dedicated_godot_directory() -> void:
 	assert_eq(SaveGameServiceClass.DEFAULT_SAVE_ROOT, "user://godot_migration_saves")
-	assert_eq(SaveGameServiceClass.SCHEMA_VERSION, 17)
+	assert_eq(SaveGameServiceClass.SCHEMA_VERSION, 18)
 
 
 func test_round_trip_preserves_hunter_techniques_and_discovered_combos() -> void:
@@ -348,7 +350,7 @@ func test_schema_one_save_migrates_with_safe_economy_defaults() -> void:
 	assert_true(result.session.guild_storage.inventory.is_empty())
 
 
-func test_save_rejects_invalid_class_progression_and_equipped_requirements() -> void:
+func test_save_rejects_class_before_level_five_and_equipped_requirements() -> void:
 	var session = NewGameServiceClass.new().create_session("Aria", 1)
 	session.player.character_class_code = "hunter"
 	var early_class_result := _service.save_session(session)
@@ -363,3 +365,40 @@ func test_save_rejects_invalid_class_progression_and_equipped_requirements() -> 
 	var illegal_equipment_result := _service.save_session(session)
 	assert_false(illegal_equipment_result.ok)
 	assert_string_contains(illegal_equipment_result.message, "wymaga klasy: Łowca")
+
+
+func test_schema_seventeen_migrates_gender_to_unspecified() -> void:
+	var session = NewGameServiceClass.new().create_session("Aria", 1, null, "male")
+	assert_true(_service.save_session(session).ok)
+	var slot_path := "%s/save_1.json" % _save_root
+	var file := FileAccess.open(slot_path, FileAccess.READ)
+	var payload: Dictionary = JSON.parse_string(file.get_as_text())
+	file.close()
+	payload.schema_version = 17
+	payload.session.player.erase("gender_code")
+	file = FileAccess.open(slot_path, FileAccess.WRITE)
+	file.store_string(JSON.stringify(payload))
+	file.close()
+
+	var result := _service.load_session(1)
+
+	assert_true(result.ok, result.message)
+	assert_eq(result.session.player.gender_code, "unspecified")
+
+
+func test_current_schema_rejects_unknown_gender() -> void:
+	var session = NewGameServiceClass.new().create_session("Aria", 1, null, "male")
+	assert_true(_service.save_session(session).ok)
+	var slot_path := "%s/save_1.json" % _save_root
+	var file := FileAccess.open(slot_path, FileAccess.READ)
+	var payload: Dictionary = JSON.parse_string(file.get_as_text())
+	file.close()
+	payload.session.player.gender_code = "unknown"
+	file = FileAccess.open(slot_path, FileAccess.WRITE)
+	file.store_string(JSON.stringify(payload))
+	file.close()
+
+	var result := _service.load_session(1)
+
+	assert_false(result.ok)
+	assert_string_contains(result.message, "płeć")

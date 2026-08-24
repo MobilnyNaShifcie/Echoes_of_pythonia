@@ -442,6 +442,14 @@ quartermaster share an NPC portrait, offer grid, hover tooltip, and drag target
 composition. Grid footprints remain visual and deterministic; terminal carry
 weight stays authoritative and schema v17 is unchanged. Final character, NPC,
 and item art remains behind the documented approval gate.
+Stage 9C completes the approved female and male presentation matrix for every
+base hero class while preserving neutral Seekers before the level-five choice
+and a separate Heavy Knight specialization identity. A ten-item golden slice
+connects one transparent `ItemDefinition.icon` to equipment, backpack, commerce,
+smithing, storage, loot, and hover details; UI-generated frames and deterministic
+visual footprints do not change terminal weight or capacity rules. Save schema
+v18 adds only the explicit `gender_code`; legacy Godot saves and read-only v15
+imports remain valid with `unspecified` rather than a guessed appearance.
 Their calendar periods, generated definitions, objective progress, and claimed
 rewards survive reloads; existing schema-v8 files receive a safe empty board
 before the next period is generated.

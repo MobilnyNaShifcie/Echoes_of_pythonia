@@ -1,31 +1,43 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://ui/screens/new_game/new_game.gd" id="1_new_game"]
+[ext_resource type="Script" path="res://ui/components/character_paperdoll/character_paperdoll.gd" id="2_paperdoll"]
 
-[node name="NewGameScreen" type="Control"]
+[sub_resource type="StyleBoxFlat" id="PreviewStageStyle"]
+bg_color = Color(0.018, 0.028, 0.043, 0.68)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.18, 0.27, 0.38, 0.86)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="NewGameScreen" type="ScrollContainer"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+horizontal_scroll_mode = 0
 script = ExtResource("1_new_game")
 
 [node name="Center" type="CenterContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+custom_minimum_size = Vector2(1080, 760)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="Panel" type="PanelContainer" parent="Center"]
-custom_minimum_size = Vector2(760, 0)
+custom_minimum_size = Vector2(1080, 720)
 layout_mode = 2
 
 [node name="Content" type="VBoxContainer" parent="Center/Panel"]
 layout_mode = 2
-theme_override_constants/separation = 14
+theme_override_constants/separation = 12
 
 [node name="Eyebrow" type="Label" parent="Center/Panel/Content"]
 layout_mode = 2
@@ -41,46 +53,106 @@ text = "Stwórz bohatera"
 [node name="Description" type="Label" parent="Center/Panel/Content"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.57, 0.65, 0.75, 1)
-text = "Zachowujemy zasady wersji terminalowej: cztery sloty i imię od 2 do 20 znaków."
+text = "Nadaj imię i wybierz płeć postaci. Drogę bohatera wybierzesz po osiągnięciu poziomu 5."
 autowrap_mode = 2
 
-[node name="FormSpacer" type="Control" parent="Center/Panel/Content"]
-custom_minimum_size = Vector2(0, 6)
+[node name="Body" type="HBoxContainer" parent="Center/Panel/Content"]
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 16
 
-[node name="NameLabel" type="Label" parent="Center/Panel/Content"]
+[node name="Form" type="VBoxContainer" parent="Center/Panel/Content/Body"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="NameLabel" type="Label" parent="Center/Panel/Content/Body/Form"]
 layout_mode = 2
 text = "Imię bohatera"
 
-[node name="NameInput" type="LineEdit" parent="Center/Panel/Content"]
+[node name="NameInput" type="LineEdit" parent="Center/Panel/Content/Body/Form"]
 unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "np. Aria"
 max_length = 40
 clear_button_enabled = true
 
-[node name="ValidationLabel" type="Label" parent="Center/Panel/Content"]
+[node name="ValidationLabel" type="Label" parent="Center/Panel/Content/Body/Form"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 15
 text = "Od 2 do 20 znaków."
 
-[node name="SlotLabel" type="Label" parent="Center/Panel/Content"]
+[node name="GenderLabel" type="Label" parent="Center/Panel/Content/Body/Form"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
+theme_override_font_sizes/font_size = 20
+text = "Płeć postaci"
+
+[node name="GenderSelector" type="ItemList" parent="Center/Panel/Content/Body/Form"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 92)
+layout_mode = 2
+max_columns = 2
+same_column_width = true
+allow_reselect = true
+
+[node name="GenderDetailsPanel" type="PanelContainer" parent="Center/Panel/Content/Body/Form"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="GenderDetailsLabel" type="Label" parent="Center/Panel/Content/Body/Form/GenderDetailsPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.81, 0.89, 1)
+text = "Wybierz płeć, aby określić wariant wyglądu postaci. Wybór nie wpływa na statystyki."
+autowrap_mode = 2
+
+[node name="SlotLabel" type="Label" parent="Center/Panel/Content/Body/Form"]
 layout_mode = 2
 text = "Slot zapisu"
 
-[node name="SlotSelector" type="OptionButton" parent="Center/Panel/Content"]
+[node name="SlotSelector" type="OptionButton" parent="Center/Panel/Content/Body/Form"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="StarterPanel" type="PanelContainer" parent="Center/Panel/Content"]
+[node name="PreviewPanel" type="PanelContainer" parent="Center/Panel/Content/Body"]
+custom_minimum_size = Vector2(420, 0)
 layout_mode = 2
 
-[node name="StarterInfo" type="Label" parent="Center/Panel/Content/StarterPanel"]
+[node name="Content" type="VBoxContainer" parent="Center/Panel/Content/Body/PreviewPanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="RoleNameLabel" type="Label" parent="Center/Panel/Content/Body/PreviewPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.93, 0.95, 0.98, 1)
+theme_override_font_sizes/font_size = 25
+text = "Wybierz płeć postaci"
+horizontal_alignment = 1
+
+[node name="PreviewStage" type="PanelContainer" parent="Center/Panel/Content/Body/PreviewPanel/Content"]
+custom_minimum_size = Vector2(390, 470)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("PreviewStageStyle")
+
+[node name="CharacterPreview" type="Control" parent="Center/Panel/Content/Body/PreviewPanel/Content/PreviewStage"]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("2_paperdoll")
+caption = "GRAFIKA POSZUKIWACZA\nW PRZYGOTOWANIU"
+
+[node name="StarterInfo" type="Label" parent="Center/Panel/Content/Body/PreviewPanel/Content"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.64, 0.72, 0.82, 1)
-theme_override_font_sizes/font_size = 16
-text = "Start: poziom 0  •  20 PŻ  •  Varenhold\nEkwipunek: miecz rekruta i zużyta skórzana zbroja"
+theme_override_font_sizes/font_size = 15
+text = "Zaczynasz bez wybranej Drogi bohatera."
+horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="Actions" type="HBoxContainer" parent="Center/Panel/Content"]
 layout_mode = 2
@@ -89,11 +161,13 @@ alignment = 2
 
 [node name="BackButton" type="Button" parent="Center/Panel/Content/Actions"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 48)
 layout_mode = 2
 text = "Wróć"
 
 [node name="CreateButton" type="Button" parent="Center/Panel/Content/Actions"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(210, 48)
 layout_mode = 2
 disabled = true
-text = "Utwórz grę"
+text = "Rozpocznij grę"

@@ -131,7 +131,7 @@ func test_respawn_state_survives_save_load_without_schema_bump() -> void:
 	var session = NewGameServiceClass.new().create_session("Aria", 1)
 	session.world_encounters.region_boss_respawns = {"azhar": 3, "leviathan_north": 6}
 	var payload := service._serialize_session(session)
-	assert_eq(payload.schema_version, 17)
+	assert_eq(payload.schema_version, 18)
 	var restored := service._deserialize_payload(payload, 1)
 	assert_true(restored.ok, restored.get("message", ""))
 	assert_eq(

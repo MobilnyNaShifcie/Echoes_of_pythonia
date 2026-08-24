@@ -17,6 +17,9 @@ const PlayerEquipmentClass := preload("res://core/player/equipment.gd")
 const CarryWeightServiceClass := preload("res://core/economy/carry_weight_service.gd")
 const UpgradeServiceClass := preload("res://core/economy/upgrade_service.gd")
 const ItemGridLayoutClass := preload("res://ui/components/inventory_grid/item_grid_layout.gd")
+const CombatPresentationCatalogClass := preload(
+	"res://ui/presentation/combat_presentation_catalog.gd"
+)
 const SLOT_ORDER := [
 	PlayerEquipmentClass.WEAPON,
 	PlayerEquipmentClass.OFF_HAND,
@@ -42,19 +45,6 @@ const SLOT_NAMES := {
 	"bracelet": "Bransoleta",
 	"earrings": "Kolczyki",
 	"ring": "Pierścień",
-}
-const SLOT_CODES := {
-	"weapon": "BR",
-	"off_hand": "II",
-	"head": "HEŁ",
-	"chest": "ZBR",
-	"hands": "RĘK",
-	"feet": "BUT",
-	"belt": "PAS",
-	"necklace": "NAS",
-	"bracelet": "BRA",
-	"earrings": "KOL",
-	"ring": "PIE",
 }
 const EQUIPMENT_TYPE_NAMES := {
 	"sword": "Miecz",
@@ -83,6 +73,7 @@ var _session: GameSessionClass
 @onready var category_tabs: TabBar = %CategoryTabs
 @onready var inventory_grid: InventoryGridView = %InventoryGrid
 @onready var inventory_drop_zone: PanelContainer = %InventoryDropZone
+@onready var character_visual: CharacterPaperdoll = %CharacterVisual
 @onready var slot_buttons := {
 	PlayerEquipmentClass.WEAPON: %WeaponSlot,
 	PlayerEquipmentClass.OFF_HAND: %OffHandSlot,
@@ -173,15 +164,33 @@ func _category_changed(_index: int) -> void:
 
 
 func _refresh_paperdoll() -> void:
+	var class_code := _session.player.character_class_code
+	var class_display_name := _session.player.character_class_name.to_upper()
+	(
+		character_visual
+		. show_character(
+			CombatPresentationCatalogClass.hero_texture_for_player(_session.player),
+			"GRAFIKA %s\nPLACEHOLDER" % class_display_name,
+		)
+	)
 	for slot: String in SLOT_ORDER:
 		var button: InventoryItemSlot = slot_buttons[slot]
 		var item: EquipmentItemClass = _session.player.equipment.get_item(slot)
-		button.text = "%s\n%s" % ["◇" if item == null else "◆", SLOT_CODES[slot]]
-		button.tooltip_text = (
-			"%s — puste\nPrzeciągnij tutaj pasujący przedmiot." % SLOT_NAMES[slot]
-			if item == null
-			else "%s\n\n%s" % [SLOT_NAMES[slot], _format_item_details(item)]
-		)
+		var entry := {
+			"title": SLOT_NAMES[slot],
+			"placeholder": "◇" if item == null else "◆",
+			"slot_caption": SLOT_NAMES[slot],
+			"tooltip":
+			(
+				"%s — puste\nPrzeciągnij tutaj pasujący przedmiot." % SLOT_NAMES[slot]
+				if item == null
+				else "%s\n\n%s" % [SLOT_NAMES[slot], _format_item_details(item)]
+			),
+		}
+		if item != null:
+			entry.icon = item.definition.icon
+			entry.rarity = item.definition.rarity
+		button.configure(entry)
 
 
 func _refresh_inventory_grid() -> void:
@@ -201,6 +210,8 @@ func _refresh_inventory_grid() -> void:
 				{
 					"title": item.formatted_name(),
 					"placeholder": _item_placeholder(item.formatted_name()),
+					"icon": item.definition.icon,
+					"rarity": item.definition.rarity,
 					"tooltip": _format_item_details(item, true),
 					"metadata": metadata,
 					"drag_payload": metadata,
@@ -220,8 +231,10 @@ func _refresh_inventory_grid() -> void:
 			. append(
 				{
 					"title": definition.display_name,
-					"placeholder":
-					"%s\n×%d" % [_item_placeholder(definition.display_name), quantity],
+					"placeholder": _item_placeholder(definition.display_name),
+					"icon": definition.icon,
+					"rarity": definition.rarity,
+					"quantity": quantity,
 					"tooltip": _format_stack_details(item_id),
 					"metadata": {"kind": "stack", "item_id": item_id},
 					"footprint": ItemGridLayoutClass.footprint_for(definition.category),

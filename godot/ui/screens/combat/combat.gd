@@ -24,6 +24,7 @@ const EnemyCatalogClass := preload("res://core/combat/enemy_catalog.gd")
 const GameSessionClass := preload("res://core/game/game_session.gd")
 const HunterComboCatalogClass := preload("res://core/combat/hunter_combo_catalog.gd")
 const ItemCatalogClass := preload("res://core/items/item_catalog.gd")
+const LootPresentationClass := preload("res://ui/components/loot_presentation/loot_presentation.gd")
 const PlayerClassCatalogClass := preload("res://core/player/player_class_catalog.gd")
 const RegionCatalogClass := preload("res://core/world/region_catalog.gd")
 const RegionBossChallengeServiceClass := preload(
@@ -97,6 +98,7 @@ var _presentation_controller: CombatPresentationControllerClass
 @onready var result_panel: PanelContainer = %ResultPanel
 @onready var result_title_label: Label = %ResultTitleLabel
 @onready var result_label: Label = %ResultLabel
+@onready var loot_presentation: LootPresentationClass = %LootPresentation
 @onready var continue_button: Button = %ContinueButton
 @onready var command_class_label: Label = %CommandClassLabel
 @onready var class_resource_label: Label = %ClassResourceLabel
@@ -202,8 +204,8 @@ func _configure_presentations() -> void:
 	battlefield_texture.visible = background != null
 	battlefield_placeholder.visible = background == null
 
-	var hero_presentation := CombatPresentationCatalogClass.hero_presentation(
-		_session.player.character_class_code
+	var hero_presentation := CombatPresentationCatalogClass.hero_presentation_for_player(
+		_session.player
 	)
 	var hero_texture := hero_presentation.get("texture") as Texture2D
 	var hero_role := "BOHATER • %s" % _player_class_display_name().to_upper()
@@ -225,6 +227,8 @@ func _configure_presentations() -> void:
 
 
 func _player_class_display_name() -> String:
+	if _session.player.character_class_code == "none":
+		return _session.player.character_class_name
 	var definition = PlayerClassCatalogClass.get_definition(_session.player.character_class_code)
 	return definition.display_name if definition != null else "Nieznana klasa"
 
@@ -445,6 +449,7 @@ func _finish_battle() -> void:
 	if _context in ["expedition", "dungeon", "region_boss"]:
 		_session.camp_rest_available = true
 	result_panel.visible = true
+	loot_presentation.set_drops([])
 	match _engine.result:
 		CombatEngineClass.VICTORY:
 			result_title_label.text = "ZWYCIĘSTWO"
@@ -490,6 +495,7 @@ func _resolve_victory() -> String:
 		rewards = RegionBossChallengeServiceClass.resolve_victory(_session, _enemy, _rng)
 	else:
 		rewards = AdventureServiceClass.resolve_victory(_session, _enemy, _rng)
+	loot_presentation.set_drops(rewards.get("loot_drops", []))
 	var text := "Zwycięstwo  •  +%d EXP  •  +%d złota" % [rewards.experience, rewards.gold]
 	if rewards.levels_gained > 0:
 		text += "  •  Awans: +%d poziom" % rewards.levels_gained

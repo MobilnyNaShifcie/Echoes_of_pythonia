@@ -153,17 +153,71 @@ func test_region_one_profiles_crop_padding_and_share_a_ground_line() -> void:
 		assert_almost_eq(tall_frame.end.y, 0.96, 0.001, enemy_id)
 
 
-func test_selected_class_controls_hero_placeholder_and_never_defaults_to_pierrot() -> void:
+func test_gender_and_class_control_hero_art_without_silent_gender_changes() -> void:
 	var session = NewGameServiceClass.new().create_session("Aria", 1)
 	var screen := COMBAT_SCENE.instantiate() as CombatScreenClass
-	session.player.character_class_code = "hunter"
+	session.player.gender_code = "female"
 	screen.configure(session, "wolf", "expedition")
 	add_child_autofree(screen)
-	assert_eq(screen.player_visual.mode(), CombatantVisualClass.Mode.PLACEHOLDER)
+	assert_eq(screen.player_visual.mode(), CombatantVisualClass.Mode.STATIC_TEXTURE)
+	assert_eq(
+		screen.player_visual.source_texture().resource_path,
+		"res://assets/combat/heroes/seeker_female.png",
+	)
+	assert_string_contains(screen.player_visual.role_label.text, "POSZUKIWACZKA")
+
+	session.player.gender_code = "male"
+	screen.configure(session, "wolf", "expedition")
+	assert_eq(screen.player_visual.mode(), CombatantVisualClass.Mode.STATIC_TEXTURE)
+	assert_eq(
+		screen.player_visual.source_texture().resource_path,
+		"res://assets/combat/heroes/seeker_male.png",
+	)
+	assert_string_contains(screen.player_visual.role_label.text, "POSZUKIWACZ")
+
+	session.player.character_class_code = "hunter"
+	screen.configure(session, "wolf", "expedition")
+	assert_eq(screen.player_visual.mode(), CombatantVisualClass.Mode.STATIC_TEXTURE)
+	assert_eq(
+		screen.player_visual.source_texture().resource_path,
+		"res://assets/combat/heroes/hunter_male.png",
+	)
 	assert_string_contains(screen.player_visual.role_label.text, "ŁOWCA")
 	assert_false(screen.player_visual.role_label.text.contains("PIERROT"))
 
+	session.player.character_class_code = "mage"
+	screen.configure(session, "wolf", "expedition")
+	assert_eq(screen.player_visual.mode(), CombatantVisualClass.Mode.STATIC_TEXTURE)
+	assert_eq(
+		screen.player_visual.source_texture().resource_path,
+		"res://assets/combat/heroes/mage_male.png",
+	)
+	assert_string_contains(screen.player_visual.role_label.text, "MAG")
+
+	session.player.character_class_code = "warrior"
+	screen.configure(session, "wolf", "expedition")
+	assert_eq(screen.player_visual.mode(), CombatantVisualClass.Mode.STATIC_TEXTURE)
+	assert_eq(
+		screen.player_visual.source_texture().resource_path,
+		"res://assets/combat/heroes/warrior.png",
+	)
+	assert_string_contains(screen.player_visual.role_label.text, "WOJOWNIK")
+	session.player.talent_ranks.heavy_knight_core = 1
+	screen.configure(session, "wolf", "expedition")
+	assert_eq(
+		screen.player_visual.source_texture().resource_path,
+		"res://assets/combat/heroes/warrior_heavy_knight.png",
+	)
+	session.player.talent_ranks.clear()
+
 	session.player.character_class_code = "pierrot"
+	screen.configure(session, "wolf", "expedition")
+	assert_eq(screen.player_visual.mode(), CombatantVisualClass.Mode.STATIC_TEXTURE)
+	assert_eq(
+		screen.player_visual.source_texture().resource_path,
+		"res://assets/combat/heroes/pierrot_male.png",
+	)
+	session.player.gender_code = "female"
 	screen.configure(session, "wolf", "expedition")
 	assert_eq(screen.player_visual.mode(), CombatantVisualClass.Mode.STATIC_TEXTURE)
 	assert_eq(
@@ -172,7 +226,128 @@ func test_selected_class_controls_hero_placeholder_and_never_defaults_to_pierrot
 	)
 	assert_string_contains(screen.player_visual.role_label.text, "PIERROT")
 	assert_string_contains(screen.class_resource_label.text, "ŻETONY")
-	assert_null(CombatPresentationCatalogClass.hero_texture("hunter"))
+
+	session.player.character_class_code = "mage"
+	screen.configure(session, "wolf", "expedition")
+	assert_eq(screen.player_visual.mode(), CombatantVisualClass.Mode.STATIC_TEXTURE)
+	assert_eq(
+		screen.player_visual.source_texture().resource_path,
+		"res://assets/combat/heroes/mage_female.png",
+	)
+	assert_string_contains(screen.player_visual.role_label.text, "MAG")
+
+	session.player.character_class_code = "hunter"
+	screen.configure(session, "wolf", "expedition")
+	assert_eq(screen.player_visual.mode(), CombatantVisualClass.Mode.STATIC_TEXTURE)
+	assert_eq(
+		screen.player_visual.source_texture().resource_path,
+		"res://assets/combat/heroes/hunter_female.png",
+	)
+
+	session.player.character_class_code = "warrior"
+	screen.configure(session, "wolf", "expedition")
+	assert_eq(screen.player_visual.mode(), CombatantVisualClass.Mode.STATIC_TEXTURE)
+	assert_eq(
+		screen.player_visual.source_texture().resource_path,
+		"res://assets/combat/heroes/warrior_female.png",
+	)
+	session.player.talent_ranks.heavy_knight_core = 1
+	screen.configure(session, "wolf", "expedition")
+	assert_eq(screen.player_visual.mode(), CombatantVisualClass.Mode.PLACEHOLDER)
+	assert_null(CombatPresentationCatalogClass.hero_texture_for_player(session.player))
+
+
+func test_approved_gender_variants_keep_production_alpha_contract() -> void:
+	for asset_path: String in [
+		"res://assets/combat/heroes/warrior_female.png",
+		"res://assets/combat/heroes/pierrot_male.png",
+		"res://assets/combat/heroes/mage_male.png",
+		"res://assets/combat/heroes/mage_female.png",
+		"res://assets/combat/heroes/hunter_male.png",
+		"res://assets/combat/heroes/hunter_female.png",
+	]:
+		var texture := load(asset_path) as Texture2D
+		assert_not_null(texture, asset_path)
+		var image := texture.get_image()
+		assert_eq(image.get_size(), Vector2i(1024, 1536), asset_path)
+		assert_eq(image.get_format(), Image.FORMAT_RGBA8, asset_path)
+		for corner: Vector2i in [
+			Vector2i.ZERO,
+			Vector2i(1023, 0),
+			Vector2i(0, 1535),
+			Vector2i(1023, 1535),
+		]:
+			assert_almost_eq(image.get_pixelv(corner).a, 0.0, 0.001, asset_path)
+
+
+func test_all_base_class_art_stays_inside_supported_combat_stages() -> void:
+	var variants: Array[Dictionary] = [
+		{
+			"class_code": "warrior",
+			"gender_code": "male",
+			"path": "res://assets/combat/heroes/warrior.png",
+		},
+		{
+			"class_code": "warrior",
+			"gender_code": "female",
+			"path": "res://assets/combat/heroes/warrior_female.png",
+		},
+		{
+			"class_code": "hunter",
+			"gender_code": "male",
+			"path": "res://assets/combat/heroes/hunter_male.png",
+		},
+		{
+			"class_code": "hunter",
+			"gender_code": "female",
+			"path": "res://assets/combat/heroes/hunter_female.png",
+		},
+		{
+			"class_code": "mage",
+			"gender_code": "male",
+			"path": "res://assets/combat/heroes/mage_male.png",
+		},
+		{
+			"class_code": "mage",
+			"gender_code": "female",
+			"path": "res://assets/combat/heroes/mage_female.png",
+		},
+		{
+			"class_code": "pierrot",
+			"gender_code": "male",
+			"path": "res://assets/combat/heroes/pierrot_male.png",
+		},
+		{
+			"class_code": "pierrot",
+			"gender_code": "female",
+			"path": "res://assets/combat/heroes/pierrot.png",
+		},
+	]
+	for viewport_size: Vector2 in [Vector2(1920, 1080), Vector2(1280, 720)]:
+		var host := Control.new()
+		host.size = viewport_size
+		add_child(host)
+		var session = NewGameServiceClass.new().create_session("Aria", 1)
+		var screen := COMBAT_SCENE.instantiate() as CombatScreenClass
+		screen.configure(session, "wolf", "expedition")
+		host.add_child(screen)
+		await get_tree().process_frame
+
+		for variant: Dictionary in variants:
+			session.player.character_class_code = variant.class_code
+			session.player.gender_code = variant.gender_code
+			screen.configure(session, "wolf", "expedition")
+			await get_tree().process_frame
+			assert_eq(screen.player_visual.mode(), CombatantVisualClass.Mode.STATIC_TEXTURE)
+			assert_eq(screen.player_visual.source_texture().resource_path, variant.path)
+			var visual_rect := screen.player_visual.get_global_rect()
+			var texture_rect := screen.player_visual.static_texture.get_global_rect()
+			assert_gte(texture_rect.position.x, visual_rect.position.x, variant.path)
+			assert_gte(texture_rect.position.y, visual_rect.position.y, variant.path)
+			assert_lte(texture_rect.end.x, visual_rect.end.x, variant.path)
+			assert_lte(texture_rect.end.y, visual_rect.end.y, variant.path)
+
+		host.free()
 
 
 func test_night_weather_elite_and_miniboss_contexts_keep_art_independent() -> void:

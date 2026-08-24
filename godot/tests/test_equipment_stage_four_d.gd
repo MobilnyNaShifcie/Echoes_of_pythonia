@@ -155,7 +155,7 @@ func test_equipment_round_trip_and_schema_six_backfill_preserve_instances() -> v
 	var payload: Dictionary = service._serialize_session(session)
 	var serialized_item: Dictionary = payload.session.player.inventory.equipment_items[0]
 
-	assert_eq(payload.schema_version, 17)
+	assert_eq(payload.schema_version, 18)
 	assert_eq(serialized_item.item_power, 1)
 	assert_eq(serialized_item.affixes.size(), 2)
 	var round_trip := service._deserialize_payload(payload, 1)

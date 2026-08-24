@@ -196,12 +196,16 @@ func _render_grid() -> void:
 		var entry: Dictionary = _entries[index]
 		var metadata := {"kind": "service_entry", "index": index}
 		var footprint := _entry_footprint(entry)
+		var definition = _entry_definition(entry)
 		(
 			grid_entries
 			. append(
 				{
 					"title": entry.label,
 					"placeholder": _entry_placeholder(entry),
+					"icon": definition.icon if definition != null else null,
+					"rarity": definition.rarity if definition != null else "common",
+					"quantity": _entry_quantity(entry),
 					"tooltip": _entry_tooltip(entry),
 					"metadata": metadata,
 					"drag_payload": metadata,
@@ -366,28 +370,38 @@ func _sorted_stack_ids(inventory) -> Array[String]:
 
 
 func _entry_footprint(entry: Dictionary) -> Vector2i:
-	if entry.has("item"):
-		return ItemGridLayoutClass.footprint_for("equipment", entry.item.slot)
-	if entry.has("item_id"):
-		var definition = ItemCatalogClass.get_definition(str(entry.item_id))
-		if definition != null:
-			return ItemGridLayoutClass.footprint_for(definition.category, definition.slot)
-	if entry.kind in ["workshop", "carry_upgrade"]:
+	var definition = _entry_definition(entry)
+	if definition != null:
+		return ItemGridLayoutClass.footprint_for(definition.category, definition.slot)
+	if entry.kind == "carry_upgrade":
 		return Vector2i(2, 1)
 	return Vector2i.ONE
 
 
 func _entry_placeholder(entry: Dictionary) -> String:
 	var display_name := str(entry.label)
-	if entry.has("item"):
-		display_name = entry.item.formatted_name()
-	elif entry.has("item_id"):
-		var definition = ItemCatalogClass.get_definition(str(entry.item_id))
-		if definition != null:
-			display_name = definition.display_name
-	elif entry.kind == "workshop":
-		display_name = str(entry.recipe.name)
+	var definition = _entry_definition(entry)
+	if definition != null:
+		display_name = definition.display_name
 	return _initials(display_name)
+
+
+func _entry_definition(entry: Dictionary):
+	if entry.has("item") and entry.item != null:
+		return entry.item.definition
+	if entry.has("item_id"):
+		return ItemCatalogClass.get_definition(str(entry.item_id))
+	if entry.kind == "workshop":
+		return ItemCatalogClass.get_definition(str(entry.recipe.output_item_id))
+	return null
+
+
+func _entry_quantity(entry: Dictionary) -> int:
+	if entry.has("owned"):
+		return int(entry.owned)
+	if entry.kind == "workshop":
+		return int(entry.recipe.get("quantity", 1))
+	return 0
 
 
 func _entry_tooltip(entry: Dictionary) -> String:

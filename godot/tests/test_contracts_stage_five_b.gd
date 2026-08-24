@@ -201,7 +201,7 @@ func test_current_schema_preserves_board_and_schema_eight_gets_safe_empty_state(
 	session.contract_board.progress[contract_id] = {"0": 1}
 	var service := SaveGameServiceClass.new("user://stage_five_b_not_written")
 	var payload: Dictionary = service._serialize_session(session)
-	assert_eq(payload.schema_version, 17)
+	assert_eq(payload.schema_version, 18)
 	var loaded := service._deserialize_payload(payload, 1)
 	assert_true(loaded.ok, loaded.message)
 	assert_eq(loaded.session.contract_board.daily_date, "2099-08-09")

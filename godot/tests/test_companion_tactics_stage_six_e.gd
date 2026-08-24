@@ -156,7 +156,7 @@ func test_tactic_round_trip_keeps_schema_fourteen() -> void:
 	session.party.companions.append(companion)
 	var service := SaveGameServiceClass.new("user://stage_six_e_not_written")
 	var payload: Dictionary = service._serialize_session(session)
-	assert_eq(payload.schema_version, 17)
+	assert_eq(payload.schema_version, 18)
 	var loaded := service._deserialize_payload(payload, 1)
 	assert_true(loaded.ok, loaded.message)
 	assert_eq(loaded.session.party.companions[0].tactic, CompanionStateClass.TACTIC_CAUTIOUS)

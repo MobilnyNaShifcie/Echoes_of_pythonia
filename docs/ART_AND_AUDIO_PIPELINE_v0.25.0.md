@@ -97,6 +97,24 @@ project owner approves it. Every proposal follows this lifecycle:
 Silence is not approval. Rejected previews remain outside the game and should
 not shape later assets unless the owner asks to revisit them.
 
+### Mandatory two-pass transparent-art workflow
+
+Generated character and item cutouts are treated as opaque source artwork even
+when the first preview appears to show transparency. A checkerboard rendered by
+the model is only part of the bitmap and never counts as an alpha channel.
+
+Every new transparent raster therefore follows two passes by default:
+
+1. generate the subject with clean separation from a simple background,
+2. run a dedicated background-extraction pass and use only that result as the
+   approval preview and possible production asset.
+
+Before presentation or integration, the extracted file must be checked for a
+32-bit RGBA channel, transparent corners, residual checkerboard/background
+pixels, hidden RGB under zero alpha, and bright low-alpha edge fringe. This is
+the default workflow; the owner does not need to request background extraction
+for each new asset separately.
+
 ## Paid and third-party assets
 
 - Never purchase or download a paid asset on the owner's behalf without an
@@ -141,8 +159,8 @@ The first approved static integration covers the Region 1 golden combat slice:
   session time for surface expedition and region-boss combat,
 - Wilk uses its approved transparent combat illustration,
 - combatants without an integrated asset keep a named placeholder,
-- the hero asset is selected by `character_class_code`; Pierrot is never used
-  as a generic or default hero,
+- the hero asset is selected by `character_class_code` and `gender_code`;
+  Pierrot is never used as a generic or default hero,
 - dungeon and prologue contexts do not reuse the surface background by
   accident.
 
@@ -153,11 +171,37 @@ The approved files, provenance, rights status, and checksums are recorded in
 
 The Region 1 static combat pass integrates Dziki Pies, Slime, Wilk, Spaczony
 Dzik, Bandyta, Przeklęty Strach na Wróble, Duch Równin, Nocny Strażnik,
-Myśliwy, Strażnik Natury, and the Pierrot hero. Each integrated combatant uses
-an independent crop and normalized stage frame, keeping its proportions and
-ground contact stable without editing the source bitmap. Pierrot is selected
-only for the `pierrot` class; the other three hero classes never borrow her
-artwork.
+Myśliwy, Strażnik Natury, both approved Pierrot variants, both approved base
+Warrior variants, and the female and male neutral Seekers. Each integrated
+combatant uses an independent crop and normalized stage frame, keeping its
+proportions and ground contact stable without editing the source bitmap. Hero
+art is selected only when both class and gender match; every missing
+class/gender or explicit path/gender combination retains a named placeholder
+instead of borrowing artwork that would silently change the hero's identity.
+
+Warrior presentation has two explicit progression states. The restrained,
+worn-armour `warrior.png` and `warrior_female.png` files are the male and female
+base-class variants. The previously approved ornate
+`warrior_heavy_knight.png` is preserved for the male Heavy Knight path and
+replaces the male base presentation only after the player has learned
+`heavy_knight_core`. The female Heavy Knight path deliberately keeps a named
+placeholder until its own artwork is approved instead of silently retaining
+the base Warrior silhouette. This lookup remains presentation-only and does
+not alter talent or combat rules. `pierrot.png` and `pierrot_male.png` provide
+the approved female and male base Pierrot variants. `mage_female.png`,
+`mage_male.png`, `hunter_female.png`, and `hunter_male.png` complete the
+approved gender matrix for all four base classes. These variants are selected
+by the same presentation catalog in combat and equipment without changing class
+mechanics, equipment rules, statistics, or save data.
+
+The new-game screen collects the character name, gender and save slot. The hero
+starts as a neutral Seeker and chooses a permanent class at level 5, preserving
+the terminal progression. Approved `seeker_female.png` and `seeker_male.png`
+variants are used in character creation, equipment and combat before the class
+choice. Gender controls only the presentation variant and grammatical
+neutral-role name, not statistics or combat rules. Legacy/imported sessions
+with unknown gender remain valid and use placeholders rather than a guessed
+appearance.
 
 ## Combat HUD 2.0 placeholder contract
 
@@ -223,3 +267,26 @@ those layers so one source image can be reused in the backpack, equipment,
 merchant, storage, loot, and companion views. Character and NPC placeholders
 are explicit replacement boundaries; no generated final art was added in this
 stage.
+
+## Stage 9C character and item golden-slice contract
+
+The base hero presentation matrix is complete for female and male Warrior,
+Hunter, Mage, and Pierrot characters. The same class-and-gender lookup is used
+in combat and equipment, while female and male neutral Seekers remain the only
+art selected before the level-five class choice. Heavy Knight and every later
+specialization remain separate presentation identities rather than silent
+replacements for base-class artwork.
+
+The first ten production item icons exercise `1×1`, `1×2`, and `2×2` spatial
+footprints across equipment, consumables, materials, and books. The source PNG
+owns only the transparent object artwork. `ItemDefinition` owns the reusable
+texture reference, and the UI continues to own frames, rarity, quantities,
+labels, selection, disabled states, and tooltips. One icon therefore reaches
+the backpack, equipped slots, merchants, smithing, Guild storage, loot, and
+hover details without copied presentation data.
+
+Generated cutouts use the mandatory two-pass extraction workflow and automated
+checks for dimensions, transparent margins, hidden RGB, and bright low-alpha
+edges. Supported 1920×1080 and 1280×720 layouts keep every approved base hero
+inside its combat stage. No item footprint, artwork choice, or gender changes
+combat, inventory-capacity, economy, or reward rules.

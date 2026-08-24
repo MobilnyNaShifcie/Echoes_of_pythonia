@@ -183,7 +183,7 @@ func test_schema_eight_persists_weather_camp_and_migrates_schema_seven() -> void
 	session.camp_rest_available = false
 	var payload: Dictionary = service._serialize_session(session)
 
-	assert_eq(payload.schema_version, 17)
+	assert_eq(payload.schema_version, 18)
 	var round_trip := service._deserialize_payload(payload, 1)
 	assert_true(round_trip.ok, round_trip.message)
 	assert_eq(round_trip.session.weather_code, WeatherServiceClass.WIND)

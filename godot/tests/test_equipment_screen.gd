@@ -108,7 +108,8 @@ func test_mmo_layout_exposes_all_slots_tabs_and_hover_details() -> void:
 
 	screen._show_equipped_details("weapon")
 	assert_string_contains(screen.details_label.text, "Stary Miecz +0")
-	assert_eq(screen.slot_buttons.weapon.text, "◆\nBR")
+	assert_eq(screen.slot_buttons.weapon.text, "")
+	assert_not_null(screen.slot_buttons.weapon.item_texture)
 	assert_string_contains(screen.slot_buttons.weapon.tooltip_text, "Stary Miecz +0")
 
 
@@ -130,3 +131,6 @@ func test_drag_contract_equips_to_slot_and_returns_item_to_backpack() -> void:
 	screen._backpack_drop_data(Vector2.ZERO, equipped_drag)
 	assert_eq(session.player.get_equipped_item_name("weapon"), "Brak")
 	assert_eq(session.player.inventory.equipment_items.size(), 2)
+	assert_null(screen.slot_buttons.weapon.item_texture)
+	assert_eq(screen.slot_buttons.weapon.text, "◇")
+	assert_eq(screen.slot_buttons.weapon.slot_caption, "Broń")

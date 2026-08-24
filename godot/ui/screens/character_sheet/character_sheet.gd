@@ -16,6 +16,7 @@ var _session: GameSessionClass
 
 @onready var hero_name_label: Label = %HeroNameLabel
 @onready var progression_label: Label = %ProgressionLabel
+@onready var attribute_points_value_label: Label = %AttributePointsValue
 @onready var primary_stats_label: Label = %PrimaryStatsLabel
 @onready var equipment_label: Label = %EquipmentLabel
 @onready var attribute_feedback_label: Label = %AttributeFeedbackLabel
@@ -64,7 +65,7 @@ func _render_character() -> void:
 	hero_name_label.text = player.titled_display_name()
 	progression_label.text = (
 		(
-			"%s  •  Poziom %d\nEXP: %d/%d  •  Wolne punkty atrybutów: %d\n"
+			"%s  •  Poziom %d\nEXP: %d/%d\n"
 			+ "Udźwig: %.1f/%.1f kg  •  %s  •  Plecak Kwatermistrza %d/3"
 		)
 		% [
@@ -72,13 +73,13 @@ func _render_character() -> void:
 			player.level,
 			player.experience,
 			player.experience_to_next_level(),
-			player.unspent_attribute_points,
 			load.current_kg,
 			load.capacity_kg,
 			load.display_name,
 			player.carry_upgrade_level,
 		]
 	)
+	attribute_points_value_label.text = str(player.unspent_attribute_points)
 	primary_stats_label.text = (
 		"PŻ      %d / %d\nMANA    %d / %d\nATK     %d\nDEF     %d\nUNIK    %.1f%%"
 		% [
@@ -95,9 +96,11 @@ func _render_character() -> void:
 		attribute_value_labels[attribute_code].text = str(
 			player.attributes.get_value(attribute_code)
 		)
-		attribute_buttons[attribute_code].disabled = player.unspent_attribute_points <= 0
-	attribute_buttons[PlayerAttributesClass.LUCK].disabled = (
-		player.unspent_attribute_points <= 0 or player.character_class_code != player.CLASS_PIERROT
+		_configure_attribute_button(attribute_code)
+	attribute_feedback_label.text = (
+		"Wybierz +1, aby wydać wolny punkt."
+		if player.unspent_attribute_points > 0
+		else "Brak wolnych punktów atrybutów. Kolejne otrzymasz po awansie."
 	)
 	%LuckHint.text = (
 		"Szczęście wzmacnia Kości i Żetony Losu."
@@ -137,10 +140,25 @@ func _spend_attribute(attribute_code: String) -> void:
 	if not player.spend_attribute_points(attribute_code):
 		attribute_feedback_label.text = "Nie udało się wydać punktu atrybutu."
 		return
-	var attribute_name := _attribute_display_name(attribute_code)
-	attribute_feedback_label.text = "Zwiększono: %s." % attribute_name
-	_session.last_activity = attribute_feedback_label.text
+	var feedback := "Zwiększono: %s." % _attribute_display_name(attribute_code)
+	_session.last_activity = feedback
 	_render_character()
+	attribute_feedback_label.text = feedback
+
+
+func _configure_attribute_button(attribute_code: String) -> void:
+	var player := _session.player
+	var button: Button = attribute_buttons[attribute_code]
+	var error := player.get_attribute_spend_error(attribute_code)
+	var can_spend := error.is_empty()
+	button.disabled = not can_spend
+	button.flat = not can_spend
+	button.text = "+1" if can_spend else ""
+	button.focus_mode = Control.FOCUS_ALL if can_spend else Control.FOCUS_NONE
+	button.mouse_default_cursor_shape = (
+		Control.CURSOR_POINTING_HAND if can_spend else Control.CURSOR_ARROW
+	)
+	button.tooltip_text = "Przydziel 1 punkt." if can_spend else error
 
 
 func _attribute_display_name(attribute_code: String) -> String:

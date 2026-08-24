@@ -19,7 +19,7 @@ func test_stage_eight_authored_contract_is_complete() -> void:
 	assert_eq(RegionBossCatalogClass.BOSS_ORDER, ["azhar", "leviathan_north"])
 	assert_eq(RegionBossCatalogClass.get_all().size(), 2)
 	assert_eq(RegionBossRespawnServiceClass.RESPAWN_EXPEDITIONS, 6)
-	assert_eq(SaveGameServiceClass.SCHEMA_VERSION, 17)
+	assert_eq(SaveGameServiceClass.SCHEMA_VERSION, 18)
 
 
 func test_boss_respawn_starts_after_attempt_time_and_uses_the_new_timestamp() -> void:

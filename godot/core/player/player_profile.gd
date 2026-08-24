@@ -18,8 +18,13 @@ const STARTING_LEVEL := 0
 const ATTRIBUTE_POINTS_PER_LEVEL := 4
 const CLASS_NONE := "none"
 const CLASS_PIERROT := "pierrot"
+const GENDER_UNSPECIFIED := "unspecified"
+const GENDER_FEMALE := "female"
+const GENDER_MALE := "male"
+const SELECTABLE_GENDERS := [GENDER_FEMALE, GENDER_MALE]
 
 var display_name: String
+var gender_code := GENDER_UNSPECIFIED
 var level := STARTING_LEVEL
 var experience := 0
 var gold := 0
@@ -59,8 +64,20 @@ var armor_id: String:
 
 var character_class_name: String:
 	get:
+		if character_class_code == CLASS_NONE and gender_code == GENDER_FEMALE:
+			return "Poszukiwaczka"
 		var definition = PlayerClassCatalogClass.get_definition(character_class_code)
 		return definition.display_name if definition != null else character_class_code
+
+var gender_name: String:
+	get:
+		match gender_code:
+			GENDER_FEMALE:
+				return "Kobieta"
+			GENDER_MALE:
+				return "Mężczyzna"
+			_:
+				return "Nieokreślona"
 
 var can_choose_class: bool:
 	get:
@@ -73,6 +90,21 @@ func _init(player_name: String) -> void:
 
 func titled_display_name() -> String:
 	return "[%s] %s" % [achievement_book.equipped_title, display_name]
+
+
+func get_gender_choice_error(candidate_gender_code: String) -> String:
+	if candidate_gender_code not in SELECTABLE_GENDERS:
+		return "Wybierz płeć postaci."
+	if gender_code != GENDER_UNSPECIFIED:
+		return "Płeć postaci została już wybrana."
+	return ""
+
+
+func choose_gender(candidate_gender_code: String) -> bool:
+	if not get_gender_choice_error(candidate_gender_code).is_empty():
+		return false
+	gender_code = candidate_gender_code
+	return true
 
 
 func experience_to_next_level() -> int:

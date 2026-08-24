@@ -38,11 +38,12 @@ const WorldEncounterSaveCodecClass := preload("res://core/save/world_encounter_s
 const StageSixSaveValidatorClass := preload("res://core/save/stage_six_save_validator.gd")
 
 const FORMAT_ID := "echoes_of_pythonia_godot_migration"
-const SCHEMA_VERSION := 17
+const SCHEMA_VERSION := 18
 const GAME_VERSION := "0.25.0"
 const DEFAULT_SAVE_ROOT := "user://godot_migration_saves"
 const SLOT_COUNT := NewGameServiceClass.SAVE_SLOT_COUNT
 const VALID_CLASS_CODES := ["none", "warrior", "hunter", "mage", "pierrot"]
+const VALID_GENDER_CODES := ["unspecified", "female", "male"]
 const VALID_EQUIPMENT_SLOTS := [
 	PlayerEquipmentClass.WEAPON,
 	PlayerEquipmentClass.HEAD,
@@ -208,6 +209,7 @@ func _serialize_session(session: GameSessionClass) -> Dictionary:
 			"player":
 			{
 				"display_name": player.display_name,
+				"gender_code": player.gender_code,
 				"level": player.level,
 				"experience": player.experience,
 				"gold": player.gold,
@@ -300,6 +302,9 @@ func _deserialize_player(data: Dictionary) -> Dictionary:
 	var class_code := str(data.get("character_class_code", ""))
 	if not class_code in VALID_CLASS_CODES:
 		return _failure("Zapis zawiera nieznaną Drogę bohatera.")
+	var gender_code := str(data.get("gender_code", ""))
+	if gender_code not in VALID_GENDER_CODES:
+		return _failure("Zapis zawiera nieprawidłową płeć bohatera.")
 	if not data.get("attributes") is Dictionary:
 		return _failure("Zapis nie zawiera atrybutów bohatera.")
 	if not data.get("achievements") is Dictionary:
@@ -308,6 +313,7 @@ func _deserialize_player(data: Dictionary) -> Dictionary:
 		return _failure("Zapis nie zawiera kompletnego ekwipunku.")
 
 	var player := PlayerProfileClass.new(player_name)
+	player.gender_code = gender_code
 	player.level = int(data.level)
 	player.experience = int(data.experience)
 	player.gold = int(data.gold)
@@ -611,6 +617,8 @@ func _migrate_payload(payload: Dictionary) -> Dictionary:
 			_backfill_companion_resource_initialization(session.get("party", {}))
 		if version <= 16:
 			session["world_encounters"] = WorldEncounterSaveCodecClass.empty_data()
+		if version <= 17:
+			session.player["gender_code"] = PlayerProfileClass.GENDER_UNSPECIFIED
 		migrated.schema_version = SCHEMA_VERSION
 	if not error.is_empty():
 		return _failure(error)

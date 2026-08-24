@@ -200,7 +200,7 @@ func test_schema_fifteen_round_trip_preserves_active_rift_and_reservation() -> v
 	var payload := service._serialize_session(session)
 	var loaded := service._deserialize_payload(payload, session.save_slot)
 
-	assert_eq(payload.schema_version, 17)
+	assert_eq(payload.schema_version, 18)
 	assert_true(loaded.ok, loaded.message)
 	assert_eq(loaded.session.rifts.active_rift.rift_id, "save-rift")
 	assert_eq(loaded.session.rifts.expedition.party_companion_ids, ["a", "b"])

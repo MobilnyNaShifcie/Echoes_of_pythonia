@@ -1,9 +1,11 @@
-[gd_resource type="Resource" script_class="ItemDefinition" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=3 format=3]
 [ext_resource type="Script" path="res://core/items/item_definition.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/items/materials/slime_gel.png" id="2_icon"]
 [resource]
 script = ExtResource("1")
 item_id = "slime_gel"
 display_name = "Śluz"
 description = "Lepka substancja pozostała po pokonanym slime."
+icon = ExtResource("2_icon")
 category = "material"
 stackable = true

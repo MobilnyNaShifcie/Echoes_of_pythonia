@@ -66,7 +66,7 @@ func test_schema_sixteen_migrates_to_an_empty_world_encounter_state() -> void:
 	var service := SaveGameServiceClass.new("user://stage_eight_a_not_written")
 	var session = NewGameServiceClass.new().create_session("Aria", 1)
 	var payload := service._serialize_session(session)
-	assert_eq(payload.schema_version, 17)
+	assert_eq(payload.schema_version, 18)
 	assert_true(payload.session.has("world_encounters"))
 
 	payload.schema_version = 16

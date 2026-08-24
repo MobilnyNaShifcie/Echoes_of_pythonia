@@ -108,6 +108,7 @@ custom_minimum_size = Vector2(620, 590)
 layout_mode = 2
 
 [node name="CharacterVisual" type="Control" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage"]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 130.0
 offset_top = 18.0
@@ -264,11 +265,14 @@ horizontal_scroll_mode = 0
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 columns = 8
 visible_rows = 6
 cell_size = Vector2(66, 66)
 gap = 5.0
 accepts_drops = true
+stretch_cells_to_width = true
+stretch_cells_to_height = true
 
 [node name="InteractionHint" type="Label" parent="Page/Workspace/BackpackPanel/Content"]
 layout_mode = 2

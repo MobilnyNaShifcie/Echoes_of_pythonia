@@ -18,6 +18,12 @@ func test_renders_migrated_character_state() -> void:
 	assert_string_contains(screen.primary_stats_label.text, "DEF     2")
 	assert_string_contains(screen.equipment_label.text, "Stary Miecz +0")
 	assert_string_contains(screen.equipment_label.text, "Zużyta Skórzana Zbroja +0")
+	assert_eq(screen.attribute_points_value_label.text, "0")
+	for button: Button in screen.attribute_buttons.values():
+		assert_true(button.disabled)
+		assert_true(button.flat)
+		assert_eq(button.text, "")
+	assert_string_contains(screen.attribute_feedback_label.text, "Brak wolnych punktów")
 
 
 func test_back_button_emits_navigation_request() -> void:
@@ -64,14 +70,19 @@ func test_attribute_buttons_spend_points_and_refresh_derived_stats() -> void:
 	add_child_autofree(screen)
 
 	assert_false(screen.attribute_buttons[PlayerAttributesClass.STRENGTH].disabled)
+	assert_false(screen.attribute_buttons[PlayerAttributesClass.STRENGTH].flat)
+	assert_eq(screen.attribute_buttons[PlayerAttributesClass.STRENGTH].text, "+1")
 	assert_true(screen.attribute_buttons[PlayerAttributesClass.LUCK].disabled)
+	assert_eq(screen.attribute_buttons[PlayerAttributesClass.LUCK].text, "")
+	assert_eq(screen.attribute_points_value_label.text, "2")
 	screen.attribute_buttons[PlayerAttributesClass.STRENGTH].pressed.emit()
 
 	assert_eq(session.player.attributes.strength, 1)
 	assert_eq(session.player.unspent_attribute_points, 1)
 	assert_eq(session.player.stats.attack, 4)
 	assert_eq(screen.attribute_value_labels[PlayerAttributesClass.STRENGTH].text, "1")
-	assert_string_contains(screen.progression_label.text, "Wolne punkty atrybutów: 1")
+	assert_eq(screen.attribute_points_value_label.text, "1")
+	assert_eq(screen.attribute_buttons[PlayerAttributesClass.STRENGTH].text, "+1")
 
 
 func test_pierrot_can_spend_luck_and_class_button_emits_navigation() -> void:
@@ -88,5 +99,8 @@ func test_pierrot_can_spend_luck_and_class_button_emits_navigation() -> void:
 	screen.attribute_buttons[PlayerAttributesClass.LUCK].pressed.emit()
 	assert_eq(session.player.attributes.luck, 1)
 	assert_eq(session.player.unspent_attribute_points, 0)
+	assert_eq(screen.attribute_points_value_label.text, "0")
+	assert_eq(screen.attribute_buttons[PlayerAttributesClass.LUCK].text, "")
+	assert_true(screen.attribute_buttons[PlayerAttributesClass.LUCK].flat)
 	screen.class_button.pressed.emit()
 	assert_signal_emitted(screen, "class_selection_requested")

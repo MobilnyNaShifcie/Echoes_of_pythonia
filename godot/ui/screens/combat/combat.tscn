@@ -1,7 +1,9 @@
-[gd_scene load_steps=14 format=3]
+[gd_scene load_steps=16 format=3]
 
 [ext_resource type="Script" path="res://ui/screens/combat/combat.gd" id="1_script"]
 [ext_resource type="PackedScene" path="res://ui/components/combatant_visual/combatant_visual.tscn" id="2_visual"]
+[ext_resource type="PackedScene" path="res://ui/components/inventory_grid/inventory_grid_view.tscn" id="3_item_grid"]
+[ext_resource type="Script" path="res://ui/components/loot_presentation/loot_presentation.gd" id="4_loot"]
 
 [sub_resource type="StyleBoxFlat" id="StyleMechanic"]
 content_margin_left = 12.0
@@ -872,6 +874,31 @@ theme_override_colors/font_color = Color(0.44, 0.8, 0.58, 1)
 theme_override_font_sizes/font_size = 15
 text = "Zwycięstwo"
 autowrap_mode = 2
+
+[node name="LootPresentation" type="VBoxContainer" parent="Page/ResultPanel/Result"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(196, 0)
+layout_mode = 2
+clip_contents = true
+theme_override_constants/separation = 4
+script = ExtResource("4_loot")
+
+[node name="LootTitle" type="Label" parent="Page/ResultPanel/Result/LootPresentation"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.7, 0.32, 1)
+theme_override_font_sizes/font_size = 12
+text = "ZDOBYTY ŁUP"
+horizontal_alignment = 1
+
+[node name="LootGrid" parent="Page/ResultPanel/Result/LootPresentation" instance=ExtResource("3_item_grid")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(188, 44)
+layout_mode = 2
+columns = 4
+visible_rows = 1
+cell_size = Vector2(44, 44)
+gap = 4.0
 
 [node name="ContinueButton" type="Button" parent="Page/ResultPanel/Result"]
 unique_name_in_owner = true

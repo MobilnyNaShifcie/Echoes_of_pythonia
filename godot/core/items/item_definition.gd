@@ -4,6 +4,7 @@ extends Resource
 @export var item_id := ""
 @export var display_name := ""
 @export_multiline var description := ""
+@export var icon: Texture2D
 @export var category := "equipment"
 @export var rarity := "common"
 @export var stackable := false
