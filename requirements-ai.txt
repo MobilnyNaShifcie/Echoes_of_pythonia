@@ -1,0 +1,2 @@
+# AI orchestration only — not required by the game runtime.
+openai-agents==0.22.2
