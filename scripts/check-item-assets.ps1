@@ -10,11 +10,9 @@ if ([string]::IsNullOrWhiteSpace($AssetRoot)) {
 }
 
 Add-Type -AssemblyName System.Drawing
+$systemDrawingAssembly = [System.Drawing.Bitmap].Assembly.Location
 Add-Type -ReferencedAssemblies @(
-    'System.Drawing.Common',
-    'System.Drawing.Primitives',
-    'System.Private.Windows.GdiPlus',
-    'System.Private.Windows.Core'
+    $systemDrawingAssembly
 ) -TypeDefinition @'
 using System;
 using System.Drawing;
