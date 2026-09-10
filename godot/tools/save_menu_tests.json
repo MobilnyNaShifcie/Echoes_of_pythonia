@@ -1,0 +1,15 @@
+{
+  "dirs": [],
+  "tests": [
+    "res://tests/test_main_menu_save_feedback.gd",
+    "res://tests/test_main_menu.gd",
+    "res://tests/test_save_game_service.gd",
+    "res://tests/test_load_game.gd",
+    "res://tests/test_vertical_slice_navigation.gd"
+  ],
+  "ignore_pause": true,
+  "log_level": 1,
+  "disable_colors": true,
+  "should_exit": true,
+  "should_maximize": false
+}

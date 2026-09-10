@@ -114,7 +114,7 @@ const DATA := {
 		"prerequisite_quest_id": "awakening_voice_beneath_roots",
 		"objective_type": "kill",
 		"target_id": "mist_walker",
-		"target_name": "Wędrowiec Mgieł",
+		"target_name": "Trzcinowy Brodziec",
 		"required_count": 3,
 		"reward_exp": 250,
 		"reward_gold": 340,

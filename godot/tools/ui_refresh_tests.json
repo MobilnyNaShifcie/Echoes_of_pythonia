@@ -1,0 +1,24 @@
+{
+  "dirs": [],
+  "tests": [
+    "res://tests/test_ui_refresh_layout.gd",
+    "res://tests/test_combat_hud_layout.gd",
+    "res://tests/test_city_economy_screen.gd",
+    "res://tests/test_integrated_npc_hit_regions.gd",
+    "res://tests/test_ui_refresh_combat_rules.gd",
+    "res://tests/test_adventure_service.gd",
+    "res://tests/test_world_expeditions_stage_four_b.gd",
+    "res://tests/test_world_books_stage_four_a.gd",
+    "res://tests/test_region_boss_respawns_stage_eight_d.gd",
+    "res://tests/test_combat_fate_panel_lifecycle.gd",
+    "res://tests/test_combat_engine.gd",
+    "res://tests/test_combat_consumables.gd",
+    "res://tests/test_combat_presentation_stage_nine_a.gd"
+  ],
+  "ignore_pause": true,
+  "log_level": 1,
+  "disable_colors": true,
+  "should_exit": true,
+  "should_maximize": false,
+  "junit_xml_file": "res://../output/ui_refresh_20260907/tests.xml"
+}

@@ -1,5 +1,117 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=23 format=3]
+
 [ext_resource type="Script" path="res://ui/screens/city_hub/city_hub.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/city/varenhold/backgrounds/varenhold_city_hub_day_v1.png" id="2_city"]
+[ext_resource type="Texture2D" path="res://assets/ui/city_icons/gate.svg" id="3_gate"]
+[ext_resource type="Texture2D" path="res://assets/ui/city_icons/guild.svg" id="4_guild"]
+[ext_resource type="Texture2D" path="res://assets/ui/city_icons/blacksmith.svg" id="5_blacksmith"]
+[ext_resource type="Texture2D" path="res://assets/ui/city_icons/workshop.svg" id="6_workshop"]
+[ext_resource type="Texture2D" path="res://assets/ui/city_icons/merchant.svg" id="7_merchant"]
+[ext_resource type="Texture2D" path="res://assets/ui/city_icons/inn.svg" id="8_inn"]
+[ext_resource type="Texture2D" path="res://assets/ui/city_icons/inventory.svg" id="9_inventory"]
+[ext_resource type="Texture2D" path="res://assets/ui/city_icons/journal.svg" id="10_journal"]
+[ext_resource type="Texture2D" path="res://assets/ui/city_icons/achievements.svg" id="11_achievements"]
+[ext_resource type="Texture2D" path="res://assets/ui/city_icons/class_path.svg" id="12_class"]
+[ext_resource type="Texture2D" path="res://assets/ui/city_icons/black_market.svg" id="13_black_market"]
+[ext_resource type="Texture2D" path="res://assets/ui/city_icons/exit.svg" id="14_exit"]
+[ext_resource type="Texture2D" path="res://assets/ui/city_icons/party.svg" id="15_party"]
+
+[sub_resource type="StyleBoxFlat" id="NavPanelStyle"]
+bg_color = Color(0.035, 0.065, 0.095, 0.9)
+border_width_right = 1
+border_color = Color(0.54, 0.39, 0.14, 0.64)
+content_margin_left = 18.0
+content_margin_top = 26.0
+content_margin_right = 18.0
+content_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxFlat" id="NavButtonNormal"]
+bg_color = Color(0.02, 0.04, 0.065, 0)
+content_margin_left = 10.0
+content_margin_top = 8.0
+content_margin_right = 10.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="NavButtonHover"]
+bg_color = Color(0.075, 0.105, 0.15, 0.9)
+border_width_left = 2
+border_color = Color(0.86, 0.63, 0.18, 0.94)
+content_margin_left = 10.0
+content_margin_top = 8.0
+content_margin_right = 10.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="NavButtonSelected"]
+bg_color = Color(0.065, 0.095, 0.14, 0.94)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.84, 0.61, 0.17, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+content_margin_left = 10.0
+content_margin_top = 8.0
+content_margin_right = 10.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="InfoPanelStyle"]
+bg_color = Color(0.006, 0.014, 0.024, 0)
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+
+[sub_resource type="StyleBoxFlat" id="DockStyle"]
+bg_color = Color(0.005, 0.012, 0.02, 0.7)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.48, 0.36, 0.17, 0.82)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="QuickActionNormal"]
+bg_color = Color(0.018, 0.035, 0.055, 0.82)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.42, 0.31, 0.15, 0.94)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+content_margin_left = 12.0
+content_margin_top = 10.0
+content_margin_right = 12.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="QuickActionHover"]
+bg_color = Color(0.075, 0.085, 0.105, 0.98)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.9, 0.66, 0.19, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+content_margin_left = 12.0
+content_margin_top = 10.0
+content_margin_right = 12.0
+content_margin_bottom = 10.0
+
 [node name="CityHubScreen" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -7,223 +119,499 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+clip_contents = true
 script = ExtResource("1")
-[node name="Layout" type="HBoxContainer" parent="."]
+
+[node name="Layout" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 20
+
 [node name="MenuPanel" type="PanelContainer" parent="Layout"]
-custom_minimum_size = Vector2(440, 0)
-layout_mode = 2
+z_index = 20
+custom_minimum_size = Vector2(304, 0)
+layout_mode = 1
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 320.0
+offset_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("NavPanelStyle")
+
 [node name="MenuScroll" type="ScrollContainer" parent="Layout/MenuPanel"]
 layout_mode = 2
 horizontal_scroll_mode = 0
+follow_focus = false
+
 [node name="Menu" type="VBoxContainer" parent="Layout/MenuPanel/MenuScroll"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 8
+theme_override_constants/separation = 5
+
 [node name="Title" type="Label" parent="Layout/MenuPanel/MenuScroll/Menu"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.9, 0.92, 0.96, 1)
-theme_override_font_sizes/font_size = 24
-text = "Plan miasta"
-horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.9, 0.68, 0.22, 1)
+theme_override_font_sizes/font_size = 13
+text = "MIASTO"
+
 [node name="TravelTitle" type="Label" parent="Layout/MenuPanel/MenuScroll/Menu"]
+visible = false
 layout_mode = 2
-theme_override_colors/font_color = Color(0.55, 0.65, 0.77, 1)
 text = "WYPRAWY"
-horizontal_alignment = 1
+
 [node name="TravelGrid" type="GridContainer" parent="Layout/MenuPanel/MenuScroll/Menu"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/h_separation = 8
-theme_override_constants/v_separation = 8
 columns = 1
+
 [node name="GateButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/TravelGrid"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Wybierz region i rozpocznij wyprawę SOLO."
-text = "Brama Zachodnia — wyprawa SOLO"
-alignment = 1
+tooltip_text = "Wybierz region i rozpocznij wyprawę."
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("NavButtonSelected")
+theme_override_styles/hover = SubResource("NavButtonSelected")
+theme_override_styles/pressed = SubResource("NavButtonSelected")
+theme_override_styles/focus = SubResource("NavButtonSelected")
+icon = ExtResource("3_gate")
+expand_icon = true
+icon_max_width = 26
+text = "Brama Zachodnia"
+alignment = 0
+
 [node name="PreparationButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/TravelGrid"]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Przygotuj skład, wyposażenie i zapasy aktywnej drużyny."
-text = "Przygotuj wyprawę drużynową"
-alignment = 1
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("NavButtonNormal")
+theme_override_styles/hover = SubResource("NavButtonHover")
+icon = ExtResource("15_party")
+expand_icon = false
+icon_max_width = 25
+text = "Przygotuj drużynę"
+alignment = 0
+
 [node name="PreparationHint" type="Label" parent="Layout/MenuPanel/MenuScroll/Menu"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
-theme_override_colors/font_color = Color(0.48, 0.56, 0.66, 1)
-theme_override_font_sizes/font_size = 14
-text = "Wyprawy drużynowe pojawią się po wybraniu aktywnego kompana."
-horizontal_alignment = 1
-autowrap_mode = 2
+text = "Drużynowe: po wyborze kompana."
+
 [node name="ServicesTitle" type="Label" parent="Layout/MenuPanel/MenuScroll/Menu"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.55, 0.65, 0.77, 1)
-text = "GILDIA I USŁUGI"
-horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.9, 0.68, 0.22, 1)
+theme_override_font_sizes/font_size = 13
+text = "USŁUGI"
+vertical_alignment = 2
+
 [node name="ServicesGrid" type="GridContainer" parent="Layout/MenuPanel/MenuScroll/Menu"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/v_separation = 8
+theme_override_constants/v_separation = 3
 columns = 1
+
 [node name="GuildButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/ServicesGrid"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Gildia Poszukiwaczy"
-alignment = 1
-[node name="QuartermasterButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/ServicesGrid"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 48)
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Kwatermistrz i magazyn"
-alignment = 1
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("NavButtonNormal")
+theme_override_styles/hover = SubResource("NavButtonHover")
+icon = ExtResource("4_guild")
+expand_icon = true
+icon_max_width = 25
+text = "Gildia"
+alignment = 0
+
 [node name="BlacksmithButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/ServicesGrid"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Kuźnia Garrana"
-alignment = 1
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("NavButtonNormal")
+theme_override_styles/hover = SubResource("NavButtonHover")
+icon = ExtResource("5_blacksmith")
+expand_icon = true
+icon_max_width = 25
+text = "Kuźnia"
+alignment = 0
+
 [node name="WorkshopButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/ServicesGrid"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Warsztat Mireli"
-alignment = 1
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("NavButtonNormal")
+theme_override_styles/hover = SubResource("NavButtonHover")
+icon = ExtResource("6_workshop")
+expand_icon = true
+icon_max_width = 25
+text = "Warsztat"
+alignment = 0
+
 [node name="MerchantButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/ServicesGrid"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Kram Orena"
-alignment = 1
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("NavButtonNormal")
+theme_override_styles/hover = SubResource("NavButtonHover")
+icon = ExtResource("7_merchant")
+expand_icon = true
+icon_max_width = 25
+text = "Kram"
+alignment = 0
+
 [node name="InnButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/ServicesGrid"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
-size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("NavButtonNormal")
+theme_override_styles/hover = SubResource("NavButtonHover")
+icon = ExtResource("8_inn")
+expand_icon = true
+icon_max_width = 25
 text = "Karczma"
-alignment = 1
+alignment = 0
+
 [node name="HeroTitle" type="Label" parent="Layout/MenuPanel/MenuScroll/Menu"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.55, 0.65, 0.77, 1)
-text = "BOHATER"
-horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.9, 0.68, 0.22, 1)
+theme_override_font_sizes/font_size = 13
+text = "INNE"
+vertical_alignment = 2
+
 [node name="HeroGrid" type="GridContainer" parent="Layout/MenuPanel/MenuScroll/Menu"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/v_separation = 8
+theme_override_constants/v_separation = 3
 columns = 1
+
 [node name="HeroButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/HeroGrid"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Karta bohatera i ekwipunek"
-alignment = 1
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("NavButtonNormal")
+theme_override_styles/hover = SubResource("NavButtonHover")
+icon = ExtResource("9_inventory")
+expand_icon = true
+icon_max_width = 25
+text = "Ekwipunek"
+alignment = 0
+
 [node name="AdventureLogButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/HeroGrid"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Dziennik Przygód"
-alignment = 1
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("NavButtonNormal")
+theme_override_styles/hover = SubResource("NavButtonHover")
+icon = ExtResource("10_journal")
+expand_icon = true
+icon_max_width = 25
+text = "Dziennik"
+alignment = 0
+
 [node name="AchievementsButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/HeroGrid"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Osiągnięcia i tytuły"
-alignment = 1
-[node name="ClassButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu"]
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("NavButtonNormal")
+theme_override_styles/hover = SubResource("NavButtonHover")
+icon = ExtResource("11_achievements")
+expand_icon = true
+icon_max_width = 25
+text = "Osiągnięcia"
+alignment = 0
+
+[node name="ClassButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/HeroGrid"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
-text = "Droga bohatera — poziom 5"
-alignment = 1
-[node name="BlackMarketButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu"]
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("NavButtonNormal")
+theme_override_styles/hover = SubResource("NavButtonHover")
+icon = ExtResource("12_class")
+expand_icon = true
+icon_max_width = 25
+text = "Droga bohatera"
+alignment = 0
+
+[node name="BlackMarketButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu/HeroGrid"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
-tooltip_text = "Czarny Rynek odblokowuje się przez progres Gildii."
 disabled = true
-text = "Czarny Rynek — zablokowany"
-alignment = 1
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("NavButtonNormal")
+theme_override_styles/hover = SubResource("NavButtonHover")
+theme_override_styles/disabled = SubResource("NavButtonNormal")
+icon = ExtResource("13_black_market")
+expand_icon = true
+icon_max_width = 25
+text = "Czarny Rynek"
+alignment = 0
+
+[node name="ExitSeparator" type="HSeparator" parent="Layout/MenuPanel/MenuScroll/Menu"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+
 [node name="MainMenuButton" type="Button" parent="Layout/MenuPanel/MenuScroll/Menu"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
-text = "Powrót do menu głównego"
-alignment = 1
-[node name="City" type="VBoxContainer" parent="Layout"]
-layout_mode = 2
-size_flags_horizontal = 3
-alignment = 1
-theme_override_constants/separation = 10
-[node name="Eyebrow" type="Label" parent="Layout/City"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
-text = "MIASTO POSZUKIWACZY"
-[node name="Title" type="Label" parent="Layout/City"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.93, 0.95, 0.98, 1)
-theme_override_font_sizes/font_size = 38
-text = "Varenhold"
-[node name="TimeLabel" type="Label" parent="Layout/City"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.55, 0.65, 0.77, 1)
-text = "Dzień 1  •  08:00  •  DZIEŃ"
-[node name="PlayerLabel" type="Label" parent="Layout/City"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.72, 0.78, 0.86, 1)
-text = "Bohater  •  Poziom 0  •  Poszukiwacz"
-autowrap_mode = 2
-[node name="Separator" type="HSeparator" parent="Layout/City"]
-layout_mode = 2
-[node name="Description" type="Label" parent="Layout/City"]
-custom_minimum_size = Vector2(500, 0)
-layout_mode = 2
-theme_override_colors/font_color = Color(0.61, 0.68, 0.77, 1)
-text = "Kamienne miasto otoczone grubym murem. Na jego ulicach mieszają się kupcy, najemnicy i poszukiwacze wracający z niebezpiecznych wypraw."
-autowrap_mode = 2
-[node name="CityView" type="ColorRect" parent="Layout/City"]
-custom_minimum_size = Vector2(560, 260)
-layout_mode = 2
-size_flags_vertical = 3
-color = Color(0.055, 0.078, 0.095, 1)
-[node name="Label" type="Label" parent="Layout/City/CityView"]
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("NavButtonNormal")
+theme_override_styles/hover = SubResource("NavButtonHover")
+icon = ExtResource("14_exit")
+expand_icon = true
+icon_max_width = 25
+text = "Wyjdź z miasta"
+alignment = 0
+
+[node name="City" type="Control" parent="Layout"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0.48, 0.59, 0.67, 1)
-theme_override_font_sizes/font_size = 22
-text = "VARENHOLD\nDZIELNICA GILDII"
-horizontal_alignment = 1
-vertical_alignment = 1
-[node name="ActivityPanel" type="PanelContainer" parent="Layout/City"]
+mouse_filter = 2
+
+[node name="CityView" type="Control" parent="Layout/City"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+clip_contents = true
+
+[node name="BaseMap" type="TextureRect" parent="Layout/City/CityView"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_city")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="LeftShade" type="ColorRect" parent="Layout/City/CityView"]
+visible = false
+layout_mode = 1
+anchors_preset = 13
+anchor_bottom = 1.0
+offset_right = 440.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.002, 0.008, 0.014, 0.24)
+
+[node name="TopShade" type="ColorRect" parent="Layout/City/CityView"]
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 190.0
+grow_horizontal = 2
+mouse_filter = 2
+color = Color(0.002, 0.008, 0.014, 0.18)
+
+[node name="MapLocationLabel" type="Label" parent="Layout/City/CityView"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+text = "Wybierz budynek bezpośrednio na planie miasta."
+
+[node name="TopInfo" type="PanelContainer" parent="Layout/City"]
+z_index = 10
+layout_mode = 1
+offset_left = 62.0
+offset_top = 24.0
+offset_right = 1770.0
+offset_bottom = 142.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("InfoPanelStyle")
+
+[node name="Content" type="VBoxContainer" parent="Layout/City/TopInfo"]
 layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Eyebrow" type="Label" parent="Layout/City/TopInfo/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.93, 0.7, 0.22, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.95)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 14
+text = "MIASTO POSZUKIWACZY"
+
+[node name="Title" type="Label" parent="Layout/City/TopInfo/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.97, 0.99, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.95)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 36
+text = "Varenhold"
+
+[node name="Stats" type="HBoxContainer" parent="Layout/City/TopInfo/Content"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="TimeLabel" type="Label" parent="Layout/City/TopInfo/Content/Stats"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.91, 0.95, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.95)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 15
+text = "Dzień 1  •  08:00"
+
+[node name="PlayerLabel" type="Label" parent="Layout/City/TopInfo/Content/Stats"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.88, 0.91, 0.95, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.95)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 15
+text = "1/4  •  Poszukiwacz  •  Poz. 0  •  PŻ 20/20  •  0 zł  •  Gildia C"
+
+[node name="Description" type="Label" parent="Layout/City"]
+visible = false
+layout_mode = 0
+text = "Kamienne miasto kupców, rzemieślników i poszukiwaczy."
+
+[node name="ActivityPanel" type="PanelContainer" parent="Layout/City"]
+visible = false
+layout_mode = 0
+
 [node name="ActivityLabel" type="Label" parent="Layout/City/ActivityPanel"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.45, 0.78, 0.59, 1)
 text = "Wybierz miejsce w mieście."
-autowrap_mode = 2
+
+[node name="QuickActionsDock" type="PanelContainer" parent="Layout/City"]
+visible = false
+z_index = 12
+custom_minimum_size = Vector2(660, 84)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -170.0
+offset_top = -102.0
+offset_right = 490.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("DockStyle")
+
+[node name="QuickActions" type="HBoxContainer" parent="Layout/City/QuickActionsDock"]
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="QuickBlacksmithButton" type="Button" parent="Layout/City/QuickActionsDock/QuickActions"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.92, 0.83, 0.64, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("QuickActionNormal")
+theme_override_styles/hover = SubResource("QuickActionHover")
+icon = ExtResource("5_blacksmith")
+expand_icon = true
+icon_max_width = 28
+text = "Kuźnia"
+
+[node name="QuickMerchantButton" type="Button" parent="Layout/City/QuickActionsDock/QuickActions"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.92, 0.83, 0.64, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("QuickActionNormal")
+theme_override_styles/hover = SubResource("QuickActionHover")
+icon = ExtResource("7_merchant")
+expand_icon = true
+icon_max_width = 28
+text = "Kram"
+
+[node name="QuickInnButton" type="Button" parent="Layout/City/QuickActionsDock/QuickActions"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.92, 0.83, 0.64, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("QuickActionNormal")
+theme_override_styles/hover = SubResource("QuickActionHover")
+icon = ExtResource("8_inn")
+expand_icon = true
+icon_max_width = 28
+text = "Karczma"
+
+[node name="QuickWorkshopButton" type="Button" parent="Layout/City/QuickActionsDock/QuickActions"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.92, 0.83, 0.64, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("QuickActionNormal")
+theme_override_styles/hover = SubResource("QuickActionHover")
+icon = ExtResource("6_workshop")
+expand_icon = true
+icon_max_width = 28
+text = "Warsztat"
+
+[node name="QuickGuildButton" type="Button" parent="Layout/City/QuickActionsDock/QuickActions"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.92, 0.83, 0.64, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("QuickActionNormal")
+theme_override_styles/hover = SubResource("QuickActionHover")
+icon = ExtResource("4_guild")
+expand_icon = true
+icon_max_width = 28
+text = "Gildia"
+
+[node name="LegacyQuickActions" type="Control" parent="Layout/City"]
+visible = false
+layout_mode = 0
+
+[node name="QuickTravelButton" type="Button" parent="Layout/City/LegacyQuickActions"]
+unique_name_in_owner = true
+layout_mode = 0
+text = "Wyrusz"
+
+[node name="QuickInventoryButton" type="Button" parent="Layout/City/LegacyQuickActions"]
+unique_name_in_owner = true
+layout_mode = 0
+text = "Ekwipunek"

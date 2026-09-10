@@ -6,7 +6,11 @@ const GuildProgressionServiceClass := preload("res://core/quests/guild_progressi
 const RegionCatalogClass := preload("res://core/world/region_catalog.gd")
 const DungeonServiceClass := preload("res://core/dungeons/dungeon_service.gd")
 const DungeonRunStateClass := preload("res://core/dungeons/dungeon_run_state.gd")
+const DungeonPresentationCatalogClass := preload(
+	"res://ui/presentation/dungeon_presentation_catalog.gd"
+)
 const CharacterSheetScreenClass := preload("res://ui/screens/character_sheet/character_sheet.gd")
+const CharacterMenuScreenClass := preload("res://ui/screens/character_menu/character_menu.gd")
 const AdventureLogScreenClass := preload("res://ui/screens/adventure_log/adventure_log.gd")
 const AchievementsScreenClass := preload("res://ui/screens/achievements/achievements.gd")
 const BlackMarketScreenClass := preload("res://ui/screens/black_market/black_market.gd")
@@ -34,6 +38,7 @@ const SkillsScreenClass := preload("res://ui/screens/skills/skills.gd")
 const WorldMapScreenClass := preload("res://ui/screens/world_map/world_map.gd")
 const SaveGameServiceClass := preload("res://core/save/save_game_service.gd")
 const CHARACTER_SHEET_SCENE := preload("res://ui/screens/character_sheet/character_sheet.tscn")
+const CHARACTER_MENU_SCENE := preload("res://ui/screens/character_menu/character_menu.tscn")
 const ADVENTURE_LOG_SCENE := preload("res://ui/screens/adventure_log/adventure_log.tscn")
 const ACHIEVEMENTS_SCENE := preload("res://ui/screens/achievements/achievements.tscn")
 const BLACK_MARKET_SCENE := preload("res://ui/screens/black_market/black_market.tscn")
@@ -58,6 +63,10 @@ const PROGRESSION_SCENE := preload("res://ui/screens/progression/progression.tsc
 const SESSION_READY_SCENE := preload("res://ui/screens/session_ready/session_ready.tscn")
 const SKILLS_SCENE := preload("res://ui/screens/skills/skills.tscn")
 const WORLD_MAP_SCENE := preload("res://ui/screens/world_map/world_map.tscn")
+const EMBEDDED_FULLSCREEN_MESSAGE := (
+	"Pełny ekran jest niedostępny w osadzonym podglądzie Godota. "
+	+ "Wyłącz «Embed Game on Next Play» albo uruchom grę w osobnym oknie."
+)
 
 var _current_session: GameSessionClass
 var _save_service := SaveGameServiceClass.new()
@@ -66,11 +75,59 @@ var _dungeon_rng := RandomNumberGenerator.new()
 
 @onready var screen_host: Control = %ScreenHost
 @onready var app_status_label: Label = %AppStatusLabel
+@onready var safe_area: MarginContainer = $SafeArea
 
 
 func _ready() -> void:
 	_dungeon_rng.randomize()
 	_show_main_menu()
+
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if not event is InputEventKey or not event.pressed or event.echo:
+		return
+	if event.keycode == KEY_F11 or (event.alt_pressed and event.keycode == KEY_ENTER):
+		_toggle_fullscreen()
+		get_viewport().set_input_as_handled()
+
+
+func _toggle_fullscreen() -> void:
+	var unavailable_message := fullscreen_unavailable_message(Engine.is_embedded_in_editor())
+	if not unavailable_message.is_empty():
+		app_status_label.text = unavailable_message
+		_sync_fullscreen_button()
+		return
+
+	var current_mode := DisplayServer.window_get_mode()
+	var next_mode := (
+		DisplayServer.WINDOW_MODE_WINDOWED
+		if is_fullscreen_mode(current_mode)
+		else DisplayServer.WINDOW_MODE_FULLSCREEN
+	)
+	DisplayServer.window_set_mode(next_mode)
+	call_deferred("_sync_fullscreen_button")
+
+
+func _sync_fullscreen_button() -> void:
+	var fullscreen := is_fullscreen_mode(DisplayServer.window_get_mode())
+	if screen_host.get_child_count() == 0:
+		return
+	var current_screen := screen_host.get_child(0)
+	if current_screen is MainMenuScreenClass:
+		current_screen.set_display_mode(
+			fullscreen, fullscreen_unavailable_message(Engine.is_embedded_in_editor())
+		)
+
+
+static func is_fullscreen_mode(mode: int) -> bool:
+	return (
+		mode
+		in [DisplayServer.WINDOW_MODE_FULLSCREEN, DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN]
+	)
+
+
+static func fullscreen_unavailable_message(is_embedded: bool) -> String:
+	return EMBEDDED_FULLSCREEN_MESSAGE if is_embedded else ""
 
 
 func _show_main_menu() -> void:
@@ -80,8 +137,10 @@ func _show_main_menu() -> void:
 	menu.new_game_requested.connect(_show_new_game)
 	menu.load_requested.connect(_show_load_game)
 	menu.save_requested.connect(_save_current_session)
+	menu.fullscreen_requested.connect(_toggle_fullscreen)
 	menu.project_status_requested.connect(_show_project_status)
 	menu.exit_requested.connect(get_tree().quit)
+	_sync_fullscreen_button()
 	app_status_label.text = "Gotowe"
 
 
@@ -96,6 +155,11 @@ func _show_load_game() -> void:
 func _save_current_session() -> void:
 	var result := _save_service.save_session(_current_session)
 	app_status_label.text = result.message
+	if screen_host.get_child_count() > 0:
+		var current_screen := screen_host.get_child(0)
+		if current_screen is MainMenuScreenClass:
+			current_screen.configure(_current_session != null, _save_service.any_save_exists())
+			current_screen.show_save_result(result.ok, result.message)
 
 
 func _on_session_loaded(session: GameSessionClass) -> void:
@@ -166,17 +230,34 @@ func _show_session_ready() -> void:
 
 
 func _show_character_sheet() -> void:
+	_show_character_menu(CharacterMenuScreenClass.SECTION_CHARACTER)
+
+
+func _show_character_menu(section_id: String) -> void:
 	if _current_session == null:
 		_show_main_menu()
 		return
-	var character_sheet: CharacterSheetScreenClass = _replace_screen(CHARACTER_SHEET_SCENE)
-	character_sheet.configure(_current_session)
-	character_sheet.back_requested.connect(_show_city_hub)
-	character_sheet.equipment_requested.connect(_show_equipment)
-	character_sheet.class_selection_requested.connect(_show_class_selection)
-	character_sheet.skills_requested.connect(_show_skills)
-	character_sheet.progression_requested.connect(_show_progression)
-	app_status_label.text = "Karta postaci: %s" % _current_session.player.display_name
+	var character_menu: CharacterMenuScreenClass = _replace_screen(CHARACTER_MENU_SCENE)
+	character_menu.back_requested.connect(_show_city_hub)
+	character_menu.class_selection_requested.connect(_show_class_selection)
+	character_menu.section_changed.connect(_on_character_menu_section_changed)
+	character_menu.configure(_current_session, section_id)
+
+
+func _on_character_menu_section_changed(section_id: String) -> void:
+	var section_names := {
+		CharacterMenuScreenClass.SECTION_CHARACTER: "Postać",
+		CharacterMenuScreenClass.SECTION_EQUIPMENT: "Ekwipunek",
+		CharacterMenuScreenClass.SECTION_SKILLS: "Umiejętności",
+		CharacterMenuScreenClass.SECTION_PROGRESSION: "Talenty i pasywy",
+	}
+	app_status_label.text = (
+		"%s: %s"
+		% [
+			section_names.get(section_id, "Karta postaci"),
+			_current_session.player.display_name,
+		]
+	)
 
 
 func _show_adventure_log() -> void:
@@ -201,33 +282,15 @@ func _show_achievements() -> void:
 
 
 func _show_skills() -> void:
-	if _current_session == null:
-		_show_main_menu()
-		return
-	var skills_screen: SkillsScreenClass = _replace_screen(SKILLS_SCENE)
-	skills_screen.configure(_current_session)
-	skills_screen.back_requested.connect(_show_character_sheet)
-	app_status_label.text = "Umiejętności: %s" % _current_session.player.character_class_name
+	_show_character_menu(CharacterMenuScreenClass.SECTION_SKILLS)
 
 
 func _show_progression() -> void:
-	if _current_session == null:
-		_show_main_menu()
-		return
-	var progression: ProgressionScreenClass = _replace_screen(PROGRESSION_SCENE)
-	progression.configure(_current_session)
-	progression.back_requested.connect(_show_character_sheet)
-	app_status_label.text = "Talenty i pasywy: %s" % _current_session.player.display_name
+	_show_character_menu(CharacterMenuScreenClass.SECTION_PROGRESSION)
 
 
 func _show_equipment() -> void:
-	if _current_session == null:
-		_show_main_menu()
-		return
-	var equipment_screen: EquipmentScreenClass = _replace_screen(EQUIPMENT_SCENE)
-	equipment_screen.configure(_current_session)
-	equipment_screen.back_requested.connect(_show_character_sheet)
-	app_status_label.text = "Ekwipunek: %s" % _current_session.player.display_name
+	_show_character_menu(CharacterMenuScreenClass.SECTION_EQUIPMENT)
 
 
 func _show_guild() -> void:
@@ -235,10 +298,10 @@ func _show_guild() -> void:
 		_show_main_menu()
 		return
 	var guild: GuildScreenClass = _replace_screen(GUILD_SCENE)
-	guild.configure(_current_session)
 	guild.back_requested.connect(_show_city_hub)
 	guild.party_requested.connect(_show_party_hub)
 	guild.rifts_requested.connect(_show_rift_board)
+	guild.configure(_current_session)
 	var rank := GuildProgressionServiceClass.rank_for_reputation(_current_session.guild_reputation)
 	app_status_label.text = "Gildia Poszukiwaczy: ranga %s" % rank.code
 
@@ -264,18 +327,24 @@ func _show_class_selection() -> void:
 	var class_screen: ClassSelectionScreenClass = _replace_screen(CLASS_SELECTION_SCENE)
 	class_screen.configure(_current_session)
 	class_screen.back_requested.connect(_show_city_hub)
-	class_screen.class_chosen.connect(_show_city_hub)
+	class_screen.class_chosen.connect(_on_class_chosen)
 	app_status_label.text = "Drogi bohatera: od poziomu 5"
+
+
+func _on_class_chosen() -> void:
+	_save_current_session_silently()
+	_show_city_hub()
 
 
 func _show_city_service(service_id: String) -> void:
 	if _current_session == null:
 		_show_main_menu()
 		return
-	if service_id in ["merchant", "blacksmith", "workshop", "quartermaster"]:
+	if service_id in ["merchant", "blacksmith", "workshop", "inn"]:
 		var economy: CityEconomyScreenClass = _replace_screen(CITY_ECONOMY_SCENE)
-		economy.configure(_current_session, service_id)
 		economy.back_requested.connect(_show_city_hub)
+		economy.state_changed.connect(_save_current_session_silently)
+		economy.configure(_current_session, service_id)
 		app_status_label.text = (
 			"Varenhold: %s" % CityEconomyScreenClass.display_name_for(service_id)
 		)
@@ -335,13 +404,14 @@ func _show_preparation_equipment() -> void:
 
 func _show_preparation_storage() -> void:
 	var economy: CityEconomyScreenClass = _replace_screen(CITY_ECONOMY_SCENE)
-	economy.configure(_current_session, "quartermaster")
 	economy.back_requested.connect(_show_expedition_preparation)
-	app_status_label.text = "Przygotowanie: Magazyn Gildii"
+	economy.state_changed.connect(_save_current_session_silently)
+	economy.configure(_current_session, "inn")
+	app_status_label.text = "Przygotowanie: skrytka w karczmie"
 
 
 func _show_preparation_inn() -> void:
-	var service: CityServiceScreenClass = _replace_screen(CITY_SERVICE_SCENE)
+	var service: CityEconomyScreenClass = _replace_screen(CITY_ECONOMY_SCENE)
 	service.back_requested.connect(_show_expedition_preparation)
 	service.state_changed.connect(_save_current_session_silently)
 	service.configure(_current_session, "inn")
@@ -398,6 +468,8 @@ func _show_combat(
 	engine_script = null,
 	battle_title := "",
 	elite_modifier_id := "",
+	dungeon_id := "",
+	dungeon_room_id := "",
 ) -> void:
 	if _current_session == null:
 		_show_main_menu()
@@ -413,6 +485,8 @@ func _show_combat(
 			engine_script,
 			battle_title,
 			elite_modifier_id,
+			dungeon_id,
+			dungeon_room_id,
 		)
 	)
 	combat.finished.connect(_on_combat_finished)
@@ -474,6 +548,9 @@ func _on_dungeon_action(action: String) -> void:
 			"sunny",
 			DungeonServiceClass.engine_script_for(str(result.enemy_id)),
 			str(result.battle_title),
+			"",
+			_active_dungeon_run.dungeon_id,
+			DungeonPresentationCatalogClass.room_for_run(_active_dungeon_run),
 		)
 		return
 	_show_dungeon(_active_dungeon_run.dungeon_id)
@@ -538,5 +615,15 @@ func _replace_screen(scene: PackedScene) -> Control:
 		screen_host.remove_child(child)
 		child.queue_free()
 	var screen := scene.instantiate() as Control
+	_configure_shell(scene == MAIN_MENU_SCENE)
 	screen_host.add_child(screen)
 	return screen
+
+
+func _configure_shell(_is_main_menu: bool) -> void:
+	var horizontal_margin := 0
+	var vertical_margin := 0
+	safe_area.add_theme_constant_override("margin_left", horizontal_margin)
+	safe_area.add_theme_constant_override("margin_top", vertical_margin)
+	safe_area.add_theme_constant_override("margin_right", horizontal_margin)
+	safe_area.add_theme_constant_override("margin_bottom", vertical_margin)

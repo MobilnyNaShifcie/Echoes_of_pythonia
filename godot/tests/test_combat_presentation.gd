@@ -62,6 +62,10 @@ func test_combat_scene_reserves_full_hd_space_for_art_vfx_and_centered_actions()
 	var screen := COMBAT_SCENE.instantiate() as CombatScreenClass
 	screen.configure(session, "wolf", "expedition")
 	host.add_child(screen)
+	screen.get_node("Page/Lower").drawer.pinned = true
+	screen.get_node("Page/Lower").drawer.set_open(true, true)
+	await get_tree().process_frame
+	await get_tree().process_frame
 	await get_tree().process_frame
 
 	var arena: Control = screen.get_node("Page/Arena")
@@ -73,18 +77,29 @@ func test_combat_scene_reserves_full_hd_space_for_art_vfx_and_centered_actions()
 	assert_lte(player_visual.get_global_rect().end.x, arena.get_global_rect().get_center().x)
 	assert_gte(enemy_visual.get_global_rect().position.x, arena.get_global_rect().get_center().x)
 	assert_almost_eq(
-		action_dock.get_global_rect().get_center().x,
+		(
+			(
+				screen.get_node("Page/Lower/PlayerCommandHud").global_position.x
+				+ action_dock.get_global_rect().end.x
+			)
+			/ 2.0
+		),
 		screen.get_global_rect().get_center().x,
 		1.0,
 	)
-	assert_eq(screen.get_node("Page/Lower/ActionsDock/Actions/ActionGrid").columns, 4)
+	assert_eq(screen.get_node("Page/Lower/ActionsDock/Actions/ActionGrid").columns, 3)
 	assert_true(screen.empty_skills_label.visible)
 	assert_false(screen.skill_cards_scroll.visible)
 	assert_string_contains(screen.battlefield_placeholder.text, "ZMIERZCHOWE RÓWNINY")
 	assert_false(screen.battlefield_placeholder.visible)
 	assert_true(screen.battlefield_texture.visible)
 	assert_eq(player_visual.name_label.text, session.player.titled_display_name())
-	assert_eq(player_visual.mode(), CombatantVisualClass.Mode.PLACEHOLDER)
+	assert_eq(player_visual.mode(), CombatantVisualClass.Mode.STATIC_TEXTURE)
+	assert_not_null(player_visual.source_texture())
+	assert_eq(
+		player_visual.source_texture().resource_path,
+		"res://assets/combat/heroes/seeker_female.png",
+	)
 	assert_string_contains(player_visual.role_label.text, "POSZUKIWACZ")
 	assert_eq(enemy_visual.name_label.text, "Wilk")
 	assert_eq(enemy_visual.mode(), CombatantVisualClass.Mode.STATIC_TEXTURE)
@@ -135,6 +150,83 @@ func test_region_one_uses_every_technically_valid_approved_enemy_asset() -> void
 		assert_not_null(texture, enemy_id)
 		assert_eq(texture.resource_path, expected_paths[enemy_id], enemy_id)
 	assert_true(CombatPresentationCatalogClass.missing_region_one_enemy_assets().is_empty())
+
+
+func test_regions_two_to_four_use_their_day_night_backgrounds_and_enemy_art() -> void:
+	var expected_backgrounds := {
+		"black_forest": "black_forest",
+		"silentwater_marshes": "silentwater_marshes",
+		"ashen_borderlands": "ashen_borderlands",
+	}
+	for region_id: String in expected_backgrounds:
+		for period_code: String in ["day", "night"]:
+			var texture := CombatPresentationCatalogClass.battlefield_texture(
+				region_id, period_code, "expedition"
+			)
+			assert_not_null(texture, "%s %s" % [region_id, period_code])
+			assert_eq(
+				texture.resource_path,
+				(
+					"res://assets/combat/backgrounds/%s_%s.png"
+					% [expected_backgrounds[region_id], period_code]
+				),
+			)
+		assert_true(
+			CombatPresentationCatalogClass.missing_enemy_assets_for_region(region_id).is_empty(),
+			region_id,
+		)
+
+	var expected_enemy_paths := {
+		"venom_spider": "venom_spider",
+		"forest_cultist": "forest_cultist",
+		"rotting_knight": "rotting_knight",
+		"corrupted_bear": "corrupted_bear",
+		"black_hart": "black_hart",
+		"gallows_wraith": "gallows_wraith",
+		"blackwood_executioner": "blackwood_executioner",
+		"bog_crawler": "bog_crawler",
+		"drowned_dead": "drowned_dead",
+		"swamp_witch": "swamp_witch",
+		"bone_crocodile": "bone_crocodile",
+		"mist_walker": "mist_walker",
+		"sunken_knight": "sunken_knight_anime",
+		"drowned_mother": "drowned_mother",
+		"sand_golem": "sand_golem",
+		"desert_harpy": "desert_harpy",
+		"desert_wanderer": "desert_wanderer",
+		"boneburner": "boneburner",
+		"red_salamander": "red_salamander",
+		"hearth_devourer": "hearth_devourer",
+		"azhar": "azhar",
+	}
+	for enemy_id: String in expected_enemy_paths:
+		var presentation := CombatPresentationCatalogClass.enemy_presentation(enemy_id)
+		var enemy_texture := presentation.get("texture") as Texture2D
+		assert_not_null(enemy_texture, enemy_id)
+		assert_eq(
+			enemy_texture.resource_path,
+			"res://assets/combat/enemies/%s.png" % expected_enemy_paths[enemy_id],
+			enemy_id,
+		)
+		var frame: Rect2 = presentation.frame
+		assert_almost_eq(frame.end.y, 0.96, 0.001, enemy_id)
+
+
+func test_new_enemy_cutouts_keep_transparent_canvas_corners() -> void:
+	for region_id: String in ["black_forest", "silentwater_marshes", "ashen_borderlands"]:
+		var enemy_ids: Array = CombatPresentationCatalogClass.REGION_ENEMY_IDS[region_id]
+		for enemy_id: String in enemy_ids:
+			var texture := CombatPresentationCatalogClass.enemy_texture(enemy_id)
+			var image := texture.get_image()
+			assert_ne(image.detect_alpha(), Image.ALPHA_NONE, enemy_id)
+			var last := image.get_size() - Vector2i.ONE
+			for corner: Vector2i in [
+				Vector2i.ZERO,
+				Vector2i(last.x, 0),
+				Vector2i(0, last.y),
+				last,
+			]:
+				assert_lte(image.get_pixelv(corner).a, 0.01, enemy_id)
 
 
 func test_region_one_profiles_crop_padding_and_share_a_ground_line() -> void:
@@ -399,7 +491,7 @@ func test_skill_cards_are_live_actions_and_preserve_the_legacy_skill_adapter() -
 	assert_string_contains(screen.class_resource_label.text, "BLOK")
 
 
-func test_combat_hud_uses_three_non_overlapping_full_hd_command_zones() -> void:
+func test_combat_hud_keeps_player_commands_separate_without_duplicate_enemy_zone() -> void:
 	var host := Control.new()
 	host.size = Vector2(1920, 1080)
 	add_child(host)
@@ -412,11 +504,16 @@ func test_combat_hud_uses_three_non_overlapping_full_hd_command_zones() -> void:
 	await get_tree().process_frame
 
 	var lower: HBoxContainer = screen.get_node("Page/Lower")
+	lower.drawer.pinned = true
+	lower.drawer.set_open(true, true)
+	await get_tree().process_frame
+	await get_tree().process_frame
 	var player_hud: PanelContainer = lower.get_node("PlayerCommandHud")
 	var action_dock: PanelContainer = lower.get_node("ActionsDock")
 	var target_hud: PanelContainer = lower.get_node("TargetCommandHud")
 	assert_lte(player_hud.get_global_rect().end.x, action_dock.get_global_rect().position.x)
-	assert_lte(action_dock.get_global_rect().end.x, target_hud.get_global_rect().position.x)
+	assert_false(target_hud.is_visible_in_tree())
+	assert_lte(action_dock.get_global_rect().end.x, screen.get_global_rect().end.x)
 	assert_lte(lower.get_global_rect().end.y, screen.get_global_rect().end.y)
 	assert_string_contains(screen.class_resource_label.text, "SEKWENCJA")
 	assert_eq(screen.player_turn_icon.text, "Ł")
@@ -453,12 +550,16 @@ func test_region_one_screen_flow_reaches_rewards_continue_and_defeat() -> void:
 	assert_eq(defeat_screen.continue_button.text, "Kontynuuj")
 
 
-func test_region_boss_without_approved_art_keeps_an_explicit_placeholder() -> void:
+func test_region_four_boss_uses_approved_azhar_art() -> void:
 	var session = NewGameServiceClass.new().create_session("Aria", 1)
 	session.current_location_id = "ashen_borderlands"
 	var screen := COMBAT_SCENE.instantiate() as CombatScreenClass
 	screen.configure(session, "azhar", "region_boss", "sunny", null, "WYZWANIE AZHARA")
 	add_child_autofree(screen)
 	assert_eq(screen.enemy_role_label.text, "BOSS")
-	assert_eq(screen.enemy_visual.mode(), CombatantVisualClass.Mode.PLACEHOLDER)
+	assert_eq(screen.enemy_visual.mode(), CombatantVisualClass.Mode.STATIC_TEXTURE)
+	assert_eq(
+		screen.enemy_visual.source_texture().resource_path,
+		"res://assets/combat/enemies/azhar.png",
+	)
 	assert_string_contains(screen.enemy_visual.name_label.text, "Azhar")

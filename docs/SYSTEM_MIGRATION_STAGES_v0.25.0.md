@@ -362,9 +362,11 @@ udaje nieistniejących jeszcze zwycięstw.
 
 - informator wymaga rangi C oraz trwałego kamienia za Kryptę Zatopionego
   Zakonu albo Wrak Czarnej Floty,
-- każdy kwalifikujący dzień Pythonii wykonuje tylko jedną próbę `20%`;
-  ponowne wejście do Karczmy nie przerzuca wyniku, a po czterech porażkach
+- każdy kwalifikujący dzień Pythonii wykonuje tylko jedną próbę `20%` przy
+  wejściu do Karczmy; ponowne wejście do Karczmy nie przerzuca wyniku, a po czterech porażkach
   piąty dzień jest gwarantowany,
+- Runa jest zawsze obecna za ladą, a opcjonalny informator zajmuje istniejący
+  fotel przy kominku i korzysta z miękkiej poświaty po najechaniu,
 - rozmowa z informatorem permanentnie odblokowuje kafelek Czarnego Rynku w
   pionowym planie Varenhold i zapisuje wydarzenie w Dzienniku Przygód,
 - dzienna rotacja według realnej daty zawiera dokładnie cztery jednorazowe
@@ -1040,25 +1042,63 @@ obrażeń i osobny silnik walki drużynowej pozostają wyłącznym zakresem 6F.
 - wspólny `CombatActionCard` prezentuje tę samą ilustrację umiejętności w walce
   i katalogu, a sam generuje ramkę, nazwę, koszt Many, stan, typ działania oraz
   oznaczenie `1K6/2K6/3K6`,
-- zatwierdzony golden slice obejmuje `Potężne Cięcie`, `Precyzyjny Strzał`,
-  `Ognisty Pocisk` i `Pchnięcie Losu`. Pozostałe 22 skille mają jawny
-  placeholder i nigdy nie pożyczają grafiki innej umiejętności,
-- ilustracje pokazują broń lub efekt zamiast sylwetki bohatera. Planowany wyjątek
-  `Błazeński Unik` może użyć sylwetki w ruchu; paleta wynika z klasy i mechaniki,
-  więc wszystkie karty nie są sztucznie barwione na czerwono,
+- początkowy golden slice czterech kart rozszerzono po akceptacji właściciela do
+  pełnego katalogu 26 umiejętności; każda ma własny asset i żadna nie pożycza
+  grafiki innej umiejętności,
+- ilustracje pokazują broń lub efekt zamiast sylwetki bohatera. Zatwierdzone
+  wyjątki to ruch w `Błazeńskim Uniku` oraz przejęcie uwagi w `Prowokacji`;
+  paleta wynika z klasy i mechaniki, więc wszystkie karty nie są sztucznie
+  barwione na czerwono,
 - `Pchnięcie Losu` pokazuje tylko Lancę Losu. UI wyświetla liczbę kości, a
   istniejący engine i prezentacja 9A nadal odpowiadają za właściwy rzut i jego
   animację po użyciu,
 - katalog zachowuje ukryty `ItemList` jako adapter istniejących testów i
   nawigacji, ale widoczny interfejs składa się z przewijanych kart z podglądem
   szczegółów także dla zablokowanych umiejętności,
-- gate PowerShell zamraża obecność, rozmiar i hashe czterech zatwierdzonych
-  źródeł, a GUT sprawdza przypisania, placeholdery, clipping, oba ekrany i
-  layout Full HD oraz `1280×720`,
+- gate PowerShell zamraża obecność, rozmiar i hashe 26 zatwierdzonych źródeł, a
+  GUT sprawdza unikalne przypisania, clipping, oba ekrany i layout Full HD oraz
+  `1280×720`,
 - Stage 9D nie zmienia zasad walki, balansu, RNG, ekonomii ani schema save `v18`,
 - checkpoint zweryfikowano pełnym baseline'em: 534 testy Pythona i 8 subtestów,
   470/470 testów GUT z 5131 asercjami, formatterem, lintem, walidatorami assetów
   oraz bootstrapem Godota na izolowanej kopii projektu.
+
+### Etap 9E — modułowe Varenhold i prezentacja NPC (ukończony)
+
+- miasto jest składane z osobnego tła dzielnicy oraz modułów budynków RGBA;
+  dodanie usługi nie wymaga ponownego generowania jednej spłaszczonej mapy,
+- pierwszy zatwierdzony slice obejmuje bazę dzielnicy Gildii, osobny budynek
+  Gildii, jej wnętrze oraz postacie Orena, Garrana, Mireli i Kwatermistrza,
+- Kwatermistrz jest starszym weteranem i głową Gildii, który wspiera młodszych
+  Poszukiwaczy. Wcześniejsza kobieca wersja robocza nie należy do katalogu gry,
+- postacie oraz budynek przeszły kontrolowaną ekstrakcję chroma-key do
+  prawdziwego kanału alfa. Tła pozostają nieprzezroczyste, a osobny gate
+  sprawdza rozmiary, format i przezroczyste narożniki,
+- pełny plan nawigacyjny Varenhold pokazuje Gildię, Bramę Zachodnią,
+  Kwatermistrza, Kuźnię Garrana, Kram Orena, Karczmę i Warsztat Mireli. Każde
+  miejsce ma osobny hotspot myszy, natomiast pionowy plan zachowuje pełną
+  nawigację klawiaturą i dostępnościową,
+- nazwy, opisy po najechaniu, stany blokad i hitboxy pozostają warstwą Godota.
+  Źródłowa baza dzielnicy i moduł Gildii są zachowane do dalszej rozbudowy;
+  zmiana opcji menu nie wymaga wypalania nowej mapy,
+- Gildia używa zatwierdzonego wnętrza i pokazuje Kwatermistrza jako gospodarza
+  sali, bez mieszania prezentacji z zadaniami, kontraktami i rekrutacją,
+- wspólny ekran gospodarki mapuje Orena, Garrana, Mirelę i Kwatermistrza na
+  właściwe usługi. Oren, Mirela i Garran otrzymują osobne tła lokacji, a ich
+  niezależne wycięcia postaci stoją odpowiednio przy kramie, ladzie alchemicznej
+  i kowadle. Istniejące siatki, tooltipy, drag-and-drop i operacje domenowe
+  pozostały niezmienione,
+- testy Stage 9E zamrażają ścieżki assetów, siedem hotspotów mapy, właściwe
+  przypisanie czterech NPC i trzech nowych wnętrz oraz regresję układu
+  `1920×1080` i `1280×720`. Etap nie zmienia ekonomii, zasad gry ani save schema
+  `v18`,
+- główne menu korzysta z osobnej panoramy Varenhold o świcie. Panel nawigacji
+  został przeniesiony na lewą, celowo spokojniejszą stronę kompozycji, natomiast
+  tekst rozdziału zajmuje osobną półprzezroczystą warstwę po prawej. Grafika nie
+  zawiera wypalonych napisów ani elementów interfejsu,
+- pełny checkpoint przechodzi 534 testy Pythona i 8 subtestów oraz 474/474
+  testy GUT z 5235 asercjami, trzy bramki assetów, formatter, lint i bootstrap
+  Godota.
 
 ## Kryterium ukończenia etapu
 

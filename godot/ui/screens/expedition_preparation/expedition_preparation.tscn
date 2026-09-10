@@ -111,7 +111,7 @@ text = "Ekwipunek bohatera"
 [node name="StorageButton" type="Button" parent="Page/Body/ReadinessPanel/Content"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Magazyn Gildii"
+text = "Skrytka w karczmie"
 
 [node name="InnButton" type="Button" parent="Page/Body/ReadinessPanel/Content"]
 unique_name_in_owner = true

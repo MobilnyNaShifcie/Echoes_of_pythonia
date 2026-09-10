@@ -65,7 +65,7 @@ static func _twilight_plains() -> RegionDefinitionClass:
 			1,
 			0,
 			2,
-			0.8,
+			1.0,
 			{
 				"wild_dog": 25,
 				"slime": 20,
@@ -107,7 +107,7 @@ static func _black_forest() -> RegionDefinitionClass:
 			2,
 			2,
 			4,
-			0.85,
+			1.0,
 			{
 				"venom_spider": 25,
 				"forest_cultist": 22,
@@ -150,7 +150,7 @@ static func _silentwater_marshes() -> RegionDefinitionClass:
 			3,
 			5,
 			8,
-			0.9,
+			1.0,
 			{
 				"bog_crawler": 25,
 				"drowned_dead": 22,
@@ -193,7 +193,7 @@ static func _ashen_borderlands() -> RegionDefinitionClass:
 			4,
 			10,
 			14,
-			0.92,
+			1.0,
 			{
 				"desert_wanderer": 25,
 				"desert_harpy": 22,
@@ -234,7 +234,7 @@ static func _ice_coast() -> RegionDefinitionClass:
 			5,
 			14,
 			18,
-			0.93,
+			1.0,
 			{
 				"frozen_castaway": 25,
 				"ice_bear": 22,

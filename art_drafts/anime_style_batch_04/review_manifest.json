@@ -1,0 +1,759 @@
+{
+  "batch": 4,
+  "expected_count": 19,
+  "style": "Approved anime-fantasy heroes and inventory icons, static 2D RGBA",
+  "status": "integrated",
+  "audit_note": "Final 19 missing catalog icons. Class/faction visual families do not add gameplay set bonuses. Rift uniques come from existing class reward pools, not invented monster drops.",
+  "generation_method": "Built-in imagegen, one call per item; preserve originals. Authorized local alpha extraction only if generator does not return genuine transparency.",
+  "items": [
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "res://assets/items/regional/echo_quiver.png",
+      "id": "echo_quiver",
+      "level": 14,
+      "name": "Kołczan Echa",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": false,
+      "sets": [],
+      "slot": "off_hand",
+      "sources": [
+        {
+          "class_gear_pool": "late_game"
+        }
+      ],
+      "family": "hunter",
+      "design": "One tall practical hunter's quiver of deep forest-green leather and warm bronze leaf-shaped ribs, containing a small neatly grouped set of green-fletched arrows. One subtle triple-chevron echo clasp, short folded carrying strap attached to the side. Clearly an arrow container, not a vase. Refinement appropriate for rare late-game gear, restrained decoration.",
+      "family_ref": null,
+      "target": "godot/assets/items/regional/echo_quiver.png",
+      "status": "integrated",
+      "prompt": "Use case: stylized-concept.\nAsset type: ONE polished 2D inventory PNG illustration for Echoes of Pythonia, readable at 64 pixels.\nInput roles: Image 1 is the existing anime HERO style and class-identity reference only; draw NO person. Image 2 is an approved ITEM reference for clean contour, grouped shading, material polish and moderate detail only; do not copy its subject or family ornaments. Image 3, if present, is the matching equipment FAMILY reference for motifs and materials.\nBackground: genuinely transparent alpha, including holes in handles/rings. If transparent alpha cannot be returned, use perfectly flat pure magenta #FF00FF behind the whole object and inside holes, no gradients or shadows on it. NEVER paint a checkerboard. Do not copy reference backgrounds.\nStyle: refined hand-painted anime-fantasy JRPG equipment, crisp elegant contour, broad controlled highlights, grouped cel-painterly shadows, restrained surface detail. Same sophistication as the hero's gear, not photographic or a glossy 3D render, not flat cartoon clipart.\nComposition: exactly the specified item or pair, centered and fully visible on a square canvas, 9 percent clear padding on ALL edges, full silhouette about 82 percent of canvas. Clear three-quarter presentation unless specified otherwise.\nConstraints: no words, lettering, labels, prices, numbers, borders, rarity frames, UI, scenery, hands, people, mannequins, pedestal, ground plane, ground shadow, floating particles, glitter or fireflies. Magical light stays INSIDE the object. The engine owns rarity frames.\n\nSubject: Kołczan Echa. One tall practical hunter's quiver of deep forest-green leather and warm bronze leaf-shaped ribs, containing a small neatly grouped set of green-fletched arrows. One subtle triple-chevron echo clasp, short folded carrying strap attached to the side. Clearly an arrow container, not a vase. Refinement appropriate for rare late-game gear, restrained decoration.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/snow_griffin_cloak.png"
+      ],
+      "generated_source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-0efa4189-0f0e-4792-87f1-1bea6443fc83.png",
+      "background_seeds": [
+        [
+          0.6973,
+          0.6328
+        ],
+        [
+          0.2754,
+          0.3008
+        ],
+        [
+          0.416,
+          0.2266
+        ],
+        [
+          0.3086,
+          0.2871
+        ],
+        [
+          0.5781,
+          0.3828
+        ],
+        [
+          0.3906,
+          0.2441
+        ],
+        [
+          0.7168,
+          0.7617
+        ],
+        [
+          0.3594,
+          0.2617
+        ],
+        [
+          0.3477,
+          0.2773
+        ]
+      ],
+      "alpha_method": "neutral_checker_reviewed_holes",
+      "neutral_edges": false
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "res://assets/items/regional/weave_relic.png",
+      "id": "weave_relic",
+      "level": 14,
+      "name": "Relikwiarz Splotu",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": false,
+      "sets": [],
+      "slot": "off_hand",
+      "sources": [
+        {
+          "class_gear_pool": "late_game"
+        }
+      ],
+      "family": "mage",
+      "design": "One palm-sized closed reliquary: an elegant oval amethyst crystal held firmly inside crossing gold bands shaped like two interwoven threads, a dark indigo enamel back and a small hinged clasp. This is a handheld off-hand magical instrument, NOT a necklace or staff; no chain, pedestal or floating pieces. Single soft violet-white light inside the crystal.",
+      "family_ref": null,
+      "target": "godot/assets/items/regional/weave_relic.png",
+      "status": "integrated",
+      "prompt": "Use case: stylized-concept.\nAsset type: ONE polished 2D inventory PNG illustration for Echoes of Pythonia, readable at 64 pixels.\nInput roles: Image 1 is the existing anime HERO style and class-identity reference only; draw NO person. Image 2 is an approved ITEM reference for clean contour, grouped shading, material polish and moderate detail only; do not copy its subject or family ornaments. Image 3, if present, is the matching equipment FAMILY reference for motifs and materials.\nBackground: genuinely transparent alpha, including holes in handles/rings. If transparent alpha cannot be returned, use perfectly flat pure magenta #FF00FF behind the whole object and inside holes, no gradients or shadows on it. NEVER paint a checkerboard. Do not copy reference backgrounds.\nStyle: refined hand-painted anime-fantasy JRPG equipment, crisp elegant contour, broad controlled highlights, grouped cel-painterly shadows, restrained surface detail. Same sophistication as the hero's gear, not photographic or a glossy 3D render, not flat cartoon clipart.\nComposition: exactly the specified item or pair, centered and fully visible on a square canvas, 9 percent clear padding on ALL edges, full silhouette about 82 percent of canvas. Clear three-quarter presentation unless specified otherwise.\nConstraints: no words, lettering, labels, prices, numbers, borders, rarity frames, UI, scenery, hands, people, mannequins, pedestal, ground plane, ground shadow, floating particles, glitter or fireflies. Magical light stays INSIDE the object. The engine owns rarity frames.\n\nSubject: Relikwiarz Splotu. One palm-sized closed reliquary: an elegant oval amethyst crystal held firmly inside crossing gold bands shaped like two interwoven threads, a dark indigo enamel back and a small hinged clasp. This is a handheld off-hand magical instrument, NOT a necklace or staff; no chain, pedestal or floating pieces. Single soft violet-white light inside the crystal.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/mage_female.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/black_sea_staff.png"
+      ],
+      "generated_source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-d2c470a1-3fd3-48b6-aa8b-78d57d37760c.png",
+      "alpha_method": "neutral_checker_exterior_only",
+      "neutral_edges": false
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "res://assets/items/regional/trickster_card_deck.png",
+      "id": "trickster_card_deck",
+      "level": 14,
+      "name": "Talia Oszusta",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": false,
+      "sets": [],
+      "slot": "off_hand",
+      "sources": [
+        {
+          "class_gear_pool": "late_game"
+        }
+      ],
+      "family": "pierrot",
+      "design": "One compact physical deck of thick ivory playing cards with black edges, partially fanned to show exactly three patterned card backs. Wine-red and black harlequin diamonds with a small gold asymmetric theatrical flourish. Cards overlap and form one cohesive deck; no floating cards, no letters, ranks, numerals or written text. Refined slightly mischievous Pierrot equipment, not a modern casino logo.",
+      "family_ref": null,
+      "target": "godot/assets/items/regional/trickster_card_deck.png",
+      "status": "integrated",
+      "prompt": "Use case: stylized-concept.\nAsset type: ONE polished 2D inventory PNG illustration for Echoes of Pythonia, readable at 64 pixels.\nInput roles: Image 1 is the existing anime HERO style and class-identity reference only; draw NO person. Image 2 is an approved ITEM reference for clean contour, grouped shading, material polish and moderate detail only; do not copy its subject or family ornaments. Image 3, if present, is the matching equipment FAMILY reference for motifs and materials.\nBackground: genuinely transparent alpha, including holes in handles/rings. If transparent alpha cannot be returned, use perfectly flat pure magenta #FF00FF behind the whole object and inside holes, no gradients or shadows on it. NEVER paint a checkerboard. Do not copy reference backgrounds.\nStyle: refined hand-painted anime-fantasy JRPG equipment, crisp elegant contour, broad controlled highlights, grouped cel-painterly shadows, restrained surface detail. Same sophistication as the hero's gear, not photographic or a glossy 3D render, not flat cartoon clipart.\nComposition: exactly the specified item or pair, centered and fully visible on a square canvas, 9 percent clear padding on ALL edges, full silhouette about 82 percent of canvas. Clear three-quarter presentation unless specified otherwise.\nConstraints: no words, lettering, labels, prices, numbers, borders, rarity frames, UI, scenery, hands, people, mannequins, pedestal, ground plane, ground shadow, floating particles, glitter or fireflies. Magical light stays INSIDE the object. The engine owns rarity frames.\n\nSubject: Talia Oszusta. One compact physical deck of thick ivory playing cards with black edges, partially fanned to show exactly three patterned card backs. Wine-red and black harlequin diamonds with a small gold asymmetric theatrical flourish. Cards overlap and form one cohesive deck; no floating cards, no letters, ranks, numerals or written text. Refined slightly mischievous Pierrot equipment, not a modern casino logo.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/pierrot.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/black_sea_staff.png"
+      ],
+      "generated_source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-7477ab89-5ba8-4588-bdeb-d8c87d60b783.png",
+      "alpha_method": "neutral_checker_exterior_only",
+      "neutral_edges": false
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "res://assets/items/regional/rift_bastion_shield.png",
+      "id": "rift_bastion_shield",
+      "level": 18,
+      "name": "Tarcza Pękniętego Bastionu",
+      "rarity": "legendary",
+      "rarity_color": "e35b62",
+      "rarity_label": "Legendarny",
+      "regional": false,
+      "sets": [],
+      "slot": "off_hand",
+      "sources": [
+        {
+          "rift_unique_pool": "warrior"
+        }
+      ],
+      "family": "warrior",
+      "design": "One imposing kite shield of layered gunmetal steel, angular pale silver edges and narrow crimson enamel insets, bronze structural fittings. Its central crest is a simple broken battlement silhouette; a single controlled hairline fracture in the steel is held closed by visible metal braces, not an exploded object. Broad readable shield planes, substantial defensive construction. Match the warrior's armor palette and ornamental language, not the orange flame motif of the item STYLE reference.",
+      "family_ref": null,
+      "target": "godot/assets/items/regional/rift_bastion_shield.png",
+      "status": "integrated",
+      "prompt": "Use case: stylized-concept.\nAsset type: ONE polished 2D inventory PNG illustration for Echoes of Pythonia, readable at 64 pixels.\nInput roles: Image 1 is the existing anime HERO style and class-identity reference only; draw NO person. Image 2 is an approved ITEM reference for clean contour, grouped shading, material polish and moderate detail only; do not copy its subject or family ornaments. Image 3, if present, is the matching equipment FAMILY reference for motifs and materials.\nBackground: genuinely transparent alpha, including holes in handles/rings. If transparent alpha cannot be returned, use perfectly flat pure magenta #FF00FF behind the whole object and inside holes, no gradients or shadows on it. NEVER paint a checkerboard. Do not copy reference backgrounds.\nStyle: refined hand-painted anime-fantasy JRPG equipment, crisp elegant contour, broad controlled highlights, grouped cel-painterly shadows, restrained surface detail. Same sophistication as the hero's gear, not photographic or a glossy 3D render, not flat cartoon clipart.\nComposition: exactly the specified item or pair, centered and fully visible on a square canvas, 9 percent clear padding on ALL edges, full silhouette about 82 percent of canvas. Clear three-quarter presentation unless specified otherwise.\nConstraints: no words, lettering, labels, prices, numbers, borders, rarity frames, UI, scenery, hands, people, mannequins, pedestal, ground plane, ground shadow, floating particles, glitter or fireflies. Magical light stays INSIDE the object. The engine owns rarity frames.\n\nSubject: Tarcza Pękniętego Bastionu. One imposing kite shield of layered gunmetal steel, angular pale silver edges and narrow crimson enamel insets, bronze structural fittings. Its central crest is a simple broken battlement silhouette; a single controlled hairline fracture in the steel is held closed by visible metal braces, not an exploded object. Broad readable shield planes, substantial defensive construction. Match the warrior's armor palette and ornamental language, not the orange flame motif of the item STYLE reference.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/warrior.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/hearthguard_shield.png"
+      ],
+      "generated_source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-06d02e65-4216-4a80-856d-51c1a62ddabe.png",
+      "alpha_method": "neutral_checker_exterior_only",
+      "neutral_edges": false
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "res://assets/items/regional/last_guard_plate.png",
+      "id": "last_guard_plate",
+      "level": 18,
+      "name": "Napierśnik Ostatniej Straży",
+      "rarity": "legendary",
+      "rarity_color": "e35b62",
+      "rarity_label": "Legendarny",
+      "regional": false,
+      "sets": [],
+      "slot": "chest",
+      "sources": [
+        {
+          "rift_unique_pool": "warrior"
+        }
+      ],
+      "family": "warrior",
+      "design": "One complete empty breastplate with articulated shoulder guards, high gorget and a short crimson cloth lining beneath the waist. Gunmetal steel, pale silver ridges and old bronze fixtures, same broken-battlement crest as the shield reference. Strong broad armor planes, reinforced seam over the heart conveying Last Guard; selective battle wear, no shattered fragments, no helmet, no wearer, no mannequin or stand.",
+      "family_ref": "rift_bastion_shield",
+      "target": "godot/assets/items/regional/last_guard_plate.png",
+      "status": "integrated",
+      "prompt": "Use case: stylized-concept.\nAsset type: ONE polished 2D inventory PNG illustration for Echoes of Pythonia, readable at 64 pixels.\nInput roles: Image 1 is the existing anime HERO style and class-identity reference only; draw NO person. Image 2 is an approved ITEM reference for clean contour, grouped shading, material polish and moderate detail only; do not copy its subject or family ornaments. Image 3, if present, is the matching equipment FAMILY reference for motifs and materials.\nBackground: genuinely transparent alpha, including holes in handles/rings. If transparent alpha cannot be returned, use perfectly flat pure magenta #FF00FF behind the whole object and inside holes, no gradients or shadows on it. NEVER paint a checkerboard. Do not copy reference backgrounds.\nStyle: refined hand-painted anime-fantasy JRPG equipment, crisp elegant contour, broad controlled highlights, grouped cel-painterly shadows, restrained surface detail. Same sophistication as the hero's gear, not photographic or a glossy 3D render, not flat cartoon clipart.\nComposition: exactly the specified item or pair, centered and fully visible on a square canvas, 9 percent clear padding on ALL edges, full silhouette about 82 percent of canvas. Clear three-quarter presentation unless specified otherwise.\nConstraints: no words, lettering, labels, prices, numbers, borders, rarity frames, UI, scenery, hands, people, mannequins, pedestal, ground plane, ground shadow, floating particles, glitter or fireflies. Magical light stays INSIDE the object. The engine owns rarity frames.\n\nSubject: Napierśnik Ostatniej Straży. One complete empty breastplate with articulated shoulder guards, high gorget and a short crimson cloth lining beneath the waist. Gunmetal steel, pale silver ridges and old bronze fixtures, same broken-battlement crest as the shield reference. Strong broad armor planes, reinforced seam over the heart conveying Last Guard; selective battle wear, no shattered fragments, no helmet, no wearer, no mannequin or stand.\nOUTPUT BACKDROP OVERRIDE: deliver genuine transparent alpha if supported. If not, the required fallback is a perfectly flat SOLID #FF00FF MAGENTA background, also visible through ALL holes and openings, with no background gradients or shading. Absolutely NO gray/white checkerboard pattern, no gray or white backdrop. Do not let magenta reflect onto the object.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/warrior.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/hearthguard_shield.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_04/processed/rift_bastion_shield.png"
+      ],
+      "generated_source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-9781d71f-0434-42e1-a623-14a8afaa318d.png",
+      "alpha_method": "neutral_checker_exterior_only",
+      "neutral_edges": false
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "res://assets/items/regional/oathbreaker_edge.png",
+      "id": "oathbreaker_edge",
+      "level": 18,
+      "name": "Ostrze Złamanej Przysięgi",
+      "rarity": "legendary",
+      "rarity_color": "e35b62",
+      "rarity_label": "Legendarny",
+      "regional": false,
+      "sets": [],
+      "slot": "weapon",
+      "sources": [
+        {
+          "rift_unique_pool": "warrior"
+        }
+      ],
+      "family": "warrior",
+      "design": "One entire straight two-edged longsword, diagonally from lower-left pommel to upper-right tip. Gunmetal fuller, silver cutting edges, narrow dark-crimson enamel channel, antique bronze crossguard shaped as opposing broken battlements matching the shield. One small controlled notch interrupts a ceremonial gold vow-band near the guard, but the full blade is functional and unbroken. No blood, drips, flames or floating shards. Broad elegant sword silhouette.",
+      "family_ref": "rift_bastion_shield",
+      "target": "godot/assets/items/regional/oathbreaker_edge.png",
+      "status": "integrated",
+      "prompt": "Use case: stylized-concept.\nAsset type: ONE polished 2D inventory PNG illustration for Echoes of Pythonia, readable at 64 pixels.\nInput roles: Image 1 is the existing anime HERO style and class-identity reference only; draw NO person. Image 2 is an approved ITEM reference for clean contour, grouped shading, material polish and moderate detail only; do not copy its subject or family ornaments. Image 3, if present, is the matching equipment FAMILY reference for motifs and materials.\nBackground: genuinely transparent alpha, including holes in handles/rings. If transparent alpha cannot be returned, use perfectly flat pure magenta #FF00FF behind the whole object and inside holes, no gradients or shadows on it. NEVER paint a checkerboard. Do not copy reference backgrounds.\nStyle: refined hand-painted anime-fantasy JRPG equipment, crisp elegant contour, broad controlled highlights, grouped cel-painterly shadows, restrained surface detail. Same sophistication as the hero's gear, not photographic or a glossy 3D render, not flat cartoon clipart.\nComposition: exactly the specified item or pair, centered and fully visible on a square canvas, 9 percent clear padding on ALL edges, full silhouette about 82 percent of canvas. Clear three-quarter presentation unless specified otherwise.\nConstraints: no words, lettering, labels, prices, numbers, borders, rarity frames, UI, scenery, hands, people, mannequins, pedestal, ground plane, ground shadow, floating particles, glitter or fireflies. Magical light stays INSIDE the object. The engine owns rarity frames.\n\nSubject: Ostrze Złamanej Przysięgi. One entire straight two-edged longsword, diagonally from lower-left pommel to upper-right tip. Gunmetal fuller, silver cutting edges, narrow dark-crimson enamel channel, antique bronze crossguard shaped as opposing broken battlements matching the shield. One small controlled notch interrupts a ceremonial gold vow-band near the guard, but the full blade is functional and unbroken. No blood, drips, flames or floating shards. Broad elegant sword silhouette.\nOUTPUT BACKDROP OVERRIDE: deliver genuine transparent alpha if supported. If not, the required fallback is a perfectly flat SOLID #FF00FF MAGENTA background, also visible through ALL holes and openings, with no background gradients or shading. Absolutely NO gray/white checkerboard pattern, no gray or white backdrop. Do not let magenta reflect onto the object.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/warrior.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/hearthguard_shield.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_04/processed/rift_bastion_shield.png"
+      ],
+      "generated_source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-17022eb0-ac1b-437a-b2c4-87efa7fb4b6c.png",
+      "alpha_method": "neutral_checker_exterior_only",
+      "neutral_edges": false
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "res://assets/items/regional/warden_chain.png",
+      "id": "warden_chain",
+      "level": 18,
+      "name": "Łańcuch Strażnika Szczeliny",
+      "rarity": "epic",
+      "rarity_color": "aa69dc",
+      "rarity_label": "Epicki",
+      "regional": false,
+      "sets": [],
+      "slot": "bracelet",
+      "sources": [
+        {
+          "rift_unique_pool": "warrior"
+        }
+      ],
+      "family": "warrior",
+      "design": "One heavy wrist bracelet, curved into a readable C-shaped open loop, made of five broad articulated gunmetal links with silver bevels and bronze pins. Central clasp is a compact broken-battlement guard crest matching the shield, thin crimson enamel accents. Clearly wearable wrist armor, NOT a long hanging necklace or loose chain. Show hollow opening naturally, three-quarter view.",
+      "family_ref": "rift_bastion_shield",
+      "target": "godot/assets/items/regional/warden_chain.png",
+      "status": "integrated",
+      "prompt": "Use case: stylized-concept.\nAsset type: ONE polished 2D inventory PNG illustration for Echoes of Pythonia, readable at 64 pixels.\nInput roles: Image 1 is the existing anime HERO style and class-identity reference only; draw NO person. Image 2 is an approved ITEM reference for clean contour, grouped shading, material polish and moderate detail only; do not copy its subject or family ornaments. Image 3, if present, is the matching equipment FAMILY reference for motifs and materials.\nBackground: genuinely transparent alpha, including holes in handles/rings. If transparent alpha cannot be returned, use perfectly flat pure magenta #FF00FF behind the whole object and inside holes, no gradients or shadows on it. NEVER paint a checkerboard. Do not copy reference backgrounds.\nStyle: refined hand-painted anime-fantasy JRPG equipment, crisp elegant contour, broad controlled highlights, grouped cel-painterly shadows, restrained surface detail. Same sophistication as the hero's gear, not photographic or a glossy 3D render, not flat cartoon clipart.\nComposition: exactly the specified item or pair, centered and fully visible on a square canvas, 9 percent clear padding on ALL edges, full silhouette about 82 percent of canvas. Clear three-quarter presentation unless specified otherwise.\nConstraints: no words, lettering, labels, prices, numbers, borders, rarity frames, UI, scenery, hands, people, mannequins, pedestal, ground plane, ground shadow, floating particles, glitter or fireflies. Magical light stays INSIDE the object. The engine owns rarity frames.\n\nSubject: Łańcuch Strażnika Szczeliny. One heavy wrist bracelet, curved into a readable C-shaped open loop, made of five broad articulated gunmetal links with silver bevels and bronze pins. Central clasp is a compact broken-battlement guard crest matching the shield, thin crimson enamel accents. Clearly wearable wrist armor, NOT a long hanging necklace or loose chain. Show hollow opening naturally, three-quarter view.\nOUTPUT BACKDROP OVERRIDE: deliver genuine transparent alpha if supported. If not, the required fallback is a perfectly flat SOLID #FF00FF MAGENTA background, also visible through ALL holes and openings, with no background gradients or shading. Absolutely NO gray/white checkerboard pattern, no gray or white backdrop. Do not let magenta reflect onto the object.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/warrior.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/hearthguard_shield.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_04/processed/rift_bastion_shield.png"
+      ],
+      "generated_source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-d7ffc0bb-4182-4d19-819f-f354b5ada9b2.png",
+      "alpha_method": "neutral_checker_exterior_only",
+      "neutral_edges": false
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "res://assets/items/regional/third_echo_quiver.png",
+      "id": "third_echo_quiver",
+      "level": 18,
+      "name": "Kołczan Trzeciego Echa",
+      "rarity": "legendary",
+      "rarity_color": "e35b62",
+      "rarity_label": "Legendarny",
+      "regional": false,
+      "sets": [],
+      "slot": "off_hand",
+      "sources": [
+        {
+          "rift_unique_pool": "hunter"
+        }
+      ],
+      "family": "hunter",
+      "design": "One legendary tall hunter quiver, upgraded relative to the green leather quiver reference. Deep forest-green leather, pale silver and warm bronze leaf ribs, THREE clear parallel glass-green chevrons down the front representing the third attack. Three neatly grouped arrow shafts with long pale-green feather fletching project from its mouth. Elegant restrained rift-glass insets, one short attached strap, no detached magical arrow trails or figures.",
+      "family_ref": "echo_quiver",
+      "target": "godot/assets/items/regional/third_echo_quiver.png",
+      "status": "integrated",
+      "prompt": "Use case: stylized-concept.\nAsset type: ONE polished 2D inventory PNG illustration for Echoes of Pythonia, readable at 64 pixels.\nInput roles: Image 1 is the existing anime HERO style and class-identity reference only; draw NO person. Image 2 is an approved ITEM reference for clean contour, grouped shading, material polish and moderate detail only; do not copy its subject or family ornaments. Image 3, if present, is the matching equipment FAMILY reference for motifs and materials.\nBackground: genuinely transparent alpha, including holes in handles/rings. If transparent alpha cannot be returned, use perfectly flat pure magenta #FF00FF behind the whole object and inside holes, no gradients or shadows on it. NEVER paint a checkerboard. Do not copy reference backgrounds.\nStyle: refined hand-painted anime-fantasy JRPG equipment, crisp elegant contour, broad controlled highlights, grouped cel-painterly shadows, restrained surface detail. Same sophistication as the hero's gear, not photographic or a glossy 3D render, not flat cartoon clipart.\nComposition: exactly the specified item or pair, centered and fully visible on a square canvas, 9 percent clear padding on ALL edges, full silhouette about 82 percent of canvas. Clear three-quarter presentation unless specified otherwise.\nConstraints: no words, lettering, labels, prices, numbers, borders, rarity frames, UI, scenery, hands, people, mannequins, pedestal, ground plane, ground shadow, floating particles, glitter or fireflies. Magical light stays INSIDE the object. The engine owns rarity frames.\n\nSubject: Kołczan Trzeciego Echa. One legendary tall hunter quiver, upgraded relative to the green leather quiver reference. Deep forest-green leather, pale silver and warm bronze leaf ribs, THREE clear parallel glass-green chevrons down the front representing the third attack. Three neatly grouped arrow shafts with long pale-green feather fletching project from its mouth. Elegant restrained rift-glass insets, one short attached strap, no detached magical arrow trails or figures.\nOUTPUT BACKDROP OVERRIDE: deliver genuine transparent alpha if supported. If not, the required fallback is a perfectly flat SOLID #FF00FF MAGENTA background, also visible through ALL holes and openings, with no background gradients or shading. Absolutely NO gray/white checkerboard pattern, no gray or white backdrop. Do not let magenta reflect onto the object.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/snow_griffin_cloak.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_04/processed/echo_quiver.png"
+      ],
+      "generated_source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-ad2a290a-9e2d-4d9b-ace9-e8fd899008f8.png",
+      "alpha_method": "neutral_checker_reviewed_holes",
+      "background_seeds": [
+        [
+          0.6895,
+          0.627
+        ],
+        [
+          0.2988,
+          0.2402
+        ],
+        [
+          0.3535,
+          0.2168
+        ],
+        [
+          0.5742,
+          0.3359
+        ],
+        [
+          0.7148,
+          0.8125
+        ]
+      ],
+      "neutral_edges": false
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "res://assets/items/regional/riftglass_bow.png",
+      "id": "riftglass_bow",
+      "level": 18,
+      "name": "Łuk ze Szkła Szczeliny",
+      "rarity": "legendary",
+      "rarity_color": "e35b62",
+      "rarity_label": "Legendarny",
+      "regional": false,
+      "sets": [],
+      "slot": "weapon",
+      "sources": [
+        {
+          "rift_unique_pool": "hunter"
+        }
+      ],
+      "family": "hunter",
+      "design": "One complete unstrung-arrow-free recurved longbow WITH a single continuous thin visible taut bowstring. The limbs are elegant pale jade-cyan translucent rift-glass, broad readable facets held in bronze and dark-green leaf-shaped mountings, dark forest-green wrapped central grip. Three nested chevrons echo the hunter quiver motif. Glass stays visibly solid with defined rims, not cracked ice spikes or a fish. Gentle internal refraction only, no exterior aura. Full tips and string safely inside canvas.",
+      "family_ref": "echo_quiver",
+      "target": "godot/assets/items/regional/riftglass_bow.png",
+      "status": "integrated",
+      "prompt": "Use case: stylized-concept.\nAsset type: ONE polished 2D inventory PNG illustration for Echoes of Pythonia, readable at 64 pixels.\nInput roles: Image 1 is the existing anime HERO style and class-identity reference only; draw NO person. Image 2 is an approved ITEM reference for clean contour, grouped shading, material polish and moderate detail only; do not copy its subject or family ornaments. Image 3, if present, is the matching equipment FAMILY reference for motifs and materials.\nBackground: genuinely transparent alpha, including holes in handles/rings. If transparent alpha cannot be returned, use perfectly flat pure magenta #FF00FF behind the whole object and inside holes, no gradients or shadows on it. NEVER paint a checkerboard. Do not copy reference backgrounds.\nStyle: refined hand-painted anime-fantasy JRPG equipment, crisp elegant contour, broad controlled highlights, grouped cel-painterly shadows, restrained surface detail. Same sophistication as the hero's gear, not photographic or a glossy 3D render, not flat cartoon clipart.\nComposition: exactly the specified item or pair, centered and fully visible on a square canvas, 9 percent clear padding on ALL edges, full silhouette about 82 percent of canvas. Clear three-quarter presentation unless specified otherwise.\nConstraints: no words, lettering, labels, prices, numbers, borders, rarity frames, UI, scenery, hands, people, mannequins, pedestal, ground plane, ground shadow, floating particles, glitter or fireflies. Magical light stays INSIDE the object. The engine owns rarity frames.\n\nSubject: Łuk ze Szkła Szczeliny. One complete unstrung-arrow-free recurved longbow WITH a single continuous thin visible taut bowstring. The limbs are elegant pale jade-cyan translucent rift-glass, broad readable facets held in bronze and dark-green leaf-shaped mountings, dark forest-green wrapped central grip. Three nested chevrons echo the hunter quiver motif. Glass stays visibly solid with defined rims, not cracked ice spikes or a fish. Gentle internal refraction only, no exterior aura. Full tips and string safely inside canvas.\nOUTPUT BACKDROP OVERRIDE: deliver genuine transparent alpha if supported. If not, the required fallback is a perfectly flat SOLID #FF00FF MAGENTA background, also visible through ALL holes and openings, with no background gradients or shading. Absolutely NO gray/white checkerboard pattern, no gray or white backdrop. Do not let magenta reflect onto the object.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/snow_griffin_cloak.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_04/processed/echo_quiver.png"
+      ],
+      "generated_source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-ce4e6268-3b0e-483e-8206-9c77451efdde.png",
+      "alpha_method": "neutral_checker_reviewed_holes",
+      "background_seeds": [
+        [
+          0.5,
+          0.5156
+        ]
+      ],
+      "neutral_edges": false
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "res://assets/items/regional/silent_volley_cloak.png",
+      "id": "silent_volley_cloak",
+      "level": 18,
+      "name": "Płaszcz Bezgłośnej Salwy",
+      "rarity": "legendary",
+      "rarity_color": "e35b62",
+      "rarity_label": "Legendarny",
+      "regional": false,
+      "sets": [],
+      "slot": "chest",
+      "sources": [
+        {
+          "rift_unique_pool": "hunter"
+        }
+      ],
+      "family": "hunter",
+      "design": "One empty hooded hunter cloak, forest-green outer fabric with charcoal-green inner lining, long tapered leaf-shaped split hem and pale sage piping. A small silver-bronze triple-chevron clasp and two narrow rift-glass insets match the quiver. Quiet matte cloth, clear broad folds, lightweight silhouette for evasion. Hood opening remains dark; no face, body, mannequin, armor, fur or feather mass. No flying scraps.",
+      "family_ref": "echo_quiver",
+      "target": "godot/assets/items/regional/silent_volley_cloak.png",
+      "status": "integrated",
+      "prompt": "Use case: stylized-concept.\nAsset type: ONE polished 2D inventory PNG illustration for Echoes of Pythonia, readable at 64 pixels.\nInput roles: Image 1 is the existing anime HERO style and class-identity reference only; draw NO person. Image 2 is an approved ITEM reference for clean contour, grouped shading, material polish and moderate detail only; do not copy its subject or family ornaments. Image 3, if present, is the matching equipment FAMILY reference for motifs and materials.\nBackground: genuinely transparent alpha, including holes in handles/rings. If transparent alpha cannot be returned, use perfectly flat pure magenta #FF00FF behind the whole object and inside holes, no gradients or shadows on it. NEVER paint a checkerboard. Do not copy reference backgrounds.\nStyle: refined hand-painted anime-fantasy JRPG equipment, crisp elegant contour, broad controlled highlights, grouped cel-painterly shadows, restrained surface detail. Same sophistication as the hero's gear, not photographic or a glossy 3D render, not flat cartoon clipart.\nComposition: exactly the specified item or pair, centered and fully visible on a square canvas, 9 percent clear padding on ALL edges, full silhouette about 82 percent of canvas. Clear three-quarter presentation unless specified otherwise.\nConstraints: no words, lettering, labels, prices, numbers, borders, rarity frames, UI, scenery, hands, people, mannequins, pedestal, ground plane, ground shadow, floating particles, glitter or fireflies. Magical light stays INSIDE the object. The engine owns rarity frames.\n\nSubject: Płaszcz Bezgłośnej Salwy. One empty hooded hunter cloak, forest-green outer fabric with charcoal-green inner lining, long tapered leaf-shaped split hem and pale sage piping. A small silver-bronze triple-chevron clasp and two narrow rift-glass insets match the quiver. Quiet matte cloth, clear broad folds, lightweight silhouette for evasion. Hood opening remains dark; no face, body, mannequin, armor, fur or feather mass. No flying scraps.\nOUTPUT BACKDROP OVERRIDE: deliver genuine transparent alpha if supported. If not, the required fallback is a perfectly flat SOLID #FF00FF MAGENTA background, also visible through ALL holes and openings, with no background gradients or shading. Absolutely NO gray/white checkerboard pattern, no gray or white backdrop. Do not let magenta reflect onto the object.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/snow_griffin_cloak.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_04/processed/echo_quiver.png"
+      ],
+      "generated_source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-f79ee18d-d15a-4158-83ee-5447dc1b0216.png",
+      "alpha_method": "neutral_checker_exterior_only",
+      "neutral_edges": false
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "res://assets/items/regional/afterimage_ring.png",
+      "id": "afterimage_ring",
+      "level": 18,
+      "name": "Pierścień Powidoku",
+      "rarity": "epic",
+      "rarity_color": "aa69dc",
+      "rarity_label": "Epicki",
+      "regional": false,
+      "sets": [],
+      "slot": "ring",
+      "sources": [
+        {
+          "rift_unique_pool": "hunter"
+        }
+      ],
+      "family": "hunter",
+      "design": "One refined silver-bronze finger ring with TWO offset curved bands joined into a single physical ring, framing one elongated pale jade rift-glass cabochon; a tiny three-chevron engraving. The doubled setting suggests an afterimage while remaining real solid jewelry. Forest-green dark accent, clean open finger hole, three-quarter view. No separate ghost ring, external glow, smoke, floating parts or necklace.",
+      "family_ref": "echo_quiver",
+      "target": "godot/assets/items/regional/afterimage_ring.png",
+      "status": "integrated",
+      "prompt": "Use case: stylized-concept.\nAsset type: ONE polished 2D inventory PNG illustration for Echoes of Pythonia, readable at 64 pixels.\nInput roles: Image 1 is the existing anime HERO style and class-identity reference only; draw NO person. Image 2 is an approved ITEM reference for clean contour, grouped shading, material polish and moderate detail only; do not copy its subject or family ornaments. Image 3, if present, is the matching equipment FAMILY reference for motifs and materials.\nBackground: genuinely transparent alpha, including holes in handles/rings. If transparent alpha cannot be returned, use perfectly flat pure magenta #FF00FF behind the whole object and inside holes, no gradients or shadows on it. NEVER paint a checkerboard. Do not copy reference backgrounds.\nStyle: refined hand-painted anime-fantasy JRPG equipment, crisp elegant contour, broad controlled highlights, grouped cel-painterly shadows, restrained surface detail. Same sophistication as the hero's gear, not photographic or a glossy 3D render, not flat cartoon clipart.\nComposition: exactly the specified item or pair, centered and fully visible on a square canvas, 9 percent clear padding on ALL edges, full silhouette about 82 percent of canvas. Clear three-quarter presentation unless specified otherwise.\nConstraints: no words, lettering, labels, prices, numbers, borders, rarity frames, UI, scenery, hands, people, mannequins, pedestal, ground plane, ground shadow, floating particles, glitter or fireflies. Magical light stays INSIDE the object. The engine owns rarity frames.\n\nSubject: Pierścień Powidoku. One refined silver-bronze finger ring with TWO offset curved bands joined into a single physical ring, framing one elongated pale jade rift-glass cabochon; a tiny three-chevron engraving. The doubled setting suggests an afterimage while remaining real solid jewelry. Forest-green dark accent, clean open finger hole, three-quarter view. No separate ghost ring, external glow, smoke, floating parts or necklace.\nOUTPUT BACKDROP OVERRIDE: deliver genuine transparent alpha if supported. If not, the required fallback is a perfectly flat SOLID #FF00FF MAGENTA background, also visible through ALL holes and openings, with no background gradients or shading. Absolutely NO gray/white checkerboard pattern, no gray or white backdrop. Do not let magenta reflect onto the object.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/snow_griffin_cloak.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_04/processed/echo_quiver.png"
+      ],
+      "generated_source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-687c09ac-2aa1-4413-8e40-bdfbc87365bc.png",
+      "alpha_method": "magenta_local_cutout",
+      "neutral_edges": false,
+      "first_generated_source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-c6f91556-15c6-49d0-862e-cbdd9ca99074.png",
+      "correction_prompt": "Edit the supplied inventory ring image. Keep precisely the same single ring shape, two offset gold/green bands, triple-chevron mark, camera and anime-fantasy rendering. Fix ONLY the gemstone material and backdrop: replace the checkerboard showing inside the gemstone with OPAQUE pale jade green stone, elegant broad faceted/cabochon highlights and two restrained mineral veins, absolutely NO grid, squares or checkerboard inside the gem. Output the ring centered and completely visible, with a perfectly flat SOLID #FF00FF MAGENTA background and the same magenta through all actual openings between the ring bands, for later chroma-key extraction. No pink reflections on the ring. No new ornaments, text, shadows outside the object, ground, UI or frame.",
+      "first_raw": "art_drafts/anime_style_batch_04/raw/afterimage_ring-first.png"
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "res://assets/items/regional/split_weave_artifact.png",
+      "id": "split_weave_artifact",
+      "level": 18,
+      "name": "Artefakt Rozszczepionego Splotu",
+      "rarity": "legendary",
+      "rarity_color": "e35b62",
+      "rarity_label": "Legendarny",
+      "regional": false,
+      "sets": [],
+      "slot": "off_hand",
+      "sources": [
+        {
+          "rift_unique_pool": "mage"
+        }
+      ],
+      "family": "mage",
+      "design": "One legendary hand-held reliquary evolved from the mage reliquary reference, NOT a necklace. Two interwoven golden elliptical structural bands carry TWO different elongated crystal cores side by side: one deep violet, one pale cyan. Cores are connected physically by a narrow gold bridge. Dark indigo enamel panels and star-shaped clasps, elegant open mechanical-arcane structure. Two spells expressed as paired contained lights, no floating components, particles or aura.",
+      "family_ref": "weave_relic",
+      "target": "godot/assets/items/regional/split_weave_artifact.png",
+      "status": "integrated",
+      "prompt": "Use case: stylized-concept.\nAsset type: ONE polished 2D inventory PNG illustration for Echoes of Pythonia, readable at 64 pixels.\nInput roles: Image 1 is the existing anime HERO style and class-identity reference only; draw NO person. Image 2 is an approved ITEM reference for clean contour, grouped shading, material polish and moderate detail only; do not copy its subject or family ornaments. Image 3, if present, is the matching equipment FAMILY reference for motifs and materials.\nBackground: genuinely transparent alpha, including holes in handles/rings. If transparent alpha cannot be returned, use perfectly flat pure magenta #FF00FF behind the whole object and inside holes, no gradients or shadows on it. NEVER paint a checkerboard. Do not copy reference backgrounds.\nStyle: refined hand-painted anime-fantasy JRPG equipment, crisp elegant contour, broad controlled highlights, grouped cel-painterly shadows, restrained surface detail. Same sophistication as the hero's gear, not photographic or a glossy 3D render, not flat cartoon clipart.\nComposition: exactly the specified item or pair, centered and fully visible on a square canvas, 9 percent clear padding on ALL edges, full silhouette about 82 percent of canvas. Clear three-quarter presentation unless specified otherwise.\nConstraints: no words, lettering, labels, prices, numbers, borders, rarity frames, UI, scenery, hands, people, mannequins, pedestal, ground plane, ground shadow, floating particles, glitter or fireflies. Magical light stays INSIDE the object. The engine owns rarity frames.\n\nSubject: Artefakt Rozszczepionego Splotu. One legendary hand-held reliquary evolved from the mage reliquary reference, NOT a necklace. Two interwoven golden elliptical structural bands carry TWO different elongated crystal cores side by side: one deep violet, one pale cyan. Cores are connected physically by a narrow gold bridge. Dark indigo enamel panels and star-shaped clasps, elegant open mechanical-arcane structure. Two spells expressed as paired contained lights, no floating components, particles or aura.\nOUTPUT BACKDROP OVERRIDE: deliver genuine transparent alpha if supported. If not, the required fallback is a perfectly flat SOLID #FF00FF MAGENTA background, also visible through ALL holes and openings, with no background gradients or shading. Absolutely NO gray/white checkerboard pattern, no gray or white backdrop. Do not let magenta reflect onto the object.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/mage_female.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/black_sea_staff.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_04/processed/weave_relic.png"
+      ],
+      "generated_source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-0d59ea8f-cc24-40b1-86bc-331c28025ca1.png",
+      "alpha_method": "neutral_checker_reviewed_holes",
+      "background_seeds": [
+        [
+          0.541,
+          0.293
+        ],
+        [
+          0.4492,
+          0.6699
+        ],
+        [
+          0.8145,
+          0.4883
+        ],
+        [
+          0.6484,
+          0.2617
+        ],
+        [
+          0.2363,
+          0.377
+        ],
+        [
+          0.7559,
+          0.4941
+        ],
+        [
+          0.4492,
+          0.4531
+        ],
+        [
+          0.2676,
+          0.8301
+        ],
+        [
+          0.8027,
+          0.3281
+        ]
+      ],
+      "neutral_edges": false
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "res://assets/items/regional/twin_star_staff.png",
+      "id": "twin_star_staff",
+      "level": 18,
+      "name": "Kostur Dwóch Gwiazd",
+      "rarity": "legendary",
+      "rarity_color": "e35b62",
+      "rarity_label": "Legendarny",
+      "regional": false,
+      "sets": [],
+      "slot": "weapon",
+      "sources": [
+        {
+          "rift_unique_pool": "mage"
+        }
+      ],
+      "family": "mage",
+      "design": "One entire tall mage staff, diagonal lower-left to upper-right. Dark indigo shaft, elegant gold fittings and a crown formed by two overlapping golden orbital loops. Exactly TWO star-cut crystal cores are mounted visibly inside the head: one violet, one pale cyan, representing two different elements. They are attached by fine solid supports, no floating bits. Distinct refined large head and long slender shaft, matching the paired-thread mage reliquary motif. No external magical trails, sparks or dust.",
+      "family_ref": "weave_relic",
+      "target": "godot/assets/items/regional/twin_star_staff.png",
+      "status": "integrated",
+      "prompt": "Use case: stylized-concept.\nAsset type: ONE polished 2D inventory PNG illustration for Echoes of Pythonia, readable at 64 pixels.\nInput roles: Image 1 is the existing anime HERO style and class-identity reference only; draw NO person. Image 2 is an approved ITEM reference for clean contour, grouped shading, material polish and moderate detail only; do not copy its subject or family ornaments. Image 3, if present, is the matching equipment FAMILY reference for motifs and materials.\nBackground: perfectly flat solid RGB #FF00FF magenta, also inside ALL holes, no shadows or reflection on the backdrop. This is a chroma-key SOURCE illustration for a game icon; do NOT illustrate a transparency checkerboard or a white background. Keep all item surfaces free of magenta spill.\nStyle: refined hand-painted anime-fantasy JRPG equipment, crisp elegant contour, broad controlled highlights, grouped cel-painterly shadows, restrained surface detail. Same sophistication as the hero's gear, not photographic or a glossy 3D render, not flat cartoon clipart.\nComposition: exactly the specified item or pair, centered and fully visible on a square canvas, 9 percent clear padding on ALL edges, full silhouette about 82 percent of canvas. Clear three-quarter presentation unless specified otherwise.\nConstraints: no words, lettering, labels, prices, numbers, borders, rarity frames, UI, scenery, hands, people, mannequins, pedestal, ground plane, ground shadow, floating particles, glitter or fireflies. Magical light stays INSIDE the object. The engine owns rarity frames.\n\nSubject: Kostur Dwóch Gwiazd. One entire tall mage staff, diagonal lower-left to upper-right. Dark indigo shaft, elegant gold fittings and a crown formed by two overlapping golden orbital loops. Exactly TWO star-cut crystal cores are mounted visibly inside the head: one violet, one pale cyan, representing two different elements. They are attached by fine solid supports, no floating bits. Distinct refined large head and long slender shaft, matching the paired-thread mage reliquary motif. No external magical trails, sparks or dust.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/mage_female.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/black_sea_staff.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_04/processed/weave_relic.png"
+      ],
+      "generated_source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-a44faf7b-25dd-4162-92dc-e4732abc2ef5.png",
+      "alpha_method": "magenta_local_cutout",
+      "neutral_edges": true
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "res://assets/items/regional/empty_mana_robe.png",
+      "id": "empty_mana_robe",
+      "level": 18,
+      "name": "Szata Wyczerpanej Many",
+      "rarity": "legendary",
+      "rarity_color": "e35b62",
+      "rarity_label": "Legendarny",
+      "regional": false,
+      "sets": [],
+      "slot": "chest",
+      "sources": [
+        {
+          "rift_unique_pool": "mage"
+        }
+      ],
+      "family": "mage",
+      "design": "One complete empty long hooded mage robe, deep indigo outer silk, ivory inner panels, fine gold intersecting-thread edging, broad flowing folds. Two interwoven gold clasps near the collar match the reliquary, with pale nearly depleted crystal settings and one tiny violet last-spark inset still bright. Dignified wearable full robe, sleeves and long hem visible; no person, body, head, hands or mannequin. Restrained star accents, not a field of glitter.",
+      "family_ref": "weave_relic",
+      "target": "godot/assets/items/regional/empty_mana_robe.png",
+      "status": "integrated",
+      "prompt": "Use case: stylized-concept.\nAsset type: ONE polished 2D inventory PNG illustration for Echoes of Pythonia, readable at 64 pixels.\nInput roles: Image 1 is the existing anime HERO style and class-identity reference only; draw NO person. Image 2 is an approved ITEM reference for clean contour, grouped shading, material polish and moderate detail only; do not copy its subject or family ornaments. Image 3, if present, is the matching equipment FAMILY reference for motifs and materials.\nBackground: perfectly flat solid RGB #FF00FF magenta, also inside ALL holes, no shadows or reflection on the backdrop. This is a chroma-key SOURCE illustration for a game icon; do NOT illustrate a transparency checkerboard or a white background. Keep all item surfaces free of magenta spill.\nStyle: refined hand-painted anime-fantasy JRPG equipment, crisp elegant contour, broad controlled highlights, grouped cel-painterly shadows, restrained surface detail. Same sophistication as the hero's gear, not photographic or a glossy 3D render, not flat cartoon clipart.\nComposition: exactly the specified item or pair, centered and fully visible on a square canvas, 9 percent clear padding on ALL edges, full silhouette about 82 percent of canvas. Clear three-quarter presentation unless specified otherwise.\nConstraints: no words, lettering, labels, prices, numbers, borders, rarity frames, UI, scenery, hands, people, mannequins, pedestal, ground plane, ground shadow, floating particles, glitter or fireflies. Magical light stays INSIDE the object. The engine owns rarity frames.\n\nSubject: Szata Wyczerpanej Many. One complete empty long hooded mage robe, deep indigo outer silk, ivory inner panels, fine gold intersecting-thread edging, broad flowing folds. Two interwoven gold clasps near the collar match the reliquary, with pale nearly depleted crystal settings and one tiny violet last-spark inset still bright. Dignified wearable full robe, sleeves and long hem visible; no person, body, head, hands or mannequin. Restrained star accents, not a field of glitter.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/mage_female.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/black_sea_staff.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_04/processed/weave_relic.png"
+      ],
+      "generated_source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-aaed362b-42dd-4c5d-a9e9-5d44247f083c.png",
+      "alpha_method": "magenta_local_cutout",
+      "neutral_edges": false
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "res://assets/items/regional/storm_archive_relic.png",
+      "id": "storm_archive_relic",
+      "level": 18,
+      "name": "Medalion Burzowego Archiwum",
+      "rarity": "epic",
+      "rarity_color": "aa69dc",
+      "rarity_label": "Epicki",
+      "regional": false,
+      "sets": [],
+      "slot": "necklace",
+      "sources": [
+        {
+          "rift_unique_pool": "mage"
+        }
+      ],
+      "family": "mage",
+      "design": "One necklace pendant on a short neatly looped gold chain: a tiny hinged dark-indigo and gold codex reliquary, shown closed at three-quarter angle with a few visible ivory page edges. Two crossing gold threads and a sharply shaped pale-cyan lightning-stroke crystal are inlaid into the cover, tied to the mage reliquary design. This is an archive talisman the size of jewelry, not a large loose book. No written text, drawn letters, floating pages or lightning outside the object.",
+      "family_ref": "weave_relic",
+      "target": "godot/assets/items/regional/storm_archive_relic.png",
+      "status": "integrated",
+      "prompt": "Use case: stylized-concept.\nAsset type: ONE polished 2D inventory PNG illustration for Echoes of Pythonia, readable at 64 pixels.\nInput roles: Image 1 is the existing anime HERO style and class-identity reference only; draw NO person. Image 2 is an approved ITEM reference for clean contour, grouped shading, material polish and moderate detail only; do not copy its subject or family ornaments. Image 3, if present, is the matching equipment FAMILY reference for motifs and materials.\nBackground: perfectly flat solid RGB #FF00FF magenta, also inside ALL holes, no shadows or reflection on the backdrop. This is a chroma-key SOURCE illustration for a game icon; do NOT illustrate a transparency checkerboard or a white background. Keep all item surfaces free of magenta spill.\nStyle: refined hand-painted anime-fantasy JRPG equipment, crisp elegant contour, broad controlled highlights, grouped cel-painterly shadows, restrained surface detail. Same sophistication as the hero's gear, not photographic or a glossy 3D render, not flat cartoon clipart.\nComposition: exactly the specified item or pair, centered and fully visible on a square canvas, 9 percent clear padding on ALL edges, full silhouette about 82 percent of canvas. Clear three-quarter presentation unless specified otherwise.\nConstraints: no words, lettering, labels, prices, numbers, borders, rarity frames, UI, scenery, hands, people, mannequins, pedestal, ground plane, ground shadow, floating particles, glitter or fireflies. Magical light stays INSIDE the object. The engine owns rarity frames.\n\nSubject: Medalion Burzowego Archiwum. One necklace pendant on a short neatly looped gold chain: a tiny hinged dark-indigo and gold codex reliquary, shown closed at three-quarter angle with a few visible ivory page edges. Two crossing gold threads and a sharply shaped pale-cyan lightning-stroke crystal are inlaid into the cover, tied to the mage reliquary design. This is an archive talisman the size of jewelry, not a large loose book. No written text, drawn letters, floating pages or lightning outside the object.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/mage_female.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/black_sea_staff.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_04/processed/weave_relic.png"
+      ],
+      "generated_source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-d8aa309e-e7e7-4f39-ba18-2c4c08877519.png",
+      "alpha_method": "magenta_local_cutout",
+      "neutral_edges": true,
+      "first_generated_source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-b71e4e54-fd48-4b4e-b518-f8afc5ed1e51.png",
+      "correction_prompt": "Edit this anime-fantasy inventory necklace. Preserve the miniature indigo/gold closed-book pendant, icy blue lightning inlay, ivory pages, rendering and color palette exactly. Change ONLY the necklace chain framing: the gold chain must be a SHORT COMPLETE CLOSED OVAL LOOP above the pendant, with its WHOLE top arc visible and clear MAGENTA space around it. Nothing may leave or touch any image edge. Recompose slightly smaller if needed so the ENTIRE necklace and pendant fit centered within the canvas with 10% clear padding on every side. One intact necklace, not two dangling chain ends, no severed chain, no crop. Perfectly flat SOLID #FF00FF MAGENTA background and inside all links/loop, no checkerboard, no magenta on the item, no text, no other objects.",
+      "first_raw": "art_drafts/anime_style_batch_04/raw/storm_archive_relic-first.png"
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "res://assets/items/regional/two_lies_dice.png",
+      "id": "two_lies_dice",
+      "level": 18,
+      "name": "Kości Dwóch Kłamstw",
+      "rarity": "legendary",
+      "rarity_color": "e35b62",
+      "rarity_label": "Legendarny",
+      "regional": false,
+      "sets": [],
+      "slot": "off_hand",
+      "sources": [
+        {
+          "rift_unique_pool": "pierrot"
+        }
+      ],
+      "family": "pierrot",
+      "design": "Exactly TWO small chunky six-sided dice touching at a slight angle, one ivory ceramic with black inset pips, one black lacquer with ivory inset pips. Both top faces show three clearly arranged pips, implying a matching double. Corners bound in thin gold trim, a tiny crimson harlequin diamond inset on one secondary face. Warm polished ivory, graphic black and wine-red, matching the Pierrot deck. Dice rest together, not floating; no extra dice, sparks, base or ground shadow.",
+      "family_ref": "trickster_card_deck",
+      "target": "godot/assets/items/regional/two_lies_dice.png",
+      "status": "integrated",
+      "prompt": "Use case: stylized-concept.\nAsset type: ONE polished 2D inventory PNG illustration for Echoes of Pythonia, readable at 64 pixels.\nInput roles: Image 1 is the existing anime HERO style and class-identity reference only; draw NO person. Image 2 is an approved ITEM reference for clean contour, grouped shading, material polish and moderate detail only; do not copy its subject or family ornaments. Image 3, if present, is the matching equipment FAMILY reference for motifs and materials.\nBackground: perfectly flat solid RGB #FF00FF magenta, also inside ALL holes, no shadows or reflection on the backdrop. This is a chroma-key SOURCE illustration for a game icon; do NOT illustrate a transparency checkerboard or a white background. Keep all item surfaces free of magenta spill.\nStyle: refined hand-painted anime-fantasy JRPG equipment, crisp elegant contour, broad controlled highlights, grouped cel-painterly shadows, restrained surface detail. Same sophistication as the hero's gear, not photographic or a glossy 3D render, not flat cartoon clipart.\nComposition: exactly the specified item or pair, centered and fully visible on a square canvas, 9 percent clear padding on ALL edges, full silhouette about 82 percent of canvas. Clear three-quarter presentation unless specified otherwise.\nConstraints: no words, lettering, labels, prices, numbers, borders, rarity frames, UI, scenery, hands, people, mannequins, pedestal, ground plane, ground shadow, floating particles, glitter or fireflies. Magical light stays INSIDE the object. The engine owns rarity frames.\n\nSubject: Kości Dwóch Kłamstw. Exactly TWO small chunky six-sided dice touching at a slight angle, one ivory ceramic with black inset pips, one black lacquer with ivory inset pips. Both top faces show three clearly arranged pips, implying a matching double. Corners bound in thin gold trim, a tiny crimson harlequin diamond inset on one secondary face. Warm polished ivory, graphic black and wine-red, matching the Pierrot deck. Dice rest together, not floating; no extra dice, sparks, base or ground shadow.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/pierrot.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/black_sea_staff.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_04/processed/trickster_card_deck.png"
+      ],
+      "generated_source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-1b902976-4cf1-478a-9ffe-c8d26ee44790.png",
+      "alpha_method": "magenta_local_cutout",
+      "neutral_edges": false
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "res://assets/items/regional/deck_without_ace.png",
+      "id": "deck_without_ace",
+      "level": 18,
+      "name": "Talia Bez Asa",
+      "rarity": "legendary",
+      "rarity_color": "e35b62",
+      "rarity_label": "Legendarny",
+      "regional": false,
+      "sets": [],
+      "slot": "off_hand",
+      "sources": [
+        {
+          "rift_unique_pool": "pierrot"
+        }
+      ],
+      "family": "pierrot",
+      "design": "One thick luxury deck of ivory and black playing cards, partially fanned with three readable card backs and the thick remaining stack. Intricate but controlled red/black harlequin diamonds, fine gold trim and a stylized crooked theatrical smile seal, matching the ordinary Pierrot deck but more refined. One visible empty card-shaped notch in the fitted open black-red sleeve suggests a missing ace; no actual A letter, face ranks, words or numerals. Physical overlapping cards, no floating pieces.",
+      "family_ref": "trickster_card_deck",
+      "target": "godot/assets/items/regional/deck_without_ace.png",
+      "status": "integrated",
+      "prompt": "Use case: stylized-concept.\nAsset type: ONE polished 2D inventory PNG illustration for Echoes of Pythonia, readable at 64 pixels.\nInput roles: Image 1 is the existing anime HERO style and class-identity reference only; draw NO person. Image 2 is an approved ITEM reference for clean contour, grouped shading, material polish and moderate detail only; do not copy its subject or family ornaments. Image 3, if present, is the matching equipment FAMILY reference for motifs and materials.\nBackground: perfectly flat solid RGB #FF00FF magenta, also inside ALL holes, no shadows or reflection on the backdrop. This is a chroma-key SOURCE illustration for a game icon; do NOT illustrate a transparency checkerboard or a white background. Keep all item surfaces free of magenta spill.\nStyle: refined hand-painted anime-fantasy JRPG equipment, crisp elegant contour, broad controlled highlights, grouped cel-painterly shadows, restrained surface detail. Same sophistication as the hero's gear, not photographic or a glossy 3D render, not flat cartoon clipart.\nComposition: exactly the specified item or pair, centered and fully visible on a square canvas, 9 percent clear padding on ALL edges, full silhouette about 82 percent of canvas. Clear three-quarter presentation unless specified otherwise.\nConstraints: no words, lettering, labels, prices, numbers, borders, rarity frames, UI, scenery, hands, people, mannequins, pedestal, ground plane, ground shadow, floating particles, glitter or fireflies. Magical light stays INSIDE the object. The engine owns rarity frames.\n\nSubject: Talia Bez Asa. One thick luxury deck of ivory and black playing cards, partially fanned with three readable card backs and the thick remaining stack. Intricate but controlled red/black harlequin diamonds, fine gold trim and a stylized crooked theatrical smile seal, matching the ordinary Pierrot deck but more refined. One visible empty card-shaped notch in the fitted open black-red sleeve suggests a missing ace; no actual A letter, face ranks, words or numerals. Physical overlapping cards, no floating pieces.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/pierrot.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/black_sea_staff.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_04/processed/trickster_card_deck.png"
+      ],
+      "generated_source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-c04fd875-deb9-48e2-99b0-9ffd70b20a39.png",
+      "alpha_method": "magenta_local_cutout",
+      "neutral_edges": false
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "res://assets/items/regional/seven_chances_lance.png",
+      "id": "seven_chances_lance",
+      "level": 18,
+      "name": "Lanca Siedmiu Przypadków",
+      "rarity": "mythic",
+      "rarity_color": "f49b3f",
+      "rarity_label": "Mityczny",
+      "regional": false,
+      "sets": [],
+      "slot": "weapon",
+      "sources": [
+        {
+          "rift_unique_pool": "pierrot"
+        }
+      ],
+      "family": "pierrot",
+      "design": "One complete exceptionally elegant mythic fate lance, long diagonal black-red shaft with gold harlequin fittings and a sharp ruby spear blade, a small matching counterweight point at the other end. At the base of the main ruby blade, a compact crown collar contains EXACTLY SEVEN small diamond settings arranged as a clear 3+1+3 fan: three each side and one central. Insets alternate ivory, black and deep red, not rainbow colors. Match the existing Pierrot character's long angular weapon and the red/black card deck's motifs. Refined legendary workmanship, controlled broad highlights, no hanging dice, external glow, sparks, floating cards or oversized gear wheels.",
+      "family_ref": "trickster_card_deck",
+      "target": "godot/assets/items/regional/seven_chances_lance.png",
+      "status": "integrated",
+      "prompt": "Use case: stylized-concept.\nAsset type: ONE polished 2D inventory PNG illustration for Echoes of Pythonia, readable at 64 pixels.\nInput roles: Image 1 is the existing anime HERO style and class-identity reference only; draw NO person. Image 2 is an approved ITEM reference for clean contour, grouped shading, material polish and moderate detail only; do not copy its subject or family ornaments. Image 3, if present, is the matching equipment FAMILY reference for motifs and materials.\nBackground: perfectly flat solid RGB #FF00FF magenta, also inside ALL holes, no shadows or reflection on the backdrop. This is a chroma-key SOURCE illustration for a game icon; do NOT illustrate a transparency checkerboard or a white background. Keep all item surfaces free of magenta spill.\nStyle: refined hand-painted anime-fantasy JRPG equipment, crisp elegant contour, broad controlled highlights, grouped cel-painterly shadows, restrained surface detail. Same sophistication as the hero's gear, not photographic or a glossy 3D render, not flat cartoon clipart.\nComposition: exactly the specified item or pair, centered and fully visible on a square canvas, 9 percent clear padding on ALL edges, full silhouette about 82 percent of canvas. Clear three-quarter presentation unless specified otherwise.\nConstraints: no words, lettering, labels, prices, numbers, borders, rarity frames, UI, scenery, hands, people, mannequins, pedestal, ground plane, ground shadow, floating particles, glitter or fireflies. Magical light stays INSIDE the object. The engine owns rarity frames.\n\nSubject: Lanca Siedmiu Przypadków. One complete exceptionally elegant mythic fate lance, long diagonal black-red shaft with gold harlequin fittings and a sharp ruby spear blade, a small matching counterweight point at the other end. At the base of the main ruby blade, a compact crown collar contains EXACTLY SEVEN small diamond settings arranged as a clear 3+1+3 fan: three each side and one central. Insets alternate ivory, black and deep red, not rainbow colors. Match the existing Pierrot character's long angular weapon and the red/black card deck's motifs. Refined legendary workmanship, controlled broad highlights, no hanging dice, external glow, sparks, floating cards or oversized gear wheels.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/pierrot.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/black_sea_staff.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_04/processed/trickster_card_deck.png"
+      ],
+      "generated_source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-7dbd48df-b5e2-4a1c-a3c2-9fe161463825.png",
+      "alpha_method": "magenta_local_cutout",
+      "neutral_edges": true
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "res://assets/items/regional/crooked_smile_mask.png",
+      "id": "crooked_smile_mask",
+      "level": 18,
+      "name": "Maska Krzywego Uśmiechu",
+      "rarity": "legendary",
+      "rarity_color": "e35b62",
+      "rarity_label": "Legendarny",
+      "regional": false,
+      "sets": [],
+      "slot": "head",
+      "sources": [
+        {
+          "rift_unique_pool": "pierrot"
+        }
+      ],
+      "family": "pierrot",
+      "design": "One hollow theatrical face mask with two empty eye openings and a subtly crooked carved smile. Smooth ivory half contrasts with black lacquer half, one wine-red harlequin diamond under one eye, fine gold edge and asymmetric tiny gold flourish. Mask only, slightly turned three-quarter to reveal its thin rim; no face inside, head, hair, person, horn, feathers or hat. Elegant mysterious Pierrot visual identity, not horror or realistic human skin. No tied ribbon extending beyond silhouette.",
+      "family_ref": "trickster_card_deck",
+      "target": "godot/assets/items/regional/crooked_smile_mask.png",
+      "status": "integrated",
+      "prompt": "Use case: stylized-concept.\nAsset type: ONE polished 2D inventory PNG illustration for Echoes of Pythonia, readable at 64 pixels.\nInput roles: Image 1 is the existing anime HERO style and class-identity reference only; draw NO person. Image 2 is an approved ITEM reference for clean contour, grouped shading, material polish and moderate detail only; do not copy its subject or family ornaments. Image 3, if present, is the matching equipment FAMILY reference for motifs and materials.\nBackground: perfectly flat solid RGB #FF00FF magenta, also inside ALL holes, no shadows or reflection on the backdrop. This is a chroma-key SOURCE illustration for a game icon; do NOT illustrate a transparency checkerboard or a white background. Keep all item surfaces free of magenta spill.\nStyle: refined hand-painted anime-fantasy JRPG equipment, crisp elegant contour, broad controlled highlights, grouped cel-painterly shadows, restrained surface detail. Same sophistication as the hero's gear, not photographic or a glossy 3D render, not flat cartoon clipart.\nComposition: exactly the specified item or pair, centered and fully visible on a square canvas, 9 percent clear padding on ALL edges, full silhouette about 82 percent of canvas. Clear three-quarter presentation unless specified otherwise.\nConstraints: no words, lettering, labels, prices, numbers, borders, rarity frames, UI, scenery, hands, people, mannequins, pedestal, ground plane, ground shadow, floating particles, glitter or fireflies. Magical light stays INSIDE the object. The engine owns rarity frames.\n\nSubject: Maska Krzywego Uśmiechu. One hollow theatrical face mask with two empty eye openings and a subtly crooked carved smile. Smooth ivory half contrasts with black lacquer half, one wine-red harlequin diamond under one eye, fine gold edge and asymmetric tiny gold flourish. Mask only, slightly turned three-quarter to reveal its thin rim; no face inside, head, hair, person, horn, feathers or hat. Elegant mysterious Pierrot visual identity, not horror or realistic human skin. No tied ribbon extending beyond silhouette.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/pierrot.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/black_sea_staff.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_04/processed/trickster_card_deck.png"
+      ],
+      "generated_source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-fa829db7-88ca-490d-a15f-9c2029102fdb.png",
+      "alpha_method": "magenta_local_cutout",
+      "neutral_edges": false
+    }
+  ],
+  "catalog_after": {
+    "total": 159,
+    "with_icon": 159,
+    "missing": 0
+  },
+  "validation": {
+    "asset_count": 19,
+    "godot_tests_passed": 82,
+    "godot_assertions": 4963,
+    "godot_suites": 12,
+    "local_alpha_tests": 6,
+    "local_chroma_validation_tests": 3,
+    "gameplay_catalog_unchanged": true,
+    "real_inventory_render": "output/item_art/anime_batch_04_in_game.png"
+  },
+  "visual_review": "Reviewed complete batch at large size and 64 px, dark/light alpha previews, and actual inventory. Kept natural crystal highlights. Rejected and regenerated checker-patterned ring gem and cropped necklace chain."
+}

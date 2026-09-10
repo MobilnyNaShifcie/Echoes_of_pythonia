@@ -19,11 +19,13 @@ func test_class_tree_lists_both_paths_and_spends_a_real_point() -> void:
 
 	assert_eq(screen.path_list.item_count, 2)
 	assert_eq(screen.talent_list.item_count, 5)
+	assert_eq(screen.talent_node_buttons.size(), screen.talent_list.item_count)
 	assert_string_contains(screen.points_label.text, "Punkty drzewka: 3")
 	assert_false(screen.learn_button.disabled)
 	screen.learn_button.pressed.emit()
 
 	assert_eq(TalentProgressionServiceClass.talent_rank(session.player, "warrior_battle_fury"), 1)
+	assert_eq(screen.talent_rank_progress.value, 1.0)
 	assert_string_contains(screen.points_label.text, "Punkty drzewka: 2")
 	assert_string_contains(screen.feedback_label.text, "Furia Bitewna")
 
@@ -51,10 +53,12 @@ func test_passive_tab_spends_point_and_refreshes_the_effect() -> void:
 	add_child_autofree(screen)
 
 	assert_eq(screen.passive_list.item_count, 4)
+	assert_eq(screen.passive_card_buttons.size(), screen.passive_list.item_count)
 	assert_false(screen.spend_passive_button.disabled)
 	screen.spend_passive_button.pressed.emit()
 
 	assert_eq(PassiveProgressionServiceClass.rank(session.player, "attack_speed"), 1)
+	assert_eq(screen.passive_rank_progress.value, 1.0)
 	assert_string_contains(screen.points_label.text, "Punkty pasywne: 2")
 	assert_string_contains(screen.passive_effect_label.text, "5%")
 

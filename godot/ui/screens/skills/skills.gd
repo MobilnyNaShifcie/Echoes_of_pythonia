@@ -27,8 +27,10 @@ var _preview_class_code := "warrior"
 @onready var class_label: Label = %ClassLabel
 @onready var summary_label: Label = %SummaryLabel
 @onready var path_selector: OptionButton = %PathSelector
+@onready var unlocked_progress: ProgressBar = %UnlockedProgress
 @onready var skill_list: ItemList = %SkillList
 @onready var skill_cards: HFlowContainer = %SkillCards
+@onready var skill_artwork: TextureRect = %SkillArtwork
 @onready var skill_name_label: Label = %SkillNameLabel
 @onready var skill_meta_label: Label = %SkillMetaLabel
 @onready var skill_description_label: Label = %SkillDescriptionLabel
@@ -82,6 +84,8 @@ func _render() -> void:
 	var skills := SkillCatalogClass.get_preview_skills_for_class(_preview_class_code)
 	if skills.is_empty():
 		summary_label.text = "Brak umiejętności w wybranym katalogu."
+		unlocked_progress.max_value = 1
+		unlocked_progress.value = 0
 		_show_empty_details()
 		return
 	var unlocked_count := 0
@@ -130,6 +134,8 @@ func _render() -> void:
 			)
 		)
 		card.pressed.connect(_select_skill_card.bind(index))
+	unlocked_progress.max_value = skills.size()
+	unlocked_progress.value = unlocked_count
 	var preview_definition = PlayerClassCatalogClass.get_definition(_preview_class_code)
 	if player.character_class_code == _preview_class_code:
 		if _preview_class_code == "hunter":
@@ -189,6 +195,7 @@ func _show_skill_details(index: int) -> void:
 			card.set_selected(card_index == index)
 	var skill: SkillDefinitionClass = SkillCatalogClass.get_definition(skill_id)
 	var player := _session.player
+	skill_artwork.texture = skill.card_art
 	skill_name_label.text = skill.display_name
 	skill_meta_label.text = (
 		"Poziom %d  •  Koszt: %d Many  •  %s"
@@ -197,15 +204,19 @@ func _show_skill_details(index: int) -> void:
 	skill_description_label.text = skill.description
 	skill_requirements_label.text = _requirements_text(skill)
 	if player.character_class_code != skill.character_class_code:
+		skill_artwork.modulate = Color(0.62, 0.66, 0.72, 0.78)
 		skill_status_label.text = "PODGLĄD — ta umiejętność należy do innej Drogi"
 		skill_status_label.modulate = Color(0.62, 0.68, 0.76)
 	elif player.level < skill.unlock_level:
+		skill_artwork.modulate = Color(0.48, 0.52, 0.58, 0.72)
 		skill_status_label.text = "ZABLOKOWANA — wymagany poziom %d" % skill.unlock_level
 		skill_status_label.modulate = Color(0.62, 0.68, 0.76)
 	elif skill.unlock_source == "talent" and not SkillCatalogClass.is_unlocked(player, skill):
+		skill_artwork.modulate = Color(0.62, 0.58, 0.48, 0.8)
 		skill_status_label.text = "UMIEJĘTNOŚĆ TALENTOWA — wymaga odblokowania w drzewku"
 		skill_status_label.modulate = Color(0.88, 0.68, 0.38)
 	else:
+		skill_artwork.modulate = Color.WHITE
 		skill_status_label.text = "ODBLOKOWANA — dostępna w panelu akcji podczas walki"
 		skill_status_label.modulate = Color(0.42, 0.78, 0.56)
 
@@ -220,6 +231,7 @@ func _clear_skill_cards() -> void:
 
 
 func _show_empty_details() -> void:
+	skill_artwork.texture = null
 	skill_name_label.text = "Najpierw wybierz Drogę"
 	skill_meta_label.text = "Wojownik  •  Łowca  •  Mag  •  Pierrot"
 	skill_description_label.text = (

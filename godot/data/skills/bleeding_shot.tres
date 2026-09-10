@@ -1,12 +1,14 @@
-[gd_resource type="Resource" script_class="SkillDefinition" format=3 uid="uid://shr0h84menfk"]
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=3 format=3 uid="uid://shr0h84menfk"]
 
 [ext_resource type="Script" uid="uid://bc561av1opjja" path="res://core/skills/skill_definition.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/skills/hunter/bleeding_shot.png" id="2_art"]
 
 [resource]
 script = ExtResource("1")
 skill_id = "bleeding_shot"
 display_name = "Krwawiący Strzał"
 character_class_code = "hunter"
+card_art = ExtResource("2_art")
 unlock_level = 7
 mana_cost = 7
 description = "Zadaje 100% obrażeń i nakłada krwawienie: 2 obrażenia przez 3 tury."

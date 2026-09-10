@@ -1,9 +1,13 @@
 [CmdletBinding()]
 param(
-    [string]$AssetRoot = (Join-Path $PSScriptRoot '..\godot\assets\items')
+    [string]$AssetRoot = ''
 )
 
 $ErrorActionPreference = 'Stop'
+
+if ([string]::IsNullOrWhiteSpace($AssetRoot)) {
+    $AssetRoot = Join-Path $PSScriptRoot '..\godot\assets\items'
+}
 
 Add-Type -AssemblyName System.Drawing
 Add-Type -ReferencedAssemblies @(

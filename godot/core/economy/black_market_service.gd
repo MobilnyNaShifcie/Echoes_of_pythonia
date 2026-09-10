@@ -3,6 +3,7 @@ extends RefCounted
 
 const BlackMarketOfferClass := preload("res://core/economy/black_market_offer.gd")
 const BookCatalogClass := preload("res://core/progression/book_catalog.gd")
+const CarryWeightServiceClass := preload("res://core/economy/carry_weight_service.gd")
 const GuildProgressionServiceClass := preload("res://core/quests/guild_progression_service.gd")
 const ItemCatalogClass := preload("res://core/items/item_catalog.gd")
 const MathClass := preload("res://core/math/legacy_math.gd")
@@ -173,6 +174,16 @@ static func buy(session, offer_id: String) -> Dictionary:
 		return {
 			"ok": false,
 			"message": "Brakuje złota. Potrzeba %d, masz %d." % [price, session.player.gold],
+		}
+	var current_weight := CarryWeightServiceClass.inventory_weight(session.player.inventory)
+	var added_weight := CarryWeightServiceClass.stack_weight(offer.item_id, offer.quantity)
+	var capacity := CarryWeightServiceClass.carry_capacity(session.player)
+	if current_weight + added_weight > capacity + 0.000000001:
+		return {
+			"ok": false,
+			"message":
+				"Brak udźwigu. Po zakupie: %.1f/%.1f kg."
+				% [current_weight + added_weight, capacity],
 		}
 	if not session.player.inventory.add(offer.item_id, offer.quantity):
 		return {"ok": false, "message": "Nie udało się dodać przedmiotu do plecaka."}

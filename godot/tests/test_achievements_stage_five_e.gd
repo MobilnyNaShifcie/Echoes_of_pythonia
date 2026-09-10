@@ -144,7 +144,7 @@ func test_achievement_screen_and_app_route_work_without_terminal() -> void:
 
 	assert_eq(screen.achievement_list.item_count, 7)
 	assert_eq(screen.title_selector.item_count, 2)
-	assert_string_contains(screen.summary_label.text, "1/7 osiągnięć")
+	assert_string_contains(screen.summary_label.text, "1 / 7 osiągnięć")
 	screen.title_selector.select(1)
 	screen.title_selector.item_selected.emit(1)
 	screen.equip_button.pressed.emit()

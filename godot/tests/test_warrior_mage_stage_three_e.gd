@@ -209,6 +209,8 @@ func test_warrior_and_mage_placeholder_panels_expose_live_combat_state() -> void
 	_select_skill(mage_screen, "fire_bolt")
 	for _cast in 3:
 		mage_screen.skill_button.pressed.emit()
+	assert_false(mage_screen.weave_row.visible)
+	mage_screen.weave_toggle_button.button_pressed = true
 	assert_true(mage_screen.weave_row.visible)
 	assert_string_contains(mage_screen.class_resource_label.text, "3/3")
 	assert_false(mage_screen.double_weave_button.disabled)
@@ -227,6 +229,10 @@ func test_warrior_and_mage_panels_fit_the_720p_combat_header() -> void:
 		host.add_child(screen)
 		await get_tree().process_frame
 		var class_hud: PanelContainer = screen.get_node("Page/Lower/PlayerCommandHud")
+		screen.get_node("Page/Lower").drawer.pinned = true
+		screen.get_node("Page/Lower").drawer.set_open(true, true)
+		await get_tree().process_frame
+		await get_tree().process_frame
 		assert_lte(class_hud.get_global_rect().end.x, screen.get_global_rect().end.x)
 		assert_lte(
 			class_hud.get_global_rect().end.y,

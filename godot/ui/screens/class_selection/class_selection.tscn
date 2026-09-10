@@ -1,5 +1,88 @@
-[gd_scene load_steps=2 format=3]
-[ext_resource type="Script" path="res://ui/screens/class_selection/class_selection.gd" id="1"]
+[gd_scene load_steps=13 format=3]
+
+[ext_resource type="Script" path="res://ui/screens/class_selection/class_selection.gd" id="1_script"]
+[ext_resource type="Shader" path="res://ui/screens/class_selection/class_atmosphere.gdshader" id="2_atmosphere"]
+[ext_resource type="Shader" path="res://ui/screens/class_selection/class_cutout_glow.gdshader" id="3_glow"]
+[ext_resource type="Shader" path="res://ui/screens/class_selection/class_pedestal.gdshader" id="4_pedestal"]
+
+[sub_resource type="ShaderMaterial" id="AtmosphereMaterial"]
+shader = ExtResource("2_atmosphere")
+shader_parameter/primary_color = Color(0.92, 0.28, 0.16, 1)
+shader_parameter/secondary_color = Color(0.17, 0.035, 0.025, 1)
+shader_parameter/focus = Vector2(0.68, 0.43)
+shader_parameter/intensity = 1.0
+
+[sub_resource type="ShaderMaterial" id="GlowMaterial"]
+shader = ExtResource("3_glow")
+shader_parameter/glow_color = Color(1, 0.5, 0.22, 0.58)
+shader_parameter/thickness = 2.8
+
+[sub_resource type="ShaderMaterial" id="PedestalMaterial"]
+shader = ExtResource("4_pedestal")
+shader_parameter/accent_color = Color(0.95, 0.36, 0.2, 1)
+
+[sub_resource type="StyleBoxEmpty" id="EmptyStyle"]
+
+[sub_resource type="StyleBoxFlat" id="ChooseNormalStyle"]
+bg_color = Color(0.18, 0.105, 0.03, 0.92)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.87, 0.61, 0.2, 0.94)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 18.0
+content_margin_top = 10.0
+content_margin_right = 18.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="ChooseHoverStyle"]
+bg_color = Color(0.32, 0.18, 0.045, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.75, 0.3, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 18.0
+content_margin_top = 9.0
+content_margin_right = 18.0
+content_margin_bottom = 9.0
+
+[sub_resource type="StyleBoxFlat" id="ChooseDisabledStyle"]
+bg_color = Color(0.02, 0.027, 0.038, 0.7)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.32, 0.29, 0.23, 0.65)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 18.0
+content_margin_top = 10.0
+content_margin_right = 18.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="SelectorDockStyle"]
+bg_color = Color(0.005, 0.012, 0.022, 0.76)
+border_width_top = 1
+border_color = Color(0.55, 0.39, 0.15, 0.62)
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxFlat" id="LoreRuleStyle"]
+bg_color = Color(0.76, 0.49, 0.16, 0.72)
+
 [node name="ClassSelectionScreen" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -7,7 +90,29 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1")
+clip_contents = true
+script = ExtResource("1_script")
+
+[node name="Atmosphere" type="ColorRect" parent="."]
+unique_name_in_owner = true
+material = SubResource("AtmosphereMaterial")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TopShade" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 104.0
+grow_horizontal = 2
+mouse_filter = 2
+color = Color(0.005, 0.012, 0.021, 0.88)
+
 [node name="Page" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -15,73 +120,520 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 0
+
 [node name="Header" type="HBoxContainer" parent="Page"]
+custom_minimum_size = Vector2(0, 62)
 layout_mode = 2
+theme_override_constants/separation = 16
+
 [node name="Identity" type="VBoxContainer" parent="Page/Header"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 1
+
 [node name="Eyebrow" type="Label" parent="Page/Header/Identity"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
+theme_override_colors/font_color = Color(0.91, 0.7, 0.28, 1)
+theme_override_font_sizes/font_size = 12
 text = "ROZWÓJ BOHATERA"
-[node name="Title" type="Label" parent="Page/Header/Identity"]
+
+[node name="TitleRow" type="HBoxContainer" parent="Page/Header/Identity"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.93, 0.95, 0.98, 1)
-theme_override_font_sizes/font_size = 32
+theme_override_constants/separation = 22
+
+[node name="Title" type="Label" parent="Page/Header/Identity/TitleRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.97, 0.99, 1)
+theme_override_font_sizes/font_size = 28
 text = "Wybór Drogi"
+
+[node name="Subtitle" type="Label" parent="Page/Header/Identity/TitleRow"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0.56, 0.64, 0.74, 1)
+theme_override_font_sizes/font_size = 13
+text = "Cztery losy. Jedna sylwetka na pierwszym planie."
+
 [node name="BackButton" type="Button" parent="Page/Header"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(126, 44)
 layout_mode = 2
 size_flags_vertical = 4
+focus_mode = 2
 text = "Cofnij"
-[node name="Columns" type="HBoxContainer" parent="Page"]
+
+[node name="HeaderRule" type="Panel" parent="Page"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+theme_override_styles/panel = SubResource("LoreRuleStyle")
+
+[node name="MainStage" type="Control" parent="Page"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 14
-[node name="ListPanel" type="PanelContainer" parent="Page/Columns"]
-custom_minimum_size = Vector2(430, 0)
+mouse_filter = 1
+
+[node name="LoreColumn" type="Control" parent="Page/MainStage"]
+layout_mode = 1
+anchor_left = 0.0
+anchor_top = 0.03
+anchor_right = 0.31
+anchor_bottom = 0.97
+offset_left = 14.0
+offset_right = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LoreRule" type="Panel" parent="Page/MainStage/LoreColumn"]
+layout_mode = 1
+anchor_bottom = 1.0
+offset_right = 2.0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("LoreRuleStyle")
+
+[node name="LoreContent" type="VBoxContainer" parent="Page/MainStage/LoreColumn"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_right = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 9
+
+[node name="ClassHeader" type="HBoxContainer" parent="Page/MainStage/LoreColumn/LoreContent"]
 layout_mode = 2
-[node name="Content" type="VBoxContainer" parent="Page/Columns/ListPanel"]
-layout_mode = 2
-[node name="Title" type="Label" parent="Page/Columns/ListPanel/Content"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
-theme_override_font_sizes/font_size = 20
-text = "Cztery Drogi"
-[node name="ClassList" type="ItemList" parent="Page/Columns/ListPanel/Content"]
+theme_override_constants/separation = 13
+
+[node name="DetailSymbol" type="Label" parent="Page/MainStage/LoreColumn/LoreContent/ClassHeader"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 52)
 layout_mode = 2
-size_flags_vertical = 3
-allow_reselect = true
-[node name="DetailsPanel" type="PanelContainer" parent="Page/Columns"]
+theme_override_colors/font_color = Color(1, 0.48, 0.22, 1)
+theme_override_font_sizes/font_size = 35
+text = "♜"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Identity" type="VBoxContainer" parent="Page/MainStage/LoreColumn/LoreContent/ClassHeader"]
 layout_mode = 2
 size_flags_horizontal = 3
-[node name="Content" type="VBoxContainer" parent="Page/Columns/DetailsPanel"]
-layout_mode = 2
-theme_override_constants/separation = 12
-[node name="Title" type="Label" parent="Page/Columns/DetailsPanel/Content"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
-theme_override_font_sizes/font_size = 20
-text = "Opis Drogi"
-[node name="Separator" type="HSeparator" parent="Page/Columns/DetailsPanel/Content"]
-layout_mode = 2
-[node name="DetailsLabel" type="Label" parent="Page/Columns/DetailsPanel/Content"]
+theme_override_constants/separation = 0
+
+[node name="DetailClassName" type="Label" parent="Page/MainStage/LoreColumn/LoreContent/ClassHeader/Identity"]
 unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.81, 0.42, 1)
+theme_override_font_sizes/font_size = 31
+text = "Wojownik"
+
+[node name="DetailSubtitle" type="Label" parent="Page/MainStage/LoreColumn/LoreContent/ClassHeader/Identity"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.77, 0.6, 0.3, 1)
+theme_override_font_sizes/font_size = 13
+text = "Siła. Wytrzymałość. Przetrwanie."
+autowrap_mode = 2
+
+[node name="ClassDivider" type="HSeparator" parent="Page/MainStage/LoreColumn/LoreContent"]
+layout_mode = 2
+
+[node name="DescriptionTitle" type="Label" parent="Page/MainStage/LoreColumn/LoreContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.76, 0.62, 0.39, 1)
+theme_override_font_sizes/font_size = 11
+text = "TOŻSAMOŚĆ DROGI"
+
+[node name="DescriptionLabel" type="Label" parent="Page/MainStage/LoreColumn/LoreContent"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 62)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.79, 0.84, 0.91, 1)
+theme_override_font_sizes/font_size = 15
+text = "Ciężkie uderzenia, łamanie obrony i wytrzymałość."
+autowrap_mode = 2
+
+[node name="StatsRule" type="HSeparator" parent="Page/MainStage/LoreColumn/LoreContent"]
+layout_mode = 2
+
+[node name="StatsRow" type="HBoxContainer" parent="Page/MainStage/LoreColumn/LoreContent"]
+custom_minimum_size = Vector2(0, 62)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Attributes" type="VBoxContainer" parent="Page/MainStage/LoreColumn/LoreContent/StatsRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="Title" type="Label" parent="Page/MainStage/LoreColumn/LoreContent/StatsRow/Attributes"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.59, 0.31, 1)
+theme_override_font_sizes/font_size = 11
+text = "GŁÓWNE ATRYBUTY"
+
+[node name="PrimaryAttributesLabel" type="Label" parent="Page/MainStage/LoreColumn/LoreContent/StatsRow/Attributes"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.93, 0.94, 0.97, 1)
+theme_override_font_sizes/font_size = 17
+text = "Siła / Wytrzymałość"
+autowrap_mode = 2
+
+[node name="Mana" type="VBoxContainer" parent="Page/MainStage/LoreColumn/LoreContent/StatsRow"]
+custom_minimum_size = Vector2(78, 0)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Title" type="Label" parent="Page/MainStage/LoreColumn/LoreContent/StatsRow/Mana"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.48, 0.73, 0.98, 1)
+theme_override_font_sizes/font_size = 10
+text = "MANA"
+horizontal_alignment = 1
+
+[node name="ManaValueLabel" type="Label" parent="Page/MainStage/LoreColumn/LoreContent/StatsRow/Mana"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.76, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 26
+text = "12"
+horizontal_alignment = 1
+
+[node name="EquipmentTitle" type="Label" parent="Page/MainStage/LoreColumn/LoreContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.59, 0.31, 1)
+theme_override_font_sizes/font_size = 11
+text = "SPRZĘT DROGI"
+
+[node name="EquipmentList" type="Label" parent="Page/MainStage/LoreColumn/LoreContent"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.76, 0.82, 0.89, 1)
+theme_override_font_sizes/font_size = 14
+text = "Aktualna broń  •  Tarcza Rekruta"
+autowrap_mode = 2
+
+[node name="BreathingRoom" type="Control" parent="Page/MainStage/LoreColumn/LoreContent"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_colors/font_color = Color(0.78, 0.83, 0.9, 1)
-text = "Wybierz Drogę z listy, aby zobaczyć jej styl walki i sprzęt startowy."
-autowrap_mode = 2
-[node name="LockLabel" type="Label" parent="Page/Columns/DetailsPanel/Content"]
+mouse_filter = 2
+
+[node name="LockLabel" type="Label" parent="Page/MainStage/LoreColumn/LoreContent"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.84, 0.62, 0.3, 1)
-text = "Wybór odblokuje się na poziomie 5."
+theme_override_colors/font_color = Color(0.94, 0.71, 0.31, 1)
+theme_override_font_sizes/font_size = 13
+text = "Wybór jest stały dla tej postaci."
 autowrap_mode = 2
-[node name="ChooseButton" type="Button" parent="Page/Columns/DetailsPanel/Content"]
+
+[node name="PermanentHintLabel" type="Label" parent="Page/MainStage/LoreColumn/LoreContent"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_colors/font_color = Color(0.52, 0.59, 0.68, 1)
+theme_override_font_sizes/font_size = 11
+text = "Zmienić Drogę możesz tylko rozpoczynając nową postać."
+autowrap_mode = 2
+
+[node name="ChooseButton" type="Button" parent="Page/MainStage/LoreColumn/LoreContent"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+focus_mode = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.69, 1)
+theme_override_colors/font_hover_color = Color(1, 0.96, 0.83, 1)
+theme_override_colors/font_disabled_color = Color(0.46, 0.48, 0.52, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("ChooseNormalStyle")
+theme_override_styles/hover = SubResource("ChooseHoverStyle")
+theme_override_styles/pressed = SubResource("ChooseNormalStyle")
+theme_override_styles/focus = SubResource("ChooseHoverStyle")
+theme_override_styles/disabled = SubResource("ChooseDisabledStyle")
 disabled = true
-text = "Wybieram tę Drogę na stałe"
+text = "WYBIERAM TĘ DROGĘ NA STAŁE  »"
+
+[node name="CarouselStage" type="Control" parent="Page/MainStage"]
+unique_name_in_owner = true
+layout_mode = 1
+anchor_left = 0.25
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Pedestal" type="ColorRect" parent="Page/MainStage/CarouselStage"]
+unique_name_in_owner = true
+material = SubResource("PedestalMaterial")
+layout_mode = 1
+anchor_left = 0.28
+anchor_top = 0.76
+anchor_right = 0.74
+anchor_bottom = 0.99
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="LeftFigure" type="Button" parent="Page/MainStage/CarouselStage"]
+unique_name_in_owner = true
+layout_mode = 1
+anchor_left = 0.0
+anchor_top = 0.14
+anchor_right = 0.34
+anchor_bottom = 0.94
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("EmptyStyle")
+theme_override_styles/hover = SubResource("EmptyStyle")
+theme_override_styles/pressed = SubResource("EmptyStyle")
+theme_override_styles/focus = SubResource("EmptyStyle")
+
+[node name="LeftMotion" type="Control" parent="Page/MainStage/CarouselStage/LeftFigure"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="LeftArt" type="TextureRect" parent="Page/MainStage/CarouselStage/LeftFigure/LeftMotion"]
+unique_name_in_owner = true
+modulate = Color(0.42, 0.47, 0.54, 0.43)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LeftName" type="Label" parent="Page/MainStage/CarouselStage/LeftFigure/LeftMotion"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -39.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.55, 0.61, 0.7, 0.8)
+theme_override_font_sizes/font_size = 12
+text = "PIERROT"
+horizontal_alignment = 1
+
+[node name="RightFigure" type="Button" parent="Page/MainStage/CarouselStage"]
+unique_name_in_owner = true
+layout_mode = 1
+anchor_left = 0.68
+anchor_top = 0.14
+anchor_right = 1.0
+anchor_bottom = 0.94
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("EmptyStyle")
+theme_override_styles/hover = SubResource("EmptyStyle")
+theme_override_styles/pressed = SubResource("EmptyStyle")
+theme_override_styles/focus = SubResource("EmptyStyle")
+
+[node name="RightMotion" type="Control" parent="Page/MainStage/CarouselStage/RightFigure"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="RightArt" type="TextureRect" parent="Page/MainStage/CarouselStage/RightFigure/RightMotion"]
+unique_name_in_owner = true
+modulate = Color(0.42, 0.47, 0.54, 0.43)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="RightName" type="Label" parent="Page/MainStage/CarouselStage/RightFigure/RightMotion"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -39.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.55, 0.61, 0.7, 0.8)
+theme_override_font_sizes/font_size = 12
+text = "ŁOWCA"
+horizontal_alignment = 1
+
+[node name="CenterFigureLayer" type="Control" parent="Page/MainStage/CarouselStage"]
+unique_name_in_owner = true
+z_index = 4
+layout_mode = 1
+anchor_left = 0.20
+anchor_right = 0.80
+anchor_bottom = 0.99
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="CenterMotion" type="Control" parent="Page/MainStage/CarouselStage/CenterFigureLayer"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="CenterShadow" type="TextureRect" parent="Page/MainStage/CarouselStage/CenterFigureLayer/CenterMotion"]
+unique_name_in_owner = true
+modulate = Color(0, 0, 0, 0.62)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 13.0
+offset_top = 7.0
+offset_right = 13.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CenterGlow" type="TextureRect" parent="Page/MainStage/CarouselStage/CenterFigureLayer/CenterMotion"]
+unique_name_in_owner = true
+material = SubResource("GlowMaterial")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CenterArt" type="TextureRect" parent="Page/MainStage/CarouselStage/CenterFigureLayer/CenterMotion"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PreviousButton" type="Button" parent="Page/MainStage/CarouselStage"]
+unique_name_in_owner = true
+z_index = 7
+custom_minimum_size = Vector2(44, 82)
+layout_mode = 1
+anchor_left = 0.015
+anchor_top = 0.46
+anchor_right = 0.015
+anchor_bottom = 0.46
+offset_right = 44.0
+offset_bottom = 82.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.86, 0.7, 0.35, 0.84)
+theme_override_colors/font_hover_color = Color(1, 0.83, 0.43, 1)
+theme_override_font_sizes/font_size = 34
+theme_override_styles/normal = SubResource("EmptyStyle")
+theme_override_styles/hover = SubResource("EmptyStyle")
+theme_override_styles/pressed = SubResource("EmptyStyle")
+theme_override_styles/focus = SubResource("EmptyStyle")
+text = "‹"
+
+[node name="NextButton" type="Button" parent="Page/MainStage/CarouselStage"]
+unique_name_in_owner = true
+z_index = 7
+custom_minimum_size = Vector2(44, 82)
+layout_mode = 1
+anchor_left = 0.985
+anchor_top = 0.46
+anchor_right = 0.985
+anchor_bottom = 0.46
+offset_left = -44.0
+offset_bottom = 82.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.86, 0.7, 0.35, 0.84)
+theme_override_colors/font_hover_color = Color(1, 0.83, 0.43, 1)
+theme_override_font_sizes/font_size = 34
+theme_override_styles/normal = SubResource("EmptyStyle")
+theme_override_styles/hover = SubResource("EmptyStyle")
+theme_override_styles/pressed = SubResource("EmptyStyle")
+theme_override_styles/focus = SubResource("EmptyStyle")
+text = "›"
+
+[node name="SelectorDock" type="PanelContainer" parent="Page"]
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+theme_override_styles/panel = SubResource("SelectorDockStyle")
+
+[node name="DockContent" type="HBoxContainer" parent="Page/SelectorDock"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="LoreSpacer" type="Control" parent="Page/SelectorDock/DockContent"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.39
+mouse_filter = 2
+
+[node name="SelectorRow" type="HBoxContainer" parent="Page/SelectorDock/DockContent"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 11
+
+[node name="RightSpacer" type="Control" parent="Page/SelectorDock/DockContent"]
+custom_minimum_size = Vector2(18, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Footer" type="HBoxContainer" parent="Page"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+
+[node name="Hint" type="Label" parent="Page/Footer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.45, 0.55, 0.66, 1)
+theme_override_font_sizes/font_size = 11
+text = "←  →  zmiana Drogi    •    kliknij postać lub nazwę"
+
+[node name="Input" type="Label" parent="Page/Footer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42, 0.5, 0.61, 1)
+theme_override_font_sizes/font_size = 11
+text = "Mysz  •  Klawiatura"

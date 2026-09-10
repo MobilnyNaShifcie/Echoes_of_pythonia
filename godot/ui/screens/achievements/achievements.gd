@@ -7,6 +7,9 @@ signal state_changed
 const AchievementCatalogClass := preload("res://core/progression/achievement_catalog.gd")
 const AchievementServiceClass := preload("res://core/progression/achievement_service.gd")
 const GameSessionClass := preload("res://core/game/game_session.gd")
+const CollectionView := preload("res://ui/screens/achievements/achievement_collection.gd")
+
+var collection_view: Node
 
 var _session: GameSessionClass
 var _definitions: Array = []
@@ -27,6 +30,9 @@ func _ready() -> void:
 	achievement_list.item_selected.connect(_render_selected_achievement)
 	title_selector.item_selected.connect(_on_title_selected)
 	equip_button.pressed.connect(_equip_selected_title)
+	collection_view = CollectionView.new()
+	add_child(collection_view)
+	collection_view.configure(self)
 	_render()
 	%BackButton.grab_focus()
 
@@ -59,6 +65,7 @@ func _render() -> void:
 			_session.player.achievement_book.equipped_title,
 		]
 	)
+	collection_view.rebuild()
 
 
 func _render_selected_achievement(index: int) -> void:

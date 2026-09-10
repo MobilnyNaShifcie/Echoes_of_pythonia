@@ -16,6 +16,7 @@ var _session: GameSessionClass
 
 @onready var hero_name_label: Label = %HeroNameLabel
 @onready var progression_label: Label = %ProgressionLabel
+@onready var experience_progress: ProgressBar = %ExperienceProgress
 @onready var attribute_points_value_label: Label = %AttributePointsValue
 @onready var primary_stats_label: Label = %PrimaryStatsLabel
 @onready var equipment_label: Label = %EquipmentLabel
@@ -66,7 +67,7 @@ func _render_character() -> void:
 	progression_label.text = (
 		(
 			"%s  •  Poziom %d\nEXP: %d/%d\n"
-			+ "Udźwig: %.1f/%.1f kg  •  %s  •  Plecak Kwatermistrza %d/3"
+			+ "Udźwig: %.1f/%.1f kg  •  %s  •  Plecak Poszukiwacza %d/3"
 		)
 		% [
 			player.character_class_name,
@@ -79,6 +80,8 @@ func _render_character() -> void:
 			player.carry_upgrade_level,
 		]
 	)
+	experience_progress.max_value = max(1, player.experience_to_next_level())
+	experience_progress.value = player.experience
 	attribute_points_value_label.text = str(player.unspent_attribute_points)
 	primary_stats_label.text = (
 		"PŻ      %d / %d\nMANA    %d / %d\nATK     %d\nDEF     %d\nUNIK    %.1f%%"

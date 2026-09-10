@@ -1,12 +1,14 @@
-[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://core/skills/skill_definition.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/skills/hunter/rain_of_arrows.png" id="2_art"]
 
 [resource]
 script = ExtResource("1")
 skill_id = "rain_of_arrows"
 display_name = "Deszcz Strzał"
 character_class_code = "hunter"
+card_art = ExtResource("2_art")
 unlock_level = 5
 mana_cost = 9
 description = "Wypuszcza salwę w niebo. Deszcz spada po następnej akcji Łowcy."

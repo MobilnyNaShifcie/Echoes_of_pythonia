@@ -1,0 +1,3 @@
+# Blender's local recovery copies; the main editable .blend remains an asset.
+*.blend1
+*.blend2

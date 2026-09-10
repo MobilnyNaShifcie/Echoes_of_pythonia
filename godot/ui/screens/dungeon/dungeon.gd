@@ -9,6 +9,9 @@ const DungeonCatalogClass := preload("res://core/dungeons/dungeon_catalog.gd")
 const DungeonRunStateClass := preload("res://core/dungeons/dungeon_run_state.gd")
 const DungeonServiceClass := preload("res://core/dungeons/dungeon_service.gd")
 const ItemCatalogClass := preload("res://core/items/item_catalog.gd")
+const DungeonPresentationCatalogClass := preload(
+	"res://ui/presentation/dungeon_presentation_catalog.gd"
+)
 
 var _session
 var _dungeon_id := ""
@@ -22,6 +25,7 @@ var _run: DungeonRunStateClass
 @onready var rules_label: Label = %RulesLabel
 @onready var loot_label: Label = %LootLabel
 @onready var actions: VBoxContainer = %Actions
+@onready var background_texture: TextureRect = %BackgroundTexture
 
 
 func configure(session, dungeon_id: String, run: DungeonRunStateClass = null) -> void:
@@ -44,6 +48,10 @@ func _ready() -> void:
 func _render() -> void:
 	if _session == null or _dungeon_id.is_empty():
 		return
+	background_texture.texture = DungeonPresentationCatalogClass.background_texture(
+		_dungeon_id, DungeonPresentationCatalogClass.room_for_run(_run)
+	)
+	background_texture.visible = background_texture.texture != null
 	var view := (
 		DungeonServiceClass.entrance_view(_session, _dungeon_id)
 		if _run == null

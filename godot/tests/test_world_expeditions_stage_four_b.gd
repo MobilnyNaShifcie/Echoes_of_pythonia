@@ -71,11 +71,12 @@ func test_each_region_uses_its_own_day_and_night_encounter_tables() -> void:
 		assert_eq(night.enemy_id, expected[region_id][1])
 
 
-func test_quiet_events_and_encounter_threshold_come_from_selected_region() -> void:
-	var quiet := AdventureServiceClass._roll_region_exploration("ice_coast", "day", 0.93, 0, 1)
+func test_former_quiet_roll_preserves_the_selected_regions_enemy_table() -> void:
+	var former_quiet := AdventureServiceClass._roll_region_exploration(
+		"ice_coast", "day", 0.93, 0, 1
+	)
 	var encounter := AdventureServiceClass._roll_region_exploration("ice_coast", "day", 0.929, 0, 1)
-	assert_eq(quiet.enemy_id, "")
-	assert_string_contains(quiet.message, "czarnego morza")
+	assert_eq(former_quiet.enemy_id, "frozen_castaway")
 	assert_eq(encounter.enemy_id, "frozen_castaway")
 
 

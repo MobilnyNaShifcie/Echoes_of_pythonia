@@ -1,0 +1,65 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://ui/components/class_carousel_selector/class_carousel_selector.gd" id="1_script"]
+
+[node name="ClassCarouselSelector" type="Button"]
+custom_minimum_size = Vector2(154, 62)
+size_flags_horizontal = 3
+focus_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 0)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 0)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 0)
+script = ExtResource("1_script")
+
+[node name="Content" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 9
+
+[node name="Symbol" type="Label" parent="Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(36, 0)
+layout_mode = 2
+mouse_filter = 2
+theme_override_font_sizes/font_size = 27
+text = "♜"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Identity" type="VBoxContainer" parent="Content"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="ClassName" type="Label" parent="Content/Identity"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.82, 0.86, 0.92, 1)
+theme_override_font_sizes/font_size = 15
+text = "WOJOWNIK"
+
+[node name="Mana" type="Label" parent="Content/Identity"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.46, 0.66, 0.86, 1)
+theme_override_font_sizes/font_size = 11
+text = "MANA  12"
+
+[node name="PermanentLabel" type="Label" parent="Content/Identity"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.98, 0.7, 0.23, 1)
+theme_override_font_sizes/font_size = 9
+text = "WYBRANO NA STAŁE"

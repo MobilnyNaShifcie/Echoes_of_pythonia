@@ -1,9 +1,11 @@
-[gd_resource type="Resource" script_class="ItemDefinition" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://core/items/item_definition.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/items/consumables/hunter_provisions.png" id="2_icon"]
 
 [resource]
 script = ExtResource("1")
+icon = ExtResource("2_icon")
 item_id = "hunter_provisions"
 display_name = "Prowiant Myśliwego"
 description = "Suszone mięso z dodatkiem aromatycznej trufli. Przywraca 30 PŻ."

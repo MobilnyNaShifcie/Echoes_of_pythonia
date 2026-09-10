@@ -230,6 +230,7 @@ func _maybe_chaos_bonus_roll(report: Dictionary) -> void:
 		_fate_power(), multiplier, true, false, "physical", 0.0, 0.0, true
 	)
 	report.skill_total_damage += hit.damage
+	_record_presentation_hit(hit, report)
 	report.extra_player_critical = report.extra_player_critical or hit.critical
 	report.class_effect_notes.append(
 		(
@@ -247,6 +248,7 @@ func _resolve_damage(multiplier: float, hits: int, report: Dictionary) -> void:
 			_fate_power(), multiplier, true, false, "physical", 0.0, 0.0, true
 		)
 		report.player_hit_damages.append(hit.damage)
+		_record_presentation_hit(hit, report)
 		report.player_hit_dodges.append(false)
 		report.skill_total_damage += hit.damage
 		if hit_index == 0:
@@ -255,6 +257,13 @@ func _resolve_damage(multiplier: float, hits: int, report: Dictionary) -> void:
 			report.extra_player_critical = report.extra_player_critical or hit.critical
 	report.player_damage = report.skill_total_damage
 	report.enemy_dodged = false
+
+
+func _record_presentation_hit(hit: Dictionary, report: Dictionary) -> void:
+	# Preserve exact per-hit crits (including Chaos), without another roll or damage calculation.
+	if not report.has("fate_hits"):
+		report["fate_hits"] = []
+	report.fate_hits.append({"amount": int(hit.damage), "critical": bool(hit.critical)})
 
 
 func _fate_power() -> int:

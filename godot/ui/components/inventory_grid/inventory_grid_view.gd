@@ -48,6 +48,9 @@ func _rebuild() -> void:
 		var footprint: Vector2i = placement.footprint
 		_content_rows = maxi(_content_rows, int(placement.row) + footprint.y)
 		var slot: InventoryItemSlot = ITEM_SLOT_SCENE.instantiate()
+		# The shared slot scene is also used as a standalone 68 px equipment slot.
+		# Grid-owned slots must be allowed to shrink (the compact loot row uses 44 px cells).
+		slot.custom_minimum_size = Vector2.ZERO
 		slot.set_meta("grid_column", int(placement.column))
 		slot.set_meta("grid_row", int(placement.row))
 		slot.set_meta("grid_footprint", footprint)
@@ -102,14 +105,24 @@ func _cell_position(column: int, row: int, effective_cell := Vector2.ZERO) -> Ve
 
 
 func _draw() -> void:
-	var fill := Color(0.025, 0.038, 0.058, 0.32)
-	var border := Color(0.18, 0.25, 0.35, 0.72)
+	var fill := Color(0.021, 0.03, 0.043, 0.86)
+	var border := Color(0.2, 0.27, 0.35, 0.72)
+	var inner_light := Color(0.34, 0.39, 0.45, 0.18)
 	var effective_cell := _effective_cell_size()
 	for row in _content_rows:
 		for column in columns:
-			var rect := Rect2(_cell_position(column, row, effective_cell), effective_cell)
+			var rect := Rect2(
+				_cell_position(column, row, effective_cell) + Vector2(2, 2),
+				effective_cell - Vector2(4, 4),
+			)
 			draw_rect(rect, fill, true)
 			draw_rect(rect, border, false, 1.0)
+			draw_line(
+				rect.position + Vector2(1, 1), rect.end - Vector2(1, rect.size.y - 1), inner_light
+			)
+			draw_line(
+				rect.position + Vector2(1, 1), rect.end - Vector2(rect.size.x - 1, 1), inner_light
+			)
 
 
 func _can_drop_data(_at_position: Vector2, data: Variant) -> bool:

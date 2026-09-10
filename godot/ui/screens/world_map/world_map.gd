@@ -33,15 +33,17 @@ var _selection_locked := false
 @onready var time_label: Label = %TimeLabel
 @onready var player_label: Label = %PlayerLabel
 @onready var region_list: ItemList = %RegionList
+@onready var region_map: WorldRegionMap = %RegionMap
+@onready var map_hint_label: Label = %MapHintLabel
 @onready var description_label: Label = %DescriptionLabel
 @onready var risk_label: Label = %RiskLabel
-@onready var map_placeholder_label: Label = %MapPlaceholderLabel
 @onready var threats_label: Label = %ThreatsLabel
 @onready var weather_label: Label = %WeatherLabel
 @onready var camp_button: Button = %CampButton
 @onready var explore_button: Button = %ExploreButton
 @onready var boss_button: Button = %BossButton
 @onready var dungeon_button: Button = %DungeonButton
+@onready var action_dock: PanelContainer = %ActionDock
 @onready var event_label: Label = %EventLabel
 @onready var quest_label: Label = %QuestLabel
 
@@ -53,9 +55,12 @@ func _ready() -> void:
 	dungeon_button.pressed.connect(_enter_dungeon)
 	camp_button.pressed.connect(_rest_at_camp)
 	region_list.item_selected.connect(_select_region)
+	region_map.region_selected.connect(_select_region_from_map)
+	region_map.region_hovered.connect(_show_hovered_region)
+	region_map.city_selected.connect(_return_to_city_from_map)
 	_rng.randomize()
 	_render()
-	region_list.grab_focus()
+	region_map.grab_focus()
 
 
 func configure(session: GameSessionClass, selected_region_id := "") -> void:
@@ -74,8 +79,39 @@ func _select_region(index: int) -> void:
 	if _selection_locked:
 		_refresh_region_list()
 		return
-	_selected_region_id = str(region_list.get_item_metadata(index))
+	_select_region_from_map(str(region_list.get_item_metadata(index)))
+
+
+func _select_region_from_map(region_id: String) -> void:
+	if _selection_locked and region_id != _selected_region_id:
+		_refresh_region_list()
+		return
+	if _session == null or region_id not in _session.known_region_ids:
+		return
+	_selected_region_id = region_id
+	_refresh_region_list()
 	_render_region()
+
+
+func _show_hovered_region(region_id: String) -> void:
+	map_hint_label.visible = not region_id.is_empty()
+	if region_id.is_empty():
+		map_hint_label.text = "Najedź na region i kliknij, aby zobaczyć szczegóły."
+		return
+	if region_id == WorldRegionMap.VARENHOLD_ID:
+		map_hint_label.text = "Varenhold  •  kliknij, aby wrócić do miasta"
+		return
+	if region_id == WorldRegionMap.VARENHOLD_VALLEY_ID:
+		map_hint_label.text = "Okolice Varenholdu  •  wejście przez makietę miasta"
+		return
+	var region: RegionDefinitionClass = RegionCatalogClass.get_definition(region_id)
+	if region != null:
+		map_hint_label.text = "%s  •  kliknij, aby wybrać" % region.display_name
+
+
+func _return_to_city_from_map(city_id: String) -> void:
+	if city_id == WorldRegionMap.VARENHOLD_ID:
+		back_requested.emit()
 
 
 func _explore() -> void:
@@ -158,6 +194,7 @@ func _refresh_region_list() -> void:
 			selected_index = row
 	if region_list.item_count > 0:
 		region_list.select(selected_index)
+	region_map.configure(_session.known_region_ids, _selected_region_id, _selection_locked)
 
 
 func _render_session() -> void:
@@ -224,14 +261,13 @@ func _render_region() -> void:
 	title_label.text = region.display_name
 	description_label.text = region.description
 	risk_label.text = (
-		("Zalecany poziom: %s  •  Szansa spotkania: %.0f%%\n%s")
+		("Poziom %s  •  Spotkanie %.0f%%")
 		% [
 			region.recommended_level_text(),
 			region.encounter_chance * 100.0,
-			region.level_guidance(_session.player.level),
 		]
 	)
-	map_placeholder_label.text = "MAPA REGIONU\n%s" % region.display_name.to_upper()
+	region_map.select_region(_selected_region_id)
 	threats_label.text = _format_encounters(region)
 	explore_button.disabled = false
 	explore_button.text = "Wyrusz na wyprawę  •  +1 godzina"
@@ -264,6 +300,12 @@ func _render_region() -> void:
 	dungeon_button.visible = dungeon != null
 	if dungeon != null:
 		dungeon_button.text = "Loch SOLO: %s" % dungeon.display_name
+	_resize_action_dock()
+
+
+func _resize_action_dock() -> void:
+	var needs_second_row := boss_button.visible or dungeon_button.visible
+	action_dock.offset_top = -142.0 if needs_second_row else -92.0
 
 
 func _format_encounters(region: RegionDefinitionClass) -> String:

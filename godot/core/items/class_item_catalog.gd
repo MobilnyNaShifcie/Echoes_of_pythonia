@@ -2,6 +2,43 @@ class_name ClassItemCatalog
 extends RefCounted
 
 const ItemDefinitionClass := preload("res://core/items/item_definition.gd")
+const CLASS_ICONS := {
+	"echo_quiver": preload("res://assets/items/regional/echo_quiver.png"),
+	"weave_relic": preload("res://assets/items/regional/weave_relic.png"),
+	"trickster_card_deck": preload("res://assets/items/regional/trickster_card_deck.png"),
+	"rift_bastion_shield": preload("res://assets/items/regional/rift_bastion_shield.png"),
+	"last_guard_plate": preload("res://assets/items/regional/last_guard_plate.png"),
+	"oathbreaker_edge": preload("res://assets/items/regional/oathbreaker_edge.png"),
+	"warden_chain": preload("res://assets/items/regional/warden_chain.png"),
+	"third_echo_quiver": preload("res://assets/items/regional/third_echo_quiver.png"),
+	"riftglass_bow": preload("res://assets/items/regional/riftglass_bow.png"),
+	"silent_volley_cloak": preload("res://assets/items/regional/silent_volley_cloak.png"),
+	"afterimage_ring": preload("res://assets/items/regional/afterimage_ring.png"),
+	"split_weave_artifact": preload("res://assets/items/regional/split_weave_artifact.png"),
+	"twin_star_staff": preload("res://assets/items/regional/twin_star_staff.png"),
+	"empty_mana_robe": preload("res://assets/items/regional/empty_mana_robe.png"),
+	"storm_archive_relic": preload("res://assets/items/regional/storm_archive_relic.png"),
+	"two_lies_dice": preload("res://assets/items/regional/two_lies_dice.png"),
+	"deck_without_ace": preload("res://assets/items/regional/deck_without_ace.png"),
+	"seven_chances_lance": preload("res://assets/items/regional/seven_chances_lance.png"),
+	"crooked_smile_mask": preload("res://assets/items/regional/crooked_smile_mask.png"),
+	"varek_sabre": preload("res://assets/items/regional/varek_sabre.png"),
+	"black_sea_bow": preload("res://assets/items/regional/black_sea_bow.png"),
+	"black_sea_staff": preload("res://assets/items/regional/black_sea_staff.png"),
+	"black_tide_fate_lance": preload("res://assets/items/regional/black_tide_fate_lance.png"),
+	"hearthguard_shield": preload("res://assets/items/regional/hearthguard_shield.png"),
+	"order_bracelet": preload("res://assets/items/regional/order_bracelet.png"),
+	"abyss_ring": preload("res://assets/items/regional/abyss_ring.png"),
+	"mireglass_bow": preload("res://assets/items/regional/mireglass_bow.png"),
+	"mire_staff": preload("res://assets/items/regional/mire_staff.png"),
+	"drowned_fate_lance": preload("res://assets/items/regional/drowned_fate_lance.png"),
+	"ashwind_bow": preload("res://assets/items/regional/ashwind_bow.png"),
+	"ember_staff": preload("res://assets/items/regional/ember_staff.png"),
+	"ashen_fate_lance": preload("res://assets/items/regional/ashen_fate_lance.png"),
+	"blackwood_longbow": preload("res://assets/items/regional/blackwood_longbow.png"),
+	"blackwood_staff": preload("res://assets/items/regional/blackwood_staff.png"),
+	"crooked_fate_lance": preload("res://assets/items/regional/crooked_fate_lance.png"),
+}
 
 # Class progression and Rift uniques used by companion builds in terminal v0.24.7.
 # They stay in a dedicated catalog because they are neither starter resources nor
@@ -484,6 +521,7 @@ static func get_definition(item_id: String) -> ItemDefinitionClass:
 	definition.equipment_type = str(data.get("equipment_type", ""))
 	definition.item_power = int(data.item_power)
 	definition.required_level = int(data.required_level)
+	definition.icon = CLASS_ICONS.get(item_id)
 	definition.required_class_code = str(data.get("required_class", ""))
 	definition.required_class_name = _class_name(definition.required_class_code)
 	definition.attack = int(data.get("attack", 0))

@@ -1,128 +1,147 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=15 format=3]
 
 [ext_resource type="Script" path="res://ui/screens/world_map/world_map.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/world_map/pythonia_world_map_integrated.png" id="2_map"]
+[ext_resource type="Script" path="res://ui/screens/world_map/world_region_map.gd" id="3_map_script"]
+[ext_resource type="Texture2D" path="res://assets/world_map/pythonia_region_atlas_v2.png" id="4_region_ids"]
+[ext_resource type="Texture2D" path="res://assets/world_map/modules/varenhold_valley_two_cities_v2.png" id="5_varenhold"]
+[ext_resource type="Shader" path="res://ui/screens/world_map/varenhold_valley.gdshader" id="6_valley_shader"]
 
-[node name="WorldMapScreen" type="ScrollContainer"]
+[ext_resource type="Shader" path="res://ui/screens/world_map/region_hover.gdshader" id="7_region_shader"]
+[ext_resource type="Shader" path="res://ui/screens/world_map/region_borders.gdshader" id="8_border_shader"]
+
+[sub_resource type="ShaderMaterial" id="RegionHoverMaterial"]
+shader = ExtResource("7_region_shader")
+shader_parameter/region_ids = ExtResource("4_region_ids")
+shader_parameter/hover_code = -1.0
+shader_parameter/hover_strength = 0.0
+
+
+[sub_resource type="ShaderMaterial" id="VarenholdModuleMaterial"]
+shader = ExtResource("6_valley_shader")
+shader_parameter/region_ids = ExtResource("4_region_ids")
+shader_parameter/hover_strength = 0.0
+shader_parameter/city_hover_strength = 0.0
+
+[sub_resource type="ShaderMaterial" id="RegionBordersMaterial"]
+shader = ExtResource("8_border_shader")
+
+[sub_resource type="StyleBoxFlat" id="MiniInfoStyle"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0.004, 0.012, 0.022, 0.72)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.58, 0.42, 0.18, 0.72)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="ActionDockStyle"]
+content_margin_left = 10.0
+content_margin_top = 8.0
+content_margin_right = 10.0
+content_margin_bottom = 8.0
+bg_color = Color(0.004, 0.012, 0.022, 0.76)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.58, 0.42, 0.18, 0.72)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="CompactButtonStyle"]
+content_margin_left = 9.0
+content_margin_top = 6.0
+content_margin_right = 9.0
+content_margin_bottom = 6.0
+bg_color = Color(0.055, 0.094, 0.153, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.4, 0.54, 0.92)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="WorldMapScreen" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-horizontal_scroll_mode = 0
 script = ExtResource("1")
 
-[node name="Page" type="VBoxContainer" parent="."]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/separation = 10
+[node name="Page" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Header" type="HBoxContainer" parent="Page"]
-layout_mode = 2
+[node name="Body" type="Control" parent="Page"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Identity" type="VBoxContainer" parent="Page/Header"]
-layout_mode = 2
-size_flags_horizontal = 3
+[node name="MapLayer" type="Control" parent="Page/Body"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_right = 64.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="EyebrowLabel" type="Label" parent="Page/Header/Identity"]
+[node name="MapTexture" type="TextureRect" parent="Page/Body/MapLayer"]
+layout_mode = 0
+offset_right = 2560.0
+offset_bottom = 1440.0
+mouse_filter = 2
+texture = ExtResource("2_map")
+expand_mode = 1
+material = SubResource("RegionHoverMaterial")
+
+[node name="VarenholdModule" type="TextureRect" parent="Page/Body/MapLayer"]
 unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
-text = "REGION 1  •  NIEBEZPIECZEŃSTWO 1"
-text_overrun_behavior = 3
+layout_mode = 0
+offset_left = 100.0
+offset_top = 350.0
+offset_right = 950.0
+offset_bottom = 1200.0
+mouse_filter = 2
+texture = ExtResource("5_varenhold")
+expand_mode = 1
+stretch_mode = 0
+material = SubResource("VarenholdModuleMaterial")
 
-[node name="TitleLabel" type="Label" parent="Page/Header/Identity"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.93, 0.95, 0.98, 1)
-theme_override_font_sizes/font_size = 30
-text = "Zmierzchowe Równiny"
-text_overrun_behavior = 3
+[node name="RegionBorders" type="TextureRect" parent="Page/Body/MapLayer"]
+layout_mode = 0
+offset_right = 2560.0
+offset_bottom = 1440.0
+mouse_filter = 2
+texture = ExtResource("4_region_ids")
+expand_mode = 1
+material = SubResource("RegionBordersMaterial")
 
-[node name="TimeLabel" type="Label" parent="Page/Header/Identity"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.53, 0.62, 0.73, 1)
-text = "Dzień 1  •  08:00  •  DZIEŃ"
-
-[node name="BackButton" type="Button" parent="Page/Header"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 48)
-layout_mode = 2
-size_flags_vertical = 4
-text = "Cofnij"
-
-[node name="PlayerLabel" type="Label" parent="Page"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.72, 0.79, 0.87, 1)
-text = "Bohater  •  Poziom 0  •  PŻ 20/20"
-autowrap_mode = 2
-
-[node name="Body" type="HBoxContainer" parent="Page"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 14
-
-[node name="RegionsPanel" type="PanelContainer" parent="Page/Body"]
-custom_minimum_size = Vector2(330, 0)
-layout_mode = 2
-
-[node name="Content" type="VBoxContainer" parent="Page/Body/RegionsPanel"]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="Title" type="Label" parent="Page/Body/RegionsPanel/Content"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
-theme_override_font_sizes/font_size = 20
-text = "Znane regiony"
-
-[node name="RegionList" type="ItemList" parent="Page/Body/RegionsPanel/Content"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(310, 260)
-layout_mode = 2
-size_flags_vertical = 3
-allow_reselect = true
-
-[node name="RegionHint" type="Label" parent="Page/Body/RegionsPanel/Content"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.53, 0.62, 0.73, 1)
-text = "Wybierz region, aby zobaczyć mapę i dostępne działania."
-autowrap_mode = 2
-
-[node name="RegionPanel" type="PanelContainer" parent="Page/Body"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Content" type="VBoxContainer" parent="Page/Body/RegionPanel"]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="DescriptionLabel" type="Label" parent="Page/Body/RegionPanel/Content"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.73, 0.79, 0.86, 1)
-text = "Opis regionu"
-autowrap_mode = 2
-max_lines_visible = 3
-
-[node name="RiskLabel" type="Label" parent="Page/Body/RegionPanel/Content"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
-text = "Zalecany poziom: 0–2"
-autowrap_mode = 2
-max_lines_visible = 2
-
-[node name="MapPlaceholder" type="ColorRect" parent="Page/Body/RegionPanel/Content"]
-custom_minimum_size = Vector2(520, 245)
-layout_mode = 2
-size_flags_vertical = 3
-color = Color(0.055, 0.078, 0.085, 1)
-
-[node name="MapPlaceholderLabel" type="Label" parent="Page/Body/RegionPanel/Content/MapPlaceholder"]
+[node name="RegionMap" type="Control" parent="Page/Body/MapLayer"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -130,79 +149,237 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0.48, 0.59, 0.67, 1)
-theme_override_font_sizes/font_size = 22
-text = "MAPA REGIONU\nZMIERZCHOWE RÓWNINY"
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
+focus_mode = 2
+mouse_filter = 0
+script = ExtResource("3_map_script")
 
-[node name="ActionTitle" type="Label" parent="Page/Body/RegionPanel/Content"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
-text = "DOSTĘPNE DZIAŁANIA"
-horizontal_alignment = 1
+[node name="MapHintLabel" type="Label" parent="Page/Body/MapLayer/RegionMap"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+mouse_filter = 2
+theme_override_colors/font_color = Color(1.0, 0.88, 0.60, 1.0)
+theme_override_colors/font_outline_color = Color(0.008, 0.018, 0.03, 1.0)
+theme_override_constants/outline_size = 7
+theme_override_font_sizes/font_size = 15
+text = "Przeciągnij mapę lub kliknij region."
 
-[node name="ActionGrid" type="GridContainer" parent="Page/Body/RegionPanel/Content"]
+[node name="OverlayLayer" type="Control" parent="Page/Body"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TopInfo" type="VBoxContainer" parent="Page/Body/OverlayLayer"]
+layout_mode = 1
+offset_left = 32.0
+offset_top = 12.0
+offset_right = 736.0
+offset_bottom = 102.0
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="EyebrowLabel" type="Label" parent="Page/Body/OverlayLayer/TopInfo"]
+unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/h_separation = 8
-theme_override_constants/v_separation = 8
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.91, 0.72, 0.29, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.95)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 12
+text = "REGION 1  •  NIEBEZPIECZEŃSTWO 1"
+text_overrun_behavior = 3
+
+[node name="TitleLabel" type="Label" parent="Page/Body/OverlayLayer/TopInfo"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.96, 0.97, 0.99, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.95)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 23
+text = "Zmierzchowe Równiny"
+text_overrun_behavior = 3
+
+[node name="StatusLine" type="HBoxContainer" parent="Page/Body/OverlayLayer/TopInfo"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 12
+
+[node name="TimeLabel" type="Label" parent="Page/Body/OverlayLayer/TopInfo/StatusLine"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.76, 0.82, 0.9, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.95)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 13
+text = "Dzień 1  •  08:00  •  DZIEŃ"
+
+[node name="PlayerLabel" type="Label" parent="Page/Body/OverlayLayer/TopInfo/StatusLine"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.76, 0.82, 0.9, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.95)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 13
+text = "Bohater  •  Poziom 0  •  PŻ 20/20"
+text_overrun_behavior = 3
+
+[node name="BackButton" type="Button" parent="Page/Body/OverlayLayer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(136, 42)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -152.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 58.0
+grow_horizontal = 0
+mouse_filter = 0
+text = "Cofnij"
+
+[node name="CompactInfoBar" type="PanelContainer" parent="Page/Body/OverlayLayer"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -82.0
+offset_right = 670.0
+offset_bottom = -14.0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("MiniInfoStyle")
+
+[node name="RegionSummary" type="VBoxContainer" parent="Page/Body/OverlayLayer/CompactInfoBar"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 2
+
+[node name="DescriptionLabel" type="Label" parent="Page/Body/OverlayLayer/CompactInfoBar/RegionSummary"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.84, 0.88, 0.93, 1)
+theme_override_font_sizes/font_size = 13
+text = "Krótki opis wybranego regionu."
+max_lines_visible = 1
+text_overrun_behavior = 3
+
+[node name="RiskLabel" type="Label" parent="Page/Body/OverlayLayer/CompactInfoBar/RegionSummary"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.92, 0.73, 0.3, 1)
+theme_override_font_sizes/font_size = 12
+text = "Poziom 0–2  •  Spotkanie 80%"
+text_overrun_behavior = 3
+
+[node name="ActionDock" type="PanelContainer" parent="Page/Body/OverlayLayer"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -710.0
+offset_top = -92.0
+offset_right = -16.0
+offset_bottom = -14.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 0
+theme_override_styles/panel = SubResource("ActionDockStyle")
+
+[node name="Actions" type="VBoxContainer" parent="Page/Body/OverlayLayer/ActionDock"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="ActionTitle" type="Label" parent="Page/Body/OverlayLayer/ActionDock/Actions"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.9, 0.71, 0.28, 1)
+theme_override_font_sizes/font_size = 12
+text = "DZIAŁANIA"
+
+[node name="ActionGrid" type="GridContainer" parent="Page/Body/OverlayLayer/ActionDock/Actions"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 7
+theme_override_constants/v_separation = 5
 columns = 2
 
-[node name="ExploreButton" type="Button" parent="Page/Body/RegionPanel/Content/ActionGrid"]
+[node name="ExploreButton" type="Button" parent="Page/Body/OverlayLayer/ActionDock/Actions/ActionGrid"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("CompactButtonStyle")
 text = "Wyrusz na wyprawę  •  +1 godzina"
 
-[node name="CampButton" type="Button" parent="Page/Body/RegionPanel/Content/ActionGrid"]
+[node name="CampButton" type="Button" parent="Page/Body/OverlayLayer/ActionDock/Actions/ActionGrid"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Odpocznij przy ognisku  •  +2 godziny"
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("CompactButtonStyle")
+text = "Odpocznij  •  +2 godziny"
 
-[node name="BossButton" type="Button" parent="Page/Body/RegionPanel/Content/ActionGrid"]
+[node name="BossButton" type="Button" parent="Page/Body/OverlayLayer/ActionDock/Actions/ActionGrid"]
 unique_name_in_owner = true
 visible = false
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("CompactButtonStyle")
 text = "Wyzwanie bossa"
 
-[node name="DungeonButton" type="Button" parent="Page/Body/RegionPanel/Content/ActionGrid"]
+[node name="DungeonButton" type="Button" parent="Page/Body/OverlayLayer/ActionDock/Actions/ActionGrid"]
 unique_name_in_owner = true
 visible = false
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("CompactButtonStyle")
 text = "Loch SOLO"
 
-[node name="QuestLabel" type="Label" parent="Page/Body/RegionPanel/Content"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.78, 0.58, 0.72, 1)
-text = "Nowa misja fabularna czeka w Gildii."
-autowrap_mode = 2
-
-[node name="EventLabel" type="Label" parent="Page/Body/RegionPanel/Content"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.44, 0.8, 0.58, 1)
-text = "Każda wyprawa przesuwa czas o godzinę."
-autowrap_mode = 2
-
-[node name="HiddenState" type="VBoxContainer" parent="Page"]
+[node name="HiddenState" type="Control" parent="Page"]
 visible = false
-layout_mode = 2
+layout_mode = 1
+
+[node name="RegionList" type="ItemList" parent="Page/HiddenState"]
+unique_name_in_owner = true
+layout_mode = 0
+allow_reselect = true
 
 [node name="ThreatsLabel" type="Label" parent="Page/HiddenState"]
 unique_name_in_owner = true
-layout_mode = 2
+layout_mode = 0
 text = "DZIEŃ\n• Dziki Pies\n\nNOC\n• Duch Równin"
 
 [node name="WeatherLabel" type="Label" parent="Page/HiddenState"]
 unique_name_in_owner = true
-layout_mode = 2
+layout_mode = 0
 text = "SŁONECZNIE  •  zmiana za 6 godz."
+
+[node name="QuestLabel" type="Label" parent="Page/HiddenState"]
+unique_name_in_owner = true
+layout_mode = 0
+text = "Informacja o misji"
+
+[node name="EventLabel" type="Label" parent="Page/HiddenState"]
+unique_name_in_owner = true
+layout_mode = 0
+text = "Informacja o wydarzeniu"

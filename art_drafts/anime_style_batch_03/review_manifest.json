@@ -1,0 +1,1364 @@
+{
+  "batch": 3,
+  "style": "approved_anime_fantasy",
+  "status": "integrated_alpha_reviewed",
+  "audit_note": "Snapshot before integration:159 total,110 icons,49 missing. Existing mechanics, item identities and rarity colors unchanged. All30 selected were missing icons.",
+  "items": [
+    {
+      "category": "key",
+      "description": "Ciężki, sczerniały klucz noszący herb Zatopionego Zakonu. Otwiera kamienne wrota Krypty Zatopionego Zakonu i zostaje zużyty przy wejściu.",
+      "icon": "",
+      "id": "ancient_order_key",
+      "level": 0,
+      "name": "Starożytny Klucz Zakonu",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 1,
+          "enemy": "drowned_mother",
+          "region": "silentwater_marshes"
+        },
+        {
+          "ingredients": {
+            "mist_essence": 2,
+            "silentwater_heart": 1,
+            "sunken_plate": 2
+          },
+          "recipe": "ancient_order_key",
+          "region": "silent_water_marshes"
+        }
+      ],
+      "family": "order",
+      "design": "A single heavy blackened iron skeleton key, diagonally upright, large round bow enclosing the aged bronze four-point compass-star emblem seen on the Order armor, blue-grey steel bevels, a small restrained teal inset. Three stone-door teeth, sturdy and functional; slight localized patina, no dangling decoration.",
+      "phase": 1,
+      "prompt": "Use case: stylized-concept.\nAsset type: one standalone 2D PNG inventory-item illustration for Echoes of Pythonia, square composition, final use at 64 pixels.\nReference roles: Image 1 is approved anime character STYLE ONLY (do not draw any person); Image 2 is the approved item's linework, broad shading and polish STYLE ONLY, do not copy its subject. Remaining images are source creature, faction or crafting-material DESIGN references only; do not inherit photographic microtexture, stands or backgrounds from them.\nStyle: polished hand-painted anime-fantasy JRPG item art, crisp refined contour, elegant readable shapes, broad controlled highlights, grouped cel-painterly shadows, medium restrained detail. Match the sophistication of the hero's equipment without photorealism, grain, mottled noise, excessive scratches or glitter; not flat clip art.\nComposition: exactly the requested item (a pair only when requested), fully visible, centered with 9 percent clear padding on every edge, longest silhouette about82 percent of canvas. Three-quarter presentation unless specified. No crop.\nBackground: genuinely transparent alpha, including openings inside rings/handles. Do NOT draw a checkerboard, scene, floor, vignette or cast shadow. If alpha output is not possible, use perfectly solid pure magenta #FF00FF behind everything instead, without gradients or color spill; never simulated checkerboard.\nConstraints: no lettering, prices, numbers, rarity frames, UI, people, hands, pedestals, floating dust, fireflies, sparkles or halos outside the object. Rarity frame will be added by the game.\n\nSubject: Starożytny Klucz Zakonu. A single heavy blackened iron skeleton key, diagonally upright, large round bow enclosing the aged bronze four-point compass-star emblem seen on the Order armor, blue-grey steel bevels, a small restrained teal inset. Three stone-door teeth, sturdy and functional; slight localized patina, no dangling decoration.\nCatalog meaning (do not render text): Ciężki, sczerniały klucz noszący herb Zatopionego Zakonu. Otwiera kamienne wrota Krypty Zatopionego Zakonu i zostaje zużyty przy wejściu.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/sunken_knight_armor.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/sunken_knight_armor.png"
+      ],
+      "target": "godot/assets/items/regional/ancient_order_key.png",
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-e6e6201f-b2b1-49b4-848a-40a858efcdff.png",
+      "background_seeds": [
+        [
+          0.762,
+          0.229
+        ],
+        [
+          0.618,
+          0.163
+        ],
+        [
+          0.694,
+          0.354
+        ],
+        [
+          0.551,
+          0.286
+        ],
+        [
+          0.713,
+          0.243
+        ],
+        [
+          0.672,
+          0.315
+        ],
+        [
+          0.594,
+          0.278
+        ],
+        [
+          0.6235,
+          0.2075
+        ],
+        [
+          0.6431,
+          0.2017
+        ]
+      ],
+      "background_method": "neutral_checker_reviewed_holes",
+      "neutral_edges": false
+    },
+    {
+      "category": "material",
+      "description": "Ciężka pieczęć noszona przez członków zakonu pochowanych pod Głuchą Wodą.",
+      "icon": "",
+      "id": "order_seal",
+      "level": 0,
+      "name": "Pieczęć Zatopionego Zakonu",
+      "rarity": "uncommon",
+      "rarity_color": "4ab875",
+      "rarity_label": "Niepospolity",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.55,
+          "enemy": "drowned_acolyte",
+          "region": "dungeon"
+        },
+        {
+          "chance": 0.7,
+          "enemy": "drowned_priestess",
+          "region": "dungeon"
+        },
+        {
+          "chance": 1,
+          "enemy": "iron_gate_guardian",
+          "region": "dungeon"
+        },
+        {
+          "chance": 0.75,
+          "enemy": "crypt_warden",
+          "region": "dungeon"
+        },
+        {
+          "chance": 1,
+          "enemy": "order_grandmaster",
+          "region": "dungeon"
+        }
+      ],
+      "family": "order",
+      "design": "One heavy oval ceremonial seal of the Sunken Order, aged bronze four-point compass-star emblem over navy enamel, thick blue-grey iron rim, suspension eye at top. A portable stamped metal token, not a wax blob, restrained teal patina. Same emblem as Order armor.",
+      "phase": 1,
+      "prompt": "Use case: stylized-concept.\nAsset type: one standalone 2D PNG inventory-item illustration for Echoes of Pythonia, square composition, final use at 64 pixels.\nReference roles: Image 1 is approved anime character STYLE ONLY (do not draw any person); Image 2 is the approved item's linework, broad shading and polish STYLE ONLY, do not copy its subject. Remaining images are source creature, faction or crafting-material DESIGN references only; do not inherit photographic microtexture, stands or backgrounds from them.\nStyle: polished hand-painted anime-fantasy JRPG item art, crisp refined contour, elegant readable shapes, broad controlled highlights, grouped cel-painterly shadows, medium restrained detail. Match the sophistication of the hero's equipment without photorealism, grain, mottled noise, excessive scratches or glitter; not flat clip art.\nComposition: exactly the requested item (a pair only when requested), fully visible, centered with 9 percent clear padding on every edge, longest silhouette about82 percent of canvas. Three-quarter presentation unless specified. No crop.\nBackground: genuinely transparent alpha, including openings inside rings/handles. Do NOT draw a checkerboard, scene, floor, vignette or cast shadow. If alpha output is not possible, use perfectly solid pure magenta #FF00FF behind everything instead, without gradients or color spill; never simulated checkerboard.\nConstraints: no lettering, prices, numbers, rarity frames, UI, people, hands, pedestals, floating dust, fireflies, sparkles or halos outside the object. Rarity frame will be added by the game.\n\nSubject: Pieczęć Zatopionego Zakonu. One heavy oval ceremonial seal of the Sunken Order, aged bronze four-point compass-star emblem over navy enamel, thick blue-grey iron rim, suspension eye at top. A portable stamped metal token, not a wax blob, restrained teal patina. Same emblem as Order armor.\nCatalog meaning (do not render text): Ciężka pieczęć noszona przez członków zakonu pochowanych pod Głuchą Wodą.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/sunken_knight_armor.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/sunken_knight_armor.png"
+      ],
+      "target": "godot/assets/items/regional/order_seal.png",
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-3c014350-2e7c-4357-bc2e-23db930b3c2e.png",
+      "background_seeds": [
+        [
+          0.6605,
+          0.1665
+        ]
+      ],
+      "background_method": "neutral_checker_reviewed_holes",
+      "neutral_edges": false
+    },
+    {
+      "category": "material",
+      "description": "Fragment ceremonialnego łańcucha dowódcy Zatopionego Zakonu.",
+      "icon": "",
+      "id": "grandmaster_chain",
+      "level": 0,
+      "name": "Łańcuch Wielkiego Mistrza",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 1,
+          "enemy": "crypt_warden",
+          "region": "dungeon"
+        }
+      ],
+      "family": "order",
+      "design": "A short broken section of ceremonial chain made from 5 thick connected blue-grey steel links with aged bronze raised edges and one broad central clasp engraved with the Order four-point compass-star. Curved S composition, clearly a salvage material not a necklace with a new gemstone. Dark navy recesses and restrained teal patina.",
+      "phase": 1,
+      "prompt": "Use case: stylized-concept.\nAsset type: one standalone 2D PNG inventory-item illustration for Echoes of Pythonia, square composition, final use at 64 pixels.\nReference roles: Image 1 is approved anime character STYLE ONLY (do not draw any person); Image 2 is the approved item's linework, broad shading and polish STYLE ONLY, do not copy its subject. Remaining images are source creature, faction or crafting-material DESIGN references only; do not inherit photographic microtexture, stands or backgrounds from them.\nStyle: polished hand-painted anime-fantasy JRPG item art, crisp refined contour, elegant readable shapes, broad controlled highlights, grouped cel-painterly shadows, medium restrained detail. Match the sophistication of the hero's equipment without photorealism, grain, mottled noise, excessive scratches or glitter; not flat clip art.\nComposition: exactly the requested item (a pair only when requested), fully visible, centered with 9 percent clear padding on every edge, longest silhouette about82 percent of canvas. Three-quarter presentation unless specified. No crop.\nBackground: genuinely transparent alpha, including openings inside rings/handles. Do NOT draw a checkerboard, scene, floor, vignette or cast shadow. If alpha output is not possible, use perfectly solid pure magenta #FF00FF behind everything instead, without gradients or color spill; never simulated checkerboard.\nConstraints: no lettering, prices, numbers, rarity frames, UI, people, hands, pedestals, floating dust, fireflies, sparkles or halos outside the object. Rarity frame will be added by the game.\n\nSubject: Łańcuch Wielkiego Mistrza. A short broken section of ceremonial chain made from 5 thick connected blue-grey steel links with aged bronze raised edges and one broad central clasp engraved with the Order four-point compass-star. Curved S composition, clearly a salvage material not a necklace with a new gemstone. Dark navy recesses and restrained teal patina.\nCatalog meaning (do not render text): Fragment ceremonialnego łańcucha dowódcy Zatopionego Zakonu.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/sunken_knight_armor.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/sunken_knight_armor.png"
+      ],
+      "target": "godot/assets/items/regional/grandmaster_chain.png",
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-14ee795b-590f-419e-9216-e5cc2e050cde.png",
+      "background_seeds": [
+        [
+          0.719,
+          0.594
+        ],
+        [
+          0.26,
+          0.258
+        ],
+        [
+          0.36,
+          0.157
+        ],
+        [
+          0.704,
+          0.729
+        ],
+        [
+          0.305,
+          0.501
+        ],
+        [
+          0.6,
+          0.577
+        ]
+      ],
+      "background_method": "neutral_checker_reviewed_holes",
+      "neutral_edges": false
+    },
+    {
+      "category": "material",
+      "description": "Odłamek korony nasiąknięty magią głębin. Reaguje na stare pieczęcie zakonu.",
+      "icon": "",
+      "id": "crown_fragment",
+      "level": 0,
+      "name": "Fragment Zatopionej Korony",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 1,
+          "enemy": "order_grandmaster",
+          "region": "dungeon"
+        }
+      ],
+      "family": "order",
+      "design": "One broken curved segment of the Sunken Order crown, exactly three unequal narrow crown points, blue-grey dark silver metal with aged bronze edging, one deep teal oval gem set in central point and half of the four-point compass-star at broken base. Clearly jagged broken ends and missing remainder, not a complete crown. Subtle clean water-blue reflections confined inside object.",
+      "phase": 1,
+      "prompt": "Use case: stylized-concept.\nAsset type: one standalone 2D PNG inventory-item illustration for Echoes of Pythonia, square composition, final use at 64 pixels.\nReference roles: Image 1 is approved anime character STYLE ONLY (do not draw any person); Image 2 is the approved item's linework, broad shading and polish STYLE ONLY, do not copy its subject. Remaining images are source creature, faction or crafting-material DESIGN references only; do not inherit photographic microtexture, stands or backgrounds from them.\nStyle: polished hand-painted anime-fantasy JRPG item art, crisp refined contour, elegant readable shapes, broad controlled highlights, grouped cel-painterly shadows, medium restrained detail. Match the sophistication of the hero's equipment without photorealism, grain, mottled noise, excessive scratches or glitter; not flat clip art.\nComposition: exactly the requested item (a pair only when requested), fully visible, centered with 9 percent clear padding on every edge, longest silhouette about82 percent of canvas. Three-quarter presentation unless specified. No crop.\nBackground: genuinely transparent alpha, including openings inside rings/handles. Do NOT draw a checkerboard, scene, floor, vignette or cast shadow. If alpha output is not possible, use perfectly solid pure magenta #FF00FF behind everything instead, without gradients or color spill; never simulated checkerboard.\nConstraints: no lettering, prices, numbers, rarity frames, UI, people, hands, pedestals, floating dust, fireflies, sparkles or halos outside the object. Rarity frame will be added by the game.\n\nSubject: Fragment Zatopionej Korony. One broken curved segment of the Sunken Order crown, exactly three unequal narrow crown points, blue-grey dark silver metal with aged bronze edging, one deep teal oval gem set in central point and half of the four-point compass-star at broken base. Clearly jagged broken ends and missing remainder, not a complete crown. Subtle clean water-blue reflections confined inside object.\nCatalog meaning (do not render text): Odłamek korony nasiąknięty magią głębin. Reaguje na stare pieczęcie zakonu.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/sunken_knight_armor.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/sunken_knight_armor.png"
+      ],
+      "target": "godot/assets/items/regional/crown_fragment.png",
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-3e5c50a2-3b37-4791-8c70-5aa2e4ef7e63.png",
+      "background_seeds": [],
+      "background_method": "neutral_checker_exterior_only",
+      "neutral_edges": false
+    },
+    {
+      "category": "equipment",
+      "description": "Ciężkie ostrze ostatniego dowódcy Zakonu. Stworzone do przełamywania obrony.",
+      "icon": "",
+      "id": "grandmaster_sword",
+      "level": 10,
+      "name": "Miecz Wielkiego Mistrza",
+      "rarity": "epic",
+      "rarity_color": "aa69dc",
+      "rarity_label": "Epicki",
+      "regional": true,
+      "sets": [],
+      "slot": "weapon",
+      "sources": [
+        {
+          "chance": 0.12,
+          "enemy": "order_grandmaster",
+          "region": "dungeon"
+        }
+      ],
+      "family": "order",
+      "design": "A full heavy two-handed straight sword, blue-grey steel broad blade with a bold central fuller, aged bronze crossguard with four-point compass-star boss, navy leather grip, deep teal pommel. Solemn Sunken Order ceremonial weapon meant to break defenses; complete long blade, diagonal lower-left to upper-right.",
+      "phase": 2,
+      "prompt": "Use case: stylized-concept.\nAsset type: one standalone 2D PNG inventory-item illustration for Echoes of Pythonia, square composition, final use at 64 pixels.\nReference roles: Image 1 is approved anime character STYLE ONLY (do not draw any person); Image 2 is the approved item's linework, broad shading and polish STYLE ONLY, do not copy its subject. Remaining images are source creature, faction or crafting-material DESIGN references only; do not inherit photographic microtexture, stands or backgrounds from them.\nStyle: polished hand-painted anime-fantasy JRPG item art, crisp refined contour, elegant readable shapes, broad controlled highlights, grouped cel-painterly shadows, medium restrained detail. Match the sophistication of the hero's equipment without photorealism, grain, mottled noise, excessive scratches or glitter; not flat clip art.\nComposition: exactly the requested item (a pair only when requested), fully visible, centered with 9 percent clear padding on every edge, longest silhouette about82 percent of canvas. Three-quarter presentation unless specified. No crop.\nBackground: transparent-alpha asset intended. Since previous requests painted a fake checkerboard, for this source use the explicit fallback: perfectly uniform flat pure magenta #FF00FF, including every hole in the object. No gradient, shadows, checker pattern or magenta reflection. The backdrop will be removed locally into true alpha.\nConstraints: no lettering, prices, numbers, rarity frames, UI, people, hands, pedestals, floating dust, fireflies, sparkles or halos outside the object. Rarity frame will be added by the game.\n\nSubject: Miecz Wielkiego Mistrza. A full heavy two-handed straight sword, blue-grey steel broad blade with a bold central fuller, aged bronze crossguard with four-point compass-star boss, navy leather grip, deep teal pommel. Solemn Sunken Order ceremonial weapon meant to break defenses; complete long blade, diagonal lower-left to upper-right.\nCatalog meaning (do not render text): Ciężkie ostrze ostatniego dowódcy Zakonu. Stworzone do przełamywania obrony.\nLast 1 image(s): the newly designed actual crafting materials or faction emblems; preserve those shapes and palette in the finished gear.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/sunken_knight_armor.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/sunken_knight_armor.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-3c014350-2e7c-4357-bc2e-23db930b3c2e.png"
+      ],
+      "target": "godot/assets/items/regional/grandmaster_sword.png",
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-5f276969-d9e0-4278-bf9d-5e6f145b01a3.png",
+      "background_seeds": [],
+      "background_method": "magenta_local_cutout",
+      "neutral_edges": false
+    },
+    {
+      "category": "equipment",
+      "description": "Warstwowy pancerz i płaszcz odporny na zimną wodę krypt.",
+      "icon": "",
+      "id": "sunken_order_cloak",
+      "level": 10,
+      "name": "Płaszcz Zatopionego Zakonu",
+      "rarity": "epic",
+      "rarity_color": "aa69dc",
+      "rarity_label": "Epicki",
+      "regional": true,
+      "sets": [],
+      "slot": "chest",
+      "sources": [
+        {
+          "chance": 0.1,
+          "enemy": "order_grandmaster",
+          "region": "dungeon"
+        }
+      ],
+      "family": "order",
+      "design": "A wearable layered navy blue waterproof cloak with a compact blue-grey steel armored shoulder mantle, bronze trim and four-point compass-star clasp. Cloak is dominant silhouette, folds flowing down and outward, darker lining, subtle worn hem. Empty garment no wearer or mannequin, three-quarter front view. Related to Order armor but distinctly a long cloak.",
+      "phase": 2,
+      "prompt": "Use case: stylized-concept.\nAsset type: one standalone 2D PNG inventory-item illustration for Echoes of Pythonia, square composition, final use at 64 pixels.\nReference roles: Image 1 is approved anime character STYLE ONLY (do not draw any person); Image 2 is the approved item's linework, broad shading and polish STYLE ONLY, do not copy its subject. Remaining images are source creature, faction or crafting-material DESIGN references only; do not inherit photographic microtexture, stands or backgrounds from them.\nStyle: polished hand-painted anime-fantasy JRPG item art, crisp refined contour, elegant readable shapes, broad controlled highlights, grouped cel-painterly shadows, medium restrained detail. Match the sophistication of the hero's equipment without photorealism, grain, mottled noise, excessive scratches or glitter; not flat clip art.\nComposition: exactly the requested item (a pair only when requested), fully visible, centered with 9 percent clear padding on every edge, longest silhouette about82 percent of canvas. Three-quarter presentation unless specified. No crop.\nBackground: transparent-alpha asset intended. Since previous requests painted a fake checkerboard, for this source use the explicit fallback: perfectly uniform flat pure magenta #FF00FF, including every hole in the object. No gradient, shadows, checker pattern or magenta reflection. The backdrop will be removed locally into true alpha.\nConstraints: no lettering, prices, numbers, rarity frames, UI, people, hands, pedestals, floating dust, fireflies, sparkles or halos outside the object. Rarity frame will be added by the game.\n\nSubject: Płaszcz Zatopionego Zakonu. A wearable layered navy blue waterproof cloak with a compact blue-grey steel armored shoulder mantle, bronze trim and four-point compass-star clasp. Cloak is dominant silhouette, folds flowing down and outward, darker lining, subtle worn hem. Empty garment no wearer or mannequin, three-quarter front view. Related to Order armor but distinctly a long cloak.\nCatalog meaning (do not render text): Warstwowy pancerz i płaszcz odporny na zimną wodę krypt.\nLast 1 image(s): the newly designed actual crafting materials or faction emblems; preserve those shapes and palette in the finished gear.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/sunken_knight_armor.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/sunken_knight_armor.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-3c014350-2e7c-4357-bc2e-23db930b3c2e.png"
+      ],
+      "target": "godot/assets/items/regional/sunken_order_cloak.png",
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-b5a07ed3-3c43-49df-a142-ce8b718d5fcb.png",
+      "background_seeds": [],
+      "background_method": "magenta_local_cutout",
+      "neutral_edges": false
+    },
+    {
+      "category": "material",
+      "description": "Odłamany fragment czarnej klingi Admirała Vareka. Metal pozostaje lodowaty nawet przy ogniu.",
+      "icon": "",
+      "id": "varek_sabre_fragment",
+      "level": 0,
+      "name": "Fragment Szabli Vareka",
+      "rarity": "epic",
+      "rarity_color": "aa69dc",
+      "rarity_label": "Epicki",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 1,
+          "enemy": "admiral_varek",
+          "region": "dungeon"
+        }
+      ],
+      "family": "black_fleet",
+      "design": "One broken distal segment of Admiral Varek's black curved sabre, a hooked narrow black steel tip with an icy blue bevel, aged brass wave inlay down one side and a jagged snapped base. A weapon fragment, no handle. Elegant officer blade rather than a crude rock. Broad reflections, no ice particles.",
+      "phase": 1,
+      "prompt": "Use case: stylized-concept.\nAsset type: one standalone 2D PNG inventory-item illustration for Echoes of Pythonia, square composition, final use at 64 pixels.\nReference roles: Image 1 is approved anime character STYLE ONLY (do not draw any person); Image 2 is the approved item's linework, broad shading and polish STYLE ONLY, do not copy its subject. Remaining images are source creature, faction or crafting-material DESIGN references only; do not inherit photographic microtexture, stands or backgrounds from them.\nStyle: polished hand-painted anime-fantasy JRPG item art, crisp refined contour, elegant readable shapes, broad controlled highlights, grouped cel-painterly shadows, medium restrained detail. Match the sophistication of the hero's equipment without photorealism, grain, mottled noise, excessive scratches or glitter; not flat clip art.\nComposition: exactly the requested item (a pair only when requested), fully visible, centered with 9 percent clear padding on every edge, longest silhouette about82 percent of canvas. Three-quarter presentation unless specified. No crop.\nBackground: genuinely transparent alpha, including openings inside rings/handles. Do NOT draw a checkerboard, scene, floor, vignette or cast shadow. If alpha output is not possible, use perfectly solid pure magenta #FF00FF behind everything instead, without gradients or color spill; never simulated checkerboard.\nConstraints: no lettering, prices, numbers, rarity frames, UI, people, hands, pedestals, floating dust, fireflies, sparkles or halos outside the object. Rarity frame will be added by the game.\n\nSubject: Fragment Szabli Vareka. One broken distal segment of Admiral Varek's black curved sabre, a hooked narrow black steel tip with an icy blue bevel, aged brass wave inlay down one side and a jagged snapped base. A weapon fragment, no handle. Elegant officer blade rather than a crude rock. Broad reflections, no ice particles.\nCatalog meaning (do not render text): Odłamany fragment czarnej klingi Admirała Vareka. Metal pozostaje lodowaty nawet przy ogniu.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/sunken_knight_armor.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/ghost_ship_captain.png"
+      ],
+      "target": "godot/assets/items/regional/varek_sabre_fragment.png",
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-857a5937-ec67-4314-8220-bbfa5529cf61.png",
+      "background_seeds": [],
+      "background_method": "neutral_checker_exterior_only",
+      "neutral_edges": false
+    },
+    {
+      "category": "equipment",
+      "description": "Długie ostrze Władcy Pustkowi. Jest lżejsze, niż sugeruje jego rozmiar.",
+      "icon": "",
+      "id": "azhar_blade",
+      "level": 14,
+      "name": "Ostrze Azhara",
+      "rarity": "epic",
+      "rarity_color": "aa69dc",
+      "rarity_label": "Epicki",
+      "regional": true,
+      "sets": [],
+      "slot": "weapon",
+      "sources": [
+        {
+          "chance": 0.1,
+          "enemy": "azhar",
+          "region": "ashen_borderlands"
+        },
+        {
+          "ingredients": {
+            "azhar_sigil": 6,
+            "grinding_stone": 3,
+            "hearth_core": 2,
+            "salamander_scale": 4
+          },
+          "recipe": "azhar_blade",
+          "region": "ashen_borderlands"
+        }
+      ],
+      "family": "azhar",
+      "design": "Full long light curved desert sovereign blade, visibly descended from the hooked weapon carried by Azhar in the creature reference: dark sand-bronze metal, long crescent-like hooked tip, open angular blade cutouts, warm amber core at guard, bone-beige and rusty red wrapped grip. The sigil contributes the split-horn sun geometry. Entire weapon visible diagonally, no character. Ceremonial but readable, no scattered glints.",
+      "phase": 2,
+      "prompt": "Use case: stylized-concept.\nAsset type: one standalone 2D PNG inventory-item illustration for Echoes of Pythonia, square composition, final use at 64 pixels.\nReference roles: Image 1 is approved anime character STYLE ONLY (do not draw any person); Image 2 is the approved item's linework, broad shading and polish STYLE ONLY, do not copy its subject. Remaining images are source creature, faction or crafting-material DESIGN references only; do not inherit photographic microtexture, stands or backgrounds from them.\nStyle: polished hand-painted anime-fantasy JRPG item art, crisp refined contour, elegant readable shapes, broad controlled highlights, grouped cel-painterly shadows, medium restrained detail. Match the sophistication of the hero's equipment without photorealism, grain, mottled noise, excessive scratches or glitter; not flat clip art.\nComposition: exactly the requested item (a pair only when requested), fully visible, centered with 9 percent clear padding on every edge, longest silhouette about82 percent of canvas. Three-quarter presentation unless specified. No crop.\nBackground: transparent-alpha asset intended. Since previous requests painted a fake checkerboard, for this source use the explicit fallback: perfectly uniform flat pure magenta #FF00FF, including every hole in the object. No gradient, shadows, checker pattern or magenta reflection. The backdrop will be removed locally into true alpha.\nConstraints: no lettering, prices, numbers, rarity frames, UI, people, hands, pedestals, floating dust, fireflies, sparkles or halos outside the object. Rarity frame will be added by the game.\n\nSubject: Ostrze Azhara. Full long light curved desert sovereign blade, visibly descended from the hooked weapon carried by Azhar in the creature reference: dark sand-bronze metal, long crescent-like hooked tip, open angular blade cutouts, warm amber core at guard, bone-beige and rusty red wrapped grip. The sigil contributes the split-horn sun geometry. Entire weapon visible diagonally, no character. Ceremonial but readable, no scattered glints.\nCatalog meaning (do not render text): Długie ostrze Władcy Pustkowi. Jest lżejsze, niż sugeruje jego rozmiar.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/sunken_knight_armor.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/azhar.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/materials/azhar_sigil.png"
+      ],
+      "target": "godot/assets/items/regional/azhar_blade.png",
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-e8a280c2-9525-4c56-84c2-7fe4b9b5ccf8.png",
+      "background_seeds": [],
+      "background_method": "magenta_local_cutout",
+      "neutral_edges": true
+    },
+    {
+      "category": "equipment",
+      "description": "Korona nosząca ślady piasku wtopionego w metal przez lata pustynnych burz.",
+      "icon": "",
+      "id": "azhar_crown",
+      "level": 14,
+      "name": "Korona Azhara",
+      "rarity": "epic",
+      "rarity_color": "aa69dc",
+      "rarity_label": "Epicki",
+      "regional": true,
+      "sets": [],
+      "slot": "head",
+      "sources": [
+        {
+          "chance": 0.08,
+          "enemy": "azhar",
+          "region": "ashen_borderlands"
+        },
+        {
+          "ingredients": {
+            "azhar_sigil": 6,
+            "common_essence": 3,
+            "sand_golem_core": 4,
+            "spark_of_life": 1
+          },
+          "recipe": "azhar_crown",
+          "region": "ashen_borderlands"
+        }
+      ],
+      "family": "azhar",
+      "design": "One complete crown matching the tall angular crown worn by Azhar: scorched bronze and sand-beige metal, five sharp asymmetrical horn-like points with central tall spike, warm amber lozenge in front and split-horn sun crest, dark rust-red interior band. Thin traces of fused ochre sand grouped at base only. An elegant anime dark-desert ruler's crown, not random gothic skulls.",
+      "phase": 2,
+      "prompt": "Use case: stylized-concept.\nAsset type: one standalone 2D PNG inventory-item illustration for Echoes of Pythonia, square composition, final use at 64 pixels.\nReference roles: Image 1 is approved anime character STYLE ONLY (do not draw any person); Image 2 is the approved item's linework, broad shading and polish STYLE ONLY, do not copy its subject. Remaining images are source creature, faction or crafting-material DESIGN references only; do not inherit photographic microtexture, stands or backgrounds from them.\nStyle: polished hand-painted anime-fantasy JRPG item art, crisp refined contour, elegant readable shapes, broad controlled highlights, grouped cel-painterly shadows, medium restrained detail. Match the sophistication of the hero's equipment without photorealism, grain, mottled noise, excessive scratches or glitter; not flat clip art.\nComposition: exactly the requested item (a pair only when requested), fully visible, centered with 9 percent clear padding on every edge, longest silhouette about82 percent of canvas. Three-quarter presentation unless specified. No crop.\nBackground: transparent-alpha asset intended. Since previous requests painted a fake checkerboard, for this source use the explicit fallback: perfectly uniform flat pure magenta #FF00FF, including every hole in the object. No gradient, shadows, checker pattern or magenta reflection. The backdrop will be removed locally into true alpha.\nConstraints: no lettering, prices, numbers, rarity frames, UI, people, hands, pedestals, floating dust, fireflies, sparkles or halos outside the object. Rarity frame will be added by the game.\n\nSubject: Korona Azhara. One complete crown matching the tall angular crown worn by Azhar: scorched bronze and sand-beige metal, five sharp asymmetrical horn-like points with central tall spike, warm amber lozenge in front and split-horn sun crest, dark rust-red interior band. Thin traces of fused ochre sand grouped at base only. An elegant anime dark-desert ruler's crown, not random gothic skulls.\nCatalog meaning (do not render text): Korona nosząca ślady piasku wtopionego w metal przez lata pustynnych burz.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/sunken_knight_armor.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/azhar.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/materials/azhar_sigil.png"
+      ],
+      "target": "godot/assets/items/regional/azhar_crown.png",
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-d40bfcf8-afe8-4437-9481-849e14bf306c.png",
+      "background_seeds": [],
+      "background_method": "magenta_local_cutout",
+      "neutral_edges": false
+    },
+    {
+      "category": "equipment",
+      "description": "Masywny pierścień będący symbolem władzy nad pustkowiem.",
+      "icon": "",
+      "id": "azhar_ring",
+      "level": 14,
+      "name": "Pierścień Azhara",
+      "rarity": "epic",
+      "rarity_color": "aa69dc",
+      "rarity_label": "Epicki",
+      "regional": true,
+      "sets": [],
+      "slot": "ring",
+      "sources": [
+        {
+          "chance": 0.08,
+          "enemy": "azhar",
+          "region": "ashen_borderlands"
+        },
+        {
+          "ingredients": {
+            "azhar_sigil": 6,
+            "common_essence": 3,
+            "harpy_feather": 4
+          },
+          "recipe": "azhar_ring",
+          "region": "ashen_borderlands"
+        }
+      ],
+      "family": "azhar",
+      "design": "One massive sovereign signet ring of sand-bronze metal, octagonal blackened face carrying Azhar's split-horn sun emblem around a single amber diamond gem. Thick band with two clean feather-like side ridges recalling rust-red harpy material, no loose feather ornaments. Three-quarter view showing ring hole. Match the sigil and Azhar's crown.",
+      "phase": 2,
+      "prompt": "Use case: stylized-concept.\nAsset type: one standalone 2D PNG inventory-item illustration for Echoes of Pythonia, square composition, final use at 64 pixels.\nReference roles: Image 1 is approved anime character STYLE ONLY (do not draw any person); Image 2 is the approved item's linework, broad shading and polish STYLE ONLY, do not copy its subject. Remaining images are source creature, faction or crafting-material DESIGN references only; do not inherit photographic microtexture, stands or backgrounds from them.\nStyle: polished hand-painted anime-fantasy JRPG item art, crisp refined contour, elegant readable shapes, broad controlled highlights, grouped cel-painterly shadows, medium restrained detail. Match the sophistication of the hero's equipment without photorealism, grain, mottled noise, excessive scratches or glitter; not flat clip art.\nComposition: exactly the requested item (a pair only when requested), fully visible, centered with 9 percent clear padding on every edge, longest silhouette about82 percent of canvas. Three-quarter presentation unless specified. No crop.\nBackground: transparent-alpha asset intended. Since previous requests painted a fake checkerboard, for this source use the explicit fallback: perfectly uniform flat pure magenta #FF00FF, including every hole in the object. No gradient, shadows, checker pattern or magenta reflection. The backdrop will be removed locally into true alpha.\nConstraints: no lettering, prices, numbers, rarity frames, UI, people, hands, pedestals, floating dust, fireflies, sparkles or halos outside the object. Rarity frame will be added by the game.\n\nSubject: Pierścień Azhara. One massive sovereign signet ring of sand-bronze metal, octagonal blackened face carrying Azhar's split-horn sun emblem around a single amber diamond gem. Thick band with two clean feather-like side ridges recalling rust-red harpy material, no loose feather ornaments. Three-quarter view showing ring hole. Match the sigil and Azhar's crown.\nCatalog meaning (do not render text): Masywny pierścień będący symbolem władzy nad pustkowiem.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/cultist_pendant.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/azhar.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/materials/azhar_sigil.png"
+      ],
+      "target": "godot/assets/items/regional/azhar_ring.png",
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-e2e64ca8-5830-4537-a3aa-4bc2e33d2d43.png",
+      "background_seeds": [],
+      "background_method": "magenta_local_cutout",
+      "neutral_edges": false
+    },
+    {
+      "category": "key",
+      "description": "Ciężki medalion noszony przez oficerów Czarnej Floty. Jest wejściówką do Wraku Czarnej Floty i zostaje zużyty przy wejściu.",
+      "icon": "",
+      "id": "black_fleet_medallion",
+      "level": 0,
+      "name": "Medalion Czarnej Floty",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 1,
+          "enemy": "ghost_ship_captain",
+          "region": "ice_coast"
+        },
+        {
+          "ingredients": {
+            "black_pearl": 1,
+            "common_essence": 2,
+            "ice_chitin": 3,
+            "white_fur": 2
+          },
+          "recipe": "black_fleet_medallion",
+          "region": "ice_coast"
+        }
+      ],
+      "family": "black_fleet",
+      "design": "A heavy officer's medallion serving as a dungeon-entry key: dark gunmetal round badge, aged brass raised anchor with three sail shapes, one small black-violet pearl at anchor crossing, chunky suspension loop and short navy cord. Pale ice-chitin edge segments on the rim, tiny white-fur knot at loop. Strong naval insignia, no words or numbers, not the Order compass-star.",
+      "phase": 1,
+      "prompt": "Use case: stylized-concept.\nAsset type: one standalone 2D PNG inventory-item illustration for Echoes of Pythonia, square composition, final use at 64 pixels.\nReference roles: Image 1 is approved anime character STYLE ONLY (do not draw any person); Image 2 is the approved item's linework, broad shading and polish STYLE ONLY, do not copy its subject. Remaining images are source creature, faction or crafting-material DESIGN references only; do not inherit photographic microtexture, stands or backgrounds from them.\nStyle: polished hand-painted anime-fantasy JRPG item art, crisp refined contour, elegant readable shapes, broad controlled highlights, grouped cel-painterly shadows, medium restrained detail. Match the sophistication of the hero's equipment without photorealism, grain, mottled noise, excessive scratches or glitter; not flat clip art.\nComposition: exactly the requested item (a pair only when requested), fully visible, centered with 9 percent clear padding on every edge, longest silhouette about82 percent of canvas. Three-quarter presentation unless specified. No crop.\nBackground: genuinely transparent alpha, including openings inside rings/handles. Do NOT draw a checkerboard, scene, floor, vignette or cast shadow. If alpha output is not possible, use perfectly solid pure magenta #FF00FF behind everything instead, without gradients or color spill; never simulated checkerboard.\nConstraints: no lettering, prices, numbers, rarity frames, UI, people, hands, pedestals, floating dust, fireflies, sparkles or halos outside the object. Rarity frame will be added by the game.\n\nSubject: Medalion Czarnej Floty. A heavy officer's medallion serving as a dungeon-entry key: dark gunmetal round badge, aged brass raised anchor with three sail shapes, one small black-violet pearl at anchor crossing, chunky suspension loop and short navy cord. Pale ice-chitin edge segments on the rim, tiny white-fur knot at loop. Strong naval insignia, no words or numbers, not the Order compass-star.\nCatalog meaning (do not render text): Ciężki medalion noszony przez oficerów Czarnej Floty. Jest wejściówką do Wraku Czarnej Floty i zostaje zużyty przy wejściu.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/sunken_knight_armor.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/ghost_ship_captain.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/materials/black_pearl.png"
+      ],
+      "target": "godot/assets/items/regional/black_fleet_medallion.png",
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-29e3b846-2668-42b2-b54e-d6cc66781fca.png",
+      "background_seeds": [
+        [
+          0.626,
+          0.17
+        ],
+        [
+          0.776,
+          0.141
+        ]
+      ],
+      "background_method": "neutral_checker_reviewed_holes",
+      "neutral_edges": false
+    },
+    {
+      "category": "equipment",
+      "description": "Para ciemnych pereł, w których słychać szum morza nawet daleko od wybrzeża.",
+      "icon": "",
+      "id": "black_pearl_earrings",
+      "level": 16,
+      "name": "Kolczyki Czarnej Perły",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "earrings",
+      "sources": [
+        {
+          "ingredients": {
+            "black_pearl": 2,
+            "common_essence": 3,
+            "ice_chitin": 3,
+            "spark_of_life": 1
+          },
+          "recipe": "black_pearl_earrings",
+          "region": "ice_coast"
+        }
+      ],
+      "family": "black_sea",
+      "design": "A matched pair of wearable earrings, two small black pearls with smooth violet-blue nacre and broad restrained highlights, silver hooks and frosted pale-blue chitin crescent settings. Same black pearl identity as reference but remove golden pedestal completely. Pair arranged neatly side by side; no particles or glowing nebula background.",
+      "phase": 2,
+      "prompt": "Use case: stylized-concept.\nAsset type: one standalone 2D PNG inventory-item illustration for Echoes of Pythonia, square composition, final use at 64 pixels.\nReference roles: Image 1 is approved anime character STYLE ONLY (do not draw any person); Image 2 is the approved item's linework, broad shading and polish STYLE ONLY, do not copy its subject. Remaining images are source creature, faction or crafting-material DESIGN references only; do not inherit photographic microtexture, stands or backgrounds from them.\nStyle: polished hand-painted anime-fantasy JRPG item art, crisp refined contour, elegant readable shapes, broad controlled highlights, grouped cel-painterly shadows, medium restrained detail. Match the sophistication of the hero's equipment without photorealism, grain, mottled noise, excessive scratches or glitter; not flat clip art.\nComposition: exactly the requested item (a pair only when requested), fully visible, centered with 9 percent clear padding on every edge, longest silhouette about82 percent of canvas. Three-quarter presentation unless specified. No crop.\nBackground: transparent-alpha asset intended. Since previous requests painted a fake checkerboard, for this source use the explicit fallback: perfectly uniform flat pure magenta #FF00FF, including every hole in the object. No gradient, shadows, checker pattern or magenta reflection. The backdrop will be removed locally into true alpha.\nConstraints: no lettering, prices, numbers, rarity frames, UI, people, hands, pedestals, floating dust, fireflies, sparkles or halos outside the object. Rarity frame will be added by the game.\n\nSubject: Kolczyki Czarnej Perły. A matched pair of wearable earrings, two small black pearls with smooth violet-blue nacre and broad restrained highlights, silver hooks and frosted pale-blue chitin crescent settings. Same black pearl identity as reference but remove golden pedestal completely. Pair arranged neatly side by side; no particles or glowing nebula background.\nCatalog meaning (do not render text): Para ciemnych pereł, w których słychać szum morza nawet daleko od wybrzeża.\nLast 1 image(s): the newly designed actual crafting materials or faction emblems; preserve those shapes and palette in the finished gear.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/mage_female.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/cultist_pendant.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/materials/black_pearl.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/ice_crab.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-bc5c3cd6-4425-4188-94d6-f3ef4e3227ea.png"
+      ],
+      "target": "godot/assets/items/regional/black_pearl_earrings.png",
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-3c79c941-2717-4f8c-9794-d7f97bba47ee.png",
+      "background_seeds": [],
+      "background_method": "magenta_local_cutout",
+      "neutral_edges": true
+    },
+    {
+      "category": "equipment",
+      "description": "Czarna perła zamknięta w srebrnej oprawie. Jej energia odpowiada na przepływ Many Maga.",
+      "icon": "",
+      "id": "black_sea_amulet",
+      "level": 16,
+      "name": "Amulet Czarnego Morza",
+      "rarity": "epic",
+      "rarity_color": "aa69dc",
+      "rarity_label": "Epicki",
+      "regional": true,
+      "sets": [],
+      "slot": "necklace",
+      "sources": [
+        {
+          "chance": 0.02,
+          "enemy": "black_sea_siren",
+          "region": "ice_coast"
+        }
+      ],
+      "family": "black_sea",
+      "design": "One black pearl in a refined cold silver teardrop pendant setting, three overlapping fin-shaped prongs echo the blue-black siren's scales, violet-blue nacre with only broad smooth reflected light, thin dark chain loop. Faithful to the siren's navy/silver fin jewelry. No gold stand, no external aura.",
+      "phase": 2,
+      "prompt": "Use case: stylized-concept.\nAsset type: one standalone 2D PNG inventory-item illustration for Echoes of Pythonia, square composition, final use at 64 pixels.\nReference roles: Image 1 is approved anime character STYLE ONLY (do not draw any person); Image 2 is the approved item's linework, broad shading and polish STYLE ONLY, do not copy its subject. Remaining images are source creature, faction or crafting-material DESIGN references only; do not inherit photographic microtexture, stands or backgrounds from them.\nStyle: polished hand-painted anime-fantasy JRPG item art, crisp refined contour, elegant readable shapes, broad controlled highlights, grouped cel-painterly shadows, medium restrained detail. Match the sophistication of the hero's equipment without photorealism, grain, mottled noise, excessive scratches or glitter; not flat clip art.\nComposition: exactly the requested item (a pair only when requested), fully visible, centered with 9 percent clear padding on every edge, longest silhouette about82 percent of canvas. Three-quarter presentation unless specified. No crop.\nBackground: transparent-alpha asset intended. Since previous requests painted a fake checkerboard, for this source use the explicit fallback: perfectly uniform flat pure magenta #FF00FF, including every hole in the object. No gradient, shadows, checker pattern or magenta reflection. The backdrop will be removed locally into true alpha.\nConstraints: no lettering, prices, numbers, rarity frames, UI, people, hands, pedestals, floating dust, fireflies, sparkles or halos outside the object. Rarity frame will be added by the game.\n\nSubject: Amulet Czarnego Morza. One black pearl in a refined cold silver teardrop pendant setting, three overlapping fin-shaped prongs echo the blue-black siren's scales, violet-blue nacre with only broad smooth reflected light, thin dark chain loop. Faithful to the siren's navy/silver fin jewelry. No gold stand, no external aura.\nCatalog meaning (do not render text): Czarna perła zamknięta w srebrnej oprawie. Jej energia odpowiada na przepływ Many Maga.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/mage_female.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/cultist_pendant.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/black_sea_siren.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/materials/black_pearl.png"
+      ],
+      "target": "godot/assets/items/regional/black_sea_amulet.png",
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-9f8814e5-2f75-4a61-8dc0-3ea220c781b5.png",
+      "background_seeds": [],
+      "background_method": "magenta_local_cutout",
+      "neutral_edges": true
+    },
+    {
+      "category": "equipment",
+      "description": "Ciężka bransoleta należąca niegdyś do oficera Czarnej Floty. Jej ciemne ogniwa pozostają chłodne nawet z dala od północnego morza.",
+      "icon": "",
+      "id": "captain_signet",
+      "level": 17,
+      "name": "Bransoleta Czarnej Floty",
+      "rarity": "epic",
+      "rarity_color": "aa69dc",
+      "rarity_label": "Epicki",
+      "regional": true,
+      "sets": [],
+      "slot": "bracelet",
+      "sources": [
+        {
+          "chance": 0.12,
+          "enemy": "ghost_ship_captain",
+          "region": "ice_coast"
+        },
+        {
+          "ingredients": {
+            "black_pearl": 2,
+            "common_essence": 3,
+            "cursed_compass": 3
+          },
+          "recipe": "captain_signet",
+          "region": "ice_coast"
+        }
+      ],
+      "family": "black_fleet",
+      "design": "A heavy officer's BRACELET, not a finger ring despite legacy ID: five broad articulated dark gunmetal links forming an oval wrist cuff, aged brass anchor-and-sails central plate and two small black pearls. Navy recesses, subtle clean blue reflection. Naval design matches captain medallion and compass. Complete bracelet hole visible three-quarter view.",
+      "phase": 2,
+      "prompt": "Use case: stylized-concept.\nAsset type: one standalone 2D PNG inventory-item illustration for Echoes of Pythonia, square composition, final use at 64 pixels.\nReference roles: Image 1 is approved anime character STYLE ONLY (do not draw any person); Image 2 is the approved item's linework, broad shading and polish STYLE ONLY, do not copy its subject. Remaining images are source creature, faction or crafting-material DESIGN references only; do not inherit photographic microtexture, stands or backgrounds from them.\nStyle: polished hand-painted anime-fantasy JRPG item art, crisp refined contour, elegant readable shapes, broad controlled highlights, grouped cel-painterly shadows, medium restrained detail. Match the sophistication of the hero's equipment without photorealism, grain, mottled noise, excessive scratches or glitter; not flat clip art.\nComposition: exactly the requested item (a pair only when requested), fully visible, centered with 9 percent clear padding on every edge, longest silhouette about82 percent of canvas. Three-quarter presentation unless specified. No crop.\nBackground: transparent-alpha asset intended. Since previous requests painted a fake checkerboard, for this source use the explicit fallback: perfectly uniform flat pure magenta #FF00FF, including every hole in the object. No gradient, shadows, checker pattern or magenta reflection. The backdrop will be removed locally into true alpha.\nConstraints: no lettering, prices, numbers, rarity frames, UI, people, hands, pedestals, floating dust, fireflies, sparkles or halos outside the object. Rarity frame will be added by the game.\n\nSubject: Bransoleta Czarnej Floty. A heavy officer's BRACELET, not a finger ring despite legacy ID: five broad articulated dark gunmetal links forming an oval wrist cuff, aged brass anchor-and-sails central plate and two small black pearls. Navy recesses, subtle clean blue reflection. Naval design matches captain medallion and compass. Complete bracelet hole visible three-quarter view.\nCatalog meaning (do not render text): Ciężka bransoleta należąca niegdyś do oficera Czarnej Floty. Jej ciemne ogniwa pozostają chłodne nawet z dala od północnego morza.\nLast 2 image(s): the newly designed actual crafting materials or faction emblems; preserve those shapes and palette in the finished gear.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/cultist_pendant.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/ghost_ship_captain.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-29e3b846-2668-42b2-b54e-d6cc66781fca.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-dd560ba9-91b5-499a-916b-0872464d4a74.png"
+      ],
+      "target": "godot/assets/items/regional/captain_signet.png",
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-742110af-b072-42fb-bf07-80f3b030761f.png",
+      "background_seeds": [],
+      "background_method": "magenta_local_cutout",
+      "neutral_edges": false
+    },
+    {
+      "category": "material",
+      "description": "Stary kompas kapitański. Igła zawsze wskazuje w stronę czarnego morza.",
+      "icon": "",
+      "id": "cursed_compass",
+      "level": 0,
+      "name": "Przeklęty Kompas",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 1,
+          "enemy": "ghost_ship_captain",
+          "region": "ice_coast"
+        },
+        {
+          "chance": 0.18,
+          "enemy": "cursed_sailor",
+          "region": "dungeon"
+        },
+        {
+          "chance": 0.25,
+          "enemy": "cursed_gunner",
+          "region": "dungeon"
+        },
+        {
+          "chance": 0.65,
+          "enemy": "black_fleet_boatswain",
+          "region": "dungeon"
+        },
+        {
+          "chance": 1,
+          "enemy": "black_fleet_first_officer",
+          "region": "dungeon"
+        },
+        {
+          "chance": 1,
+          "enemy": "admiral_varek",
+          "region": "dungeon"
+        }
+      ],
+      "family": "black_fleet",
+      "design": "One antique ship captain's pocket compass, open circular brass lid tipped backward, dark navy dial with a clean silver pointer and eight geometrical tick marks, no letters or numbers. Thick worn brass body, cold blue-grey reflections, navy leather strap stub, small anchor engraving inside lid. Subtle supernatural quality within needle only; no smoke/particles.",
+      "phase": 1,
+      "prompt": "Use case: stylized-concept.\nAsset type: one standalone 2D PNG inventory-item illustration for Echoes of Pythonia, square composition, final use at 64 pixels.\nReference roles: Image 1 is approved anime character STYLE ONLY (do not draw any person); Image 2 is the approved item's linework, broad shading and polish STYLE ONLY, do not copy its subject. Remaining images are source creature, faction or crafting-material DESIGN references only; do not inherit photographic microtexture, stands or backgrounds from them.\nStyle: polished hand-painted anime-fantasy JRPG item art, crisp refined contour, elegant readable shapes, broad controlled highlights, grouped cel-painterly shadows, medium restrained detail. Match the sophistication of the hero's equipment without photorealism, grain, mottled noise, excessive scratches or glitter; not flat clip art.\nComposition: exactly the requested item (a pair only when requested), fully visible, centered with 9 percent clear padding on every edge, longest silhouette about82 percent of canvas. Three-quarter presentation unless specified. No crop.\nBackground: genuinely transparent alpha, including openings inside rings/handles. Do NOT draw a checkerboard, scene, floor, vignette or cast shadow. If alpha output is not possible, use perfectly solid pure magenta #FF00FF behind everything instead, without gradients or color spill; never simulated checkerboard.\nConstraints: no lettering, prices, numbers, rarity frames, UI, people, hands, pedestals, floating dust, fireflies, sparkles or halos outside the object. Rarity frame will be added by the game.\n\nSubject: Przeklęty Kompas. One antique ship captain's pocket compass, open circular brass lid tipped backward, dark navy dial with a clean silver pointer and eight geometrical tick marks, no letters or numbers. Thick worn brass body, cold blue-grey reflections, navy leather strap stub, small anchor engraving inside lid. Subtle supernatural quality within needle only; no smoke/particles.\nCatalog meaning (do not render text): Stary kompas kapitański. Igła zawsze wskazuje w stronę czarnego morza.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/sunken_knight_armor.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/ghost_ship_captain.png"
+      ],
+      "target": "godot/assets/items/regional/cursed_compass.png",
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-dd560ba9-91b5-499a-916b-0872464d4a74.png",
+      "background_seeds": [
+        [
+          0.323,
+          0.823
+        ]
+      ],
+      "background_method": "neutral_checker_reviewed_holes",
+      "neutral_edges": false
+    },
+    {
+      "category": "material",
+      "description": "Gruby materiał zdjęty z odzieży rozbitków. Mróz usztywnił włókna, ale ich nie zniszczył.",
+      "icon": "",
+      "id": "frozen_cloth",
+      "level": 0,
+      "name": "Zamarznięta Tkanina",
+      "rarity": "common",
+      "rarity_color": "8b929c",
+      "rarity_label": "Zwykły",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.75,
+          "enemy": "frozen_castaway",
+          "region": "ice_coast"
+        },
+        {
+          "chance": 0.7,
+          "enemy": "cursed_sailor",
+          "region": "dungeon"
+        },
+        {
+          "chance": 0.6,
+          "enemy": "black_fleet_drowned",
+          "region": "dungeon"
+        }
+      ],
+      "family": "ice_coast",
+      "design": "One compact folded scrap bundle of the frozen castaway's dark slate-blue and faded grey thick cloth, three clear folds, torn lower edge and pale ice-blue frost confined along a few seams. Cloth visibly flexible below crust, no loose ice shards, no jewellery, no gold ornaments. Practical common crafting material, simple bold silhouette with readable woven edging not microtexture.",
+      "phase": 1,
+      "prompt": "Use case: stylized-concept.\nAsset type: one standalone 2D PNG inventory-item illustration for Echoes of Pythonia, square composition, final use at 64 pixels.\nReference roles: Image 1 is approved anime character STYLE ONLY (do not draw any person); Image 2 is the approved item's linework, broad shading and polish STYLE ONLY, do not copy its subject. Remaining images are source creature, faction or crafting-material DESIGN references only; do not inherit photographic microtexture, stands or backgrounds from them.\nStyle: polished hand-painted anime-fantasy JRPG item art, crisp refined contour, elegant readable shapes, broad controlled highlights, grouped cel-painterly shadows, medium restrained detail. Match the sophistication of the hero's equipment without photorealism, grain, mottled noise, excessive scratches or glitter; not flat clip art.\nComposition: exactly the requested item (a pair only when requested), fully visible, centered with 9 percent clear padding on every edge, longest silhouette about82 percent of canvas. Three-quarter presentation unless specified. No crop.\nBackground: genuinely transparent alpha, including openings inside rings/handles. Do NOT draw a checkerboard, scene, floor, vignette or cast shadow. If alpha output is not possible, use perfectly solid pure magenta #FF00FF behind everything instead, without gradients or color spill; never simulated checkerboard.\nConstraints: no lettering, prices, numbers, rarity frames, UI, people, hands, pedestals, floating dust, fireflies, sparkles or halos outside the object. Rarity frame will be added by the game.\n\nSubject: Zamarznięta Tkanina. One compact folded scrap bundle of the frozen castaway's dark slate-blue and faded grey thick cloth, three clear folds, torn lower edge and pale ice-blue frost confined along a few seams. Cloth visibly flexible below crust, no loose ice shards, no jewellery, no gold ornaments. Practical common crafting material, simple bold silhouette with readable woven edging not microtexture.\nCatalog meaning (do not render text): Gruby materiał zdjęty z odzieży rozbitków. Mróz usztywnił włókna, ale ich nie zniszczył.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/sunken_knight_armor.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/frozen_castaway.png"
+      ],
+      "target": "godot/assets/items/regional/frozen_cloth.png",
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-f48171a4-3fd5-44cf-99b0-2abc9c716dad.png",
+      "background_seeds": [],
+      "background_method": "neutral_checker_exterior_only",
+      "neutral_edges": false
+    },
+    {
+      "category": "material",
+      "description": "Twardy fragment pancerza lodowego kraba.",
+      "icon": "",
+      "id": "ice_chitin",
+      "level": 0,
+      "name": "Lodowa Chityna",
+      "rarity": "uncommon",
+      "rarity_color": "4ab875",
+      "rarity_label": "Niepospolity",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.75,
+          "enemy": "ice_crab",
+          "region": "ice_coast"
+        }
+      ],
+      "family": "ice_coast",
+      "design": "One detached broad curved carapace plate from the ice crab reference: deep turquoise chitin underside, opaque icy blue faceted surface with three short triangular ridges at back. Looks like a crab shell segment rather than a generic crystal cluster. Thick broken shell edge visible, broad cel-painted frosty planes, no icicles floating around.",
+      "phase": 1,
+      "prompt": "Use case: stylized-concept.\nAsset type: one standalone 2D PNG inventory-item illustration for Echoes of Pythonia, square composition, final use at 64 pixels.\nReference roles: Image 1 is approved anime character STYLE ONLY (do not draw any person); Image 2 is the approved item's linework, broad shading and polish STYLE ONLY, do not copy its subject. Remaining images are source creature, faction or crafting-material DESIGN references only; do not inherit photographic microtexture, stands or backgrounds from them.\nStyle: polished hand-painted anime-fantasy JRPG item art, crisp refined contour, elegant readable shapes, broad controlled highlights, grouped cel-painterly shadows, medium restrained detail. Match the sophistication of the hero's equipment without photorealism, grain, mottled noise, excessive scratches or glitter; not flat clip art.\nComposition: exactly the requested item (a pair only when requested), fully visible, centered with 9 percent clear padding on every edge, longest silhouette about82 percent of canvas. Three-quarter presentation unless specified. No crop.\nBackground: genuinely transparent alpha, including openings inside rings/handles. Do NOT draw a checkerboard, scene, floor, vignette or cast shadow. If alpha output is not possible, use perfectly solid pure magenta #FF00FF behind everything instead, without gradients or color spill; never simulated checkerboard.\nConstraints: no lettering, prices, numbers, rarity frames, UI, people, hands, pedestals, floating dust, fireflies, sparkles or halos outside the object. Rarity frame will be added by the game.\n\nSubject: Lodowa Chityna. One detached broad curved carapace plate from the ice crab reference: deep turquoise chitin underside, opaque icy blue faceted surface with three short triangular ridges at back. Looks like a crab shell segment rather than a generic crystal cluster. Thick broken shell edge visible, broad cel-painted frosty planes, no icicles floating around.\nCatalog meaning (do not render text): Twardy fragment pancerza lodowego kraba.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/sunken_knight_armor.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/ice_crab.png"
+      ],
+      "target": "godot/assets/items/regional/ice_chitin.png",
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-bc5c3cd6-4425-4188-94d6-f3ef4e3227ea.png",
+      "background_seeds": [],
+      "background_method": "neutral_checker_exterior_only",
+      "neutral_edges": false
+    },
+    {
+      "category": "equipment",
+      "description": "Ciężki pierścień wykonany z fragmentów łuski Lewiatana Północy.",
+      "icon": "",
+      "id": "leviathan_ring",
+      "level": 18,
+      "name": "Pierścień Lewiatana",
+      "rarity": "epic",
+      "rarity_color": "aa69dc",
+      "rarity_label": "Epicki",
+      "regional": true,
+      "sets": [],
+      "slot": "ring",
+      "sources": [
+        {
+          "chance": 0.08,
+          "enemy": "leviathan_north",
+          "region": "ice_coast"
+        },
+        {
+          "ingredients": {
+            "black_pearl": 3,
+            "common_essence": 4,
+            "leviathan_scale": 6,
+            "spark_of_life": 1
+          },
+          "recipe": "leviathan_ring",
+          "region": "ice_coast"
+        }
+      ],
+      "family": "leviathan",
+      "design": "A heavy ring made of overlapping curved blue-jade Leviathan scales, cold silver structural band, central smooth black-violet pearl held by two fin-shaped scale prongs. Faithfully repeat long ridged teal scale morphology of the serpent and material reference. Three-quarter view with clear hole. No pedestal, no diffuse glow beyond silhouette.",
+      "phase": 2,
+      "prompt": "Use case: stylized-concept.\nAsset type: one standalone 2D PNG inventory-item illustration for Echoes of Pythonia, square composition, final use at 64 pixels.\nReference roles: Image 1 is approved anime character STYLE ONLY (do not draw any person); Image 2 is the approved item's linework, broad shading and polish STYLE ONLY, do not copy its subject. Remaining images are source creature, faction or crafting-material DESIGN references only; do not inherit photographic microtexture, stands or backgrounds from them.\nStyle: polished hand-painted anime-fantasy JRPG item art, crisp refined contour, elegant readable shapes, broad controlled highlights, grouped cel-painterly shadows, medium restrained detail. Match the sophistication of the hero's equipment without photorealism, grain, mottled noise, excessive scratches or glitter; not flat clip art.\nComposition: exactly the requested item (a pair only when requested), fully visible, centered with 9 percent clear padding on every edge, longest silhouette about82 percent of canvas. Three-quarter presentation unless specified. No crop.\nBackground: transparent-alpha asset intended. Since previous requests painted a fake checkerboard, for this source use the explicit fallback: perfectly uniform flat pure magenta #FF00FF, including every hole in the object. No gradient, shadows, checker pattern or magenta reflection. The backdrop will be removed locally into true alpha.\nConstraints: no lettering, prices, numbers, rarity frames, UI, people, hands, pedestals, floating dust, fireflies, sparkles or halos outside the object. Rarity frame will be added by the game.\n\nSubject: Pierścień Lewiatana. A heavy ring made of overlapping curved blue-jade Leviathan scales, cold silver structural band, central smooth black-violet pearl held by two fin-shaped scale prongs. Faithfully repeat long ridged teal scale morphology of the serpent and material reference. Three-quarter view with clear hole. No pedestal, no diffuse glow beyond silhouette.\nCatalog meaning (do not render text): Ciężki pierścień wykonany z fragmentów łuski Lewiatana Północy.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/mage_female.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/cultist_pendant.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/leviathan_north.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/materials/leviathan_scale.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/materials/black_pearl.png"
+      ],
+      "target": "godot/assets/items/regional/leviathan_ring.png",
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-899aace7-8625-4ea2-8b33-caab265bfdcf.png",
+      "background_seeds": [],
+      "background_method": "magenta_local_cutout",
+      "neutral_edges": false
+    },
+    {
+      "category": "equipment",
+      "description": "Ciężki pancerz stworzony do przyjmowania ciosów na lodowych szlakach. Jego prawdziwy potencjał ujawnia Wojownik.",
+      "icon": "",
+      "id": "north_armor",
+      "level": 16,
+      "name": "Pancerz Północy",
+      "rarity": "epic",
+      "rarity_color": "aa69dc",
+      "rarity_label": "Epicki",
+      "regional": true,
+      "sets": [],
+      "slot": "chest",
+      "sources": [
+        {
+          "chance": 0.025,
+          "enemy": "ice_bear",
+          "region": "ice_coast"
+        }
+      ],
+      "family": "ice_coast",
+      "design": "One heavy warrior breastplate with rounded blue-grey steel plates and white ice-bear fur collar, thick dark navy cloth underlayer. Two clean pale-cyan chitin shoulder guards with compact ridges, modest silver fastenings, leather straps. Warm insulated northern armor, visually protective, not an ice sculpture. Empty torso garment without head/hands/legs or mannequin.",
+      "phase": 2,
+      "prompt": "Use case: stylized-concept.\nAsset type: one standalone 2D PNG inventory-item illustration for Echoes of Pythonia, square composition, final use at 64 pixels.\nReference roles: Image 1 is approved anime character STYLE ONLY (do not draw any person); Image 2 is the approved item's linework, broad shading and polish STYLE ONLY, do not copy its subject. Remaining images are source creature, faction or crafting-material DESIGN references only; do not inherit photographic microtexture, stands or backgrounds from them.\nStyle: polished hand-painted anime-fantasy JRPG item art, crisp refined contour, elegant readable shapes, broad controlled highlights, grouped cel-painterly shadows, medium restrained detail. Match the sophistication of the hero's equipment without photorealism, grain, mottled noise, excessive scratches or glitter; not flat clip art.\nComposition: exactly the requested item (a pair only when requested), fully visible, centered with 9 percent clear padding on every edge, longest silhouette about82 percent of canvas. Three-quarter presentation unless specified. No crop.\nBackground: transparent-alpha asset intended. Since previous requests painted a fake checkerboard, for this source use the explicit fallback: perfectly uniform flat pure magenta #FF00FF, including every hole in the object. No gradient, shadows, checker pattern or magenta reflection. The backdrop will be removed locally into true alpha.\nConstraints: no lettering, prices, numbers, rarity frames, UI, people, hands, pedestals, floating dust, fireflies, sparkles or halos outside the object. Rarity frame will be added by the game.\n\nSubject: Pancerz Północy. One heavy warrior breastplate with rounded blue-grey steel plates and white ice-bear fur collar, thick dark navy cloth underlayer. Two clean pale-cyan chitin shoulder guards with compact ridges, modest silver fastenings, leather straps. Warm insulated northern armor, visually protective, not an ice sculpture. Empty torso garment without head/hands/legs or mannequin.\nCatalog meaning (do not render text): Ciężki pancerz stworzony do przyjmowania ciosów na lodowych szlakach. Jego prawdziwy potencjał ujawnia Wojownik.\nLast 2 image(s): the newly designed actual crafting materials or faction emblems; preserve those shapes and palette in the finished gear.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/sunken_knight_armor.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/ice_bear.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-3cf7626d-d6d9-4e33-91c7-e6ca3e1f525f.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-bc5c3cd6-4425-4188-94d6-f3ef4e3227ea.png"
+      ],
+      "target": "godot/assets/items/regional/north_armor.png",
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-10048565-7758-4ba4-ae84-7a8e6f88e14d.png",
+      "previous_source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-ffefd8f1-df9e-45ad-965c-d0be94562cf4.png",
+      "edit_prompt": "Use case: precise-object-edit. Image 1 is the EDIT TARGET. Preserve this exact North Armor illustration: same empty torso silhouette, ice-crab shell shoulders, white bear fur, navy cloth, steel plates, leather belt, proportions, palette, angle, hand-painted anime style and flat pure magenta background. Change ONLY the three compass-star emblems. Remove the large compass-star badge on the chest and continue smooth overlapping steel breastplate planes through that space with a small embossed bear paw instead. On both small shoulder round clasps replace compass stars with plain polished silver rivet discs. Preserve the bear paw already on the belt. This is northern bear/crab equipment, NOT the Sunken Order, so no stars, compass roses or other faction symbols anywhere. No new glow, particles or extra accessories. Whole armor remains visible, same framing.",
+      "background_seeds": [],
+      "background_method": "magenta_local_cutout",
+      "neutral_edges": true
+    },
+    {
+      "category": "equipment",
+      "description": "Solidne buty przygotowane do marszu po lodzie, śniegu i mokrych skałach.",
+      "icon": "",
+      "id": "northern_trail_boots",
+      "level": 15,
+      "name": "Buty Północnego Szlaku",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "feet",
+      "sources": [
+        {
+          "ingredients": {
+            "common_essence": 2,
+            "frozen_cloth": 4,
+            "ice_chitin": 2,
+            "snow_griffin_feather": 2,
+            "white_fur": 3
+          },
+          "recipe": "northern_trail_boots",
+          "region": "ice_coast"
+        }
+      ],
+      "family": "ice_coast",
+      "design": "One matching pair of rugged northern travel boots, dark slate frozen-cloth uppers, thick white bear-fur cuffs, pale cyan crab-chitin toe guards, small silver-grey feather-shaped side tabs recalling snow griffin and strapped leather soles. Practical sturdy pair, three-quarter view, slightly staggered but neither hidden. No snow ground or extra props.",
+      "phase": 2,
+      "prompt": "Use case: stylized-concept.\nAsset type: one standalone 2D PNG inventory-item illustration for Echoes of Pythonia, square composition, final use at 64 pixels.\nReference roles: Image 1 is approved anime character STYLE ONLY (do not draw any person); Image 2 is the approved item's linework, broad shading and polish STYLE ONLY, do not copy its subject. Remaining images are source creature, faction or crafting-material DESIGN references only; do not inherit photographic microtexture, stands or backgrounds from them.\nStyle: polished hand-painted anime-fantasy JRPG item art, crisp refined contour, elegant readable shapes, broad controlled highlights, grouped cel-painterly shadows, medium restrained detail. Match the sophistication of the hero's equipment without photorealism, grain, mottled noise, excessive scratches or glitter; not flat clip art.\nComposition: exactly the requested item (a pair only when requested), fully visible, centered with 9 percent clear padding on every edge, longest silhouette about82 percent of canvas. Three-quarter presentation unless specified. No crop.\nBackground: transparent-alpha asset intended. Since previous requests painted a fake checkerboard, for this source use the explicit fallback: perfectly uniform flat pure magenta #FF00FF, including every hole in the object. No gradient, shadows, checker pattern or magenta reflection. The backdrop will be removed locally into true alpha.\nConstraints: no lettering, prices, numbers, rarity frames, UI, people, hands, pedestals, floating dust, fireflies, sparkles or halos outside the object. Rarity frame will be added by the game.\n\nSubject: Buty Północnego Szlaku. One matching pair of rugged northern travel boots, dark slate frozen-cloth uppers, thick white bear-fur cuffs, pale cyan crab-chitin toe guards, small silver-grey feather-shaped side tabs recalling snow griffin and strapped leather soles. Practical sturdy pair, three-quarter view, slightly staggered but neither hidden. No snow ground or extra props.\nCatalog meaning (do not render text): Solidne buty przygotowane do marszu po lodzie, śniegu i mokrych skałach.\nLast 3 image(s): the newly designed actual crafting materials or faction emblems; preserve those shapes and palette in the finished gear.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/sunken_knight_armor.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-f48171a4-3fd5-44cf-99b0-2abc9c716dad.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-3cf7626d-d6d9-4e33-91c7-e6ca3e1f525f.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-bc5c3cd6-4425-4188-94d6-f3ef4e3227ea.png"
+      ],
+      "target": "godot/assets/items/regional/northern_trail_boots.png",
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-4c61ecf4-604c-49d0-a4f2-496f52e52dbd.png",
+      "background_seeds": [],
+      "background_method": "magenta_local_cutout",
+      "neutral_edges": true
+    },
+    {
+      "category": "equipment",
+      "description": "Lekki płaszcz z jasnych piór, pozwalający błyskawicznie wykorzystać chwilę po uniknięciu ciosu.",
+      "icon": "",
+      "id": "snow_griffin_cloak",
+      "level": 16,
+      "name": "Płaszcz Śnieżnego Gryfa",
+      "rarity": "epic",
+      "rarity_color": "aa69dc",
+      "rarity_label": "Epicki",
+      "regional": true,
+      "sets": [],
+      "slot": "chest",
+      "sources": [
+        {
+          "chance": 0.025,
+          "enemy": "snow_griffin",
+          "region": "ice_coast"
+        }
+      ],
+      "family": "ice_coast",
+      "design": "One elegant lightweight wearable cloak made of overlapping snow-griffin white feathers, cold lilac-grey cel shadows, long tapered mantle with swept wing-shaped shoulders and small antique-gold beak-shaped clasp. Feathers follow the actual griffin's wing shapes. Pale silver-blue fabric lining. Empty cloak, no mannequin, no bird or detached floating feathers.",
+      "phase": 2,
+      "prompt": "Use case: stylized-concept.\nAsset type: one standalone 2D PNG inventory-item illustration for Echoes of Pythonia, square composition, final use at 64 pixels.\nReference roles: Image 1 is approved anime character STYLE ONLY (do not draw any person); Image 2 is the approved item's linework, broad shading and polish STYLE ONLY, do not copy its subject. Remaining images are source creature, faction or crafting-material DESIGN references only; do not inherit photographic microtexture, stands or backgrounds from them.\nStyle: polished hand-painted anime-fantasy JRPG item art, crisp refined contour, elegant readable shapes, broad controlled highlights, grouped cel-painterly shadows, medium restrained detail. Match the sophistication of the hero's equipment without photorealism, grain, mottled noise, excessive scratches or glitter; not flat clip art.\nComposition: exactly the requested item (a pair only when requested), fully visible, centered with 9 percent clear padding on every edge, longest silhouette about82 percent of canvas. Three-quarter presentation unless specified. No crop.\nBackground: transparent-alpha asset intended. Since previous requests painted a fake checkerboard, for this source use the explicit fallback: perfectly uniform flat pure magenta #FF00FF, including every hole in the object. No gradient, shadows, checker pattern or magenta reflection. The backdrop will be removed locally into true alpha.\nConstraints: no lettering, prices, numbers, rarity frames, UI, people, hands, pedestals, floating dust, fireflies, sparkles or halos outside the object. Rarity frame will be added by the game.\n\nSubject: Płaszcz Śnieżnego Gryfa. One elegant lightweight wearable cloak made of overlapping snow-griffin white feathers, cold lilac-grey cel shadows, long tapered mantle with swept wing-shaped shoulders and small antique-gold beak-shaped clasp. Feathers follow the actual griffin's wing shapes. Pale silver-blue fabric lining. Empty cloak, no mannequin, no bird or detached floating feathers.\nCatalog meaning (do not render text): Lekki płaszcz z jasnych piór, pozwalający błyskawicznie wykorzystać chwilę po uniknięciu ciosu.\nLast 1 image(s): the newly designed actual crafting materials or faction emblems; preserve those shapes and palette in the finished gear.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/sunken_knight_armor.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/snow_griffin.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-5a56c84f-b19f-4e12-a3be-0778b28c38b4.png"
+      ],
+      "target": "godot/assets/items/regional/snow_griffin_cloak.png",
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-39295d71-344b-478b-8636-2e28636803f8.png",
+      "background_seeds": [],
+      "background_method": "magenta_local_cutout",
+      "neutral_edges": true
+    },
+    {
+      "category": "material",
+      "description": "Długie, jasne pióro zachowujące sprężystość mimo mrozu.",
+      "icon": "",
+      "id": "snow_griffin_feather",
+      "level": 0,
+      "name": "Pióro Śnieżnego Gryfa",
+      "rarity": "uncommon",
+      "rarity_color": "4ab875",
+      "rarity_label": "Niepospolity",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.7,
+          "enemy": "snow_griffin",
+          "region": "ice_coast"
+        }
+      ],
+      "family": "ice_coast",
+      "design": "One long white snow-griffin flight feather, graceful curve, strong pale grey central shaft, broad tidy white vanes, cool lilac-blue shadows toward base. Match actual wing feathers of reference. Single crafting material, no mounting/jewel/cord, no snowflakes or tiny glints. Keep a fine dark blue-grey outer contour so pale feather reads on light UI too.",
+      "phase": 1,
+      "prompt": "Use case: stylized-concept.\nAsset type: one standalone 2D PNG inventory-item illustration for Echoes of Pythonia, square composition, final use at 64 pixels.\nReference roles: Image 1 is approved anime character STYLE ONLY (do not draw any person); Image 2 is the approved item's linework, broad shading and polish STYLE ONLY, do not copy its subject. Remaining images are source creature, faction or crafting-material DESIGN references only; do not inherit photographic microtexture, stands or backgrounds from them.\nStyle: polished hand-painted anime-fantasy JRPG item art, crisp refined contour, elegant readable shapes, broad controlled highlights, grouped cel-painterly shadows, medium restrained detail. Match the sophistication of the hero's equipment without photorealism, grain, mottled noise, excessive scratches or glitter; not flat clip art.\nComposition: exactly the requested item (a pair only when requested), fully visible, centered with 9 percent clear padding on every edge, longest silhouette about82 percent of canvas. Three-quarter presentation unless specified. No crop.\nBackground: genuinely transparent alpha, including openings inside rings/handles. Do NOT draw a checkerboard, scene, floor, vignette or cast shadow. If alpha output is not possible, use perfectly solid pure magenta #FF00FF behind everything instead, without gradients or color spill; never simulated checkerboard.\nConstraints: no lettering, prices, numbers, rarity frames, UI, people, hands, pedestals, floating dust, fireflies, sparkles or halos outside the object. Rarity frame will be added by the game.\n\nSubject: Pióro Śnieżnego Gryfa. One long white snow-griffin flight feather, graceful curve, strong pale grey central shaft, broad tidy white vanes, cool lilac-blue shadows toward base. Match actual wing feathers of reference. Single crafting material, no mounting/jewel/cord, no snowflakes or tiny glints. Keep a fine dark blue-grey outer contour so pale feather reads on light UI too.\nCatalog meaning (do not render text): Długie, jasne pióro zachowujące sprężystość mimo mrozu.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/sunken_knight_armor.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/snow_griffin.png"
+      ],
+      "target": "godot/assets/items/regional/snow_griffin_feather.png",
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-5a56c84f-b19f-4e12-a3be-0778b28c38b4.png",
+      "background_seeds": [],
+      "background_method": "neutral_checker_exterior_only",
+      "neutral_edges": false
+    },
+    {
+      "category": "material",
+      "description": "Gęste futro lodowego niedźwiedzia, odporne na północny wiatr.",
+      "icon": "",
+      "id": "white_fur",
+      "level": 0,
+      "name": "Białe Futro",
+      "rarity": "common",
+      "rarity_color": "8b929c",
+      "rarity_label": "Zwykły",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.75,
+          "enemy": "ice_bear",
+          "region": "ice_coast"
+        }
+      ],
+      "family": "ice_coast",
+      "design": "One folded piece of thick white ice-bear fur with the buff-grey leather underside exposed at a turned corner, sweeping simplified tufts and cool pale blue-lilac shaded folds. Clearly a small crafting pelt swatch not a complete animal skin or living bear. No face/paws/claws, no tying ribbon, no gold trim. Fine dark grey outline preserves readability of white fur.",
+      "phase": 1,
+      "prompt": "Use case: stylized-concept.\nAsset type: one standalone 2D PNG inventory-item illustration for Echoes of Pythonia, square composition, final use at 64 pixels.\nReference roles: Image 1 is approved anime character STYLE ONLY (do not draw any person); Image 2 is the approved item's linework, broad shading and polish STYLE ONLY, do not copy its subject. Remaining images are source creature, faction or crafting-material DESIGN references only; do not inherit photographic microtexture, stands or backgrounds from them.\nStyle: polished hand-painted anime-fantasy JRPG item art, crisp refined contour, elegant readable shapes, broad controlled highlights, grouped cel-painterly shadows, medium restrained detail. Match the sophistication of the hero's equipment without photorealism, grain, mottled noise, excessive scratches or glitter; not flat clip art.\nComposition: exactly the requested item (a pair only when requested), fully visible, centered with 9 percent clear padding on every edge, longest silhouette about82 percent of canvas. Three-quarter presentation unless specified. No crop.\nBackground: genuinely transparent alpha, including openings inside rings/handles. Do NOT draw a checkerboard, scene, floor, vignette or cast shadow. If alpha output is not possible, use perfectly solid pure magenta #FF00FF behind everything instead, without gradients or color spill; never simulated checkerboard.\nConstraints: no lettering, prices, numbers, rarity frames, UI, people, hands, pedestals, floating dust, fireflies, sparkles or halos outside the object. Rarity frame will be added by the game.\n\nSubject: Białe Futro. One folded piece of thick white ice-bear fur with the buff-grey leather underside exposed at a turned corner, sweeping simplified tufts and cool pale blue-lilac shaded folds. Clearly a small crafting pelt swatch not a complete animal skin or living bear. No face/paws/claws, no tying ribbon, no gold trim. Fine dark grey outline preserves readability of white fur.\nCatalog meaning (do not render text): Gęste futro lodowego niedźwiedzia, odporne na północny wiatr.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/sunken_knight_armor.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/ice_bear.png"
+      ],
+      "target": "godot/assets/items/regional/white_fur.png",
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-3cf7626d-d6d9-4e33-91c7-e6ca3e1f525f.png",
+      "background_seeds": [],
+      "background_method": "neutral_checker_exterior_only",
+      "neutral_edges": false
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "",
+      "id": "varek_sabre",
+      "level": 20,
+      "name": "Szabla Admirała Vareka",
+      "rarity": "legendary",
+      "rarity_color": "e35b62",
+      "rarity_label": "Legendarny",
+      "regional": false,
+      "sets": [],
+      "slot": "weapon",
+      "sources": [
+        {
+          "chance": 0.1,
+          "enemy": "admiral_varek",
+          "region": "dungeon"
+        }
+      ],
+      "family": "black_fleet",
+      "design": "One full elegant long curved officer's black-steel sabre, icy blue sharpened bevel, aged brass wave inlay matching the fragment reference, dark navy grip and a swept brass basket guard with a small anchor insignia, black pearl pommel. Admiral's legendary weapon, more refined than ordinary pirate cutlass, complete silhouette diagonal. No floating magical trails.",
+      "phase": 2,
+      "prompt": "Use case: stylized-concept.\nAsset type: one standalone 2D PNG inventory-item illustration for Echoes of Pythonia, square composition, final use at 64 pixels.\nReference roles: Image 1 is approved anime character STYLE ONLY (do not draw any person); Image 2 is the approved item's linework, broad shading and polish STYLE ONLY, do not copy its subject. Remaining images are source creature, faction or crafting-material DESIGN references only; do not inherit photographic microtexture, stands or backgrounds from them.\nStyle: polished hand-painted anime-fantasy JRPG item art, crisp refined contour, elegant readable shapes, broad controlled highlights, grouped cel-painterly shadows, medium restrained detail. Match the sophistication of the hero's equipment without photorealism, grain, mottled noise, excessive scratches or glitter; not flat clip art.\nComposition: exactly the requested item (a pair only when requested), fully visible, centered with 9 percent clear padding on every edge, longest silhouette about82 percent of canvas. Three-quarter presentation unless specified. No crop.\nBackground: transparent-alpha asset intended. Since previous requests painted a fake checkerboard, for this source use the explicit fallback: perfectly uniform flat pure magenta #FF00FF, including every hole in the object. No gradient, shadows, checker pattern or magenta reflection. The backdrop will be removed locally into true alpha.\nConstraints: no lettering, prices, numbers, rarity frames, UI, people, hands, pedestals, floating dust, fireflies, sparkles or halos outside the object. Rarity frame will be added by the game.\n\nSubject: Szabla Admirała Vareka. One full elegant long curved officer's black-steel sabre, icy blue sharpened bevel, aged brass wave inlay matching the fragment reference, dark navy grip and a swept brass basket guard with a small anchor insignia, black pearl pommel. Admiral's legendary weapon, more refined than ordinary pirate cutlass, complete silhouette diagonal. No floating magical trails.\nCatalog meaning (do not render text): Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.\nLast 1 image(s): the newly designed actual crafting materials or faction emblems; preserve those shapes and palette in the finished gear.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/sunken_knight_armor.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/ghost_ship_captain.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/materials/black_pearl.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-857a5937-ec67-4314-8220-bbfa5529cf61.png"
+      ],
+      "target": "godot/assets/items/regional/varek_sabre.png",
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-9505ab50-ba56-42e1-8e86-b4b0a19d5235.png",
+      "background_seeds": [],
+      "background_method": "magenta_local_cutout",
+      "neutral_edges": false
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "",
+      "id": "black_sea_bow",
+      "level": 17,
+      "name": "Łuk Czarnego Morza",
+      "rarity": "epic",
+      "rarity_color": "aa69dc",
+      "rarity_label": "Epicki",
+      "regional": false,
+      "sets": [],
+      "slot": "weapon",
+      "sources": [
+        {
+          "class_pool": "ice_coast",
+          "enemies": [
+            "frozen_castaway",
+            "ice_bear",
+            "snow_griffin",
+            "ice_crab",
+            "black_sea_siren",
+            "ghost_ship_captain",
+            "leviathan_north"
+          ]
+        }
+      ],
+      "family": "black_sea",
+      "design": "A complete recurved bow of deep navy driftwood sheathed in flowing cold silver fin-like plates, teal Leviathan scale tips, a small black pearl at grip, pale blue-grey taut bowstring. Sleek anime hunter weapon matching coastal set, no arrow, no ocean backdrop or trail. Strong continuous silhouette and readable polished planes.",
+      "phase": 2,
+      "prompt": "Use case: stylized-concept.\nAsset type: one standalone 2D PNG inventory-item illustration for Echoes of Pythonia, square composition, final use at 64 pixels.\nReference roles: Image 1 is approved anime character STYLE ONLY (do not draw any person); Image 2 is the approved item's linework, broad shading and polish STYLE ONLY, do not copy its subject. Remaining images are source creature, faction or crafting-material DESIGN references only; do not inherit photographic microtexture, stands or backgrounds from them.\nStyle: polished hand-painted anime-fantasy JRPG item art, crisp refined contour, elegant readable shapes, broad controlled highlights, grouped cel-painterly shadows, medium restrained detail. Match the sophistication of the hero's equipment without photorealism, grain, mottled noise, excessive scratches or glitter; not flat clip art.\nComposition: exactly the requested item (a pair only when requested), fully visible, centered with 9 percent clear padding on every edge, longest silhouette about82 percent of canvas. Three-quarter presentation unless specified. No crop.\nBackground: transparent-alpha asset intended. Since previous requests painted a fake checkerboard, for this source use the explicit fallback: perfectly uniform flat pure magenta #FF00FF, including every hole in the object. No gradient, shadows, checker pattern or magenta reflection. The backdrop will be removed locally into true alpha.\nConstraints: no lettering, prices, numbers, rarity frames, UI, people, hands, pedestals, floating dust, fireflies, sparkles or halos outside the object. Rarity frame will be added by the game.\n\nSubject: Łuk Czarnego Morza. A complete recurved bow of deep navy driftwood sheathed in flowing cold silver fin-like plates, teal Leviathan scale tips, a small black pearl at grip, pale blue-grey taut bowstring. Sleek anime hunter weapon matching coastal set, no arrow, no ocean backdrop or trail. Strong continuous silhouette and readable polished planes.\nCatalog meaning (do not render text): Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/mage_female.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/sunken_knight_armor.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/leviathan_north.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/materials/black_pearl.png"
+      ],
+      "target": "godot/assets/items/regional/black_sea_bow.png",
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-ad6b3307-a91f-41b9-a465-f20a716b1412.png",
+      "background_seeds": [],
+      "background_method": "magenta_local_cutout",
+      "neutral_edges": true
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "",
+      "id": "black_sea_staff",
+      "level": 17,
+      "name": "Kostur Czarnego Morza",
+      "rarity": "epic",
+      "rarity_color": "aa69dc",
+      "rarity_label": "Epicki",
+      "regional": false,
+      "sets": [],
+      "slot": "weapon",
+      "sources": [
+        {
+          "class_pool": "ice_coast",
+          "enemies": [
+            "frozen_castaway",
+            "ice_bear",
+            "snow_griffin",
+            "ice_crab",
+            "black_sea_siren",
+            "ghost_ship_captain",
+            "leviathan_north"
+          ]
+        }
+      ],
+      "family": "black_sea",
+      "design": "One full long mage staff, deep navy shaft with cold silver flowing fin-shaped head cradling a single black-violet pearl, teal Leviathan scale collar and a small pale blue crystal tip. Clear elegant anime fantasy design, long shaft complete diagonal, no arbitrary gold vines, no smoke or external aura.",
+      "phase": 2,
+      "prompt": "Use case: stylized-concept.\nAsset type: one standalone 2D PNG inventory-item illustration for Echoes of Pythonia, square composition, final use at 64 pixels.\nReference roles: Image 1 is approved anime character STYLE ONLY (do not draw any person); Image 2 is the approved item's linework, broad shading and polish STYLE ONLY, do not copy its subject. Remaining images are source creature, faction or crafting-material DESIGN references only; do not inherit photographic microtexture, stands or backgrounds from them.\nStyle: polished hand-painted anime-fantasy JRPG item art, crisp refined contour, elegant readable shapes, broad controlled highlights, grouped cel-painterly shadows, medium restrained detail. Match the sophistication of the hero's equipment without photorealism, grain, mottled noise, excessive scratches or glitter; not flat clip art.\nComposition: exactly the requested item (a pair only when requested), fully visible, centered with 9 percent clear padding on every edge, longest silhouette about82 percent of canvas. Three-quarter presentation unless specified. No crop.\nBackground: transparent-alpha asset intended. Since previous requests painted a fake checkerboard, for this source use the explicit fallback: perfectly uniform flat pure magenta #FF00FF, including every hole in the object. No gradient, shadows, checker pattern or magenta reflection. The backdrop will be removed locally into true alpha.\nConstraints: no lettering, prices, numbers, rarity frames, UI, people, hands, pedestals, floating dust, fireflies, sparkles or halos outside the object. Rarity frame will be added by the game.\n\nSubject: Kostur Czarnego Morza. One full long mage staff, deep navy shaft with cold silver flowing fin-shaped head cradling a single black-violet pearl, teal Leviathan scale collar and a small pale blue crystal tip. Clear elegant anime fantasy design, long shaft complete diagonal, no arbitrary gold vines, no smoke or external aura.\nCatalog meaning (do not render text): Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/mage_female.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/sunken_knight_armor.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/black_sea_siren.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/materials/black_pearl.png"
+      ],
+      "target": "godot/assets/items/regional/black_sea_staff.png",
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-fcace952-17e9-4769-8314-03ba3cd31352.png",
+      "background_seeds": [],
+      "background_method": "magenta_local_cutout",
+      "neutral_edges": true
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "",
+      "id": "black_tide_fate_lance",
+      "level": 17,
+      "name": "Lanca Czarnego Losu",
+      "rarity": "epic",
+      "rarity_color": "aa69dc",
+      "rarity_label": "Epicki",
+      "regional": false,
+      "sets": [],
+      "slot": "weapon",
+      "sources": [
+        {
+          "class_pool": "ice_coast",
+          "enemies": [
+            "frozen_castaway",
+            "ice_bear",
+            "snow_griffin",
+            "ice_crab",
+            "black_sea_siren",
+            "ghost_ship_captain",
+            "leviathan_north"
+          ]
+        }
+      ],
+      "family": "black_sea",
+      "design": "One complete slender fate lance, long dark navy shaft, swept silver and deep-teal blade with one diamond-shaped cutout and black pearl under blade, short dark violet-navy ribbon. Cold silver fin motifs match Black Sea bow/staff, playful sharp elegance suitable for Pierrot, no skulls/particles/trails. Whole diagonal weapon visible.",
+      "phase": 2,
+      "prompt": "Use case: stylized-concept.\nAsset type: one standalone 2D PNG inventory-item illustration for Echoes of Pythonia, square composition, final use at 64 pixels.\nReference roles: Image 1 is approved anime character STYLE ONLY (do not draw any person); Image 2 is the approved item's linework, broad shading and polish STYLE ONLY, do not copy its subject. Remaining images are source creature, faction or crafting-material DESIGN references only; do not inherit photographic microtexture, stands or backgrounds from them.\nStyle: polished hand-painted anime-fantasy JRPG item art, crisp refined contour, elegant readable shapes, broad controlled highlights, grouped cel-painterly shadows, medium restrained detail. Match the sophistication of the hero's equipment without photorealism, grain, mottled noise, excessive scratches or glitter; not flat clip art.\nComposition: exactly the requested item (a pair only when requested), fully visible, centered with 9 percent clear padding on every edge, longest silhouette about82 percent of canvas. Three-quarter presentation unless specified. No crop.\nBackground: transparent-alpha asset intended. Since previous requests painted a fake checkerboard, for this source use the explicit fallback: perfectly uniform flat pure magenta #FF00FF, including every hole in the object. No gradient, shadows, checker pattern or magenta reflection. The backdrop will be removed locally into true alpha.\nConstraints: no lettering, prices, numbers, rarity frames, UI, people, hands, pedestals, floating dust, fireflies, sparkles or halos outside the object. Rarity frame will be added by the game.\n\nSubject: Lanca Czarnego Losu. One complete slender fate lance, long dark navy shaft, swept silver and deep-teal blade with one diamond-shaped cutout and black pearl under blade, short dark violet-navy ribbon. Cold silver fin motifs match Black Sea bow/staff, playful sharp elegance suitable for Pierrot, no skulls/particles/trails. Whole diagonal weapon visible.\nCatalog meaning (do not render text): Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/mage_female.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/sunken_knight_armor.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/black_sea_siren.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/materials/black_pearl.png"
+      ],
+      "target": "godot/assets/items/regional/black_tide_fate_lance.png",
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-3797bfc4-11a5-4537-9ceb-84cf74bf8b5c.png",
+      "background_seeds": [],
+      "background_method": "magenta_local_cutout",
+      "neutral_edges": true
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "",
+      "id": "hearthguard_shield",
+      "level": 14,
+      "name": "Tarcza Straży Paleniska",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": false,
+      "sets": [],
+      "slot": "off_hand",
+      "sources": [
+        {
+          "class_gear_pool": "late_game"
+        }
+      ],
+      "family": "hearth",
+      "design": "One sturdy heater shield matching Hearth bracers: charcoal-black broad central plate with two restrained ember-orange seams, angular pale bronze/bone-colored frame and rusty red salamander scale sections along sides. Central compact flame-shaped crest. Useful rare equipment not a gigantic demonic face; complete shield three-quarter front, no stand or hand.",
+      "phase": 2,
+      "prompt": "Use case: stylized-concept.\nAsset type: one standalone 2D PNG inventory-item illustration for Echoes of Pythonia, square composition, final use at 64 pixels.\nReference roles: Image 1 is approved anime character STYLE ONLY (do not draw any person); Image 2 is the approved item's linework, broad shading and polish STYLE ONLY, do not copy its subject. Remaining images are source creature, faction or crafting-material DESIGN references only; do not inherit photographic microtexture, stands or backgrounds from them.\nStyle: polished hand-painted anime-fantasy JRPG item art, crisp refined contour, elegant readable shapes, broad controlled highlights, grouped cel-painterly shadows, medium restrained detail. Match the sophistication of the hero's equipment without photorealism, grain, mottled noise, excessive scratches or glitter; not flat clip art.\nComposition: exactly the requested item (a pair only when requested), fully visible, centered with 9 percent clear padding on every edge, longest silhouette about82 percent of canvas. Three-quarter presentation unless specified. No crop.\nBackground: transparent-alpha asset intended. Since previous requests painted a fake checkerboard, for this source use the explicit fallback: perfectly uniform flat pure magenta #FF00FF, including every hole in the object. No gradient, shadows, checker pattern or magenta reflection. The backdrop will be removed locally into true alpha.\nConstraints: no lettering, prices, numbers, rarity frames, UI, people, hands, pedestals, floating dust, fireflies, sparkles or halos outside the object. Rarity frame will be added by the game.\n\nSubject: Tarcza Straży Paleniska. One sturdy heater shield matching Hearth bracers: charcoal-black broad central plate with two restrained ember-orange seams, angular pale bronze/bone-colored frame and rusty red salamander scale sections along sides. Central compact flame-shaped crest. Useful rare equipment not a gigantic demonic face; complete shield three-quarter front, no stand or hand.\nCatalog meaning (do not render text): Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/sunken_knight_armor.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/hearth_gauntlets.png"
+      ],
+      "target": "godot/assets/items/regional/hearthguard_shield.png",
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-713f3360-50cb-4f2a-83b6-8d7f65cc1b16.png",
+      "background_seeds": [],
+      "background_method": "magenta_local_cutout",
+      "neutral_edges": true
+    },
+    {
+      "category": "equipment",
+      "description": "Ciężka bransoleta nosząca zatarty znak Zatopionego Zakonu. Wciąż przewodzi energię dawnych pieczęci.",
+      "icon": "",
+      "id": "order_bracelet",
+      "level": 10,
+      "name": "Bransoleta Zakonu",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": false,
+      "sets": [],
+      "slot": "bracelet",
+      "sources": [],
+      "family": "order",
+      "design": "One thick blue-grey steel wrist cuff with aged bronze bordering and a central four-point compass-star crest engraved over navy enamel. Two restrained teal inset grooves and slightly rubbed corners. Three-quarter view shows clear wrist opening; belongs with Sunken Order armor/seal, not the naval anchor family.",
+      "phase": 2,
+      "prompt": "Use case: stylized-concept.\nAsset type: one standalone 2D PNG inventory-item illustration for Echoes of Pythonia, square composition, final use at 64 pixels.\nReference roles: Image 1 is approved anime character STYLE ONLY (do not draw any person); Image 2 is the approved item's linework, broad shading and polish STYLE ONLY, do not copy its subject. Remaining images are source creature, faction or crafting-material DESIGN references only; do not inherit photographic microtexture, stands or backgrounds from them.\nStyle: polished hand-painted anime-fantasy JRPG item art, crisp refined contour, elegant readable shapes, broad controlled highlights, grouped cel-painterly shadows, medium restrained detail. Match the sophistication of the hero's equipment without photorealism, grain, mottled noise, excessive scratches or glitter; not flat clip art.\nComposition: exactly the requested item (a pair only when requested), fully visible, centered with 9 percent clear padding on every edge, longest silhouette about82 percent of canvas. Three-quarter presentation unless specified. No crop.\nBackground: transparent-alpha asset intended. Since previous requests painted a fake checkerboard, for this source use the explicit fallback: perfectly uniform flat pure magenta #FF00FF, including every hole in the object. No gradient, shadows, checker pattern or magenta reflection. The backdrop will be removed locally into true alpha.\nConstraints: no lettering, prices, numbers, rarity frames, UI, people, hands, pedestals, floating dust, fireflies, sparkles or halos outside the object. Rarity frame will be added by the game.\n\nSubject: Bransoleta Zakonu. One thick blue-grey steel wrist cuff with aged bronze bordering and a central four-point compass-star crest engraved over navy enamel. Two restrained teal inset grooves and slightly rubbed corners. Three-quarter view shows clear wrist opening; belongs with Sunken Order armor/seal, not the naval anchor family.\nCatalog meaning (do not render text): Ciężka bransoleta nosząca zatarty znak Zatopionego Zakonu. Wciąż przewodzi energię dawnych pieczęci.\nLast 1 image(s): the newly designed actual crafting materials or faction emblems; preserve those shapes and palette in the finished gear.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/cultist_pendant.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/sunken_knight_armor.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-3c014350-2e7c-4357-bc2e-23db930b3c2e.png"
+      ],
+      "target": "godot/assets/items/regional/order_bracelet.png",
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-21dacf08-ec06-4b92-827c-f1882ab8ace3.png",
+      "background_seeds": [],
+      "background_method": "magenta_local_cutout",
+      "neutral_edges": false
+    },
+    {
+      "category": "equipment",
+      "description": "Pierścień wykuty z fragmentu korony. Wzmacnia Manę i chroni przed wodną magią.",
+      "icon": "",
+      "id": "abyss_ring",
+      "level": 10,
+      "name": "Pierścień Głębin",
+      "rarity": "epic",
+      "rarity_color": "aa69dc",
+      "rarity_label": "Epicki",
+      "regional": false,
+      "sets": [],
+      "slot": "ring",
+      "sources": [
+        {
+          "chance": 0.08,
+          "enemy": "order_grandmaster",
+          "region": "dungeon"
+        }
+      ],
+      "family": "order",
+      "design": "One ring forged from a curved fragment of the Sunken Order crown: blue-grey dark silver band edged aged bronze, three small crown points supporting the same deep teal oval gemstone, a small four-point compass-star engraved on side. Three-quarter view shows clear hole. Water magic suggested only by clean blue reflections inside gem; no aura.",
+      "phase": 2,
+      "prompt": "Use case: stylized-concept.\nAsset type: one standalone 2D PNG inventory-item illustration for Echoes of Pythonia, square composition, final use at 64 pixels.\nReference roles: Image 1 is approved anime character STYLE ONLY (do not draw any person); Image 2 is the approved item's linework, broad shading and polish STYLE ONLY, do not copy its subject. Remaining images are source creature, faction or crafting-material DESIGN references only; do not inherit photographic microtexture, stands or backgrounds from them.\nStyle: polished hand-painted anime-fantasy JRPG item art, crisp refined contour, elegant readable shapes, broad controlled highlights, grouped cel-painterly shadows, medium restrained detail. Match the sophistication of the hero's equipment without photorealism, grain, mottled noise, excessive scratches or glitter; not flat clip art.\nComposition: exactly the requested item (a pair only when requested), fully visible, centered with 9 percent clear padding on every edge, longest silhouette about82 percent of canvas. Three-quarter presentation unless specified. No crop.\nBackground: transparent-alpha asset intended. Since previous requests painted a fake checkerboard, for this source use the explicit fallback: perfectly uniform flat pure magenta #FF00FF, including every hole in the object. No gradient, shadows, checker pattern or magenta reflection. The backdrop will be removed locally into true alpha.\nConstraints: no lettering, prices, numbers, rarity frames, UI, people, hands, pedestals, floating dust, fireflies, sparkles or halos outside the object. Rarity frame will be added by the game.\n\nSubject: Pierścień Głębin. One ring forged from a curved fragment of the Sunken Order crown: blue-grey dark silver band edged aged bronze, three small crown points supporting the same deep teal oval gemstone, a small four-point compass-star engraved on side. Three-quarter view shows clear hole. Water magic suggested only by clean blue reflections inside gem; no aura.\nCatalog meaning (do not render text): Pierścień wykuty z fragmentu korony. Wzmacnia Manę i chroni przed wodną magią.\nLast 1 image(s): the newly designed actual crafting materials or faction emblems; preserve those shapes and palette in the finished gear.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/cultist_pendant.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/sunken_knight_armor.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-3e5c50a2-3b37-4791-8c70-5aa2e4ef7e63.png"
+      ],
+      "target": "godot/assets/items/regional/abyss_ring.png",
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-32df760a-9318-487e-af06-df379be695d3.png",
+      "background_seeds": [],
+      "background_method": "magenta_local_cutout",
+      "neutral_edges": false
+    }
+  ],
+  "generation_method": "Built-in imagegen; one call per item; existing user-authorized local background extraction where needed.",
+  "completed": "2026-09-06",
+  "review_sheet": "output/item_art/anime_batch_03_review.png",
+  "in_game_preview": "output/item_art/anime_batch_03_in_game.png",
+  "report": "docs/ART_BATCH_03_REPORT.md",
+  "verification": {
+    "asset_validation": "output/item_art/anime_batch_03_asset_validation.json",
+    "unique_rgba_512_icons": 30,
+    "previous_batch_revalidated": 30,
+    "godot_tests_passed": 53,
+    "godot_tests_total": 53,
+    "godot_assertions": 3647,
+    "godot_suites": 9,
+    "alpha_unit_tests_passed": 6,
+    "godot_test_log": "output/item_art/anime_batch_03_tests.log",
+    "catalog_total": 159,
+    "catalog_with_icons": 140,
+    "catalog_missing": 19,
+    "actual_inventory_render_reviewed": true,
+    "user_save_accessed": false,
+    "known_warnings": "Existing Windows certificate store and renderer/ObjectDB shutdown resource messages. Not a full-project test run."
+  }
+}

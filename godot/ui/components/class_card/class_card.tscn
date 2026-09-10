@@ -1,0 +1,180 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://ui/components/class_card/class_card.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="FooterStyle"]
+bg_color = Color(0.012, 0.025, 0.043, 0.94)
+border_width_top = 1
+border_color = Color(0.53, 0.4, 0.17, 0.72)
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="IconStyle"]
+bg_color = Color(0.035, 0.064, 0.102, 0.96)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.79, 0.62, 0.24, 0.86)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[sub_resource type="StyleBoxFlat" id="PermanentBadgeStyle"]
+bg_color = Color(0.035, 0.041, 0.047, 0.96)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.88, 0.65, 0.25, 0.95)
+corner_radius_top_left = 11
+corner_radius_top_right = 11
+corner_radius_bottom_right = 11
+corner_radius_bottom_left = 11
+content_margin_left = 9.0
+content_margin_top = 4.0
+content_margin_right = 9.0
+content_margin_bottom = 4.0
+
+[sub_resource type="Gradient" id="ArtworkGradient"]
+offsets = PackedFloat32Array(0, 0.62, 1)
+colors = PackedColorArray(0.01, 0.02, 0.035, 0.02, 0.01, 0.02, 0.035, 0.08, 0.006, 0.014, 0.025, 0.78)
+
+[sub_resource type="GradientTexture2D" id="ArtworkGradientTexture"]
+gradient = SubResource("ArtworkGradient")
+fill_from = Vector2(0.5, 0)
+fill_to = Vector2(0.5, 1)
+
+[node name="ClassCard" type="Button"]
+custom_minimum_size = Vector2(238, 196)
+offset_right = 250.0
+offset_bottom = 196.0
+focus_mode = 2
+mouse_default_cursor_shape = 2
+action_mode = 0
+script = ExtResource("1_script")
+
+[node name="Content" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="ArtworkContainer" type="Control" parent="Content"]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.0
+mouse_filter = 2
+
+[node name="CharacterArt" type="TextureRect" parent="Content/ArtworkContainer"]
+unique_name_in_owner = true
+layout_mode = 0
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Placeholder" type="CenterContainer" parent="Content/ArtworkContainer"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PlaceholderSymbol" type="Label" parent="Content/ArtworkContainer/Placeholder"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.57, 0.49, 0.34, 0.84)
+theme_override_font_sizes/font_size = 26
+text = "◆\n\nGRAFIKA KLASY"
+horizontal_alignment = 1
+
+[node name="GradientOverlay" type="TextureRect" parent="Content/ArtworkContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("ArtworkGradientTexture")
+expand_mode = 1
+
+[node name="IconBadge" type="PanelContainer" parent="Content/ArtworkContainer"]
+layout_mode = 1
+anchors_preset = 2
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -52.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 52.0
+grow_horizontal = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("IconStyle")
+
+[node name="ClassIcon" type="Label" parent="Content/ArtworkContainer/IconBadge"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94, 0.77, 0.36, 1)
+theme_override_font_sizes/font_size = 22
+text = "◆"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PermanentBadge" type="PanelContainer" parent="Content/ArtworkContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 154.0
+offset_bottom = 38.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("PermanentBadgeStyle")
+
+[node name="Label" type="Label" parent="Content/ArtworkContainer/PermanentBadge"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.78, 0.29, 1)
+theme_override_font_sizes/font_size = 11
+text = "WYBRANO NA STAŁE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Footer" type="PanelContainer" parent="Content"]
+custom_minimum_size = Vector2(0, 62)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("FooterStyle")
+
+[node name="Labels" type="VBoxContainer" parent="Content/Footer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 2
+
+[node name="ClassName" type="Label" parent="Content/Footer/Labels"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.78, 0.38, 1)
+theme_override_font_sizes/font_size = 20
+text = "WOJOWNIK"
+horizontal_alignment = 1
+
+[node name="ManaLabel" type="Label" parent="Content/Footer/Labels"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.78, 1, 1)
+theme_override_font_sizes/font_size = 13
+text = "◉  Bazowa Mana: 12"
+horizontal_alignment = 1

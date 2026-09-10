@@ -27,7 +27,7 @@ color = Color(0.012, 0.023, 0.041, 1)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 6.0
+offset_bottom = 2.0
 grow_horizontal = 2
 mouse_filter = 2
 color = Color(0.73, 0.52, 0.17, 1)
@@ -39,45 +39,22 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 64
-theme_override_constants/margin_top = 36
-theme_override_constants/margin_right = 64
-theme_override_constants/margin_bottom = 28
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
 
 [node name="Page" type="VBoxContainer" parent="SafeArea"]
 layout_mode = 2
-theme_override_constants/separation = 18
-
-[node name="Header" type="HBoxContainer" parent="SafeArea/Page"]
-layout_mode = 2
-
-[node name="Brand" type="Label" parent="SafeArea/Page/Header"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
-theme_override_font_sizes/font_size = 24
-text = "ECHOES OF PYTHONIA"
-
-[node name="HeaderSpacer" type="Control" parent="SafeArea/Page/Header"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Version" type="Label" parent="SafeArea/Page/Header"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.45, 0.53, 0.64, 1)
-text = "v0.25.0  •  GODOT 4"
-
-[node name="HeaderSeparator" type="HSeparator" parent="SafeArea/Page"]
-layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="ScreenHost" type="Control" parent="SafeArea/Page"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="FooterSeparator" type="HSeparator" parent="SafeArea/Page"]
-layout_mode = 2
-
 [node name="Footer" type="HBoxContainer" parent="SafeArea/Page"]
+visible = false
 layout_mode = 2
 
 [node name="AppStatusLabel" type="Label" parent="SafeArea/Page/Footer"]

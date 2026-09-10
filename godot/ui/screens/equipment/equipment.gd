@@ -63,17 +63,38 @@ const CATEGORY_NAMES := ["Wszystko", "Wyposażenie", "Użytkowe", "Materiały", 
 var _session: GameSessionClass
 
 @onready var hero_stats_label: Label = %HeroStatsLabel
+@onready var stats_name_label: Label = %StatsNameLabel
+@onready var stats_level_label: Label = %StatsLevelLabel
+@onready var stats_experience_label: Label = %StatsExperienceLabel
+@onready var stats_experience_bar: ProgressBar = %StatsExperienceBar
+@onready var stats_hp_label: Label = %StatsHpLabel
+@onready var stats_mana_label: Label = %StatsManaLabel
+@onready var stats_attack_label: Label = %StatsAttackLabel
+@onready var stats_defense_label: Label = %StatsDefenseLabel
+@onready var stats_dodge_label: Label = %StatsDodgeLabel
+@onready var stats_strength_label: Label = %StatsStrengthLabel
+@onready var stats_vitality_label: Label = %StatsVitalityLabel
+@onready var stats_intelligence_label: Label = %StatsIntelligenceLabel
+@onready var stats_dexterity_label: Label = %StatsDexterityLabel
+@onready var stats_endurance_label: Label = %StatsEnduranceLabel
+@onready var stats_luck_label: Label = %StatsLuckLabel
+@onready var stats_carry_label: Label = %StatsCarryLabel
+@onready var stats_gold_label: Label = %StatsGoldLabel
+@onready var stats_status_label: Label = %StatsStatusLabel
 @onready var equipped_list: ItemList = %EquippedList
 @onready var inventory_list: ItemList = %InventoryList
 @onready var unequip_button: Button = %UnequipButton
 @onready var equip_button: Button = %EquipButton
 @onready var read_book_button: Button = %ReadBookButton
 @onready var details_label: Label = %DetailsLabel
+@onready var details_icon: TextureRect = %DetailsIcon
 @onready var feedback_label: Label = %FeedbackLabel
 @onready var category_tabs: TabBar = %CategoryTabs
 @onready var inventory_grid: InventoryGridView = %InventoryGrid
 @onready var inventory_drop_zone: PanelContainer = %InventoryDropZone
 @onready var character_visual: CharacterPaperdoll = %CharacterVisual
+@onready var workspace: HBoxContainer = $Page/Workspace
+@onready var stats_panel: PanelContainer = $Page/Workspace/StatsPanel
 @onready var slot_buttons := {
 	PlayerEquipmentClass.WEAPON: %WeaponSlot,
 	PlayerEquipmentClass.OFF_HAND: %OffHandSlot,
@@ -90,6 +111,9 @@ var _session: GameSessionClass
 
 
 func _ready() -> void:
+	# Wspólny ekran postaci ma kolejność zgodną z docelowym projektem:
+	# statystyki, sylwetka, plecak. Zachowanie nazw węzłów chroni istniejące testy i mechaniki.
+	workspace.move_child(stats_panel, 0)
 	%BackButton.pressed.connect(back_requested.emit)
 	equipped_list.item_selected.connect(_on_equipped_selected)
 	inventory_list.item_selected.connect(_on_inventory_selected)
@@ -149,6 +173,33 @@ func _refresh() -> void:
 			load.display_name,
 		]
 	)
+	stats_name_label.text = player.display_name
+	stats_level_label.text = "POZIOM %d • %s" % [player.level, player.character_class_name]
+	var experience_required := maxi(1, player.experience_to_next_level())
+	stats_experience_label.text = "EXP %d / %d" % [player.experience, experience_required]
+	stats_experience_bar.max_value = experience_required
+	stats_experience_bar.value = player.experience
+	stats_hp_label.text = "%d / %d" % [player.stats.current_hp, player.stats.max_hp]
+	stats_mana_label.text = "%d / %d" % [player.stats.current_mana, player.stats.max_mana]
+	stats_attack_label.text = str(player.stats.attack)
+	stats_defense_label.text = str(player.stats.defense)
+	stats_dodge_label.text = "%.1f%%" % player.stats.dodge
+	stats_strength_label.text = str(player.attributes.strength)
+	stats_vitality_label.text = str(player.attributes.vitality)
+	stats_intelligence_label.text = str(player.attributes.intelligence)
+	stats_dexterity_label.text = str(player.attributes.dexterity)
+	stats_endurance_label.text = str(player.attributes.endurance)
+	stats_luck_label.text = str(player.attributes.luck)
+	stats_carry_label.text = "%.1f / %.1f kg" % [load.current_kg, load.capacity_kg]
+	stats_gold_label.text = str(player.gold)
+	stats_status_label.text = "Stan udźwigu: %s" % load.display_name
+	(
+		stats_status_label
+		. add_theme_color_override(
+			"font_color",
+			Color(0.95, 0.36, 0.4) if load.overloaded else Color(0.45, 0.75, 0.52),
+		)
+	)
 	_refresh_equipped_items()
 	_refresh_inventory_items()
 	_refresh_paperdoll()
@@ -156,7 +207,9 @@ func _refresh() -> void:
 	unequip_button.disabled = true
 	equip_button.disabled = true
 	read_book_button.disabled = true
-	details_label.text = "Najedź na przedmiot, aby zobaczyć jego opis i statystyki."
+	_set_details(
+		"Wybierz przedmiot z plecaka lub wyposażenia, " + "aby zobaczyć jego opis i statystyki."
+	)
 
 
 func _category_changed(_index: int) -> void:
@@ -164,7 +217,6 @@ func _category_changed(_index: int) -> void:
 
 
 func _refresh_paperdoll() -> void:
-	var class_code := _session.player.character_class_code
 	var class_display_name := _session.player.character_class_name.to_upper()
 	(
 		character_visual
@@ -204,6 +256,7 @@ func _refresh_inventory_grid() -> void:
 			continue
 		var item: EquipmentItemClass = items[index]
 		var metadata := {"kind": "equipment", "index": index}
+		var equip_error := _session.player.get_equip_error(index)
 		(
 			entries
 			. append(
@@ -215,6 +268,9 @@ func _refresh_inventory_grid() -> void:
 					"tooltip": _format_item_details(item, true),
 					"metadata": metadata,
 					"drag_payload": metadata,
+					"locked": not equip_error.is_empty(),
+					"lock_reason": equip_error,
+					"lock_label": _equipment_lock_label(item, equip_error),
 					"footprint": ItemGridLayoutClass.footprint_for("equipment", item.slot),
 				}
 			)
@@ -263,19 +319,25 @@ func _select_inventory_metadata(metadata: Dictionary) -> void:
 func _show_equipped_details(slot: String) -> void:
 	var item: EquipmentItemClass = _session.player.equipment.get_item(slot)
 	if item != null:
-		details_label.text = _format_item_details(item)
+		_set_details(_format_item_details(item), item.definition.icon)
 
 
 func _show_inventory_metadata(metadata: Dictionary) -> void:
 	if metadata.get("kind", "") == "equipment":
 		var index := int(metadata.get("index", -1))
 		if index >= 0 and index < _session.player.inventory.equipment_items.size():
-			details_label.text = _format_item_details(
-				_session.player.inventory.equipment_items[index], true
-			)
+			var item: EquipmentItemClass = _session.player.inventory.equipment_items[index]
+			_set_details(_format_item_details(item, true), item.definition.icon)
 		return
 	if metadata.get("kind", "") == "stack":
-		details_label.text = _format_stack_details(str(metadata.get("item_id", "")))
+		var item_id := str(metadata.get("item_id", ""))
+		_set_details(_format_stack_details(item_id), ItemCatalogClass.get_definition(item_id).icon)
+
+
+func _set_details(text: String, icon: Texture2D = null) -> void:
+	details_label.text = text
+	details_icon.texture = icon
+	details_icon.visible = icon != null
 
 
 func _activate_inventory_metadata(metadata: Dictionary) -> void:
@@ -420,7 +482,7 @@ func _on_equipped_selected(index: int) -> void:
 	var item: EquipmentItemClass = _session.player.equipment.get_item(slot)
 	unequip_button.disabled = item == null
 	if item != null:
-		details_label.text = _format_item_details(item)
+		_set_details(_format_item_details(item), item.definition.icon)
 
 
 func _on_inventory_selected(index: int) -> void:
@@ -437,7 +499,7 @@ func _on_inventory_selected(index: int) -> void:
 			feedback_label.text = (
 				read_error if not read_error.is_empty() else "Księga jest gotowa do przeczytania."
 			)
-		details_label.text = _format_stack_details(item_id)
+		_set_details(_format_stack_details(item_id), ItemCatalogClass.get_definition(item_id).icon)
 		return
 	read_book_button.disabled = true
 	var inventory_index: int = metadata.get("index", -1)
@@ -448,8 +510,11 @@ func _on_inventory_selected(index: int) -> void:
 	var item: EquipmentItemClass = items[inventory_index]
 	var error := _session.player.get_equip_error(inventory_index)
 	equip_button.disabled = not error.is_empty()
-	feedback_label.text = error if not error.is_empty() else "Przedmiot spełnia wymagania."
-	details_label.text = _format_item_details(item, true)
+	_set_feedback(
+		error if not error.is_empty() else "Przedmiot spełnia wymagania.",
+		not error.is_empty(),
+	)
+	_set_details(_format_item_details(item, true), item.definition.icon)
 
 
 func _unequip_selected() -> void:
@@ -459,9 +524,9 @@ func _unequip_selected() -> void:
 	var slot: String = equipped_list.get_item_metadata(selected[0])
 	var item = _session.player.unequip_to_inventory(slot)
 	if item == null:
-		feedback_label.text = "Tego slotu nie można teraz opróżnić."
+		_set_feedback("Tego slotu nie można teraz opróżnić.", true)
 		return
-	feedback_label.text = "%s trafia do plecaka." % item.formatted_name()
+	_set_feedback("%s trafia do plecaka." % item.formatted_name())
 	_refresh()
 
 
@@ -475,14 +540,34 @@ func _equip_selected() -> void:
 	var inventory_index: int = metadata.get("index", -1)
 	var error := _session.player.get_equip_error(inventory_index)
 	if not error.is_empty():
-		feedback_label.text = error
+		_set_feedback(error, true)
 		return
 	var item = _session.player.equip_from_inventory(inventory_index)
 	if item == null:
-		feedback_label.text = "Nie udało się założyć przedmiotu."
+		_set_feedback("Nie udało się założyć przedmiotu.", true)
 		return
-	feedback_label.text = "Założono: %s." % item.formatted_name()
+	_set_feedback("Założono: %s." % item.formatted_name())
 	_refresh()
+
+
+func _equipment_lock_label(item: EquipmentItemClass, equip_error: String) -> String:
+	if equip_error.is_empty():
+		return ""
+	if item.definition.required_level > _session.player.level:
+		return "POZIOM %d" % item.definition.required_level
+	if (
+		not item.definition.required_class_code.is_empty()
+		and item.definition.required_class_code != _session.player.character_class_code
+	):
+		return "INNA DROGA"
+	return "ZABLOKOWANE"
+
+
+func _set_feedback(message: String, is_error := false) -> void:
+	feedback_label.text = message
+	feedback_label.add_theme_color_override(
+		"font_color", Color(0.95, 0.31, 0.37) if is_error else Color(0.42, 0.78, 0.56)
+	)
 
 
 func _read_selected_book() -> void:

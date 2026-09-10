@@ -1,0 +1,814 @@
+{
+  "batch": 1,
+  "size": 30,
+  "status": "paused_for_style_alignment",
+  "integrated": 0,
+  "generated_drafts": [
+    "corrupted_hide",
+    "black_bear_claw"
+  ],
+  "style_prompt": "Create ONE finished 2D inventory item icon for the painted fantasy RPG Echoes of Pythonia. Image 1 is an existing ITEM STYLE reference (material finish and readable silhouette only, do not copy its subject). Image 2 is the SOURCE MONSTER reference: the item must plausibly come from this exact creature. Single isolated item, centered on a square canvas, comfortably fills 78-84% of frame with no cropping. Genuine transparent alpha background, no black/white rectangle, no checkerboard painted into image. Crisp hand-painted fantasy illustration, restrained texture, warm upper-left light, controlled highlights, clean contours, readable at 64px. Not a photo, not a glossy 3D product render. No scenery, hands, creature, lettering, border, rarity frame, numbers, floating particles, aura or pedestal. Preserve monster's material identity without adding arbitrary unrelated gems.",
+  "families": {
+    "spider": {
+      "enemy": "venom_spider",
+      "palette": "charcoal chitin, silver silk, muted yellow-green venom"
+    },
+    "cult": {
+      "enemy": "forest_cultist",
+      "palette": "black/moss green cloth, tarnished bronze, branch-in-circle symbol"
+    },
+    "knight": {
+      "enemy": "rotting_knight",
+      "palette": "old grey steel, brown rust, blue cloth, sparse moss"
+    },
+    "bear": {
+      "enemy": "corrupted_bear",
+      "palette": "charcoal-violet hide, dark horn, black resin"
+    },
+    "bear_knight": {
+      "enemies": [
+        "corrupted_bear",
+        "rotting_knight"
+      ],
+      "palette": "combine recipe ingredients: rusted plate + corrupted hide"
+    },
+    "wraith": {
+      "enemy": "gallows_wraith",
+      "palette": "confirm from monster before generation"
+    },
+    "hart": {
+      "enemy": "black_hart",
+      "palette": "confirm from monster before generation"
+    },
+    "executioner": {
+      "enemy": "blackwood_executioner",
+      "palette": "confirm from monster before generation"
+    },
+    "blackwood_class": {
+      "palette": "dark forest wood, charcoal leather, tarnished bronze, restrained green inlay"
+    },
+    "bog": {
+      "enemy": "bog_crawler",
+      "palette": "confirm from monster; wet olive-brown mud, reeds"
+    },
+    "drowned": {
+      "enemy": "drowned_dead",
+      "palette": "confirm from monster; cold steel, waterworn bone and green patina"
+    }
+  },
+  "items": [
+    {
+      "category": "material",
+      "description": "Nienaturalnie mocna nić z głębi Czarnego Boru.",
+      "icon": "",
+      "id": "spider_silk",
+      "level": 0,
+      "name": "Pajęcza Nić",
+      "rarity": "common",
+      "rarity_color": "8b929c",
+      "rarity_label": "Zwykły",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.7,
+          "enemy": "venom_spider",
+          "region": "black_forest"
+        }
+      ],
+      "family": "spider",
+      "design": "A compact loose bundle of strong silvery spider silk, a few distinct looping strands, not a woven cloth, no wooden spool. Silver-grey from the source spider web.",
+      "target": "godot/assets/items/regional/spider_silk.png",
+      "status": "planned"
+    },
+    {
+      "category": "material",
+      "description": "Wciąż pulsujący gruczoł wypełniony trucizną.",
+      "icon": "",
+      "id": "venom_gland",
+      "level": 0,
+      "name": "Gruczoł Jadowy",
+      "rarity": "uncommon",
+      "rarity_color": "4ab875",
+      "rarity_label": "Niepospolity",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.25,
+          "enemy": "venom_spider",
+          "region": "black_forest"
+        }
+      ],
+      "family": "spider",
+      "design": "One intact organic venom sac, muted yellow-green translucent membrane, dark chitinous short duct matching the venom spider's fangs. No bottle or arbitrary emerald, no gore.",
+      "target": "godot/assets/items/regional/venom_gland.png",
+      "status": "planned"
+    },
+    {
+      "category": "equipment",
+      "description": "Lekkie buty oplecione srebrzystą nicią.",
+      "icon": "",
+      "id": "spiderstep_boots",
+      "level": 3,
+      "name": "Buty Pajęczego Kroku",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "feet",
+      "sources": [
+        {
+          "chance": 0.1,
+          "enemy": "venom_spider",
+          "region": "black_forest"
+        }
+      ],
+      "family": "spider",
+      "design": "Pair of light charcoal leather boots laced and wrapped in distinct silvery spider-silk crossing bands. Small dark chitin eyelets, restrained yellow-green seam accent; compatible with spiderweave gloves. No mannequin or legs.",
+      "target": "godot/assets/items/regional/spiderstep_boots.png",
+      "status": "planned"
+    },
+    {
+      "category": "equipment",
+      "description": "Elastyczne rękawice utkane z pajęczej nici.",
+      "icon": "",
+      "id": "spiderweave_gloves",
+      "level": 3,
+      "name": "Rękawice Pajęczego Splotu",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "hands",
+      "sources": [],
+      "family": "spider",
+      "design": "Pair of fitted dark spider-silk gloves, flexible not plate armor, silvery crossing woven seams matching spiderstep boots, tiny muted venom-green seam accents. No hands inside.",
+      "target": "godot/assets/items/regional/spiderweave_gloves.png",
+      "status": "planned"
+    },
+    {
+      "category": "material",
+      "description": "Oderwany fragment czarnej ceremonialnej szaty, pokryty zaschniętą żywicą.",
+      "icon": "",
+      "id": "cultist_cloth",
+      "level": 0,
+      "name": "Fragment Szaty Kultysty",
+      "rarity": "common",
+      "rarity_color": "8b929c",
+      "rarity_label": "Zwykły",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.6,
+          "enemy": "forest_cultist",
+          "region": "black_forest"
+        }
+      ],
+      "family": "cult",
+      "design": "One torn black ceremonial robe cloth with very dark moss-green lining, a partial weathered branch-in-circle cult embroidery, a little dried black resin. Match the actual forest cultist clothing.",
+      "target": "godot/assets/items/regional/cultist_cloth.png",
+      "status": "planned"
+    },
+    {
+      "category": "material",
+      "description": "Metalowy znak nieznanego leśnego kultu.",
+      "icon": "",
+      "id": "dark_sigil",
+      "level": 0,
+      "name": "Mroczny Sygnet",
+      "rarity": "uncommon",
+      "rarity_color": "4ab875",
+      "rarity_label": "Niepospolity",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.2,
+          "enemy": "forest_cultist",
+          "region": "black_forest"
+        }
+      ],
+      "family": "cult",
+      "design": "Small tarnished bronze cult seal bearing the branch-in-circle emblem seen on the cultist. A crafting metal insignia, not a wearable ring yet. Same emblem as dark_sigil_ring.",
+      "target": "godot/assets/items/regional/dark_sigil.png",
+      "status": "planned"
+    },
+    {
+      "category": "equipment",
+      "description": "Kamień, który delikatnie reaguje na przepływ Many.",
+      "icon": "",
+      "id": "cultist_pendant",
+      "level": 3,
+      "name": "Wisiorek Kultysty",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "necklace",
+      "sources": [
+        {
+          "chance": 0.1,
+          "enemy": "forest_cultist",
+          "region": "black_forest"
+        }
+      ],
+      "family": "cult",
+      "design": "Rough green mana stone enclosed in aged bronze root-like claws on a short braided dark cord. Plain forest cult ornament, not an ornate noble necklace; same tarnished metal and root motif as cult seal.",
+      "target": "godot/assets/items/regional/cultist_pendant.png",
+      "status": "planned"
+    },
+    {
+      "category": "equipment",
+      "description": "Przerobiony znak kultu, w którym pulsuje potępiona energia.",
+      "icon": "",
+      "id": "dark_sigil_ring",
+      "level": 3,
+      "name": "Pierścień Mrocznego Sygnetu",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "ring",
+      "sources": [],
+      "family": "cult",
+      "design": "Wearable aged bronze signet ring made from the dark cult seal, clearly open finger loop, branch-in-circle emblem on face; faint cold inset, no external magical aura. Same emblem as dark_sigil.",
+      "target": "godot/assets/items/regional/dark_sigil_ring.png",
+      "status": "planned"
+    },
+    {
+      "category": "material",
+      "description": "Ciężki fragment pancerza zdjęty z martwego rycerza.",
+      "icon": "",
+      "id": "rusted_plate",
+      "level": 0,
+      "name": "Zardzewiała Płyta",
+      "rarity": "common",
+      "rarity_color": "8b929c",
+      "rarity_label": "Zwykły",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.6,
+          "enemy": "rotting_knight",
+          "region": "black_forest"
+        }
+      ],
+      "family": "knight",
+      "design": "Single broken curved armor plate from the rotting knight's shoulder, dull steel with brown edge corrosion, a few rivets and restrained moss patches. No whole armor or skull.",
+      "target": "godot/assets/items/regional/rusted_plate.png",
+      "status": "planned"
+    },
+    {
+      "category": "equipment",
+      "description": "Ciężki hełm o zardzewiałej, lecz wciąż solidnej konstrukcji.",
+      "icon": "",
+      "id": "rotting_knight_helm",
+      "level": 4,
+      "name": "Hełm Zgniłego Rycerza",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "head",
+      "sources": [
+        {
+          "chance": 0.15,
+          "enemy": "rotting_knight",
+          "region": "black_forest"
+        }
+      ],
+      "family": "knight",
+      "design": "Isolated empty helmet identical in design to the rotting knight reference: slotted visor, pointed brow and broken dark-blue crest, battered silver steel, small rust and moss patches. No glowing eyes or severed head.",
+      "target": "godot/assets/items/regional/rotting_knight_helm.png",
+      "status": "planned"
+    },
+    {
+      "category": "material",
+      "description": "Gruba skóra przesiąknięta czarną żywicą.",
+      "icon": "",
+      "id": "corrupted_hide",
+      "level": 0,
+      "name": "Spaczona Skóra",
+      "rarity": "common",
+      "rarity_color": "8b929c",
+      "rarity_label": "Zwykły",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 1,
+          "enemy": "corrupted_bear",
+          "region": "black_forest"
+        }
+      ],
+      "family": "bear",
+      "design": "Spaczona Skóra: one folded thick irregular piece of black bear hide, short charcoal-violet fur along torn edges and smooth tough dark leather underside, a little dried black resin soaked through it, subtle muted violet discoloration from corruption, no luminous purple cracks. Clearly usable leather crafting material, NOT an entire bear pelt, no face/head/paws. Source is this black corrupted bear.",
+      "target": "godot/assets/items/regional/corrupted_hide.png",
+      "status": "draft_alpha_failed"
+    },
+    {
+      "category": "material",
+      "description": "Ogromny pazur spaczonego niedźwiedzia.",
+      "icon": "",
+      "id": "black_bear_claw",
+      "level": 0,
+      "name": "Czarny Pazur",
+      "rarity": "uncommon",
+      "rarity_color": "4ab875",
+      "rarity_label": "Niepospolity",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.3,
+          "enemy": "corrupted_bear",
+          "region": "black_forest"
+        }
+      ],
+      "family": "bear",
+      "design": "Czarny Pazur: one enormous curved tapered claw from this corrupted bear, charcoal horn with brown worn ridges, pale subtly chipped keratin edge, the root thicker and hollow, tip sharp. Silhouette must be a bear claw, not a fang, crystal or ornamental pendant. No blood, no fur clump, no glowing enchantment.",
+      "target": "godot/assets/items/regional/black_bear_claw.png",
+      "status": "draft_alpha_failed"
+    },
+    {
+      "category": "equipment",
+      "description": "Szeroki pas wykonany ze skóry spaczonego niedźwiedzia.",
+      "icon": "",
+      "id": "bearhide_belt",
+      "level": 4,
+      "name": "Pas z Czarnej Skóry",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "belt",
+      "sources": [
+        {
+          "chance": 0.12,
+          "enemy": "corrupted_bear",
+          "region": "black_forest"
+        }
+      ],
+      "family": "bear",
+      "design": "Wide tough charcoal leather belt from corrupted bear hide, dark short fur at worn edges and plain weathered iron buckle. Oval belt loop in three-quarter view, subdued muted violet tint, no skull buckle or excessive decorations.",
+      "target": "godot/assets/items/regional/bearhide_belt.png",
+      "status": "planned"
+    },
+    {
+      "category": "equipment",
+      "description": "Płyty metalu wzmocnione grubą, spaczoną skórą.",
+      "icon": "",
+      "id": "blackwood_mail",
+      "level": 4,
+      "name": "Pancerz Czarnego Boru",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "chest",
+      "sources": [],
+      "family": "bear_knight",
+      "design": "Chest armor with dark worn steel overlapping plates repaired from rotting knight armor, reinforced by charcoal corrupted bear hide and short dark fur edging. Match bearhide belt material and rusted plate metal; no person or full armor suit.",
+      "target": "godot/assets/items/regional/blackwood_mail.png",
+      "status": "planned"
+    },
+    {
+      "category": "material",
+      "description": "Zimna energia pozostała po zjawie wisielca.",
+      "icon": "",
+      "id": "damned_essence",
+      "level": 0,
+      "name": "Potępiona Esencja",
+      "rarity": "uncommon",
+      "rarity_color": "4ab875",
+      "rarity_label": "Niepospolity",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.6,
+          "enemy": "gallows_wraith",
+          "region": "black_forest"
+        }
+      ],
+      "family": "wraith",
+      "design": "Compact cold pale blue-green spectral residue of the gallows wraith. A coherent smoky droplet/knot silhouette rather than scattered sparks, no bottle, no floating particle field, no hands. Match wraith after inspecting it.",
+      "target": "godot/assets/items/regional/damned_essence.png",
+      "status": "planned"
+    },
+    {
+      "category": "equipment",
+      "description": "Zimny pierścień, którego dotyk niemal znika na skórze.",
+      "icon": "",
+      "id": "wraith_ring",
+      "level": 4,
+      "name": "Pierścień Wisielca",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "ring",
+      "sources": [
+        {
+          "chance": 0.1,
+          "enemy": "gallows_wraith",
+          "region": "black_forest"
+        }
+      ],
+      "family": "wraith",
+      "design": "Thin old grey metal ring with weathered cord-like twist and a cold desaturated blue-green inset. Restrained incorporeal edge shading, no surrounding aura or unrelated ruby. Match gallows wraith palette.",
+      "target": "godot/assets/items/regional/wraith_ring.png",
+      "status": "planned"
+    },
+    {
+      "category": "material",
+      "description": "Odłamek poroża, który zdaje się pochłaniać światło.",
+      "icon": "",
+      "id": "black_antler",
+      "level": 0,
+      "name": "Czarne Poroże",
+      "rarity": "uncommon",
+      "rarity_color": "4ab875",
+      "rarity_label": "Niepospolity",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.5,
+          "enemy": "black_hart",
+          "region": "black_forest"
+        }
+      ],
+      "family": "hart",
+      "design": "One broken branching fragment of matte black deer antler, clearly organic ridged antler not wood branch. Match the exact Black Hart reference after inspecting it; no whole deer skull.",
+      "target": "godot/assets/items/regional/black_antler.png",
+      "status": "planned"
+    },
+    {
+      "category": "equipment",
+      "description": "Oszlifowany fragment czarnego poroża osadzony w skórzanej opasce.",
+      "icon": "",
+      "id": "black_antler_charm",
+      "level": 4,
+      "name": "Bransoleta Czarnego Jelenia",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "bracelet",
+      "sources": [
+        {
+          "chance": 0.12,
+          "enemy": "black_hart",
+          "region": "black_forest"
+        }
+      ],
+      "family": "hart",
+      "design": "Leather wrist band holding a polished fragment of the same black antler, dark natural ridges, plain small bronze ties. Must be a bracelet, not a necklace or a crown.",
+      "target": "godot/assets/items/regional/black_antler_charm.png",
+      "status": "planned"
+    },
+    {
+      "category": "material",
+      "description": "Twardy rdzeń pulsujący jak żywe serce drzewa.",
+      "icon": "",
+      "id": "blackwood_heart",
+      "level": 0,
+      "name": "Serce Czarnego Boru",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 1,
+          "enemy": "blackwood_executioner",
+          "region": "black_forest"
+        }
+      ],
+      "family": "executioner",
+      "design": "Hard living-tree core, knotted dark wood enclosing a heart-shaped warm inner grain, stained black resin. Derive material and fissure shape from the actual Blackwood Executioner reference, no anatomical bloody human heart.",
+      "target": "godot/assets/items/regional/blackwood_heart.png",
+      "status": "planned"
+    },
+    {
+      "category": "equipment",
+      "description": "Ciężkie ostrze noszące ślady setek rytualnych cięć.",
+      "icon": "",
+      "id": "executioner_axe",
+      "level": 5,
+      "name": "Topór Leśnego Egzekutora",
+      "rarity": "epic",
+      "rarity_color": "aa69dc",
+      "rarity_label": "Epicki",
+      "regional": true,
+      "sets": [],
+      "slot": "weapon",
+      "sources": [
+        {
+          "chance": 0.18,
+          "enemy": "blackwood_executioner",
+          "region": "black_forest"
+        }
+      ],
+      "family": "executioner",
+      "design": "Heavy ritual axe matching the actual Blackwood Executioner's weapon silhouette, aged scarred metal blade, thick dark wood haft and resin bindings. No arbitrary double blades if not present on source. Entire weapon visible.",
+      "target": "godot/assets/items/regional/executioner_axe.png",
+      "status": "planned"
+    },
+    {
+      "category": "equipment",
+      "description": "Drewniana maska spojona z metalem i zaschniętą żywicą.",
+      "icon": "",
+      "id": "executioner_mask",
+      "level": 5,
+      "name": "Maska Leśnego Egzekutora",
+      "rarity": "epic",
+      "rarity_color": "aa69dc",
+      "rarity_label": "Epicki",
+      "regional": true,
+      "sets": [],
+      "slot": "head",
+      "sources": [
+        {
+          "chance": 0.18,
+          "enemy": "blackwood_executioner",
+          "region": "black_forest"
+        }
+      ],
+      "family": "executioner",
+      "design": "Empty wooden mask matching the actual Blackwood Executioner, reinforced with dark iron and dried resin. Preserve source face-mask geometry; no face, glowing eyes or invented gemstone crown.",
+      "target": "godot/assets/items/regional/executioner_mask.png",
+      "status": "planned"
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "",
+      "id": "blackwood_longbow",
+      "level": 5,
+      "name": "Łuk Czarnego Boru",
+      "rarity": "uncommon",
+      "rarity_color": "4ab875",
+      "rarity_label": "Niepospolity",
+      "regional": false,
+      "sets": [],
+      "slot": "weapon",
+      "sources": [
+        {
+          "class_pool": "blackwood",
+          "enemies": [
+            "venom_spider",
+            "forest_cultist",
+            "rotting_knight",
+            "corrupted_bear",
+            "gallows_wraith",
+            "black_hart",
+            "blackwood_executioner"
+          ]
+        }
+      ],
+      "family": "blackwood_class",
+      "design": "Longbow of dark contorted forest wood, charcoal leather grip, restrained tarnished bronze root-pattern bindings. Slender functional string. Same material family as blackwood staff and crooked fate lance. No arrows, no character.",
+      "target": "godot/assets/items/regional/blackwood_longbow.png",
+      "status": "planned"
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "",
+      "id": "blackwood_staff",
+      "level": 5,
+      "name": "Kostur Czarnego Boru",
+      "rarity": "uncommon",
+      "rarity_color": "4ab875",
+      "rarity_label": "Niepospolity",
+      "regional": false,
+      "sets": [],
+      "slot": "weapon",
+      "sources": [
+        {
+          "class_pool": "blackwood",
+          "enemies": [
+            "venom_spider",
+            "forest_cultist",
+            "rotting_knight",
+            "corrupted_bear",
+            "gallows_wraith",
+            "black_hart",
+            "blackwood_executioner"
+          ]
+        }
+      ],
+      "family": "blackwood_class",
+      "design": "Dark twisted wooden staff with small pale-green stone held in a natural root fork, charcoal leather grip and tarnished bronze root-pattern bindings matching blackwood longbow. No giant crystal or random floating ornaments.",
+      "target": "godot/assets/items/regional/blackwood_staff.png",
+      "status": "planned"
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "",
+      "id": "crooked_fate_lance",
+      "level": 5,
+      "name": "Lanca Krzywego Losu",
+      "rarity": "uncommon",
+      "rarity_color": "4ab875",
+      "rarity_label": "Niepospolity",
+      "regional": false,
+      "sets": [],
+      "slot": "weapon",
+      "sources": [
+        {
+          "class_pool": "blackwood",
+          "enemies": [
+            "venom_spider",
+            "forest_cultist",
+            "rotting_knight",
+            "corrupted_bear",
+            "gallows_wraith",
+            "black_hart",
+            "blackwood_executioner"
+          ]
+        }
+      ],
+      "family": "blackwood_class",
+      "design": "Slender slightly crooked darkwood fantasy lance for Pierrot, narrow aged steel asymmetrical spearhead with one subtle suit-diamond cutout. Charcoal leather and bronze bindings matching the other Blackwood weapons; no cartoon face or floating playing cards.",
+      "target": "godot/assets/items/regional/crooked_fate_lance.png",
+      "status": "planned"
+    },
+    {
+      "category": "material",
+      "description": "Gęsta ciecz o zapachu mokrej ziemi.",
+      "icon": "",
+      "id": "bog_ichor",
+      "level": 0,
+      "name": "Posoka Bagienna",
+      "rarity": "common",
+      "rarity_color": "8b929c",
+      "rarity_label": "Zwykły",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.7,
+          "enemy": "bog_crawler",
+          "region": "silentwater_marshes"
+        }
+      ],
+      "family": "bog",
+      "design": "Small stoppered rough glass collection vial holding thick dark olive-brown bog ichor. Swamp residue settles inside; rustic utilitarian stopper and twine, no valuable gold or magic potion label.",
+      "target": "godot/assets/items/regional/bog_ichor.png",
+      "status": "planned"
+    },
+    {
+      "category": "material",
+      "description": "Twarda trzcina rosnąca na czarnych płyciznach.",
+      "icon": "",
+      "id": "swamp_reed",
+      "level": 0,
+      "name": "Trzcina Głuchej Wody",
+      "rarity": "common",
+      "rarity_color": "8b929c",
+      "rarity_label": "Zwykły",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.35,
+          "enemy": "bog_crawler",
+          "region": "silentwater_marshes"
+        }
+      ],
+      "family": "bog",
+      "design": "Small gathered bundle of stiff swamp reeds with dark green-grey stems and brown seed heads, tied with plain plant fiber. No vase, soil tile, glow or flowers from unrelated biomes.",
+      "target": "godot/assets/items/regional/swamp_reed.png",
+      "status": "planned"
+    },
+    {
+      "category": "equipment",
+      "description": "Buty ze sztywną podeszwą i plecionymi cholewami.",
+      "icon": "",
+      "id": "mirewalker_boots",
+      "level": 5,
+      "name": "Buty Brodzącego w Mule",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "feet",
+      "sources": [
+        {
+          "chance": 0.1,
+          "enemy": "bog_crawler",
+          "region": "silentwater_marshes"
+        }
+      ],
+      "family": "bog",
+      "design": "Pair of rugged marsh wading boots with stiff dark soles and visibly woven reed shafts. Damp olive-brown palette, functional tied strips; use exactly the reeds in swamp_reed as material inspiration.",
+      "target": "godot/assets/items/regional/mirewalker_boots.png",
+      "status": "planned"
+    },
+    {
+      "category": "material",
+      "description": "Kość wygładzona przez lata spędzone pod wodą.",
+      "icon": "",
+      "id": "drowned_bone",
+      "level": 0,
+      "name": "Kość Topielca",
+      "rarity": "common",
+      "rarity_color": "8b929c",
+      "rarity_label": "Zwykły",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.75,
+          "enemy": "drowned_dead",
+          "region": "silentwater_marshes"
+        }
+      ],
+      "family": "drowned",
+      "design": "One old water-smoothed pale grey bone, sparse muted algae at one end, worn porous ends and rounded edges. Derived from drowned dead reference, no gore or unrelated skeletal ornament.",
+      "target": "godot/assets/items/regional/drowned_bone.png",
+      "status": "planned"
+    },
+    {
+      "category": "material",
+      "description": "Zielonkawa moneta z nieczytelnym herbem. Cenny składnik kilku receptur związanych z Głuchą Wodą i Zatopionym Zakonem.",
+      "icon": "",
+      "id": "drowned_coin",
+      "level": 0,
+      "name": "Moneta Topielca",
+      "rarity": "uncommon",
+      "rarity_color": "4ab875",
+      "rarity_label": "Niepospolity",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.25,
+          "enemy": "drowned_dead",
+          "region": "silentwater_marshes"
+        }
+      ],
+      "family": "drowned",
+      "design": "One old greenish patinated coin, barely readable worn coat of arms of the drowned region, irregular chipped rim, quarter-turn showing thickness. No text, number or legible currency denomination.",
+      "target": "godot/assets/items/regional/drowned_coin.png",
+      "status": "planned"
+    },
+    {
+      "category": "equipment",
+      "description": "Ciężkie rękawice, których metal jest stale chłodny.",
+      "icon": "",
+      "id": "drowned_gauntlets",
+      "level": 5,
+      "name": "Rękawice Topielca",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "hands",
+      "sources": [
+        {
+          "chance": 0.1,
+          "enemy": "drowned_dead",
+          "region": "silentwater_marshes"
+        }
+      ],
+      "family": "drowned",
+      "design": "Pair of heavy old cold grey steel gauntlets with subdued green patina in seams and worn leather bindings, coherent with drowned coin metal and drowned dead equipment. No bones/arms inside.",
+      "target": "godot/assets/items/regional/drowned_gauntlets.png",
+      "status": "planned"
+    }
+  ]
+}

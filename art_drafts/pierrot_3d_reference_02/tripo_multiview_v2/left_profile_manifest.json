@@ -1,0 +1,30 @@
+{
+  "status": "Generated additional 2D view for user review; not a 3D model and not integrated into the game.",
+  "created": "2026-09-09",
+  "request": "BRAKUJE NAM LEWEJ STRONY",
+  "generation_mode": "built-in image_gen, using the imagegen skill; identity-preserving additional view",
+  "source_references": [
+    "../pierrot_turnaround_v2.png",
+    "pierrot_profile_facing_right_v2.png"
+  ],
+  "generated_original": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-a27e7020-3ea8-4833-8c7d-4ddce01199f7.png",
+  "file": "pierrot_profile_facing_left_v2.png",
+  "dimensions": [
+    891,
+    1766
+  ],
+  "sha256": "7D20CEFEBA659142590A1AAB3CB7AEB33513E6D13D4698E50CE2949624625B73",
+  "bytes": 1627830,
+  "view": "profile facing left in the image, for the UI slot labelled Left / Po lewej with a matching facing-left thumbnail",
+  "visual_review": [
+    "One full-length left-facing side view; no lance, captions, UI, checkerboard or extra figures.",
+    "Head, visible hand, shoes and long cloth finials remain inside the frame.",
+    "Crimson bob, anime face, ruffled choker, harlequin sleeves, black/white/red fitted outfit, diamond legwear and gold-star trim remain recognizable.",
+    "Generated opposite-side costume/hair details are inferred, not recovered by lossless cropping; exact cross-view geometry or 1:1 fidelity has not been established.",
+    "Output retained at native resolution without resampling or mirroring. It is not pixel-registered to the three 956px-high crops.",
+    "Existing front, back and right-profile file hashes were rechecked and remain unchanged."
+  ],
+  "tripo_submission": "The user screenshot shows the three previous views loaded manually, with Left empty. This new file was not uploaded by the assistant; no Tripo credits were consumed by the assistant.",
+  "next_gate": "User reviews the added side view; then add it to Left, verify all thumbnails, confirm privacy and the final displayed generation price before generating a 3D mesh.",
+  "prompt": "Use case: identity-preserve\nAsset type: one additional 2D character turnaround reference for multiview-to-3D reconstruction in a game.\nInput image 1: AUTHORITATIVE APPROVED THREE-VIEW SHEET, showing the same adult female Pierrot in front, back, and right-facing profile. This defines her identity, approved proportions and garment construction.\nInput image 2: EXISTING RIGHT-FACING PROFILE reference, defining side silhouette, neutral pose, full-body framing, paint style, material treatment and lighting.\n\nPrimary request: create ONLY the missing opposite side view of this exact character, facing the LEFT EDGE of the output image. One full-length figure, a strict 90-degree side profile, head and gaze left, nose and toes pointing left. Show the opposite physical side of her body and clothing from input image 2; infer its construction consistently from the front and back in input image 1. This is not a redesign, not a three-quarter view, not a new pose, not another sheet. Do not simply mirror asymmetric hair, garment details, trims, fasteners or fabric layer order. Carry those details around the same character consistently with the front/back views.\n\nIdentity and proportions: the same clearly adult woman, short voluminous wavy crimson-red bob, red eyes, pale complexion, unchanged face shape and expression. Keep the approved full hip/thigh proportions, slender waist, shoulder width, torso depth, leg length and head-to-body scale. Preserve the upright neutral stance from the existing profile with relaxed arms slightly away from her sides, straight balanced legs and level shoulders. Do not shrink the lower body or exaggerate any body feature. Maintain the existing garment coverage.\n\nCostume: black ruffled choker and red star-shaped front bow, white off-shoulder ruffled neckline, fitted black/white/red bodice with its existing gold-star fasteners and pointed hip panels, large detached harlequin puff sleeves with red and white diamonds and black ruffled cuffs, the same pale legwear with large red diamonds and gold-star connections, pointed crimson/black high-heeled shoes, and the long split red/black/white fabric tails with their existing gold star finials. Use front and back references to position the visible side's ornaments and fabric layers; do not invent straps, bows, armor, capes, extra jewelry, extra limbs, extra tails or new fasteners. Hands must remain naturally formed and relaxed. Do not add or remove any major costume component.\n\nComposition: vertical portrait canvas approximately 1:2, comparable to input image 2. Entire head, hair, both hands, heels, toes, cloth tips and dangling gold finials must be inside the image. Full figure nearly fills the height, with small clean margins; top of hair about 1-2 percent from top and soles around 98 percent height. Center the complete silhouette with enough width for all cloth tails. No dramatic foreshortening, no perspective distortion, no camera elevation, no motion or wind beyond the already drawn natural drape. Keep the long cloth separated and readable, not merged into a solid skirt.\n\nStyle: match the approved polished 2D anime-fantasy illustration precisely, with crisp controlled linework and broad painted/cel-shaded shadows, not a photoreal person, plastic 3D render or flat cartoon. Match the light neutral-gray softly graded studio background and neutral soft lighting of the references. No colored rim light, no particles or sparkles.\nOutput: ONE left-facing side view only. No lance or other weapon, no extra figures, no diagram, no inset, no text, no caption, no watermark, no interface, no checkerboard. Do not redraw the front, back or existing right-side view."
+}

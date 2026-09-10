@@ -1,12 +1,14 @@
-[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://core/skills/skill_definition.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/skills/warrior/provoke.png" id="2_art"]
 
 [resource]
 script = ExtResource("1")
 skill_id = "provoke"
 display_name = "Prowokacja"
 character_class_code = "warrior"
+card_art = ExtResource("2_art")
 unlock_level = 5
 mana_cost = 5
 description = "Wymusza zwykły atak przeciwnika i daje +20 p.p. Bloku na tę wymianę."

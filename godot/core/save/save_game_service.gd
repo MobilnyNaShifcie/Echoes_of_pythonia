@@ -439,9 +439,9 @@ func _restore_session_fields(session: GameSessionClass, data: Dictionary) -> Dic
 		session.guild_storage.inventory, data.guild_storage
 	)
 	if not storage_result.ok:
-		return _failure("Nieprawidłowy Magazyn Gildii: %s" % storage_result.message)
+		return _failure("Nieprawidłowa skrytka w karczmie: %s" % storage_result.message)
 	if session.guild_storage.used_slots > session.guild_storage.CAPACITY_SLOTS:
-		return _failure("Magazyn Gildii przekracza limit miejsc.")
+		return _failure("Skrytka w karczmie przekracza limit miejsc.")
 	var party_result := PartySaveCodecClass.deserialize(data.party, int(data.day))
 	if not party_result.ok:
 		return _failure("Nieprawidłowy stan drużyny: %s" % party_result.message)

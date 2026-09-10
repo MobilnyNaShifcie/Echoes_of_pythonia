@@ -11,11 +11,13 @@ func test_main_scene_is_configured() -> void:
 	)
 
 
-func test_default_resolution_is_full_hd() -> void:
+func test_logical_resolution_is_full_hd_and_windowed_preview_fits_the_desktop() -> void:
 	assert_eq(ProjectSettings.get_setting("display/window/size/viewport_width"), 1920)
 	assert_eq(ProjectSettings.get_setting("display/window/size/viewport_height"), 1080)
-	assert_eq(ProjectSettings.get_setting("display/window/size/window_width_override"), 1920)
-	assert_eq(ProjectSettings.get_setting("display/window/size/window_height_override"), 1080)
+	assert_eq(ProjectSettings.get_setting("display/window/size/window_width_override"), 1600)
+	assert_eq(ProjectSettings.get_setting("display/window/size/window_height_override"), 900)
+	assert_eq(ProjectSettings.get_setting("display/window/stretch/mode"), "canvas_items")
+	assert_eq(ProjectSettings.get_setting("display/window/stretch/aspect"), "expand")
 
 
 func test_windows_export_preset_is_versioned_for_stage_seven() -> void:

@@ -295,7 +295,8 @@ combat, inventory-capacity, economy, or reward rules.
 
 Skill-card artwork communicates the weapon, projectile, element, movement or
 result of the ability rather than repeating the hero portrait. `Błazeński Unik`
-is the sole planned silhouette exception because movement is the mechanic.
+uses a silhouette because movement is the mechanic, while `Prowokacja` uses a
+silhouetted Warrior, lit shield and incoming weapons to communicate aggro.
 Class and effect determine the palette; Pierrot's magenta is not a global card
 filter. `Pchnięcie Losu` shows the Fate Lance only, while the existing UI rolls
 and displays its engine-provided die result after activation.
@@ -304,6 +305,44 @@ Approved source art is an opaque 1086×1448 PNG in a 3:4 composition with no
 baked frame, copy, Mana cost, state, rarity or dice count. Godot owns all those
 layers. The shared card component uses the same `SkillDefinition.card_art` in
 combat and the skill catalogue, clips it to the card, and exposes a named
-placeholder for every unfinished skill. It never borrows another ability's
-illustration. The four-image slice and automated gate are specified in
-`SKILL_CARD_GOLDEN_SLICE_v0.25.0.md`.
+placeholder for every future unfinished skill. It never borrows another
+ability's illustration. The approved 26-image catalogue and automated gate are
+specified in `SKILL_CARD_GOLDEN_SLICE_v0.25.0.md`.
+
+## Modular Varenhold art contract
+
+The Varenhold source kit contains an opaque district base and independent RGBA
+building modules. The current player-facing city plan is an opaque navigation
+plate with fixed landmarks, but it never bakes location names, hit areas,
+locked states, hover feedback or availability into the pixels. Those elements
+remain Godot-owned layers. A future service can therefore bind to an existing
+landmark or add a separate overlay module without regenerating the plan merely
+because a menu option changed.
+
+The first approved slice contains the Guild district base, a separate Guild
+Hall module, its interior, and full-body cutouts for Oren, Garran, Mirela and
+the male veteran Quartermaster. The Quartermaster is also the experienced head
+of the Guild: his art communicates a retired adventurer, logistics authority
+and mentor rather than an active combat class. The rejected female draft is not
+part of the project catalogue.
+
+NPC and building cutouts use a controlled chroma-extraction pass. The automated
+city-asset gate verifies expected dimensions, RGBA output and transparent
+corners. Opaque district and interior backgrounds are validated separately.
+Character panels, shop grids, dialogue, service state and navigation continue
+to belong to UI; these images do not change gameplay or save data.
+
+The current navigation plan exposes six independent hotspots: the Guild, West
+Gate, Garran's forge, Oren's stall, the Inn and Mirela's workshop. The former
+Quartermaster entry is not a second Guild destination. Rest, personal storage
+and carry upgrades are grouped in the Inn and presented by Runa. The vertical
+text menu remains the keyboard and accessibility path. Oren, Mirela, Garran and
+Runa have separate character layers over their service-interior backgrounds and
+the shared economy grid. This allows the background, character pose and service
+UI to evolve without flattening them into one screen-specific illustration.
+
+The main menu uses its own opaque dawn panorama rather than reusing the city
+navigation plate. Composition reserves dark, low-detail negative space on the
+left for navigation and places Varenhold's focal architecture on the right.
+The menu, chapter copy, availability and focus state remain UI-owned; no title
+or control is baked into the image.

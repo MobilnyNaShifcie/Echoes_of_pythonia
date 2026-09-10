@@ -47,19 +47,26 @@ foreach ($sourceExecutable in @($godotSourceExecutable, $godotSourceGui)) {
     }
 }
 $godotExecutable = Join-Path $isolatedGodotDirectory $godotConsoleName
-$env:APPDATA = Join-Path $validationProfile 'AppData\Roaming'
-$env:LOCALAPPDATA = Join-Path $validationProfile 'AppData\Local'
-New-Item -ItemType Directory -Path $env:APPDATA, $env:LOCALAPPDATA -Force | Out-Null
+$validationAppData = Join-Path $validationProfile 'AppData\Roaming'
+$validationLocalAppData = Join-Path $validationProfile 'AppData\Local'
+$gdtoolkitProfileName = 'echoes-of-pythonia-gdtoolkit-{0}' -f [guid]::NewGuid().ToString('N')
+$gdtoolkitLocalAppData = Join-Path ([System.IO.Path]::GetTempPath()) $gdtoolkitProfileName
+$env:APPDATA = $validationAppData
+$env:LOCALAPPDATA = $gdtoolkitLocalAppData
+New-Item -ItemType Directory -Path @(
+    $validationAppData,
+    $validationLocalAppData,
+    $gdtoolkitLocalAppData
+) -Force | Out-Null
 
 Write-Host 'Validating golden-slice item assets...'
-& powershell -NoProfile -ExecutionPolicy Bypass -File `
-    (Join-Path $PSScriptRoot 'check-item-assets.ps1')
-if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+& (Join-Path $PSScriptRoot 'check-item-assets.ps1')
 
 Write-Host 'Validating golden-slice skill-card assets...'
-& powershell -NoProfile -ExecutionPolicy Bypass -File `
-    (Join-Path $PSScriptRoot 'check-skill-card-assets.ps1')
-if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+& (Join-Path $PSScriptRoot 'check-skill-card-assets.ps1')
+
+Write-Host 'Validating modular Varenhold assets...'
+& (Join-Path $PSScriptRoot 'check-city-assets.ps1')
 
 Write-Host 'Checking GDScript formatting...'
 & $gdformatExecutable --check @gdscriptPaths
@@ -68,6 +75,8 @@ if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 Write-Host 'Linting project-owned GDScript...'
 & $gdlintExecutable @gdscriptPaths
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+$env:LOCALAPPDATA = $validationLocalAppData
 
 Write-Host 'Running the legacy Python regression suite...'
 & $pythonExecutable -m pytest -q -p no:cacheprovider $repositoryRoot

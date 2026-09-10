@@ -1,0 +1,104 @@
+{
+  "date": "2026-09-07",
+  "scope": "Complete Sunken Order Crypt art and integration",
+  "generator": "built-in image_gen",
+  "style_anchor": "../dungeon_crypt_pilot_01/sunken_vestibule_v2.png",
+  "jobs": [
+    {
+      "id": "seal_corridor",
+      "label": "Korytarz Pieczęci",
+      "kind": "room",
+      "refs": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/sunken_vestibule_v2.png"
+      ],
+      "prompt": "Use case: stylized-concept\nAsset type: production 2D anime-fantasy RPG environment background, landscape 16:9.\nInput image 1: APPROVED style and world reference, not an edit target. Match its deliberate dark ink contours, broad painted shadow planes, simplified stone and water; NOT photorealism, not a 3D/PBR render. Same underground Sunken Order crypt: blue-grey gothic masonry, navy fabric, aged gold compass-star in a circle, restrained amber lanterns, cool teal water.\nPrimary request: A long wide vaulted corridor with broken heraldic plaques and torn navy banners along the side walls. A large intact gold compass seal on the distant arched wall. At the back, the corridor forks: iron bars and a dry raised path on the left, a shallow flooded passage on the right with a small closed old coffer set in a wall recess. Keep the central approach broad and clear, no stairs or obstacles across the foreground.\nComposition: wide establishing view at standing human eye height. Full-bleed edge-to-edge art, background architecture in upper half, calm low-contrast usable floor across bottom 40% for separately rendered fighters. Distinct layout from the reference while unmistakably the same dungeon. Keep texture detail controlled like the reference. No characters, no UI, no text, no border, no sparkles, no fireflies, no photographic microtexture."
+    },
+    {
+      "id": "drowned_gallery",
+      "label": "Galeria Utopionych",
+      "kind": "room",
+      "refs": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/sunken_vestibule_v2.png"
+      ],
+      "prompt": "Use case: stylized-concept\nAsset type: production 2D anime-fantasy RPG environment background, landscape 16:9.\nInput image 1: APPROVED style and world reference, not an edit target. Match its deliberate dark ink contours, broad painted shadow planes, simplified stone and water; NOT photorealism, not a 3D/PBR render. Same underground Sunken Order crypt: blue-grey gothic masonry, navy fabric, aged gold compass-star in a circle, restrained amber lanterns, cool teal water.\nPrimary request: A wide gallery lined with motionless sculpted stone knight statues in side niches, subtly tilted heads and weathered Order shields. A distant vaulted doorway, interrupted navy wall hangings. The statues are clearly grey stone architecture, not living characters. Thin shallow water over the central walkway, strong lateral rhythm, generous clear floor for battle.\nComposition: wide establishing view at standing human eye height. Full-bleed edge-to-edge art, background architecture in upper half, calm low-contrast usable floor across bottom 40% for separately rendered fighters. Distinct layout from the reference while unmistakably the same dungeon. Keep texture detail controlled like the reference. No characters, no UI, no text, no border, no sparkles, no fireflies, no photographic microtexture."
+    },
+    {
+      "id": "sunken_chapel",
+      "label": "Zatopiona Kaplica",
+      "kind": "room",
+      "refs": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/sunken_vestibule_v2.png"
+      ],
+      "prompt": "Use case: stylized-concept\nAsset type: production 2D anime-fantasy RPG environment background, landscape 16:9.\nInput image 1: APPROVED style and world reference, not an edit target. Match its deliberate dark ink contours, broad painted shadow planes, simplified stone and water; NOT photorealism, not a 3D/PBR render. Same underground Sunken Order crypt: blue-grey gothic masonry, navy fabric, aged gold compass-star in a circle, restrained amber lanterns, cool teal water.\nPrimary request: An intimate vaulted sanctuary, a single waist-high carved stone basin of gently luminous blue water on a low dais in the middle distance, behind the combat plane. An Order compass emblem in a round rear window, two restrained amber lamps, a few stone benches recessed at the sides. Quiet restorative atmosphere, visible shallow-water flagstones across a broad empty foreground. Basin does not obscure the center foreground.\nComposition: wide establishing view at standing human eye height. Full-bleed edge-to-edge art, background architecture in upper half, calm low-contrast usable floor across bottom 40% for separately rendered fighters. Distinct layout from the reference while unmistakably the same dungeon. Keep texture detail controlled like the reference. No characters, no UI, no text, no border, no sparkles, no fireflies, no photographic microtexture."
+    },
+    {
+      "id": "chain_hall",
+      "label": "Sala Łańcuchów",
+      "kind": "room",
+      "refs": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/sunken_vestibule_v2.png"
+      ],
+      "prompt": "Use case: stylized-concept\nAsset type: production 2D anime-fantasy RPG environment background, landscape 16:9.\nInput image 1: APPROVED style and world reference, not an edit target. Match its deliberate dark ink contours, broad painted shadow planes, simplified stone and water; NOT photorealism, not a 3D/PBR render. Same underground Sunken Order crypt: blue-grey gothic masonry, navy fabric, aged gold compass-star in a circle, restrained amber lanterns, cool teal water.\nPrimary request: A monumental vaulted guard hall, heavy iron chains hanging along the side walls from rings and pulleys, some anchored to carved Order pillars, thick navy banners and a sealed distant inner arch. Four to six large readable chains, not dozens of tiny wires or tangled noise. Shallow teal water and exposed stone floor clear in the foreground. Oppressive but legible, selective amber lantern light.\nComposition: wide establishing view at standing human eye height. Full-bleed edge-to-edge art, background architecture in upper half, calm low-contrast usable floor across bottom 40% for separately rendered fighters. Distinct layout from the reference while unmistakably the same dungeon. Keep texture detail controlled like the reference. No characters, no UI, no text, no border, no sparkles, no fireflies, no photographic microtexture."
+    },
+    {
+      "id": "grandmaster_gate",
+      "label": "Brama Wielkiego Mistrza",
+      "kind": "room",
+      "refs": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/sunken_vestibule_v2.png"
+      ],
+      "prompt": "Use case: stylized-concept\nAsset type: production 2D anime-fantasy RPG environment background, landscape 16:9.\nInput image 1: APPROVED style and world reference, not an edit target. Match its deliberate dark ink contours, broad painted shadow planes, simplified stone and water; NOT photorealism, not a 3D/PBR render. Same underground Sunken Order crypt: blue-grey gothic masonry, navy fabric, aged gold compass-star in a circle, restrained amber lanterns, cool teal water.\nPrimary request: Final sanctum threshold: massive ceremonial double doors on the far wall, partly open to a dark blue chamber, one great gold compass-star seal split between the leaves, flanked by navy Order banners. Broad low steps ONLY at the far back, tall clean vaulted architecture, imposing scale. A wide uncluttered foreground floor with shallow teal reflections and subtly brighter central aisle. No throne, no king, no people.\nComposition: wide establishing view at standing human eye height. Full-bleed edge-to-edge art, background architecture in upper half, calm low-contrast usable floor across bottom 40% for separately rendered fighters. Distinct layout from the reference while unmistakably the same dungeon. Keep texture detail controlled like the reference. No characters, no UI, no text, no border, no sparkles, no fireflies, no photographic microtexture."
+    },
+    {
+      "id": "drowned_acolyte",
+      "label": "Akolita Zatopionego Zakonu",
+      "kind": "enemy",
+      "refs": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/order_grandmaster.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/order_reference_board.png"
+      ],
+      "prompt": "Use case: stylized-concept\nAsset type: single full-body enemy sprite, portrait 2:3, genuinely transparent RGBA background, no checkerboard drawn into the image.\nInput image 1: character rendering and faction reference (Grandmaster); image 2: Order equipment motif reference. Create a DIFFERENT character, not a copy of the old king.\nStyle: polished hand-painted anime fantasy, deliberate clean outlines, expressive anime facial structure if visible, broad cel-painted light and shadow, controlled metal highlights, low microtexture, no photorealism or 3D render. Navy, blue-grey steel, restrained aged gold compass-star badge, muted teal supernatural accents. Full head, weapon tip, both boots and cloth visible, generous 5% clear margins. Three-quarter combat stance facing LEFT towards a player positioned to the left. Opaque crisp silhouette including fabric; no ground, no pedestal, no UI, no text, no magical particle clouds.\nPrimary request: An adult male drowned Order acolyte, lean and gaunt, pale bluish skin, dark shoulder-length hair beneath a low navy hood, eyes faintly teal. Simple layered navy and faded ivory robes with a single gold compass medallion, water-worn hems, leather belt and boots. Holding an open ritual book at chest level in one hand, the other hand raised in a restrained prayer gesture. Subordinate cleric, not armored, no crown. Sparse graphic seawater stains, no gore."
+    },
+    {
+      "id": "drowned_priestess",
+      "label": "Kapłanka Zatopionych",
+      "kind": "enemy",
+      "refs": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/order_grandmaster.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/order_reference_board.png"
+      ],
+      "prompt": "Use case: stylized-concept\nAsset type: single full-body enemy sprite, portrait 2:3, genuinely transparent RGBA background, no checkerboard drawn into the image.\nInput image 1: character rendering and faction reference (Grandmaster); image 2: Order equipment motif reference. Create a DIFFERENT character, not a copy of the old king.\nStyle: polished hand-painted anime fantasy, deliberate clean outlines, expressive anime facial structure if visible, broad cel-painted light and shadow, controlled metal highlights, low microtexture, no photorealism or 3D render. Navy, blue-grey steel, restrained aged gold compass-star badge, muted teal supernatural accents. Full head, weapon tip, both boots and cloth visible, generous 5% clear margins. Three-quarter combat stance facing LEFT towards a player positioned to the left. Opaque crisp silhouette including fabric; no ground, no pedestal, no UI, no text, no magical particle clouds.\nPrimary request: An adult drowned high priestess, tall, pallid elegant anime face, long ash-silver hair, stern solemn gaze. Layered navy and ivory ceremonial robes, modest closed chest, broad gold-edged stole with one circular compass seal. In one hand a long simple staff capped with a single teal faceted gem enclosed by the Order compass, other hand open as if singing an invocation. Barely rippling long skirt with boots visible beneath. No crown like the king, no tentacles, no floating particles."
+    },
+    {
+      "id": "iron_gate_guardian",
+      "label": "Strażnik Żelaznych Wrót",
+      "kind": "enemy",
+      "refs": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/order_grandmaster.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/order_reference_board.png"
+      ],
+      "prompt": "Use case: stylized-concept\nAsset type: single full-body enemy sprite, portrait 2:3, genuinely transparent RGBA background, no checkerboard drawn into the image.\nInput image 1: character rendering and faction reference (Grandmaster); image 2: Order equipment motif reference. Create a DIFFERENT character, not a copy of the old king.\nStyle: polished hand-painted anime fantasy, deliberate clean outlines, expressive anime facial structure if visible, broad cel-painted light and shadow, controlled metal highlights, low microtexture, no photorealism or 3D render. Navy, blue-grey steel, restrained aged gold compass-star badge, muted teal supernatural accents. Full head, weapon tip, both boots and cloth visible, generous 5% clear margins. Three-quarter combat stance facing LEFT towards a player positioned to the left. Opaque crisp silhouette including fabric; no ground, no pedestal, no UI, no text, no magical particle clouds.\nPrimary request: A massive broad-shouldered armored gate guardian in heavy blue-grey iron plate, closed squared visor with a narrow teal eye slit, navy tabard bearing one gold compass seal. Carrying a huge plain rectangular pavise-like iron shield and a short-handled heavy war hammer, defensive planted stance. Chunky readable armor plates and a few large scuffs, not ornate filigree. No king crown, no flowing enormous cape. Distinct squat tank silhouette."
+    },
+    {
+      "id": "crypt_warden",
+      "label": "Strażnik Krypty",
+      "kind": "enemy",
+      "refs": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/order_grandmaster.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/order_reference_board.png"
+      ],
+      "prompt": "Use case: stylized-concept\nAsset type: single full-body enemy sprite, portrait 2:3, genuinely transparent RGBA background, no checkerboard drawn into the image.\nInput image 1: character rendering and faction reference (Grandmaster); image 2: Order equipment motif reference. Create a DIFFERENT character, not a copy of the old king.\nStyle: polished hand-painted anime fantasy, deliberate clean outlines, expressive anime facial structure if visible, broad cel-painted light and shadow, controlled metal highlights, low microtexture, no photorealism or 3D render. Navy, blue-grey steel, restrained aged gold compass-star badge, muted teal supernatural accents. Full head, weapon tip, both boots and cloth visible, generous 5% clear margins. Three-quarter combat stance facing LEFT towards a player positioned to the left. Opaque crisp silhouette including fabric; no ground, no pedestal, no UI, no text, no magical particle clouds.\nPrimary request: A tall imposing crypt warden in angular dark blue-grey armor and a closed pointed helmet with a teal slit. Long split navy coat, aged gold compass insignia on belt. Holds one heavy chained flail, large clearly articulated chain links draped through his other hand and an iron weight at the end; chain is contained within silhouette framing. Keys and Order chain at the waist, authoritative rigid stance. Distinct from a shield-bearing gate guard; NO shield, NO crown, NO sword. No dozens of loose chains, no tiny particles."
+    },
+    {
+      "id": "sunken_knight_anime",
+      "label": "Rycerz Zatopionego Zakonu",
+      "kind": "enemy",
+      "refs": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/order_grandmaster.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/order_reference_board.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/sunken_knight.png"
+      ],
+      "prompt": "Use case: stylized-concept\nAsset type: single full-body enemy sprite, portrait 2:3, genuinely transparent RGBA background, no checkerboard drawn into the image.\nInput image 1: character rendering and faction reference (Grandmaster); image 2: Order equipment motif reference. Create a DIFFERENT character, not a copy of the old king.\nStyle: polished hand-painted anime fantasy, deliberate clean outlines, expressive anime facial structure if visible, broad cel-painted light and shadow, controlled metal highlights, low microtexture, no photorealism or 3D render. Navy, blue-grey steel, restrained aged gold compass-star badge, muted teal supernatural accents. Full head, weapon tip, both boots and cloth visible, generous 5% clear margins. Three-quarter combat stance facing LEFT towards a player positioned to the left. Opaque crisp silhouette including fabric; no ground, no pedestal, no UI, no text, no magical particle clouds.\nPrimary request: Restyle the knight in input image 3. Preserve identity and kit: closed pointed visor with ragged navy plume, navy and ivory tabard, long navy cloak, straight sword angled down to image-left and tall pointed navy kite shield decorated with the Order compass. Change rendering to the clean anime painterly style of image 1: broader shadow shapes, far fewer scratches, simpler fabric and plate surfaces. Full body, no cropping, keep all equipment motifs recognizable. No exposed face, no extra weapons."
+    }
+  ]
+}

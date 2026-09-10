@@ -1,0 +1,11 @@
+{
+	"character_bounds": "[P: (-0.402692, 0.0, -0.313819), S: (0.805385, 1.84408, 0.502656)]",
+	"checks": 11,
+	"failures": 0,
+	"godot_version": "4.7.1-stable (official)",
+	"mesh_count": 267,
+	"status": "Unrigged geometry study, NOT production character",
+	"triangles": 339379,
+	"vertices": 176538,
+	"weapon_separate": true
+}

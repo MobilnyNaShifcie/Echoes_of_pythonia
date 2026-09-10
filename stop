@@ -1,0 +1,163 @@
+warning: in the working copy of 'docs/ART_AND_AUDIO_PIPELINE_v0.25.0.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/GODOT_MIGRATION_v0.25.0.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/GUILD_BLACK_MARKET_v0.22.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/SKILL_CARD_GOLDEN_SLICE_v0.25.0.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/SYSTEM_MIGRATION_STAGES_v0.25.0.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'godot/assets/ASSET_MANIFEST.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'godot/core/combat/fate_combat_resolver.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/core/combat/regional_enemy_catalog.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/core/economy/black_market_service.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/core/economy/carry_weight_service.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/core/economy/guild_storage_service.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/core/items/class_item_catalog.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/core/items/consumable_service.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/core/items/regional_item_catalog.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/core/quests/quest_catalog.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/core/save/save_game_service.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/core/world/adventure_service.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/core/world/region_catalog.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/scenes/app/app.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/tests/test_adventure_service.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/tests/test_black_market_stage_five_d.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/tests/test_combat_presentation.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/tests/test_contracts_stage_five_b.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/tests/test_equipment_ui_stage_nine_b.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/tests/test_hunter_system_stage_three_d.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/tests/test_item_icon_golden_slice_stage_nine_c.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/tests/test_pierrot_fate_stage_three_c.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/tests/test_project_configuration.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/tests/test_region_boss_respawns_stage_eight_d.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/tests/test_skill_cards_stage_nine_d.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/tests/test_story_guild_stage_five_a.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/tests/test_ui_content.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/tests/test_warrior_mage_stage_three_e.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/tests/test_world_expeditions_stage_four_b.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/ui/components/character_paperdoll/character_paperdoll.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/ui/components/combat_action_card/combat_action_card.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/ui/components/combatant_visual/combatant_visual.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/ui/components/inventory_grid/inventory_grid_view.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/ui/components/inventory_grid/inventory_item_slot.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/ui/presentation/combat_presentation_catalog.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/ui/presentation/combat_presentation_controller.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/ui/presentation/combat_presentation_plan.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/ui/screens/achievements/achievements.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/ui/screens/black_market/black_market.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/ui/screens/character_sheet/character_sheet.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/ui/screens/city_economy/city_economy.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/ui/screens/city_hub/city_hub.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/ui/screens/city_service/city_service.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/ui/screens/combat/combat.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/ui/screens/dungeon/dungeon.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/ui/screens/equipment/equipment.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/ui/screens/guild/guild.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/ui/screens/progression/progression.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/ui/screens/skills/skills.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'godot/ui/screens/world_map/world_map.gd', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'scripts/check-item-assets.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/check-skill-card-assets.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/check.ps1', LF will be replaced by CRLF the next time Git touches it
+ docs/ART_AND_AUDIO_PIPELINE_v0.25.0.md             |  47 [32m+[m[31m-[m
+ docs/GODOT_MIGRATION_v0.25.0.md                    |  21 [32m+[m[31m-[m
+ docs/GUILD_BLACK_MARKET_v0.22.md                   |   2 [32m+[m[31m-[m
+ docs/SKILL_CARD_GOLDEN_SLICE_v0.25.0.md            |  43 [32m+[m[31m-[m
+ docs/SYSTEM_MIGRATION_STAGES_v0.25.0.md            |  62 [32m+[m[31m-[m
+ godot/assets/ASSET_MANIFEST.md                     | 329 [32m++++++++++[m[31m-[m
+ godot/assets/combat/heroes/hunter_female.png       | Bin [31m1004683[m -> [32m2415909[m bytes
+ godot/assets/combat/heroes/hunter_male.png         | Bin [31m990517[m -> [32m1553180[m bytes
+ godot/assets/combat/heroes/mage_female.png         | Bin [31m1430814[m -> [32m2610845[m bytes
+ godot/assets/combat/heroes/mage_male.png           | Bin [31m1408662[m -> [32m1277190[m bytes
+ godot/assets/combat/heroes/pierrot.png             | Bin [31m2261992[m -> [32m2202110[m bytes
+ godot/assets/combat/heroes/pierrot_male.png        | Bin [31m1175872[m -> [32m1815382[m bytes
+ godot/assets/combat/heroes/warrior.png             | Bin [31m1446922[m -> [32m2315038[m bytes
+ godot/assets/combat/heroes/warrior_female.png      | Bin [31m1245985[m -> [32m2619305[m bytes
+ godot/core/combat/fate_combat_resolver.gd          |   9 [32m+[m
+ godot/core/combat/regional_enemy_catalog.gd        |   2 [32m+[m[31m-[m
+ godot/core/economy/black_market_service.gd         |  11 [32m+[m
+ godot/core/economy/carry_weight_service.gd         |   2 [32m+[m[31m-[m
+ godot/core/economy/guild_storage_service.gd        |   4 [32m+[m[31m-[m
+ godot/core/items/class_item_catalog.gd             |  38 [32m++[m
+ godot/core/items/consumable_service.gd             |  34 [32m+[m[31m-[m
+ godot/core/items/regional_item_catalog.gd          |  81 [32m+++[m
+ godot/core/quests/quest_catalog.gd                 |   2 [32m+[m[31m-[m
+ godot/core/save/save_game_service.gd               |   4 [32m+[m[31m-[m
+ godot/core/world/adventure_service.gd              |   4 [32m+[m[31m-[m
+ godot/core/world/region_catalog.gd                 |  10 [32m+[m[31m-[m
+ godot/data/items/apprentice_staff.tres             |   4 [32m+[m[31m-[m
+ godot/data/items/caprice_lance.tres                |   4 [32m+[m[31m-[m
+ godot/data/items/common_essence.tres               |   4 [32m+[m[31m-[m
+ godot/data/items/grandmaster_elixir.tres           |   4 [32m+[m[31m-[m
+ godot/data/items/grinding_stone.tres               |   4 [32m+[m[31m-[m
+ godot/data/items/hard_wood.tres                    |   4 [32m+[m[31m-[m
+ godot/data/items/hunter_gloves.tres                |   4 [32m+[m[31m-[m
+ godot/data/items/hunter_provisions.tres            |   4 [32m+[m[31m-[m
+ godot/data/items/hunting_bow.tres                  |   4 [32m+[m[31m-[m
+ godot/data/items/leather_belt.tres                 |   4 [32m+[m[31m-[m
+ godot/data/items/mana_crystal_artifact.tres        |   4 [32m+[m[31m-[m
+ godot/data/items/mastery_attack_speed_book.tres    |   4 [32m+[m[31m-[m
+ godot/data/items/mastery_critical_book.tres        |   4 [32m+[m[31m-[m
+ godot/data/items/mastery_regeneration_book.tres    |   4 [32m+[m[31m-[m
+ godot/data/items/metal_buckle.tres                 |   4 [32m+[m[31m-[m
+ godot/data/items/nature_amulet.tres                |   4 [32m+[m[31m-[m
+ godot/data/items/nature_bracelet.tres              |   4 [32m+[m[31m-[m
+ godot/data/items/nature_earrings.tres              |   4 [32m+[m[31m-[m
+ godot/data/items/nature_ring.tres                  |   4 [32m+[m[31m-[m
+ godot/data/items/old_clothes.tres                  |   4 [32m+[m[31m-[m
+ godot/data/items/path_arcana_book.tres             |   4 [32m+[m[31m-[m
+ godot/data/items/path_fortuna_book.tres            |   4 [32m+[m[31m-[m
+ godot/data/items/path_heavy_knight_book.tres       |   4 [32m+[m[31m-[m
+ godot/data/items/path_phantom_archer_book.tres     |   4 [32m+[m[31m-[m
+ godot/data/items/raw_boar_meat.tres                |   4 [32m+[m[31m-[m
+ godot/data/items/reinforced_boots.tres             |   4 [32m+[m[31m-[m
+ godot/data/items/sharpened_sword.tres              |   4 [32m+[m[31m-[m
+ godot/data/items/simple_quiver.tres                |   4 [32m+[m[31m-[m
+ godot/data/items/spark_of_life.tres                |   4 [32m+[m[31m-[m
+ godot/data/items/stitched_armor.tres               |   4 [32m+[m[31m-[m
+ godot/data/items/strong_healing_potion.tres        |   4 [32m+[m[31m-[m
+ godot/data/items/truffle.tres                      |   4 [32m+[m[31m-[m
+ godot/data/items/weak_leather.tres                 |   4 [32m+[m[31m-[m
+ godot/data/items/wolf_tooth_necklace.tres          |   4 [32m+[m[31m-[m
+ godot/data/items/worn_fate_dice.tres               |   4 [32m+[m[31m-[m
+ godot/data/items/worn_strap.tres                   |   4 [32m+[m[31m-[m
+ godot/data/skills/armor_break.tres                 |   4 [32m+[m[31m-[m
+ godot/data/skills/bleeding_shot.tres               |   4 [32m+[m[31m-[m
+ godot/data/skills/blood_strike.tres                |   4 [32m+[m[31m-[m
+ godot/data/skills/defensive_stance.tres            |   4 [32m+[m[31m-[m
+ godot/data/skills/double_roll.tres                 |   4 [32m+[m[31m-[m
+ godot/data/skills/double_shot.tres                 |   4 [32m+[m[31m-[m
+ godot/data/skills/explosive_arrow.tres             |   4 [32m+[m[31m-[m
+ godot/data/skills/fate_feint.tres                  |   4 [32m+[m[31m-[m
+ godot/data/skills/frost_arrow.tres                 |   4 [32m+[m[31m-[m
+ godot/data/skills/frost_lance.tres                 |   4 [32m+[m[31m-[m
+ godot/data/skills/grand_gamble.tres                |   4 [32m+[m[31m-[m
+ godot/data/skills/lightning.tres                   |   4 [32m+[m[31m-[m
+ godot/data/skills/mana_burst.tres                  |   4 [32m+[m[31m-[m
+ godot/data/skills/phantom_arrow.tres               |   4 [32m+[m[31m-[m
+ godot/data/skills/piercing_arrow.tres              |   4 [32m+[m[31m-[m
+ godot/data/skills/provoke.tres                     |   4 [32m+[m[31m-[m
+ godot/data/skills/rain_of_arrows.tres              |   4 [32m+[m[31m-[m
+ godot/data/skills/shadow_step.tres                 |   4 [32m+[m[31m-[m
+ godot/data/skills/shield_bash.tres                 |   4 [32m+[m[31m-[m
+ godot/data/skills/splitting_arrow.tres             |   4 [32m+[m[31m-[m
+ godot/data/skills/thousand_arrows.tres             |   4 [32m+[m[31m-[m
+ godot/data/skills/va_banque.tres                   |   4 [32m+[m[31m-[m
+ godot/project.godot                                |   5 [32m+[m[31m-[m
+ godot/scenes/app/app.gd                            | 159 [32m+++[m[31m--[m
+ godot/scenes/app/app.tscn                          |  37 [32m+[m[31m-[m
+ godot/tests/test_achievements_stage_five_e.gd      |   2 [32m+[m[31m-[m
+ godot/tests/test_adventure_service.gd              |   6 [32m+[m[31m-[m
+ godot/tests/test_black_market_stage_five_d.gd      |  66 [32m++[m[31m-[m
+ godot/tests/test_city_economy_screen.gd            |  28 [32m+[m[31m-[m
+ godot/tests/test_class_selection.gd                | 185 [32m++++++[m
+ godot/tests/test_combat_presentation.gd            | 115 [32m+++[m[31m-[m
+ godot/tests/test_contracts_stage_five_b.gd         |  17 [32m+[m[31m-[m
+ godot/tests/test_equipment_ui_stage_nine_b.gd      | 161 [32m++++[m[31m-[m
+ godot/tests/test_hunter_system_stage_three_d.gd    |   4 [32m+[m
+ .../test_item_icon_golden_slice_stage_nine_c.gd    |  87 [32m++[m[31m-[m
+ godot/tests/test_main_menu.gd                      |  25 [32m+[m
+ godot/tests/test_pierrot_fate_stage_three_c.gd     |  11 [32m+[m
+ godot/tests/test_progression_screen.gd             |   4 [32m+[m
+ godot/tests/test_project_configuration.gd          |   8 [32m+[m[31m-[m
+ .../test_region_boss_respawns_stage_eight_d.gd     |  15 [32m+[m[31m-[m
+ godot/tests/test_skill_cards_stage_nine_d.gd       |  71 [32m++[m[31m-[m
+ godot/tests/test_story_guild_stage_five_a.gd       |   5 [32m+[m[31m-[m
+ godot/tests/test_ui_content.gd                     |  30 [32

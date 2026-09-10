@@ -14,11 +14,11 @@ func test_day_and_night_use_their_separate_encounter_tables() -> void:
 	assert_eq(night_result.enemy_id, "plains_spirit")
 
 
-func test_quiet_exploration_returns_story_event_instead_of_enemy() -> void:
+func test_former_quiet_roll_now_starts_an_encounter() -> void:
 	var result := AdventureServiceClass._roll_exploration("day", 0.8, 0, 2)
 
-	assert_eq(result.enemy_id, "")
-	assert_string_contains(result.message, "wycie")
+	assert_eq(result.enemy_id, "wild_dog")
+	assert_string_contains(result.message, "Na szlaku")
 
 
 func test_wolf_victory_grants_rewards_and_advances_the_story_objective() -> void:

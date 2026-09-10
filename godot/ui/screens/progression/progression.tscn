@@ -1,6 +1,70 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://ui/screens/progression/progression.gd" id="1"]
+
+[sub_resource type="StyleBoxFlat" id="TabPanelStyle"]
+bg_color = Color(0.006, 0.011, 0.019, 0.48)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.44, 0.33, 0.15, 0.82)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxFlat" id="SectionPanelStyle"]
+bg_color = Color(0.012, 0.022, 0.035, 0.78)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.38, 0.3, 0.17, 0.86)
+corner_radius_top_left = 9
+corner_radius_top_right = 9
+corner_radius_bottom_right = 9
+corner_radius_bottom_left = 9
+content_margin_left = 14.0
+content_margin_top = 12.0
+content_margin_right = 14.0
+content_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxFlat" id="DetailsPanelStyle"]
+bg_color = Color(0.014, 0.025, 0.041, 0.86)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.52, 0.39, 0.17, 0.92)
+corner_radius_top_left = 9
+corner_radius_top_right = 9
+corner_radius_bottom_right = 9
+corner_radius_bottom_left = 9
+content_margin_left = 18.0
+content_margin_top = 16.0
+content_margin_right = 18.0
+content_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxFlat" id="TreeWellStyle"]
+bg_color = Color(0.004, 0.009, 0.017, 0.56)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.22, 0.26, 0.33, 0.72)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
 
 [node name="ProgressionScreen" type="Control"]
 layout_mode = 3
@@ -39,12 +103,6 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Talenty i pasywy"
 
-[node name="PointsLabel" type="Label" parent="Page/Heading/Identity"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.6, 0.68, 0.78, 1)
-text = "Punkty drzewka: 0  •  Punkty pasywne: 0"
-
 [node name="BackButton" type="Button" parent="Page/Heading"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(190, 0)
@@ -52,9 +110,22 @@ layout_mode = 2
 size_flags_vertical = 4
 text = "Cofnij"
 
+[node name="PointsPanel" type="PanelContainer" parent="Page"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("SectionPanelStyle")
+
+[node name="PointsLabel" type="Label" parent="Page/PointsPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78, 0.82, 0.89, 1)
+theme_override_font_sizes/font_size = 16
+text = "Punkty drzewka: 0  •  Punkty pasywne: 0"
+horizontal_alignment = 1
+
 [node name="Tabs" type="TabContainer" parent="Page"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_styles/panel = SubResource("TabPanelStyle")
 
 [node name="Drzewko klasy" type="HBoxContainer" parent="Page/Tabs"]
 layout_mode = 2
@@ -63,6 +134,7 @@ theme_override_constants/separation = 12
 [node name="PathsPanel" type="PanelContainer" parent="Page/Tabs/Drzewko klasy"]
 custom_minimum_size = Vector2(280, 0)
 layout_mode = 2
+theme_override_styles/panel = SubResource("SectionPanelStyle")
 
 [node name="Content" type="VBoxContainer" parent="Page/Tabs/Drzewko klasy/PathsPanel"]
 layout_mode = 2
@@ -89,8 +161,11 @@ text = "Opis ścieżki."
 autowrap_mode = 2
 
 [node name="TalentsPanel" type="PanelContainer" parent="Page/Tabs/Drzewko klasy"]
-custom_minimum_size = Vector2(350, 0)
+custom_minimum_size = Vector2(420, 0)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.2
+theme_override_styles/panel = SubResource("SectionPanelStyle")
 
 [node name="Content" type="VBoxContainer" parent="Page/Tabs/Drzewko klasy/TalentsPanel"]
 layout_mode = 2
@@ -104,13 +179,31 @@ text = "Talenty"
 
 [node name="TalentList" type="ItemList" parent="Page/Tabs/Drzewko klasy/TalentsPanel/Content"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 allow_reselect = true
 
-[node name="DetailsPanel" type="PanelContainer" parent="Page/Tabs/Drzewko klasy"]
+[node name="TalentTree" type="PanelContainer" parent="Page/Tabs/Drzewko klasy/TalentsPanel/Content"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("TreeWellStyle")
+
+[node name="TalentTreeScroll" type="ScrollContainer" parent="Page/Tabs/Drzewko klasy/TalentsPanel/Content/TalentTree"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="TalentNodes" type="VBoxContainer" parent="Page/Tabs/Drzewko klasy/TalentsPanel/Content/TalentTree/TalentTreeScroll"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="DetailsPanel" type="PanelContainer" parent="Page/Tabs/Drzewko klasy"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("DetailsPanelStyle")
 
 [node name="Content" type="VBoxContainer" parent="Page/Tabs/Drzewko klasy/DetailsPanel"]
 layout_mode = 2
@@ -122,6 +215,12 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Talent"
 autowrap_mode = 2
+
+[node name="TalentRankProgress" type="ProgressBar" parent="Page/Tabs/Drzewko klasy/DetailsPanel/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+show_percentage = false
 
 [node name="TalentDescriptionLabel" type="Label" parent="Page/Tabs/Drzewko klasy/DetailsPanel/Content"]
 unique_name_in_owner = true
@@ -154,8 +253,11 @@ layout_mode = 2
 theme_override_constants/separation = 12
 
 [node name="ListPanel" type="PanelContainer" parent="Page/Tabs/Pasywy"]
-custom_minimum_size = Vector2(430, 0)
+custom_minimum_size = Vector2(680, 0)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.25
+theme_override_styles/panel = SubResource("SectionPanelStyle")
 
 [node name="Content" type="VBoxContainer" parent="Page/Tabs/Pasywy/ListPanel"]
 layout_mode = 2
@@ -169,13 +271,33 @@ text = "Pasywne zdolności"
 
 [node name="PassiveList" type="ItemList" parent="Page/Tabs/Pasywy/ListPanel/Content"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 allow_reselect = true
 
-[node name="PassiveDetailsPanel" type="PanelContainer" parent="Page/Tabs/Pasywy"]
+[node name="PassiveCardsWell" type="PanelContainer" parent="Page/Tabs/Pasywy/ListPanel/Content"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("TreeWellStyle")
+
+[node name="PassiveCardsScroll" type="ScrollContainer" parent="Page/Tabs/Pasywy/ListPanel/Content/PassiveCardsWell"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="PassiveCards" type="GridContainer" parent="Page/Tabs/Pasywy/ListPanel/Content/PassiveCardsWell/PassiveCardsScroll"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 2
+
+[node name="PassiveDetailsPanel" type="PanelContainer" parent="Page/Tabs/Pasywy"]
+custom_minimum_size = Vector2(480, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("DetailsPanelStyle")
 
 [node name="Content" type="VBoxContainer" parent="Page/Tabs/Pasywy/PassiveDetailsPanel"]
 layout_mode = 2
@@ -186,6 +308,12 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Pasywka"
+
+[node name="PassiveRankProgress" type="ProgressBar" parent="Page/Tabs/Pasywy/PassiveDetailsPanel/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+show_percentage = false
 
 [node name="PassiveEffectLabel" type="Label" parent="Page/Tabs/Pasywy/PassiveDetailsPanel/Content"]
 unique_name_in_owner = true

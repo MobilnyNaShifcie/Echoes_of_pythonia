@@ -1,0 +1,949 @@
+{
+  "batch": 1,
+  "style": "approved_anime_fantasy",
+  "status": "integrated_alpha_reviewed",
+  "audit_note": "Entry icon fields are the pre-integration audit. Final production files are in target.",
+  "asset_validation": "../../output/item_art/anime_batch_01_asset_validation.json",
+  "items": [
+    {
+      "category": "material",
+      "description": "Nienaturalnie mocna nić z głębi Czarnego Boru.",
+      "icon": "",
+      "id": "spider_silk",
+      "level": 0,
+      "name": "Pajęcza Nić",
+      "rarity": "common",
+      "rarity_color": "8b929c",
+      "rarity_label": "Zwykły",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.7,
+          "enemy": "venom_spider",
+          "region": "black_forest"
+        }
+      ],
+      "family": "spider",
+      "design": "A compact loose bundle of strong silvery spider silk, a few distinct looping strands, not a woven cloth, no wooden spool. Silver-grey from the source spider web.",
+      "prompt": "Create ONE production-ready 2D INVENTORY ITEM ICON in the user-approved Echoes of Pythonia anime-fantasy art style. PRIMARY style references: the FIRST image is a current anime game hero; the SECOND image is one of the newly approved item icons. Match the smooth illustrated shading, clean contour, broad deliberate highlight shapes and readable material volumes of those references. The third/fourth images, if any, are ONLY source monster/material references. Do NOT copy their gritty surface rendering. Do not copy unrelated gold ornament from the hero or approved icon onto simple materials. Keep illustration sophisticated, not childish flat cartoon, not photorealistic product photography, not 3D. Only a few purposeful wear marks, no speckled microtexture, random particles, sparkles or broad aura. Entire object completely visible, centered on square canvas with at least 8% clear margin on EVERY side, long silhouette about 80% of canvas; short items may be diagonally composed. Strong readable silhouette and important recognizable design at 64px. ALL props are the ONE inventory item or its matching pair only. No character, hands, labels, text, rarity frames, UI, prices, pedestal, cast shadow, scenery or table. Render on flat uniform #FF00FF magenta for authorized local background removal; no key-colour reflections, gradients or faded edges. Explicit subject/design:\nA compact loose bundle of strong silvery spider silk, a few distinct looping strands, not a woven cloth, no wooden spool. Silver-grey from the source spider web.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-cd52f0a9-ef13-40a8-9b3e-526737936bc7.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/venom_spider.png"
+      ],
+      "target": "godot/assets/items/regional/spider_silk.png",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-22ae6cdf-4a4e-45f4-84cd-76e26f962367.png",
+      "status": "integrated_alpha_reviewed"
+    },
+    {
+      "category": "material",
+      "description": "Wciąż pulsujący gruczoł wypełniony trucizną.",
+      "icon": "",
+      "id": "venom_gland",
+      "level": 0,
+      "name": "Gruczoł Jadowy",
+      "rarity": "uncommon",
+      "rarity_color": "4ab875",
+      "rarity_label": "Niepospolity",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.25,
+          "enemy": "venom_spider",
+          "region": "black_forest"
+        }
+      ],
+      "family": "spider",
+      "design": "One intact organic venom sac, muted yellow-green translucent membrane, dark chitinous short duct matching the venom spider's fangs. No bottle or arbitrary emerald, no gore.",
+      "prompt": "Create ONE production-ready 2D INVENTORY ITEM ICON in the user-approved Echoes of Pythonia anime-fantasy art style. PRIMARY style references: the FIRST image is a current anime game hero; the SECOND image is one of the newly approved item icons. Match the smooth illustrated shading, clean contour, broad deliberate highlight shapes and readable material volumes of those references. The third/fourth images, if any, are ONLY source monster/material references. Do NOT copy their gritty surface rendering. Do not copy unrelated gold ornament from the hero or approved icon onto simple materials. Keep illustration sophisticated, not childish flat cartoon, not photorealistic product photography, not 3D. Only a few purposeful wear marks, no speckled microtexture, random particles, sparkles or broad aura. Entire object completely visible, centered on square canvas with at least 8% clear margin on EVERY side, long silhouette about 80% of canvas; short items may be diagonally composed. Strong readable silhouette and important recognizable design at 64px. ALL props are the ONE inventory item or its matching pair only. No character, hands, labels, text, rarity frames, UI, prices, pedestal, cast shadow, scenery or table. Render on flat uniform #FF00FF magenta for authorized local background removal; no key-colour reflections, gradients or faded edges. Explicit subject/design:\nOne intact organic venom sac, muted yellow-green translucent membrane, dark chitinous short duct matching the venom spider's fangs. No bottle or arbitrary emerald, no gore.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-cd52f0a9-ef13-40a8-9b3e-526737936bc7.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/venom_spider.png"
+      ],
+      "target": "godot/assets/items/regional/venom_gland.png",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-31463ed6-c059-48d7-9861-ed3bee675d85.png",
+      "status": "integrated_alpha_reviewed"
+    },
+    {
+      "category": "equipment",
+      "description": "Lekkie buty oplecione srebrzystą nicią.",
+      "icon": "",
+      "id": "spiderstep_boots",
+      "level": 3,
+      "name": "Buty Pajęczego Kroku",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "feet",
+      "sources": [
+        {
+          "chance": 0.1,
+          "enemy": "venom_spider",
+          "region": "black_forest"
+        }
+      ],
+      "family": "spider",
+      "design": "Pair of light charcoal leather boots laced and wrapped in distinct silvery spider-silk crossing bands. Small dark chitin eyelets, restrained yellow-green seam accent; compatible with spiderweave gloves. No mannequin or legs.",
+      "prompt": "Create ONE production-ready 2D INVENTORY ITEM ICON in the user-approved Echoes of Pythonia anime-fantasy art style. PRIMARY style references: the FIRST image is a current anime game hero; the SECOND image is one of the newly approved item icons. Match the smooth illustrated shading, clean contour, broad deliberate highlight shapes and readable material volumes of those references. The third/fourth images, if any, are ONLY source monster/material references. Do NOT copy their gritty surface rendering. Do not copy unrelated gold ornament from the hero or approved icon onto simple materials. Keep illustration sophisticated, not childish flat cartoon, not photorealistic product photography, not 3D. Only a few purposeful wear marks, no speckled microtexture, random particles, sparkles or broad aura. Entire object completely visible, centered on square canvas with at least 8% clear margin on EVERY side, long silhouette about 80% of canvas; short items may be diagonally composed. Strong readable silhouette and important recognizable design at 64px. ALL props are the ONE inventory item or its matching pair only. No character, hands, labels, text, rarity frames, UI, prices, pedestal, cast shadow, scenery or table. Render on flat uniform #FF00FF magenta for authorized local background removal; no key-colour reflections, gradients or faded edges. Explicit subject/design:\nPair of light charcoal leather boots laced and wrapped in distinct silvery spider-silk crossing bands. Small dark chitin eyelets, restrained yellow-green seam accent; compatible with spiderweave gloves. No mannequin or legs.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-cd52f0a9-ef13-40a8-9b3e-526737936bc7.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/venom_spider.png"
+      ],
+      "target": "godot/assets/items/regional/spiderstep_boots.png",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-df912ecc-7acf-4228-bb68-6b7f7207850b.png",
+      "status": "integrated_alpha_reviewed"
+    },
+    {
+      "category": "equipment",
+      "description": "Elastyczne rękawice utkane z pajęczej nici.",
+      "icon": "",
+      "id": "spiderweave_gloves",
+      "level": 3,
+      "name": "Rękawice Pajęczego Splotu",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "hands",
+      "sources": [],
+      "family": "spider",
+      "design": "Pair of fitted dark spider-silk gloves, flexible not plate armor, silvery crossing woven seams matching spiderstep boots, tiny muted venom-green seam accents. No hands inside.",
+      "prompt": "Create ONE production-ready 2D INVENTORY ITEM ICON in the user-approved Echoes of Pythonia anime-fantasy art style. PRIMARY style references: the FIRST image is a current anime game hero; the SECOND image is one of the newly approved item icons. Match the smooth illustrated shading, clean contour, broad deliberate highlight shapes and readable material volumes of those references. The third/fourth images, if any, are ONLY source monster/material references. Do NOT copy their gritty surface rendering. Do not copy unrelated gold ornament from the hero or approved icon onto simple materials. Keep illustration sophisticated, not childish flat cartoon, not photorealistic product photography, not 3D. Only a few purposeful wear marks, no speckled microtexture, random particles, sparkles or broad aura. Entire object completely visible, centered on square canvas with at least 8% clear margin on EVERY side, long silhouette about 80% of canvas; short items may be diagonally composed. Strong readable silhouette and important recognizable design at 64px. ALL props are the ONE inventory item or its matching pair only. No character, hands, labels, text, rarity frames, UI, prices, pedestal, cast shadow, scenery or table. Render on flat uniform #FF00FF magenta for authorized local background removal; no key-colour reflections, gradients or faded edges. Explicit subject/design:\nPair of fitted dark spider-silk gloves, flexible not plate armor, silvery crossing woven seams matching spiderstep boots, tiny muted venom-green seam accents. No hands inside.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-cd52f0a9-ef13-40a8-9b3e-526737936bc7.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/venom_spider.png"
+      ],
+      "target": "godot/assets/items/regional/spiderweave_gloves.png",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-77ca8856-2bc8-4cb7-b85a-e6eedb71ec38.png",
+      "status": "integrated_alpha_reviewed"
+    },
+    {
+      "category": "material",
+      "description": "Oderwany fragment czarnej ceremonialnej szaty, pokryty zaschniętą żywicą.",
+      "icon": "",
+      "id": "cultist_cloth",
+      "level": 0,
+      "name": "Fragment Szaty Kultysty",
+      "rarity": "common",
+      "rarity_color": "8b929c",
+      "rarity_label": "Zwykły",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.6,
+          "enemy": "forest_cultist",
+          "region": "black_forest"
+        }
+      ],
+      "family": "cult",
+      "design": "One torn black ceremonial robe cloth with very dark moss-green lining, a partial weathered branch-in-circle cult embroidery, a little dried black resin. Match the actual forest cultist clothing.",
+      "prompt": "Create ONE production-ready 2D INVENTORY ITEM ICON in the user-approved Echoes of Pythonia anime-fantasy art style. PRIMARY style references: the FIRST image is a current anime game hero; the SECOND image is one of the newly approved item icons. Match the smooth illustrated shading, clean contour, broad deliberate highlight shapes and readable material volumes of those references. The third/fourth images, if any, are ONLY source monster/material references. Do NOT copy their gritty surface rendering. Do not copy unrelated gold ornament from the hero or approved icon onto simple materials. Keep illustration sophisticated, not childish flat cartoon, not photorealistic product photography, not 3D. Only a few purposeful wear marks, no speckled microtexture, random particles, sparkles or broad aura. Entire object completely visible, centered on square canvas with at least 8% clear margin on EVERY side, long silhouette about 80% of canvas; short items may be diagonally composed. Strong readable silhouette and important recognizable design at 64px. ALL props are the ONE inventory item or its matching pair only. No character, hands, labels, text, rarity frames, UI, prices, pedestal, cast shadow, scenery or table. Render on flat uniform #FF00FF magenta for authorized local background removal; no key-colour reflections, gradients or faded edges. Explicit subject/design:\nOne torn black ceremonial robe cloth with very dark moss-green lining, a partial weathered branch-in-circle cult embroidery, a little dried black resin. Match the actual forest cultist clothing.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-cd52f0a9-ef13-40a8-9b3e-526737936bc7.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/forest_cultist.png"
+      ],
+      "target": "godot/assets/items/regional/cultist_cloth.png",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-42018d2c-7ca5-419c-b798-af8b21b3db16.png",
+      "status": "integrated_alpha_reviewed"
+    },
+    {
+      "category": "material",
+      "description": "Metalowy znak nieznanego leśnego kultu.",
+      "icon": "",
+      "id": "dark_sigil",
+      "level": 0,
+      "name": "Mroczny Sygnet",
+      "rarity": "uncommon",
+      "rarity_color": "4ab875",
+      "rarity_label": "Niepospolity",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.2,
+          "enemy": "forest_cultist",
+          "region": "black_forest"
+        }
+      ],
+      "family": "cult",
+      "design": "Small tarnished bronze cult seal bearing the branch-in-circle emblem seen on the cultist. A crafting metal insignia, not a wearable ring yet. Same emblem as dark_sigil_ring. Match the EXACT branching-tree-in-round-rim motif of the approved pendant reference. Restrained moss green inset and bronze; same recognizable cult family.",
+      "prompt": "Create ONE production-ready 2D INVENTORY ITEM ICON in the user-approved Echoes of Pythonia anime-fantasy art style. PRIMARY style references: the FIRST image is a current anime game hero; the SECOND image is one of the newly approved item icons. Match the smooth illustrated shading, clean contour, broad deliberate highlight shapes and readable material volumes of those references. The third/fourth images, if any, are ONLY source monster/material references. Do NOT copy their gritty surface rendering. Do not copy unrelated gold ornament from the hero or approved icon onto simple materials. Keep illustration sophisticated, not childish flat cartoon, not photorealistic product photography, not 3D. Only a few purposeful wear marks, no speckled microtexture, random particles, sparkles or broad aura. Entire object completely visible, centered on square canvas with at least 8% clear margin on EVERY side, long silhouette about 80% of canvas; short items may be diagonally composed. Strong readable silhouette and important recognizable design at 64px. ALL props are the ONE inventory item or its matching pair only. No character, hands, labels, text, rarity frames, UI, prices, pedestal, cast shadow, scenery or table. Render on flat uniform #FF00FF magenta for authorized local background removal; no key-colour reflections, gradients or faded edges. Explicit subject/design:\nSmall tarnished bronze cult seal bearing the branch-in-circle emblem seen on the cultist. A crafting metal insignia, not a wearable ring yet. Same emblem as dark_sigil_ring. Match the EXACT branching-tree-in-round-rim motif of the approved pendant reference. Restrained moss green inset and bronze; same recognizable cult family.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-cd52f0a9-ef13-40a8-9b3e-526737936bc7.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/forest_cultist.png"
+      ],
+      "target": "godot/assets/items/regional/dark_sigil.png",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-1a9ede7e-4d66-4b03-aaa6-dd65b2c19828.png",
+      "status": "integrated_alpha_reviewed"
+    },
+    {
+      "category": "equipment",
+      "description": "Kamień, który delikatnie reaguje na przepływ Many.",
+      "icon": "",
+      "id": "cultist_pendant",
+      "level": 3,
+      "name": "Wisiorek Kultysty",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "necklace",
+      "sources": [
+        {
+          "chance": 0.1,
+          "enemy": "forest_cultist",
+          "region": "black_forest"
+        }
+      ],
+      "target": "godot/assets/items/regional/cultist_pendant.png",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-cd52f0a9-ef13-40a8-9b3e-526737936bc7.png",
+      "prompt": "Make a precise local correction to this SINGLE inventory item illustration. Preserve the pendant design, green enamel, bronze tree emblem, lighting, rendering and overall dimensions exactly. REPLACE ONLY the currently cut-off/fading upper leather cord with a short COMPLETE CLOSED oval loop of the same dark brown leather cord, fully contained inside the upper third of the square with at least 8% plain magenta margin above it. The entire item including both sides and top of the cord must be visible, no ends touching edge, no gradient fading into backdrop. The pendant lower edge should also have at least 8% margin. Uniform exact #FF00FF background everywhere outside object. No floating particles, shadows, text, frame or other objects. The emblem itself should stay the same. Professional 2D anime fantasy inventory asset.",
+      "status": "integrated_alpha_reviewed"
+    },
+    {
+      "category": "equipment",
+      "description": "Przerobiony znak kultu, w którym pulsuje potępiona energia.",
+      "icon": "",
+      "id": "dark_sigil_ring",
+      "level": 3,
+      "name": "Pierścień Mrocznego Sygnetu",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "ring",
+      "sources": [],
+      "family": "cult",
+      "design": "Wearable aged bronze signet ring made from the dark cult seal, clearly open finger loop, branch-in-circle emblem on face; faint cold inset, no external magical aura. Same emblem as dark_sigil. Match the EXACT branching-tree-in-round-rim motif of the approved pendant reference. Restrained moss green inset and bronze; same recognizable cult family.",
+      "prompt": "Create ONE production-ready 2D INVENTORY ITEM ICON in the user-approved Echoes of Pythonia anime-fantasy art style. PRIMARY style references: the FIRST image is a current anime game hero; the SECOND image is one of the newly approved item icons. Match the smooth illustrated shading, clean contour, broad deliberate highlight shapes and readable material volumes of those references. The third/fourth images, if any, are ONLY source monster/material references. Do NOT copy their gritty surface rendering. Do not copy unrelated gold ornament from the hero or approved icon onto simple materials. Keep illustration sophisticated, not childish flat cartoon, not photorealistic product photography, not 3D. Only a few purposeful wear marks, no speckled microtexture, random particles, sparkles or broad aura. Entire object completely visible, centered on square canvas with at least 8% clear margin on EVERY side, long silhouette about 80% of canvas; short items may be diagonally composed. Strong readable silhouette and important recognizable design at 64px. ALL props are the ONE inventory item or its matching pair only. No character, hands, labels, text, rarity frames, UI, prices, pedestal, cast shadow, scenery or table. Render on flat uniform #FF00FF magenta for authorized local background removal; no key-colour reflections, gradients or faded edges. Explicit subject/design:\nWearable aged bronze signet ring made from the dark cult seal, clearly open finger loop, branch-in-circle emblem on face; faint cold inset, no external magical aura. Same emblem as dark_sigil. Match the EXACT branching-tree-in-round-rim motif of the approved pendant reference. Restrained moss green inset and bronze; same recognizable cult family.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-cd52f0a9-ef13-40a8-9b3e-526737936bc7.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/forest_cultist.png"
+      ],
+      "target": "godot/assets/items/regional/dark_sigil_ring.png",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-6c368172-1558-4cfd-8ae5-37a1e7087873.png",
+      "status": "integrated_alpha_reviewed"
+    },
+    {
+      "category": "material",
+      "description": "Ciężki fragment pancerza zdjęty z martwego rycerza.",
+      "icon": "",
+      "id": "rusted_plate",
+      "level": 0,
+      "name": "Zardzewiała Płyta",
+      "rarity": "common",
+      "rarity_color": "8b929c",
+      "rarity_label": "Zwykły",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.6,
+          "enemy": "rotting_knight",
+          "region": "black_forest"
+        }
+      ],
+      "family": "knight",
+      "design": "Single broken curved armor plate from the rotting knight's shoulder, dull steel with brown edge corrosion, a few rivets and restrained moss patches. No whole armor or skull.",
+      "prompt": "Create ONE production-ready 2D INVENTORY ITEM ICON in the user-approved Echoes of Pythonia anime-fantasy art style. PRIMARY style references: the FIRST image is a current anime game hero; the SECOND image is one of the newly approved item icons. Match the smooth illustrated shading, clean contour, broad deliberate highlight shapes and readable material volumes of those references. The third/fourth images, if any, are ONLY source monster/material references. Do NOT copy their gritty surface rendering. Do not copy unrelated gold ornament from the hero or approved icon onto simple materials. Keep illustration sophisticated, not childish flat cartoon, not photorealistic product photography, not 3D. Only a few purposeful wear marks, no speckled microtexture, random particles, sparkles or broad aura. Entire object completely visible, centered on square canvas with at least 8% clear margin on EVERY side, long silhouette about 80% of canvas; short items may be diagonally composed. Strong readable silhouette and important recognizable design at 64px. ALL props are the ONE inventory item or its matching pair only. No character, hands, labels, text, rarity frames, UI, prices, pedestal, cast shadow, scenery or table. Render on flat uniform #FF00FF magenta for authorized local background removal; no key-colour reflections, gradients or faded edges. Explicit subject/design:\nSingle broken curved armor plate from the rotting knight's shoulder, dull steel with brown edge corrosion, a few rivets and restrained moss patches. No whole armor or skull.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-429fa180-6c07-445e-8db3-a2c499fa9aa7.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/rotting_knight.png"
+      ],
+      "target": "godot/assets/items/regional/rusted_plate.png",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-87ab2297-8e02-4633-86da-175b6db63f90.png",
+      "status": "integrated_alpha_reviewed"
+    },
+    {
+      "category": "equipment",
+      "description": "Ciężki hełm o zardzewiałej, lecz wciąż solidnej konstrukcji.",
+      "icon": "",
+      "id": "rotting_knight_helm",
+      "level": 4,
+      "name": "Hełm Zgniłego Rycerza",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "head",
+      "sources": [
+        {
+          "chance": 0.15,
+          "enemy": "rotting_knight",
+          "region": "black_forest"
+        }
+      ],
+      "target": "godot/assets/items/regional/rotting_knight_helm.png",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-429fa180-6c07-445e-8db3-a2c499fa9aa7.png",
+      "prompt": "Create ONE high quality 2D INVENTORY ITEM ICON for Echoes of Pythonia. The FIRST TWO reference images (anime heroes) are the PRIMARY RENDERING STYLE references: polished anime/JRPG illustration, crisp graceful contour, smooth large shadow groups, a few intentional sharp highlights, subtle painterly transitions, NO realistic pore/grain/scratch noise. Match how equipment looks when worn BY THESE CHARACTERS. Do not flatten into childish vector/cartoon art and do not overload detail. The THIRD image (enemy) is ONLY an identity/material/design reference, do NOT copy its gritty rendering. Asset is a single item only, centered and occupying about 80% of a square canvas, silhouette clean and legible at 64px, soft upper-left lighting, all parts fully visible. No quality frame (engine adds rarity frame separately), no UI, lettering, numbers, cast shadow, pedestal, sparkles, floor or decorative vignette. Render on perfectly FLAT SOLID #FF00FF magenta backdrop for local alpha extraction; no magenta bounce or reflections on the object. Specific item:\nOne EMPTY wearable helmet looted from the reference rotting knight: peaked angular steel bascinet, narrow empty black eye slit, 5 simple breathing vents, broken short dark-blue crest, restrained aged bronze rim, a couple of broad rust/moss stains to convey age. Three-quarter view facing left. Keep this exact medieval armor family but paint metal as clean grouped slate-blue/silver planes with illustrated highlights like the heroes' armor, not a pitted realistic product render. No head or skeleton inside, no glowing eyes, no gore, no rubble, no base, no text. Stylish anime RPG equipment, NOT clean golden legendary armor.",
+      "status": "integrated_alpha_reviewed"
+    },
+    {
+      "category": "material",
+      "description": "Gruba skóra przesiąknięta czarną żywicą.",
+      "icon": "",
+      "id": "corrupted_hide",
+      "level": 0,
+      "name": "Spaczona Skóra",
+      "rarity": "common",
+      "rarity_color": "8b929c",
+      "rarity_label": "Zwykły",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 1,
+          "enemy": "corrupted_bear",
+          "region": "black_forest"
+        }
+      ],
+      "family": "bear",
+      "design": "Spaczona Skóra: one folded thick irregular piece of black bear hide, short charcoal-violet fur along torn edges and smooth tough dark leather underside, a little dried black resin soaked through it, subtle muted violet discoloration from corruption, no luminous purple cracks. Clearly usable leather crafting material, NOT an entire bear pelt, no face/head/paws. Source is this black corrupted bear.",
+      "prompt": "Create ONE production-ready 2D INVENTORY ITEM ICON in the user-approved Echoes of Pythonia anime-fantasy art style. PRIMARY style references: the FIRST image is a current anime game hero; the SECOND image is one of the newly approved item icons. Match the smooth illustrated shading, clean contour, broad deliberate highlight shapes and readable material volumes of those references. The third/fourth images, if any, are ONLY source monster/material references. Do NOT copy their gritty surface rendering. Do not copy unrelated gold ornament from the hero or approved icon onto simple materials. Keep illustration sophisticated, not childish flat cartoon, not photorealistic product photography, not 3D. Only a few purposeful wear marks, no speckled microtexture, random particles, sparkles or broad aura. Entire object completely visible, centered on square canvas with at least 8% clear margin on EVERY side, long silhouette about 80% of canvas; short items may be diagonally composed. Strong readable silhouette and important recognizable design at 64px. ALL props are the ONE inventory item or its matching pair only. No character, hands, labels, text, rarity frames, UI, prices, pedestal, cast shadow, scenery or table. Render on flat uniform #FF00FF magenta for authorized local background removal; no key-colour reflections, gradients or faded edges. Explicit subject/design:\nSpaczona Skóra: one folded thick irregular piece of black bear hide, short charcoal-violet fur along torn edges and smooth tough dark leather underside, a little dried black resin soaked through it, subtle muted violet discoloration from corruption, no luminous purple cracks. Clearly usable leather crafting material, NOT an entire bear pelt, no face/head/paws. Source is this black corrupted bear.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-0b7a5b79-27b2-4e7b-a7c4-d7e0b9edc3ea.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/corrupted_bear.png"
+      ],
+      "target": "godot/assets/items/regional/corrupted_hide.png",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-6d2fa7be-5c2d-435b-8f97-466700245230.png",
+      "status": "integrated_alpha_reviewed"
+    },
+    {
+      "category": "material",
+      "description": "Ogromny pazur spaczonego niedźwiedzia.",
+      "icon": "",
+      "id": "black_bear_claw",
+      "level": 0,
+      "name": "Czarny Pazur",
+      "rarity": "uncommon",
+      "rarity_color": "4ab875",
+      "rarity_label": "Niepospolity",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.3,
+          "enemy": "corrupted_bear",
+          "region": "black_forest"
+        }
+      ],
+      "target": "godot/assets/items/regional/black_bear_claw.png",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-0b7a5b79-27b2-4e7b-a7c4-d7e0b9edc3ea.png",
+      "prompt": "Create ONE high quality 2D INVENTORY ITEM ICON for Echoes of Pythonia. The FIRST TWO reference images (anime heroes) are the PRIMARY RENDERING STYLE references: polished anime/JRPG illustration, crisp graceful contour, smooth large shadow groups, a few intentional sharp highlights, subtle painterly transitions, NO realistic pore/grain/scratch noise. Match how equipment looks when worn BY THESE CHARACTERS. Do not flatten into childish vector/cartoon art and do not overload detail. The THIRD image (enemy) is ONLY an identity/material/design reference, do NOT copy its gritty rendering. Asset is a single item only, centered and occupying about 80% of a square canvas, silhouette clean and legible at 64px, soft upper-left lighting, all parts fully visible. No quality frame (engine adds rarity frame separately), no UI, lettering, numbers, cast shadow, pedestal, sparkles, floor or decorative vignette. Render on perfectly FLAT SOLID #FF00FF magenta backdrop for local alpha extraction; no magenta bounce or reflections on the object. Specific item:\nA SINGLE large curved black-brown bear claw, identifiable as one of the reference corrupted bear's long talons. Tapered dark charcoal keratin, broad warm ivory-grey ridge highlight, clean strong hooked silhouette, simple darker root rim. Three-quarter diagonal composition. A tiny desaturated violet tint in shadow is okay but NO neon cracks, fur fragments, gold mount, particles or glow. Ordinary organic crafting material, NOT a jewel or weapon. Smooth stylized volume and a few intentionally drawn lines instead of dense scratches, speckled phototexture or pores.",
+      "status": "integrated_alpha_reviewed"
+    },
+    {
+      "category": "equipment",
+      "description": "Szeroki pas wykonany ze skóry spaczonego niedźwiedzia.",
+      "icon": "",
+      "id": "bearhide_belt",
+      "level": 4,
+      "name": "Pas z Czarnej Skóry",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "belt",
+      "sources": [
+        {
+          "chance": 0.12,
+          "enemy": "corrupted_bear",
+          "region": "black_forest"
+        }
+      ],
+      "family": "bear",
+      "design": "Wide tough charcoal leather belt from corrupted bear hide, dark short fur at worn edges and plain weathered iron buckle. Oval belt loop in three-quarter view, subdued muted violet tint, no skull buckle or excessive decorations.",
+      "prompt": "Create ONE production-ready 2D INVENTORY ITEM ICON in the user-approved Echoes of Pythonia anime-fantasy art style. PRIMARY style references: the FIRST image is a current anime game hero; the SECOND image is one of the newly approved item icons. Match the smooth illustrated shading, clean contour, broad deliberate highlight shapes and readable material volumes of those references. The third/fourth images, if any, are ONLY source monster/material references. Do NOT copy their gritty surface rendering. Do not copy unrelated gold ornament from the hero or approved icon onto simple materials. Keep illustration sophisticated, not childish flat cartoon, not photorealistic product photography, not 3D. Only a few purposeful wear marks, no speckled microtexture, random particles, sparkles or broad aura. Entire object completely visible, centered on square canvas with at least 8% clear margin on EVERY side, long silhouette about 80% of canvas; short items may be diagonally composed. Strong readable silhouette and important recognizable design at 64px. ALL props are the ONE inventory item or its matching pair only. No character, hands, labels, text, rarity frames, UI, prices, pedestal, cast shadow, scenery or table. Render on flat uniform #FF00FF magenta for authorized local background removal; no key-colour reflections, gradients or faded edges. Explicit subject/design:\nWide tough charcoal leather belt from corrupted bear hide, dark short fur at worn edges and plain weathered iron buckle. Oval belt loop in three-quarter view, subdued muted violet tint, no skull buckle or excessive decorations.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-0b7a5b79-27b2-4e7b-a7c4-d7e0b9edc3ea.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/corrupted_bear.png"
+      ],
+      "target": "godot/assets/items/regional/bearhide_belt.png",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-3c6ad36c-ef6b-448f-a4fe-3bac33832913.png",
+      "status": "integrated_alpha_reviewed"
+    },
+    {
+      "category": "equipment",
+      "description": "Płyty metalu wzmocnione grubą, spaczoną skórą.",
+      "icon": "",
+      "id": "blackwood_mail",
+      "level": 4,
+      "name": "Pancerz Czarnego Boru",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "chest",
+      "sources": [],
+      "family": "bear_knight",
+      "design": "Chest armor with dark worn steel overlapping plates repaired from rotting knight armor, reinforced by charcoal corrupted bear hide and short dark fur edging. Match bearhide belt material and rusted plate metal; no person or full armor suit.",
+      "prompt": "Create ONE production-ready 2D INVENTORY ITEM ICON in the user-approved Echoes of Pythonia anime-fantasy art style. PRIMARY style references: the FIRST image is a current anime game hero; the SECOND image is one of the newly approved item icons. Match the smooth illustrated shading, clean contour, broad deliberate highlight shapes and readable material volumes of those references. The third/fourth images, if any, are ONLY source monster/material references. Do NOT copy their gritty surface rendering. Do not copy unrelated gold ornament from the hero or approved icon onto simple materials. Keep illustration sophisticated, not childish flat cartoon, not photorealistic product photography, not 3D. Only a few purposeful wear marks, no speckled microtexture, random particles, sparkles or broad aura. Entire object completely visible, centered on square canvas with at least 8% clear margin on EVERY side, long silhouette about 80% of canvas; short items may be diagonally composed. Strong readable silhouette and important recognizable design at 64px. ALL props are the ONE inventory item or its matching pair only. No character, hands, labels, text, rarity frames, UI, prices, pedestal, cast shadow, scenery or table. Render on flat uniform #FF00FF magenta for authorized local background removal; no key-colour reflections, gradients or faded edges. Explicit subject/design:\nChest armor with dark worn steel overlapping plates repaired from rotting knight armor, reinforced by charcoal corrupted bear hide and short dark fur edging. Match bearhide belt material and rusted plate metal; no person or full armor suit.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-429fa180-6c07-445e-8db3-a2c499fa9aa7.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/corrupted_bear.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/rotting_knight.png"
+      ],
+      "target": "godot/assets/items/regional/blackwood_mail.png",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-287b6222-bcbc-4ad3-8582-6e582587b4ec.png",
+      "status": "integrated_alpha_reviewed"
+    },
+    {
+      "category": "material",
+      "description": "Zimna energia pozostała po zjawie wisielca.",
+      "icon": "",
+      "id": "damned_essence",
+      "level": 0,
+      "name": "Potępiona Esencja",
+      "rarity": "uncommon",
+      "rarity_color": "4ab875",
+      "rarity_label": "Niepospolity",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.6,
+          "enemy": "gallows_wraith",
+          "region": "black_forest"
+        }
+      ],
+      "family": "wraith",
+      "design": "A single compact knot of cold silver-blue spectral residue from the Gallows Wraith, shaped like a curled wispy droplet with rope-like folding. Pale blue-white interior and smoky grey edge, not green fire. Solid readable painted silhouette. No bottle, face, hands, loose particles, large external glow or fog field.",
+      "prompt": "Create ONE production-ready 2D INVENTORY ITEM ICON in the user-approved Echoes of Pythonia anime-fantasy art style. PRIMARY style references: the FIRST image is a current anime game hero; the SECOND image is one of the newly approved item icons. Match the smooth illustrated shading, clean contour, broad deliberate highlight shapes and readable material volumes of those references. The third/fourth images, if any, are ONLY source monster/material references. Do NOT copy their gritty surface rendering. Do not copy unrelated gold ornament from the hero or approved icon onto simple materials. Keep illustration sophisticated, not childish flat cartoon, not photorealistic product photography, not 3D. Only a few purposeful wear marks, no speckled microtexture, random particles, sparkles or broad aura. Entire object completely visible, centered on square canvas with at least 8% clear margin on EVERY side, long silhouette about 80% of canvas; short items may be diagonally composed. Strong readable silhouette and important recognizable design at 64px. ALL props are the ONE inventory item or its matching pair only. No character, hands, labels, text, rarity frames, UI, prices, pedestal, cast shadow, scenery or table. Render on flat uniform #FF00FF magenta for authorized local background removal; no key-colour reflections, gradients or faded edges. Explicit subject/design:\nA single compact knot of cold silver-blue spectral residue from the Gallows Wraith, shaped like a curled wispy droplet with rope-like folding. Pale blue-white interior and smoky grey edge, not green fire. Solid readable painted silhouette. No bottle, face, hands, loose particles, large external glow or fog field.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-cd52f0a9-ef13-40a8-9b3e-526737936bc7.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/gallows_wraith.png"
+      ],
+      "target": "godot/assets/items/regional/damned_essence.png",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-87157efd-56e7-4bb4-b25c-8e0488f3bfb6.png",
+      "status": "integrated_alpha_reviewed"
+    },
+    {
+      "category": "equipment",
+      "description": "Zimny pierścień, którego dotyk niemal znika na skórze.",
+      "icon": "",
+      "id": "wraith_ring",
+      "level": 4,
+      "name": "Pierścień Wisielca",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "ring",
+      "sources": [
+        {
+          "chance": 0.1,
+          "enemy": "gallows_wraith",
+          "region": "black_forest"
+        }
+      ],
+      "family": "wraith",
+      "design": "Thin weathered grey metal ring with twisted rope/noose-inspired shoulders and small cold pale blue-white inset, echoing Gallows Wraith's rope and spectral light. Clearly visible finger loop, restrained weathered metal, no external aura.",
+      "prompt": "Create ONE production-ready 2D INVENTORY ITEM ICON in the user-approved Echoes of Pythonia anime-fantasy art style. PRIMARY style references: the FIRST image is a current anime game hero; the SECOND image is one of the newly approved item icons. Match the smooth illustrated shading, clean contour, broad deliberate highlight shapes and readable material volumes of those references. The third/fourth images, if any, are ONLY source monster/material references. Do NOT copy their gritty surface rendering. Do not copy unrelated gold ornament from the hero or approved icon onto simple materials. Keep illustration sophisticated, not childish flat cartoon, not photorealistic product photography, not 3D. Only a few purposeful wear marks, no speckled microtexture, random particles, sparkles or broad aura. Entire object completely visible, centered on square canvas with at least 8% clear margin on EVERY side, long silhouette about 80% of canvas; short items may be diagonally composed. Strong readable silhouette and important recognizable design at 64px. ALL props are the ONE inventory item or its matching pair only. No character, hands, labels, text, rarity frames, UI, prices, pedestal, cast shadow, scenery or table. Render on flat uniform #FF00FF magenta for authorized local background removal; no key-colour reflections, gradients or faded edges. Explicit subject/design:\nThin weathered grey metal ring with twisted rope/noose-inspired shoulders and small cold pale blue-white inset, echoing Gallows Wraith's rope and spectral light. Clearly visible finger loop, restrained weathered metal, no external aura.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-cd52f0a9-ef13-40a8-9b3e-526737936bc7.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/gallows_wraith.png"
+      ],
+      "target": "godot/assets/items/regional/wraith_ring.png",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-302c56e4-ac52-433b-8bfd-3890c407b1cf.png",
+      "status": "integrated_alpha_reviewed"
+    },
+    {
+      "category": "material",
+      "description": "Odłamek poroża, który zdaje się pochłaniać światło.",
+      "icon": "",
+      "id": "black_antler",
+      "level": 0,
+      "name": "Czarne Poroże",
+      "rarity": "uncommon",
+      "rarity_color": "4ab875",
+      "rarity_label": "Niepospolity",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.5,
+          "enemy": "black_hart",
+          "region": "black_forest"
+        }
+      ],
+      "family": "hart",
+      "design": "One broken branching fragment of the Black Hart's exact black-violet ridged jagged antler with two sharp tines and very faint muted wine-purple fissures. Organic antler, not a tree branch, bone white antler or crystal. No deer skull, fog, bright glow.",
+      "prompt": "Create ONE production-ready 2D INVENTORY ITEM ICON in the user-approved Echoes of Pythonia anime-fantasy art style. PRIMARY style references: the FIRST image is a current anime game hero; the SECOND image is one of the newly approved item icons. Match the smooth illustrated shading, clean contour, broad deliberate highlight shapes and readable material volumes of those references. The third/fourth images, if any, are ONLY source monster/material references. Do NOT copy their gritty surface rendering. Do not copy unrelated gold ornament from the hero or approved icon onto simple materials. Keep illustration sophisticated, not childish flat cartoon, not photorealistic product photography, not 3D. Only a few purposeful wear marks, no speckled microtexture, random particles, sparkles or broad aura. Entire object completely visible, centered on square canvas with at least 8% clear margin on EVERY side, long silhouette about 80% of canvas; short items may be diagonally composed. Strong readable silhouette and important recognizable design at 64px. ALL props are the ONE inventory item or its matching pair only. No character, hands, labels, text, rarity frames, UI, prices, pedestal, cast shadow, scenery or table. Render on flat uniform #FF00FF magenta for authorized local background removal; no key-colour reflections, gradients or faded edges. Explicit subject/design:\nOne broken branching fragment of the Black Hart's exact black-violet ridged jagged antler with two sharp tines and very faint muted wine-purple fissures. Organic antler, not a tree branch, bone white antler or crystal. No deer skull, fog, bright glow.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-cd52f0a9-ef13-40a8-9b3e-526737936bc7.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/black_hart.png"
+      ],
+      "target": "godot/assets/items/regional/black_antler.png",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-8c3829e0-46c6-4407-8a70-cfca6629af1d.png",
+      "status": "integrated_alpha_reviewed"
+    },
+    {
+      "category": "equipment",
+      "description": "Oszlifowany fragment czarnego poroża osadzony w skórzanej opasce.",
+      "icon": "",
+      "id": "black_antler_charm",
+      "level": 4,
+      "name": "Bransoleta Czarnego Jelenia",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "bracelet",
+      "sources": [
+        {
+          "chance": 0.12,
+          "enemy": "black_hart",
+          "region": "black_forest"
+        }
+      ],
+      "family": "hart",
+      "design": "A wearable dark charcoal leather wrist bracelet holding one polished black-violet antler sliver, matching the Black Hart's ridged pointed antler; tiny aged bronze ties and very subdued wine-purple fissure. Clearly bracelet loop, not necklace or crown.",
+      "prompt": "Create ONE production-ready 2D INVENTORY ITEM ICON in the user-approved Echoes of Pythonia anime-fantasy art style. PRIMARY style references: the FIRST image is a current anime game hero; the SECOND image is one of the newly approved item icons. Match the smooth illustrated shading, clean contour, broad deliberate highlight shapes and readable material volumes of those references. The third/fourth images, if any, are ONLY source monster/material references. Do NOT copy their gritty surface rendering. Do not copy unrelated gold ornament from the hero or approved icon onto simple materials. Keep illustration sophisticated, not childish flat cartoon, not photorealistic product photography, not 3D. Only a few purposeful wear marks, no speckled microtexture, random particles, sparkles or broad aura. Entire object completely visible, centered on square canvas with at least 8% clear margin on EVERY side, long silhouette about 80% of canvas; short items may be diagonally composed. Strong readable silhouette and important recognizable design at 64px. ALL props are the ONE inventory item or its matching pair only. No character, hands, labels, text, rarity frames, UI, prices, pedestal, cast shadow, scenery or table. Render on flat uniform #FF00FF magenta for authorized local background removal; no key-colour reflections, gradients or faded edges. Explicit subject/design:\nA wearable dark charcoal leather wrist bracelet holding one polished black-violet antler sliver, matching the Black Hart's ridged pointed antler; tiny aged bronze ties and very subdued wine-purple fissure. Clearly bracelet loop, not necklace or crown.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-cd52f0a9-ef13-40a8-9b3e-526737936bc7.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/black_hart.png"
+      ],
+      "target": "godot/assets/items/regional/black_antler_charm.png",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-20d8ff48-2441-4a68-8229-3053311357a9.png",
+      "status": "integrated_alpha_reviewed"
+    },
+    {
+      "category": "material",
+      "description": "Twardy rdzeń pulsujący jak żywe serce drzewa.",
+      "icon": "",
+      "id": "blackwood_heart",
+      "level": 0,
+      "name": "Serce Czarnego Boru",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 1,
+          "enemy": "blackwood_executioner",
+          "region": "black_forest"
+        }
+      ],
+      "family": "executioner",
+      "design": "Dense knotted core of dark living wood, black resin and warm ochre-orange inner grain seen in the Blackwood Executioner's wooden arm. A compact roughly heart-shaped chunk with broken bark edges, one narrow amber fissure. No flesh, blood, particles or aura.",
+      "prompt": "Create ONE production-ready 2D INVENTORY ITEM ICON in the user-approved Echoes of Pythonia anime-fantasy art style. PRIMARY style references: the FIRST image is a current anime game hero; the SECOND image is one of the newly approved item icons. Match the smooth illustrated shading, clean contour, broad deliberate highlight shapes and readable material volumes of those references. The third/fourth images, if any, are ONLY source monster/material references. Do NOT copy their gritty surface rendering. Do not copy unrelated gold ornament from the hero or approved icon onto simple materials. Keep illustration sophisticated, not childish flat cartoon, not photorealistic product photography, not 3D. Only a few purposeful wear marks, no speckled microtexture, random particles, sparkles or broad aura. Entire object completely visible, centered on square canvas with at least 8% clear margin on EVERY side, long silhouette about 80% of canvas; short items may be diagonally composed. Strong readable silhouette and important recognizable design at 64px. ALL props are the ONE inventory item or its matching pair only. No character, hands, labels, text, rarity frames, UI, prices, pedestal, cast shadow, scenery or table. Render on flat uniform #FF00FF magenta for authorized local background removal; no key-colour reflections, gradients or faded edges. Explicit subject/design:\nDense knotted core of dark living wood, black resin and warm ochre-orange inner grain seen in the Blackwood Executioner's wooden arm. A compact roughly heart-shaped chunk with broken bark edges, one narrow amber fissure. No flesh, blood, particles or aura.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-cd52f0a9-ef13-40a8-9b3e-526737936bc7.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/blackwood_executioner.png"
+      ],
+      "target": "godot/assets/items/regional/blackwood_heart.png",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-6ca8d61c-3c11-45c1-b686-66f9e1fdcc03.png",
+      "status": "integrated_alpha_reviewed"
+    },
+    {
+      "category": "equipment",
+      "description": "Ciężkie ostrze noszące ślady setek rytualnych cięć.",
+      "icon": "",
+      "id": "executioner_axe",
+      "level": 5,
+      "name": "Topór Leśnego Egzekutora",
+      "rarity": "epic",
+      "rarity_color": "aa69dc",
+      "rarity_label": "Epicki",
+      "regional": true,
+      "sets": [],
+      "slot": "weapon",
+      "sources": [
+        {
+          "chance": 0.18,
+          "enemy": "blackwood_executioner",
+          "region": "black_forest"
+        }
+      ],
+      "family": "executioner",
+      "design": "The Blackwood Executioner's heavy SINGLE-BLADED bearded execution axe: broad dark iron crescent blade sweeping downwards, sharp projecting heel, circular crossed-spike insignia, blocky iron socket, thick weathered darkwood haft, dark iron bands and one short worn burgundy cloth binding. Match weapon in source. Entire weapon diagonal in square, no blood, no hand, no second axe blade.",
+      "prompt": "Create ONE production-ready 2D INVENTORY ITEM ICON in the user-approved Echoes of Pythonia anime-fantasy art style. PRIMARY style references: the FIRST image is a current anime game hero; the SECOND image is one of the newly approved item icons. Match the smooth illustrated shading, clean contour, broad deliberate highlight shapes and readable material volumes of those references. The third/fourth images, if any, are ONLY source monster/material references. Do NOT copy their gritty surface rendering. Do not copy unrelated gold ornament from the hero or approved icon onto simple materials. Keep illustration sophisticated, not childish flat cartoon, not photorealistic product photography, not 3D. Only a few purposeful wear marks, no speckled microtexture, random particles, sparkles or broad aura. Entire object completely visible, centered on square canvas with at least 8% clear margin on EVERY side, long silhouette about 80% of canvas; short items may be diagonally composed. Strong readable silhouette and important recognizable design at 64px. ALL props are the ONE inventory item or its matching pair only. No character, hands, labels, text, rarity frames, UI, prices, pedestal, cast shadow, scenery or table. Render on flat uniform #FF00FF magenta for authorized local background removal; no key-colour reflections, gradients or faded edges. Explicit subject/design:\nThe Blackwood Executioner's heavy SINGLE-BLADED bearded execution axe: broad dark iron crescent blade sweeping downwards, sharp projecting heel, circular crossed-spike insignia, blocky iron socket, thick weathered darkwood haft, dark iron bands and one short worn burgundy cloth binding. Match weapon in source. Entire weapon diagonal in square, no blood, no hand, no second axe blade.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-cd52f0a9-ef13-40a8-9b3e-526737936bc7.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/blackwood_executioner.png"
+      ],
+      "target": "godot/assets/items/regional/executioner_axe.png",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-bed2caa9-5351-4c60-b110-94ed84e48b30.png",
+      "status": "integrated_alpha_reviewed"
+    },
+    {
+      "category": "equipment",
+      "description": "Drewniana maska spojona z metalem i zaschniętą żywicą.",
+      "icon": "",
+      "id": "executioner_mask",
+      "level": 5,
+      "name": "Maska Leśnego Egzekutora",
+      "rarity": "epic",
+      "rarity_color": "aa69dc",
+      "rarity_label": "Epicki",
+      "regional": true,
+      "sets": [],
+      "slot": "head",
+      "sources": [
+        {
+          "chance": 0.18,
+          "enemy": "blackwood_executioner",
+          "region": "black_forest"
+        }
+      ],
+      "family": "executioner",
+      "design": "Empty angular long executioner's mask matching reference: narrow horizontal eye slit, pointed lower face, blackened wooden plates reinforced with dark riveted iron vertical bands and side strap loops. Match tall angular source helmet faceplate, no horns, jewels, head, glowing eyes, blood or crown.",
+      "prompt": "Create ONE production-ready 2D INVENTORY ITEM ICON in the user-approved Echoes of Pythonia anime-fantasy art style. PRIMARY style references: the FIRST image is a current anime game hero; the SECOND image is one of the newly approved item icons. Match the smooth illustrated shading, clean contour, broad deliberate highlight shapes and readable material volumes of those references. The third/fourth images, if any, are ONLY source monster/material references. Do NOT copy their gritty surface rendering. Do not copy unrelated gold ornament from the hero or approved icon onto simple materials. Keep illustration sophisticated, not childish flat cartoon, not photorealistic product photography, not 3D. Only a few purposeful wear marks, no speckled microtexture, random particles, sparkles or broad aura. Entire object completely visible, centered on square canvas with at least 8% clear margin on EVERY side, long silhouette about 80% of canvas; short items may be diagonally composed. Strong readable silhouette and important recognizable design at 64px. ALL props are the ONE inventory item or its matching pair only. No character, hands, labels, text, rarity frames, UI, prices, pedestal, cast shadow, scenery or table. Render on flat uniform #FF00FF magenta for authorized local background removal; no key-colour reflections, gradients or faded edges. Explicit subject/design:\nEmpty angular long executioner's mask matching reference: narrow horizontal eye slit, pointed lower face, blackened wooden plates reinforced with dark riveted iron vertical bands and side strap loops. Match tall angular source helmet faceplate, no horns, jewels, head, glowing eyes, blood or crown.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-cd52f0a9-ef13-40a8-9b3e-526737936bc7.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/blackwood_executioner.png"
+      ],
+      "target": "godot/assets/items/regional/executioner_mask.png",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-887edafd-34cb-41ed-9550-67ad5c3fa7e6.png",
+      "status": "integrated_alpha_reviewed"
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "",
+      "id": "blackwood_longbow",
+      "level": 5,
+      "name": "Łuk Czarnego Boru",
+      "rarity": "uncommon",
+      "rarity_color": "4ab875",
+      "rarity_label": "Niepospolity",
+      "regional": false,
+      "sets": [],
+      "slot": "weapon",
+      "sources": [
+        {
+          "class_pool": "blackwood",
+          "enemies": [
+            "venom_spider",
+            "forest_cultist",
+            "rotting_knight",
+            "corrupted_bear",
+            "gallows_wraith",
+            "black_hart",
+            "blackwood_executioner"
+          ]
+        }
+      ],
+      "family": "blackwood_class",
+      "design": "Longbow of dark contorted forest wood, charcoal leather grip, restrained tarnished bronze root-pattern bindings. Slender functional string. Same material family as blackwood staff and crooked fate lance. No arrows, no character.",
+      "prompt": "Create ONE production-ready 2D INVENTORY ITEM ICON in the user-approved Echoes of Pythonia anime-fantasy art style. PRIMARY style references: the FIRST image is a current anime game hero; the SECOND image is one of the newly approved item icons. Match the smooth illustrated shading, clean contour, broad deliberate highlight shapes and readable material volumes of those references. The third/fourth images, if any, are ONLY source monster/material references. Do NOT copy their gritty surface rendering. Do not copy unrelated gold ornament from the hero or approved icon onto simple materials. Keep illustration sophisticated, not childish flat cartoon, not photorealistic product photography, not 3D. Only a few purposeful wear marks, no speckled microtexture, random particles, sparkles or broad aura. Entire object completely visible, centered on square canvas with at least 8% clear margin on EVERY side, long silhouette about 80% of canvas; short items may be diagonally composed. Strong readable silhouette and important recognizable design at 64px. ALL props are the ONE inventory item or its matching pair only. No character, hands, labels, text, rarity frames, UI, prices, pedestal, cast shadow, scenery or table. Render on flat uniform #FF00FF magenta for authorized local background removal; no key-colour reflections, gradients or faded edges. Explicit subject/design:\nLongbow of dark contorted forest wood, charcoal leather grip, restrained tarnished bronze root-pattern bindings. Slender functional string. Same material family as blackwood staff and crooked fate lance. No arrows, no character.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-cd52f0a9-ef13-40a8-9b3e-526737936bc7.png"
+      ],
+      "target": "godot/assets/items/regional/blackwood_longbow.png",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-ab918ece-4b01-4c01-a54d-c849ffc9494a.png",
+      "status": "integrated_alpha_reviewed"
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "",
+      "id": "blackwood_staff",
+      "level": 5,
+      "name": "Kostur Czarnego Boru",
+      "rarity": "uncommon",
+      "rarity_color": "4ab875",
+      "rarity_label": "Niepospolity",
+      "regional": false,
+      "sets": [],
+      "slot": "weapon",
+      "sources": [
+        {
+          "class_pool": "blackwood",
+          "enemies": [
+            "venom_spider",
+            "forest_cultist",
+            "rotting_knight",
+            "corrupted_bear",
+            "gallows_wraith",
+            "black_hart",
+            "blackwood_executioner"
+          ]
+        }
+      ],
+      "family": "blackwood_class",
+      "design": "Dark twisted wooden staff with small pale-green stone held in a natural root fork, charcoal leather grip and tarnished bronze root-pattern bindings matching blackwood longbow. No giant crystal or random floating ornaments.",
+      "prompt": "Create ONE production-ready 2D INVENTORY ITEM ICON in the user-approved Echoes of Pythonia anime-fantasy art style. PRIMARY style references: the FIRST image is a current anime game hero; the SECOND image is one of the newly approved item icons. Match the smooth illustrated shading, clean contour, broad deliberate highlight shapes and readable material volumes of those references. The third/fourth images, if any, are ONLY source monster/material references. Do NOT copy their gritty surface rendering. Do not copy unrelated gold ornament from the hero or approved icon onto simple materials. Keep illustration sophisticated, not childish flat cartoon, not photorealistic product photography, not 3D. Only a few purposeful wear marks, no speckled microtexture, random particles, sparkles or broad aura. Entire object completely visible, centered on square canvas with at least 8% clear margin on EVERY side, long silhouette about 80% of canvas; short items may be diagonally composed. Strong readable silhouette and important recognizable design at 64px. ALL props are the ONE inventory item or its matching pair only. No character, hands, labels, text, rarity frames, UI, prices, pedestal, cast shadow, scenery or table. Render on flat uniform #FF00FF magenta for authorized local background removal; no key-colour reflections, gradients or faded edges. Explicit subject/design:\nDark twisted wooden staff with small pale-green stone held in a natural root fork, charcoal leather grip and tarnished bronze root-pattern bindings matching blackwood longbow. No giant crystal or random floating ornaments.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-cd52f0a9-ef13-40a8-9b3e-526737936bc7.png"
+      ],
+      "target": "godot/assets/items/regional/blackwood_staff.png",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-930acd11-6fbc-4093-8df4-28ba980ee511.png",
+      "status": "integrated_alpha_reviewed"
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "",
+      "id": "crooked_fate_lance",
+      "level": 5,
+      "name": "Lanca Krzywego Losu",
+      "rarity": "uncommon",
+      "rarity_color": "4ab875",
+      "rarity_label": "Niepospolity",
+      "regional": false,
+      "sets": [],
+      "slot": "weapon",
+      "sources": [
+        {
+          "class_pool": "blackwood",
+          "enemies": [
+            "venom_spider",
+            "forest_cultist",
+            "rotting_knight",
+            "corrupted_bear",
+            "gallows_wraith",
+            "black_hart",
+            "blackwood_executioner"
+          ]
+        }
+      ],
+      "family": "blackwood_class",
+      "design": "Slender slightly crooked darkwood fantasy lance for Pierrot, narrow aged steel asymmetrical spearhead with one subtle suit-diamond cutout. Charcoal leather and bronze bindings matching the other Blackwood weapons; no cartoon face or floating playing cards.",
+      "prompt": "Create ONE production-ready 2D INVENTORY ITEM ICON in the user-approved Echoes of Pythonia anime-fantasy art style. PRIMARY style references: the FIRST image is a current anime game hero; the SECOND image is one of the newly approved item icons. Match the smooth illustrated shading, clean contour, broad deliberate highlight shapes and readable material volumes of those references. The third/fourth images, if any, are ONLY source monster/material references. Do NOT copy their gritty surface rendering. Do not copy unrelated gold ornament from the hero or approved icon onto simple materials. Keep illustration sophisticated, not childish flat cartoon, not photorealistic product photography, not 3D. Only a few purposeful wear marks, no speckled microtexture, random particles, sparkles or broad aura. Entire object completely visible, centered on square canvas with at least 8% clear margin on EVERY side, long silhouette about 80% of canvas; short items may be diagonally composed. Strong readable silhouette and important recognizable design at 64px. ALL props are the ONE inventory item or its matching pair only. No character, hands, labels, text, rarity frames, UI, prices, pedestal, cast shadow, scenery or table. Render on flat uniform #FF00FF magenta for authorized local background removal; no key-colour reflections, gradients or faded edges. Explicit subject/design:\nSlender slightly crooked darkwood fantasy lance for Pierrot, narrow aged steel asymmetrical spearhead with one subtle suit-diamond cutout. Charcoal leather and bronze bindings matching the other Blackwood weapons; no cartoon face or floating playing cards.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-cd52f0a9-ef13-40a8-9b3e-526737936bc7.png"
+      ],
+      "target": "godot/assets/items/regional/crooked_fate_lance.png",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-87a4cb97-9d93-4a8b-8ced-42ff9a0b5987.png",
+      "status": "integrated_alpha_reviewed"
+    },
+    {
+      "category": "material",
+      "description": "Gęsta ciecz o zapachu mokrej ziemi.",
+      "icon": "",
+      "id": "bog_ichor",
+      "level": 0,
+      "name": "Posoka Bagienna",
+      "rarity": "common",
+      "rarity_color": "8b929c",
+      "rarity_label": "Zwykły",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.7,
+          "enemy": "bog_crawler",
+          "region": "silentwater_marshes"
+        }
+      ],
+      "family": "bog",
+      "design": "Small stoppered rough glass collection vial holding thick dark olive-brown bog ichor. Swamp residue settles inside; rustic utilitarian stopper and twine, no valuable gold or magic potion label.",
+      "prompt": "Create ONE production-ready 2D INVENTORY ITEM ICON in the user-approved Echoes of Pythonia anime-fantasy art style. PRIMARY style references: the FIRST image is a current anime game hero; the SECOND image is one of the newly approved item icons. Match the smooth illustrated shading, clean contour, broad deliberate highlight shapes and readable material volumes of those references. The third/fourth images, if any, are ONLY source monster/material references. Do NOT copy their gritty surface rendering. Do not copy unrelated gold ornament from the hero or approved icon onto simple materials. Keep illustration sophisticated, not childish flat cartoon, not photorealistic product photography, not 3D. Only a few purposeful wear marks, no speckled microtexture, random particles, sparkles or broad aura. Entire object completely visible, centered on square canvas with at least 8% clear margin on EVERY side, long silhouette about 80% of canvas; short items may be diagonally composed. Strong readable silhouette and important recognizable design at 64px. ALL props are the ONE inventory item or its matching pair only. No character, hands, labels, text, rarity frames, UI, prices, pedestal, cast shadow, scenery or table. Render on flat uniform #FF00FF magenta for authorized local background removal; no key-colour reflections, gradients or faded edges. Explicit subject/design:\nSmall stoppered rough glass collection vial holding thick dark olive-brown bog ichor. Swamp residue settles inside; rustic utilitarian stopper and twine, no valuable gold or magic potion label.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-cd52f0a9-ef13-40a8-9b3e-526737936bc7.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/bog_crawler.png"
+      ],
+      "target": "godot/assets/items/regional/bog_ichor.png",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-c3748049-dcf2-4896-8870-74f6455e4683.png",
+      "status": "integrated_alpha_reviewed"
+    },
+    {
+      "category": "material",
+      "description": "Twarda trzcina rosnąca na czarnych płyciznach.",
+      "icon": "",
+      "id": "swamp_reed",
+      "level": 0,
+      "name": "Trzcina Głuchej Wody",
+      "rarity": "common",
+      "rarity_color": "8b929c",
+      "rarity_label": "Zwykły",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.35,
+          "enemy": "bog_crawler",
+          "region": "silentwater_marshes"
+        }
+      ],
+      "family": "bog",
+      "design": "Small gathered bundle of stiff swamp reeds with dark green-grey stems and brown seed heads, tied with plain plant fiber. No vase, soil tile, glow or flowers from unrelated biomes.",
+      "prompt": "Create ONE production-ready 2D INVENTORY ITEM ICON in the user-approved Echoes of Pythonia anime-fantasy art style. PRIMARY style references: the FIRST image is a current anime game hero; the SECOND image is one of the newly approved item icons. Match the smooth illustrated shading, clean contour, broad deliberate highlight shapes and readable material volumes of those references. The third/fourth images, if any, are ONLY source monster/material references. Do NOT copy their gritty surface rendering. Do not copy unrelated gold ornament from the hero or approved icon onto simple materials. Keep illustration sophisticated, not childish flat cartoon, not photorealistic product photography, not 3D. Only a few purposeful wear marks, no speckled microtexture, random particles, sparkles or broad aura. Entire object completely visible, centered on square canvas with at least 8% clear margin on EVERY side, long silhouette about 80% of canvas; short items may be diagonally composed. Strong readable silhouette and important recognizable design at 64px. ALL props are the ONE inventory item or its matching pair only. No character, hands, labels, text, rarity frames, UI, prices, pedestal, cast shadow, scenery or table. Render on flat uniform #FF00FF magenta for authorized local background removal; no key-colour reflections, gradients or faded edges. Explicit subject/design:\nSmall gathered bundle of stiff swamp reeds with dark green-grey stems and brown seed heads, tied with plain plant fiber. No vase, soil tile, glow or flowers from unrelated biomes.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-cd52f0a9-ef13-40a8-9b3e-526737936bc7.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/bog_crawler.png"
+      ],
+      "target": "godot/assets/items/regional/swamp_reed.png",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-5754d8d2-0da6-4838-b83c-15ff3c137c1a.png",
+      "status": "integrated_alpha_reviewed"
+    },
+    {
+      "category": "equipment",
+      "description": "Buty ze sztywną podeszwą i plecionymi cholewami.",
+      "icon": "",
+      "id": "mirewalker_boots",
+      "level": 5,
+      "name": "Buty Brodzącego w Mule",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "feet",
+      "sources": [
+        {
+          "chance": 0.1,
+          "enemy": "bog_crawler",
+          "region": "silentwater_marshes"
+        }
+      ],
+      "family": "bog",
+      "design": "Pair of rugged marsh wading boots with stiff dark soles and visibly woven reed shafts. Damp olive-brown palette, functional tied strips; use exactly the reeds in swamp_reed as material inspiration.",
+      "prompt": "Create ONE production-ready 2D INVENTORY ITEM ICON in the user-approved Echoes of Pythonia anime-fantasy art style. PRIMARY style references: the FIRST image is a current anime game hero; the SECOND image is one of the newly approved item icons. Match the smooth illustrated shading, clean contour, broad deliberate highlight shapes and readable material volumes of those references. The third/fourth images, if any, are ONLY source monster/material references. Do NOT copy their gritty surface rendering. Do not copy unrelated gold ornament from the hero or approved icon onto simple materials. Keep illustration sophisticated, not childish flat cartoon, not photorealistic product photography, not 3D. Only a few purposeful wear marks, no speckled microtexture, random particles, sparkles or broad aura. Entire object completely visible, centered on square canvas with at least 8% clear margin on EVERY side, long silhouette about 80% of canvas; short items may be diagonally composed. Strong readable silhouette and important recognizable design at 64px. ALL props are the ONE inventory item or its matching pair only. No character, hands, labels, text, rarity frames, UI, prices, pedestal, cast shadow, scenery or table. Render on flat uniform #FF00FF magenta for authorized local background removal; no key-colour reflections, gradients or faded edges. Explicit subject/design:\nPair of rugged marsh wading boots with stiff dark soles and visibly woven reed shafts. Damp olive-brown palette, functional tied strips; use exactly the reeds in swamp_reed as material inspiration.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-cd52f0a9-ef13-40a8-9b3e-526737936bc7.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/bog_crawler.png"
+      ],
+      "target": "godot/assets/items/regional/mirewalker_boots.png",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-da219a28-dba0-4025-bef3-0740fa928df7.png",
+      "status": "integrated_alpha_reviewed"
+    },
+    {
+      "category": "material",
+      "description": "Kość wygładzona przez lata spędzone pod wodą.",
+      "icon": "",
+      "id": "drowned_bone",
+      "level": 0,
+      "name": "Kość Topielca",
+      "rarity": "common",
+      "rarity_color": "8b929c",
+      "rarity_label": "Zwykły",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.75,
+          "enemy": "drowned_dead",
+          "region": "silentwater_marshes"
+        }
+      ],
+      "family": "drowned",
+      "design": "One old water-smoothed pale grey bone, sparse muted algae at one end, worn porous ends and rounded edges. Derived from drowned dead reference, no gore or unrelated skeletal ornament.",
+      "prompt": "Create ONE production-ready 2D INVENTORY ITEM ICON in the user-approved Echoes of Pythonia anime-fantasy art style. PRIMARY style references: the FIRST image is a current anime game hero; the SECOND image is one of the newly approved item icons. Match the smooth illustrated shading, clean contour, broad deliberate highlight shapes and readable material volumes of those references. The third/fourth images, if any, are ONLY source monster/material references. Do NOT copy their gritty surface rendering. Do not copy unrelated gold ornament from the hero or approved icon onto simple materials. Keep illustration sophisticated, not childish flat cartoon, not photorealistic product photography, not 3D. Only a few purposeful wear marks, no speckled microtexture, random particles, sparkles or broad aura. Entire object completely visible, centered on square canvas with at least 8% clear margin on EVERY side, long silhouette about 80% of canvas; short items may be diagonally composed. Strong readable silhouette and important recognizable design at 64px. ALL props are the ONE inventory item or its matching pair only. No character, hands, labels, text, rarity frames, UI, prices, pedestal, cast shadow, scenery or table. Render on flat uniform #FF00FF magenta for authorized local background removal; no key-colour reflections, gradients or faded edges. Explicit subject/design:\nOne old water-smoothed pale grey bone, sparse muted algae at one end, worn porous ends and rounded edges. Derived from drowned dead reference, no gore or unrelated skeletal ornament.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-cd52f0a9-ef13-40a8-9b3e-526737936bc7.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/drowned_dead.png"
+      ],
+      "target": "godot/assets/items/regional/drowned_bone.png",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-c0c81c47-d264-4e6a-9b96-14f3aa9b21b7.png",
+      "status": "integrated_alpha_reviewed"
+    },
+    {
+      "category": "material",
+      "description": "Zielonkawa moneta z nieczytelnym herbem. Cenny składnik kilku receptur związanych z Głuchą Wodą i Zatopionym Zakonem.",
+      "icon": "",
+      "id": "drowned_coin",
+      "level": 0,
+      "name": "Moneta Topielca",
+      "rarity": "uncommon",
+      "rarity_color": "4ab875",
+      "rarity_label": "Niepospolity",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.25,
+          "enemy": "drowned_dead",
+          "region": "silentwater_marshes"
+        }
+      ],
+      "family": "drowned",
+      "design": "One old greenish patinated coin, barely readable worn coat of arms of the drowned region, irregular chipped rim, quarter-turn showing thickness. No text, number or legible currency denomination.",
+      "prompt": "Create ONE production-ready 2D INVENTORY ITEM ICON in the user-approved Echoes of Pythonia anime-fantasy art style. PRIMARY style references: the FIRST image is a current anime game hero; the SECOND image is one of the newly approved item icons. Match the smooth illustrated shading, clean contour, broad deliberate highlight shapes and readable material volumes of those references. The third/fourth images, if any, are ONLY source monster/material references. Do NOT copy their gritty surface rendering. Do not copy unrelated gold ornament from the hero or approved icon onto simple materials. Keep illustration sophisticated, not childish flat cartoon, not photorealistic product photography, not 3D. Only a few purposeful wear marks, no speckled microtexture, random particles, sparkles or broad aura. Entire object completely visible, centered on square canvas with at least 8% clear margin on EVERY side, long silhouette about 80% of canvas; short items may be diagonally composed. Strong readable silhouette and important recognizable design at 64px. ALL props are the ONE inventory item or its matching pair only. No character, hands, labels, text, rarity frames, UI, prices, pedestal, cast shadow, scenery or table. Render on flat uniform #FF00FF magenta for authorized local background removal; no key-colour reflections, gradients or faded edges. Explicit subject/design:\nOne old greenish patinated coin, barely readable worn coat of arms of the drowned region, irregular chipped rim, quarter-turn showing thickness. No text, number or legible currency denomination.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-cd52f0a9-ef13-40a8-9b3e-526737936bc7.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/drowned_dead.png"
+      ],
+      "target": "godot/assets/items/regional/drowned_coin.png",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-e0785fdf-b8ca-4220-9f8f-0d70ee7097ec.png",
+      "status": "integrated_alpha_reviewed"
+    },
+    {
+      "category": "equipment",
+      "description": "Ciężkie rękawice, których metal jest stale chłodny.",
+      "icon": "",
+      "id": "drowned_gauntlets",
+      "level": 5,
+      "name": "Rękawice Topielca",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "hands",
+      "sources": [
+        {
+          "chance": 0.1,
+          "enemy": "drowned_dead",
+          "region": "silentwater_marshes"
+        }
+      ],
+      "family": "drowned",
+      "design": "Pair of old heavy gauntlets with cold grey steel finger and knuckle plates, dark teal weathered leather cuffs, small muted bronze edge fittings and rough rope wrist bindings. Match Drowned Dead's tarnished metal, sea-green torn clothing and rope bindings. Empty gloves, no arms or bones, no spikes or glow.",
+      "prompt": "Create ONE production-ready 2D INVENTORY ITEM ICON in the user-approved Echoes of Pythonia anime-fantasy art style. PRIMARY style references: the FIRST image is a current anime game hero; the SECOND image is one of the newly approved item icons. Match the smooth illustrated shading, clean contour, broad deliberate highlight shapes and readable material volumes of those references. The third/fourth images, if any, are ONLY source monster/material references. Do NOT copy their gritty surface rendering. Do not copy unrelated gold ornament from the hero or approved icon onto simple materials. Keep illustration sophisticated, not childish flat cartoon, not photorealistic product photography, not 3D. Only a few purposeful wear marks, no speckled microtexture, random particles, sparkles or broad aura. Entire object completely visible, centered on square canvas with at least 8% clear margin on EVERY side, long silhouette about 80% of canvas; short items may be diagonally composed. Strong readable silhouette and important recognizable design at 64px. ALL props are the ONE inventory item or its matching pair only. No character, hands, labels, text, rarity frames, UI, prices, pedestal, cast shadow, scenery or table. Render on flat uniform #FF00FF magenta for authorized local background removal; no key-colour reflections, gradients or faded edges. Explicit subject/design:\nPair of old heavy gauntlets with cold grey steel finger and knuckle plates, dark teal weathered leather cuffs, small muted bronze edge fittings and rough rope wrist bindings. Match Drowned Dead's tarnished metal, sea-green torn clothing and rope bindings. Empty gloves, no arms or bones, no spikes or glow.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-cd52f0a9-ef13-40a8-9b3e-526737936bc7.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/drowned_dead.png"
+      ],
+      "target": "godot/assets/items/regional/drowned_gauntlets.png",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-d6484663-6e48-4427-ad98-8d1e82445ea2.png",
+      "status": "integrated_alpha_reviewed"
+    }
+  ]
+}

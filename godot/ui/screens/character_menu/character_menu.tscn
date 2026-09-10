@@ -1,0 +1,248 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://ui/screens/character_menu/character_menu.gd" id="1_menu"]
+[ext_resource type="Texture2D" path="res://assets/ui/character_menu/character_armory_background_v1.png" id="2_background"]
+
+[sub_resource type="StyleBoxFlat" id="HeaderStyle"]
+bg_color = Color(0.008, 0.012, 0.018, 0.91)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.48, 0.35, 0.14, 0.8)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 18.0
+content_margin_top = 10.0
+content_margin_right = 18.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="TabsStyle"]
+bg_color = Color(0.006, 0.01, 0.016, 0.84)
+border_width_bottom = 1
+border_color = Color(0.42, 0.31, 0.14, 0.82)
+content_margin_left = 8.0
+content_margin_top = 6.0
+content_margin_right = 8.0
+content_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="TabNormalStyle"]
+bg_color = Color(0.035, 0.047, 0.064, 0.7)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.23, 0.28, 0.35, 0.72)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="TabHoverStyle"]
+bg_color = Color(0.12, 0.105, 0.065, 0.88)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.72, 0.54, 0.2, 0.9)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="TabPressedStyle"]
+bg_color = Color(0.18, 0.135, 0.055, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(0.88, 0.67, 0.25, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="ContentStyle"]
+bg_color = Color(0.004, 0.007, 0.011, 0.08)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.36, 0.28, 0.15, 0.72)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 12.0
+content_margin_top = 10.0
+content_margin_right = 12.0
+content_margin_bottom = 10.0
+
+[node name="CharacterMenuScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_menu")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_background")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="BackgroundWash" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.004, 0.008, 0.014, 0.07)
+
+[node name="PageMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="Page" type="VBoxContainer" parent="PageMargin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="HeaderPanel" type="PanelContainer" parent="PageMargin/Page"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("HeaderStyle")
+
+[node name="HeaderRow" type="HBoxContainer" parent="PageMargin/Page/HeaderPanel"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Identity" type="VBoxContainer" parent="PageMargin/Page/HeaderPanel/HeaderRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 1
+
+[node name="Eyebrow" type="Label" parent="PageMargin/Page/HeaderPanel/HeaderRow/Identity"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.86, 0.68, 0.28, 1)
+theme_override_font_sizes/font_size = 13
+text = "KARTA BOHATERA"
+
+[node name="HeroNameLabel" type="Label" parent="PageMargin/Page/HeaderPanel/HeaderRow/Identity"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94, 0.95, 0.97, 1)
+theme_override_font_sizes/font_size = 27
+text = "Bohater"
+
+[node name="HeroMetaLabel" type="Label" parent="PageMargin/Page/HeaderPanel/HeaderRow/Identity"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.64, 0.73, 0.83, 1)
+theme_override_font_sizes/font_size = 14
+text = "Poszukiwacz  •  POZIOM 0"
+
+[node name="ResourcesLabel" type="Label" parent="PageMargin/Page/HeaderPanel/HeaderRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.81, 0.75, 0.63, 1)
+theme_override_font_sizes/font_size = 14
+text = "ZŁOTO  0    •    UDŹWIG  0.0 / 50.0 kg"
+horizontal_alignment = 2
+
+[node name="BackButton" type="Button" parent="PageMargin/Page/HeaderPanel/HeaderRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 46)
+layout_mode = 2
+size_flags_vertical = 4
+text = "Cofnij"
+
+[node name="TabsPanel" type="PanelContainer" parent="PageMargin/Page"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("TabsStyle")
+
+[node name="Tabs" type="HBoxContainer" parent="PageMargin/Page/TabsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="CharacterTab" type="Button" parent="PageMargin/Page/TabsPanel/Tabs"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(220, 42)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+toggle_mode = true
+theme_override_colors/font_pressed_color = Color(1, 0.84, 0.42, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("TabNormalStyle")
+theme_override_styles/hover = SubResource("TabHoverStyle")
+theme_override_styles/pressed = SubResource("TabPressedStyle")
+text = "Postać"
+
+[node name="EquipmentTab" type="Button" parent="PageMargin/Page/TabsPanel/Tabs"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(220, 42)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+toggle_mode = true
+theme_override_colors/font_pressed_color = Color(1, 0.84, 0.42, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("TabNormalStyle")
+theme_override_styles/hover = SubResource("TabHoverStyle")
+theme_override_styles/pressed = SubResource("TabPressedStyle")
+text = "Ekwipunek"
+
+[node name="SkillsTab" type="Button" parent="PageMargin/Page/TabsPanel/Tabs"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(220, 42)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+toggle_mode = true
+theme_override_colors/font_pressed_color = Color(1, 0.84, 0.42, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("TabNormalStyle")
+theme_override_styles/hover = SubResource("TabHoverStyle")
+theme_override_styles/pressed = SubResource("TabPressedStyle")
+text = "Umiejętności"
+
+[node name="ProgressionTab" type="Button" parent="PageMargin/Page/TabsPanel/Tabs"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(220, 42)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+toggle_mode = true
+theme_override_colors/font_pressed_color = Color(1, 0.84, 0.42, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("TabNormalStyle")
+theme_override_styles/hover = SubResource("TabHoverStyle")
+theme_override_styles/pressed = SubResource("TabPressedStyle")
+text = "Talenty i pasywy"
+
+[node name="ContentFrame" type="PanelContainer" parent="PageMargin/Page"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("ContentStyle")
+
+[node name="ContentHost" type="Control" parent="PageMargin/Page/ContentFrame"]
+unique_name_in_owner = true
+layout_mode = 2

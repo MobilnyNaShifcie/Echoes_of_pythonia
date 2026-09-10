@@ -1,0 +1,20 @@
+{
+  "dirs": [],
+  "tests": [
+    "res://tests/test_combat_hud_layout.gd",
+    "res://tests/test_combat_consumables.gd",
+    "res://tests/test_combat_presentation.gd",
+    "res://tests/test_combat_presentation_stage_nine_a.gd",
+    "res://tests/test_skill_cards_stage_nine_d.gd",
+    "res://tests/test_skills_screen.gd",
+    "res://tests/test_warrior_mage_stage_three_e.gd",
+    "res://tests/test_crypt_complete_art.gd",
+    "res://tests/test_combat_engine.gd"
+  ],
+  "ignore_pause": true,
+  "log_level": 1,
+  "disable_colors": true,
+  "should_exit": true,
+  "should_maximize": false,
+  "junit_xml_file": "res://../output/combat_hud/tests.xml"
+}

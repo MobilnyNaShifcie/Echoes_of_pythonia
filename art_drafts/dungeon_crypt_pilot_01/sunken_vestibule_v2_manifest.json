@@ -1,0 +1,20 @@
+{
+  "status": "approved_by_user",
+  "approval_date": "2026-09-06",
+  "approval_scope": "Sunken Vestibule v2 artwork and chamber rendering style only; Grandmaster and runtime integration remain separate.",
+  "integrated": true,
+  "production_asset": "godot/assets/combat/backgrounds/dungeons/sunken_order_crypt/sunken_vestibule.png",
+  "source_and_production_sha256": "899f28bb6ab790a2397c63887db11104e50fc7e6a6dae36097a0f3c2930706df",
+  "integration_scope": "Crypt entrance, room-decision screens and dungeon combat; shared backdrop until individual chamber art is ready. No Grandmaster art integration.",
+  "tool": "built-in image_gen",
+  "reason": "User found the original chamber too realistic.",
+  "source_generated": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-aa2440f3-8a4e-46bd-8afc-0940e7845b35.png",
+  "workspace_asset": "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/sunken_vestibule_v2.png",
+  "prompt_file": "sunken_vestibule_v2_prompt.txt",
+  "reference_images": [
+    "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/sunken_vestibule.png",
+    "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/order_grandmaster.png"
+  ],
+  "preserved": "Original v1 chamber and Grandmaster artwork unchanged; v2 integrated separately without replacing either draft.",
+  "visual_review": "Confirmed more illustrative stone planes, clearer contours, simplified water reflections; original composition, heraldry and combat floor retained."
+}

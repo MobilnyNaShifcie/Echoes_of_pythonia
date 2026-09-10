@@ -15,9 +15,31 @@ const SkillsScreenClass := preload("res://ui/screens/skills/skills.gd")
 
 const GOLDEN_CARD_ART := {
 	"power_slash": "res://assets/skills/warrior/power_slash.png",
+	"armor_break": "res://assets/skills/warrior/armor_break.png",
+	"defensive_stance": "res://assets/skills/warrior/defensive_stance.png",
+	"blood_strike": "res://assets/skills/warrior/blood_strike.png",
+	"shield_bash": "res://assets/skills/warrior/shield_bash.png",
+	"provoke": "res://assets/skills/warrior/provoke.png",
 	"precise_shot": "res://assets/skills/hunter/precise_shot.png",
+	"bleeding_shot": "res://assets/skills/hunter/bleeding_shot.png",
+	"shadow_step": "res://assets/skills/hunter/shadow_step.png",
+	"double_shot": "res://assets/skills/hunter/double_shot.png",
+	"piercing_arrow": "res://assets/skills/hunter/piercing_arrow.png",
+	"frost_arrow": "res://assets/skills/hunter/frost_arrow.png",
+	"explosive_arrow": "res://assets/skills/hunter/explosive_arrow.png",
+	"phantom_arrow": "res://assets/skills/hunter/phantom_arrow.png",
+	"rain_of_arrows": "res://assets/skills/hunter/rain_of_arrows.png",
+	"splitting_arrow": "res://assets/skills/hunter/splitting_arrow.png",
+	"thousand_arrows": "res://assets/skills/hunter/thousand_arrows.png",
 	"fire_bolt": "res://assets/skills/mage/fire_bolt.png",
+	"frost_lance": "res://assets/skills/mage/frost_lance.png",
+	"lightning": "res://assets/skills/mage/lightning.png",
+	"mana_burst": "res://assets/skills/mage/mana_burst.png",
 	"fate_thrust": "res://assets/skills/pierrot/fate_thrust.png",
+	"double_roll": "res://assets/skills/pierrot/double_roll.png",
+	"fate_feint": "res://assets/skills/pierrot/fate_feint.png",
+	"grand_gamble": "res://assets/skills/pierrot/grand_gamble.png",
+	"va_banque": "res://assets/skills/pierrot/va_banque.png",
 }
 const ALL_SKILL_IDS := [
 	"power_slash",
@@ -49,15 +71,16 @@ const ALL_SKILL_IDS := [
 ]
 
 
-func test_golden_slice_assigns_only_the_four_approved_skill_images() -> void:
+func test_approved_catalog_assigns_each_skill_its_own_image() -> void:
+	var assigned_paths: Array[String] = []
 	for skill_id: String in ALL_SKILL_IDS:
 		var skill = SkillCatalogClass.get_definition(skill_id)
-		if skill_id in GOLDEN_CARD_ART:
-			assert_not_null(skill.card_art, skill_id)
-			assert_eq(skill.card_art.resource_path, GOLDEN_CARD_ART[skill_id], skill_id)
-			assert_eq(skill.card_art.get_size(), Vector2(1086, 1448), skill_id)
-		else:
-			assert_null(skill.card_art, "%s must keep its explicit placeholder" % skill_id)
+		assert_not_null(skill.card_art, skill_id)
+		assert_eq(skill.card_art.resource_path, GOLDEN_CARD_ART[skill_id], skill_id)
+		assert_eq(skill.card_art.get_size(), Vector2(1086, 1448), skill_id)
+		assigned_paths.append(skill.card_art.resource_path)
+	assert_eq(assigned_paths.size(), 26)
+	assert_eq(_unique_strings(assigned_paths).size(), 26)
 
 
 func test_shared_card_clips_art_and_keeps_ui_owned_metadata() -> void:
@@ -88,28 +111,28 @@ func test_shared_card_clips_art_and_keeps_ui_owned_metadata() -> void:
 	assert_eq(card.state_label.text, "GOTOWA")
 	assert_string_contains(card.text, "PCHNIĘCIE LOSU")
 
-	var unfinished = SkillCatalogClass.get_definition("double_roll")
+	var inspection_skill = SkillCatalogClass.get_definition("double_roll")
 	(
 		card
 		. configure(
-			unfinished.skill_id,
+			inspection_skill.skill_id,
 			2,
-			unfinished.display_name,
+			inspection_skill.display_name,
 			"7 MANY",
-			unfinished.description,
+			inspection_skill.description,
 			false,
 			CombatActionCardClass.accent_for_class("pierrot"),
-			CombatActionCardClass.badge_for_skill(unfinished),
+			CombatActionCardClass.badge_for_skill(inspection_skill),
 			"POZIOM 7",
 			{
-				"artwork": unfinished.card_art,
-				"mechanic": unfinished.dice_notation(),
+				"artwork": inspection_skill.card_art,
+				"mechanic": inspection_skill.dice_notation(),
 				"inspection_mode": true,
 			},
 		)
 	)
-	assert_true(card.uses_placeholder())
-	assert_null(card.artwork_texture())
+	assert_false(card.uses_placeholder())
+	assert_eq(card.artwork_texture(), inspection_skill.card_art)
 	assert_eq(card.mechanic_badge(), "2K6")
 	assert_false(card.disabled)
 
@@ -133,10 +156,11 @@ func test_combat_and_catalog_use_the_same_art_without_changing_actions() -> void
 	var catalog_card := catalog.skill_cards.get_child(0) as CombatActionCardClass
 	assert_eq(catalog_card.action_id, "power_slash")
 	assert_eq(catalog_card.artwork_texture(), combat_card.artwork_texture())
-	var placeholder_card := catalog.skill_cards.get_child(1) as CombatActionCardClass
-	assert_eq(placeholder_card.action_id, "armor_break")
-	assert_true(placeholder_card.uses_placeholder())
-	placeholder_card.pressed.emit()
+	var second_card := catalog.skill_cards.get_child(1) as CombatActionCardClass
+	assert_eq(second_card.action_id, "armor_break")
+	assert_false(second_card.uses_placeholder())
+	assert_eq(second_card.artwork_texture().resource_path, GOLDEN_CARD_ART.armor_break)
+	second_card.pressed.emit()
 	assert_eq(catalog.skill_name_label.text, "Roztrzaskanie Pancerza")
 
 
@@ -196,3 +220,10 @@ func test_skill_cards_stay_inside_supported_full_hd_and_fallback_layouts() -> vo
 			catalog.get_node("Page/Body/CatalogPanel").get_global_rect().end.x,
 		)
 		host.free()
+
+
+func _unique_strings(values: Array[String]) -> Dictionary:
+	var unique := {}
+	for value: String in values:
+		unique[value] = true
+	return unique

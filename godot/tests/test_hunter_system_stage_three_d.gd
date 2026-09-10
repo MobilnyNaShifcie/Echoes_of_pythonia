@@ -173,6 +173,10 @@ func test_hunter_mechanic_panel_fits_the_720p_combat_header() -> void:
 	await get_tree().process_frame
 
 	var class_hud: PanelContainer = screen.get_node("Page/Lower/PlayerCommandHud")
+	screen.get_node("Page/Lower").drawer.pinned = true
+	screen.get_node("Page/Lower").drawer.set_open(true, true)
+	await get_tree().process_frame
+	await get_tree().process_frame
 	assert_lte(class_hud.get_global_rect().end.x, screen.get_global_rect().end.x)
 	assert_lte(
 		class_hud.get_global_rect().end.y,

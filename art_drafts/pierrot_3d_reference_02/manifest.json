@@ -1,0 +1,28 @@
+{
+  "status": "DRAFT: awaits user approval; 2D design reference only. Not a 3D model, not integrated into the game.",
+  "created": "2026-09-09",
+  "generation_mode": "built-in image_gen",
+  "reference": "godot/assets/combat/heroes/pierrot.png",
+  "generated_file": "pierrot_turnaround_v1.png",
+  "views": [
+    "front neutral pose",
+    "rear proposal",
+    "right-facing profile proposal"
+  ],
+  "purpose": "Appearance reference for a future fully volumetric rigged character, preserving the approved original illustration.",
+  "constraints": [
+    "Do not use the rejected pierrot_3d_study_01 as an appearance reference.",
+    "The original in-game portrait remains authoritative and unchanged.",
+    "Unseen rear construction is inferred; approval does not follow from successful image generation.",
+    "Generated views require geometric alignment and cross-view checks before they can guide a 3D mesh.",
+    "Lance deliberately omitted from the turnaround: model it separately from the original reference.",
+    "Do not treat this painted/shaded sheet as final relightable albedo.",
+    "No Meshy upload, generation, or paid operation performed during this reference-generation step."
+  ],
+  "visual_review": [
+    "Three full-length views present; labels legible and extremities within the image.",
+    "Crimson bob, harlequin sleeves, black/white/red palette, gold accents and split fabric tails retained.",
+    "Fine seam, star-placement, legwear pattern and rear-tail continuity still need validation against the original before modeling."
+  ],
+  "prompt": "Use case: identity-preserve\nAsset type: one production character turnaround reference sheet for future 3D modeling, NOT a new character design and NOT a 3D render.\nInput image 1: authoritative original Pierrot female character illustration from the game; preserve the character's identity, proportions, costume construction, palette, and illustration technique.\n\nPrimary request: depict THIS EXACT ADULT WOMAN in three aligned full-body views on one wide landscape sheet: front view on the left, strict rear view in the center, strict right-facing side profile on the right. The sheet is for checking the previously unseen back before building a model. In all three views use the same upright neutral relaxed A-pose, feet separated slightly, knees straight, hands slightly clear of hips, arms only about 20 degrees out from the torso. Consistent head-to-body ratio and identical scale; tops of heads and heels aligned. In the profile keep the arm slightly clear so the torso contour can be understood. No perspective distortion. Full hair, hands, coat tails, and shoes inside frame with margins.\n\nIdentity locks: same adult anime woman, elegant face, narrow crimson eyes, fair skin, short voluminous wavy crimson bob with swept asymmetric part and layered neck-length curls; NOT long hair, NOT a new haircut, NOT a doll or realistic human. Preserve her original adult proportions without exaggerating or flattening anatomy.\n\nCostume locks: original off-shoulder white ruffled neckline; black ruffled choker and crimson star/bow at front; detached voluminous red/white/black harlequin-diamond sleeves ending in black ruffled cuffs and small gold star fasteners; original fitted black-and-white bodice with red trim and connected gold star fastenings over the front openings; original black pointed hip/bodysuit sections; pale/white thigh-high legwear with LARGE crimson diamond pattern, decorated black/crimson high-heeled shoes with gold stars and straps. Preserve the elaborate flowing split black/crimson/white long fabric tails attached around the hips and their small gold star finials. Fabric must have readable separate layers and actual continuous attachment to the garment; settle the tails naturally with mild separation rather than dramatic wind. Do not replace them with a single generic cape, skirt, rear bow or armor. Infer only the unseen rear construction conservatively: fitted black rear bodice following the existing seams and thin red/gold trim; split tails hang from the back/side waist, consistent with the front. Preserve patterned sleeves and legwear as they wrap around the body. No newly invented large insignia, jewelry, straps, shoulder armor, new colors or extra equipment. Keep original coverage; do not make costume more revealing.\n\nWeapon: omit the lance from all three views so it does not occlude anatomy or become fused to the hand in later modeling. The original lance will be modeled separately; do NOT redesign or replace it.\n\nStyle: match original polished 2D anime-fantasy game illustration, crisp delicate contours, rich but controlled black/crimson/white and gold accents, broad painted/cel shading, clear elegant fabric folds, same fine face and hair rendering. Retain costume complexity without random microtexture, glitter, grain or photorealistic skin. NOT a plastic 3D figurine, NOT a simplified mannequin, NOT chibi.\n\nBackdrop and light: plain uniform very light warm-gray background, no scene, no checkerboard, no floor pedestal, no red atmospheric halo, no graphic frame. Soft neutral even lighting with readable material colors; no strong rim light or dramatic cast shadows. This is visual design reference, not a finished relightable texture map.\nText: only small restrained labels below the three views: \"PRZÓD\", \"TYŁ\", \"PROFIL\". No heading, watermark, notes or extra inset portraits.\nPriority: fidelity to original character and consistency between the three views over inventing new design details."
+}

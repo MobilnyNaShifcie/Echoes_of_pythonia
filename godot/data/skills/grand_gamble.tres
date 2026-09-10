@@ -1,12 +1,14 @@
-[gd_resource type="Resource" script_class="SkillDefinition" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="SkillDefinition" load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://core/skills/skill_definition.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/skills/pierrot/grand_gamble.png" id="2_art"]
 
 [resource]
 script = ExtResource("1")
 skill_id = "grand_gamble"
 display_name = "Wielki Zakład"
 character_class_code = "pierrot"
+card_art = ExtResource("2_art")
 unlock_level = 12
 mana_cost = 12
 description = "Rzut 3k6. Trójki, dublety i skrajne sumy tworzą nieprzewidywalne rezultaty."

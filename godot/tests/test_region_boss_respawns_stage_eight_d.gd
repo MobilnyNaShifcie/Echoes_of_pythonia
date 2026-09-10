@@ -57,24 +57,15 @@ func test_only_normal_expeditions_in_the_boss_region_reduce_the_counter() -> voi
 	assert_eq(overloaded.hour, 8)
 
 
-func test_quiet_and_combat_expeditions_both_count_without_waiting_for_the_result() -> void:
-	var found_quiet := false
-	var found_combat := false
-	for seed_value in range(1, 200):
+func test_guaranteed_encounters_count_without_waiting_for_the_combat_result() -> void:
+	for seed_value in range(1, 30):
 		var session = NewGameServiceClass.new().create_session("Aria", 1)
 		session.world_encounters.region_boss_respawns = {"azhar": 2}
 		var result := AdventureServiceClass.explore_region(
 			session, "ashen_borderlands", _rng(seed_value)
 		)
 		assert_eq(session.world_encounters.region_boss_respawns.azhar, 1)
-		if result.enemy_id.is_empty():
-			found_quiet = true
-		else:
-			found_combat = true
-		if found_quiet and found_combat:
-			break
-	assert_true(found_quiet)
-	assert_true(found_combat)
+		assert_false(result.enemy_id.is_empty())
 
 
 func test_boss_returns_after_exactly_six_expeditions_and_logs_once() -> void:

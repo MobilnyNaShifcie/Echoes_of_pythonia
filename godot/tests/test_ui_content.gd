@@ -29,31 +29,35 @@ func test_city_plan_is_a_single_top_to_bottom_column() -> void:
 	)
 	var hero_grid := city.get_node("Layout/MenuPanel/MenuScroll/Menu/HeroGrid") as GridContainer
 	var expected_service_labels := [
-		"Gildia Poszukiwaczy",
-		"Kwatermistrz i magazyn",
-		"Kuźnia Garrana",
-		"Warsztat Mireli",
-		"Kram Orena",
+		"Gildia",
+		"Kuźnia",
+		"Warsztat",
+		"Kram",
 		"Karczma",
 	]
 	var expected_hero_labels := [
-		"Karta bohatera i ekwipunek",
-		"Dziennik Przygód",
-		"Osiągnięcia i tytuły",
+		"Ekwipunek",
+		"Dziennik",
+		"Osiągnięcia",
+		"Droga bohatera",
+		"Czarny Rynek",
 	]
 	var actual_service_labels: Array[String] = []
 	for button: Button in services_grid.get_children():
 		actual_service_labels.append(button.text)
-		assert_eq(button.alignment, HORIZONTAL_ALIGNMENT_CENTER)
+		assert_eq(button.alignment, HORIZONTAL_ALIGNMENT_LEFT)
+		assert_not_null(button.icon)
 	var actual_hero_labels: Array[String] = []
 	for button: Button in hero_grid.get_children():
 		actual_hero_labels.append(button.text)
-		assert_eq(button.alignment, HORIZONTAL_ALIGNMENT_CENTER)
+		assert_eq(button.alignment, HORIZONTAL_ALIGNMENT_LEFT)
+		assert_not_null(button.icon)
 
 	assert_eq(travel_grid.columns, 1)
 	assert_eq(services_grid.columns, 1)
 	assert_eq(hero_grid.columns, 1)
-	assert_eq(travel_grid.get_child(0).text, "Brama Zachodnia — wyprawa SOLO")
+	assert_eq(travel_grid.get_child(0).text, "Brama Zachodnia")
+	assert_not_null(travel_grid.get_child(0).icon)
 	assert_false(city.get_node("%PreparationButton").visible)
 	assert_eq(actual_service_labels, expected_service_labels)
 	assert_eq(actual_hero_labels, expected_hero_labels)
@@ -62,6 +66,10 @@ func test_city_plan_is_a_single_top_to_bottom_column() -> void:
 		city.get_node("Layout/City").get_index(),
 	)
 	assert_eq(menu_scroll.horizontal_scroll_mode, ScrollContainer.SCROLL_MODE_DISABLED)
+	assert_lte(city.get_node("Layout/MenuPanel").custom_minimum_size.x, 320.0)
+	assert_null(city.get_node_or_null("Layout/City/QuickActionsDock"))
+	assert_null(city.get_node_or_null("Layout/City/LegacyQuickActions"))
+	assert_not_null(city.navigation_drawer.handle)
 
 
 func test_city_gate_opens_world_map_without_solo_preparation() -> void:

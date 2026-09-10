@@ -1,0 +1,23 @@
+{
+  "status": "APPROVED by the user on 2026-09-09 as the appearance and proportion reference for the future 3D character. This is still a 2D sheet, not an approved 3D model or game integration.",
+  "approval": {
+    "date": "2026-09-09",
+    "user_message": "okej zatwierdzam",
+    "scope": "Turnaround v2: appearance, fuller lower-body proportions, rear design and profile.",
+    "next_gate": "Review actual 3D mesh from front, rear, profile and combat camera before rigging or game integration.",
+    "external_service_note": "Artwork upload to Meshy was authorized earlier. No upload or 3D generation has happened yet. Paid operations still need separate consent."
+  },
+  "created": "2026-09-09",
+  "generation_mode": "built-in image_gen / targeted edit (imagegen skill)",
+  "edit_target": "pierrot_turnaround_v1.png",
+  "proportion_reference": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-3a7545c4-4d6a-4c8c-b3f5-df90ad161d91.png",
+  "generated_file": "pierrot_turnaround_v2.png",
+  "requested_change": "Fuller hips, thighs, legs and gluteal volume matching the user's attached reference; retain face, costume, height and leg length.",
+  "visual_review": [
+    "Fuller thigh silhouettes visible in front and rear; profile retains clothed anatomical view.",
+    "All three full-length views and labels retained; face, palette and costume design broadly preserved.",
+    "The user approved the visual design and proportions. Cross-view garment continuity and actual 3D proportions still require technical checks during modeling; sheet approval is not evidence of exact 1:1 geometry.",
+    "Previous v1 and all original game assets preserved. No cloud 3D service called."
+  ],
+  "prompt": "Use case: identity-preserve\nAsset type: targeted revision of an existing 2D anime-fantasy character turnaround sheet for 3D modeling.\nInput image 1: EDIT TARGET — three-view Pierrot turnaround v1, labeled PRZÓD / TYŁ / PROFIL.\nInput image 2: USER'S AUTHORITATIVE BODY-PROPORTION REFERENCE — the same adult woman with her lance; use its fuller lower-body silhouette as the correction target, not its pose, cropping or background.\n\nEdit image 1 only. The user notes that v1 incorrectly made the character's lower body too thin compared with the reference. Restore visibly fuller hips, upper legs/thighs and gluteal volume, with a natural transition to the knees and calves. Match the adult proportions in image 2 rather than inventing an exaggerated body type. Maintain the existing slender waist, upper torso, shoulder width, head size, overall height and leg LENGTH of image 1; the correction is lower-body WIDTH and DEPTH, not stretching the legs or scaling the entire figure. In the FRONT and REAR views make the hip/thigh silhouette appropriately fuller. In the SIDE view carry through the same pelvis/thigh depth and fuller gluteal contour. All three views must describe one coherent person, not three different proportions. Keep the upright neutral stance and avoid changing to the dynamic reference pose.\n\nPreserve everything else from image 1: exactly the same face and expression, short crimson wavy bob, ears and earrings, black ruffled choker, red star bow, black/white/red bodice and gold-star fasteners, puffed harlequin sleeves, cuffs, legwear and its red diamonds, long split cloth tails, gold star finials and the high-heeled shoes. Adapt garment fit and folds only where needed to follow the corrected lower-body volume; keep all garment coverage and construction, do not remove clothing or create new openings. Keep the hands, arms, feet and all costume extremities inside frame. Do not add weapons to the sheet, new accessories, extra figures or inset close-ups.\n\nPreserve the exact sheet composition: front on the left, rear in the center, right-facing profile on the right; aligned heads and heels at the same scale, unchanged landscape aspect ratio and light neutral-gray backdrop. Keep the small captions \"PRZÓD\", \"TYŁ\", \"PROFIL\". Match the original polished anime-fantasy 2D linework, paint and cel-shading, and the same neutral lighting. No photorealism, no plastic 3D render, no checkerboard, no new dramatic lighting, no watermark.\nThis is a restrained fidelity correction to match the supplied character reference, not a redesign."
+}

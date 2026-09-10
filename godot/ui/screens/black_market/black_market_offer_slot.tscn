@@ -1,0 +1,157 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://ui/screens/black_market/black_market_offer_slot.gd" id="1_script"]
+[ext_resource type="Script" path="res://ui/screens/black_market/market_price_sign_3d.gd" id="2_price_sign"]
+
+[sub_resource type="StyleBoxFlat" id="StyleEmpty"]
+bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleHover"]
+bg_color = Color(0, 0, 0, 0)
+border_color = Color(0, 0, 0, 0)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="Gradient" id="GradientGlow"]
+colors = PackedColorArray(0.95, 0.61, 0.12, 0.02, 0.95, 0.61, 0.12, 0.28)
+
+[sub_resource type="GradientTexture2D" id="GlowTexture"]
+gradient = SubResource("GradientGlow")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="GradientContactShadow"]
+colors = PackedColorArray(0.055, 0.02, 0.004, 0.78, 0.055, 0.02, 0.004, 0)
+
+[sub_resource type="GradientTexture2D" id="ContactShadowTexture"]
+gradient = SubResource("GradientContactShadow")
+width = 128
+height = 36
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Shader" id="ShaderDisplayGrade"]
+code = "shader_type canvas_item;\nrender_mode unshaded;\n\nuniform float saturation = 0.72;\nuniform vec3 ambient_tint = vec3(0.86, 0.76, 0.64);\n\nvoid fragment() {\n\tvec4 vertex_tint = COLOR;\n\tvec4 source = texture(TEXTURE, UV);\n\tfloat gray = dot(source.rgb, vec3(0.299, 0.587, 0.114));\n\tfloat side_light = mix(1.05, 0.88, UV.x);\n\tfloat base_shadow = mix(1.0, 0.68, smoothstep(0.62, 1.0, UV.y));\n\tvec3 graded = mix(vec3(gray), source.rgb, saturation);\n\tgraded *= ambient_tint * side_light * base_shadow;\n\tCOLOR = vec4(graded, source.a) * vertex_tint;\n}\n"
+
+[sub_resource type="ShaderMaterial" id="MaterialDisplayGrade"]
+shader = SubResource("ShaderDisplayGrade")
+
+[node name="BlackMarketOfferSlot" type="Button"]
+custom_minimum_size = Vector2(176, 152)
+mouse_default_cursor_shape = 2
+focus_mode = 2
+theme_override_styles/normal = SubResource("StyleEmpty")
+theme_override_styles/hover = SubResource("StyleHover")
+theme_override_styles/pressed = SubResource("StyleHover")
+theme_override_styles/focus = SubResource("StyleHover")
+theme_override_styles/disabled = SubResource("StyleEmpty")
+script = ExtResource("1_script")
+
+[node name="Glow" type="TextureRect" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = -8.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+modulate = Color(1, 0.75, 0.2, 0.65)
+texture = SubResource("GlowTexture")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ItemShadow" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 34.0
+offset_top = -51.0
+offset_right = -34.0
+offset_bottom = -26.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+modulate = Color(0.1, 0.045, 0.015, 0.56)
+texture = SubResource("ContactShadowTexture")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="ItemIcon" type="TextureRect" parent="."]
+unique_name_in_owner = true
+material = SubResource("MaterialDisplayGrade")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 34.0
+offset_top = 14.0
+offset_right = -34.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+modulate = Color(0.78, 0.69, 0.57, 0.94)
+expand_mode = 1
+stretch_mode = 5
+
+[node name="QuantityLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -53.0
+offset_top = 8.0
+offset_right = -9.0
+offset_bottom = 34.0
+grow_horizontal = 0
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.91, 0.65, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 17
+text = "×2"
+horizontal_alignment = 2
+
+[node name="PricePlate" type="SubViewportContainer" parent="."]
+layout_mode = 0
+mouse_filter = 2
+script = ExtResource("2_price_sign")
+
+[node name="SoldLabel" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 46.0
+offset_right = -12.0
+offset_bottom = -38.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.84, 0.73, 0.58, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 16
+text = "SPRZEDANE"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,0 +1,9 @@
+; Deliberately isolated from the game's autoloads and player saves.
+config_version=5
+
+[application]
+config/name="Echoes Character 3D Pipeline Test"
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

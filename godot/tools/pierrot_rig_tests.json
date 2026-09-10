@@ -1,0 +1,9 @@
+{
+  "dirs": [],
+  "tests": ["res://tests/test_pierrot_cutout_rig.gd"],
+  "ignore_pause": true,
+  "log_level": 1,
+  "disable_colors": true,
+  "should_exit": true,
+  "should_maximize": false
+}

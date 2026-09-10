@@ -1,24 +1,39 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://ui/screens/guild/guild.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/city/varenhold/interiors/guild_hall_anime_integrated_v3.png" id="2_hall"]
+[ext_resource type="Script" path="res://ui/components/character_paperdoll/npc_alpha_hit_button.gd" id="3_hit"]
 
-[node name="GuildScreen" type="ScrollContainer"]
+[sub_resource type="StyleBoxEmpty" id="HitStyle"]
+
+[sub_resource type="Shader" id="GuildmasterHighlightShader"]
+code = "shader_type canvas_item;\nrender_mode blend_add;\n\nuniform vec2 highlight_center = vec2(0.285, 0.635);\nuniform vec2 highlight_radius = vec2(0.135, 0.38);\nuniform float highlight_strength = 0.4;\n\nvoid fragment() {\n\tvec4 sampled = texture(TEXTURE, UV);\n\tvec2 ellipse = (UV - highlight_center) / highlight_radius;\n\tfloat mask = 1.0 - smoothstep(0.62, 1.0, length(ellipse));\n\tCOLOR = vec4(sampled.rgb * mask * highlight_strength, sampled.a * mask * highlight_strength);\n}\n"
+
+[sub_resource type="ShaderMaterial" id="GuildmasterHighlightMaterial"]
+resource_local_to_scene = true
+shader = SubResource("GuildmasterHighlightShader")
+
+[node name="GuildScreen" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-horizontal_scroll_mode = 0
+clip_contents = true
 script = ExtResource("1")
 
-[node name="Page" type="VBoxContainer" parent="."]
-layout_mode = 2
+[node name="Page" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 6
 
 [node name="Header" type="HBoxContainer" parent="Page"]
+z_index = 30
 layout_mode = 2
 
 [node name="Identity" type="VBoxContainer" parent="Page/Header"]
@@ -50,9 +65,143 @@ size_flags_vertical = 4
 custom_minimum_size = Vector2(150, 48)
 text = "Cofnij"
 
+[node name="GuildHallPresentation" type="Control" parent="Page"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 0)
+layout_mode = 2
+size_flags_vertical = 3
+clip_contents = true
+mouse_filter = 2
+
+[node name="Interior" type="TextureRect" parent="Page/GuildHallPresentation"]
+unique_name_in_owner = true
+layout_mode = 0
+mouse_filter = 2
+texture = ExtResource("2_hall")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="GuildmasterHighlight" type="TextureRect" parent="Page/GuildHallPresentation"]
+unique_name_in_owner = true
+visible = false
+material = SubResource("GuildmasterHighlightMaterial")
+layout_mode = 0
+mouse_filter = 2
+texture = ExtResource("2_hall")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="HallIdentity" type="VBoxContainer" parent="Page/GuildHallPresentation"]
+unique_name_in_owner = true
+layout_mode = 1
+anchor_left = 0.56
+anchor_top = 0.07
+anchor_right = 0.96
+anchor_bottom = 0.34
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="Eyebrow" type="Label" parent="Page/GuildHallPresentation/HallIdentity"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
+theme_override_font_sizes/font_size = 17
+text = "SALA GŁÓWNA • MISTRZ GILDII"
+
+[node name="Title" type="Label" parent="Page/GuildHallPresentation/HallIdentity"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.96, 0.98, 1)
+theme_override_font_sizes/font_size = 28
+text = "Tutaj zaczyna się każda droga."
+
+[node name="Description" type="Label" parent="Page/GuildHallPresentation/HallIdentity"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.84, 0.9, 1)
+text = "Stary weteran prowadzi Gildię i przygotowuje kolejnych Poszukiwaczy do tego, co czeka poza murami Varenhold."
+autowrap_mode = 2
+
+[node name="GuildmasterHitArea" type="Button" parent="Page/GuildHallPresentation"]
+unique_name_in_owner = true
+layout_mode = 0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+script = ExtResource("3_hit")
+use_alpha_mask = false
+theme_override_styles/normal = SubResource("HitStyle")
+theme_override_styles/hover = SubResource("HitStyle")
+theme_override_styles/pressed = SubResource("HitStyle")
+theme_override_styles/disabled = SubResource("HitStyle")
+theme_override_styles/focus = SubResource("HitStyle")
+
+[node name="GuildActionPanel" type="PanelContainer" parent="Page/GuildHallPresentation"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchor_left = 0.67
+anchor_top = 0.38
+anchor_right = 0.965
+anchor_bottom = 0.94
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Content" type="VBoxContainer" parent="Page/GuildHallPresentation/GuildActionPanel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Eyebrow" type="Label" parent="Page/GuildHallPresentation/GuildActionPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.44, 0.8, 0.58, 1)
+text = "ROZMOWA"
+
+[node name="Title" type="Label" parent="Page/GuildHallPresentation/GuildActionPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
+theme_override_font_sizes/font_size = 22
+text = "Mistrz Gildii"
+
+[node name="Description" type="Label" parent="Page/GuildHallPresentation/GuildActionPanel/Content"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.72, 0.79, 0.88, 1)
+text = "Weteran wskaże ci zadania, pomoże dobrać kompanów albo otworzy przejście do Szczelin."
+autowrap_mode = 2
+
+[node name="OpenBoardButton" type="Button" parent="Page/GuildHallPresentation/GuildActionPanel/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+text = "Przejrzyj tablicę zadań"
+
+[node name="PartyActionButton" type="Button" parent="Page/GuildHallPresentation/GuildActionPanel/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+text = "Kompani i rekrutacja"
+
+[node name="RiftsActionButton" type="Button" parent="Page/GuildHallPresentation/GuildActionPanel/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+text = "Zbadaj Szczeliny"
+
+[node name="CloseGuildInteractionButton" type="Button" parent="Page/GuildHallPresentation/GuildActionPanel/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Zakończ rozmowę"
+
 [node name="BoardTabs" type="HBoxContainer" parent="Page"]
+unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 8
+
+[node name="CloseBoardButton" type="Button" parent="Page/BoardTabs"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+text = "Wróć do Mistrza"
 
 [node name="StoryButton" type="Button" parent="Page/BoardTabs"]
 unique_name_in_owner = true
@@ -85,18 +234,18 @@ size_flags_horizontal = 3
 text = "Plotki"
 
 [node name="PartyButton" type="Button" parent="Page/BoardTabs"]
-unique_name_in_owner = true
+visible = false
 layout_mode = 2
-size_flags_horizontal = 3
 text = "Kompani i rekrutacja"
 
 [node name="RiftsButton" type="Button" parent="Page/BoardTabs"]
-unique_name_in_owner = true
+visible = false
 layout_mode = 2
-size_flags_horizontal = 3
 text = "Szczeliny"
 
 [node name="Body" type="HBoxContainer" parent="Page"]
+unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3

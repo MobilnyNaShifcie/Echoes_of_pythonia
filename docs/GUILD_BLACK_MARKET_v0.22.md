@@ -16,7 +16,7 @@ Reputacja pochodzi z jednorazowych zadań fabularnych (+50), Daily (+15), Weekly
 
 ## Informator
 
-Warunki: ranga C lub wyższa oraz ukończona Krypta albo Wrak Czarnej Floty. Przy kwalifikującej wizycie w Karczmie gra wykonuje jedną próbę na nowy dzień Pythonii. Szansa wynosi 20%; po czterech nieudanych dniach piąta próba jest gwarantowana. Ponowne wchodzenie do Karczmy tego samego dnia nie rerolluje spotkania.
+Warunki: ranga C lub wyższa oraz ukończona Krypta albo Wrak Czarnej Floty. Przy kwalifikującej wizycie w Karczmie gra wykonuje jedną próbę na nowy dzień Pythonii. Szansa wynosi 20%; po czterech nieudanych dniach piąta próba jest gwarantowana. Ponowne wchodzenie do Karczmy tego samego dnia nie rerolluje spotkania. Runa pozostaje stale za ladą, a informator pojawia się niezależnie w istniejącym fotelu przy kominku.
 
 Informator nie handluje. Po rozmowie permanentnie odblokowuje lokację `Czarny Rynek`.
 

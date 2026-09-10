@@ -1,0 +1,13 @@
+{
+  "glb_reimport_passed": true,
+  "triangles": 244665,
+  "uv_layers": 1,
+  "embedded_texture": [
+    2048,
+    2048
+  ],
+  "matte_pbr_material": true,
+  "rigged": false,
+  "file_sha256": "d0cba064655652f91306341f5fb6713c7bfb99888b45a2f87a51f808dde75a14",
+  "game_integration": false
+}

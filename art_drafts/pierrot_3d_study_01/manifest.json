@@ -1,0 +1,47 @@
+{
+  "status": "REJECTED by user on 2026-09-09. Archive only. Do not integrate, rig, or use as an appearance reference. Never integrated into the game.",
+  "reference": "godot/assets/combat/heroes/pierrot.png",
+  "construction": "Authored 3D meshes, shaped anatomical sections, volumetric hair, modeled face and garments. No image planes.",
+  "blender": "4.5.13 LTS",
+  "vertices": 170762,
+  "triangles": 339404,
+  "mesh_objects": 267,
+  "materials": [
+    "skin",
+    "ear",
+    "lip",
+    "lip_light",
+    "ink",
+    "ivory",
+    "black",
+    "red",
+    "red_light",
+    "hair",
+    "hair_mid",
+    "hair_light",
+    "gold",
+    "gold_light",
+    "ruby",
+    "ruby_light",
+    "ruby_dark",
+    "eye_white",
+    "iris",
+    "iris_light",
+    "glint"
+  ],
+  "weapon_is_separate": true,
+  "height_meters": 1.85,
+  "next": [
+    "Visual review of proportions and likeness",
+    "Retopology and UVs",
+    "Rig and finger grips",
+    "Fate thrust animation",
+    "Shared Godot 3D combat stage"
+  ],
+  "limitations": [
+    "Back of outfit is an interpretation; source is a single front three-quarter illustration",
+    "Study meshes are not final deformation topology",
+    "No skeletal animation yet",
+    "Materials are flat-color PBR bases, not final anime toon shader"
+  ]
+}

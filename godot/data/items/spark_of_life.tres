@@ -1,7 +1,9 @@
-[gd_resource type="Resource" script_class="ItemDefinition" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="ItemDefinition" load_steps=3 format=3]
 [ext_resource type="Script" path="res://core/items/item_definition.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/items/materials/spark_of_life.png" id="2_icon"]
 [resource]
 script = ExtResource("1")
+icon = ExtResource("2_icon")
 item_id = "spark_of_life"
 display_name = "Iskra Życia"
 description = "Drobina energii pulsująca bladym światłem."

@@ -35,3 +35,9 @@ godot/export_credentials.cfg
 
 # Project-local developer tools and downloaded runtimes
 .tools/
+
+# Generated local output
+output/
+
+# Large local Blender repair drafts
+art_drafts/pierrot_meshy_repair_04/

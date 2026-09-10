@@ -13,6 +13,40 @@ const GuildMilestoneServiceClass := preload("res://core/quests/guild_milestone_s
 const GuildRumorCatalogClass := preload("res://core/quests/guild_rumor_catalog.gd")
 const ItemCatalogClass := preload("res://core/items/item_catalog.gd")
 const QuestServiceClass := preload("res://core/quests/quest_service.gd")
+const GuildLayout := preload("res://ui/screens/guild/guild_layout.gd")
+const GUILDMASTER_HIT_POLYGON := [
+	Vector2(0.280, 0.329),
+	Vector2(0.298, 0.331),
+	Vector2(0.309, 0.360),
+	Vector2(0.307, 0.402),
+	Vector2(0.325, 0.427),
+	Vector2(0.326, 0.488),
+	Vector2(0.349, 0.524),
+	Vector2(0.373, 0.506),
+	Vector2(0.389, 0.520),
+	Vector2(0.385, 0.539),
+	Vector2(0.362, 0.558),
+	Vector2(0.337, 0.564),
+	Vector2(0.329, 0.631),
+	Vector2(0.338, 0.826),
+	Vector2(0.334, 0.909),
+	Vector2(0.341, 0.929),
+	Vector2(0.325, 0.937),
+	Vector2(0.298, 0.923),
+	Vector2(0.293, 0.864),
+	Vector2(0.281, 0.863),
+	Vector2(0.272, 0.941),
+	Vector2(0.246, 0.965),
+	Vector2(0.233, 0.956),
+	Vector2(0.240, 0.900),
+	Vector2(0.210, 0.813),
+	Vector2(0.217, 0.652),
+	Vector2(0.219, 0.593),
+	Vector2(0.215, 0.486),
+	Vector2(0.227, 0.441),
+	Vector2(0.267, 0.408),
+	Vector2(0.265, 0.361),
+]
 
 const MODE_STORY := "story"
 const MODE_DAILY := "daily"
@@ -26,6 +60,8 @@ var _selected_quest_id := QuestServiceClass.STORY_QUEST_ID
 var _selected_contract_id := ""
 var _selected_milestone_id := GuildMilestoneServiceClass.MILESTONE_ORDER[0]
 var _selected_rumor_index := 0
+var _interaction_state := "ambient"
+var _layout: Node
 
 @onready var rank_label: Label = %RankLabel
 @onready var rank_progress_label: Label = %RankProgressLabel
@@ -34,7 +70,7 @@ var _selected_rumor_index := 0
 @onready var weekly_button: Button = %WeeklyButton
 @onready var milestones_button: Button = %MilestonesButton
 @onready var rumors_button: Button = %RumorsButton
-@onready var party_button: Button = %PartyButton
+@onready var party_button: Button = %PartyActionButton
 @onready var board_title: Label = %BoardTitle
 @onready var quest_list: ItemList = %QuestList
 @onready var notice_label: Label = %NoticeLabel
@@ -48,12 +84,32 @@ var _selected_rumor_index := 0
 @onready var dependency_label: Label = %DependencyLabel
 @onready var action_button: Button = %ActionButton
 @onready var result_label: Label = %ResultLabel
+@onready var interior: TextureRect = %Interior
+@onready var guildmaster_highlight: TextureRect = %GuildmasterHighlight
+@onready var guildmaster_hit_area: NpcAlphaHitButton = %GuildmasterHitArea
+@onready var guild_action_panel: PanelContainer = %GuildActionPanel
+@onready var board_tabs: HBoxContainer = %BoardTabs
+@onready var board_body: HBoxContainer = %Body
+@onready var hall_presentation: Control = %GuildHallPresentation
+@onready var hall_identity: VBoxContainer = %HallIdentity
 
 
 func _ready() -> void:
+	_layout = GuildLayout.new()
+	add_child(_layout)
+	_layout.configure(self)
+	hall_presentation.resized.connect(_queue_hall_art_update)
 	%BackButton.pressed.connect(back_requested.emit)
-	%PartyButton.pressed.connect(party_requested.emit)
-	%RiftsButton.pressed.connect(rifts_requested.emit)
+	%PartyActionButton.pressed.connect(party_requested.emit)
+	%RiftsActionButton.pressed.connect(rifts_requested.emit)
+	get_node("Page/BoardTabs/PartyButton").pressed.connect(party_requested.emit)
+	get_node("Page/BoardTabs/RiftsButton").pressed.connect(rifts_requested.emit)
+	%GuildmasterHitArea.pressed.connect(_focus_guildmaster)
+	%GuildmasterHitArea.mouse_entered.connect(_set_guildmaster_hover.bind(true))
+	%GuildmasterHitArea.mouse_exited.connect(_set_guildmaster_hover.bind(false))
+	%OpenBoardButton.pressed.connect(_open_board)
+	%CloseGuildInteractionButton.pressed.connect(_show_ambient_view)
+	%CloseBoardButton.pressed.connect(_focus_guildmaster)
 	story_button.pressed.connect(_set_mode.bind(MODE_STORY))
 	daily_button.pressed.connect(_set_mode.bind(MODE_DAILY))
 	weekly_button.pressed.connect(_set_mode.bind(MODE_WEEKLY))
@@ -62,7 +118,7 @@ func _ready() -> void:
 	quest_list.item_selected.connect(_select_entry)
 	action_button.pressed.connect(_perform_action)
 	_render()
-	quest_list.grab_focus()
+	_show_ambient_view()
 
 
 func configure(session: GameSessionClass) -> void:
@@ -72,30 +128,86 @@ func configure(session: GameSessionClass) -> void:
 
 
 func show_story_board() -> void:
+	_open_board()
 	_set_mode(MODE_STORY)
 
 
 func show_daily_contracts() -> void:
+	_open_board()
 	_set_mode(MODE_DAILY)
 
 
 func show_weekly_contract() -> void:
+	_open_board()
 	_set_mode(MODE_WEEKLY)
 
 
 func show_milestones() -> void:
+	_open_board()
 	_set_mode(MODE_MILESTONES)
 
 
 func show_rumors() -> void:
+	_open_board()
 	_set_mode(MODE_RUMORS)
+
+
+func _show_ambient_view() -> void:
+	_set_interaction_state("ambient")
+
+
+func _focus_guildmaster() -> void:
+	_set_interaction_state("focused")
+
+
+func _open_board() -> void:
+	_set_interaction_state("board")
+
+
+func _set_interaction_state(state: String) -> void:
+	_interaction_state = state
+	var board_open := state == "board"
+	board_tabs.visible = board_open
+	board_body.visible = board_open
+	guild_action_panel.visible = state == "focused"
+	hall_identity.visible = false
+	# The guildmaster is already painted into the approved hall; never add a second cutout.
+	guildmaster_hit_area.disabled = board_open
+	_layout.refresh.call_deferred()
+	_set_guildmaster_hover(false)
+	_queue_hall_art_update()
+	if board_open:
+		quest_list.grab_focus()
+
+
+func _set_guildmaster_hover(hovered: bool) -> void:
+	guildmaster_highlight.visible = hovered and _interaction_state != "board"
+
+
+func _queue_hall_art_update() -> void:
+	_update_hall_art.call_deferred()
+
+
+func _update_hall_art() -> void:
+	var texture_size := interior.texture.get_size()
+	var stage_size := hall_presentation.size
+	var scale_factor := maxf(stage_size.x / texture_size.x, stage_size.y / texture_size.y)
+	var drawn_size := texture_size * scale_factor
+	# Fill the room edge-to-edge while keeping the veteran's boots inside the ambient frame.
+	var art_position := (stage_size - drawn_size) * Vector2(0.5, 1.0)
+	interior.position = art_position
+	interior.size = drawn_size
+	guildmaster_highlight.position = interior.position
+	guildmaster_highlight.size = interior.size
+	guildmaster_hit_area.configure_art_region(interior, PackedVector2Array(GUILDMASTER_HIT_POLYGON))
 
 
 func _set_mode(mode: String) -> void:
 	_mode = mode
 	result_label.text = ""
 	_render()
-	quest_list.grab_focus()
+	if _interaction_state == "board":
+		quest_list.grab_focus()
 
 
 func _select_entry(index: int) -> void:

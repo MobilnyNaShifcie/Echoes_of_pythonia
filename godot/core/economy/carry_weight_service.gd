@@ -143,7 +143,7 @@ static func next_upgrade(player) -> Dictionary:
 static func purchase_upgrade(player, guild_reputation: int) -> Dictionary:
 	var upgrade := next_upgrade(player)
 	if upgrade.is_empty():
-		return {"ok": false, "message": "Masz już najlepszy plecak Kwatermistrza."}
+		return {"ok": false, "message": "Masz już najlepszy plecak Poszukiwacza."}
 	var current_rank := guild_rank_for_reputation(guild_reputation)
 	if _rank_index(current_rank) < _rank_index(upgrade.required_rank):
 		return {

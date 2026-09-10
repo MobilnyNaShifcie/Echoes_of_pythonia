@@ -191,11 +191,15 @@ func test_pierrot_combat_panel_adapts_to_one_two_and_three_dice() -> void:
 		var screen := COMBAT_SCENE.instantiate() as CombatScreenClass
 		screen.configure(session, "prologue_scarecrow", "prologue")
 		add_child_autofree(screen)
+		# Test the dice layout during combat; a killing roll is cleared on the result screen.
+		screen._enemy.max_hp = 1000
+		screen._enemy.current_hp = 1000
 		_rig_dice(screen._engine, test_case.dice)
 		_select_skill(screen, test_case.skill_id)
 
 		screen.skill_button.pressed.emit()
 
+		assert_eq(screen._engine.result, CombatEngineClass.ONGOING)
 		assert_true(screen.fate_panel.visible)
 		assert_eq(screen.dice_row.get_child_count(), test_case.dice.size())
 		assert_false(screen.fate_outcome_label.text.is_empty())
@@ -213,6 +217,13 @@ func test_pierrot_fate_panel_fits_the_720p_combat_header() -> void:
 	var screen := COMBAT_SCENE.instantiate() as CombatScreenClass
 	screen.configure(session, "prologue_scarecrow", "prologue")
 	host.add_child(screen)
+	await get_tree().process_frame
+
+	assert_false(screen.fate_panel.visible)
+	screen.set_reduced_motion(true)
+	_rig_dice(screen._engine, [3])
+	_select_skill(screen, "fate_thrust")
+	screen.skill_button.pressed.emit()
 	await get_tree().process_frame
 
 	assert_true(screen.fate_panel.visible)

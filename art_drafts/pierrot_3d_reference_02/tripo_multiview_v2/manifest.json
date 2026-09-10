@@ -1,0 +1,41 @@
+{
+  "status": "Three lossless references verified locally; user screenshot now shows front/back/right populated in Tripo. Additional generated left view tracked separately. No 3D generation or game integration performed by the assistant.",
+  "additional_generated_view": "left_profile_manifest.json",
+  "created": "2026-09-09",
+  "authorization": "User explicitly approved ordinary lossless cropping without AI regeneration: możesz.",
+  "method": "PowerShell / System.Drawing rectangular crops, without resampling, recoloring, mirroring or background replacement.",
+  "source": "../pierrot_turnaround_v2.png",
+  "source_sha256": "4DB12212FD108A92DB41990E74F0D448D0C03E03DF9CDB5AF9FEF83673B76032",
+  "source_unchanged": true,
+  "source_dimensions": [1536, 1024],
+  "script": "../../../scripts/split-pierrot-reference.ps1",
+  "validation": {
+    "exact_pixel_equality_before_and_after_png_encoding": true,
+    "total_checked_output_pixels": 1468416,
+    "all_views_same_source_y_range": [0, 956],
+    "visual_review": "Full figures, hands, hair, shoes and cloth tips retained. Captions excluded. Rear gold finial included fully; no neighboring finial fragment in the profile crop.",
+    "notes": "The same source pixel scale and vertical registration are preserved, not newly corrected. Widths differ intentionally. This does not remove cross-view discrepancies already present in the approved generated sheet."
+  },
+  "views": [
+    {
+      "file": "pierrot_front_v2.png",
+      "view": "front",
+      "source_box_xywh": [0, 0, 548, 956],
+      "sha256": "DB048A89B21C7BCDDC974C031A98BE3E1FE56086B31DCF1836DC48258D347D9D"
+    },
+    {
+      "file": "pierrot_back_v2.png",
+      "view": "back",
+      "source_box_xywh": [548, 0, 506, 956],
+      "sha256": "331FECCA051A98D2A8764F350087CA5FB80ED5251E3ADD1C05B290EF465351AC"
+    },
+    {
+      "file": "pierrot_profile_facing_right_v2.png",
+      "view": "profile_facing_right_in_image",
+      "source_box_xywh": [1054, 0, 482, 956],
+      "sha256": "045D5D7190C146EB59A8D2E2F7FA9C1BB34A8DD48277A84A149AF554F6CB1E74",
+      "note": "Do not infer the service's Left/Right camera convention from the filename; verify its view guide before assignment. Do not mirror the asymmetric costume."
+    }
+  ],
+  "next_gate": "Review and upload the additional generated left view, inspect all Tripo multiview thumbnails and privacy, and confirm the actual generation credit cost with the user before submission. Keep the lance separate. Review the generated mesh before rigging or production integration."
+}

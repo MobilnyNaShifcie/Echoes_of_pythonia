@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://ui/screens/character_sheet/character_sheet.gd" id="1_sheet"]
 
@@ -17,6 +17,70 @@ content_margin_left = 12.0
 content_margin_top = 6.0
 content_margin_right = 12.0
 content_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxFlat" id="OverviewStyle"]
+bg_color = Color(0.008, 0.016, 0.027, 0.76)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.48, 0.36, 0.16, 0.86)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StatsPanelStyle"]
+bg_color = Color(0.012, 0.022, 0.035, 0.84)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.36, 0.3, 0.19, 0.9)
+corner_radius_top_left = 9
+corner_radius_top_right = 9
+corner_radius_bottom_right = 9
+corner_radius_bottom_left = 9
+content_margin_left = 18.0
+content_margin_top = 16.0
+content_margin_right = 18.0
+content_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxFlat" id="AttributesPanelStyle"]
+bg_color = Color(0.016, 0.027, 0.043, 0.88)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.56, 0.41, 0.17, 0.94)
+corner_radius_top_left = 9
+corner_radius_top_right = 9
+corner_radius_bottom_right = 9
+corner_radius_bottom_left = 9
+content_margin_left = 18.0
+content_margin_top = 16.0
+content_margin_right = 18.0
+content_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxFlat" id="EquipmentPanelStyle"]
+bg_color = Color(0.012, 0.021, 0.033, 0.84)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.32, 0.31, 0.28, 0.9)
+corner_radius_top_left = 9
+corner_radius_top_right = 9
+corner_radius_bottom_right = 9
+corner_radius_bottom_left = 9
+content_margin_left = 18.0
+content_margin_top = 16.0
+content_margin_right = 18.0
+content_margin_bottom = 16.0
 
 [node name="CharacterSheetScreen" type="Control"]
 layout_mode = 3
@@ -57,12 +121,6 @@ theme_override_colors/font_color = Color(0.93, 0.95, 0.98, 1)
 theme_override_font_sizes/font_size = 32
 text = "Bohater"
 
-[node name="ProgressionLabel" type="Label" parent="Page/Heading/Identity"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.6, 0.68, 0.78, 1)
-text = "Poszukiwacz  •  Poziom 0"
-
 [node name="BackButton" type="Button" parent="Page/Heading"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(190, 0)
@@ -91,6 +149,34 @@ layout_mode = 2
 size_flags_vertical = 4
 text = "Talenty i pasywy"
 
+[node name="OverviewPanel" type="PanelContainer" parent="Page"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("OverviewStyle")
+
+[node name="Overview" type="HBoxContainer" parent="Page/OverviewPanel"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="ProgressionLabel" type="Label" parent="Page/OverviewPanel/Overview"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.72, 0.79, 0.87, 1)
+theme_override_font_sizes/font_size = 15
+text = "Poszukiwacz  •  Poziom 0"
+
+[node name="ExperienceLabel" type="Label" parent="Page/OverviewPanel/Overview"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.72, 0.36, 1)
+text = "POSTĘP DO KOLEJNEGO POZIOMU"
+
+[node name="ExperienceProgress" type="ProgressBar" parent="Page/OverviewPanel/Overview"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(260, 14)
+layout_mode = 2
+size_flags_vertical = 4
+show_percentage = false
+
 [node name="BodyScroll" type="ScrollContainer" parent="Page"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -102,8 +188,10 @@ size_flags_horizontal = 3
 theme_override_constants/separation = 16
 
 [node name="StatsPanel" type="PanelContainer" parent="Page/BodyScroll/Columns"]
+custom_minimum_size = Vector2(380, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StatsPanelStyle")
 
 [node name="Content" type="VBoxContainer" parent="Page/BodyScroll/Columns/StatsPanel"]
 layout_mode = 2
@@ -124,9 +212,19 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.82, 0.86, 0.92, 1)
 text = "PŻ      20 / 20\nMANA    0 / 0\nATK     3\nDEF     2\nUNIK    0.0%"
 
+[node name="StatsHint" type="Label" parent="Page/BodyScroll/Columns/StatsPanel/Content"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.52, 0.61, 0.71, 1)
+text = "Wartości obejmują wyposażenie, atrybuty, talenty i aktywne premie."
+autowrap_mode = 2
+
 [node name="AttributesPanel" type="PanelContainer" parent="Page/BodyScroll/Columns"]
+custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.2
+theme_override_styles/panel = SubResource("AttributesPanelStyle")
 
 [node name="Content" type="VBoxContainer" parent="Page/BodyScroll/Columns/AttributesPanel"]
 layout_mode = 2
@@ -294,8 +392,10 @@ layout_mode = 2
 text = "Zobacz Drogi bohatera"
 
 [node name="EquipmentPanel" type="PanelContainer" parent="Page/BodyScroll/Columns"]
+custom_minimum_size = Vector2(440, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("EquipmentPanelStyle")
 
 [node name="Content" type="VBoxContainer" parent="Page/BodyScroll/Columns/EquipmentPanel"]
 layout_mode = 2
@@ -315,4 +415,11 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.82, 0.86, 0.92, 1)
 text = "Broń\nStary Miecz +0\n\nZbroja\nZużyta Skórzana Zbroja +0"
+autowrap_mode = 2
+
+[node name="EquipmentHint" type="Label" parent="Page/BodyScroll/Columns/EquipmentPanel/Content"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.52, 0.61, 0.71, 1)
+text = "Pełne rozmieszczenie slotów i plecak znajdziesz w zakładce Ekwipunek."
 autowrap_mode = 2

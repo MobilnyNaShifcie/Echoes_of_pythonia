@@ -1,0 +1,99 @@
+{
+  "generator": "built-in image_gen",
+  "date": "2026-09-07",
+  "sources": [
+    {
+      "id": "seal_corridor",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-a992779e-ea90-472a-967c-9b5575bb54ba.png",
+      "reference_roles": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/sunken_vestibule_v2.png"
+      ],
+      "output": "raw/seal_corridor.png"
+    },
+    {
+      "id": "drowned_gallery",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-1f5c4d50-58fa-49c9-9fc4-bef704ea7694.png",
+      "reference_roles": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/sunken_vestibule_v2.png"
+      ],
+      "output": "raw/drowned_gallery.png"
+    },
+    {
+      "id": "sunken_chapel",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-e6d4970c-c7b6-4066-a766-ebf6ca744e13.png",
+      "reference_roles": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/sunken_vestibule_v2.png"
+      ],
+      "output": "raw/sunken_chapel.png"
+    },
+    {
+      "id": "chain_hall",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-4e7ebec0-3cf0-4ed6-8996-2d72be083d04.png",
+      "reference_roles": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/sunken_vestibule_v2.png"
+      ],
+      "output": "raw/chain_hall.png"
+    },
+    {
+      "id": "grandmaster_gate",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-3660c555-9072-4d7c-b11b-a2afd7295d98.png",
+      "reference_roles": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/sunken_vestibule_v2.png"
+      ],
+      "output": "raw/grandmaster_gate.png"
+    },
+    {
+      "id": "drowned_acolyte",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-c133c25c-2d8b-496a-8221-a044274f8e77.png",
+      "reference_roles": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/order_grandmaster.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/order_reference_board.png"
+      ],
+      "output": "raw/drowned_acolyte.png"
+    },
+    {
+      "id": "drowned_priestess",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-2d224e7b-f7ba-4521-865c-b200b8c278fa.png",
+      "reference_roles": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/order_grandmaster.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/order_reference_board.png"
+      ],
+      "output": "raw/drowned_priestess.png"
+    },
+    {
+      "id": "iron_gate_guardian",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-cbdc4fa5-a63c-4c75-99b7-44e87299b7a6.png",
+      "reference_roles": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/order_grandmaster.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/order_reference_board.png"
+      ],
+      "output": "raw/iron_gate_guardian.png"
+    },
+    {
+      "id": "crypt_warden",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-d163dd1b-81a2-42ed-ba6b-13259e6dc429.png",
+      "reference_roles": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/order_grandmaster.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/order_reference_board.png"
+      ],
+      "output": "raw/crypt_warden.png"
+    },
+    {
+      "id": "sunken_knight_anime",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-493b045f-8ec2-4194-a8f2-025e1be770a0.png",
+      "reference_roles": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/order_grandmaster.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/order_reference_board.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/sunken_knight.png"
+      ],
+      "output": "raw/sunken_knight_anime.png"
+    }
+  ],
+  "boss": {
+    "id": "order_grandmaster",
+    "prompt": "Use case: precise-object-edit\nAsset: production full-body anime fantasy RPG boss sprite with genuine transparent alpha, no checkerboard pattern.\nInput image 1: edit target, the existing Grandmaster. Image 2: exact equipment and faction reference.\nKeep this same older silver-haired anime man, his face identity, crown, blue-steel armor, compass emblems, navy cloak, sword design, cel-painted rendering and full-body proportions. Add a readable navy-and-steel Order shield with gold compass emblem held by the currently empty armored hand; this shield is required by his existing combat mechanic. The shield should be substantial but not hide his face, chest clasp, crown or sword. Turn the entire three-quarter combat stance and gaze towards image LEFT, where the player will stand. Sword remains held in the other hand, clearly visible with its full tip. Only these requested pose/equipment changes. Preserve controlled brushwork; no extra decorative complexity, no microtexture or photographic skin. Both boots, complete crown, cloak and complete weapons all inside generous 5% transparent margins. No scenery, no ground, no text, no sparkles.",
+    "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-7506e274-c2b2-483c-99e4-80b408de82c4.png",
+    "output": "raw/order_grandmaster.png",
+    "reason": "Existing phase-II mechanic breaks a shield; add the shield without changing boss identity."
+  }
+}

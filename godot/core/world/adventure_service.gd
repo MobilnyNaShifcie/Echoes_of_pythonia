@@ -37,7 +37,7 @@ static func explore_region(session, region_id: String, rng: RandomNumberGenerato
 		var message := (
 			"Nie możesz rozpocząć wyprawy: plecak jest przeciążony "
 			+ (
-				"(%.1f/%.1f kg). Odłóż przedmioty u Kwatermistrza."
+				"(%.1f/%.1f kg). Odłóż przedmioty w skrytce karczmy."
 				% [load.current_kg, load.capacity_kg]
 			)
 		)
@@ -101,7 +101,7 @@ static func _roll_region_exploration(
 	var region = RegionCatalogClass.get_definition(region_id)
 	if region == null:
 		return {"enemy_id": "", "message": "Nieznany region.", "blocked": true}
-	if encounter_roll >= region.encounter_chance:
+	if region.encounter_chance < 1.0 and encounter_roll >= region.encounter_chance:
 		var quiet_index := posmod(quiet_roll, region.quiet_events.size())
 		return {"enemy_id": "", "message": region.quiet_events[quiet_index]}
 	var table := region.encounters_for(period_code)

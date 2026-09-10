@@ -1,0 +1,18 @@
+{
+  "dirs": [],
+  "tests": [
+    "res://tests/test_crypt_complete_art.gd",
+    "res://tests/test_crypt_presentation.gd",
+    "res://tests/test_dungeons_stage_six_h.gd",
+    "res://tests/test_combat_presentation.gd",
+    "res://tests/test_combat_presentation_stage_nine_a.gd",
+    "res://tests/test_ice_coast_art.gd",
+    "res://tests/test_combat_consumables.gd"
+  ],
+  "ignore_pause": true,
+  "log_level": 1,
+  "disable_colors": true,
+  "should_exit": true,
+  "should_maximize": false,
+  "junit_xml_file": "res://../output/dungeon_crypt/targeted_tests.xml"
+}

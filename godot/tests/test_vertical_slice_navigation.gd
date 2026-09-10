@@ -1,6 +1,7 @@
 extends GutTest
 
 const APP_SCENE := preload("res://scenes/app/app.tscn")
+const CharacterMenuScreenClass := preload("res://ui/screens/character_menu/character_menu.gd")
 const CharacterSheetScreenClass := preload("res://ui/screens/character_sheet/character_sheet.gd")
 const CityHubScreenClass := preload("res://ui/screens/city_hub/city_hub.gd")
 const CityEconomyScreenClass := preload("res://ui/screens/city_economy/city_economy.gd")
@@ -55,7 +56,7 @@ func test_city_routes_to_guild_map_and_real_combat_screen() -> void:
 	app.free()
 
 
-func test_combat_layout_does_not_overlap_header_or_footer_at_720p() -> void:
+func test_combat_floating_hud_and_result_fit_canvas_at_720p() -> void:
 	var host := Control.new()
 	host.size = Vector2(1280, 720)
 	add_child(host)
@@ -76,22 +77,21 @@ func test_combat_layout_does_not_overlap_header_or_footer_at_720p() -> void:
 	var continue_size: Vector2 = combat.continue_button.size
 	combat.result_label.text += "\n" + "Dodatkowy wpis do raportu zwycięstwa.\n".repeat(3)
 	await get_tree().process_frame
-	var header_separator: HSeparator = app.get_node("SafeArea/Page/HeaderSeparator")
-	var footer_separator: HSeparator = app.get_node("SafeArea/Page/FooterSeparator")
+	var canvas: Rect2 = app.screen_host.get_global_rect()
 
 	assert_gte(
 		combat.encounter_label.get_global_rect().position.y,
-		header_separator.get_global_rect().end.y,
+		canvas.position.y,
 	)
 	assert_lte(
 		combat.result_panel.get_global_rect().end.y,
-		footer_separator.get_global_rect().position.y,
+		canvas.end.y,
 	)
 	assert_eq(combat.continue_button.size, continue_size)
 	host.free()
 
 
-func test_economy_layout_fits_between_header_and_footer_at_720p() -> void:
+func test_economy_overlays_fit_canvas_at_720p() -> void:
 	var host := Control.new()
 	host.size = Vector2(1280, 720)
 	add_child(host)
@@ -103,16 +103,15 @@ func test_economy_layout_fits_between_header_and_footer_at_720p() -> void:
 	app._show_city_service("merchant")
 	await get_tree().process_frame
 	var economy = app.screen_host.get_child(0)
-	var header_separator: HSeparator = app.get_node("SafeArea/Page/HeaderSeparator")
-	var footer_separator: HSeparator = app.get_node("SafeArea/Page/FooterSeparator")
+	var canvas: Rect2 = app.screen_host.get_global_rect()
 
 	assert_gte(
 		economy.title_label.get_global_rect().position.y,
-		header_separator.get_global_rect().end.y,
+		canvas.position.y,
 	)
 	assert_lte(
 		economy.status_label.get_global_rect().end.y,
-		footer_separator.get_global_rect().position.y,
+		canvas.end.y,
 	)
 	assert_lte(
 		economy.get_global_rect().end.x,
@@ -121,7 +120,7 @@ func test_economy_layout_fits_between_header_and_footer_at_720p() -> void:
 	host.free()
 
 
-func test_world_map_scrolls_inside_safe_area_and_uses_two_visible_columns() -> void:
+func test_world_map_fills_canvas_with_art_and_overlay_layers() -> void:
 	var host := Control.new()
 	host.size = Vector2(1280, 720)
 	add_child(host)
@@ -133,16 +132,15 @@ func test_world_map_scrolls_inside_safe_area_and_uses_two_visible_columns() -> v
 	app._show_world_map()
 	await get_tree().process_frame
 	var world_map = app.screen_host.get_child(0)
-	var header_separator: HSeparator = app.get_node("SafeArea/Page/HeaderSeparator")
-	var footer_separator: HSeparator = app.get_node("SafeArea/Page/FooterSeparator")
+	var canvas: Rect2 = app.screen_host.get_global_rect()
 
 	assert_gte(
 		world_map.title_label.get_global_rect().position.y,
-		header_separator.get_global_rect().end.y,
+		canvas.position.y,
 	)
 	assert_lte(
 		world_map.get_global_rect().end.y,
-		footer_separator.get_global_rect().position.y,
+		canvas.end.y,
 	)
 	assert_eq(world_map.get_node("Page/Body").get_child_count(), 2)
 	assert_false(world_map.threats_label.is_visible_in_tree())
@@ -161,51 +159,60 @@ func test_character_progression_screens_fit_at_720p() -> void:
 	session.player.unspent_attribute_points = 4
 	app._on_session_created(session)
 	await get_tree().process_frame
-	var footer_separator: HSeparator = app.get_node("SafeArea/Page/FooterSeparator")
 
+	var canvas: Rect2 = app.screen_host.get_global_rect()
 	app._show_character_sheet()
 	await get_tree().process_frame
-	var sheet = app.screen_host.get_child(0)
+	var character_menu = app.screen_host.get_child(0)
+	assert_eq(character_menu.get_script(), CharacterMenuScreenClass)
+	assert_eq(character_menu.active_section(), CharacterMenuScreenClass.SECTION_CHARACTER)
+	var sheet = character_menu.view_for_section(CharacterMenuScreenClass.SECTION_CHARACTER)
 	assert_eq(sheet.get_script(), CharacterSheetScreenClass)
 	assert_lte(
-		sheet.get_node("Page/BodyScroll").get_global_rect().end.y,
-		footer_separator.get_global_rect().position.y,
+		character_menu.get_global_rect().end.y,
+		canvas.end.y,
 	)
 
 	app._show_equipment()
 	await get_tree().process_frame
-	var equipment = app.screen_host.get_child(0)
+	character_menu = app.screen_host.get_child(0)
+	assert_eq(character_menu.get_script(), CharacterMenuScreenClass)
+	assert_eq(character_menu.active_section(), CharacterMenuScreenClass.SECTION_EQUIPMENT)
+	var equipment = character_menu.view_for_section(CharacterMenuScreenClass.SECTION_EQUIPMENT)
 	assert_eq(equipment.get_script(), EquipmentScreenClass)
 	assert_lte(
-		equipment.get_global_rect().end.y,
-		footer_separator.get_global_rect().position.y,
+		character_menu.get_global_rect().end.y,
+		canvas.end.y,
 	)
-	assert_true(equipment.get_v_scroll_bar().visible)
 
 	app._show_class_selection()
 	await get_tree().process_frame
 	var class_selection = app.screen_host.get_child(0)
 	assert_eq(class_selection.get_script(), ClassSelectionScreenClass)
 	assert_lte(
-		class_selection.get_node("Page/Columns").get_global_rect().end.y,
-		footer_separator.get_global_rect().position.y,
+		class_selection.get_node("Page/MainStage").get_global_rect().end.y,
+		canvas.end.y,
 	)
 
 	app._show_skills()
 	await get_tree().process_frame
-	var skills = app.screen_host.get_child(0)
+	character_menu = app.screen_host.get_child(0)
+	assert_eq(character_menu.active_section(), CharacterMenuScreenClass.SECTION_SKILLS)
+	var skills = character_menu.view_for_section(CharacterMenuScreenClass.SECTION_SKILLS)
 	assert_eq(skills.get_script(), SkillsScreenClass)
 	assert_lte(
-		skills.get_node("Page/Body").get_global_rect().end.y,
-		footer_separator.get_global_rect().position.y,
+		character_menu.get_global_rect().end.y,
+		canvas.end.y,
 	)
 
 	app._show_progression()
 	await get_tree().process_frame
-	var progression = app.screen_host.get_child(0)
+	character_menu = app.screen_host.get_child(0)
+	assert_eq(character_menu.active_section(), CharacterMenuScreenClass.SECTION_PROGRESSION)
+	var progression = character_menu.view_for_section(CharacterMenuScreenClass.SECTION_PROGRESSION)
 	assert_eq(progression.get_script(), ProgressionScreenClass)
 	assert_lte(
-		progression.get_node("Page/Tabs").get_global_rect().end.y,
-		footer_separator.get_global_rect().position.y,
+		character_menu.get_global_rect().end.y,
+		canvas.end.y,
 	)
 	host.free()

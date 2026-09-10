@@ -3,8 +3,10 @@ extends Node
 
 signal playback_started
 signal playback_finished
+signal skill_impact(event: Dictionary)
 
 const COMBAT_DIE_SCENE := preload("res://ui/components/combat_die/combat_die.tscn")
+const FateThrustEffect := preload("res://ui/presentation/fate_thrust_effect.gd")
 
 var reduced_motion := false
 var animation_duration_scale := 1.0
@@ -22,6 +24,9 @@ var _turn_state_label: Label
 var _player_turn_icon: Label
 var _enemy_turn_icon: Label
 var _motion_toggle_button: Button
+var _player_stats_label: Label
+var _enemy_stats_label: Label
+var _active_skill_effect: Control
 
 
 func configure(screen: Control) -> void:
@@ -37,6 +42,10 @@ func configure(screen: Control) -> void:
 	_player_turn_icon = screen.get_node("%PlayerTurnIcon")
 	_enemy_turn_icon = screen.get_node("%EnemyTurnIcon")
 	_motion_toggle_button = screen.get_node("%MotionToggleButton")
+	_player_stats_label = screen.get_node("%PlayerStatsLabel")
+	_enemy_stats_label = screen.get_node("%EnemyStatsLabel")
+	for bar: ProgressBar in [_player_hp_bar, _player_mana_bar, _enemy_hp_bar]:
+		bar.value_changed.connect(func(_value: float) -> void: _sync_resource_labels())
 	_motion_toggle_button.pressed.connect(_toggle_reduced_motion)
 	set_reduced_motion(DisplayServer.get_name() == "headless")
 
@@ -65,6 +74,8 @@ func is_busy() -> bool:
 func present(
 	events: Array[Dictionary], before: Dictionary, after: Dictionary, round_number: int
 ) -> void:
+	if _busy:
+		return
 	_busy = true
 	last_feedback_texts.clear()
 	playback_started.emit()
@@ -89,7 +100,7 @@ func render_dice(dice: Array[int], outcome: String) -> void:
 		var die = COMBAT_DIE_SCENE.instantiate()
 		_dice_row.add_child(die)
 		die.set_value(value)
-	_fate_outcome_label.text = "RZUT OCZEKUJE" if outcome.is_empty() else outcome
+	_fate_outcome_label.text = "" if dice.is_empty() else outcome
 
 
 func reveal_result(panel: Control) -> void:
@@ -131,6 +142,10 @@ func _play_event(event: Dictionary, displayed: Dictionary, round_number: int) ->
 			_set_turn_actor(str(event.get("actor", "player")), round_number)
 			await get_tree().create_timer(_duration(0.08)).timeout
 		"fate_roll":
+			var cost := int(event.get("mana_cost", 0))
+			if cost > 0:
+				displayed.player_mana = maxf(0.0, float(displayed.get("player_mana", 0)) - cost)
+				_apply_resources(displayed)
 			await _play_dice(event)
 		"damage":
 			await _play_damage(event, displayed)
@@ -145,6 +160,7 @@ func _play_event(event: Dictionary, displayed: Dictionary, round_number: int) ->
 
 
 func _play_dice(event: Dictionary) -> void:
+	_turn_state_label.text = "RZUT LOSU"
 	var final_values: Array[int] = []
 	final_values.assign(event.get("dice", []))
 	_clear_dice()
@@ -170,13 +186,38 @@ func _play_dice(event: Dictionary) -> void:
 
 func _play_damage(event: Dictionary, displayed: Dictionary) -> void:
 	var actor := str(event.get("actor", "player"))
-	var target := str(event.get("target", "enemy"))
+	if str(event.get("vfx", "")) == "fate_thrust":
+		await _play_fate_thrust(event, displayed)
+		return
 	await _lunge(_visual_for(actor), 1.0 if actor == "player" else -1.0)
+	await _apply_damage_impact(event, displayed)
+
+
+func _play_fate_thrust(event: Dictionary, displayed: Dictionary) -> void:
+	_turn_state_label.text = "PCHNIĘCIE LOSU"
+	var effect := FateThrustEffect.new()
+	_active_skill_effect = effect
+	_feedback_layer.add_child(effect)
+	_feedback_layer.move_child(effect, 0)
+	effect.impact.connect(
+		func() -> void:
+			_apply_damage_impact(event, displayed)
+			skill_impact.emit(event)
+	)
+	effect.start(_player_visual, _enemy_visual, event, animation_duration_scale)
+	await effect.finished
+	_active_skill_effect = null
+	effect.queue_free()
+
+
+func _apply_damage_impact(event: Dictionary, displayed: Dictionary) -> void:
+	var target := str(event.get("target", "enemy"))
 	var text := _damage_text(event)
 	_record_feedback(text)
 	var tone := "critical" if bool(event.get("critical", false)) else "damage"
 	_show_floating_text(_visual_for(target), text, tone)
-	_flash(_visual_for(target), Color(1.0, 0.42, 0.48))
+	if int(event.get("amount", 0)) > 0:
+		_flash(_visual_for(target), Color(1.0, 0.42, 0.48))
 	if target == "enemy":
 		var enemy_target := maxf(
 			0.0, float(displayed.get("enemy_hp", _enemy_hp_bar.value)) - float(event.amount)
@@ -309,6 +350,28 @@ func _apply_resources(snapshot: Dictionary) -> void:
 	_player_hp_bar.value = float(snapshot.get("player_hp", _player_hp_bar.value))
 	_player_mana_bar.value = float(snapshot.get("player_mana", _player_mana_bar.value))
 	_enemy_hp_bar.value = float(snapshot.get("enemy_hp", _enemy_hp_bar.value))
+	_sync_resource_labels()
+
+
+func _sync_resource_labels() -> void:
+	# Domain resolution is immediate; visible numbers follow the impact-time bars.
+	_player_stats_label.text = (
+		"PŻ %d/%d  •  MANA %d/%d"
+		% [
+			roundi(_player_hp_bar.value),
+			roundi(_player_hp_bar.max_value),
+			roundi(_player_mana_bar.value),
+			roundi(_player_mana_bar.max_value)
+		]
+	)
+	_enemy_stats_label.text = (
+		"PŻ %d/%d" % [roundi(_enemy_hp_bar.value), roundi(_enemy_hp_bar.max_value)]
+	)
+	for bar: ProgressBar in [_player_hp_bar, _enemy_hp_bar]:
+		bar.tooltip_text = "PŻ %d/%d" % [roundi(bar.value), roundi(bar.max_value)]
+	_player_mana_bar.tooltip_text = (
+		"Mana %d/%d" % [roundi(_player_mana_bar.value), roundi(_player_mana_bar.max_value)]
+	)
 
 
 func _visual_for(side: String) -> Control:

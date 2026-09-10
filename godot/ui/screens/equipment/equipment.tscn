@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=13 format=3]
 
 [ext_resource type="Script" path="res://ui/screens/equipment/equipment.gd" id="1_equipment"]
 [ext_resource type="PackedScene" path="res://ui/components/inventory_grid/inventory_item_slot.tscn" id="2_item_slot"]
@@ -6,16 +6,121 @@
 [ext_resource type="Script" path="res://ui/components/character_paperdoll/character_paperdoll.gd" id="4_paperdoll"]
 
 [sub_resource type="StyleBoxFlat" id="StageStyle"]
-bg_color = Color(0.018, 0.028, 0.043, 0.42)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.16, 0.23, 0.32, 0.78)
+bg_color = Color(0.008, 0.015, 0.025, 0.14)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.55, 0.41, 0.18, 0.8)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="EquipmentPanelStyle"]
+bg_color = Color(0.018, 0.03, 0.047, 0.43)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.39, 0.32, 0.2, 0.92)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 14.0
+content_margin_top = 12.0
+content_margin_right = 14.0
+content_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxFlat" id="StatsPanelStyle"]
+bg_color = Color(0.012, 0.022, 0.035, 0.82)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.35, 0.29, 0.18, 0.92)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 16.0
+content_margin_top = 14.0
+content_margin_right = 16.0
+content_margin_bottom = 14.0
+
+[sub_resource type="StyleBoxFlat" id="BackpackPanelStyle"]
+bg_color = Color(0.026, 0.029, 0.037, 0.82)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.39, 0.32, 0.2, 0.92)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 14.0
+content_margin_top = 12.0
+content_margin_right = 14.0
+content_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxFlat" id="BackpackWellStyle"]
+bg_color = Color(0.006, 0.01, 0.016, 0.72)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.23, 0.24, 0.26, 0.98)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxFlat" id="StatRowStyle"]
+bg_color = Color(0.03, 0.042, 0.058, 0.82)
+border_width_bottom = 1
+border_color = Color(0.25, 0.25, 0.23, 0.72)
+content_margin_left = 10.0
+content_margin_top = 8.0
+content_margin_right = 10.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="DetailsStyle"]
+bg_color = Color(0.012, 0.018, 0.027, 0.86)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.27, 0.2, 0.9)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+content_margin_left = 12.0
+content_margin_top = 10.0
+content_margin_right = 12.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="IdentityStyle"]
+bg_color = Color(0.035, 0.045, 0.06, 0.62)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.32, 0.28, 0.2, 0.82)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+content_margin_left = 12.0
+content_margin_top = 10.0
+content_margin_right = 12.0
+content_margin_bottom = 10.0
 
 [node name="EquipmentScreen" type="ScrollContainer"]
 layout_mode = 3
@@ -24,11 +129,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-horizontal_scroll_mode = 0
+horizontal_scroll_mode = 1
 script = ExtResource("1_equipment")
 
 [node name="Page" type="VBoxContainer" parent="."]
-custom_minimum_size = Vector2(1160, 0)
+custom_minimum_size = Vector2(1580, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -56,10 +161,9 @@ text = "Ekwipunek"
 
 [node name="HeroStatsLabel" type="Label" parent="Page/Header/Identity"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
-theme_override_colors/font_color = Color(0.6, 0.68, 0.78, 1)
-text = "Bohater  •  PŻ 20/20  •  ATK 3  •  DEF 2"
-autowrap_mode = 2
+text = "Bohater"
 
 [node name="BackButton" type="Button" parent="Page/Header"]
 unique_name_in_owner = true
@@ -74,9 +178,9 @@ size_flags_vertical = 3
 theme_override_constants/separation = 14
 
 [node name="PaperdollPanel" type="PanelContainer" parent="Page/Workspace"]
-custom_minimum_size = Vector2(650, 690)
+custom_minimum_size = Vector2(760, 720)
 layout_mode = 2
-size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("EquipmentPanelStyle")
 
 [node name="Content" type="VBoxContainer" parent="Page/Workspace/PaperdollPanel"]
 layout_mode = 2
@@ -92,129 +196,136 @@ theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
 theme_override_font_sizes/font_size = 20
 text = "Wyposażenie bohatera"
 
-[node name="Hint" type="Label" parent="Page/Workspace/PaperdollPanel/Content/SectionHeader"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.53, 0.62, 0.73, 1)
-text = "Przeciągnij • najedź po szczegóły"
-
 [node name="Paperdoll" type="PanelContainer" parent="Page/Workspace/PaperdollPanel/Content"]
-custom_minimum_size = Vector2(620, 590)
+custom_minimum_size = Vector2(730, 650)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StageStyle")
 
 [node name="Stage" type="Control" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll"]
-custom_minimum_size = Vector2(620, 590)
+custom_minimum_size = Vector2(730, 650)
 layout_mode = 2
 
 [node name="CharacterVisual" type="Control" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage"]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 130.0
-offset_top = 18.0
-offset_right = 490.0
-offset_bottom = 568.0
+offset_left = 185.0
+offset_top = 16.0
+offset_right = 570.0
+offset_bottom = 632.0
+mouse_filter = 2
 script = ExtResource("4_paperdoll")
 caption = ""
 
 [node name="HeadSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 272.0
-offset_top = 18.0
-offset_right = 348.0
-offset_bottom = 94.0
+offset_left = 190.0
+offset_top = 60.0
+offset_right = 264.0
+offset_bottom = 134.0
 text = "HEŁ"
-
-[node name="EarringsSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 28.0
-offset_top = 80.0
-offset_right = 104.0
-offset_bottom = 156.0
-text = "KOL"
-
-[node name="NecklaceSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 516.0
-offset_top = 80.0
-offset_right = 592.0
-offset_bottom = 156.0
-text = "NAS"
-
-[node name="WeaponSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 28.0
-offset_top = 190.0
-offset_right = 104.0
-offset_bottom = 304.0
-text = "BR"
 
 [node name="ChestSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 272.0
-offset_top = 180.0
-offset_right = 348.0
-offset_bottom = 256.0
+offset_left = 190.0
+offset_top = 144.0
+offset_right = 264.0
+offset_bottom = 218.0
 text = "ZBR"
-
-[node name="OffHandSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 516.0
-offset_top = 190.0
-offset_right = 592.0
-offset_bottom = 304.0
-text = "II"
-
-[node name="HandsSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 28.0
-offset_top = 330.0
-offset_right = 104.0
-offset_bottom = 406.0
-text = "RĘK"
-
-[node name="BraceletSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 516.0
-offset_top = 330.0
-offset_right = 592.0
-offset_bottom = 406.0
-text = "BRA"
-
-[node name="RingSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 28.0
-offset_top = 452.0
-offset_right = 104.0
-offset_bottom = 528.0
-text = "PIE"
 
 [node name="BeltSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 516.0
-offset_top = 452.0
-offset_right = 592.0
-offset_bottom = 528.0
+offset_left = 190.0
+offset_top = 312.0
+offset_right = 264.0
+offset_bottom = 386.0
 text = "PAS"
 
 [node name="FeetSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 272.0
-offset_top = 494.0
-offset_right = 348.0
-offset_bottom = 570.0
+offset_left = 190.0
+offset_top = 396.0
+offset_right = 264.0
+offset_bottom = 470.0
 text = "BUT"
+
+[node name="WeaponSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 110.0
+offset_top = 146.0
+offset_right = 186.0
+offset_bottom = 262.0
+text = "BR"
+
+[node name="HandsSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 190.0
+offset_top = 228.0
+offset_right = 264.0
+offset_bottom = 302.0
+text = "RĘK"
+
+[node name="OffHandSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 548.0
+offset_top = 146.0
+offset_right = 624.0
+offset_bottom = 262.0
+text = "II"
+
+[node name="JewelryTitle" type="Label" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage"]
+layout_mode = 0
+offset_left = 456.0
+offset_top = 120.0
+offset_right = 624.0
+offset_bottom = 142.0
+theme_override_colors/font_color = Color(0.76, 0.64, 0.39, 1)
+theme_override_font_sizes/font_size = 11
+text = "DRUGA RĘKA I BIŻUTERIA"
+horizontal_alignment = 1
+
+[node name="EarringsSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 464.0
+offset_top = 272.0
+offset_right = 538.0
+offset_bottom = 346.0
+text = "KOL"
+
+[node name="NecklaceSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 548.0
+offset_top = 272.0
+offset_right = 622.0
+offset_bottom = 346.0
+text = "NAS"
+
+[node name="BraceletSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 464.0
+offset_top = 356.0
+offset_right = 538.0
+offset_bottom = 430.0
+text = "BRA"
+
+[node name="RingSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 548.0
+offset_top = 356.0
+offset_right = 622.0
+offset_bottom = 430.0
+text = "PIE"
 
 [node name="UnequipButton" type="Button" parent="Page/Workspace/PaperdollPanel/Content"]
 unique_name_in_owner = true
@@ -223,10 +334,302 @@ layout_mode = 2
 disabled = true
 text = "Zdejmij wybrany przedmiot do plecaka"
 
-[node name="BackpackPanel" type="PanelContainer" parent="Page/Workspace"]
-custom_minimum_size = Vector2(610, 690)
+[node name="StatsPanel" type="PanelContainer" parent="Page/Workspace"]
+custom_minimum_size = Vector2(282, 720)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StatsPanelStyle")
+
+[node name="Content" type="VBoxContainer" parent="Page/Workspace/StatsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Page/Workspace/StatsPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
+theme_override_font_sizes/font_size = 20
+text = "Statystyki"
+
+[node name="Identity" type="PanelContainer" parent="Page/Workspace/StatsPanel/Content"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("IdentityStyle")
+
+[node name="Labels" type="VBoxContainer" parent="Page/Workspace/StatsPanel/Content/Identity"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="StatsNameLabel" type="Label" parent="Page/Workspace/StatsPanel/Content/Identity/Labels"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.93, 0.95, 0.98, 1)
+theme_override_font_sizes/font_size = 22
+text = "Mobilny"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="StatsLevelLabel" type="Label" parent="Page/Workspace/StatsPanel/Content/Identity/Labels"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.62, 0.42, 1)
+text = "POZIOM 0 • Poszukiwaczka"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="StatsExperienceLabel" type="Label" parent="Page/Workspace/StatsPanel/Content/Identity/Labels"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.68, 0.73, 0.8, 1)
+theme_override_font_sizes/font_size = 12
+text = "EXP 0 / 100"
+horizontal_alignment = 1
+
+[node name="StatsExperienceBar" type="ProgressBar" parent="Page/Workspace/StatsPanel/Content/Identity/Labels"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+show_percentage = false
+
+[node name="LifeSection" type="Label" parent="Page/Workspace/StatsPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78, 0.62, 0.28, 1)
+theme_override_font_sizes/font_size = 15
+text = "ŻYCIE I ZASOBY"
+
+[node name="HealthRow" type="PanelContainer" parent="Page/Workspace/StatsPanel/Content"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StatRowStyle")
+
+[node name="Row" type="HBoxContainer" parent="Page/Workspace/StatsPanel/Content/HealthRow"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="Page/Workspace/StatsPanel/Content/HealthRow/Row"]
 layout_mode = 2
 size_flags_horizontal = 3
+text = "PŻ"
+
+[node name="StatsHpLabel" type="Label" parent="Page/Workspace/StatsPanel/Content/HealthRow/Row"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.42, 0.45, 1)
+text = "20 / 20"
+
+[node name="ManaRow" type="PanelContainer" parent="Page/Workspace/StatsPanel/Content"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StatRowStyle")
+
+[node name="Row" type="HBoxContainer" parent="Page/Workspace/StatsPanel/Content/ManaRow"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="Page/Workspace/StatsPanel/Content/ManaRow/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "MANA"
+
+[node name="StatsManaLabel" type="Label" parent="Page/Workspace/StatsPanel/Content/ManaRow/Row"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42, 0.65, 0.92, 1)
+text = "0 / 0"
+
+[node name="CombatSection" type="Label" parent="Page/Workspace/StatsPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78, 0.62, 0.28, 1)
+theme_override_font_sizes/font_size = 15
+text = "WALKA"
+
+[node name="AttackRow" type="PanelContainer" parent="Page/Workspace/StatsPanel/Content"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StatRowStyle")
+
+[node name="Row" type="HBoxContainer" parent="Page/Workspace/StatsPanel/Content/AttackRow"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="Page/Workspace/StatsPanel/Content/AttackRow/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "ATK"
+
+[node name="StatsAttackLabel" type="Label" parent="Page/Workspace/StatsPanel/Content/AttackRow/Row"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "3"
+
+[node name="DefenseRow" type="PanelContainer" parent="Page/Workspace/StatsPanel/Content"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StatRowStyle")
+
+[node name="Row" type="HBoxContainer" parent="Page/Workspace/StatsPanel/Content/DefenseRow"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="Page/Workspace/StatsPanel/Content/DefenseRow/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "OBRONA"
+
+[node name="StatsDefenseLabel" type="Label" parent="Page/Workspace/StatsPanel/Content/DefenseRow/Row"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "2"
+
+[node name="DodgeRow" type="PanelContainer" parent="Page/Workspace/StatsPanel/Content"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StatRowStyle")
+
+[node name="Row" type="HBoxContainer" parent="Page/Workspace/StatsPanel/Content/DodgeRow"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="Page/Workspace/StatsPanel/Content/DodgeRow/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "UNIK"
+
+[node name="StatsDodgeLabel" type="Label" parent="Page/Workspace/StatsPanel/Content/DodgeRow/Row"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0.0%"
+
+[node name="AttributesSection" type="Label" parent="Page/Workspace/StatsPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78, 0.62, 0.28, 1)
+theme_override_font_sizes/font_size = 15
+text = "ATRYBUTY"
+
+[node name="Attributes" type="GridContainer" parent="Page/Workspace/StatsPanel/Content"]
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 4
+columns = 2
+
+[node name="StrengthName" type="Label" parent="Page/Workspace/StatsPanel/Content/Attributes"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.68, 0.73, 0.8, 1)
+text = "Siła"
+
+[node name="StatsStrengthLabel" type="Label" parent="Page/Workspace/StatsPanel/Content/Attributes"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="VitalityName" type="Label" parent="Page/Workspace/StatsPanel/Content/Attributes"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.68, 0.73, 0.8, 1)
+text = "Witalność"
+
+[node name="StatsVitalityLabel" type="Label" parent="Page/Workspace/StatsPanel/Content/Attributes"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="IntelligenceName" type="Label" parent="Page/Workspace/StatsPanel/Content/Attributes"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.68, 0.73, 0.8, 1)
+text = "Inteligencja"
+
+[node name="StatsIntelligenceLabel" type="Label" parent="Page/Workspace/StatsPanel/Content/Attributes"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="DexterityName" type="Label" parent="Page/Workspace/StatsPanel/Content/Attributes"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.68, 0.73, 0.8, 1)
+text = "Zręczność"
+
+[node name="StatsDexterityLabel" type="Label" parent="Page/Workspace/StatsPanel/Content/Attributes"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="EnduranceName" type="Label" parent="Page/Workspace/StatsPanel/Content/Attributes"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.68, 0.73, 0.8, 1)
+text = "Wytrzymałość"
+
+[node name="StatsEnduranceLabel" type="Label" parent="Page/Workspace/StatsPanel/Content/Attributes"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="LuckName" type="Label" parent="Page/Workspace/StatsPanel/Content/Attributes"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.68, 0.73, 0.8, 1)
+text = "Szczęście"
+
+[node name="StatsLuckLabel" type="Label" parent="Page/Workspace/StatsPanel/Content/Attributes"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="ResourcesSection" type="Label" parent="Page/Workspace/StatsPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78, 0.62, 0.28, 1)
+theme_override_font_sizes/font_size = 15
+text = "ZASOBY"
+
+[node name="CarryRow" type="PanelContainer" parent="Page/Workspace/StatsPanel/Content"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StatRowStyle")
+
+[node name="Row" type="HBoxContainer" parent="Page/Workspace/StatsPanel/Content/CarryRow"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="Page/Workspace/StatsPanel/Content/CarryRow/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "UDŹWIG"
+
+[node name="StatsCarryLabel" type="Label" parent="Page/Workspace/StatsPanel/Content/CarryRow/Row"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0.0 / 50.0 kg"
+horizontal_alignment = 2
+
+[node name="GoldRow" type="PanelContainer" parent="Page/Workspace/StatsPanel/Content"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StatRowStyle")
+
+[node name="Row" type="HBoxContainer" parent="Page/Workspace/StatsPanel/Content/GoldRow"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="Page/Workspace/StatsPanel/Content/GoldRow/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "ZŁOTO"
+
+[node name="StatsGoldLabel" type="Label" parent="Page/Workspace/StatsPanel/Content/GoldRow/Row"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.7, 0.28, 1)
+text = "0"
+
+[node name="Spacer" type="Control" parent="Page/Workspace/StatsPanel/Content"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="StatsStatusLabel" type="Label" parent="Page/Workspace/StatsPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.45, 0.75, 0.52, 1)
+text = "Stan udźwigu: Swobodny"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="BackpackPanel" type="PanelContainer" parent="Page/Workspace"]
+custom_minimum_size = Vector2(510, 720)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("BackpackPanelStyle")
 
 [node name="Content" type="VBoxContainer" parent="Page/Workspace/BackpackPanel"]
 layout_mode = 2
@@ -242,20 +645,16 @@ theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
 theme_override_font_sizes/font_size = 20
 text = "Plecak"
 
-[node name="GridLegend" type="Label" parent="Page/Workspace/BackpackPanel/Content/BackpackHeader"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.53, 0.62, 0.73, 1)
-text = "Rozmiar pola = rozmiar przedmiotu"
-
 [node name="CategoryTabs" type="TabBar" parent="Page/Workspace/BackpackPanel/Content"]
 unique_name_in_owner = true
 layout_mode = 2
 
 [node name="InventoryDropZone" type="PanelContainer" parent="Page/Workspace/BackpackPanel/Content"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 520)
+custom_minimum_size = Vector2(0, 420)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_styles/panel = SubResource("BackpackWellStyle")
 
 [node name="InventoryScroll" type="ScrollContainer" parent="Page/Workspace/BackpackPanel/Content/InventoryDropZone"]
 layout_mode = 2
@@ -266,18 +665,55 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-columns = 8
+columns = 7
 visible_rows = 6
-cell_size = Vector2(66, 66)
-gap = 5.0
+cell_size = Vector2(60, 60)
+gap = 7.0
 accepts_drops = true
 stretch_cells_to_width = true
 stretch_cells_to_height = true
 
-[node name="InteractionHint" type="Label" parent="Page/Workspace/BackpackPanel/Content"]
+[node name="DetailsPanel" type="PanelContainer" parent="Page/Workspace/BackpackPanel/Content"]
+custom_minimum_size = Vector2(0, 170)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.53, 0.62, 0.73, 1)
-text = "Najedź po szczegóły • przeciągnij na slot • podwójne kliknięcie: szybka akcja"
+theme_override_styles/panel = SubResource("DetailsStyle")
+
+[node name="Content" type="VBoxContainer" parent="Page/Workspace/BackpackPanel/Content/DetailsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Title" type="Label" parent="Page/Workspace/BackpackPanel/Content/DetailsPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78, 0.62, 0.28, 1)
+theme_override_font_sizes/font_size = 15
+text = "SZCZEGÓŁY PRZEDMIOTU"
+
+[node name="DetailsBody" type="HBoxContainer" parent="Page/Workspace/BackpackPanel/Content/DetailsPanel/Content"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="DetailsIcon" type="TextureRect" parent="Page/Workspace/BackpackPanel/Content/DetailsPanel/Content/DetailsBody"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(76, 76)
+layout_mode = 2
+size_flags_vertical = 4
+expand_mode = 1
+stretch_mode = 5
+
+[node name="DetailsScroll" type="ScrollContainer" parent="Page/Workspace/BackpackPanel/Content/DetailsPanel/Content/DetailsBody"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="DetailsLabel" type="Label" parent="Page/Workspace/BackpackPanel/Content/DetailsPanel/Content/DetailsBody/DetailsScroll"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.72, 0.78, 0.86, 1)
+text = "Wybierz przedmiot z plecaka lub wyposażenia, aby zobaczyć szczegóły."
 autowrap_mode = 2
 
 [node name="Actions" type="HBoxContainer" parent="Page/Workspace/BackpackPanel/Content"]
@@ -298,19 +734,15 @@ text = "Przeczytaj księgę"
 
 [node name="FeedbackLabel" type="Label" parent="Page"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 30)
+custom_minimum_size = Vector2(0, 28)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.42, 0.78, 0.56, 1)
-text = "Przeciągnij wyposażenie na sylwetkę albo użyj podwójnego kliknięcia."
+text = "Przeciągnij przedmiot na właściwe miejsce sylwetki albo użyj podwójnego kliknięcia."
 autowrap_mode = 2
 
 [node name="Compatibility" type="Control" parent="Page"]
 visible = false
 layout_mode = 2
-
-[node name="DetailsLabel" type="Label" parent="Page/Compatibility"]
-unique_name_in_owner = true
-layout_mode = 0
 
 [node name="EquippedList" type="ItemList" parent="Page/Compatibility"]
 unique_name_in_owner = true

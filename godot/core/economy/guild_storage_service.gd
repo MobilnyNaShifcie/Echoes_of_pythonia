@@ -12,7 +12,7 @@ static func deposit_stack(
 	if not player.inventory.has(item_id, quantity):
 		return {"ok": false, "message": "Nie masz tylu sztuk tego przedmiotu."}
 	if not storage.can_accept_stack(item_id):
-		return {"ok": false, "message": "Magazyn Gildii jest pełny."}
+		return {"ok": false, "message": "Skrytka w karczmie jest pełna."}
 	player.inventory.remove_item(item_id, quantity)
 	storage.inventory.add(item_id, quantity)
 	return {"ok": true, "message": "Odłożono do magazynu: ×%d." % quantity}
@@ -34,7 +34,7 @@ static func deposit_equipment(player, storage: GuildStorageClass, index: int) ->
 	if index < 0 or index >= player.inventory.equipment_items.size():
 		return {"ok": false, "message": "Nieprawidłowy przedmiot wyposażenia."}
 	if not storage.can_accept_equipment():
-		return {"ok": false, "message": "Magazyn Gildii jest pełny."}
+		return {"ok": false, "message": "Skrytka w karczmie jest pełna."}
 	var item = player.inventory.pop_equipment(index)
 	storage.inventory.add_equipment_instance(item)
 	return {"ok": true, "message": "Odłożono: %s." % item.formatted_name(), "item": item}

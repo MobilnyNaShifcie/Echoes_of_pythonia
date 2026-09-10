@@ -246,7 +246,7 @@ func test_guild_placeholder_switches_between_story_daily_and_weekly() -> void:
 	assert_eq(screen.quest_list.item_count, 9)
 
 
-func test_guild_contract_views_fit_between_app_header_and_footer_at_720p() -> void:
+func test_guild_contract_overlay_fits_full_canvas_without_app_bands_at_720p() -> void:
 	var host := Control.new()
 	host.size = Vector2(1280, 720)
 	add_child(host)
@@ -265,17 +265,10 @@ func test_guild_contract_views_fit_between_app_header_and_footer_at_720p() -> vo
 		+ "Otrzymano: Eliksir Arcymistrza ×1."
 	)
 	await get_tree().process_frame
-	var header_separator: HSeparator = app.get_node("SafeArea/Page/HeaderSeparator")
-	var footer_separator: HSeparator = app.get_node("SafeArea/Page/FooterSeparator")
-	assert_gte(
-		guild.rank_label.get_global_rect().position.y,
-		header_separator.get_global_rect().end.y,
-	)
-	assert_lte(
-		guild.get_global_rect().end.y,
-		footer_separator.get_global_rect().position.y,
-	)
-	assert_true(guild.get_v_scroll_bar().visible)
+	assert_eq(guild.hall_presentation.size, guild.size)
+	assert_true(guild.get_global_rect().encloses(guild.board_body.get_global_rect()))
+	assert_lte(guild.result_label.get_global_rect().end.y, guild.get_global_rect().end.y)
+	assert_null(app.get_node_or_null("SafeArea/Page/HeaderSeparator"))
 	host.free()
 
 

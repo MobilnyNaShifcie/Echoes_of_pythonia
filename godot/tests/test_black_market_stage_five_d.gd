@@ -3,7 +3,7 @@ extends GutTest
 const BlackMarketServiceClass := preload("res://core/economy/black_market_service.gd")
 const BookCatalogClass := preload("res://core/progression/book_catalog.gd")
 const CityHubScreenClass := preload("res://ui/screens/city_hub/city_hub.gd")
-const CityServiceScreenClass := preload("res://ui/screens/city_service/city_service.gd")
+const CityEconomyScreenClass := preload("res://ui/screens/city_economy/city_economy.gd")
 const ItemCatalogClass := preload("res://core/items/item_catalog.gd")
 const BlackMarketScreenClass := preload("res://ui/screens/black_market/black_market.gd")
 const NewGameServiceClass := preload("res://core/game/new_game_service.gd")
@@ -11,7 +11,14 @@ const SaveGameServiceClass := preload("res://core/save/save_game_service.gd")
 const APP_SCENE := preload("res://scenes/app/app.tscn")
 const BLACK_MARKET_SCENE := preload("res://ui/screens/black_market/black_market.tscn")
 const CITY_HUB_SCENE := preload("res://ui/screens/city_hub/city_hub.tscn")
-const CITY_SERVICE_SCENE := preload("res://ui/screens/city_service/city_service.tscn")
+const CITY_ECONOMY_SCENE := preload("res://ui/screens/city_economy/city_economy.tscn")
+
+class NoDiskSaveService extends SaveGameService:
+	func any_save_exists() -> bool:
+		return false
+
+	func save_session(_session: GameSessionClass) -> Dictionary:
+		return {"ok": true, "message": "Routing test: disk saves disabled."}
 
 
 func test_informant_requires_rank_c_and_one_of_two_dungeon_milestones() -> void:
@@ -102,6 +109,43 @@ func test_buy_bargain_is_one_attempt_and_purchase_is_single_stock() -> void:
 	assert_false(BlackMarketServiceClass.buy(session, offer.offer_id).ok)
 
 
+func test_market_drop_target_buys_selected_display_item_and_removes_it_from_counter() -> void:
+	var session = _unlocked_session()
+	session.player.gold = 200000
+	var market = BLACK_MARKET_SCENE.instantiate() as BlackMarketScreenClass
+	add_child_autofree(market)
+	market.configure(session, "2099-08-16")
+	var offer = session.black_market.offers[0]
+	var before_count: int = session.player.inventory.count(offer.item_id)
+
+	market.inventory_drop_target.offer_dropped.emit(offer.offer_id)
+
+	assert_true(offer.offer_id in session.black_market.purchased_offer_ids)
+	assert_eq(session.player.inventory.count(offer.item_id), before_count + offer.quantity)
+	assert_true(market.offer_slots[0].disabled)
+	assert_true(market.offer_slots[0].sold_label.visible)
+
+
+func test_market_purchase_rejects_an_item_that_would_exceed_carry_capacity() -> void:
+	var session = _unlocked_session()
+	session.player.gold = 200000
+	session.player.inventory.add("weak_leather", 2000)
+	BlackMarketServiceClass.ensure_rotation(
+		session.black_market, session.player.display_name, "2099-08-16"
+	)
+	var offer = session.black_market.offers[0]
+	var before_count: int = session.player.inventory.count(offer.item_id)
+	var before_gold: int = session.player.gold
+
+	var purchase := BlackMarketServiceClass.buy(session, offer.offer_id)
+
+	assert_false(purchase.ok)
+	assert_string_contains(purchase.message, "udźwigu")
+	assert_eq(session.player.inventory.count(offer.item_id), before_count)
+	assert_eq(session.player.gold, before_gold)
+	assert_false(offer.offer_id in session.black_market.purchased_offer_ids)
+
+
 func test_book_sale_bargain_changes_price_and_sells_one_copy() -> void:
 	var session = _unlocked_session()
 	var item_id: String = BookCatalogClass.BOOK_ORDER[0]
@@ -178,15 +222,24 @@ func test_save_rejects_tampered_offer_and_duplicate_purchased_state() -> void:
 	assert_string_contains(duplicate.message, "powtórzoną wykupioną ofertę")
 
 
-func test_informant_city_flow_and_black_market_screen_need_no_terminal() -> void:
+func test_inn_informant_flow_and_black_market_screen_need_no_terminal() -> void:
 	var session = _eligible_session()
 	session.black_market.informant_failed_checks = 4
-	var inn = CITY_SERVICE_SCENE.instantiate() as CityServiceScreenClass
+	var inn = CITY_ECONOMY_SCENE.instantiate() as CityEconomyScreenClass
 	add_child_autofree(inn)
 	inn.configure(session, "inn", _rng(1))
-	assert_true(inn.informant_button.visible)
-	inn.informant_button.pressed.emit()
+	assert_true(inn.npc_visual.visible)
+	assert_true(inn.informant_hit_area.visible)
+	inn.informant_hit_area.mouse_entered.emit()
+	assert_true(inn.informant_glow.visible)
+	inn.informant_hit_area.mouse_exited.emit()
+	assert_false(inn.informant_glow.visible)
+	inn.informant_hit_area.pressed.emit()
+	assert_true(inn.informant_action_panel.visible)
+	inn.informant_unlock_button.pressed.emit()
 	assert_true(session.black_market.unlocked)
+	assert_false(inn.informant_hit_area.visible)
+	assert_true(inn.npc_visual.visible)
 
 	var city = CITY_HUB_SCENE.instantiate() as CityHubScreenClass
 	city.configure(session)
@@ -207,6 +260,7 @@ func test_app_routes_unlocked_city_button_to_market_placeholder() -> void:
 	var session = _unlocked_session()
 	session.prologue_completed = true
 	var app = APP_SCENE.instantiate()
+	app._save_service = NoDiskSaveService.new()
 	add_child_autofree(app)
 	app._on_session_created(session)
 	app._show_black_market()

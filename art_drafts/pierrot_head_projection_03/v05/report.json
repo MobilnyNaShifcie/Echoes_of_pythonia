@@ -1,0 +1,1265 @@
+{
+  "status": "WIP texture-only head projection; must pass visual review before acceptance",
+  "source_hashes": {
+    "C:\\Users\\kamil\\Downloads\\pierrot_8k.glb.glb": "fcc478b7e6495cf33f33c38a88ac6cde57efa8b1c42245297ee6c9b1bc79e3cb",
+    "C:\\Users\\kamil\\OneDrive\\Desktop\\echoes_of_pythonia_v0.24.7_refactored\\echoes_of_pythonia\\art_drafts\\pierrot_3d_reference_02\\tripo_multiview_v2\\pierrot_front_v2.png": "db048a89b21c7bcddc974c031a98be3e1fe56086b31dcf1836dc48258d347d9d"
+  },
+  "source_unchanged": true,
+  "head_vertices": 136972,
+  "head_triangles": 244665,
+  "geometry_modified": false,
+  "rig_added": false,
+  "game_integration": false,
+  "reference_native_resolution": [
+    548,
+    956
+  ],
+  "registration": {
+    "source_pixel_center_x": 306.0,
+    "pixels_per_model_unit_x": 1100.0,
+    "source_pixel_ground_y": 942.0,
+    "pixels_per_model_unit_z": 949.0,
+    "face_center_z_fraction": 0.887,
+    "face_radius_z_fraction": 0.051,
+    "face_radius_x_fraction": 0.054
+  },
+  "limitations": [
+    "Original low-resolution approved reference, not newly invented facial details",
+    "Current stage front-face projection with feathered mask, not yet baked/exported",
+    "Original hair geometry and texture retained; facial geometry not sculpted"
+  ],
+  "uv_mask_pixels_nonzero": 18370,
+  "connected_components": [
+    {
+      "vertices": 391,
+      "red_fraction": 0.9386189258312021,
+      "hair": true
+    },
+    {
+      "vertices": 248,
+      "red_fraction": 0.9556451612903226,
+      "hair": true
+    },
+    {
+      "vertices": 604,
+      "red_fraction": 0.9966887417218543,
+      "hair": true
+    },
+    {
+      "vertices": 452,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 268,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 689,
+      "red_fraction": 0.988388969521045,
+      "hair": true
+    },
+    {
+      "vertices": 231,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 364,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 300,
+      "red_fraction": 1.0,
+      "hair": false
+    },
+    {
+      "vertices": 253,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 377,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 459,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 245,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 179,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 521,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 403,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 371,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 938,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 251,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 180,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 524,
+      "red_fraction": 0.9942748091603053,
+      "hair": true
+    },
+    {
+      "vertices": 199,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 430,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 289,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 151,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 160,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 162,
+      "red_fraction": 1.0,
+      "hair": false
+    },
+    {
+      "vertices": 1178,
+      "red_fraction": 0.9923599320882852,
+      "hair": true
+    },
+    {
+      "vertices": 175,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 668,
+      "red_fraction": 0.6676646706586826,
+      "hair": true
+    },
+    {
+      "vertices": 476,
+      "red_fraction": 0.8508403361344538,
+      "hair": true
+    },
+    {
+      "vertices": 247,
+      "red_fraction": 1.0,
+      "hair": false
+    },
+    {
+      "vertices": 199,
+      "red_fraction": 0.8592964824120602,
+      "hair": true
+    },
+    {
+      "vertices": 582,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 466,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 510,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 376,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 552,
+      "red_fraction": 0.9909420289855072,
+      "hair": true
+    },
+    {
+      "vertices": 422,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 210,
+      "red_fraction": 0.5904761904761905,
+      "hair": false
+    },
+    {
+      "vertices": 345,
+      "red_fraction": 0.9826086956521739,
+      "hair": true
+    },
+    {
+      "vertices": 562,
+      "red_fraction": 0.7953736654804271,
+      "hair": true
+    },
+    {
+      "vertices": 2306,
+      "red_fraction": 0.014744145706851692,
+      "hair": false
+    },
+    {
+      "vertices": 307,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 165,
+      "red_fraction": 0.7393939393939394,
+      "hair": true
+    },
+    {
+      "vertices": 263,
+      "red_fraction": 0.1444866920152091,
+      "hair": false
+    },
+    {
+      "vertices": 557,
+      "red_fraction": 0.9658886894075404,
+      "hair": true
+    },
+    {
+      "vertices": 177,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 272,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 271,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 170,
+      "red_fraction": 0.21764705882352942,
+      "hair": false
+    },
+    {
+      "vertices": 960,
+      "red_fraction": 0.996875,
+      "hair": true
+    },
+    {
+      "vertices": 343,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 2474,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 1011,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 238,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 161,
+      "red_fraction": 0.8944099378881988,
+      "hair": true
+    },
+    {
+      "vertices": 196,
+      "red_fraction": 0.9642857142857143,
+      "hair": true
+    },
+    {
+      "vertices": 235,
+      "red_fraction": 0.8382978723404255,
+      "hair": false
+    },
+    {
+      "vertices": 465,
+      "red_fraction": 0.0,
+      "hair": false
+    },
+    {
+      "vertices": 268,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 180,
+      "red_fraction": 0.9388888888888889,
+      "hair": true
+    },
+    {
+      "vertices": 452,
+      "red_fraction": 0.7676991150442478,
+      "hair": false
+    },
+    {
+      "vertices": 717,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 219,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 177,
+      "red_fraction": 0.05084745762711865,
+      "hair": false
+    },
+    {
+      "vertices": 157,
+      "red_fraction": 0.9171974522292994,
+      "hair": true
+    },
+    {
+      "vertices": 652,
+      "red_fraction": 0.9984662576687117,
+      "hair": true
+    },
+    {
+      "vertices": 661,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 173,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 207,
+      "red_fraction": 0.9468599033816425,
+      "hair": true
+    },
+    {
+      "vertices": 409,
+      "red_fraction": 0.15403422982885084,
+      "hair": false
+    },
+    {
+      "vertices": 484,
+      "red_fraction": 0.7892561983471075,
+      "hair": true
+    },
+    {
+      "vertices": 647,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 324,
+      "red_fraction": 0.9444444444444444,
+      "hair": true
+    },
+    {
+      "vertices": 836,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 621,
+      "red_fraction": 0.3961352657004831,
+      "hair": false
+    },
+    {
+      "vertices": 321,
+      "red_fraction": 0.9844236760124611,
+      "hair": true
+    },
+    {
+      "vertices": 180,
+      "red_fraction": 0.0,
+      "hair": false
+    },
+    {
+      "vertices": 205,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 226,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 390,
+      "red_fraction": 0.9974358974358974,
+      "hair": true
+    },
+    {
+      "vertices": 800,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 483,
+      "red_fraction": 0.2401656314699793,
+      "hair": false
+    },
+    {
+      "vertices": 243,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 236,
+      "red_fraction": 1.0,
+      "hair": false
+    },
+    {
+      "vertices": 483,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 297,
+      "red_fraction": 0.13804713804713806,
+      "hair": false
+    },
+    {
+      "vertices": 161,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 208,
+      "red_fraction": 0.42788461538461536,
+      "hair": false
+    },
+    {
+      "vertices": 1004,
+      "red_fraction": 0.9043824701195219,
+      "hair": true
+    },
+    {
+      "vertices": 423,
+      "red_fraction": 0.9314420803782506,
+      "hair": true
+    },
+    {
+      "vertices": 227,
+      "red_fraction": 0.6431718061674009,
+      "hair": false
+    },
+    {
+      "vertices": 534,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 1430,
+      "red_fraction": 0.006293706293706294,
+      "hair": false
+    },
+    {
+      "vertices": 524,
+      "red_fraction": 0.9980916030534351,
+      "hair": true
+    },
+    {
+      "vertices": 478,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 2355,
+      "red_fraction": 0.9681528662420382,
+      "hair": true
+    },
+    {
+      "vertices": 652,
+      "red_fraction": 0.0,
+      "hair": false
+    },
+    {
+      "vertices": 388,
+      "red_fraction": 0.0,
+      "hair": false
+    },
+    {
+      "vertices": 158,
+      "red_fraction": 0.6265822784810127,
+      "hair": false
+    },
+    {
+      "vertices": 438,
+      "red_fraction": 0.5958904109589042,
+      "hair": false
+    },
+    {
+      "vertices": 155,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 1053,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 257,
+      "red_fraction": 0.914396887159533,
+      "hair": false
+    },
+    {
+      "vertices": 1015,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 333,
+      "red_fraction": 0.990990990990991,
+      "hair": true
+    },
+    {
+      "vertices": 790,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 246,
+      "red_fraction": 0.028455284552845527,
+      "hair": false
+    },
+    {
+      "vertices": 178,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 1013,
+      "red_fraction": 0.684106614017769,
+      "hair": true
+    },
+    {
+      "vertices": 915,
+      "red_fraction": 0.017486338797814208,
+      "hair": false
+    },
+    {
+      "vertices": 1013,
+      "red_fraction": 0.9842053307008884,
+      "hair": true
+    },
+    {
+      "vertices": 234,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 273,
+      "red_fraction": 1.0,
+      "hair": false
+    },
+    {
+      "vertices": 245,
+      "red_fraction": 0.763265306122449,
+      "hair": false
+    },
+    {
+      "vertices": 292,
+      "red_fraction": 0.6815068493150684,
+      "hair": false
+    },
+    {
+      "vertices": 1852,
+      "red_fraction": 0.9989200863930886,
+      "hair": true
+    },
+    {
+      "vertices": 436,
+      "red_fraction": 0.0,
+      "hair": false
+    },
+    {
+      "vertices": 693,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 382,
+      "red_fraction": 0.0,
+      "hair": false
+    },
+    {
+      "vertices": 475,
+      "red_fraction": 0.9768421052631578,
+      "hair": true
+    },
+    {
+      "vertices": 259,
+      "red_fraction": 0.015444015444015444,
+      "hair": false
+    },
+    {
+      "vertices": 741,
+      "red_fraction": 0.9959514170040485,
+      "hair": true
+    },
+    {
+      "vertices": 375,
+      "red_fraction": 0.936,
+      "hair": true
+    },
+    {
+      "vertices": 230,
+      "red_fraction": 0.9521739130434783,
+      "hair": true
+    },
+    {
+      "vertices": 337,
+      "red_fraction": 0.0,
+      "hair": false
+    },
+    {
+      "vertices": 635,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 161,
+      "red_fraction": 0.4472049689440994,
+      "hair": false
+    },
+    {
+      "vertices": 266,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 226,
+      "red_fraction": 0.5398230088495575,
+      "hair": false
+    },
+    {
+      "vertices": 424,
+      "red_fraction": 0.9952830188679245,
+      "hair": true
+    },
+    {
+      "vertices": 419,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 221,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 375,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 502,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 208,
+      "red_fraction": 0.75,
+      "hair": false
+    },
+    {
+      "vertices": 229,
+      "red_fraction": 0.9956331877729258,
+      "hair": true
+    },
+    {
+      "vertices": 254,
+      "red_fraction": 0.0,
+      "hair": false
+    },
+    {
+      "vertices": 605,
+      "red_fraction": 0.0049586776859504135,
+      "hair": false
+    },
+    {
+      "vertices": 464,
+      "red_fraction": 0.3728448275862069,
+      "hair": false
+    },
+    {
+      "vertices": 389,
+      "red_fraction": 0.8586118251928021,
+      "hair": false
+    },
+    {
+      "vertices": 349,
+      "red_fraction": 0.0,
+      "hair": false
+    },
+    {
+      "vertices": 330,
+      "red_fraction": 0.0,
+      "hair": false
+    },
+    {
+      "vertices": 575,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 452,
+      "red_fraction": 0.2345132743362832,
+      "hair": false
+    },
+    {
+      "vertices": 267,
+      "red_fraction": 0.011235955056179775,
+      "hair": false
+    },
+    {
+      "vertices": 244,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 242,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 675,
+      "red_fraction": 0.9051851851851852,
+      "hair": false
+    },
+    {
+      "vertices": 222,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 5041,
+      "red_fraction": 0.0920452291212061,
+      "hair": false
+    },
+    {
+      "vertices": 194,
+      "red_fraction": 1.0,
+      "hair": false
+    },
+    {
+      "vertices": 386,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 399,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 200,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 276,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 295,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 472,
+      "red_fraction": 0.8834745762711864,
+      "hair": true
+    },
+    {
+      "vertices": 499,
+      "red_fraction": 0.03406813627254509,
+      "hair": false
+    },
+    {
+      "vertices": 827,
+      "red_fraction": 0.018137847642079808,
+      "hair": false
+    },
+    {
+      "vertices": 1134,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 151,
+      "red_fraction": 0.013245033112582781,
+      "hair": false
+    },
+    {
+      "vertices": 184,
+      "red_fraction": 0.06521739130434782,
+      "hair": false
+    },
+    {
+      "vertices": 604,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 448,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 389,
+      "red_fraction": 0.043701799485861184,
+      "hair": false
+    },
+    {
+      "vertices": 230,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 268,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 291,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 415,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 407,
+      "red_fraction": 0.257985257985258,
+      "hair": false
+    },
+    {
+      "vertices": 1580,
+      "red_fraction": 0.9974683544303797,
+      "hair": true
+    },
+    {
+      "vertices": 222,
+      "red_fraction": 0.4954954954954955,
+      "hair": false
+    },
+    {
+      "vertices": 183,
+      "red_fraction": 0.3333333333333333,
+      "hair": false
+    },
+    {
+      "vertices": 194,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 306,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 1061,
+      "red_fraction": 0.0,
+      "hair": false
+    },
+    {
+      "vertices": 170,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 182,
+      "red_fraction": 0.054945054945054944,
+      "hair": false
+    },
+    {
+      "vertices": 309,
+      "red_fraction": 0.8576051779935275,
+      "hair": true
+    },
+    {
+      "vertices": 157,
+      "red_fraction": 1.0,
+      "hair": false
+    },
+    {
+      "vertices": 934,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 258,
+      "red_fraction": 0.2441860465116279,
+      "hair": false
+    },
+    {
+      "vertices": 192,
+      "red_fraction": 0.10416666666666667,
+      "hair": false
+    },
+    {
+      "vertices": 457,
+      "red_fraction": 0.26695842450765866,
+      "hair": false
+    },
+    {
+      "vertices": 247,
+      "red_fraction": 0.9919028340080972,
+      "hair": true
+    },
+    {
+      "vertices": 172,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 1102,
+      "red_fraction": 0.2277676950998185,
+      "hair": false
+    },
+    {
+      "vertices": 1840,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 198,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 562,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 890,
+      "red_fraction": 0.998876404494382,
+      "hair": true
+    },
+    {
+      "vertices": 902,
+      "red_fraction": 0.9578713968957872,
+      "hair": true
+    },
+    {
+      "vertices": 208,
+      "red_fraction": 1.0,
+      "hair": false
+    },
+    {
+      "vertices": 584,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 273,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 154,
+      "red_fraction": 0.8571428571428571,
+      "hair": true
+    },
+    {
+      "vertices": 157,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 215,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 574,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 283,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 193,
+      "red_fraction": 0.8549222797927462,
+      "hair": true
+    },
+    {
+      "vertices": 335,
+      "red_fraction": 0.835820895522388,
+      "hair": true
+    },
+    {
+      "vertices": 472,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 262,
+      "red_fraction": 1.0,
+      "hair": false
+    },
+    {
+      "vertices": 288,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 220,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 623,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 366,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 758,
+      "red_fraction": 0.4656992084432718,
+      "hair": false
+    },
+    {
+      "vertices": 886,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 305,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 203,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 415,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 2830,
+      "red_fraction": 0.9575971731448764,
+      "hair": true
+    },
+    {
+      "vertices": 395,
+      "red_fraction": 0.05822784810126582,
+      "hair": false
+    },
+    {
+      "vertices": 449,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 339,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 705,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 446,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 512,
+      "red_fraction": 0.96875,
+      "hair": true
+    },
+    {
+      "vertices": 158,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 241,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 190,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 272,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 182,
+      "red_fraction": 0.7142857142857143,
+      "hair": true
+    },
+    {
+      "vertices": 554,
+      "red_fraction": 1.0,
+      "hair": false
+    },
+    {
+      "vertices": 233,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 275,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 236,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 182,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 425,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 266,
+      "red_fraction": 0.9924812030075187,
+      "hair": true
+    },
+    {
+      "vertices": 328,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 1405,
+      "red_fraction": 0.999288256227758,
+      "hair": true
+    },
+    {
+      "vertices": 181,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 261,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 269,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 366,
+      "red_fraction": 0.9644808743169399,
+      "hair": true
+    },
+    {
+      "vertices": 2061,
+      "red_fraction": 0.006792819019893256,
+      "hair": false
+    },
+    {
+      "vertices": 812,
+      "red_fraction": 0.9950738916256158,
+      "hair": true
+    },
+    {
+      "vertices": 220,
+      "red_fraction": 0.990909090909091,
+      "hair": true
+    },
+    {
+      "vertices": 200,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 239,
+      "red_fraction": 1.0,
+      "hair": true
+    },
+    {
+      "vertices": 305,
+      "red_fraction": 0.0,
+      "hair": false
+    }
+  ],
+  "hair_vertices_excluded_from_projection": 96333
+}

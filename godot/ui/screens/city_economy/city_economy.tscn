@@ -1,20 +1,21 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=16 format=3]
 
 [ext_resource type="Script" path="res://ui/screens/city_economy/city_economy.gd" id="1"]
 [ext_resource type="PackedScene" path="res://ui/components/inventory_grid/inventory_grid_view.tscn" id="2_grid"]
 [ext_resource type="Script" path="res://ui/components/character_paperdoll/character_paperdoll.gd" id="3_portrait"]
+[ext_resource type="Script" path="res://ui/components/character_paperdoll/npc_alpha_hit_button.gd" id="4_alpha_hit"]
 
 [sub_resource type="StyleBoxFlat" id="PortraitStyle"]
-bg_color = Color(0.02, 0.032, 0.05, 0.62)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.18, 0.26, 0.36, 0.82)
+bg_color = Color(0.012, 0.022, 0.035, 0)
+border_color = Color(0.24, 0.3, 0.38, 0)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+content_margin_left = 10.0
+content_margin_top = 8.0
+content_margin_right = 10.0
+content_margin_bottom = 8.0
 
 [sub_resource type="StyleBoxFlat" id="DropStyle"]
 bg_color = Color(0.055, 0.08, 0.12, 0.72)
@@ -28,24 +29,116 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[node name="CityEconomyScreen" type="ScrollContainer"]
+[sub_resource type="StyleBoxFlat" id="ContentStyle"]
+bg_color = Color(0.012, 0.022, 0.035, 0.68)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.22, 0.3, 0.4, 0.76)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 12.0
+content_margin_top = 10.0
+content_margin_right = 12.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="MerchantPanelStyle"]
+bg_color = Color(0.012, 0.022, 0.035, 0.91)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.66, 0.5, 0.2, 0.86)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxFlat" id="MerchantActionStyle"]
+bg_color = Color(0.012, 0.022, 0.035, 0.94)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.66, 0.5, 0.2, 0.9)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 18.0
+content_margin_top = 12.0
+content_margin_right = 18.0
+content_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxFlat" id="NpcHitStyle"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.38, 0.63, 0.51, 0)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="NpcHitHoverStyle"]
+bg_color = Color(0, 0, 0, 0)
+border_color = Color(0, 0, 0, 0)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="Shader" id="Shader_informant_glow"]
+code = "shader_type canvas_item;\nrender_mode blend_add;\n\nuniform vec2 glow_center = vec2(0.588, 0.515);\nuniform vec2 glow_radius = vec2(0.072, 0.17);\nuniform float glow_strength : hint_range(0.0, 1.0) = 1.0;\n\nvoid fragment() {\n\tvec4 sampled = texture(TEXTURE, UV);\n\tvec2 ellipse = (UV - glow_center) / glow_radius;\n\tfloat mask = 1.0 - smoothstep(0.35, 1.0, length(ellipse));\n\tfloat alpha = sampled.a * mask * glow_strength * 0.18;\n\tCOLOR = vec4(sampled.rgb * mask * glow_strength * 0.24, alpha);\n}\n"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_informant_glow"]
+resource_local_to_scene = true
+shader = SubResource("Shader_informant_glow")
+
+[sub_resource type="Shader" id="Shader_counter_foreground"]
+code = "shader_type canvas_item;\n\nuniform float counter_y : hint_range(0.0, 1.0) = 0.68;\nuniform float counter_slope : hint_range(-0.4, 0.4) = 0.0;\nuniform float counter_left : hint_range(0.0, 1.0) = 0.0;\nuniform float counter_right : hint_range(0.0, 1.0) = 1.0;\nuniform float background_shade : hint_range(0.0, 1.0) = 0.8;\n\nvoid fragment() {\n\tvec4 sampled = texture(TEXTURE, UV);\n\tfloat cutoff = counter_y + counter_slope * (UV.x - 0.5);\n\tfloat counter_mask = step(cutoff, UV.y) * step(counter_left, UV.x) * step(UV.x, counter_right);\n\tCOLOR = vec4(sampled.rgb * background_shade, sampled.a * counter_mask);\n}\n"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_counter_foreground"]
+resource_local_to_scene = true
+shader = SubResource("Shader_counter_foreground")
+
+[sub_resource type="Shader" id="Shader_integrated_npc_highlight"]
+code = "shader_type canvas_item;\nrender_mode blend_add;\n\nuniform vec2 highlight_center = vec2(0.5, 0.5);\nuniform vec2 highlight_radius = vec2(0.15, 0.35);\nuniform float highlight_strength : hint_range(0.0, 0.5) = 0.28;\n\nvoid fragment() {\n\tvec4 sampled = texture(TEXTURE, UV);\n\tvec2 ellipse = (UV - highlight_center) / highlight_radius;\n\tfloat mask = 1.0 - smoothstep(0.62, 1.0, length(ellipse));\n\tCOLOR = vec4(sampled.rgb * mask * highlight_strength, sampled.a * mask * highlight_strength);\n}\n"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_integrated_npc_highlight"]
+resource_local_to_scene = true
+shader = SubResource("Shader_integrated_npc_highlight")
+
+[node name="CityEconomyScreen" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-horizontal_scroll_mode = 0
+clip_contents = true
 script = ExtResource("1")
 
-[node name="Page" type="VBoxContainer" parent="."]
-custom_minimum_size = Vector2(1090, 0)
-layout_mode = 2
+[node name="Page" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 9
 
 [node name="Header" type="HBoxContainer" parent="Page"]
+z_index = 30
 layout_mode = 2
 
 [node name="Identity" type="VBoxContainer" parent="Page/Header"]
@@ -65,77 +158,195 @@ text = "Usługa"
 
 [node name="BackButton" type="Button" parent="Page/Header"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 48)
+custom_minimum_size = Vector2(150, 42)
 layout_mode = 2
 size_flags_vertical = 4
 text = "Cofnij"
 
 [node name="SummaryLabel" type="Label" parent="Page"]
 unique_name_in_owner = true
+z_index = 30
 layout_mode = 2
 theme_override_colors/font_color = Color(0.66, 0.75, 0.85, 1)
 text = "Bohater • złoto • udźwig • magazyn"
 autowrap_mode = 2
 
-[node name="ModeSelector" type="OptionButton" parent="Page"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 46)
-layout_mode = 2
-
-[node name="Body" type="HBoxContainer" parent="Page"]
+[node name="Body" type="Control" parent="Page"]
+custom_minimum_size = Vector2(0, 0)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 12
+clip_contents = true
+mouse_filter = 2
 
-[node name="NpcPanel" type="PanelContainer" parent="Page/Body"]
-custom_minimum_size = Vector2(260, 280)
+[node name="ServiceToolbar" type="HBoxContainer" parent="Page/Body"]
+unique_name_in_owner = true
+visible = false
+z_index = 20
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = 61.0
+grow_horizontal = 2
+theme_override_constants/separation = 10
+
+[node name="ModeSelector" type="OptionButton" parent="Page/Body/ServiceToolbar"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.65
+
+[node name="CloseServiceButton" type="Button" parent="Page/Body/ServiceToolbar"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(190, 40)
+layout_mode = 2
+text = "Zamknij ofertę"
+
+[node name="LocationBackground" type="TextureRect" parent="Page/Body"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="LocationShade" type="ColorRect" parent="Page/Body"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.006, 0.012, 0.021, 0.2)
+
+[node name="NpcIntegratedHighlight" type="TextureRect" parent="Page/Body"]
+unique_name_in_owner = true
+visible = false
+material = SubResource("ShaderMaterial_integrated_npc_highlight")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="InformantGlow" type="TextureRect" parent="Page/Body"]
+unique_name_in_owner = true
+visible = false
+material = SubResource("ShaderMaterial_informant_glow")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Columns" type="Control" parent="Page/Body"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="NpcPanel" type="PanelContainer" parent="Page/Body/Columns"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(520, 220)
+layout_mode = 2
 theme_override_styles/panel = SubResource("PortraitStyle")
 
-[node name="NpcContent" type="VBoxContainer" parent="Page/Body/NpcPanel"]
+[node name="NpcContent" type="VBoxContainer" parent="Page/Body/Columns/NpcPanel"]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="NpcRoleLabel" type="Label" parent="Page/Body/NpcPanel/NpcContent"]
+[node name="NpcRoleLabel" type="Label" parent="Page/Body/Columns/NpcPanel/NpcContent"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
 theme_override_font_sizes/font_size = 20
 text = "NPC"
 horizontal_alignment = 1
 
-[node name="NpcVisual" type="Control" parent="Page/Body/NpcPanel/NpcContent"]
+[node name="NpcVisual" type="Control" parent="Page/Body/Columns/NpcPanel/NpcContent"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(230, 180)
+custom_minimum_size = Vector2(380, 240)
 layout_mode = 2
 size_flags_vertical = 3
+clip_contents = true
 script = ExtResource("3_portrait")
-caption = "MIEJSCE NA GRAFIKĘ NPC"
+caption = "NPC"
+character_zoom = 0.95
+character_offset = Vector2(0, 18)
 
-[node name="NpcHintLabel" type="Label" parent="Page/Body/NpcPanel/NpcContent"]
+[node name="NpcHintLabel" type="Label" parent="Page/Body/Columns/NpcPanel/NpcContent"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.53, 0.62, 0.73, 1)
 text = "Grafika zostanie podmieniona bez zmiany układu."
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="CataloguePanel" type="PanelContainer" parent="Page/Body"]
-custom_minimum_size = Vector2(500, 280)
+[node name="NpcInteractionHint" type="Label" parent="Page/Body/Columns/NpcPanel/NpcContent"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.78, 0.66, 0.36, 1)
+text = "Kliknij postać, aby wejść w interakcję"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="CounterForeground" type="TextureRect" parent="Page/Body"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_counter_foreground")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="CataloguePanel" type="PanelContainer" parent="Page/Body/Columns"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(420, 220)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 1.35
+size_flags_stretch_ratio = 1.0
+theme_override_styles/panel = SubResource("ContentStyle")
 
-[node name="Catalogue" type="VBoxContainer" parent="Page/Body/CataloguePanel"]
+[node name="Catalogue" type="VBoxContainer" parent="Page/Body/Columns/CataloguePanel"]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="CatalogueHeader" type="HBoxContainer" parent="Page/Body/CataloguePanel/Catalogue"]
+[node name="CatalogueHeader" type="HBoxContainer" parent="Page/Body/Columns/CataloguePanel/Catalogue"]
 layout_mode = 2
 
-[node name="CatalogueTitle" type="Label" parent="Page/Body/CataloguePanel/Catalogue/CatalogueHeader"]
+[node name="CatalogueTitle" type="Label" parent="Page/Body/Columns/CataloguePanel/Catalogue/CatalogueHeader"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -143,59 +354,65 @@ theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
 theme_override_font_sizes/font_size = 20
 text = "Oferta"
 
-[node name="CatalogueHint" type="Label" parent="Page/Body/CataloguePanel/Catalogue/CatalogueHeader"]
+[node name="CatalogueHint" type="Label" parent="Page/Body/Columns/CataloguePanel/Catalogue/CatalogueHeader"]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.53, 0.62, 0.73, 1)
 text = "Najedź po szczegóły"
 
-[node name="ServiceGridScroll" type="ScrollContainer" parent="Page/Body/CataloguePanel/Catalogue"]
+[node name="ServiceGridScroll" type="ScrollContainer" parent="Page/Body/Columns/CataloguePanel/Catalogue"]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="ServiceGrid" parent="Page/Body/CataloguePanel/Catalogue/ServiceGridScroll" instance=ExtResource("2_grid")]
+[node name="ServiceGrid" parent="Page/Body/Columns/CataloguePanel/Catalogue/ServiceGridScroll" instance=ExtResource("2_grid")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 columns = 7
 visible_rows = 3
-cell_size = Vector2(62, 62)
-gap = 5.0
+cell_size = Vector2(58, 58)
+gap = 7.0
 
-[node name="GridHint" type="Label" parent="Page/Body/CataloguePanel/Catalogue"]
+[node name="GridHint" type="Label" parent="Page/Body/Columns/CataloguePanel/Catalogue"]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.53, 0.62, 0.73, 1)
 text = "Przeciągnij wybraną pozycję na stanowisko albo użyj podwójnego kliknięcia."
 autowrap_mode = 2
 
-[node name="TransactionPanel" type="PanelContainer" parent="Page/Body"]
-custom_minimum_size = Vector2(300, 280)
+[node name="TransactionPanel" type="PanelContainer" parent="Page/Body/Columns"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(260, 220)
 layout_mode = 2
+theme_override_styles/panel = SubResource("ContentStyle")
 
-[node name="TransactionScroll" type="ScrollContainer" parent="Page/Body/TransactionPanel"]
+[node name="TransactionScroll" type="ScrollContainer" parent="Page/Body/Columns/TransactionPanel"]
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="Transaction" type="VBoxContainer" parent="Page/Body/TransactionPanel/TransactionScroll"]
+[node name="Transaction" type="VBoxContainer" parent="Page/Body/Columns/TransactionPanel/TransactionScroll"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 12
 
-[node name="TransactionTitle" type="Label" parent="Page/Body/TransactionPanel/TransactionScroll/Transaction"]
+[node name="TransactionTitle" type="Label" parent="Page/Body/Columns/TransactionPanel/TransactionScroll/Transaction"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
 theme_override_font_sizes/font_size = 20
 text = "Stanowisko"
 
-[node name="TransactionDropZone" type="PanelContainer" parent="Page/Body/TransactionPanel/TransactionScroll/Transaction"]
+[node name="TransactionDropZone" type="PanelContainer" parent="Page/Body/Columns/TransactionPanel/TransactionScroll/Transaction"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 110)
+custom_minimum_size = Vector2(0, 86)
 layout_mode = 2
 theme_override_styles/panel = SubResource("DropStyle")
 
-[node name="DropHintLabel" type="Label" parent="Page/Body/TransactionPanel/TransactionScroll/Transaction/TransactionDropZone"]
+[node name="DropHintLabel" type="Label" parent="Page/Body/Columns/TransactionPanel/TransactionScroll/Transaction/TransactionDropZone"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.72, 0.78, 0.86, 1)
 theme_override_font_sizes/font_size = 18
@@ -204,7 +421,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="SelectionLabel" type="Label" parent="Page/Body/TransactionPanel/TransactionScroll/Transaction"]
+[node name="SelectionLabel" type="Label" parent="Page/Body/Columns/TransactionPanel/TransactionScroll/Transaction"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
@@ -214,15 +431,15 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="QuantityRow" type="HBoxContainer" parent="Page/Body/TransactionPanel/TransactionScroll/Transaction"]
+[node name="QuantityRow" type="HBoxContainer" parent="Page/Body/Columns/TransactionPanel/TransactionScroll/Transaction"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Page/Body/TransactionPanel/TransactionScroll/Transaction/QuantityRow"]
+[node name="Label" type="Label" parent="Page/Body/Columns/TransactionPanel/TransactionScroll/Transaction/QuantityRow"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Ilość"
 
-[node name="QuantityBox" type="SpinBox" parent="Page/Body/TransactionPanel/TransactionScroll/Transaction/QuantityRow"]
+[node name="QuantityBox" type="SpinBox" parent="Page/Body/Columns/TransactionPanel/TransactionScroll/Transaction/QuantityRow"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(130, 0)
 layout_mode = 2
@@ -232,25 +449,323 @@ value = 1.0
 allow_greater = false
 allow_lesser = false
 
-[node name="ActionButton" type="Button" parent="Page/Body/TransactionPanel/TransactionScroll/Transaction"]
+[node name="ActionButton" type="Button" parent="Page/Body/Columns/TransactionPanel/TransactionScroll/Transaction"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 52)
+custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 text = "Wykonaj operację"
 
-[node name="InteractionHelp" type="Label" parent="Page/Body/TransactionPanel/TransactionScroll/Transaction"]
+[node name="InteractionHelp" type="Label" parent="Page/Body/Columns/TransactionPanel/TransactionScroll/Transaction"]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.53, 0.62, 0.73, 1)
 text = "Upuszczenie przedmiotu zatwierdza operację."
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="StatusLabel" type="Label" parent="Page"]
+[node name="NpcHitArea" type="Button" parent="Page/Body"]
+unique_name_in_owner = true
+layout_mode = 0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+script = ExtResource("4_alpha_hit")
+use_alpha_mask = false
+theme_override_styles/normal = SubResource("NpcHitStyle")
+theme_override_styles/hover = SubResource("NpcHitHoverStyle")
+theme_override_styles/pressed = SubResource("NpcHitHoverStyle")
+theme_override_styles/disabled = SubResource("NpcHitStyle")
+theme_override_styles/focus = SubResource("NpcHitStyle")
+
+[node name="MerchantTradeOverlay" type="Control" parent="Page/Body"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="InventoryPanels" type="HBoxContainer" parent="Page/Body/MerchantTradeOverlay"]
+layout_mode = 1
+anchor_left = 0.31
+anchor_top = 0.095
+anchor_right = 0.975
+anchor_bottom = 0.7
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 18
+
+[node name="MerchantStockPanel" type="PanelContainer" parent="Page/Body/MerchantTradeOverlay/InventoryPanels"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.2
+theme_override_styles/panel = SubResource("MerchantPanelStyle")
+
+[node name="Content" type="VBoxContainer" parent="Page/Body/MerchantTradeOverlay/InventoryPanels/MerchantStockPanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="MerchantStockTitle" type="Label" parent="Page/Body/MerchantTradeOverlay/InventoryPanels/MerchantStockPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
+theme_override_font_sizes/font_size = 20
+text = "TOWARY ORENA"
+horizontal_alignment = 1
+
+[node name="Divider" type="HSeparator" parent="Page/Body/MerchantTradeOverlay/InventoryPanels/MerchantStockPanel/Content"]
+layout_mode = 2
+
+[node name="GridScroll" type="ScrollContainer" parent="Page/Body/MerchantTradeOverlay/InventoryPanels/MerchantStockPanel/Content"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="MerchantStockGrid" parent="Page/Body/MerchantTradeOverlay/InventoryPanels/MerchantStockPanel/Content/GridScroll" instance=ExtResource("2_grid")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 7
+visible_rows = 4
+cell_size = Vector2(58, 58)
+gap = 8.0
+stretch_cells_to_width = true
+
+[node name="MerchantPlayerPanel" type="PanelContainer" parent="Page/Body/MerchantTradeOverlay/InventoryPanels"]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("MerchantPanelStyle")
+
+[node name="Content" type="VBoxContainer" parent="Page/Body/MerchantTradeOverlay/InventoryPanels/MerchantPlayerPanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Page/Body/MerchantTradeOverlay/InventoryPanels/MerchantPlayerPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
+theme_override_font_sizes/font_size = 20
+text = "TWÓJ EKWIPUNEK"
+horizontal_alignment = 1
+
+[node name="Divider" type="HSeparator" parent="Page/Body/MerchantTradeOverlay/InventoryPanels/MerchantPlayerPanel/Content"]
+layout_mode = 2
+
+[node name="GridScroll" type="ScrollContainer" parent="Page/Body/MerchantTradeOverlay/InventoryPanels/MerchantPlayerPanel/Content"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="MerchantPlayerGrid" parent="Page/Body/MerchantTradeOverlay/InventoryPanels/MerchantPlayerPanel/Content/GridScroll" instance=ExtResource("2_grid")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 5
+visible_rows = 4
+cell_size = Vector2(58, 58)
+gap = 8.0
+stretch_cells_to_width = true
+
+[node name="MerchantActionPanel" type="PanelContainer" parent="Page/Body/MerchantTradeOverlay"]
+layout_mode = 1
+anchor_left = 0.31
+anchor_top = 0.73
+anchor_right = 0.975
+anchor_bottom = 0.965
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("MerchantActionStyle")
+
+[node name="Content" type="HBoxContainer" parent="Page/Body/MerchantTradeOverlay/MerchantActionPanel"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="IconFrame" type="PanelContainer" parent="Page/Body/MerchantTradeOverlay/MerchantActionPanel/Content"]
+custom_minimum_size = Vector2(76, 76)
+layout_mode = 2
+theme_override_styles/panel = SubResource("ContentStyle")
+
+[node name="MerchantSelectionIcon" type="TextureRect" parent="Page/Body/MerchantTradeOverlay/MerchantActionPanel/Content/IconFrame"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Selection" type="VBoxContainer" parent="Page/Body/MerchantTradeOverlay/MerchantActionPanel/Content"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/separation = 6
+
+[node name="MerchantSelectionName" type="Label" parent="Page/Body/MerchantTradeOverlay/MerchantActionPanel/Content/Selection"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Wybierz przedmiot"
+
+[node name="MerchantSelectionPrice" type="Label" parent="Page/Body/MerchantTradeOverlay/MerchantActionPanel/Content/Selection"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.79, 0.88, 1)
+text = ""
+
+[node name="MerchantQuantityRow" type="HBoxContainer" parent="Page/Body/MerchantTradeOverlay/MerchantActionPanel/Content"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="Page/Body/MerchantTradeOverlay/MerchantActionPanel/Content/MerchantQuantityRow"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Ilość"
+
+[node name="MerchantQuantityBox" type="SpinBox" parent="Page/Body/MerchantTradeOverlay/MerchantActionPanel/Content/MerchantQuantityRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(130, 42)
+layout_mode = 2
+min_value = 1.0
+max_value = 99.0
+value = 1.0
+allow_greater = false
+allow_lesser = false
+
+[node name="MerchantActionButton" type="Button" parent="Page/Body/MerchantTradeOverlay/MerchantActionPanel/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 48)
+layout_mode = 2
+size_flags_vertical = 4
+text = "Kup wybraną ilość"
+
+[node name="InformantHitArea" type="Button" parent="Page/Body"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchor_left = 0.69
+anchor_top = 0.48
+anchor_right = 0.82
+anchor_bottom = 0.88
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+tooltip_text = "Porozmawiaj z zakapturzonym gościem przy kominku"
+theme_override_styles/normal = SubResource("NpcHitStyle")
+theme_override_styles/hover = SubResource("NpcHitHoverStyle")
+theme_override_styles/pressed = SubResource("NpcHitHoverStyle")
+theme_override_styles/disabled = SubResource("NpcHitStyle")
+theme_override_styles/focus = SubResource("NpcHitStyle")
+
+[node name="NpcActionPanel" type="PanelContainer" parent="Page/Body"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -430.0
+offset_top = -118.0
+offset_right = -28.0
+offset_bottom = 118.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("ContentStyle")
+
+[node name="Content" type="VBoxContainer" parent="Page/Body/NpcActionPanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Eyebrow" type="Label" parent="Page/Body/NpcActionPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.44, 0.8, 0.58, 1)
+text = "ROZMOWA"
+
+[node name="InteractionTitle" type="Label" parent="Page/Body/NpcActionPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
+theme_override_font_sizes/font_size = 24
+text = "Mirela"
+
+[node name="InteractionDescription" type="Label" parent="Page/Body/NpcActionPanel/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.72, 0.79, 0.88, 1)
+text = "Rzemieślniczka czeka, aż wybierzesz usługę."
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="OpenServiceButton" type="Button" parent="Page/Body/NpcActionPanel/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+text = "Zobacz receptury"
+
+[node name="CloseInteractionButton" type="Button" parent="Page/Body/NpcActionPanel/Content"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+text = "Odejdź od lady"
+
+[node name="InformantActionPanel" type="PanelContainer" parent="Page/Body"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchor_left = 0.68
+anchor_top = 0.2
+anchor_right = 0.965
+anchor_bottom = 0.78
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("ContentStyle")
+
+[node name="Content" type="VBoxContainer" parent="Page/Body/InformantActionPanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Eyebrow" type="Label" parent="Page/Body/InformantActionPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.76, 0.48, 0.66, 1)
+text = "SZEPT PRZY KOMINKU"
+
+[node name="Title" type="Label" parent="Page/Body/InformantActionPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
+theme_override_font_sizes/font_size = 22
+text = "Tajemniczy informator"
+
+[node name="Description" type="Label" parent="Page/Body/InformantActionPanel/Content"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.72, 0.79, 0.88, 1)
+text = "Zakapturzony gość odsuwa zamkniętą księgę. Za odpowiednią dyskrecję wskaże ci drogę poza oficjalne szlaki Varenhold."
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="InformantUnlockButton" type="Button" parent="Page/Body/InformantActionPanel/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+text = "Przyjmij wskazówkę"
+
+[node name="CloseInformantButton" type="Button" parent="Page/Body/InformantActionPanel/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Odejdź"
+
+[node name="StatusLabel" type="Label" parent="Page"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
 theme_override_colors/font_color = Color(0.44, 0.8, 0.58, 1)
-text = "Wybierz operację."
+text = ""
 autowrap_mode = 2
 
 [node name="Compatibility" type="Control" parent="Page"]

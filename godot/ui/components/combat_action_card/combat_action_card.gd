@@ -5,6 +5,7 @@ var action_id := ""
 var state_text := "GOTOWA"
 var _accent := Color(0.44, 0.57, 0.72)
 var _selected := false
+var _compact := false
 
 @onready var artwork: TextureRect = %Artwork
 @onready var artwork_tint: ColorRect = %ArtworkTint
@@ -33,7 +34,37 @@ func configure(
 	var card_art: Texture2D = presentation.get("artwork")
 	var mechanic_text := str(presentation.get("mechanic", ""))
 	var inspection_mode := bool(presentation.get("inspection_mode", false))
+	_compact = bool(presentation.get("compact", false))
+	if _compact:
+		custom_minimum_size = Vector2(148, 180)
+		size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		artwork.set_offsets_preset(Control.PRESET_FULL_RECT)
+		artwork.offset_left = 3.0
+		artwork.offset_top = 3.0
+		artwork.offset_right = -3.0
+		artwork.offset_bottom = -3.0
+		title_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		title_label.max_lines_visible = 2
+		title_label.add_theme_font_size_override("font_size", 13)
+		get_node("Footer").anchor_top = 1.0
+		get_node("Footer").offset_top = -76.0
+	else:
+		custom_minimum_size = Vector2(168, 212)
+		size_flags_horizontal = Control.SIZE_FILL
+		size_flags_vertical = Control.SIZE_EXPAND_FILL
+		artwork.set_offsets_preset(Control.PRESET_FULL_RECT)
+		title_label.autowrap_mode = TextServer.AUTOWRAP_OFF
+		title_label.max_lines_visible = -1
+		get_node("Footer").anchor_top = 1.0
+		get_node("Footer").offset_top = -78.0
 	action_id = identifier
+	# Fit the entire illustration above the caption instead of cropping a portrait into the card.
+	artwork.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	artwork.offset_left = 6.0
+	artwork.offset_right = -6.0
+	artwork.offset_top = 8.0
+	artwork.offset_bottom = -78.0 if _compact else -80.0
 	state_text = visual_state
 	_accent = accent
 	# Retain semantic text as a compatibility adapter while child labels own
@@ -48,6 +79,7 @@ func configure(
 	artwork.visible = card_art != null
 	placeholder.visible = card_art == null
 	slot_label.text = "KARTA %02d" % position
+	slot_label.hide()
 	badge_label.text = badge_text
 	placeholder_label.text = "ILUSTRACJA\nW PRZYGOTOWANIU"
 	title_label.text = display_name.to_upper()
@@ -121,7 +153,9 @@ func _apply_visual_state(available: bool) -> void:
 	state_label.modulate = state_color
 	artwork.modulate = Color.WHITE if available else Color(0.5, 0.52, 0.56, 0.7)
 	artwork_tint.color = (
-		Color(0.01, 0.018, 0.03, 0.28) if available else Color(0.01, 0.018, 0.03, 0.58)
+		Color(0.01, 0.018, 0.03, 0.12 if _compact else 0.28)
+		if available
+		else Color(0.01, 0.018, 0.03, 0.58)
 	)
 	_refresh_styles()
 

@@ -1,0 +1,16 @@
+{
+  "dirs": [],
+  "tests": [
+    "res://tests/test_fate_thrust_animation.gd",
+    "res://tests/test_combat_fate_panel_lifecycle.gd",
+    "res://tests/test_combat_presentation_stage_nine_a.gd",
+    "res://tests/test_pierrot_fate_stage_three_c.gd",
+    "res://tests/test_combat_hud_layout.gd",
+    "res://tests/test_combat_consumables.gd"
+  ],
+  "ignore_pause": true,
+  "log_level": 1,
+  "disable_colors": true,
+  "should_exit": true,
+  "should_maximize": false
+}

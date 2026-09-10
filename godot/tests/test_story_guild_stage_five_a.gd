@@ -172,7 +172,7 @@ func test_guild_screen_lists_every_chapter_and_exposes_real_rank() -> void:
 	assert_string_contains(screen.result_label.text, "Przyjęto zadanie")
 
 
-func test_world_and_city_placeholders_show_generic_quest_and_dynamic_rank() -> void:
+func test_world_quest_and_city_clock_show_only_contextual_information() -> void:
 	var session = _session()
 	session.player.level = 2
 	session.guild_reputation = 100
@@ -187,7 +187,8 @@ func test_world_and_city_placeholders_show_generic_quest_and_dynamic_rank() -> v
 	var city := CITY_HUB_SCENE.instantiate() as CityHubScreenClass
 	city.configure(session)
 	add_child_autofree(city)
-	assert_string_contains(city.player_label.text, "Gildia E (100)")
+	assert_eq(city.time_label.text, "Dzień %d  •  %02d:00" % [session.day, session.hour])
+	assert_false(city.time_label.text.contains("Gildia"))
 
 
 func _session():

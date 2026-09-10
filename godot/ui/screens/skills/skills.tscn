@@ -1,6 +1,66 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://ui/screens/skills/skills.gd" id="1"]
+
+[sub_resource type="StyleBoxFlat" id="SummaryStyle"]
+bg_color = Color(0.02, 0.03, 0.045, 0.7)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.48, 0.36, 0.16, 0.84)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+content_margin_left = 16.0
+content_margin_top = 10.0
+content_margin_right = 16.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="CatalogStyle"]
+bg_color = Color(0.01, 0.018, 0.03, 0.76)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.42, 0.31, 0.14, 0.88)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 16.0
+content_margin_top = 14.0
+content_margin_right = 16.0
+content_margin_bottom = 14.0
+
+[sub_resource type="StyleBoxFlat" id="DetailsStyle"]
+bg_color = Color(0.012, 0.022, 0.036, 0.82)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.5, 0.38, 0.18, 0.9)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 18.0
+content_margin_top = 16.0
+content_margin_right = 18.0
+content_margin_bottom = 16.0
+
+[sub_resource type="StyleBoxFlat" id="ArtworkStyle"]
+bg_color = Color(0.006, 0.011, 0.02, 0.74)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.36, 0.46, 0.74)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="SkillsScreen" type="Control"]
 layout_mode = 3
@@ -54,6 +114,7 @@ text = "Cofnij"
 
 [node name="SummaryPanel" type="PanelContainer" parent="Page"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("SummaryStyle")
 
 [node name="SummaryRow" type="HBoxContainer" parent="Page/SummaryPanel"]
 layout_mode = 2
@@ -73,6 +134,13 @@ custom_minimum_size = Vector2(260, 0)
 layout_mode = 2
 tooltip_text = "Podgląd katalogu nie zmienia wybranej Drogi bohatera."
 
+[node name="UnlockedProgress" type="ProgressBar" parent="Page/SummaryPanel/SummaryRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 10)
+layout_mode = 2
+size_flags_vertical = 4
+show_percentage = false
+
 [node name="Body" type="HBoxContainer" parent="Page"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -81,6 +149,9 @@ theme_override_constants/separation = 16
 [node name="CatalogPanel" type="PanelContainer" parent="Page/Body"]
 custom_minimum_size = Vector2(620, 0)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.65
+theme_override_styles/panel = SubResource("CatalogStyle")
 
 [node name="Content" type="VBoxContainer" parent="Page/Body/CatalogPanel"]
 layout_mode = 2
@@ -116,12 +187,27 @@ theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 
 [node name="DetailsPanel" type="PanelContainer" parent="Page/Body"]
+custom_minimum_size = Vector2(390, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("DetailsStyle")
 
 [node name="Content" type="VBoxContainer" parent="Page/Body/DetailsPanel"]
 layout_mode = 2
 theme_override_constants/separation = 12
+
+[node name="ArtworkFrame" type="PanelContainer" parent="Page/Body/DetailsPanel/Content"]
+custom_minimum_size = Vector2(0, 250)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("ArtworkStyle")
+
+[node name="SkillArtwork" type="TextureRect" parent="Page/Body/DetailsPanel/Content/ArtworkFrame"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
 
 [node name="SkillNameLabel" type="Label" parent="Page/Body/DetailsPanel/Content"]
 unique_name_in_owner = true

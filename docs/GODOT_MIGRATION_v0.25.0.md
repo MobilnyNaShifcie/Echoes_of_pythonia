@@ -451,12 +451,27 @@ visual footprints do not change terminal weight or capacity rules. Save schema
 v18 adds only the explicit `gender_code`; legacy Godot saves and read-only v15
 imports remain valid with `unspecified` rather than a guessed appearance.
 Stage 9D replaces text-only skill actions with one shared production card used
-by combat and the skill catalogue. Four approved 3:4 illustrations cover the
-base level-five abilities of Warrior, Hunter, Mage and Pierrot. All unfinished
+by combat and the skill catalogue. The initial four-image golden slice was
+expanded after owner approval to all 26 registered Warrior, Hunter, Mage and
+Pierrot skills. Every skill owns a unique 3:4 illustration; future unfinished
 skills retain explicit placeholders rather than reusing unrelated art. Card
 frames, names, Mana, state, effect and dice-count badges remain UI-owned, while
 Pierrot's actual dice results continue to come only from the combat report. No
 combat rule, balance value, RNG stream or save-schema field changes.
+Stage 9E connects the approved Varenhold presentation. The city hub now uses a
+complete navigation plan with independent Godot-owned hotspots for the Guild,
+West Gate, Quartermaster, Garran, Oren, Inn and Mirela; labels, availability and
+hover state are not baked into the artwork, and the vertical menu remains the
+keyboard fallback. The original district base and Guild module remain reusable
+source-kit assets. The Guild board uses its approved interior and veteran
+Quartermaster presentation. Oren, Garran and Mirela each receive a separate
+service-interior background while their cutout, shared grid, hover tooltips,
+drag-and-drop operations and domain services remain independent. The slice does
+not change economy rules or save schema.
+The main menu now uses a dedicated Varenhold dawn panorama with its interactive
+navigation on the quiet left side and chapter copy in a separate right-hand UI
+layer. The artwork contains no baked controls or state, and the existing menu
+signals and save availability rules remain unchanged.
 Their calendar periods, generated definitions, objective progress, and claimed
 rewards survive reloads; existing schema-v8 files receive a safe empty board
 before the next period is generated.
@@ -467,6 +482,8 @@ world time; its newest entries and milestone state survive reloads. Regional
 boss and dungeon completion sources remain explicit dependencies of stages 4F
 and 6 rather than placeholder reward shortcuts.
 The inn now performs the persisted informant roll once per eligible world day.
+Runa remains permanently visible while the optional informant occupies the existing
+armchair by the fireplace and receives the same soft hover highlight as other NPCs.
 After the permanent unlock, the city exposes a placeholder Black Market with a
 deterministic four-offer daily delivery, one-stock purchases, book sales, and
 one persisted bargaining attempt per price. The qualifying dungeon milestones

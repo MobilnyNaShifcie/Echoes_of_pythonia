@@ -1,0 +1,32 @@
+{
+  "status": "WIP texture-only head projection; must pass visual review before acceptance",
+  "source_hashes": {
+    "C:\\Users\\kamil\\Downloads\\pierrot_8k.glb.glb": "fcc478b7e6495cf33f33c38a88ac6cde57efa8b1c42245297ee6c9b1bc79e3cb",
+    "C:\\Users\\kamil\\OneDrive\\Desktop\\echoes_of_pythonia_v0.24.7_refactored\\echoes_of_pythonia\\art_drafts\\pierrot_3d_reference_02\\tripo_multiview_v2\\pierrot_front_v2.png": "db048a89b21c7bcddc974c031a98be3e1fe56086b31dcf1836dc48258d347d9d"
+  },
+  "source_unchanged": true,
+  "head_vertices": 136972,
+  "head_triangles": 244665,
+  "geometry_modified": false,
+  "rig_added": false,
+  "game_integration": false,
+  "reference_native_resolution": [
+    548,
+    956
+  ],
+  "registration": {
+    "source_pixel_center_x": 274.0,
+    "pixels_per_model_unit_x": 1060.0,
+    "source_pixel_ground_y": 942.0,
+    "pixels_per_model_unit_z": 949.0,
+    "face_center_z_fraction": 0.887,
+    "face_radius_z_fraction": 0.051,
+    "face_radius_x_fraction": 0.054
+  },
+  "limitations": [
+    "Original low-resolution approved reference, not newly invented facial details",
+    "Current stage front-face projection with feathered mask, not yet baked/exported",
+    "Original hair geometry and texture retained; facial geometry not sculpted"
+  ],
+  "uv_mask_pixels_nonzero": 108121
+}

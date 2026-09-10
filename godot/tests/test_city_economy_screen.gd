@@ -53,15 +53,37 @@ func test_blacksmith_upgrades_the_selected_equipped_item() -> void:
 	assert_eq(session.player.gold, 75)
 
 
-func test_quartermaster_shows_storage_and_carry_operations() -> void:
+func test_inn_combines_rest_storage_and_carry_operations() -> void:
 	var session = NewGameServiceClass.new().create_session("Aria", 1)
 	session.player.inventory.add("weak_leather", 3)
 	var screen := CITY_ECONOMY_SCENE.instantiate() as CityEconomyScreenClass
 	add_child_autofree(screen)
-	screen.configure(session, "quartermaster")
+	screen.configure(session, "inn")
 
-	assert_eq(screen.mode_selector.item_count, 5)
+	assert_eq(screen.mode_selector.item_count, 6)
+	assert_eq(screen._selected_entry().kind, "inn_rest")
+	screen.mode_selector.select(1)
+	screen.mode_selector.item_selected.emit(1)
 	assert_eq(screen.item_list.item_count, 1)
 	screen.action_button.pressed.emit()
 	assert_eq(session.guild_storage.inventory.count("weak_leather"), 1)
 	assert_eq(session.player.inventory.count("weak_leather"), 2)
+
+
+func test_inn_keeps_the_informant_separate_from_runa_services() -> void:
+	var session = NewGameServiceClass.new().create_session("Aria", 1)
+	session.day = 7
+	session.guild_reputation = 700
+	session.guild_milestones.append("dungeon:sunken_order_crypt")
+	session.black_market.informant_failed_checks = 4
+	var screen := CITY_ECONOMY_SCENE.instantiate() as CityEconomyScreenClass
+	add_child_autofree(screen)
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 1
+	screen.configure(session, "inn", rng)
+
+	assert_eq(screen.mode_selector.item_count, 6)
+	assert_false(session.black_market.unlocked)
+	assert_eq(session.black_market.informant_last_check_day, 7)
+	assert_true(screen.npc_visual.visible)
+	assert_true(screen.informant_hit_area.visible)

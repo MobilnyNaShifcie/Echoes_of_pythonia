@@ -108,7 +108,7 @@ func test_region_catalog_preserves_terminal_order_and_recommendations() -> void:
 	assert_eq(marshes.danger_rating, 3)
 	assert_eq(marshes.recommended_level_min, 5)
 	assert_eq(marshes.recommended_level_max, 8)
-	assert_eq(marshes.encounter_chance, 0.9)
+	assert_eq(marshes.encounter_chance, 1.0)
 	assert_eq(marshes.day_encounters.bog_crawler, 25)
 	assert_string_contains(marshes.level_guidance(0), "ryzykowna")
 

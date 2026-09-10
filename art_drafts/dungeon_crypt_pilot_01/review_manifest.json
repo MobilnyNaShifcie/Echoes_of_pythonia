@@ -1,0 +1,57 @@
+{
+  "status": "ready_for_user_review",
+  "integrated": false,
+  "date": "2026-09-06",
+  "tool": "built-in image_gen",
+  "scope": "Two pilot images only; no game scene/catalog changes.",
+  "assets": [
+    {
+      "id": "sunken_vestibule",
+      "name": "Zatopiony Przedsionek",
+      "prompt": "Create a NEW landscape 16:9 game background for Echoes of Pythonia: \"Zatopiony Przedsionek\", the flooded vestibule of the ancient Sunken Order crypt beneath the Silentwater marsh ruins.\nREFERENCE ROLES: Image 1 is the approved game's illustrative indoor painting style only: confident edges, coherent architecture, grouped light and shadow, restrained material detail. Do not copy its tavern furniture or character. Image 2 is the surrounding swamp's architecture, atmosphere and combat-floor composition reference, not an edit target. Image 3 is the Order's existing equipment palette and heraldry: navy fabric, weathered steel, old gold and a gold four-long-point compass-star inside a circle. Reuse that emblem coherently.\nSCENE: A wide, solemn underground stone vestibule with tall gothic arches and coherent load-bearing pillars, low stone sarcophagi recessed along the side walls, a few torn navy Order banners with that compass-star, and a short old staircase in the mid-background leading up to an arched passage deeper into the crypt. Darker tide marks and a few readable cracks, not piles of debris. The chamber has only ankle-deep still blue-green water over large visible flagstones; restrained broad reflections of the arches and small lamps. Show an expansive, nearly level readable shallow-water floor in the lower half with open areas on both left and right for separate combat characters, without obstacles covering them. The water should feel shallow and walkable, not a deep canal, and the foreground should not become a featureless black strip. Wet stone reflections, small amber wall lanterns and soft cool daylight reaching from a high aperture; cool blue-green atmosphere with controlled warm amber accents. No huge magical portal, no giant centerpiece blocking the combat plane.\nSTYLE: Hand-painted 2D anime-fantasy RPG environment matching the approved game's visual world, detailed but carefully edited. Clean intentional structural shapes and strong readable big light/shadow groups, medium painterly shading, natural perspectives. The faint old Order seal carved on a back-wall stone is subtle, not neon. Worn and flooded rather than ruined into visual noise. NOT photorealism, NOT a 3D render, NOT flat children's cartoon. No microtexture noise or millions of glowing highlights, no floating dust, fireflies, glitter or swarming particles.\nOUTPUT: One single polished full-frame 16:9 landscape background, edge-to-edge art, preferably 2560x1440 or higher. No people, monsters, weapons, UI, writing, captions, frames, logos, watermark, black bars or vignette frame. Keep the entire foreground game floor readable.",
+      "reference_images": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/city/varenhold/interiors/inn_tavern_anime_wide_integrated_v5.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/backgrounds/silentwater_marshes_day.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/order_reference_board.png"
+      ],
+      "original_generated_source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-0c58269b-5e4a-40c9-8297-b8a8d0a2f280.png",
+      "draft_file": "art_drafts/dungeon_crypt_pilot_01/sunken_vestibule.png",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "status": "ready_for_user_visual_review",
+      "alpha": "Opaque RGB environment.",
+      "integration_note": "Draft near-16:9 image; combat framing to be tested during separate integration."
+    },
+    {
+      "id": "order_grandmaster",
+      "name": "Wielki Mistrz Zatopionego Zakonu",
+      "prompt": "Create one NEW full-body enemy character game asset for Echoes of Pythonia: the Grandmaster of the Sunken Order, last commander guarding a flooded crypt.\nREFERENCE ROLES: Images 1 and 2 define the game's established ANIME character drawing and finish, NOT the new character's identity or clothing: crisp controlled contours, clear shaded planes, expressive anime face and hair, selectively detailed equipment. Do not copy the archer or mage. Image 3 is a literal equipment design reference board, four panels from left to right: Grandmaster's sword, broken crown fragment, Sunken Order cloak, and Order seal. This boss must visibly wear/wield the parent equipment of those already-existing loot icons.\nSUBJECT: A tall commanding older human man around 60, silver hair swept back and reaching his neck, a short silver beard, stern noble angular anime face with a few deliberate age lines, weary cold blue eyes, no helmet hiding his identity. Dignified and ominous former commander, not a young hero and not a skull zombie. Very subtle cool light only in eyes and the crown gem. Layered worn steel armor, deep navy cloth and cape, aged muted gold fittings. Use the exact navy cloak design and its shoulder plate/layered mantle structure and round gold compass-star clasp from panel 3. Extend the recognizable silver/old-gold and teal-gem crown fragment from panel 2 into a damaged wearable open circlet: one broken side, long central point with blue gem, star above the brow. Reuse the gold four-long-point compass-star enclosed in a circle from panel 4, not arbitrary crosses, skulls or new faction logos.\nWEAPON: In his hand he holds a single heavy sword matching panel 1: wide straight steel blade with dark navy center and gold longitudinal inlay, angular old-gold crossguard with round compass-star at center, navy grip and round compass-star pommel. This must read as the same weapon the player can loot. Sword held diagonally down toward image-left, tip completely visible; anatomical natural grip and wrist. No shield and no added weapon.\nCOMPOSITION: One single full-body three-quarter battle-ready figure facing image-left to fit the enemy side of a 2D battle. Grounded confident stance with both boots visible, mantle trailing gently to image-right; entire crown, hair, cloak hem, hands, weapon and feet inside frame with about 8 percent clear outer padding. Natural proportions, strong readable silhouette; not a character sheet, not multiple poses, not close-up. Soft cool upper-left lighting and very restrained warm bounce matching a dim blue-green flooded stone interior. Intentional larger chips and worn hems, no all-over scratches or noisy realistic skin/metal texture.\nSTYLE: Match the illustrated anime-fantasy polish of the first two references without becoming photorealistic or a 3D render; careful lively linework, clean broad shading, selective crisp gold trim, believable cloth and metal. No swarming magic, fireflies, glitter, huge aura, glowing smoke, blood or gore.\nOUTPUT: One high-resolution portrait PNG character cutout with GENUINE transparent alpha background, no scene, no floor, no platform, no opaque color or painted checkerboard, no drop-shadow rectangle, no text, labels, border or watermark.",
+      "reference_images": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/mage_female.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/dungeon_crypt_pilot_01/order_reference_board.png"
+      ],
+      "original_generated_source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-fdd7c60b-6fda-470b-9a0d-50a2a72f97fa.png",
+      "draft_file": "art_drafts/dungeon_crypt_pilot_01/order_grandmaster.png",
+      "dimensions": [
+        1022,
+        1496
+      ],
+      "status": "ready_for_user_visual_review",
+      "alpha": "True alpha extracted locally; source checkerboard retained separately; three cloak openings manually reviewed.",
+      "integration_note": "Generated gaze is image-right, not prompt-left. Set horizontal mirror in the presentation layer when placed on the right enemy side. No runtime integration performed."
+    }
+  ],
+  "qa": {
+    "character_alpha_preview": "art_drafts/dungeon_crypt_pilot_01/qa/order_grandmaster_alpha_review.png",
+    "cutout_reproduction": "art_drafts/dungeon_crypt_pilot_01/prepare_review_cutout.py",
+    "visual_checks": [
+      "Environment: coherent arches and staircase, Order emblems, visible shallow-water floor, no UI or embedded characters.",
+      "Grandmaster: whole silhouette and weapon, anime facial treatment, equipment related to actual loot.",
+      "Alpha reviewed over light/dark backgrounds; removed three enclosed checkerboard holes in cape."
+    ],
+    "runtime_tests": "Not run: this is a visual pilot, and no gameplay or runtime files were changed."
+  }
+}

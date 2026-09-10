@@ -160,7 +160,7 @@ const DATA := {
 	},
 	"mist_walker":
 	{
-		"display_name": "Wędrowiec Mgieł",
+		"display_name": "Trzcinowy Brodziec",
 		"max_hp": 36,
 		"attack": 11,
 		"defense": 3,

@@ -1,0 +1,1278 @@
+{
+  "batch": 2,
+  "style": "approved_anime_fantasy",
+  "status": "integrated_alpha_reviewed",
+  "audit_note": "icon fields snapshot before integration; rarity and mechanics stay unchanged.",
+  "items": [
+    {
+      "category": "material",
+      "description": "Gruba łuska pokryta śladami kościanych narośli.",
+      "icon": "",
+      "id": "ancient_scale",
+      "level": 0,
+      "name": "Prastara Łuska",
+      "rarity": "common",
+      "rarity_color": "8b929c",
+      "rarity_label": "Zwykły",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 1,
+          "enemy": "bone_crocodile",
+          "region": "silentwater_marshes"
+        }
+      ],
+      "family": "bone_crocodile",
+      "design": "One large thick crocodilian dorsal scute, shield-shaped dark moss-green scale with a raised chalk-ivory bony ridge and two small side nodules. Match the bone crocodile's green hide and pale exposed armor. Organic loot, not a forged shield. Three-quarter view, a few broad facets, no tiny scales engraved everywhere.",
+      "prompt": "Use case: stylized-concept. Create ONE finished 2D inventory item icon for Echoes of Pythonia, matching its APPROVED ANIME-FANTASY game art. Image 1 is the anime hero STYLE reference; image 2 is an APPROVED item STYLE reference. Match clean drawn contours, sophisticated smooth painted/cel shading, broad deliberate highlights and readable volumes; NOT photorealism, NOT a 3D render, NOT childish flat clipart. Image 3 is ONLY the monster/lore source reference (if present); following images are material/design references, never copy their gritty microtexture. Simple materials must remain simple, not gold-encrusted loot. All visible content belongs to the one item or its matching pair. Composition: SQUARE canvas, centred entire item, at least 9% empty margin on EVERY side, useful silhouette at 64 pixels, light from upper left. No character, hands, text, prices, border, rarity frame, pedestal, surface, scenery, cast shadow, loose particles, glitter or external aura. Background: genuinely transparent alpha, never draw a checkerboard. If an opaque canvas is unavoidable, use ONLY perfectly uniform flat #FF00FF magenta for the user-authorized local cutout; no gradient, key-color reflection or ground shadow. Subject and material constraints:\nOne large thick crocodilian dorsal scute, shield-shaped dark moss-green scale with a raised chalk-ivory bony ridge and two small side nodules. Match the bone crocodile's green hide and pale exposed armor. Organic loot, not a forged shield. Three-quarter view, a few broad facets, no tiny scales engraved everywhere.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/black_bear_claw.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/bone_crocodile.png"
+      ],
+      "target": "godot/assets/items/regional/ancient_scale.png",
+      "phase": 1,
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-64a157fd-6974-435d-9f4e-4c5cc443ef06.png",
+      "key_shadows": false,
+      "neutral_edges": false,
+      "background_method": "neutral_checker_exterior_only"
+    },
+    {
+      "category": "material",
+      "description": "Ząb większy niż ludzki palec, twardy jak kamień.",
+      "icon": "",
+      "id": "bone_fang",
+      "level": 0,
+      "name": "Kościany Kieł",
+      "rarity": "uncommon",
+      "rarity_color": "4ab875",
+      "rarity_label": "Niepospolity",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.35,
+          "enemy": "bone_crocodile",
+          "region": "silentwater_marshes"
+        }
+      ],
+      "family": "bone_crocodile",
+      "design": "A single long curved ivory fang from the bone crocodile. Thick stone-hard root, green-grey mineral staining near root, cream pointed tip, one purposeful chip. Strong sweeping silhouette diagonally centered. Organic tooth, no hilt, no gold or jewellery.",
+      "prompt": "Use case: stylized-concept. Create ONE finished 2D inventory item icon for Echoes of Pythonia, matching its APPROVED ANIME-FANTASY game art. Image 1 is the anime hero STYLE reference; image 2 is an APPROVED item STYLE reference. Match clean drawn contours, sophisticated smooth painted/cel shading, broad deliberate highlights and readable volumes; NOT photorealism, NOT a 3D render, NOT childish flat clipart. Image 3 is ONLY the monster/lore source reference (if present); following images are material/design references, never copy their gritty microtexture. Simple materials must remain simple, not gold-encrusted loot. All visible content belongs to the one item or its matching pair. Composition: SQUARE canvas, centred entire item, at least 9% empty margin on EVERY side, useful silhouette at 64 pixels, light from upper left. No character, hands, text, prices, border, rarity frame, pedestal, surface, scenery, cast shadow, loose particles, glitter or external aura. Background: genuinely transparent alpha, never draw a checkerboard. If an opaque canvas is unavoidable, use ONLY perfectly uniform flat #FF00FF magenta for the user-authorized local cutout; no gradient, key-color reflection or ground shadow. Subject and material constraints:\nA single long curved ivory fang from the bone crocodile. Thick stone-hard root, green-grey mineral staining near root, cream pointed tip, one purposeful chip. Strong sweeping silhouette diagonally centered. Organic tooth, no hilt, no gold or jewellery.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/black_bear_claw.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/bone_crocodile.png"
+      ],
+      "target": "godot/assets/items/regional/bone_fang.png",
+      "phase": 1,
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-7688694d-927f-40eb-804e-bd1f4e2d7599.png",
+      "key_shadows": false,
+      "neutral_edges": false,
+      "background_method": "neutral_checker_exterior_only"
+    },
+    {
+      "category": "equipment",
+      "description": "Ciężki pas z nakładających się łusek.",
+      "icon": "",
+      "id": "scale_belt",
+      "level": 6,
+      "name": "Pas z Prastarych Łusek",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "belt",
+      "sources": [
+        {
+          "chance": 0.12,
+          "enemy": "bone_crocodile",
+          "region": "silentwater_marshes"
+        },
+        {
+          "ingredients": {
+            "ancient_scale": 3,
+            "bone_fang": 1
+          },
+          "recipe": "scale_belt",
+          "region": "silent_water_marshes"
+        }
+      ],
+      "family": "bone_crocodile",
+      "design": "Wearable heavy belt in a shallow oval three-quarter view. Overlapping dark moss-green crocodilian scutes with chalk-ivory raised bony ridges stitched to dark leather; one curved fang is the practical toggle buckle. Match supplied scale and fang shapes. Clearly a BELT with opening and strap, not a necklace or armor breastplate.",
+      "prompt": "Use case: stylized-concept. Create ONE finished 2D inventory item icon for Echoes of Pythonia, matching its APPROVED ANIME-FANTASY game art. Image 1 is the anime hero STYLE reference; image 2 is an APPROVED item STYLE reference. Match clean drawn contours, sophisticated smooth painted/cel shading, broad deliberate highlights and readable volumes; NOT photorealism, NOT a 3D render, NOT childish flat clipart. Image 3 is ONLY the monster/lore source reference (if present); following images are material/design references, never copy their gritty microtexture. Simple materials must remain simple, not gold-encrusted loot. All visible content belongs to the one item or its matching pair. Composition: SQUARE canvas, centred entire item, at least 9% empty margin on EVERY side, useful silhouette at 64 pixels, light from upper left. No character, hands, text, prices, border, rarity frame, pedestal, surface, scenery, cast shadow, loose particles, glitter or external aura. Background extraction requirement: previous outputs had opaque checkerboards, which are unusable. Render this asset on ONLY perfectly uniform flat #FF00FF magenta for the explicitly user-authorized local alpha extraction. NO white background or checkerboard, no gradient, no key-color reflection, ground shadow or magenta inside the object. Final asset will be a transparent sprite. Subject and material constraints:\nWearable heavy belt in a shallow oval three-quarter view. Overlapping dark moss-green crocodilian scutes with chalk-ivory raised bony ridges stitched to dark leather; one curved fang is the practical toggle buckle. Match supplied scale and fang shapes. Clearly a BELT with opening and strap, not a necklace or armor breastplate.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/cultist_pendant.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/bone_crocodile.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_02/processed/ancient_scale.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_02/processed/bone_fang.png"
+      ],
+      "target": "godot/assets/items/regional/scale_belt.png",
+      "phase": 2,
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-0e9e2e6c-619f-458a-ab2f-31bafc47c90e.png",
+      "key_shadows": false,
+      "neutral_edges": false,
+      "background_method": "magenta_local_cutout"
+    },
+    {
+      "category": "material",
+      "description": "Chłodna kropla, która nigdy nie spada z naczynia.",
+      "icon": "",
+      "id": "mist_essence",
+      "level": 0,
+      "name": "Esencja Mgły",
+      "rarity": "uncommon",
+      "rarity_color": "4ab875",
+      "rarity_label": "Niepospolity",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.65,
+          "enemy": "mist_walker",
+          "region": "silentwater_marshes"
+        },
+        {
+          "chance": 0.4,
+          "enemy": "drowned_priestess",
+          "region": "dungeon"
+        }
+      ],
+      "family": "mist",
+      "design": "One small stoppered teardrop glass vessel containing a cool blue-grey droplet suspended impossibly near its centre. Restrained silver-grey neck wire, transparent readable broad glass highlights, soft contained grey mist INSIDE only. No surrounding smoke or floating particles, not a health potion. The bog creature is a source association, not a request for a creature portrait.",
+      "prompt": "Use case: stylized-concept. Create ONE finished 2D inventory item icon for Echoes of Pythonia, matching its APPROVED ANIME-FANTASY game art. Image 1 is the anime hero STYLE reference; image 2 is an APPROVED item STYLE reference. Match clean drawn contours, sophisticated smooth painted/cel shading, broad deliberate highlights and readable volumes; NOT photorealism, NOT a 3D render, NOT childish flat clipart. Image 3 is ONLY the monster/lore source reference (if present); following images are material/design references, never copy their gritty microtexture. Simple materials must remain simple, not gold-encrusted loot. All visible content belongs to the one item or its matching pair. Composition: SQUARE canvas, centred entire item, at least 9% empty margin on EVERY side, useful silhouette at 64 pixels, light from upper left. No character, hands, text, prices, border, rarity frame, pedestal, surface, scenery, cast shadow, loose particles, glitter or external aura. Background: genuinely transparent alpha, never draw a checkerboard. If an opaque canvas is unavoidable, use ONLY perfectly uniform flat #FF00FF magenta for the user-authorized local cutout; no gradient, key-color reflection or ground shadow. Subject and material constraints:\nOne small stoppered teardrop glass vessel containing a cool blue-grey droplet suspended impossibly near its centre. Restrained silver-grey neck wire, transparent readable broad glass highlights, soft contained grey mist INSIDE only. No surrounding smoke or floating particles, not a health potion. The bog creature is a source association, not a request for a creature portrait.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/mage_female.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/black_bear_claw.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/mist_walker.png"
+      ],
+      "target": "godot/assets/items/regional/mist_essence.png",
+      "phase": 1,
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-ba86cf0b-0a3f-4130-9db3-2eb0725a6614.png",
+      "key_shadows": false,
+      "neutral_edges": false,
+      "background_method": "neutral_checker_exterior_only"
+    },
+    {
+      "category": "equipment",
+      "description": "Srebrne kolczyki z kamieniem, którego krawędzie rozmywają się w powietrzu.",
+      "icon": "",
+      "id": "mist_earrings",
+      "level": 6,
+      "name": "Kolczyki Wędrowca Mgieł",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "earrings",
+      "sources": [
+        {
+          "chance": 0.1,
+          "enemy": "mist_walker",
+          "region": "silentwater_marshes"
+        },
+        {
+          "ingredients": {
+            "cursed_resin": 2,
+            "mist_essence": 3
+          },
+          "recipe": "mist_earrings",
+          "region": "silent_water_marshes"
+        }
+      ],
+      "family": "mist",
+      "design": "One MATCHING PAIR of silver drop earrings, both fully visible side by side. Thin curved reed-like hooks, small misty blue-grey stones held in dark resin and a silver frame. Slightly blurred mist remains contained inside the stones; contours of the earrings sharp. Readable, moderately elegant rare-quality jewellery, no huge gemstone halo.",
+      "prompt": "Use case: stylized-concept. Create ONE finished 2D inventory item icon for Echoes of Pythonia, matching its APPROVED ANIME-FANTASY game art. Image 1 is the anime hero STYLE reference; image 2 is an APPROVED item STYLE reference. Match clean drawn contours, sophisticated smooth painted/cel shading, broad deliberate highlights and readable volumes; NOT photorealism, NOT a 3D render, NOT childish flat clipart. Image 3 is ONLY the monster/lore source reference (if present); following images are material/design references, never copy their gritty microtexture. Simple materials must remain simple, not gold-encrusted loot. All visible content belongs to the one item or its matching pair. Composition: SQUARE canvas, centred entire item, at least 9% empty margin on EVERY side, useful silhouette at 64 pixels, light from upper left. No character, hands, text, prices, border, rarity frame, pedestal, surface, scenery, cast shadow, loose particles, glitter or external aura. Background extraction requirement: previous outputs had opaque checkerboards, which are unusable. Render this asset on ONLY perfectly uniform flat #FF00FF magenta for the explicitly user-authorized local alpha extraction. NO white background or checkerboard, no gradient, no key-color reflection, ground shadow or magenta inside the object. Final asset will be a transparent sprite. Subject and material constraints:\nOne MATCHING PAIR of silver drop earrings, both fully visible side by side. Thin curved reed-like hooks, small misty blue-grey stones held in dark resin and a silver frame. Slightly blurred mist remains contained inside the stones; contours of the earrings sharp. Readable, moderately elegant rare-quality jewellery, no huge gemstone halo.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/mage_female.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/cultist_pendant.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/mist_walker.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_02/processed/mist_essence.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_02/processed/cursed_resin.png"
+      ],
+      "target": "godot/assets/items/regional/mist_earrings.png",
+      "phase": 2,
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-928ef470-c537-4799-9cc2-e4d3161c47bd.png",
+      "key_shadows": false,
+      "neutral_edges": false,
+      "background_method": "magenta_local_cutout"
+    },
+    {
+      "category": "material",
+      "description": "Roślina zbierana przez bagienne wiedźmy.",
+      "icon": "",
+      "id": "witch_herb",
+      "level": 0,
+      "name": "Ziele Czarnej Wody",
+      "rarity": "uncommon",
+      "rarity_color": "4ab875",
+      "rarity_label": "Niepospolity",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.65,
+          "enemy": "swamp_witch",
+          "region": "silentwater_marshes"
+        }
+      ],
+      "family": "swamp_witch",
+      "design": "A compact gathered bundle of three or four marsh herb stalks with pointed muted olive-green leaves, a few plum-purple seed buds and knotted pale roots, bound with a simple brown fibre tie. The swamp witch's gathered medicinal herb, no pot or flask, no glowing flecks. Clear broad leaf shapes, not dozens of fine strands.",
+      "prompt": "Use case: stylized-concept. Create ONE finished 2D inventory item icon for Echoes of Pythonia, matching its APPROVED ANIME-FANTASY game art. Image 1 is the anime hero STYLE reference; image 2 is an APPROVED item STYLE reference. Match clean drawn contours, sophisticated smooth painted/cel shading, broad deliberate highlights and readable volumes; NOT photorealism, NOT a 3D render, NOT childish flat clipart. Image 3 is ONLY the monster/lore source reference (if present); following images are material/design references, never copy their gritty microtexture. Simple materials must remain simple, not gold-encrusted loot. All visible content belongs to the one item or its matching pair. Composition: SQUARE canvas, centred entire item, at least 9% empty margin on EVERY side, useful silhouette at 64 pixels, light from upper left. No character, hands, text, prices, border, rarity frame, pedestal, surface, scenery, cast shadow, loose particles, glitter or external aura. Background: genuinely transparent alpha, never draw a checkerboard. If an opaque canvas is unavoidable, use ONLY perfectly uniform flat #FF00FF magenta for the user-authorized local cutout; no gradient, key-color reflection or ground shadow. Subject and material constraints:\nA compact gathered bundle of three or four marsh herb stalks with pointed muted olive-green leaves, a few plum-purple seed buds and knotted pale roots, bound with a simple brown fibre tie. The swamp witch's gathered medicinal herb, no pot or flask, no glowing flecks. Clear broad leaf shapes, not dozens of fine strands.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/black_bear_claw.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/swamp_witch.png"
+      ],
+      "target": "godot/assets/items/regional/witch_herb.png",
+      "phase": 1,
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-b476ec72-8a49-4c9a-ba38-9f74f5817e39.png",
+      "key_shadows": false,
+      "neutral_edges": false,
+      "background_method": "neutral_checker_exterior_only"
+    },
+    {
+      "category": "equipment",
+      "description": "Kościany pierścień wypełniony zielonkawym światłem.",
+      "icon": "",
+      "id": "witchbone_ring",
+      "level": 5,
+      "name": "Pierścień z Kości Wiedźmy",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "ring",
+      "sources": [
+        {
+          "chance": 0.1,
+          "enemy": "swamp_witch",
+          "region": "silentwater_marshes"
+        },
+        {
+          "ingredients": {
+            "drowned_bone": 3,
+            "mist_essence": 1,
+            "witch_herb": 2
+          },
+          "recipe": "witchbone_ring",
+          "region": "silent_water_marshes"
+        }
+      ],
+      "family": "swamp_witch",
+      "design": "A carved ivory bone ring seen three-quarter, opening visible, with green light contained in a small inset of swamp herb resin. Two modest carved root curves hug its small oval green setting. Bone body, not gold. Polished illustrated planes, muted moss green and cream, anatomically wearable not a big crown.",
+      "prompt": "Use case: stylized-concept. Create ONE finished 2D inventory item icon for Echoes of Pythonia, matching its APPROVED ANIME-FANTASY game art. Image 1 is the anime hero STYLE reference; image 2 is an APPROVED item STYLE reference. Match clean drawn contours, sophisticated smooth painted/cel shading, broad deliberate highlights and readable volumes; NOT photorealism, NOT a 3D render, NOT childish flat clipart. Image 3 is ONLY the monster/lore source reference (if present); following images are material/design references, never copy their gritty microtexture. Simple materials must remain simple, not gold-encrusted loot. All visible content belongs to the one item or its matching pair. Composition: SQUARE canvas, centred entire item, at least 9% empty margin on EVERY side, useful silhouette at 64 pixels, light from upper left. No character, hands, text, prices, border, rarity frame, pedestal, surface, scenery, cast shadow, loose particles, glitter or external aura. Background extraction requirement: previous outputs had opaque checkerboards, which are unusable. Render this asset on ONLY perfectly uniform flat #FF00FF magenta for the explicitly user-authorized local alpha extraction. NO white background or checkerboard, no gradient, no key-color reflection, ground shadow or magenta inside the object. Final asset will be a transparent sprite. Subject and material constraints:\nA carved ivory bone ring seen three-quarter, opening visible, with green light contained in a small inset of swamp herb resin. Two modest carved root curves hug its small oval green setting. Bone body, not gold. Polished illustrated planes, muted moss green and cream, anatomically wearable not a big crown.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/cultist_pendant.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/swamp_witch.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_02/processed/witch_herb.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_02/processed/cursed_resin.png"
+      ],
+      "target": "godot/assets/items/regional/witchbone_ring.png",
+      "phase": 2,
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-d61bb50f-9de1-43b0-bce3-3e1ae4bdecc1.png",
+      "key_shadows": true,
+      "neutral_edges": true,
+      "background_method": "magenta_local_cutout"
+    },
+    {
+      "category": "material",
+      "description": "Fragment starego pancerza zachowany pod warstwą mułu.",
+      "icon": "",
+      "id": "sunken_plate",
+      "level": 0,
+      "name": "Płyta Zatopionego Zakonu",
+      "rarity": "uncommon",
+      "rarity_color": "4ab875",
+      "rarity_label": "Niepospolity",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.6,
+          "enemy": "sunken_knight",
+          "region": "silentwater_marshes"
+        },
+        {
+          "chance": 0.6,
+          "enemy": "iron_gate_guardian",
+          "region": "dungeon"
+        }
+      ],
+      "family": "sunken_order",
+      "design": "A single broken fragment of the sunken knight's curved navy-blue steel armor: angular pauldron-size plate with one aged bronze edging strip and a partial compass-star emblem. A thin dark olive deposit clings only to its lower edge. Retain knight faction colors. Clearly salvaged armor fragment, no complete helmet or shield.",
+      "prompt": "Use case: stylized-concept. Create ONE finished 2D inventory item icon for Echoes of Pythonia, matching its APPROVED ANIME-FANTASY game art. Image 1 is the anime hero STYLE reference; image 2 is an APPROVED item STYLE reference. Match clean drawn contours, sophisticated smooth painted/cel shading, broad deliberate highlights and readable volumes; NOT photorealism, NOT a 3D render, NOT childish flat clipart. Image 3 is ONLY the monster/lore source reference (if present); following images are material/design references, never copy their gritty microtexture. Simple materials must remain simple, not gold-encrusted loot. All visible content belongs to the one item or its matching pair. Composition: SQUARE canvas, centred entire item, at least 9% empty margin on EVERY side, useful silhouette at 64 pixels, light from upper left. No character, hands, text, prices, border, rarity frame, pedestal, surface, scenery, cast shadow, loose particles, glitter or external aura. Background: genuinely transparent alpha, never draw a checkerboard. If an opaque canvas is unavoidable, use ONLY perfectly uniform flat #FF00FF magenta for the user-authorized local cutout; no gradient, key-color reflection or ground shadow. Subject and material constraints:\nA single broken fragment of the sunken knight's curved navy-blue steel armor: angular pauldron-size plate with one aged bronze edging strip and a partial compass-star emblem. A thin dark olive deposit clings only to its lower edge. Retain knight faction colors. Clearly salvaged armor fragment, no complete helmet or shield.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/black_bear_claw.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/sunken_knight.png"
+      ],
+      "target": "godot/assets/items/regional/sunken_plate.png",
+      "phase": 1,
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-0eabbd49-8328-4944-b3a4-47091537b952.png",
+      "key_shadows": false,
+      "neutral_edges": false,
+      "background_method": "neutral_checker_exterior_only"
+    },
+    {
+      "category": "equipment",
+      "description": "Ciężka zbroja dawnego zakonu, oczyszczona z mułu, lecz nie z klątwy.",
+      "icon": "",
+      "id": "sunken_knight_armor",
+      "level": 7,
+      "name": "Pancerz Zatopionego Zakonu",
+      "rarity": "epic",
+      "rarity_color": "aa69dc",
+      "rarity_label": "Epicki",
+      "regional": true,
+      "sets": [],
+      "slot": "chest",
+      "sources": [
+        {
+          "chance": 0.12,
+          "enemy": "sunken_knight",
+          "region": "silentwater_marshes"
+        },
+        {
+          "ingredients": {
+            "ancient_scale": 2,
+            "drowned_coin": 2,
+            "sunken_plate": 5
+          },
+          "recipe": "sunken_knight_armor",
+          "region": "silent_water_marshes"
+        }
+      ],
+      "family": "sunken_order",
+      "design": "Empty wearable heavy cuirass of the sunken knight order, chest armor only including shoulder guards and short navy cloth tabs. Cleaned blue-grey steel broad plates, restrained aged brass borders and a single compass-star on breastplate, slight green deposits in 2 recesses. Incorporate small pale-green crocodile scutes at waist. Epic-quality commanding silhouette without dense micro-engraving. No wearer, no head, no arms or legs.",
+      "prompt": "Use case: stylized-concept. Create ONE finished 2D inventory item icon for Echoes of Pythonia, matching its APPROVED ANIME-FANTASY game art. Image 1 is the anime hero STYLE reference; image 2 is an APPROVED item STYLE reference. Match clean drawn contours, sophisticated smooth painted/cel shading, broad deliberate highlights and readable volumes; NOT photorealism, NOT a 3D render, NOT childish flat clipart. Image 3 is ONLY the monster/lore source reference (if present); following images are material/design references, never copy their gritty microtexture. Simple materials must remain simple, not gold-encrusted loot. All visible content belongs to the one item or its matching pair. Composition: SQUARE canvas, centred entire item, at least 9% empty margin on EVERY side, useful silhouette at 64 pixels, light from upper left. No character, hands, text, prices, border, rarity frame, pedestal, surface, scenery, cast shadow, loose particles, glitter or external aura. Background extraction requirement: previous outputs had opaque checkerboards, which are unusable. Render this asset on ONLY perfectly uniform flat #FF00FF magenta for the explicitly user-authorized local alpha extraction. NO white background or checkerboard, no gradient, no key-color reflection, ground shadow or magenta inside the object. Final asset will be a transparent sprite. Subject and material constraints:\nEmpty wearable heavy cuirass of the sunken knight order, chest armor only including shoulder guards and short navy cloth tabs. Cleaned blue-grey steel broad plates, restrained aged brass borders and a single compass-star on breastplate, slight green deposits in 2 recesses. Incorporate small pale-green crocodile scutes at waist. Epic-quality commanding silhouette without dense micro-engraving. No wearer, no head, no arms or legs.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/rotting_knight_helm.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/sunken_knight.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_02/processed/sunken_plate.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_02/processed/ancient_scale.png"
+      ],
+      "target": "godot/assets/items/regional/sunken_knight_armor.png",
+      "phase": 2,
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-53114813-03d9-49f0-bcf2-c54c6514161d.png",
+      "key_shadows": true,
+      "neutral_edges": true,
+      "background_method": "magenta_local_cutout"
+    },
+    {
+      "category": "material",
+      "description": "Ciemny rdzeń, w którym słychać odległy rytm przypominający bicie serca.",
+      "icon": "",
+      "id": "silentwater_heart",
+      "level": 0,
+      "name": "Serce Głuchej Wody",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 1,
+          "enemy": "drowned_mother",
+          "region": "silentwater_marshes"
+        }
+      ],
+      "family": "drowned_mother",
+      "design": "One dark heart-shaped mineral core of still black water, NOT anatomical flesh. Asymmetric smooth black-jade volume enclosed by three sparse root-like dark bronze ribs and one pale bone curve, faint cool teal pulse contained in its centre. Echo the Drowned Mother's root/bone crown. Rich near-black with broad readable highlights; no red gore, floating particles, stand or external glow.",
+      "prompt": "Use case: stylized-concept. Create ONE finished 2D inventory item icon for Echoes of Pythonia, matching its APPROVED ANIME-FANTASY game art. Image 1 is the anime hero STYLE reference; image 2 is an APPROVED item STYLE reference. Match clean drawn contours, sophisticated smooth painted/cel shading, broad deliberate highlights and readable volumes; NOT photorealism, NOT a 3D render, NOT childish flat clipart. Image 3 is ONLY the monster/lore source reference (if present); following images are material/design references, never copy their gritty microtexture. Simple materials must remain simple, not gold-encrusted loot. All visible content belongs to the one item or its matching pair. Composition: SQUARE canvas, centred entire item, at least 9% empty margin on EVERY side, useful silhouette at 64 pixels, light from upper left. No character, hands, text, prices, border, rarity frame, pedestal, surface, scenery, cast shadow, loose particles, glitter or external aura. Background: genuinely transparent alpha, never draw a checkerboard. If an opaque canvas is unavoidable, use ONLY perfectly uniform flat #FF00FF magenta for the user-authorized local cutout; no gradient, key-color reflection or ground shadow. Subject and material constraints:\nOne dark heart-shaped mineral core of still black water, NOT anatomical flesh. Asymmetric smooth black-jade volume enclosed by three sparse root-like dark bronze ribs and one pale bone curve, faint cool teal pulse contained in its centre. Echo the Drowned Mother's root/bone crown. Rich near-black with broad readable highlights; no red gore, floating particles, stand or external glow.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/black_bear_claw.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/drowned_mother.png"
+      ],
+      "target": "godot/assets/items/regional/silentwater_heart.png",
+      "phase": 1,
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-43ac513c-1234-4332-ae04-ffa8cfe5156f.png",
+      "key_shadows": false,
+      "neutral_edges": false,
+      "background_method": "neutral_checker_exterior_only"
+    },
+    {
+      "category": "equipment",
+      "description": "Ciemny medalion znaleziony pośród reliktów Głuchej Wody. W jego wnętrzu porusza się kropla czarnej wody.",
+      "icon": "",
+      "id": "drowned_mother_medallion",
+      "level": 8,
+      "name": "Medalion Utopionej Matki",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "necklace",
+      "sources": [
+        {
+          "chance": 0.12,
+          "enemy": "drowned_mother",
+          "region": "silentwater_marshes"
+        },
+        {
+          "ingredients": {
+            "drowned_coin": 2,
+            "mist_essence": 3,
+            "silentwater_heart": 2
+          },
+          "recipe": "drowned_mother_medallion",
+          "region": "silent_water_marshes"
+        }
+      ],
+      "family": "drowned_mother",
+      "design": "A dark bronze medallion necklace with short fully visible loop of chain, holding a large glossy drop of still black water with muted teal inner reflection. Root-like frame and two pale ivory bone accents match the Drowned Mother family and supplied heart material. Three-quarter facing view, pendant dominant, chain compact. Rare jewellery not an oversized legendary royal crown.",
+      "prompt": "Use case: stylized-concept. Create ONE finished 2D inventory item icon for Echoes of Pythonia, matching its APPROVED ANIME-FANTASY game art. Image 1 is the anime hero STYLE reference; image 2 is an APPROVED item STYLE reference. Match clean drawn contours, sophisticated smooth painted/cel shading, broad deliberate highlights and readable volumes; NOT photorealism, NOT a 3D render, NOT childish flat clipart. Image 3 is ONLY the monster/lore source reference (if present); following images are material/design references, never copy their gritty microtexture. Simple materials must remain simple, not gold-encrusted loot. All visible content belongs to the one item or its matching pair. Composition: SQUARE canvas, centred entire item, at least 9% empty margin on EVERY side, useful silhouette at 64 pixels, light from upper left. No character, hands, text, prices, border, rarity frame, pedestal, surface, scenery, cast shadow, loose particles, glitter or external aura. Background extraction requirement: previous outputs had opaque checkerboards, which are unusable. Render this asset on ONLY perfectly uniform flat #FF00FF magenta for the explicitly user-authorized local alpha extraction. NO white background or checkerboard, no gradient, no key-color reflection, ground shadow or magenta inside the object. Final asset will be a transparent sprite. Subject and material constraints:\nA dark bronze medallion necklace with short fully visible loop of chain, holding a large glossy drop of still black water with muted teal inner reflection. Root-like frame and two pale ivory bone accents match the Drowned Mother family and supplied heart material. Three-quarter facing view, pendant dominant, chain compact. Rare jewellery not an oversized legendary royal crown.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/mage_female.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/cultist_pendant.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/drowned_mother.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_02/processed/silentwater_heart.png"
+      ],
+      "target": "godot/assets/items/regional/drowned_mother_medallion.png",
+      "phase": 2,
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-b49fca2a-8afd-4d1e-a710-69833fbf92ce.png",
+      "key_shadows": true,
+      "neutral_edges": true,
+      "background_method": "magenta_local_cutout"
+    },
+    {
+      "category": "equipment",
+      "description": "Długie, czarne ostrze, z którego nieustannie ścieka woda.",
+      "icon": "",
+      "id": "drowned_mother_blade",
+      "level": 8,
+      "name": "Ostrze Matki Głuchej Wody",
+      "rarity": "epic",
+      "rarity_color": "aa69dc",
+      "rarity_label": "Epicki",
+      "regional": true,
+      "sets": [],
+      "slot": "weapon",
+      "sources": [
+        {
+          "chance": 0.18,
+          "enemy": "drowned_mother",
+          "region": "silentwater_marshes"
+        },
+        {
+          "ingredients": {
+            "ancient_scale": 3,
+            "bone_fang": 2,
+            "silentwater_heart": 3
+          },
+          "recipe": "drowned_mother_blade",
+          "region": "silent_water_marshes"
+        }
+      ],
+      "family": "drowned_mother",
+      "design": "One complete long BLACK sword diagonally composed, tip and pommel fully visible. Broad obsidian-black blade with restrained cool teal bevel, hooked ivory fang crossguard and dark moss scale leather grip; small heart-shaped black-water inset at guard. A single attached water drop at edge, not loose falling drops. Same dark bronze/root/bone motif as Drowned Mother. Epic weapon, clean anime metal planes, no flame aura.",
+      "prompt": "Use case: stylized-concept. Create ONE finished 2D inventory item icon for Echoes of Pythonia, matching its APPROVED ANIME-FANTASY game art. Image 1 is the anime hero STYLE reference; image 2 is an APPROVED item STYLE reference. Match clean drawn contours, sophisticated smooth painted/cel shading, broad deliberate highlights and readable volumes; NOT photorealism, NOT a 3D render, NOT childish flat clipart. Image 3 is ONLY the monster/lore source reference (if present); following images are material/design references, never copy their gritty microtexture. Simple materials must remain simple, not gold-encrusted loot. All visible content belongs to the one item or its matching pair. Composition: SQUARE canvas, centred entire item, at least 9% empty margin on EVERY side, useful silhouette at 64 pixels, light from upper left. No character, hands, text, prices, border, rarity frame, pedestal, surface, scenery, cast shadow, loose particles, glitter or external aura. Background extraction requirement: previous outputs had opaque checkerboards, which are unusable. Render this asset on ONLY perfectly uniform flat #FF00FF magenta for the explicitly user-authorized local alpha extraction. NO white background or checkerboard, no gradient, no key-color reflection, ground shadow or magenta inside the object. Final asset will be a transparent sprite. Subject and material constraints:\nOne complete long BLACK sword diagonally composed, tip and pommel fully visible. Broad obsidian-black blade with restrained cool teal bevel, hooked ivory fang crossguard and dark moss scale leather grip; small heart-shaped black-water inset at guard. A single attached water drop at edge, not loose falling drops. Same dark bronze/root/bone motif as Drowned Mother. Epic weapon, clean anime metal planes, no flame aura.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/mage_female.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/cultist_pendant.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/drowned_mother.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_02/processed/silentwater_heart.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_02/processed/bone_fang.png"
+      ],
+      "target": "godot/assets/items/regional/drowned_mother_blade.png",
+      "phase": 2,
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-9b8e1a70-b471-4ee2-a2f4-e4651809885d.png",
+      "key_shadows": true,
+      "neutral_edges": true,
+      "background_method": "magenta_local_cutout"
+    },
+    {
+      "category": "equipment",
+      "description": "Korona spleciona z metalu, korzeni i kości.",
+      "icon": "",
+      "id": "drowned_mother_crown",
+      "level": 8,
+      "name": "Korona Utopionej Matki",
+      "rarity": "epic",
+      "rarity_color": "aa69dc",
+      "rarity_label": "Epicki",
+      "regional": true,
+      "sets": [],
+      "slot": "head",
+      "sources": [
+        {
+          "chance": 0.18,
+          "enemy": "drowned_mother",
+          "region": "silentwater_marshes"
+        },
+        {
+          "ingredients": {
+            "cursed_resin": 2,
+            "mist_essence": 3,
+            "silentwater_heart": 3,
+            "sunken_plate": 2
+          },
+          "recipe": "drowned_mother_crown",
+          "region": "silent_water_marshes"
+        }
+      ],
+      "family": "drowned_mother",
+      "design": "One wearable crown seen three-quarter with visible opening: dark bronze twisted root circlet, FIVE ivory bone/antler-like prongs, a small black-water heart inset at brow. Restrained verdigris-green recesses and navy steel inner band. Match Drowned Mother antler-root silhouette without skull or face. All tips inside frame, elegant epic loot with simplified purposeful ornament.",
+      "prompt": "Use case: stylized-concept. Create ONE finished 2D inventory item icon for Echoes of Pythonia, matching its APPROVED ANIME-FANTASY game art. Image 1 is the anime hero STYLE reference; image 2 is an APPROVED item STYLE reference. Match clean drawn contours, sophisticated smooth painted/cel shading, broad deliberate highlights and readable volumes; NOT photorealism, NOT a 3D render, NOT childish flat clipart. Image 3 is ONLY the monster/lore source reference (if present); following images are material/design references, never copy their gritty microtexture. Simple materials must remain simple, not gold-encrusted loot. All visible content belongs to the one item or its matching pair. Composition: SQUARE canvas, centred entire item, at least 9% empty margin on EVERY side, useful silhouette at 64 pixels, light from upper left. No character, hands, text, prices, border, rarity frame, pedestal, surface, scenery, cast shadow, loose particles, glitter or external aura. Background extraction requirement: previous outputs had opaque checkerboards, which are unusable. Render this asset on ONLY perfectly uniform flat #FF00FF magenta for the explicitly user-authorized local alpha extraction. NO white background or checkerboard, no gradient, no key-color reflection, ground shadow or magenta inside the object. Final asset will be a transparent sprite. Subject and material constraints:\nOne wearable crown seen three-quarter with visible opening: dark bronze twisted root circlet, FIVE ivory bone/antler-like prongs, a small black-water heart inset at brow. Restrained verdigris-green recesses and navy steel inner band. Match Drowned Mother antler-root silhouette without skull or face. All tips inside frame, elegant epic loot with simplified purposeful ornament.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/mage_female.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/cultist_pendant.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/drowned_mother.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_02/processed/silentwater_heart.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_02/processed/sunken_plate.png"
+      ],
+      "target": "godot/assets/items/regional/drowned_mother_crown.png",
+      "phase": 2,
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-44e1f9af-9f27-4740-8ffa-c7351a19f258.png",
+      "key_shadows": false,
+      "neutral_edges": false,
+      "background_method": "magenta_local_cutout"
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "",
+      "id": "mireglass_bow",
+      "level": 8,
+      "name": "Łuk Mglistej Toni",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": false,
+      "sets": [],
+      "slot": "weapon",
+      "sources": [
+        {
+          "class_pool": "marsh",
+          "enemies": [
+            "bog_crawler",
+            "drowned_dead",
+            "swamp_witch",
+            "bone_crocodile",
+            "mist_walker",
+            "sunken_knight",
+            "drowned_mother"
+          ]
+        }
+      ],
+      "family": "silentwater_class",
+      "design": "One complete recurved hunting bow diagonally arranged, dark willow wood limbs with translucent muted teal marsh-glass inserts and aged silver reed-shaped tips. Dark leather grip, thin taut clearly visible bowstring, no arrow or quiver. Rare level-eight practical anime weapon. Shared Głucha Woda family: dark willow, blue-green glass and aged silver, flowing reed shapes, NO golden dragon ornament.",
+      "prompt": "Use case: stylized-concept. Create ONE finished 2D inventory item icon for Echoes of Pythonia, matching its APPROVED ANIME-FANTASY game art. Image 1 is the anime hero STYLE reference; image 2 is an APPROVED item STYLE reference. Match clean drawn contours, sophisticated smooth painted/cel shading, broad deliberate highlights and readable volumes; NOT photorealism, NOT a 3D render, NOT childish flat clipart. Image 3 is ONLY the monster/lore source reference (if present); following images are material/design references, never copy their gritty microtexture. Simple materials must remain simple, not gold-encrusted loot. All visible content belongs to the one item or its matching pair. Composition: SQUARE canvas, centred entire item, at least 9% empty margin on EVERY side, useful silhouette at 64 pixels, light from upper left. No character, hands, text, prices, border, rarity frame, pedestal, surface, scenery, cast shadow, loose particles, glitter or external aura. Background extraction requirement: previous outputs had opaque checkerboards, which are unusable. Render this asset on ONLY perfectly uniform flat #FF00FF magenta for the explicitly user-authorized local alpha extraction. NO white background or checkerboard, no gradient, no key-color reflection, ground shadow or magenta inside the object. Final asset will be a transparent sprite. Subject and material constraints:\nOne complete recurved hunting bow diagonally arranged, dark willow wood limbs with translucent muted teal marsh-glass inserts and aged silver reed-shaped tips. Dark leather grip, thin taut clearly visible bowstring, no arrow or quiver. Rare level-eight practical anime weapon. Shared Głucha Woda family: dark willow, blue-green glass and aged silver, flowing reed shapes, NO golden dragon ornament.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/cultist_pendant.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/mist_walker.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_02/processed/mist_essence.png"
+      ],
+      "target": "godot/assets/items/regional/mireglass_bow.png",
+      "phase": 2,
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-a0b567dc-5dda-449f-a368-30833b6069fe.png",
+      "key_shadows": true,
+      "neutral_edges": true,
+      "background_method": "magenta_local_cutout"
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "",
+      "id": "mire_staff",
+      "level": 8,
+      "name": "Kostur Głuchej Wody",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": false,
+      "sets": [],
+      "slot": "weapon",
+      "sources": [
+        {
+          "class_pool": "marsh",
+          "enemies": [
+            "bog_crawler",
+            "drowned_dead",
+            "swamp_witch",
+            "bone_crocodile",
+            "mist_walker",
+            "sunken_knight",
+            "drowned_mother"
+          ]
+        }
+      ],
+      "family": "silentwater_class",
+      "design": "One complete mage staff diagonally arranged, dark willow shaft, aged silver reed-shaped collars, curved root fork cradling a single smoky blue-green marsh-glass stone. Rare level-eight weapon, shared family with marsh bow: dark willow, teal glass, aged silver, flowing reeds. Magic contained in stone; no surrounding particles, broad aura, excessive filigree.",
+      "prompt": "Use case: stylized-concept. Create ONE finished 2D inventory item icon for Echoes of Pythonia, matching its APPROVED ANIME-FANTASY game art. Image 1 is the anime hero STYLE reference; image 2 is an APPROVED item STYLE reference. Match clean drawn contours, sophisticated smooth painted/cel shading, broad deliberate highlights and readable volumes; NOT photorealism, NOT a 3D render, NOT childish flat clipart. Image 3 is ONLY the monster/lore source reference (if present); following images are material/design references, never copy their gritty microtexture. Simple materials must remain simple, not gold-encrusted loot. All visible content belongs to the one item or its matching pair. Composition: SQUARE canvas, centred entire item, at least 9% empty margin on EVERY side, useful silhouette at 64 pixels, light from upper left. No character, hands, text, prices, border, rarity frame, pedestal, surface, scenery, cast shadow, loose particles, glitter or external aura. Background extraction requirement: previous outputs had opaque checkerboards, which are unusable. Render this asset on ONLY perfectly uniform flat #FF00FF magenta for the explicitly user-authorized local alpha extraction. NO white background or checkerboard, no gradient, no key-color reflection, ground shadow or magenta inside the object. Final asset will be a transparent sprite. Subject and material constraints:\nOne complete mage staff diagonally arranged, dark willow shaft, aged silver reed-shaped collars, curved root fork cradling a single smoky blue-green marsh-glass stone. Rare level-eight weapon, shared family with marsh bow: dark willow, teal glass, aged silver, flowing reeds. Magic contained in stone; no surrounding particles, broad aura, excessive filigree.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/mage_female.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/cultist_pendant.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/mist_walker.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_02/processed/mist_essence.png"
+      ],
+      "target": "godot/assets/items/regional/mire_staff.png",
+      "phase": 2,
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-9b241bf9-bb39-485e-972f-615160715da3.png",
+      "key_shadows": true,
+      "neutral_edges": true,
+      "background_method": "magenta_local_cutout"
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "",
+      "id": "drowned_fate_lance",
+      "level": 8,
+      "name": "Lanca Utopionego Zakładu",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": false,
+      "sets": [],
+      "slot": "weapon",
+      "sources": [
+        {
+          "class_pool": "marsh",
+          "enemies": [
+            "bog_crawler",
+            "drowned_dead",
+            "swamp_witch",
+            "bone_crocodile",
+            "mist_walker",
+            "sunken_knight",
+            "drowned_mother"
+          ]
+        }
+      ],
+      "family": "silentwater_class",
+      "design": "One complete slender fate lance diagonally arranged from lower left to upper right, entire butt and blade within frame. Aged silver leaf-shaped spearhead with a small diamond-shaped cutout, dark willow shaft, muted teal glass inset and a short navy ribbon tied just below head. Shared Głucha Woda family: dark willow, blue-green glass, aged silver. No dice, cards, character, shield or ornate winged clutter.",
+      "prompt": "Use case: stylized-concept. Create ONE finished 2D inventory item icon for Echoes of Pythonia, matching its APPROVED ANIME-FANTASY game art. Image 1 is the anime hero STYLE reference; image 2 is an APPROVED item STYLE reference. Match clean drawn contours, sophisticated smooth painted/cel shading, broad deliberate highlights and readable volumes; NOT photorealism, NOT a 3D render, NOT childish flat clipart. Image 3 is ONLY the monster/lore source reference (if present); following images are material/design references, never copy their gritty microtexture. Simple materials must remain simple, not gold-encrusted loot. All visible content belongs to the one item or its matching pair. Composition: SQUARE canvas, centred entire item, at least 9% empty margin on EVERY side, useful silhouette at 64 pixels, light from upper left. No character, hands, text, prices, border, rarity frame, pedestal, surface, scenery, cast shadow, loose particles, glitter or external aura. Background extraction requirement: previous outputs had opaque checkerboards, which are unusable. Render this asset on ONLY perfectly uniform flat #FF00FF magenta for the explicitly user-authorized local alpha extraction. NO white background or checkerboard, no gradient, no key-color reflection, ground shadow or magenta inside the object. Final asset will be a transparent sprite. Subject and material constraints:\nOne complete slender fate lance diagonally arranged from lower left to upper right, entire butt and blade within frame. Aged silver leaf-shaped spearhead with a small diamond-shaped cutout, dark willow shaft, muted teal glass inset and a short navy ribbon tied just below head. Shared Głucha Woda family: dark willow, blue-green glass, aged silver. No dice, cards, character, shield or ornate winged clutter.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/mage_female.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/cultist_pendant.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/sunken_knight.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_02/processed/sunken_plate.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_02/processed/mist_essence.png"
+      ],
+      "target": "godot/assets/items/regional/drowned_fate_lance.png",
+      "phase": 2,
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-782c537a-9a81-45a8-873a-12a238934600.png",
+      "key_shadows": false,
+      "neutral_edges": false,
+      "background_method": "magenta_local_cutout"
+    },
+    {
+      "category": "material",
+      "description": "Lekka, czarna kość nasycona suchym żarem.",
+      "icon": "",
+      "id": "charred_bone",
+      "level": 0,
+      "name": "Zwęglona Kość",
+      "rarity": "common",
+      "rarity_color": "8b929c",
+      "rarity_label": "Zwykły",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.75,
+          "enemy": "boneburner",
+          "region": "ashen_borderlands"
+        }
+      ],
+      "family": "boneburner",
+      "design": "One scorched skeletal forearm bone, not a weapon. Broad charcoal-black surface with two exposed chalk-beige broken ends and one dull red-orange ember visible in a fissure. Echo boneburner skeleton. Controlled simple surfaces and strong silhouette, no live fire, no sparks, no particles, no flesh.",
+      "prompt": "Use case: stylized-concept. Create ONE finished 2D inventory item icon for Echoes of Pythonia, matching its APPROVED ANIME-FANTASY game art. Image 1 is the anime hero STYLE reference; image 2 is an APPROVED item STYLE reference. Match clean drawn contours, sophisticated smooth painted/cel shading, broad deliberate highlights and readable volumes; NOT photorealism, NOT a 3D render, NOT childish flat clipart. Image 3 is ONLY the monster/lore source reference (if present); following images are material/design references, never copy their gritty microtexture. Simple materials must remain simple, not gold-encrusted loot. All visible content belongs to the one item or its matching pair. Composition: SQUARE canvas, centred entire item, at least 9% empty margin on EVERY side, useful silhouette at 64 pixels, light from upper left. No character, hands, text, prices, border, rarity frame, pedestal, surface, scenery, cast shadow, loose particles, glitter or external aura. Background: genuinely transparent alpha, never draw a checkerboard. If an opaque canvas is unavoidable, use ONLY perfectly uniform flat #FF00FF magenta for the user-authorized local cutout; no gradient, key-color reflection or ground shadow. Subject and material constraints:\nOne scorched skeletal forearm bone, not a weapon. Broad charcoal-black surface with two exposed chalk-beige broken ends and one dull red-orange ember visible in a fissure. Echo boneburner skeleton. Controlled simple surfaces and strong silhouette, no live fire, no sparks, no particles, no flesh.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/black_bear_claw.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/boneburner.png"
+      ],
+      "target": "godot/assets/items/regional/charred_bone.png",
+      "phase": 1,
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-f7fb2ef9-9483-44c7-9bd2-8c2c43fd3395.png",
+      "key_shadows": false,
+      "neutral_edges": false,
+      "background_method": "neutral_checker_exterior_only"
+    },
+    {
+      "category": "material",
+      "description": "Czarna żywica, która pozostaje ciepła nawet w zimnej wodzie.",
+      "icon": "",
+      "id": "cursed_resin",
+      "level": 0,
+      "name": "Przeklęta Żywica",
+      "rarity": "uncommon",
+      "rarity_color": "4ab875",
+      "rarity_label": "Niepospolity",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.25,
+          "enemy": "swamp_witch",
+          "region": "silentwater_marshes"
+        },
+        {
+          "chance": 0.25,
+          "enemy": "drowned_acolyte",
+          "region": "dungeon"
+        }
+      ],
+      "family": "swamp_witch",
+      "design": "A single irregular glossy black resin lump, compact teardrop form with a folded tacky tip and subtle deep olive-green interior reflection. One small marsh leaf partly trapped inside. It feels warm and viscous but is solid loot, not a glass bottle, coal crystal, gemstone necklace or blob of fluorescent goo. Broad dark-to-light illustrated planes.",
+      "prompt": "Use case: stylized-concept. Create ONE finished 2D inventory item icon for Echoes of Pythonia, matching its APPROVED ANIME-FANTASY game art. Image 1 is the anime hero STYLE reference; image 2 is an APPROVED item STYLE reference. Match clean drawn contours, sophisticated smooth painted/cel shading, broad deliberate highlights and readable volumes; NOT photorealism, NOT a 3D render, NOT childish flat clipart. Image 3 is ONLY the monster/lore source reference (if present); following images are material/design references, never copy their gritty microtexture. Simple materials must remain simple, not gold-encrusted loot. All visible content belongs to the one item or its matching pair. Composition: SQUARE canvas, centred entire item, at least 9% empty margin on EVERY side, useful silhouette at 64 pixels, light from upper left. No character, hands, text, prices, border, rarity frame, pedestal, surface, scenery, cast shadow, loose particles, glitter or external aura. Background: genuinely transparent alpha, never draw a checkerboard. If an opaque canvas is unavoidable, use ONLY perfectly uniform flat #FF00FF magenta for the user-authorized local cutout; no gradient, key-color reflection or ground shadow. Subject and material constraints:\nA single irregular glossy black resin lump, compact teardrop form with a folded tacky tip and subtle deep olive-green interior reflection. One small marsh leaf partly trapped inside. It feels warm and viscous but is solid loot, not a glass bottle, coal crystal, gemstone necklace or blob of fluorescent goo. Broad dark-to-light illustrated planes.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/black_bear_claw.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/swamp_witch.png"
+      ],
+      "target": "godot/assets/items/regional/cursed_resin.png",
+      "phase": 1,
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-25b956c6-0156-42c1-b643-7629da013812.png",
+      "key_shadows": false,
+      "neutral_edges": false,
+      "background_method": "neutral_checker_exterior_only"
+    },
+    {
+      "category": "material",
+      "description": "Gruba tkanina odporna na piasek i gorący wiatr.",
+      "icon": "",
+      "id": "desert_cloth",
+      "level": 0,
+      "name": "Pustynna Tkanina",
+      "rarity": "common",
+      "rarity_color": "8b929c",
+      "rarity_label": "Zwykły",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.7,
+          "enemy": "desert_wanderer",
+          "region": "ashen_borderlands"
+        }
+      ],
+      "family": "desert_wanderer",
+      "design": "One neatly folded length of thick sand-resistant cloth, warm sandstone beige with a faded rust-red woven border, loosely bound with a dark brown leather strip. Match desert wanderer's cream wraps and rust-red trim. Thick clearly readable folds with just two frayed ends, not noisy thread texture, no brooch or jewels.",
+      "prompt": "Use case: stylized-concept. Create ONE finished 2D inventory item icon for Echoes of Pythonia, matching its APPROVED ANIME-FANTASY game art. Image 1 is the anime hero STYLE reference; image 2 is an APPROVED item STYLE reference. Match clean drawn contours, sophisticated smooth painted/cel shading, broad deliberate highlights and readable volumes; NOT photorealism, NOT a 3D render, NOT childish flat clipart. Image 3 is ONLY the monster/lore source reference (if present); following images are material/design references, never copy their gritty microtexture. Simple materials must remain simple, not gold-encrusted loot. All visible content belongs to the one item or its matching pair. Composition: SQUARE canvas, centred entire item, at least 9% empty margin on EVERY side, useful silhouette at 64 pixels, light from upper left. No character, hands, text, prices, border, rarity frame, pedestal, surface, scenery, cast shadow, loose particles, glitter or external aura. Background: genuinely transparent alpha, never draw a checkerboard. If an opaque canvas is unavoidable, use ONLY perfectly uniform flat #FF00FF magenta for the user-authorized local cutout; no gradient, key-color reflection or ground shadow. Subject and material constraints:\nOne neatly folded length of thick sand-resistant cloth, warm sandstone beige with a faded rust-red woven border, loosely bound with a dark brown leather strip. Match desert wanderer's cream wraps and rust-red trim. Thick clearly readable folds with just two frayed ends, not noisy thread texture, no brooch or jewels.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/black_bear_claw.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/desert_wanderer.png"
+      ],
+      "target": "godot/assets/items/regional/desert_cloth.png",
+      "phase": 1,
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-39ed5137-d68c-4788-9fb1-72ee766bfb69.png",
+      "key_shadows": false,
+      "neutral_edges": false,
+      "background_method": "neutral_checker_exterior_only"
+    },
+    {
+      "category": "equipment",
+      "description": "Szeroki pas wzmocniony płytkami odpornymi na żar i piasek. Łączy ochronę z miejscem na cięższy ekwipunek.",
+      "icon": "",
+      "id": "wasteland_belt",
+      "level": 13,
+      "name": "Pas Pustkowi",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "belt",
+      "sources": [
+        {
+          "ingredients": {
+            "common_essence": 2,
+            "desert_cloth": 3,
+            "salamander_scale": 2,
+            "sand_golem_core": 3
+          },
+          "recipe": "wasteland_belt",
+          "region": "ashen_borderlands"
+        }
+      ],
+      "family": "wasteland",
+      "design": "A wide heavy expedition belt in a shallow oval three-quarter view. Thick beige and rust-red desert cloth underlayer, overlapping dark red salamander-scale plates and warm sandstone ceramic reinforcement sections, simple aged bronze buckle. Dark leather edging. Shared Wasteland armor family. Practical rare heat-resistant gear, no excessive gold.",
+      "prompt": "Use case: stylized-concept. Create ONE finished 2D inventory item icon for Echoes of Pythonia, matching its APPROVED ANIME-FANTASY game art. Image 1 is the anime hero STYLE reference; image 2 is an APPROVED item STYLE reference. Match clean drawn contours, sophisticated smooth painted/cel shading, broad deliberate highlights and readable volumes; NOT photorealism, NOT a 3D render, NOT childish flat clipart. Image 3 is ONLY the monster/lore source reference (if present); following images are material/design references, never copy their gritty microtexture. Simple materials must remain simple, not gold-encrusted loot. All visible content belongs to the one item or its matching pair. Composition: SQUARE canvas, centred entire item, at least 9% empty margin on EVERY side, useful silhouette at 64 pixels, light from upper left. No character, hands, text, prices, border, rarity frame, pedestal, surface, scenery, cast shadow, loose particles, glitter or external aura. Background extraction requirement: previous outputs had opaque checkerboards, which are unusable. Render this asset on ONLY perfectly uniform flat #FF00FF magenta for the explicitly user-authorized local alpha extraction. NO white background or checkerboard, no gradient, no key-color reflection, ground shadow or magenta inside the object. Final asset will be a transparent sprite. Subject and material constraints:\nA wide heavy expedition belt in a shallow oval three-quarter view. Thick beige and rust-red desert cloth underlayer, overlapping dark red salamander-scale plates and warm sandstone ceramic reinforcement sections, simple aged bronze buckle. Dark leather edging. Shared Wasteland armor family. Practical rare heat-resistant gear, no excessive gold.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/cultist_pendant.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/desert_wanderer.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_02/processed/desert_cloth.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_02/processed/salamander_scale.png"
+      ],
+      "target": "godot/assets/items/regional/wasteland_belt.png",
+      "phase": 2,
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-b443ae47-af3d-46d6-84e4-4b1994c96f86.png",
+      "key_shadows": true,
+      "neutral_edges": true,
+      "background_method": "magenta_local_cutout"
+    },
+    {
+      "category": "equipment",
+      "description": "Warstwowy pancerz przygotowany na żar, pył i długie wyprawy przez pustkowie.",
+      "icon": "",
+      "id": "wasteland_armor",
+      "level": 11,
+      "name": "Pancerz Pustkowi",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "chest",
+      "sources": [
+        {
+          "ingredients": {
+            "charred_bone": 2,
+            "common_essence": 2,
+            "desert_cloth": 4,
+            "sand_golem_core": 3
+          },
+          "recipe": "wasteland_armor",
+          "region": "ashen_borderlands"
+        }
+      ],
+      "family": "wasteland",
+      "design": "Empty wearable chest armor for hot dusty expeditions, no wearer: layered beige desert-cloth gambeson with faded rust-red borders, dark leather harness and warm sandstone ceramic chest/shoulder plates; a few charcoal bone fastening toggles. Shared Wasteland belt material palette. Clearly tailored adventurer armor, strong asymmetric but wearable silhouette, not a huge knight plate suit or robe.",
+      "prompt": "Use case: stylized-concept. Create ONE finished 2D inventory item icon for Echoes of Pythonia, matching its APPROVED ANIME-FANTASY game art. Image 1 is the anime hero STYLE reference; image 2 is an APPROVED item STYLE reference. Match clean drawn contours, sophisticated smooth painted/cel shading, broad deliberate highlights and readable volumes; NOT photorealism, NOT a 3D render, NOT childish flat clipart. Image 3 is ONLY the monster/lore source reference (if present); following images are material/design references, never copy their gritty microtexture. Simple materials must remain simple, not gold-encrusted loot. All visible content belongs to the one item or its matching pair. Composition: SQUARE canvas, centred entire item, at least 9% empty margin on EVERY side, useful silhouette at 64 pixels, light from upper left. No character, hands, text, prices, border, rarity frame, pedestal, surface, scenery, cast shadow, loose particles, glitter or external aura. Background extraction requirement: previous outputs had opaque checkerboards, which are unusable. Render this asset on ONLY perfectly uniform flat #FF00FF magenta for the explicitly user-authorized local alpha extraction. NO white background or checkerboard, no gradient, no key-color reflection, ground shadow or magenta inside the object. Final asset will be a transparent sprite. Subject and material constraints:\nEmpty wearable chest armor for hot dusty expeditions, no wearer: layered beige desert-cloth gambeson with faded rust-red borders, dark leather harness and warm sandstone ceramic chest/shoulder plates; a few charcoal bone fastening toggles. Shared Wasteland belt material palette. Clearly tailored adventurer armor, strong asymmetric but wearable silhouette, not a huge knight plate suit or robe.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/rotting_knight_helm.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/desert_wanderer.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_02/processed/desert_cloth.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_02/processed/sand_golem_core.png"
+      ],
+      "target": "godot/assets/items/regional/wasteland_armor.png",
+      "phase": 2,
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-39f026a0-ef2d-4e79-8c09-f09072e73ab4.png",
+      "key_shadows": false,
+      "neutral_edges": false,
+      "background_method": "magenta_local_cutout"
+    },
+    {
+      "category": "material",
+      "description": "Twarde pióro zachowujące lekkość mimo pustynnego pyłu.",
+      "icon": "",
+      "id": "harpy_feather",
+      "level": 0,
+      "name": "Pióro Harpii",
+      "rarity": "common",
+      "rarity_color": "8b929c",
+      "rarity_label": "Zwykły",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.7,
+          "enemy": "desert_harpy",
+          "region": "ashen_borderlands"
+        }
+      ],
+      "family": "desert_harpy",
+      "design": "One long curved desert harpy flight feather diagonally placed. Cream-white base, warm brown centre stripe and muted rust-red outer tip, matching the source harpy's actual wings. Pale sturdy quill with a little sand color near root, broad feather groups not hundreds of razor microstrands. No jewellery or magical glow.",
+      "prompt": "Use case: stylized-concept. Create ONE finished 2D inventory item icon for Echoes of Pythonia, matching its APPROVED ANIME-FANTASY game art. Image 1 is the anime hero STYLE reference; image 2 is an APPROVED item STYLE reference. Match clean drawn contours, sophisticated smooth painted/cel shading, broad deliberate highlights and readable volumes; NOT photorealism, NOT a 3D render, NOT childish flat clipart. Image 3 is ONLY the monster/lore source reference (if present); following images are material/design references, never copy their gritty microtexture. Simple materials must remain simple, not gold-encrusted loot. All visible content belongs to the one item or its matching pair. Composition: SQUARE canvas, centred entire item, at least 9% empty margin on EVERY side, useful silhouette at 64 pixels, light from upper left. No character, hands, text, prices, border, rarity frame, pedestal, surface, scenery, cast shadow, loose particles, glitter or external aura. Background: genuinely transparent alpha, never draw a checkerboard. If an opaque canvas is unavoidable, use ONLY perfectly uniform flat #FF00FF magenta for the user-authorized local cutout; no gradient, key-color reflection or ground shadow. Subject and material constraints:\nOne long curved desert harpy flight feather diagonally placed. Cream-white base, warm brown centre stripe and muted rust-red outer tip, matching the source harpy's actual wings. Pale sturdy quill with a little sand color near root, broad feather groups not hundreds of razor microstrands. No jewellery or magical glow.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/black_bear_claw.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/desert_harpy.png"
+      ],
+      "target": "godot/assets/items/regional/harpy_feather.png",
+      "phase": 1,
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-6d76490a-75af-40de-b77d-be38c70370f5.png",
+      "key_shadows": false,
+      "neutral_edges": false,
+      "background_method": "neutral_checker_exterior_only"
+    },
+    {
+      "category": "material",
+      "description": "Czerwona łuska, która długo pozostaje ciepła po dotknięciu.",
+      "icon": "",
+      "id": "salamander_scale",
+      "level": 0,
+      "name": "Łuska Salamandry",
+      "rarity": "uncommon",
+      "rarity_color": "4ab875",
+      "rarity_label": "Niepospolity",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.65,
+          "enemy": "red_salamander",
+          "region": "ashen_borderlands"
+        }
+      ],
+      "family": "salamander",
+      "design": "One thick red salamander scale, broad tapered kite-like organic scute, crimson red upper planes, charcoal-dark edge, a warm orange-yellow narrow ridge running through centre. Match red salamander body. Soft retained heat INSIDE only, no floating embers or live flames. Organic material not an ornate red gemstone.",
+      "prompt": "Use case: stylized-concept. Create ONE finished 2D inventory item icon for Echoes of Pythonia, matching its APPROVED ANIME-FANTASY game art. Image 1 is the anime hero STYLE reference; image 2 is an APPROVED item STYLE reference. Match clean drawn contours, sophisticated smooth painted/cel shading, broad deliberate highlights and readable volumes; NOT photorealism, NOT a 3D render, NOT childish flat clipart. Image 3 is ONLY the monster/lore source reference (if present); following images are material/design references, never copy their gritty microtexture. Simple materials must remain simple, not gold-encrusted loot. All visible content belongs to the one item or its matching pair. Composition: SQUARE canvas, centred entire item, at least 9% empty margin on EVERY side, useful silhouette at 64 pixels, light from upper left. No character, hands, text, prices, border, rarity frame, pedestal, surface, scenery, cast shadow, loose particles, glitter or external aura. Background: genuinely transparent alpha, never draw a checkerboard. If an opaque canvas is unavoidable, use ONLY perfectly uniform flat #FF00FF magenta for the user-authorized local cutout; no gradient, key-color reflection or ground shadow. Subject and material constraints:\nOne thick red salamander scale, broad tapered kite-like organic scute, crimson red upper planes, charcoal-dark edge, a warm orange-yellow narrow ridge running through centre. Match red salamander body. Soft retained heat INSIDE only, no floating embers or live flames. Organic material not an ornate red gemstone.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/black_bear_claw.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/red_salamander.png"
+      ],
+      "target": "godot/assets/items/regional/salamander_scale.png",
+      "phase": 1,
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-049841f7-c4e8-4296-9e55-55057b5e637a.png",
+      "key_shadows": false,
+      "neutral_edges": false,
+      "background_method": "preserved_existing_alpha"
+    },
+    {
+      "category": "equipment",
+      "description": "Ciężkie osłony przedramion wykute z materiału, który nie stygnie nawet nocą.",
+      "icon": "",
+      "id": "hearth_gauntlets",
+      "level": 13,
+      "name": "Karwasze Paleniska",
+      "rarity": "epic",
+      "rarity_color": "aa69dc",
+      "rarity_label": "Epicki",
+      "regional": true,
+      "sets": [],
+      "slot": "hands",
+      "sources": [
+        {
+          "chance": 0.15,
+          "enemy": "hearth_devourer",
+          "region": "ashen_borderlands"
+        },
+        {
+          "ingredients": {
+            "charred_bone": 4,
+            "common_essence": 2,
+            "hearth_core": 3,
+            "salamander_scale": 2
+          },
+          "recipe": "hearth_gauntlets",
+          "region": "ashen_borderlands"
+        }
+      ],
+      "family": "hearth",
+      "design": "One MATCHING PAIR of heavy forearm bracers/gauntlets arranged together, both fully visible. Charcoal-black heat-resistant plates with broad bone-ivory braces, a few dark red salamander scales and narrow orange ember seams. Shared shape language with hearth core material. Heavy epic craftsmanship but only a handful of large purposeful plates; restrained contained heat not a fireball. No character arms or display stand.",
+      "prompt": "Use case: stylized-concept. Create ONE finished 2D inventory item icon for Echoes of Pythonia, matching its APPROVED ANIME-FANTASY game art. Image 1 is the anime hero STYLE reference; image 2 is an APPROVED item STYLE reference. Match clean drawn contours, sophisticated smooth painted/cel shading, broad deliberate highlights and readable volumes; NOT photorealism, NOT a 3D render, NOT childish flat clipart. Image 3 is ONLY the monster/lore source reference (if present); following images are material/design references, never copy their gritty microtexture. Simple materials must remain simple, not gold-encrusted loot. All visible content belongs to the one item or its matching pair. Composition: SQUARE canvas, centred entire item, at least 9% empty margin on EVERY side, useful silhouette at 64 pixels, light from upper left. No character, hands, text, prices, border, rarity frame, pedestal, surface, scenery, cast shadow, loose particles, glitter or external aura. Background extraction requirement: previous outputs had opaque checkerboards, which are unusable. Render this asset on ONLY perfectly uniform flat #FF00FF magenta for the explicitly user-authorized local alpha extraction. NO white background or checkerboard, no gradient, no key-color reflection, ground shadow or magenta inside the object. Final asset will be a transparent sprite. Subject and material constraints:\nOne MATCHING PAIR of heavy forearm bracers/gauntlets arranged together, both fully visible. Charcoal-black heat-resistant plates with broad bone-ivory braces, a few dark red salamander scales and narrow orange ember seams. Shared shape language with hearth core material. Heavy epic craftsmanship but only a handful of large purposeful plates; restrained contained heat not a fireball. No character arms or display stand.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/rotting_knight_helm.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/hearth_devourer.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/materials/hearth_core.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_02/processed/salamander_scale.png"
+      ],
+      "target": "godot/assets/items/regional/hearth_gauntlets.png",
+      "phase": 2,
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-c980879a-6f07-4bc5-a360-17c61d067b7d.png",
+      "key_shadows": false,
+      "neutral_edges": false,
+      "background_method": "magenta_local_cutout"
+    },
+    {
+      "category": "material",
+      "description": "Zbity kamienny rdzeń, wokół którego utrzymuje się drobny piasek.",
+      "icon": "",
+      "id": "sand_golem_core",
+      "level": 0,
+      "name": "Rdzeń Piaskowego Golema",
+      "rarity": "uncommon",
+      "rarity_color": "4ab875",
+      "rarity_label": "Niepospolity",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "chance": 0.7,
+          "enemy": "sand_golem",
+          "region": "ashen_borderlands"
+        }
+      ],
+      "family": "sand_golem",
+      "design": "One compact angular sandstone core, layered ochre and pale cream rock plates wrapped around a small amber heart-shaped internal seam. Echo the sand golem's chunky sandstone body. A light dusting represented by broad matte color shifts, NOT granular speckle noise. No metal jewelry, arbitrary neon crystal, ground debris or stand.",
+      "prompt": "Use case: stylized-concept. Create ONE finished 2D inventory item icon for Echoes of Pythonia, matching its APPROVED ANIME-FANTASY game art. Image 1 is the anime hero STYLE reference; image 2 is an APPROVED item STYLE reference. Match clean drawn contours, sophisticated smooth painted/cel shading, broad deliberate highlights and readable volumes; NOT photorealism, NOT a 3D render, NOT childish flat clipart. Image 3 is ONLY the monster/lore source reference (if present); following images are material/design references, never copy their gritty microtexture. Simple materials must remain simple, not gold-encrusted loot. All visible content belongs to the one item or its matching pair. Composition: SQUARE canvas, centred entire item, at least 9% empty margin on EVERY side, useful silhouette at 64 pixels, light from upper left. No character, hands, text, prices, border, rarity frame, pedestal, surface, scenery, cast shadow, loose particles, glitter or external aura. Background: genuinely transparent alpha, never draw a checkerboard. If an opaque canvas is unavoidable, use ONLY perfectly uniform flat #FF00FF magenta for the user-authorized local cutout; no gradient, key-color reflection or ground shadow. Subject and material constraints:\nOne compact angular sandstone core, layered ochre and pale cream rock plates wrapped around a small amber heart-shaped internal seam. Echo the sand golem's chunky sandstone body. A light dusting represented by broad matte color shifts, NOT granular speckle noise. No metal jewelry, arbitrary neon crystal, ground debris or stand.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/black_bear_claw.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/sand_golem.png"
+      ],
+      "target": "godot/assets/items/regional/sand_golem_core.png",
+      "phase": 1,
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-609ce92e-81f3-4d70-88e8-98efa4f66be1.png",
+      "key_shadows": false,
+      "neutral_edges": false,
+      "background_method": "preserved_existing_alpha"
+    },
+    {
+      "category": "equipment",
+      "description": "Ogrzany kamień oprawiony w metal. Zatrzymuje w sobie resztki żywej energii.",
+      "icon": "",
+      "id": "sun_talisman",
+      "level": 12,
+      "name": "Talizman Słońca",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "necklace",
+      "sources": [
+        {
+          "ingredients": {
+            "common_essence": 3,
+            "harpy_feather": 3,
+            "salamander_scale": 3,
+            "spark_of_life": 1
+          },
+          "recipe": "sun_talisman",
+          "region": "ashen_borderlands"
+        }
+      ],
+      "family": "wasteland",
+      "design": "One talisman necklace with a short fully visible dark leather cord loop: smooth warm ochre stone set in a restrained bronze sun-shaped frame with FIVE broad ray points, two small cream-to-rust-red harpy feather accents tied near cord. One small red salamander-scale setting beneath stone. Rare protective desert charm, no enormous crown, random gems or external light halo.",
+      "prompt": "Use case: stylized-concept. Create ONE finished 2D inventory item icon for Echoes of Pythonia, matching its APPROVED ANIME-FANTASY game art. Image 1 is the anime hero STYLE reference; image 2 is an APPROVED item STYLE reference. Match clean drawn contours, sophisticated smooth painted/cel shading, broad deliberate highlights and readable volumes; NOT photorealism, NOT a 3D render, NOT childish flat clipart. Image 3 is ONLY the monster/lore source reference (if present); following images are material/design references, never copy their gritty microtexture. Simple materials must remain simple, not gold-encrusted loot. All visible content belongs to the one item or its matching pair. Composition: SQUARE canvas, centred entire item, at least 9% empty margin on EVERY side, useful silhouette at 64 pixels, light from upper left. No character, hands, text, prices, border, rarity frame, pedestal, surface, scenery, cast shadow, loose particles, glitter or external aura. Background extraction requirement: previous outputs had opaque checkerboards, which are unusable. Render this asset on ONLY perfectly uniform flat #FF00FF magenta for the explicitly user-authorized local alpha extraction. NO white background or checkerboard, no gradient, no key-color reflection, ground shadow or magenta inside the object. Final asset will be a transparent sprite. Subject and material constraints:\nOne talisman necklace with a short fully visible dark leather cord loop: smooth warm ochre stone set in a restrained bronze sun-shaped frame with FIVE broad ray points, two small cream-to-rust-red harpy feather accents tied near cord. One small red salamander-scale setting beneath stone. Rare protective desert charm, no enormous crown, random gems or external light halo.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/cultist_pendant.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/desert_harpy.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_02/processed/harpy_feather.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_02/processed/salamander_scale.png"
+      ],
+      "target": "godot/assets/items/regional/sun_talisman.png",
+      "phase": 2,
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-ba46756d-849e-454e-aef7-d6ec362abd19.png",
+      "key_shadows": true,
+      "neutral_edges": true,
+      "background_method": "magenta_local_cutout"
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "",
+      "id": "ashwind_bow",
+      "level": 13,
+      "name": "Łuk Popielnego Wiatru",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": false,
+      "sets": [],
+      "slot": "weapon",
+      "sources": [
+        {
+          "class_pool": "ashlands",
+          "enemies": [
+            "sand_golem",
+            "desert_harpy",
+            "desert_wanderer",
+            "boneburner",
+            "red_salamander",
+            "hearth_devourer",
+            "azhar"
+          ]
+        }
+      ],
+      "family": "ash_class",
+      "design": "One complete recurved bow diagonally composed. Charcoal-dark scorched wood, aged copper fittings, narrow red salamander-scale insets along tips, sandstone beige leather grip with rust-red wrap. Thin taut bowstring. Shared Popielne Pogranicza family: charcoal, aged copper, sandstone cloth, tiny ember-orange inset. Rare class weapon, no live flames, arrows, surrounding sparks or excessive filigree.",
+      "prompt": "Use case: stylized-concept. Create ONE finished 2D inventory item icon for Echoes of Pythonia, matching its APPROVED ANIME-FANTASY game art. Image 1 is the anime hero STYLE reference; image 2 is an APPROVED item STYLE reference. Match clean drawn contours, sophisticated smooth painted/cel shading, broad deliberate highlights and readable volumes; NOT photorealism, NOT a 3D render, NOT childish flat clipart. Image 3 is ONLY the monster/lore source reference (if present); following images are material/design references, never copy their gritty microtexture. Simple materials must remain simple, not gold-encrusted loot. All visible content belongs to the one item or its matching pair. Composition: SQUARE canvas, centred entire item, at least 9% empty margin on EVERY side, useful silhouette at 64 pixels, light from upper left. No character, hands, text, prices, border, rarity frame, pedestal, surface, scenery, cast shadow, loose particles, glitter or external aura. Background extraction requirement: previous outputs had opaque checkerboards, which are unusable. Render this asset on ONLY perfectly uniform flat #FF00FF magenta for the explicitly user-authorized local alpha extraction. NO white background or checkerboard, no gradient, no key-color reflection, ground shadow or magenta inside the object. Final asset will be a transparent sprite. Subject and material constraints:\nOne complete recurved bow diagonally composed. Charcoal-dark scorched wood, aged copper fittings, narrow red salamander-scale insets along tips, sandstone beige leather grip with rust-red wrap. Thin taut bowstring. Shared Popielne Pogranicza family: charcoal, aged copper, sandstone cloth, tiny ember-orange inset. Rare class weapon, no live flames, arrows, surrounding sparks or excessive filigree.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/cultist_pendant.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/desert_wanderer.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_02/processed/desert_cloth.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_02/processed/salamander_scale.png"
+      ],
+      "target": "godot/assets/items/regional/ashwind_bow.png",
+      "phase": 2,
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-0f229c72-b53e-491e-a4e9-a78d86c67a53.png",
+      "key_shadows": true,
+      "neutral_edges": true,
+      "background_method": "magenta_local_cutout"
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "",
+      "id": "ember_staff",
+      "level": 13,
+      "name": "Kostur Popielnego Żaru",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": false,
+      "sets": [],
+      "slot": "weapon",
+      "sources": [
+        {
+          "class_pool": "ashlands",
+          "enemies": [
+            "sand_golem",
+            "desert_harpy",
+            "desert_wanderer",
+            "boneburner",
+            "red_salamander",
+            "hearth_devourer",
+            "azhar"
+          ]
+        }
+      ],
+      "family": "ash_class",
+      "design": "One complete long mage staff diagonally composed, charcoal-dark wood and aged copper collars, forked ivory-bone top enclosing a compact dark volcanic core with two orange ember seams. Beige leather/rust-red grip. Shared ash-region class family charcoal/copper/sandstone/contained ember. Rare class weapon, not a flaming torch, no particles or extensive jewellery.",
+      "prompt": "Use case: stylized-concept. Create ONE finished 2D inventory item icon for Echoes of Pythonia, matching its APPROVED ANIME-FANTASY game art. Image 1 is the anime hero STYLE reference; image 2 is an APPROVED item STYLE reference. Match clean drawn contours, sophisticated smooth painted/cel shading, broad deliberate highlights and readable volumes; NOT photorealism, NOT a 3D render, NOT childish flat clipart. Image 3 is ONLY the monster/lore source reference (if present); following images are material/design references, never copy their gritty microtexture. Simple materials must remain simple, not gold-encrusted loot. All visible content belongs to the one item or its matching pair. Composition: SQUARE canvas, centred entire item, at least 9% empty margin on EVERY side, useful silhouette at 64 pixels, light from upper left. No character, hands, text, prices, border, rarity frame, pedestal, surface, scenery, cast shadow, loose particles, glitter or external aura. Background extraction requirement: previous outputs had opaque checkerboards, which are unusable. Render this asset on ONLY perfectly uniform flat #FF00FF magenta for the explicitly user-authorized local alpha extraction. NO white background or checkerboard, no gradient, no key-color reflection, ground shadow or magenta inside the object. Final asset will be a transparent sprite. Subject and material constraints:\nOne complete long mage staff diagonally composed, charcoal-dark wood and aged copper collars, forked ivory-bone top enclosing a compact dark volcanic core with two orange ember seams. Beige leather/rust-red grip. Shared ash-region class family charcoal/copper/sandstone/contained ember. Rare class weapon, not a flaming torch, no particles or extensive jewellery.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/mage_female.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/cultist_pendant.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/hearth_devourer.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_02/processed/charred_bone.png"
+      ],
+      "target": "godot/assets/items/regional/ember_staff.png",
+      "phase": 2,
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-7a843273-e9f4-497d-b2b4-e407dd0fce1a.png",
+      "key_shadows": true,
+      "neutral_edges": true,
+      "background_method": "magenta_local_cutout"
+    },
+    {
+      "category": "equipment",
+      "description": "Osobiste wyposażenie kompana, zgodne z terminalową v0.24.7.",
+      "icon": "",
+      "id": "ashen_fate_lance",
+      "level": 13,
+      "name": "Lanca Popielnego Hazardu",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": false,
+      "sets": [],
+      "slot": "weapon",
+      "sources": [
+        {
+          "class_pool": "ashlands",
+          "enemies": [
+            "sand_golem",
+            "desert_harpy",
+            "desert_wanderer",
+            "boneburner",
+            "red_salamander",
+            "hearth_devourer",
+            "azhar"
+          ]
+        }
+      ],
+      "family": "ash_class",
+      "design": "One complete fate lance diagonally composed, long charcoal shaft with aged copper bindings and sandstone beige/rust-red grip. Spearhead of black steel with copper bevel and one small diamond-shaped open slot; a single tiny ember-orange inset below blade. Shared ash-region class family. Clear elegant silhouette, no dice, cards, wings, flames, sparks or extra weapon.",
+      "prompt": "Use case: stylized-concept. Create ONE finished 2D inventory item icon for Echoes of Pythonia, matching its APPROVED ANIME-FANTASY game art. Image 1 is the anime hero STYLE reference; image 2 is an APPROVED item STYLE reference. Match clean drawn contours, sophisticated smooth painted/cel shading, broad deliberate highlights and readable volumes; NOT photorealism, NOT a 3D render, NOT childish flat clipart. Image 3 is ONLY the monster/lore source reference (if present); following images are material/design references, never copy their gritty microtexture. Simple materials must remain simple, not gold-encrusted loot. All visible content belongs to the one item or its matching pair. Composition: SQUARE canvas, centred entire item, at least 9% empty margin on EVERY side, useful silhouette at 64 pixels, light from upper left. No character, hands, text, prices, border, rarity frame, pedestal, surface, scenery, cast shadow, loose particles, glitter or external aura. Background extraction requirement: previous outputs had opaque checkerboards, which are unusable. Render this asset on ONLY perfectly uniform flat #FF00FF magenta for the explicitly user-authorized local alpha extraction. NO white background or checkerboard, no gradient, no key-color reflection, ground shadow or magenta inside the object. Final asset will be a transparent sprite. Subject and material constraints:\nOne complete fate lance diagonally composed, long charcoal shaft with aged copper bindings and sandstone beige/rust-red grip. Spearhead of black steel with copper bevel and one small diamond-shaped open slot; a single tiny ember-orange inset below blade. Shared ash-region class family. Clear elegant silhouette, no dice, cards, wings, flames, sparks or extra weapon.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/mage_female.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/cultist_pendant.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/enemies/desert_wanderer.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_02/processed/desert_cloth.png"
+      ],
+      "target": "godot/assets/items/regional/ashen_fate_lance.png",
+      "phase": 2,
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-f4777629-0a02-4017-9b60-5ed0c5413cca.png",
+      "key_shadows": false,
+      "neutral_edges": false,
+      "background_method": "magenta_local_cutout"
+    },
+    {
+      "category": "consumable",
+      "description": "Duża fiolka gęstego eliksiru. Przywraca 150 HP.",
+      "icon": "",
+      "id": "great_healing_potion",
+      "level": 0,
+      "name": "Wielka Mikstura Lecznicza",
+      "rarity": "rare",
+      "rarity_color": "4f96e8",
+      "rarity_label": "Rzadki",
+      "regional": true,
+      "sets": [],
+      "slot": "",
+      "sources": [
+        {
+          "ingredients": {
+            "mist_essence": 1,
+            "strong_healing_potion": 3
+          },
+          "recipe": "great_healing_potion",
+          "region": "silent_water_marshes"
+        }
+      ],
+      "family": "healing_potion",
+      "design": "One LARGE healing potion bottle, distinctly upgraded sibling of the supplied red Strong Healing Potion. Wider sturdy faceted glass belly containing thick ruby-red liquid, short neck and cork sealed with red wax, dark brown leather neck band with a simple bronze leaf medallion. Broad clean glass reflection planes, red contents remain visually solid enough for a readable inventory icon. No bubbles, speckles or countless specular dots. Gentle cool glass edge hint from mist essence ingredient, no purple potion. No labels or writing.",
+      "prompt": "Use case: stylized-concept. Create ONE finished 2D inventory item icon for Echoes of Pythonia, matching its APPROVED ANIME-FANTASY game art. Image 1 is the anime hero STYLE reference; image 2 is an APPROVED item STYLE reference. Match clean drawn contours, sophisticated smooth painted/cel shading, broad deliberate highlights and readable volumes; NOT photorealism, NOT a 3D render, NOT childish flat clipart. Image 3 is ONLY the existing Strong Healing Potion design reference; image 4 is the mist essence ingredient reference. Never copy their microtexture. Simple materials must remain simple, not gold-encrusted loot. All visible content belongs to the one item or its matching pair. Composition: SQUARE canvas, centred entire item, at least 9% empty margin on EVERY side, useful silhouette at 64 pixels, light from upper left. No character, hands, text, prices, border, rarity frame, pedestal, surface, scenery, cast shadow, loose particles, glitter or external aura. Background extraction requirement: previous outputs had opaque checkerboards, which are unusable. Render this asset on ONLY perfectly uniform flat #FF00FF magenta for the explicitly user-authorized local alpha extraction. NO white background or checkerboard, no gradient, no key-color reflection, ground shadow or magenta inside the object. Final asset will be a transparent sprite. Subject and material constraints:\nOne LARGE healing potion bottle, distinctly upgraded sibling of the supplied red Strong Healing Potion. Wider sturdy faceted glass belly containing thick ruby-red liquid, short neck and cork sealed with red wax, dark brown leather neck band with a simple bronze leaf medallion. Broad clean glass reflection planes, red contents remain visually solid enough for a readable inventory icon. No bubbles, speckles or countless specular dots. Gentle cool glass edge hint from mist essence ingredient, no purple potion. No labels or writing.",
+      "referenced_image_paths": [
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/combat/heroes/hunter_male.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/regional/cultist_pendant.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/godot/assets/items/consumables/strong_healing_potion.png",
+        "C:/Users/kamil/OneDrive/Desktop/echoes_of_pythonia_v0.24.7_refactored/echoes_of_pythonia/art_drafts/anime_style_batch_02/processed/mist_essence.png"
+      ],
+      "target": "godot/assets/items/regional/great_healing_potion.png",
+      "phase": 2,
+      "status": "integrated_alpha_reviewed",
+      "source": "C:/Users/kamil/.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/exec-7e162e78-4c61-4355-8afe-132d1e29d494.png",
+      "key_shadows": true,
+      "neutral_edges": true,
+      "background_method": "magenta_local_cutout"
+    }
+  ],
+  "generation_method": "built-in imagegen; one call per item; authorized local background extraction",
+  "asset_validation": "../../output/item_art/anime_batch_02_asset_validation.json",
+  "review_sheet": "../../output/item_art/anime_batch_02_review.png",
+  "in_game_preview": "../../output/item_art/anime_batch_02_in_game.png",
+  "verification": {
+    "godot_tests_passed": 50,
+    "godot_assertions": 2896,
+    "python_cutout_tests_passed": 5,
+    "catalog_total": 159,
+    "catalog_icons": 110,
+    "catalog_missing": 49,
+    "save_access": "in-memory fixture with isolated APPDATA; no player saves opened or changed"
+  }
+}

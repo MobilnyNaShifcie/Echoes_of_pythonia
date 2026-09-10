@@ -12,6 +12,7 @@ const CombatActionCardClass := preload(
 	"res://ui/components/combat_action_card/combat_action_card.gd"
 )
 const CombatantVisualClass := preload("res://ui/components/combatant_visual/combatant_visual.gd")
+const ConsumableServiceClass := preload("res://core/items/consumable_service.gd")
 const CombatPresentationCatalogClass := preload(
 	"res://ui/presentation/combat_presentation_catalog.gd"
 )
@@ -22,7 +23,6 @@ const CombatPresentationPlanClass := preload("res://ui/presentation/combat_prese
 const ElementalResistancesClass := preload("res://core/combat/elemental_resistances.gd")
 const EnemyCatalogClass := preload("res://core/combat/enemy_catalog.gd")
 const GameSessionClass := preload("res://core/game/game_session.gd")
-const HunterComboCatalogClass := preload("res://core/combat/hunter_combo_catalog.gd")
 const ItemCatalogClass := preload("res://core/items/item_catalog.gd")
 const LootPresentationClass := preload("res://ui/components/loot_presentation/loot_presentation.gd")
 const PlayerClassCatalogClass := preload("res://core/player/player_class_catalog.gd")
@@ -33,14 +33,13 @@ const RegionBossChallengeServiceClass := preload(
 const EliteEncounterServiceClass := preload("res://core/world/elite_encounter_service.gd")
 const SkillCatalogClass := preload("res://core/skills/skill_catalog.gd")
 const WeatherServiceClass := preload("res://core/world/weather_service.gd")
-const HEALING_ITEM_IDS := [
-	"weak_healing_potion", "strong_healing_potion", "hunter_provisions", "grandmaster_elixir"
-]
 
 var _session: GameSessionClass
 var _enemy
 var _engine: CombatEngineClass
 var _context := "expedition"
+var _dungeon_id := ""
+var _dungeon_room_id := ""
 var _rng := RandomNumberGenerator.new()
 var _battle_actions_enabled := true
 var _last_fate_dice: Array[int] = []
@@ -50,6 +49,7 @@ var _encounter_weather_code := WeatherServiceClass.SUNNY
 var _battle_title := ""
 var _configuration_error := ""
 var _round_number := 1
+var _terminal_resources: Dictionary = {}
 var _presentation_controller: CombatPresentationControllerClass
 
 @onready var encounter_label: Label = %EncounterLabel
@@ -90,9 +90,13 @@ var _presentation_controller: CombatPresentationControllerClass
 @onready var skill_cards: HBoxContainer = %SkillCards
 @onready var empty_skills_label: Label = %EmptySkillsLabel
 @onready var weave_row: HBoxContainer = %WeaveRow
+@onready var weave_toggle_button: Button = %WeaveToggleButton
+@onready var scroll_previous_button: Button = %ScrollPreviousButton
+@onready var scroll_next_button: Button = %ScrollNextButton
 @onready var second_spell_selector: OptionButton = %SecondSpellSelector
 @onready var double_weave_button: Button = %DoubleWeaveButton
 @onready var consumable_selector: OptionButton = %ConsumableSelector
+@onready var consumable_hint: Label = %ConsumableHint
 @onready var potion_button: Button = %PotionButton
 @onready var flee_button: Button = %FleeButton
 @onready var result_panel: PanelContainer = %ResultPanel
@@ -115,6 +119,7 @@ func _ready() -> void:
 	skill_button.pressed.connect(_use_skill)
 	second_spell_selector.item_selected.connect(_on_second_spell_selected)
 	double_weave_button.pressed.connect(_use_double_weave)
+	weave_toggle_button.toggled.connect(func(_pressed: bool) -> void: _render_double_weave_action())
 	consumable_selector.item_selected.connect(_on_consumable_selected)
 	potion_button.pressed.connect(_use_potion)
 	flee_button.pressed.connect(_flee)
@@ -124,7 +129,6 @@ func _ready() -> void:
 	_configure_presentations()
 	_configure_presentation_controller()
 	_render()
-	attack_button.grab_focus()
 
 
 func _configure_presentation_controller() -> void:
@@ -132,11 +136,13 @@ func _configure_presentation_controller() -> void:
 	add_child(_presentation_controller)
 	_presentation_controller.configure(self)
 	_presentation_controller.playback_finished.connect(_finish_presented_turn)
+	get_node("Page/Lower").configure_motion(_presentation_controller)
 
 
 func set_reduced_motion(enabled: bool) -> void:
 	if _presentation_controller != null:
 		_presentation_controller.set_reduced_motion(enabled)
+		get_node("Page/Lower").drawer.reduced_motion = enabled
 
 
 func configure(
@@ -147,9 +153,13 @@ func configure(
 	engine_script = null,
 	battle_title := "",
 	elite_modifier_id := "",
+	dungeon_id := "",
+	dungeon_room_id := "",
 ) -> void:
 	_session = session
 	_context = context
+	_dungeon_id = dungeon_id if context == "dungeon" else ""
+	_dungeon_room_id = dungeon_room_id if context == "dungeon" else ""
 	_encounter_weather_code = (
 		weather_code
 		if WeatherServiceClass.is_valid_code(weather_code)
@@ -159,6 +169,7 @@ func configure(
 	_battle_title = battle_title
 	_configuration_error = ""
 	_round_number = 1
+	_terminal_resources.clear()
 	if _uses_surface_weather():
 		WeatherServiceClass.apply_to_enemy(_enemy, _encounter_weather_code)
 		if _context == "expedition" and not elite_modifier_id.is_empty():
@@ -177,6 +188,12 @@ func configure(
 	_last_fate_outcome = ""
 	_last_hunter_combo = ""
 	if is_node_ready():
+		weave_toggle_button.set_pressed_no_signal(false)
+		result_panel.hide()
+		get_node("Page/Lower").drawer.pinned = false
+		get_node("Page/Lower").drawer.set_open(false, true)
+		log_panel.hide()
+		log_toggle_button.text = "Pokaż dziennik"
 		combat_log.clear()
 		_configure_presentations()
 		_append_log("Rozpoczyna się walka z: %s." % _enemy.display_name)
@@ -198,7 +215,11 @@ func _configure_presentations() -> void:
 	if _session == null or _enemy == null:
 		return
 	var background := CombatPresentationCatalogClass.battlefield_texture(
-		_session.current_location_id, _session.period_code(), _context
+		_session.current_location_id,
+		_session.period_code(),
+		_context,
+		_dungeon_id,
+		_dungeon_room_id
 	)
 	battlefield_texture.texture = background
 	battlefield_texture.visible = background != null
@@ -307,25 +328,23 @@ func _on_second_spell_selected(_index: int) -> void:
 func _use_potion() -> void:
 	if not _can_accept_action():
 		return
-	if consumable_selector.item_count == 0:
+	if consumable_selector.item_count == 0 or consumable_selector.selected < 0:
 		_append_log("Nie masz przedmiotu leczącego.")
 		return
 	var item_id := str(consumable_selector.get_item_metadata(consumable_selector.selected))
+	var preview := ConsumableServiceClass.preview_use(_session.player, item_id)
+	if not preview.ok:
+		_append_log(preview.message)
+		_refresh_consumable_selector()
+		_render_consumable_action()
+		return
 	var before := _presentation_controller.resource_snapshot(_session.player, _enemy)
 	if not _session.player.inventory.remove_item(item_id):
 		_append_log("Nie masz wybranego przedmiotu leczącego.")
 		return
 	var definition = ItemCatalogClass.get_definition(item_id)
-	var heal_amount: int = (
-		definition.heal_hp
-		+ roundi(_session.player.stats.max_hp * definition.heal_hp_percent / 100.0)
-	)
-	var mana_amount: int = (
-		definition.restore_mana
-		+ roundi(_session.player.stats.max_mana * definition.restore_mana_percent / 100.0)
-	)
 	_resolve_turn(
-		_engine.player_use_restoration(heal_amount, mana_amount),
+		_engine.player_use_restoration(int(preview.healed_hp), int(preview.restored_mana)),
 		"Używasz: %s." % definition.display_name,
 		before,
 	)
@@ -352,9 +371,8 @@ func _resolve_turn(report: Dictionary, action_text: String, before: Dictionary =
 		return
 	_set_actions_enabled(false)
 	var rolled_dice: Array = report.get("fate_dice", [])
-	if not rolled_dice.is_empty():
-		_last_fate_dice.assign(rolled_dice)
-		_last_fate_outcome = str(report.get("fate_outcome", ""))
+	_last_fate_dice.assign(rolled_dice)
+	_last_fate_outcome = str(report.get("fate_outcome", "")) if not rolled_dice.is_empty() else ""
 	if not str(report.get("hunter_combo_name", "")).is_empty():
 		_last_hunter_combo = str(report.hunter_combo_name)
 	if bool(report.get("turn_consumed", false)):
@@ -426,7 +444,8 @@ func _finish_presented_turn() -> void:
 		_finish_battle()
 	else:
 		_set_actions_enabled(true)
-		attack_button.grab_focus()
+		if get_node("Page/Lower").drawer.opened:
+			attack_button.grab_focus()
 
 
 func _can_accept_action() -> bool:
@@ -445,10 +464,15 @@ func _damage_type_suffix(damage_type: String) -> String:
 
 
 func _finish_battle() -> void:
+	# Rewards/recovery can heal the model. The result screen must show the final combat state.
+	_terminal_resources = _presentation_controller.resource_snapshot(_session.player, _enemy)
 	_set_actions_enabled(false)
+	_last_fate_dice.clear()
+	_last_fate_outcome = ""
 	if _context in ["expedition", "dungeon", "region_boss"]:
 		_session.camp_rest_available = true
 	result_panel.visible = true
+	get_node("Page/Lower").hide()
 	loot_presentation.set_drops([])
 	match _engine.result:
 		CombatEngineClass.VICTORY:
@@ -540,6 +564,8 @@ func _render() -> void:
 	if _session == null or _enemy == null or _engine == null:
 		return
 	var player = _session.player
+	var displayed_hp := int(_terminal_resources.get("player_hp", player.stats.current_hp))
+	var displayed_mana := int(_terminal_resources.get("player_mana", player.stats.current_mana))
 	if _context == "prologue":
 		encounter_label.text = "WALKA FABULARNA — PROLOG"
 	elif _context == "dungeon":
@@ -562,23 +588,26 @@ func _render() -> void:
 	player_stats_label.text = (
 		"PŻ %d/%d  •  MANA %d/%d  •  ATK %d  •  DEF %d  •  UNIK %.1f%%"
 		% [
-			player.stats.current_hp,
+			displayed_hp,
 			player.stats.max_hp,
-			player.stats.current_mana,
+			displayed_mana,
 			player.stats.max_mana,
 			player.stats.attack,
 			player.stats.defense,
 			player.stats.dodge,
 		]
 	)
-	player_hp_bar.max_value = player.stats.max_hp
-	player_hp_bar.value = player.stats.current_hp
-	player_hp_bar.tooltip_text = "PŻ %d/%d" % [player.stats.current_hp, player.stats.max_hp]
-	player_mana_bar.max_value = maxi(1, player.stats.max_mana)
-	player_mana_bar.value = player.stats.current_mana
-	player_mana_bar.tooltip_text = (
-		"Mana %d/%d" % [player.stats.current_mana, player.stats.max_mana]
+	player_stats_label.tooltip_text = player_stats_label.text
+	player_stats_label.text = (
+		"PŻ %d/%d  •  MANA %d/%d"
+		% [displayed_hp, player.stats.max_hp, displayed_mana, player.stats.max_mana]
 	)
+	player_hp_bar.max_value = player.stats.max_hp
+	player_hp_bar.value = displayed_hp
+	player_hp_bar.tooltip_text = "PŻ %d/%d" % [displayed_hp, player.stats.max_hp]
+	player_mana_bar.max_value = maxi(1, player.stats.max_mana)
+	player_mana_bar.value = displayed_mana
+	player_mana_bar.tooltip_text = ("Mana %d/%d" % [displayed_mana, player.stats.max_mana])
 	player_effect_label.text = _player_effect_summary()
 	enemy_name_label.text = _enemy.display_name
 	if _uses_surface_weather():
@@ -599,6 +628,8 @@ func _render() -> void:
 			_enemy.dodge,
 		]
 	)
+	enemy_stats_label.tooltip_text = enemy_stats_label.text
+	enemy_stats_label.text = "PŻ %d/%d" % [_enemy.current_hp, _enemy.max_hp]
 	enemy_hp_bar.max_value = _enemy.max_hp
 	enemy_hp_bar.value = _enemy.current_hp
 	enemy_hp_bar.tooltip_text = "PŻ %d/%d" % [_enemy.current_hp, _enemy.max_hp]
@@ -654,9 +685,13 @@ func _uses_surface_weather() -> bool:
 
 func _render_fate_panel() -> void:
 	var is_pierrot := _session.player.character_class_code == "pierrot"
-	fate_panel.visible = is_pierrot
+	# The engine may already have ended combat while the killing skill is still animating.
+	fate_panel.visible = is_pierrot and not _last_fate_dice.is_empty() and not result_panel.visible
 	vfx_placeholder.visible = false
-	if not is_pierrot:
+	if not fate_panel.visible:
+		fate_status_label.text = ""
+		if _presentation_controller != null:
+			_presentation_controller.render_dice([], "")
 		return
 	var mirror_status := "  •  ODBICIE GOTOWE" if _engine.pierrot_reflect_ready else ""
 	fate_status_label.text = (
@@ -679,7 +714,7 @@ func _set_actions_enabled(enabled: bool) -> void:
 	_render_skill_action()
 	_refresh_skill_cards()
 	_render_double_weave_action()
-	potion_button.disabled = not enabled or consumable_selector.item_count == 0
+	_render_consumable_action()
 	flee_button.disabled = not enabled
 	motion_toggle_button.disabled = not enabled
 
@@ -729,6 +764,7 @@ func _refresh_skill_cards() -> void:
 	skill_cards_scroll.visible = not skills.is_empty()
 	if skills.is_empty():
 		_clear_skill_cards()
+		get_node("Page/Lower").update_layout()
 		empty_skills_label.text = (
 			"Umiejętności odblokujesz po wyborze Drogi."
 			if _session.player.character_class_code == "none"
@@ -769,9 +805,10 @@ func _refresh_skill_cards() -> void:
 				accent,
 				_skill_badge(skill),
 				visual_state,
-				{"artwork": skill.card_art, "mechanic": skill.dice_notation()},
+				{"artwork": skill.card_art, "mechanic": skill.dice_notation(), "compact": true},
 			)
 		)
+	get_node("Page/Lower").update_layout()
 
 
 func _skill_badge(skill) -> String:
@@ -798,54 +835,9 @@ func _class_accent_color() -> Color:
 
 
 func _class_resource_summary() -> String:
-	match _session.player.character_class_code:
-		"warrior":
-			var guard := "—"
-			if _engine.effects.player_guard_hits > 0:
-				guard = (
-					"%d%% ×%d"
-					% [_engine.effects.player_guard_percent, _engine.effects.player_guard_hits]
-				)
-			return (
-				"BLOK %.0f%%  •  GARDA %s\nODWET %s"
-				% [
-					_engine.warrior_block_chance(),
-					guard,
-					"GOTOWY" if _engine.warrior_retribution_ready else "—"
-				]
-			)
-		"hunter":
-			var sequence := "—"
-			if not _engine.hunter_sequence.is_empty():
-				sequence = HunterComboCatalogClass.sequence_text(_engine.hunter_sequence)
-			return (
-				"SEKWENCJA %s\nŁADUNKI %d/3  •  ECHA %d  •  DESZCZ %d\nFINISHER %s"
-				% [
-					sequence,
-					_engine.hunter_explosive_charges,
-					_engine.hunter_phantom_pending.size(),
-					_engine.hunter_rain_pending.size(),
-					"—" if _last_hunter_combo.is_empty() else _last_hunter_combo,
-				]
-			)
-		"mage":
-			var elements: Array[String] = []
-			for damage_type: String in _engine.mage_element_sequence:
-				elements.append(ElementalResistancesClass.display_name(damage_type))
-			return (
-				"ŻYWIOŁY %s\nSPLOT %d/3  •  WYDANA MANA %d"
-				% [
-					"—" if elements.is_empty() else " → ".join(elements),
-					_engine.mage_arcane_weave,
-					_engine.mage_mana_spent,
-				]
-			)
-		"pierrot":
-			return (
-				"LOS %d  •  ŻETONY %d/%d"
-				% [_session.player.attributes.luck, _engine.fate_tokens, _engine.fate_token_cap()]
-			)
-	return "DROGA JESZCZE NIEWYBRANA"
+	return get_node("Page/Lower").class_resource_summary(
+		_session.player, _engine, _last_hunter_combo
+	)
 
 
 func _player_effect_summary() -> String:
@@ -880,7 +872,7 @@ func _enemy_effect_summary() -> String:
 
 func _refresh_second_spell_selector() -> void:
 	var is_mage := _session.player.character_class_code == "mage"
-	weave_row.visible = is_mage
+	weave_row.visible = is_mage and weave_toggle_button.button_pressed
 	if not is_mage:
 		second_spell_selector.clear()
 		return
@@ -906,8 +898,15 @@ func _render_double_weave_action() -> void:
 		return
 	if _session.player.character_class_code != "mage":
 		weave_row.visible = false
+		weave_toggle_button.visible = false
 		return
-	weave_row.visible = true
+	weave_toggle_button.visible = skill_selector.item_count > 0
+	weave_toggle_button.text = (
+		"Zamknij splot ▴" if weave_toggle_button.button_pressed else "Podwójny Splot ▾"
+	)
+	weave_row.visible = weave_toggle_button.button_pressed and weave_toggle_button.visible
+	skill_selector.disabled = not _can_accept_action()
+	second_spell_selector.disabled = not _can_accept_action()
 	if skill_selector.item_count == 0 or second_spell_selector.item_count == 0:
 		double_weave_button.text = "Brak zaklęć"
 		double_weave_button.disabled = true
@@ -925,16 +924,16 @@ func _render_double_weave_action() -> void:
 
 func _refresh_consumable_selector() -> void:
 	var previous_id := ""
-	if consumable_selector.item_count > 0:
+	if consumable_selector.item_count > 0 and consumable_selector.selected >= 0:
 		previous_id = str(consumable_selector.get_item_metadata(consumable_selector.selected))
 	consumable_selector.clear()
 	var selected_index := 0
-	for item_id: String in HEALING_ITEM_IDS:
+	for item_id: String in ConsumableServiceClass.restorative_items_in_inventory(_session.player):
 		var count: int = _session.player.inventory.count(item_id)
 		if count <= 0:
 			continue
 		var definition = ItemCatalogClass.get_definition(item_id)
-		consumable_selector.add_item("%s ×%d" % [definition.display_name, count])
+		consumable_selector.add_item("×%d  %s" % [count, definition.display_name])
 		var index := consumable_selector.item_count - 1
 		consumable_selector.set_item_metadata(index, item_id)
 		if item_id == previous_id:
@@ -944,31 +943,40 @@ func _refresh_consumable_selector() -> void:
 
 
 func _render_consumable_action() -> void:
-	if _session == null or consumable_selector.item_count == 0:
+	if _session == null or consumable_selector.item_count == 0 or consumable_selector.selected < 0:
 		consumable_selector.visible = false
+		consumable_selector.disabled = true
 		potion_button.text = "Brak leczenia"
+		potion_button.icon = null
 		potion_button.disabled = true
+		potion_button.tooltip_text = "Brak przedmiotów leczących w plecaku."
+		consumable_hint.text = potion_button.tooltip_text
 		return
 	consumable_selector.visible = true
+	consumable_selector.disabled = not _can_accept_action()
 	var item_id := str(consumable_selector.get_item_metadata(consumable_selector.selected))
 	var definition = ItemCatalogClass.get_definition(item_id)
-	var effects: Array[String] = []
-	if definition.heal_hp > 0:
-		effects.append("+%d PŻ" % definition.heal_hp)
-	if definition.heal_hp_percent > 0:
-		effects.append("+%.0f%% PŻ" % definition.heal_hp_percent)
-	if definition.restore_mana > 0:
-		effects.append("+%d Many" % definition.restore_mana)
-	if definition.restore_mana_percent > 0:
-		effects.append("+%.0f%% Many" % definition.restore_mana_percent)
-	potion_button.text = "Użyj (%s)" % ", ".join(effects)
-	potion_button.disabled = (
-		not _battle_actions_enabled
-		or (
-			_session.player.stats.current_hp >= _session.player.stats.max_hp
-			and _session.player.stats.current_mana >= _session.player.stats.max_mana
-		)
-	)
+	var preview := ConsumableServiceClass.preview_use(_session.player, item_id)
+	potion_button.icon = definition.icon
+	consumable_selector.tooltip_text = "%s\n%s" % [definition.display_name, definition.description]
+	potion_button.text = "Użyj przedmiotu"
+	if preview.ok:
+		var effects: Array[String] = []
+		if preview.healed_hp > 0:
+			effects.append("+%d PŻ" % preview.healed_hp)
+		if preview.restored_mana > 0:
+			effects.append("+%d Many" % preview.restored_mana)
+		potion_button.text = "Użyj • %s" % " / ".join(effects)
+	potion_button.disabled = not _can_accept_action() or not preview.ok
+	if _engine != null and _engine.result != CombatEngineClass.ONGOING:
+		consumable_hint.text = "Walka zakończona."
+	elif not _can_accept_action():
+		consumable_hint.text = "Poczekaj na zakończenie tury."
+	elif not preview.ok:
+		consumable_hint.text = preview.message
+	else:
+		consumable_hint.text = "Użycie zajmuje turę."
+	potion_button.tooltip_text = consumable_hint.text
 
 
 func _append_log(message: String) -> void:

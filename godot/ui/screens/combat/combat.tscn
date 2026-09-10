@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3]
+[gd_scene load_steps=17 format=3]
 
 [ext_resource type="Script" path="res://ui/screens/combat/combat.gd" id="1_script"]
 [ext_resource type="PackedScene" path="res://ui/components/combatant_visual/combatant_visual.tscn" id="2_visual"]
 [ext_resource type="PackedScene" path="res://ui/components/inventory_grid/inventory_grid_view.tscn" id="3_item_grid"]
 [ext_resource type="Script" path="res://ui/components/loot_presentation/loot_presentation.gd" id="4_loot"]
+[ext_resource type="Script" path="res://ui/screens/combat/combat_command_layout.gd" id="5_layout"]
 
 [sub_resource type="StyleBoxFlat" id="StyleMechanic"]
 content_margin_left = 12.0
@@ -142,6 +143,7 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [node name="CombatScreen" type="Control"]
+clip_contents = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -150,7 +152,30 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_script")
 
-[node name="Page" type="VBoxContainer" parent="."]
+[node name="BattlefieldTexture" type="TextureRect" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="BackdropShade" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.01, 0.02, 0.035, 0.22)
+
+[node name="Page" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -171,29 +196,29 @@ theme_override_colors/font_color = Color(0.84, 0.68, 0.31, 1)
 text = "ZMIERZCHOWE RÓWNINY — WALKA TUROWA"
 autowrap_mode = 2
 
-[node name="Arena" type="Control" parent="Page"]
-custom_minimum_size = Vector2(0, 222)
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="MotionToggleButton" type="Button" parent="Page/Arena"]
+[node name="LogToggleButton" type="Button" parent="Page/EncounterHeader"]
 unique_name_in_owner = true
-z_index = 5
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -210.0
-offset_top = 10.0
-offset_right = -20.0
-offset_bottom = 42.0
-grow_horizontal = 0
+custom_minimum_size = Vector2(148, 36)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Pokaż dziennik"
+
+[node name="MotionToggleButton" type="Button" parent="Page/EncounterHeader"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(190, 36)
+layout_mode = 2
 focus_mode = 1
 theme_override_font_sizes/font_size = 13
 text = "Animacje: pełne"
 tooltip_text = "Przełącz między pełną a ograniczoną prezentacją walki."
 
+[node name="Arena" type="Control" parent="Page"]
+custom_minimum_size = Vector2(0, 222)
+layout_mode = 2
+size_flags_vertical = 3
+
 [node name="BattlefieldFrame" type="PanelContainer" parent="Page/Arena"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -203,20 +228,8 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBattlefield")
 
-[node name="BattlefieldTexture" type="TextureRect" parent="Page/Arena"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-expand_mode = 1
-stretch_mode = 6
-
 [node name="BattlefieldShade" type="ColorRect" parent="Page/Arena"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -331,26 +344,30 @@ text_overrun_behavior = 3
 
 [node name="PlayerVisual" parent="Page/Arena" instance=ExtResource("2_visual")]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 0.44
-anchor_bottom = 0.86
+anchor_bottom = 1.0
 offset_left = 20.0
-offset_top = 42.0
+offset_top = 66.0
 offset_right = -12.0
+offset_bottom = -164.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="EnemyVisual" parent="Page/Arena" instance=ExtResource("2_visual")]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_left = 0.56
 anchor_right = 1.0
-anchor_bottom = 0.86
+anchor_bottom = 1.0
 offset_left = 12.0
-offset_top = 42.0
+offset_top = 66.0
 offset_right = -20.0
+offset_bottom = -164.0
 grow_horizontal = 0
 grow_vertical = 2
 
@@ -414,7 +431,6 @@ theme_override_constants/separation = 8
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.89, 0.32, 0.47, 1)
-text = "RZUT OCZEKUJE"
 horizontal_alignment = 1
 autowrap_mode = 2
 
@@ -436,6 +452,7 @@ layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="Portrait" type="PanelContainer" parent="Page/Arena/PlayerPanel/Content"]
+visible = false
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleMechanic")
@@ -544,6 +561,7 @@ layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="Portrait" type="PanelContainer" parent="Page/Arena/EnemyPanel/Content"]
+visible = false
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleMechanic")
@@ -623,13 +641,14 @@ fit_content = false
 scroll_active = true
 
 [node name="Lower" type="HBoxContainer" parent="Page"]
-custom_minimum_size = Vector2(0, 188)
-layout_mode = 2
+script = ExtResource("5_layout")
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 0
 alignment = 1
-theme_override_constants/separation = 8
+theme_override_constants/separation = 12
 
 [node name="PlayerCommandHud" type="PanelContainer" parent="Page/Lower"]
-custom_minimum_size = Vector2(250, 0)
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StylePlayerHud")
 
@@ -641,7 +660,7 @@ theme_override_constants/separation = 8
 layout_mode = 2
 theme_override_colors/font_color = Color(0.51, 0.68, 0.86, 1)
 theme_override_font_sizes/font_size = 13
-text = "HUD KLASY"
+text = "BOHATER · ZAPASY"
 
 [node name="CommandClassLabel" type="Label" parent="Page/Lower/PlayerCommandHud/Content"]
 unique_name_in_owner = true
@@ -658,23 +677,60 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.74, 0.81, 0.89, 1)
+theme_override_font_sizes/font_size = 14
 text = "DROGA JESZCZE NIEWYBRANA"
 vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="CommandStatusLabel" type="Label" parent="Page/Lower/PlayerCommandHud/Content"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.48, 0.66, 0.8, 1)
 theme_override_font_sizes/font_size = 13
 text = "EFEKTY: brak"
 autowrap_mode = 2
 
+[node name="ConsumableSection" type="VBoxContainer" parent="Page/Lower/PlayerCommandHud/Content"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="ItemLabel" type="Label" parent="Page/Lower/PlayerCommandHud/Content/ConsumableSection"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
+theme_override_font_sizes/font_size = 12
+text = "TWOJE PRZEDMIOTY"
+
+[node name="ConsumableSelector" type="OptionButton" parent="Page/Lower/PlayerCommandHud/Content/ConsumableSection"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 34)
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+fit_to_longest_item = false
+clip_text = true
+
+[node name="PotionButton" type="Button" parent="Page/Lower/PlayerCommandHud/Content/ConsumableSection"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_constants/icon_max_width = 26
+theme_override_font_sizes/font_size = 13
+text = "Użyj przedmiotu"
+
+[node name="ConsumableHint" type="Label" parent="Page/Lower/PlayerCommandHud/Content/ConsumableSection"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.65, 0.76, 1)
+theme_override_font_sizes/font_size = 12
+text = "Użycie zajmuje turę."
+autowrap_mode = 2
+
 [node name="ActionsDock" type="PanelContainer" parent="Page/Lower"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(720, 0)
+custom_minimum_size = Vector2(480, 0)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("StyleActionDock")
 
 [node name="Actions" type="VBoxContainer" parent="Page/Lower/ActionsDock"]
@@ -688,17 +744,42 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
-text = "KARTY UMIEJĘTNOŚCI"
+text = "UMIEJĘTNOŚCI"
 
 [node name="Hint" type="Label" parent="Page/Lower/ActionsDock/Actions/TitleRow"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.46, 0.54, 0.64, 1)
-theme_override_font_sizes/font_size = 14
-text = "Najedź, aby zobaczyć opis"
+theme_override_font_sizes/font_size = 13
+text = "Kliknij kartę, aby użyć"
+
+[node name="WeaveToggleButton" type="Button" parent="Page/Lower/ActionsDock/Actions/TitleRow"]
+unique_name_in_owner = true
+visible = false
+toggle_mode = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "Podwójny Splot ▾"
+tooltip_text = "Wybierz pierwsze i drugie zaklęcie do wspólnego rzucenia."
+
+[node name="ScrollPreviousButton" type="Button" parent="Page/Lower/ActionsDock/Actions/TitleRow"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+text = "‹"
+tooltip_text = "Poprzednie umiejętności"
+
+[node name="ScrollNextButton" type="Button" parent="Page/Lower/ActionsDock/Actions/TitleRow"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+text = "›"
+tooltip_text = "Następne umiejętności"
 
 [node name="EmptySkillsLabel" type="Label" parent="Page/Lower/ActionsDock/Actions"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 108)
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.48, 0.55, 0.65, 1)
 text = "Umiejętności odblokujesz po wyborze Drogi."
@@ -709,9 +790,10 @@ autowrap_mode = 2
 [node name="SkillCardsScroll" type="ScrollContainer" parent="Page/Lower/ActionsDock/Actions"]
 unique_name_in_owner = true
 visible = false
-custom_minimum_size = Vector2(0, 216)
+custom_minimum_size = Vector2(0, 184)
 layout_mode = 2
-horizontal_scroll_mode = 2
+follow_focus = true
+horizontal_scroll_mode = 1
 vertical_scroll_mode = 0
 
 [node name="SkillCards" type="HBoxContainer" parent="Page/Lower/ActionsDock/Actions/SkillCardsScroll"]
@@ -726,12 +808,6 @@ visible = false
 layout_mode = 2
 theme_override_constants/separation = 7
 
-[node name="SkillSelector" type="OptionButton" parent="Page/Lower/ActionsDock/Actions/LegacySkillControls"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 14
-
 [node name="SkillButton" type="Button" parent="Page/Lower/ActionsDock/Actions/LegacySkillControls"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(190, 0)
@@ -745,24 +821,39 @@ visible = false
 layout_mode = 2
 theme_override_constants/separation = 7
 
+[node name="SkillSelector" type="OptionButton" parent="Page/Lower/ActionsDock/Actions/WeaveRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 13
+fit_to_longest_item = false
+clip_text = true
+tooltip_text = "Pierwsze zaklęcie Splotu"
+
 [node name="SecondSpellSelector" type="OptionButton" parent="Page/Lower/ActionsDock/Actions/WeaveRow"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 13
+fit_to_longest_item = false
+clip_text = true
+tooltip_text = "Drugie zaklęcie Splotu"
 
 [node name="DoubleWeaveButton" type="Button" parent="Page/Lower/ActionsDock/Actions/WeaveRow"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(190, 0)
+custom_minimum_size = Vector2(180, 36)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "Podwójny Splot"
 
 [node name="ActionGrid" type="GridContainer" parent="Page/Lower/ActionsDock/Actions"]
+custom_minimum_size = Vector2(432, 44)
 layout_mode = 2
+size_flags_horizontal = 4
 theme_override_constants/h_separation = 7
 theme_override_constants/v_separation = 7
-columns = 4
+columns = 3
 
 [node name="AttackButton" type="Button" parent="Page/Lower/ActionsDock/Actions/ActionGrid"]
 unique_name_in_owner = true
@@ -778,13 +869,6 @@ size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 14
 text = "Obrona"
 
-[node name="PotionButton" type="Button" parent="Page/Lower/ActionsDock/Actions/ActionGrid"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 14
-text = "Mikstura (+20 PŻ)  ×0"
-
 [node name="FleeButton" type="Button" parent="Page/Lower/ActionsDock/Actions/ActionGrid"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -793,6 +877,7 @@ theme_override_font_sizes/font_size = 14
 text = "Ucieczka (50%)"
 
 [node name="TargetCommandHud" type="PanelContainer" parent="Page/Lower"]
+visible = false
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleEnemyHud")
@@ -822,24 +907,6 @@ size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.81, 0.55, 0.65, 1)
 text = "EFEKTY: brak"
 autowrap_mode = 2
-
-[node name="ItemLabel" type="Label" parent="Page/Lower/TargetCommandHud/Content"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.55, 0.62, 0.72, 1)
-theme_override_font_sizes/font_size = 12
-text = "SZYBKI PRZEDMIOT"
-
-[node name="ConsumableSelector" type="OptionButton" parent="Page/Lower/TargetCommandHud/Content"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-theme_override_font_sizes/font_size = 13
-
-[node name="LogToggleButton" type="Button" parent="Page/Lower/TargetCommandHud/Content"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 13
-text = "Pokaż dziennik"
 
 [node name="ResultPanel" type="PanelContainer" parent="Page"]
 unique_name_in_owner = true

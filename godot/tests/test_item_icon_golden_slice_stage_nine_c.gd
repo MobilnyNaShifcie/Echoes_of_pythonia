@@ -20,6 +20,51 @@ const GOLDEN_SLICE := {
 	"mastery_strength_book": Vector2i(512, 512),
 }
 
+const APPROVED_BATCH_TWO := [
+	"hunting_bow",
+	"apprentice_staff",
+	"caprice_lance",
+	"hunter_gloves",
+	"reinforced_boots",
+	"leather_belt",
+	"wolf_tooth_necklace",
+	"nature_ring",
+	"hard_wood",
+	"common_essence",
+	"strong_healing_potion",
+	"path_arcana_book",
+]
+
+const APPROVED_BATCH_THREE := [
+	"sharpened_sword",
+	"stitched_armor",
+	"simple_quiver",
+	"nature_amulet",
+	"nature_bracelet",
+	"nature_earrings",
+	"weak_leather",
+	"metal_buckle",
+	"grinding_stone",
+	"spark_of_life",
+	"mana_crystal_artifact",
+	"hunter_provisions",
+]
+
+const APPROVED_BATCH_FOUR := [
+	"grandmaster_elixir",
+	"mastery_attack_speed_book",
+	"mastery_critical_book",
+	"mastery_regeneration_book",
+	"old_clothes",
+	"path_fortuna_book",
+	"path_heavy_knight_book",
+	"path_phantom_archer_book",
+	"raw_boar_meat",
+	"truffle",
+	"worn_fate_dice",
+	"worn_strap",
+]
+
 
 func test_all_golden_slice_definitions_own_the_approved_texture_contract() -> void:
 	for item_id: String in GOLDEN_SLICE:
@@ -31,6 +76,33 @@ func test_all_golden_slice_definitions_own_the_approved_texture_contract() -> vo
 			GOLDEN_SLICE[item_id],
 			item_id,
 		)
+
+
+func test_all_approved_batch_two_definitions_own_an_imported_texture() -> void:
+	for item_id: String in APPROVED_BATCH_TWO:
+		var definition = ItemCatalogClass.get_definition(item_id)
+		assert_not_null(definition, item_id)
+		assert_not_null(definition.icon, item_id)
+		assert_gt(definition.icon.get_width(), 0, item_id)
+		assert_gt(definition.icon.get_height(), 0, item_id)
+
+
+func test_all_approved_batch_three_definitions_own_an_imported_texture() -> void:
+	for item_id: String in APPROVED_BATCH_THREE:
+		var definition = ItemCatalogClass.get_definition(item_id)
+		assert_not_null(definition, item_id)
+		assert_not_null(definition.icon, item_id)
+		assert_gt(definition.icon.get_width(), 0, item_id)
+		assert_gt(definition.icon.get_height(), 0, item_id)
+
+
+func test_all_approved_batch_four_definitions_own_an_imported_texture() -> void:
+	for item_id: String in APPROVED_BATCH_FOUR:
+		var definition = ItemCatalogClass.get_definition(item_id)
+		assert_not_null(definition, item_id)
+		assert_not_null(definition.icon, item_id)
+		assert_gt(definition.icon.get_width(), 0, item_id)
+		assert_gt(definition.icon.get_height(), 0, item_id)
 
 
 func test_slot_renders_art_quantity_and_icon_aware_tooltip_without_baked_text() -> void:
@@ -58,11 +130,12 @@ func test_slot_renders_art_quantity_and_icon_aware_tooltip_without_baked_text() 
 	assert_true(slot.get_node("QuantityBadge").visible)
 	var tooltip := slot._make_custom_tooltip(slot.tooltip_text) as PanelContainer
 	assert_eq(tooltip.find_children("*", "TextureRect", true, false).size(), 1)
-	assert_eq(tooltip.find_children("*", "Label", true, false).size(), 1)
+	assert_eq(tooltip.find_children("*", "Label", true, false).size(), 2)
 	assert_eq(tooltip.size_flags_horizontal, Control.SIZE_SHRINK_BEGIN)
 	assert_eq(tooltip.size_flags_vertical, Control.SIZE_SHRINK_BEGIN)
 	var tooltip_icon := tooltip.find_children("*", "TextureRect", true, false)[0] as TextureRect
-	var tooltip_label := tooltip.find_children("*", "Label", true, false)[0] as Label
+	var tooltip_label := tooltip.find_child("ItemDescription", true, false) as Label
+	assert_string_contains(tooltip.find_child("RarityLabel", true, false).text, "Jakość:")
 	assert_eq(tooltip_icon.size_flags_vertical, Control.SIZE_SHRINK_BEGIN)
 	assert_eq(tooltip_label.size_flags_vertical, Control.SIZE_SHRINK_BEGIN)
 	assert_eq(tooltip_label.custom_minimum_size.x, 268.0)
@@ -118,12 +191,14 @@ func test_same_item_art_contract_reaches_all_seven_required_ui_contexts() -> voi
 		)
 	)
 
-	var quartermaster = CITY_ECONOMY_SCENE.instantiate()
-	add_child_autofree(quartermaster)
-	quartermaster.configure(session, "quartermaster")
+	var inn = CITY_ECONOMY_SCENE.instantiate()
+	add_child_autofree(inn)
+	inn.configure(session, "inn")
+	inn.mode_selector.select(1)
+	inn.mode_selector.item_selected.emit(1)
 	assert_not_null(
 		_find_cell_with_texture(
-			quartermaster.service_grid,
+			inn.service_grid,
 			ItemCatalogClass.get_definition("wolf_fur").icon,
 		)
 	)
