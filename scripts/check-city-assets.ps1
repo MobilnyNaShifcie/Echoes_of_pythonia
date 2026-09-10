@@ -96,7 +96,7 @@ $alphaAssets = @(
     @{ RelativePath = 'npcs\garran_forging_v3.png'; Width = 1536; Height = 1024; AllowInteriorGreen = $true },
     @{ RelativePath = 'npcs\oren_counter_v4.png'; Width = 1024; Height = 1536; AllowInteriorGreen = $true },
     @{ RelativePath = 'npcs\garran_forging_v4.png'; Width = 1254; Height = 1254; AllowInteriorGreen = $true },
-    @{ RelativePath = 'npcs\oren_counter_v5.png'; Width = 1731; Height = 909; AllowInteriorGreen = $true },
+    @{ RelativePath = 'npcs\oren_counter_v6.png'; Width = 1161; Height = 1355; AllowInteriorGreen = $true },
     @{ RelativePath = 'npcs\garran_forging_v5.png'; Width = 1189; Height = 1323; AllowInteriorGreen = $true },
     @{ RelativePath = 'npcs\mirela_counter_v2.png'; Width = 1023; Height = 1537; AllowInteriorGreen = $true },
     @{ RelativePath = 'npcs\guildmaster_desk_v2.png'; Width = 1024; Height = 1536; AllowInteriorGreen = $true },
