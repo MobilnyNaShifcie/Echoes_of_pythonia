@@ -1,369 +1,258 @@
 from __future__ import annotations
 
-import argparse
-import asyncio
-import json
-import os
-from dataclasses import dataclass
+import argparse, asyncio, json, os
+from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
 
 from config import (
-    CONTEXT_MAX_CHARS, CONTEXT_MAX_SECTIONS,
-    DEVELOPER_MODEL, DEVELOPER_REASONING, MAX_REVIEW_ROUNDS,
-    REPO_ROOT, REVIEWER_MODEL, REVIEWER_REASONING,
+    CONTEXT_MAX_CHARS, CONTEXT_MAX_SECTIONS, DEVELOPER_MODEL,
+    DEVELOPER_REASONING, MAX_MODEL_CALLS_PER_TASK, MAX_REVIEW_ROUNDS,
+    REPO_BRIEF_MAX_CHARS, REPO_BRIEF_MAX_FILES, REPO_ROOT,
+    REVIEWER_MODEL, REVIEWER_REASONING,
 )
 from context_loader import ContextPack, load_project_context
-from prompts import (
-    developer_instructions,
-    developer_repo_instructions,
-    reviewer_instructions,
-    reviewer_repo_instructions,
-)
+from prompts import developer_single_shot_instructions, reviewer_single_shot_instructions
+from repo_brief import BriefError, RepoBrief, build_repo_brief
 from schemas import DeveloperPlan, ReviewResult
 
+# Current Standard API text prices in USD per 1M tokens.
+MODEL_PRICES = {
+    "gpt-6-astra": {"input":10.0, "cached":1.0, "cache_write":12.5, "output":50.0},
+    "gpt-5.6-sol": {"input":4.0, "cached":0.4, "cache_write":5.0, "output":20.0},
+}
 
 @dataclass
-class UsageTotals:
-    requests: int = 0
-    input_tokens: int = 0
-    output_tokens: int = 0
-    total_tokens: int = 0
+class RequestRecord:
+    model: str
+    input_tokens: int
+    cached_tokens: int
+    cache_write_tokens: int
+    output_tokens: int
+    reasoning_tokens: int
 
-    def add_result(self, result: object) -> None:
-        wrapper = getattr(result, "context_wrapper", None)
-        usage = getattr(wrapper, "usage", None)
+    def cost(self):
+        p = MODEL_PRICES.get(self.model)
+        if not p:
+            return None
+        cached = min(self.cached_tokens, self.input_tokens)
+        writes = min(self.cache_write_tokens, max(0, self.input_tokens-cached))
+        regular = max(0, self.input_tokens-cached-writes)
+        return (regular*p["input"] + cached*p["cached"] + writes*p["cache_write"] + self.output_tokens*p["output"]) / 1_000_000
+
+@dataclass
+class UsageLedger:
+    records: list[RequestRecord] = field(default_factory=list)
+    @property
+    def calls(self): return len(self.records)
+
+    def add(self, model, result):
+        usage = getattr(getattr(result, "context_wrapper", None), "usage", None)
         if usage is None:
             return
-        self.requests += int(getattr(usage, "requests", 0) or 0)
-        self.input_tokens += int(getattr(usage, "input_tokens", 0) or 0)
-        self.output_tokens += int(getattr(usage, "output_tokens", 0) or 0)
-        self.total_tokens += int(getattr(usage, "total_tokens", 0) or 0)
+        entries = getattr(usage, "request_usage_entries", None) or []
+        if not entries and int(getattr(usage, "requests", 0) or 0) == 1:
+            entries = [usage]
+        for e in entries:
+            ind = getattr(e, "input_tokens_details", None)
+            outd = getattr(e, "output_tokens_details", None)
+            self.records.append(RequestRecord(
+                model,
+                int(getattr(e,"input_tokens",0) or 0),
+                int(getattr(ind,"cached_tokens",0) or 0),
+                int(getattr(ind,"cache_write_tokens",0) or 0),
+                int(getattr(e,"output_tokens",0) or 0),
+                int(getattr(outd,"reasoning_tokens",0) or 0),
+            ))
+
+    def totals(self):
+        vals = {
+            "requests": self.calls,
+            "input_tokens": sum(x.input_tokens for x in self.records),
+            "cached_tokens": sum(x.cached_tokens for x in self.records),
+            "cache_write_tokens": sum(x.cache_write_tokens for x in self.records),
+            "output_tokens": sum(x.output_tokens for x in self.records),
+            "reasoning_tokens": sum(x.reasoning_tokens for x in self.records),
+        }
+        vals["total_tokens"] = vals["input_tokens"] + vals["output_tokens"]
+        costs = [x.cost() for x in self.records]
+        vals["estimated_cost_usd"] = sum(costs) if costs and all(x is not None for x in costs) else None
+        return vals
 
 
-def _json_text(model: object) -> str:
-    payload = model.model_dump() if hasattr(model, "model_dump") else model
-    return json.dumps(payload, ensure_ascii=False, indent=2)
+def _json(obj):
+    if hasattr(obj, "model_dump"): obj = obj.model_dump()
+    return json.dumps(obj, ensure_ascii=False, indent=2)
 
 
-def _write_json(path: Path, model: object) -> None:
-    path.write_text(_json_text(model) + "\n", encoding="utf-8")
+def _run_dir(prefix):
+    p = REPO_ROOT / "output" / "ai-team" / f"{prefix}-{datetime.now():%Y%m%d-%H%M%S}"
+    p.mkdir(parents=True, exist_ok=True)
+    return p
 
 
-def _make_run_dir(prefix: str) -> Path:
-    stamp = datetime.now().strftime("%Y%m%d-%H%M%S")
-    path = REPO_ROOT / "output" / "ai-team" / f"{prefix}-{stamp}"
-    path.mkdir(parents=True, exist_ok=True)
-    return path
-
-
-def _require_api_key() -> None:
+def _require_key():
     if not os.getenv("OPENAI_API_KEY", "").strip():
         raise RuntimeError("Brak OPENAI_API_KEY. Sprawdź tools\\echoes_ai_team\\.env.")
 
 
-def _settings(reasoning_effort: str, verbosity: str = "low") -> dict:
-    return {"reasoning": {"effort": reasoning_effort}, "verbosity": verbosity}
+def _settings(effort):
+    return {"reasoning":{"effort":effort}, "verbosity":"low", "preserve_raw_usage":True}
 
 
-def _print_context_pack(pack: ContextPack) -> None:
-    print("\n=== CONTEXT ROUTER ===")
-    print(f"Pełne AI_CONTEXT:      {pack.source_chars:,} znaków")
-    print(f"Wysłany context pack:  {pack.selected_chars:,} znaków")
-    print(f"Redukcja:              {pack.reduction_percent:.1f}%")
-    print(f"Wybrane sekcje:        {len(pack.selected_sections)}")
-    print("\nSekcje:")
-    for item in pack.selected_sections:
-        print(f" - {item.section.document} :: {item.section.heading} [score={item.score:.2f}]")
+def _show_pack(pack: ContextPack):
+    print("\n=== CONTEXT PACK ===")
+    print(f"Pełne AI_CONTEXT:     {pack.source_chars:,} znaków")
+    print(f"Wysłane fragmenty:    {pack.selected_chars:,} znaków")
+    print(f"Redukcja:             {pack.reduction_percent:.1f}%")
 
 
-async def smoke_test() -> int:
-    _require_api_key()
-    from agents import Agent, RunConfig, Runner
+def _show_brief(brief: RepoBrief):
+    print("\n=== LOCAL REPO BRIEF ===")
+    print(f"Branch:               {brief.branch}")
+    print(f"HEAD:                 {brief.head}")
+    print("Working tree:         CLEAN")
+    print(f"Przeskanowane pliki:  {brief.scanned_files}")
+    print(f"Brief:                {brief.chars:,} znaków")
+    print(f"Wybrane pliki:        {len(brief.selected_files)}")
+    for path in brief.selected_files: print(" -", path)
 
-    totals = UsageTotals()
-    cfg = RunConfig(tracing_disabled=True, workflow_name="Echoes AI Team - smoke test")
-    tests = (
-        ("Developer/Astra", DEVELOPER_MODEL, "Odpowiedz dokładnie jednym krótkim zdaniem: ASTRA_OK — połączenie działa."),
-        ("Reviewer/Sol", REVIEWER_MODEL, "Odpowiedz dokładnie jednym krótkim zdaniem: REVIEWER_OK — połączenie działa."),
-    )
 
-    print("\n=== ECHOES AI TEAM — SMOKE TEST ===")
-    for label, model, prompt in tests:
-        print(f"[{label}] łączenie...")
-        agent = Agent(
-            name=label,
-            model=model,
-            model_settings=_settings("low"),
-            instructions="Wykonaj wyłącznie krótki test połączenia.",
-        )
-        try:
-            result = await Runner.run(agent, prompt, max_turns=2, run_config=cfg)
-        except Exception as exc:
-            print(f"\nBŁĄD podczas testu {label}:\n{type(exc).__name__}: {exc}")
-            return 2
-        totals.add_result(result)
-        print(f"  {result.final_output}")
+def _show_cost(ledger: UsageLedger):
+    t = ledger.totals()
+    print("\n=== COST / USAGE REPORT ===")
+    print(f"Model requests:       {t['requests']}")
+    print(f"Input tokens:         {t['input_tokens']:,}")
+    print(f"  cached input:       {t['cached_tokens']:,}")
+    print(f"  cache writes:       {t['cache_write_tokens']:,}")
+    print(f"Output tokens:        {t['output_tokens']:,}")
+    print(f"  reasoning tokens:   {t['reasoning_tokens']:,}")
+    print(f"Total tokens:         {t['total_tokens']:,}")
+    cost = t["estimated_cost_usd"]
+    print("Estimated API cost:   " + (f"${cost:.4f} USD" if cost is not None else "n/a"))
+    for i,r in enumerate(ledger.records,1):
+        c = r.cost()
+        print(f" {i}. {r.model}: {r.input_tokens:,} in ({r.cached_tokens:,} cached, {r.cache_write_tokens:,} write), {r.output_tokens:,} out ≈ " + (f"${c:.4f}" if c is not None else "n/a"))
 
-    print("\nSMOKE TEST: PASS")
-    print(f"API usage: {totals.requests} requests, {totals.input_tokens} input, {totals.output_tokens} output, {totals.total_tokens} total tokens.")
+
+def brief_preview(task):
+    pack = load_project_context(task)
+    brief = build_repo_brief(task)
+    print("\n=== STAGE 2.1 — ZERO-COST PREVIEW ===")
+    _show_pack(pack); _show_brief(brief)
+    print(f"\nŁączny lokalny materiał: {pack.selected_chars + brief.chars:,} znaków")
+    print("API calls:             0")
+    print("\nBRIEF PREVIEW: PASS — API nie zostało wywołane.")
     return 0
 
 
-def repo_tools_smoke() -> int:
-    from repo_tools import local_repo_tools_smoke
-
-    print("\n=== STAGE 2 — LOCAL READ-ONLY TOOL SMOKE ===")
-    result = local_repo_tools_smoke()
-    print(result)
-
-    if "FAIL" in result:
-        print("\nREPO TOOL SMOKE: FAIL")
-        return 2
-
-    print("\nREPO TOOL SMOKE: PASS — API nie zostało wywołane.")
-    return 0
-
-
-async def planning_dry_run(task: str) -> int:
-    _require_api_key()
+async def run_task(task):
+    _require_key()
     from agents import Agent, RunConfig, Runner
 
     pack = load_project_context(task)
-    project_context = pack.text
-    developer = Agent(
-        name="Echoes Developer — Astra",
-        model=DEVELOPER_MODEL,
+    brief = build_repo_brief(task)
+    log = _run_dir("SINGLESHOT")
+    (log/"task.txt").write_text(task+"\n", encoding="utf-8")
+    (log/"context_pack.txt").write_text(pack.text, encoding="utf-8")
+    (log/"repo_brief.txt").write_text(brief.text, encoding="utf-8")
+
+    print("\n=== ECHOES AI TEAM — STAGE 2.1 / SINGLE-SHOT ===")
+    print(f"Developer:            {DEVELOPER_MODEL} ({DEVELOPER_REASONING})")
+    print(f"Reviewer:             {REVIEWER_MODEL} ({REVIEWER_REASONING})")
+    print(f"Hard model-call fuse: {MAX_MODEL_CALLS_PER_TASK}")
+    _show_pack(pack); _show_brief(brief)
+    print("\nTASK:\n" + task)
+
+    developer = Agent(name="Echoes Developer — Astra", model=DEVELOPER_MODEL,
         model_settings=_settings(DEVELOPER_REASONING),
-        instructions=developer_instructions(project_context),
-        output_type=DeveloperPlan,
-    )
-    reviewer = Agent(
-        name="Echoes Reviewer — Sol",
-        model=REVIEWER_MODEL,
+        instructions=developer_single_shot_instructions(pack.text, brief.text),
+        output_type=DeveloperPlan)
+    reviewer = Agent(name="Echoes Reviewer — Sol", model=REVIEWER_MODEL,
         model_settings=_settings(REVIEWER_REASONING),
-        instructions=reviewer_instructions(project_context),
-        output_type=ReviewResult,
-    )
-    return await _run_loop(task, pack, developer, reviewer, "DRYRUN", "Stage 1.2", False)
+        instructions=reviewer_single_shot_instructions(pack.text, brief.text),
+        output_type=ReviewResult)
+    devcfg = RunConfig(tracing_disabled=True, workflow_name="Echoes Stage 2.1 Developer")
+    revcfg = RunConfig(tracing_disabled=True, workflow_name="Echoes Stage 2.1 Reviewer")
 
+    ledger = UsageLedger(); prev_plan = prev_review = None
+    rounds = min(MAX_REVIEW_ROUNDS, max(1, MAX_MODEL_CALLS_PER_TASK//2))
 
-async def repository_dry_run(task: str) -> int:
-    _require_api_key()
-    from agents import Agent, RunConfig, Runner
-    from repo_tools import READ_ONLY_REPO_TOOLS
+    for round_no in range(1, rounds+1):
+        print(f"\n========== RUNDA {round_no}/{rounds} ==========")
+        if ledger.calls >= MAX_MODEL_CALLS_PER_TASK: break
+        prompt = f"TASK:\n{task}\n\nPrzygotuj plan. Nic nie edytuj." if prev_plan is None else f"TASK:\n{task}\n\nPOPRZEDNI PLAN:\n{_json(prev_plan)}\n\nREVIEW:\n{_json(prev_review)}\n\nPopraw plan bez rozszerzania scope."
+        print("[Developer/Astra] model call...")
+        result = await Runner.run(developer, prompt, max_turns=1, run_config=devcfg)
+        ledger.add(DEVELOPER_MODEL, result)
+        plan = result.final_output
+        (log/f"developer_round_{round_no}.json").write_text(_json(plan)+"\n", encoding="utf-8")
+        print(_json(plan))
+        if plan.status != "READY_FOR_REVIEW":
+            _show_cost(ledger); return 3 if plan.status == "BLOCKED" else 4
+        if not plan.repo_evidence:
+            print("SAFETY STOP: brak repo_evidence."); _show_cost(ledger); return 6
+        if ledger.calls >= MAX_MODEL_CALLS_PER_TASK:
+            print("HARD COST FUSE przed Reviewerem."); _show_cost(ledger); return 7
 
-    pack = load_project_context(task)
-    project_context = pack.text
-
-    developer = Agent(
-        name="Echoes Developer — Astra",
-        model=DEVELOPER_MODEL,
-        model_settings=_settings(DEVELOPER_REASONING),
-        instructions=developer_repo_instructions(project_context),
-        output_type=DeveloperPlan,
-        tools=READ_ONLY_REPO_TOOLS,
-    )
-    reviewer = Agent(
-        name="Echoes Reviewer — Sol",
-        model=REVIEWER_MODEL,
-        model_settings=_settings(REVIEWER_REASONING),
-        instructions=reviewer_repo_instructions(project_context),
-        output_type=ReviewResult,
-        tools=READ_ONLY_REPO_TOOLS,
-    )
-
-    return await _run_loop(task, pack, developer, reviewer, "REPO-DRYRUN", "Stage 2", True)
-
-
-async def _run_loop(task, pack, developer, reviewer, prefix, stage_name, repo_aware):
-    from agents import RunConfig, Runner
-
-    run_dir = _make_run_dir(prefix)
-    (run_dir / "task.txt").write_text(task + "\n", encoding="utf-8")
-    (run_dir / "context_pack.txt").write_text(pack.text, encoding="utf-8")
-
-    totals = UsageTotals()
-    previous_plan = None
-    previous_review = None
-
-    print(f"\n=== ECHOES AI TEAM — {stage_name.upper()} ===")
-    print(f"Developer: {DEVELOPER_MODEL} ({DEVELOPER_REASONING})")
-    print(f"Reviewer:  {REVIEWER_MODEL} ({REVIEWER_REASONING})")
-    print("Repository mode: READ-ONLY" if repo_aware else "Repository mode: no repo tools")
-    _print_context_pack(pack)
-    print(f"\nLogi: {run_dir}")
-    print(f"\nTASK:\n{task}\n")
-
-    dev_cfg = RunConfig(
-        tracing_disabled=True,
-        workflow_name=f"Echoes AI Team - {stage_name} developer",
-    )
-    rev_cfg = RunConfig(
-        tracing_disabled=True,
-        workflow_name=f"Echoes AI Team - {stage_name} review",
-    )
-
-    for round_no in range(1, MAX_REVIEW_ROUNDS + 1):
-        print(f"\n========== RUNDA {round_no}/{MAX_REVIEW_ROUNDS} ==========")
-        print("[Developer] analizuje...")
-
-        if previous_plan is None:
-            dev_input = (
-                f"TASK:\n{task}\n\n"
-                "Przygotuj plan. To DRY RUN: niczego nie edytuj i nie twierdź, że testy zostały uruchomione."
-            )
-        else:
-            dev_input = (
-                f"TASK:\n{task}\n\nPOPRZEDNI PLAN:\n{_json_text(previous_plan)}\n\n"
-                f"REVIEW:\n{_json_text(previous_review)}\n\n"
-                "Przygotuj poprawiony plan. Napraw BLOCKERY i istotne uwagi. To nadal DRY RUN."
-            )
-
-        try:
-            dev_result = await Runner.run(
-                developer,
-                dev_input,
-                max_turns=10 if repo_aware else 4,
-                run_config=dev_cfg,
-            )
-        except Exception as exc:
-            print(f"\nBŁĄD DEVELOPERA: {type(exc).__name__}: {exc}")
-            return 2
-
-        totals.add_result(dev_result)
-        plan = dev_result.final_output
-        _write_json(run_dir / f"developer_round_{round_no}.json", plan)
-
-        print("\n[Developer plan]")
-        print(_json_text(plan))
-
-        if repo_aware and plan.status == "READY_FOR_REVIEW" and len(plan.repo_evidence) < 2:
-            print("\nSTAGE 2 SAFETY GATE: Developer podał za mało rzeczywistego repo_evidence.")
-            print("Pętla zatrzymana; nie uznajemy planu opartego głównie na zgadywaniu.")
-            return 6
-
-        if plan.status in {"BLOCKED", "HUMAN_DECISION_REQUIRED"}:
-            print(f"\nDRY RUN: {plan.status}")
-            if plan.human_question:
-                print(f"Pytanie: {plan.human_question}")
-            return 3 if plan.status == "BLOCKED" else 4
-
-        print("\n[Reviewer] niezależnie weryfikuje...")
-
-        rev_input = (
-            f"ORYGINALNE ZADANIE:\n{task}\n\n"
-            f"PLAN DEVELOPERA — RUNDA {round_no}:\n{_json_text(plan)}\n\n"
-            "Oceń plan według AI_CONTEXT. To planning-only dry run: brak faktycznie uruchomionych testów nie jest blockerem."
-        )
-
-        try:
-            rev_result = await Runner.run(
-                reviewer,
-                rev_input,
-                max_turns=10 if repo_aware else 4,
-                run_config=rev_cfg,
-            )
-        except Exception as exc:
-            print(f"\nBŁĄD REVIEWERA: {type(exc).__name__}: {exc}")
-            return 2
-
-        totals.add_result(rev_result)
-        review = rev_result.final_output
-        _write_json(run_dir / f"review_round_{round_no}.json", review)
-
-        print("\n[Reviewer]")
-        print(_json_text(review))
-
-        if repo_aware and len(review.evidence_checked) < 1:
-            print("\nSTAGE 2 SAFETY GATE: Reviewer nie podał niezależnego evidence_checked.")
-            return 6
-
+        print("\n[Reviewer/Sol] model call...")
+        rprompt = f"ORYGINALNE ZADANIE:\n{task}\n\nPLAN DEVELOPERA:\n{_json(plan)}\n\nZweryfikuj plan względem AI_CONTEXT i REPO_BRIEF."
+        rresult = await Runner.run(reviewer, rprompt, max_turns=1, run_config=revcfg)
+        ledger.add(REVIEWER_MODEL, rresult)
+        review = rresult.final_output
+        (log/f"review_round_{round_no}.json").write_text(_json(review)+"\n", encoding="utf-8")
+        print(_json(review))
+        if not review.evidence_checked:
+            print("SAFETY STOP: Reviewer nie podał evidence_checked."); _show_cost(ledger); return 6
         if review.verdict == "APPROVED":
-            print("\n====================================")
-            print("REPOSITORY DRY RUN: APPROVED ✅" if repo_aware else "DRY RUN: APPROVED ✅")
-            print(f"Review rounds: {round_no}")
-            print(f"API usage: {totals.requests} requests, {totals.input_tokens} input, {totals.output_tokens} output, {totals.total_tokens} total tokens.")
-            print(f"Logi: {run_dir}")
-            if repo_aware:
-                print("\nStage 2 nadal NIE posiada narzędzi zapisu ani shell.")
+            print("\n====================================\nSINGLE-SHOT REPO DRY RUN: APPROVED ✅")
+            print(f"Review rounds: {round_no}"); _show_cost(ledger)
+            print(f"\nLogi: {log}\nStage 2.1 nadal NIE edytuje plików i NIE posiada shella.")
             return 0
-
         if review.verdict == "HUMAN_DECISION_REQUIRED":
-            print("\nDRY RUN: HUMAN_DECISION_REQUIRED")
-            if review.human_question:
-                print(f"Pytanie: {review.human_question}")
-            return 4
+            _show_cost(ledger); return 4
+        prev_plan, prev_review = plan, review
 
-        previous_plan = plan
-        previous_review = review
-
-    print("\nDRY RUN: MAX_REVIEW_ROUNDS_REACHED")
-    return 5
+    print("\nAUTOMATIC REVISION LIMIT reached."); _show_cost(ledger); return 5
 
 
-def parse_args() -> argparse.Namespace:
-    p = argparse.ArgumentParser(description="Echoes of Pythonia — AI team.")
-    p.add_argument("--smoke", action="store_true")
-    p.add_argument("--repo-smoke", action="store_true")
+def parse_args():
+    p=argparse.ArgumentParser(description="Echoes AI Team Stage 2.1")
+    p.add_argument("--show-config", action="store_true")
+    p.add_argument("--brief-preview", action="store_true")
     p.add_argument("--task", type=str)
     p.add_argument("--repo-task", type=str)
-    p.add_argument("--show-config", action="store_true")
-    p.add_argument("--context-preview", action="store_true")
     return p.parse_args()
 
 
-async def async_main() -> int:
-    args = parse_args()
-
-    if args.show_config:
-        print(f"Repo root:             {REPO_ROOT}")
-        print(f"Developer model:       {DEVELOPER_MODEL}")
-        print(f"Reviewer model:        {REVIEWER_MODEL}")
-        print(f"Max rounds:            {MAX_REVIEW_ROUNDS}")
-        print(f"Context max chars:     {CONTEXT_MAX_CHARS}")
-        print(f"Context max sections:  {CONTEXT_MAX_SECTIONS}")
-        print("API key:               " + ("SET" if os.getenv("OPENAI_API_KEY", "").strip() else "MISSING"))
-        if not any((args.smoke, args.repo_smoke, args.task, args.repo_task, args.context_preview)):
-            return 0
-
-    if args.repo_smoke:
-        return repo_tools_smoke()
-
-    if args.smoke:
-        return await smoke_test()
-
-    if args.context_preview:
-        task = args.task or args.repo_task or input("TASK > ").strip()
-        if not task:
-            print("Brak zadania.")
-            return 1
-        pack = load_project_context(task)
-        _print_context_pack(pack)
-        print("\nCONTEXT PREVIEW: PASS — API nie zostało wywołane.")
-        return 0
-
-    if args.repo_task:
-        return await repository_dry_run(args.repo_task)
-
-    task = args.task or input("TASK > ").strip()
-    if not task:
-        print("Brak zadania.")
-        return 1
-    return await planning_dry_run(task)
+async def async_main():
+    a=parse_args()
+    if a.show_config:
+        print(f"Repo root:               {REPO_ROOT}")
+        print(f"Developer model:         {DEVELOPER_MODEL}")
+        print(f"Reviewer model:          {REVIEWER_MODEL}")
+        print(f"Developer reasoning:     {DEVELOPER_REASONING}")
+        print(f"Reviewer reasoning:      {REVIEWER_REASONING}")
+        print(f"Repo brief max chars:    {REPO_BRIEF_MAX_CHARS}")
+        print(f"Repo brief max files:    {REPO_BRIEF_MAX_FILES}")
+        print(f"Hard model-call fuse:    {MAX_MODEL_CALLS_PER_TASK}")
+        print("API key:                 " + ("SET" if os.getenv("OPENAI_API_KEY","").strip() else "MISSING"))
+        if not a.brief_preview and not a.task and not a.repo_task: return 0
+    task=a.repo_task or a.task
+    if a.brief_preview:
+        task=task or input("TASK > ").strip()
+        return brief_preview(task) if task else 1
+    task=task or input("TASK > ").strip()
+    return await run_task(task) if task else 1
 
 
-def main() -> None:
-    try:
-        code = asyncio.run(async_main())
-    except (FileNotFoundError, RuntimeError) as exc:
-        print(f"\nBŁĄD:\n{exc}")
-        code = 2
+def main():
+    try: code=asyncio.run(async_main())
+    except (FileNotFoundError, RuntimeError, BriefError) as exc:
+        print(f"\nBŁĄD / SAFETY STOP:\n{exc}"); code=2
     except KeyboardInterrupt:
-        print("\nPrzerwano przez użytkownika. Tryby Stage 1/2 nie edytują plików gry.")
-        code = 130
+        print("\nPrzerwano. Stage 2.1 nie edytuje plików gry."); code=130
     raise SystemExit(code)
 
 
-if __name__ == "__main__":
-    main()
+if __name__ == "__main__": main()
