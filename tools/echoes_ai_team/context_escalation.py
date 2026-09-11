@@ -122,11 +122,15 @@ def _requested_paths(
             return
         ordered.append(relative)
 
-    for evidence in proposal.repo_evidence:
-        add(evidence.path)
-
+    # Najpierw respektuj dok?adne pliki, o kt?re Developer poprosi?
+    # w blockerze / human_question. To jest najsilniejszy sygna?,
+    # jaki dodatkowy kontekst faktycznie odblokuje retry.
     for match in PATH_RE.finditer(text):
         add(match.group("path"))
+
+    # Dopiero potem dodawaj og?lne repo_evidence z pierwszej pr?by.
+    for evidence in proposal.repo_evidence:
+        add(evidence.path)
 
     basenames = {
         match.group(0).casefold()
