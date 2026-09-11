@@ -13,12 +13,13 @@ const TalentProgressionServiceClass := preload(
 	"res://core/progression/talent_progression_service.gd"
 )
 
+var talent_node_buttons: Array[Button] = []
+var passive_card_buttons: Array[Button] = []
+
 var _session: GameSessionClass
 var _selected_path_id := ""
 var _selected_talent_id := ""
 var _selected_passive_code := ""
-var talent_node_buttons: Array[Button] = []
-var passive_card_buttons: Array[Button] = []
 
 @onready var points_label: Label = %PointsLabel
 @onready var feedback_label: Label = %FeedbackLabel

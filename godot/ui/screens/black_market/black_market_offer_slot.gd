@@ -4,10 +4,6 @@ extends Button
 signal offer_selected(offer_id: String)
 signal offer_activated(offer_id: String)
 
-var offer_id := ""
-var item_id := ""
-var _item_texture: Texture2D
-var _sold := false
 const ModelView := preload("res://ui/screens/black_market/market_item_3d.gd")
 const REFERENCE_DISPLAY_SCALE := 1.5
 const REFERENCE_ITEMS := [
@@ -19,15 +15,6 @@ const REFERENCE_ITEMS := [
 	"leviathan_scale",
 	"spark_of_life"
 ]
-var model_view: SubViewportContainer
-var _dragging := false
-var _drag_layer: CanvasLayer
-var _drag_root: Control
-var _grab_offset := Vector2.ZERO
-var _drag_pointer := Vector2.ZERO
-var _quantity := 1
-var _counter_anchor := Vector2(INF, INF)
-
 const DISPLAY_TINT := Color(0.78, 0.69, 0.57, 0.94)
 const HOVER_TINT := Color(1.0, 0.88, 0.64, 1.0)
 const DISPLAY_ROTATIONS := {
@@ -36,6 +23,20 @@ const DISPLAY_ROTATIONS := {
 	"hearth_core": deg_to_rad(-4.0),
 	"leviathan_scale": deg_to_rad(-16.0),
 }
+
+var offer_id := ""
+var item_id := ""
+var model_view: SubViewportContainer
+
+var _item_texture: Texture2D
+var _sold := false
+var _dragging := false
+var _drag_layer: CanvasLayer
+var _drag_root: Control
+var _grab_offset := Vector2.ZERO
+var _drag_pointer := Vector2.ZERO
+var _quantity := 1
+var _counter_anchor := Vector2(INF, INF)
 
 @onready var glow: TextureRect = %Glow
 @onready var shadow: TextureRect = %ItemShadow
