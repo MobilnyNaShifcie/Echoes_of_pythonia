@@ -21,23 +21,25 @@ GODOT_DIR = ROOT / "godot"
 GODOT_EXE = ROOT / ".tools" / "godot" / "Godot_v4.7.1-stable_win64_console.exe"
 TEMP_SCRIPT = GODOT_DIR / "__echoes_ai_visual_capture_tmp.gd"
 EXPECTED_CHANGE = "godot/ui/screens/world_map/region_highlight.gdshaderinc"
+SHADER_PATH = ROOT / EXPECTED_CHANGE
 TIMEOUT = int(os.getenv("EOP_VISUAL_CAPTURE_TIMEOUT_SECONDS", "90"))
 
-CAPTURES = (
-    (1920, 1080, "none", "1920x1080_no_hover.png"),
-    (1920, 1080, "ice_coast", "1920x1080_ice_coast_hover.png"),
-    (1920, 1080, "black_forest", "1920x1080_black_forest_hover.png"),
-    (1280, 720, "none", "1280x720_no_hover.png"),
-    (1280, 720, "ice_coast", "1280x720_ice_coast_hover.png"),
-    (1280, 720, "black_forest", "1280x720_black_forest_hover.png"),
+CASES = (
+    (1920, 1080, "ice_coast"),
+    (1920, 1080, "black_forest"),
+    (1280, 720, "ice_coast"),
+    (1280, 720, "black_forest"),
 )
+
 
 class VisualCaptureError(RuntimeError):
     pass
 
+
 @dataclass(frozen=True)
 class CaptureRecord:
     label: str
+    variant: str
     width: int
     height: int
     hover_region: str
@@ -45,14 +47,15 @@ class CaptureRecord:
     bytes: int
     sha256: str
 
+
 @dataclass(frozen=True)
 class CaptureSet:
     directory: Path
     manifest_path: Path
     records: tuple[CaptureRecord, ...]
 
-GDSCRIPT = r'''
-extends SceneTree
+
+GDSCRIPT = r'''extends SceneTree
 
 const NewGameServiceClass := preload("res://core/game/new_game_service.gd")
 const WORLD_MAP_SCENE := preload("res://ui/screens/world_map/world_map.tscn")
@@ -86,7 +89,7 @@ func _capture() -> void:
     await process_frame
     await process_frame
 
-    screen.region_map._set_hovered_region("" if hover_region == "none" else hover_region)
+    screen.region_map._set_hovered_region(hover_region)
 
     await process_frame
     await process_frame
@@ -108,14 +111,32 @@ func _capture() -> void:
     quit(0)
 '''
 
+
 def _png_size(path: Path) -> tuple[int, int]:
     data = path.read_bytes()
     if len(data) < 24 or data[:8] != b"\x89PNG\r\n\x1a\n":
         raise VisualCaptureError(f"Invalid PNG: {path}")
     return struct.unpack(">II", data[16:24])
 
+
 def _sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _git_head_bytes(relative_path: str) -> bytes:
+    cp = subprocess.run(
+        ["git", "show", f"HEAD:{relative_path}"],
+        cwd=ROOT,
+        capture_output=True,
+        check=False,
+    )
+    if cp.returncode != 0:
+        raise VisualCaptureError(
+            f"Could not read HEAD version of {relative_path}:\n"
+            + cp.stderr.decode("utf-8", errors="replace")
+        )
+    return cp.stdout
+
 
 def _preflight() -> tuple[str, ...]:
     working = inspect_current_diff()
@@ -124,7 +145,10 @@ def _preflight() -> tuple[str, ...]:
             "Stage 4.3 expects exactly the approved hover shader diff.\n"
             f"Found: {list(working.changed_paths)}"
         )
+    if not SHADER_PATH.exists():
+        raise VisualCaptureError(f"Missing shader: {SHADER_PATH}")
     return working.changed_paths
+
 
 def _capture_one(width: int, height: int, hover: str, output: Path) -> str:
     command = [
@@ -148,7 +172,9 @@ def _capture_one(width: int, height: int, hover: str, output: Path) -> str:
             check=False,
         )
     except subprocess.TimeoutExpired as exc:
-        raise VisualCaptureError(f"Capture timeout: {width}x{height} / {hover}") from exc
+        raise VisualCaptureError(
+            f"Capture timeout: {width}x{height} / {hover}"
+        ) from exc
 
     log = (
         f"capture={width}x{height}/{hover}\n"
@@ -161,6 +187,44 @@ def _capture_one(width: int, height: int, hover: str, output: Path) -> str:
         raise VisualCaptureError(log)
     return log
 
+
+def _capture_variant(
+    directory: Path,
+    variant: str,
+    records: list[CaptureRecord],
+    logs: list[str],
+) -> None:
+    for width, height, hover in CASES:
+        filename = f"{variant}_{width}x{height}_{hover}_hover.png"
+        output = directory / filename
+        logs.append(_capture_one(width, height, hover, output))
+
+        if not output.exists():
+            raise VisualCaptureError(f"Screenshot not created: {output}")
+
+        actual = _png_size(output)
+        if actual != (width, height):
+            raise VisualCaptureError(
+                f"Wrong size for {filename}: {actual[0]}x{actual[1]}, "
+                f"expected {width}x{height}"
+            )
+        if output.stat().st_size < 50_000:
+            raise VisualCaptureError(f"Suspiciously small screenshot: {filename}")
+
+        records.append(
+            CaptureRecord(
+                label=filename[:-4],
+                variant=variant,
+                width=width,
+                height=height,
+                hover_region=hover,
+                path=str(output.resolve()),
+                bytes=output.stat().st_size,
+                sha256=_sha(output),
+            )
+        )
+
+
 def capture_visual_set() -> CaptureSet:
     changed = _preflight()
     if not GODOT_EXE.exists():
@@ -168,68 +232,40 @@ def capture_visual_set() -> CaptureSet:
     if TEMP_SCRIPT.exists():
         raise VisualCaptureError(f"Temporary script already exists: {TEMP_SCRIPT}")
 
-    directory = ROOT / "output" / "ai-team" / f"VISUAL-{datetime.now():%Y%m%d-%H%M%S}"
+    current_bytes = SHADER_PATH.read_bytes()
+    baseline_bytes = _git_head_bytes(EXPECTED_CHANGE)
+    if current_bytes == baseline_bytes:
+        raise VisualCaptureError(
+            "Current shader is byte-identical to HEAD; no visual diff to review."
+        )
+
+    current_sha = hashlib.sha256(current_bytes).hexdigest()
+    baseline_sha = hashlib.sha256(baseline_bytes).hexdigest()
+
+    directory = ROOT / "output" / "ai-team" / f"VISUAL-BASELINE-{datetime.now():%Y%m%d-%H%M%S}"
     directory.mkdir(parents=True, exist_ok=True)
     manifest_path = directory / "manifest.json"
-
     records: list[CaptureRecord] = []
     logs: list[str] = []
 
     try:
         TEMP_SCRIPT.write_text(GDSCRIPT, encoding="utf-8", newline="\n")
 
-        for width, height, hover, filename in CAPTURES:
-            output = directory / filename
-            logs.append(_capture_one(width, height, hover, output))
+        SHADER_PATH.write_bytes(baseline_bytes)
+        _capture_variant(directory, "baseline", records, logs)
 
-            if not output.exists():
-                raise VisualCaptureError(f"Screenshot not created: {output}")
-
-            actual = _png_size(output)
-            if actual != (width, height):
-                raise VisualCaptureError(
-                    f"Wrong size for {filename}: {actual[0]}x{actual[1]}, expected {width}x{height}"
-                )
-            if output.stat().st_size < 50_000:
-                raise VisualCaptureError(f"Suspiciously small screenshot: {filename}")
-
-            records.append(
-                CaptureRecord(
-                    label=filename[:-4],
-                    width=width,
-                    height=height,
-                    hover_region=hover,
-                    path=str(output.resolve()),
-                    bytes=output.stat().st_size,
-                    sha256=_sha(output),
-                )
-            )
-
-        by_label = {r.label: r for r in records}
-        for baseline, hover in (
-            ("1920x1080_no_hover", "1920x1080_ice_coast_hover"),
-            ("1920x1080_no_hover", "1920x1080_black_forest_hover"),
-            ("1280x720_no_hover", "1280x720_ice_coast_hover"),
-            ("1280x720_no_hover", "1280x720_black_forest_hover"),
-        ):
-            if by_label[baseline].sha256 == by_label[hover].sha256:
-                raise VisualCaptureError(f"Hover screenshot equals baseline: {hover}")
-
-        manifest = {
-            "schema": 1,
-            "task_kind": "world_map_hover_visual_gate",
-            "changed_paths": list(changed),
-            "captures": [asdict(r) for r in records],
-        }
-        manifest_path.write_text(
-            json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",
-            encoding="utf-8",
-        )
-        (directory / "capture.log").write_text("\n\n".join(logs), encoding="utf-8")
+        SHADER_PATH.write_bytes(current_bytes)
+        _capture_variant(directory, "current", records, logs)
 
     finally:
+        SHADER_PATH.write_bytes(current_bytes)
         if TEMP_SCRIPT.exists():
             TEMP_SCRIPT.unlink()
+
+    if hashlib.sha256(SHADER_PATH.read_bytes()).hexdigest() != current_sha:
+        raise VisualCaptureError(
+            "Current shader bytes were not restored exactly after visual capture."
+        )
 
     ensure_tests_did_not_change_tracked_files(changed)
 
@@ -247,24 +283,59 @@ def capture_visual_set() -> CaptureSet:
             "Unexpected untracked files left under godot/:\n" + cp.stdout.strip()
         )
 
+    by_key = {
+        (record.variant, record.width, record.height, record.hover_region): record
+        for record in records
+    }
+    for width, height, hover in CASES:
+        before = by_key[("baseline", width, height, hover)]
+        after = by_key[("current", width, height, hover)]
+        if before.sha256 == after.sha256:
+            raise VisualCaptureError(
+                f"Current screenshot is identical to baseline: {width}x{height} / {hover}"
+            )
+
+    manifest = {
+        "schema": 2,
+        "task_kind": "world_map_hover_baseline_visual_gate",
+        "changed_paths": list(changed),
+        "baseline_shader_sha256": baseline_sha,
+        "current_shader_sha256": current_sha,
+        "capture_count": len(records),
+        "captures": [asdict(r) for r in records],
+        "comparison_rule": (
+            "Judge regressions relative to baseline. Pre-existing visual defects "
+            "visible in both baseline and current must be recorded as baseline debt, "
+            "not attributed to the current shader diff."
+        ),
+    }
+    manifest_path.write_text(
+        json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    (directory / "capture.log").write_text("\n\n".join(logs), encoding="utf-8")
+
     return CaptureSet(directory, manifest_path, tuple(records))
+
 
 def latest_capture_set() -> CaptureSet:
     root = ROOT / "output" / "ai-team"
     dirs = sorted(
-        [p for p in root.glob("VISUAL-*") if (p / "manifest.json").exists()],
+        [
+            p for p in root.glob("VISUAL-BASELINE-*")
+            if (p / "manifest.json").exists()
+        ],
         reverse=True,
     )
     if not dirs:
-        raise VisualCaptureError("No VISUAL-* capture set found.")
+        raise VisualCaptureError("No VISUAL-BASELINE-* capture set found.")
 
     directory = dirs[0]
     manifest_path = directory / "manifest.json"
     data = json.loads(manifest_path.read_text(encoding="utf-8"))
-
     records = tuple(CaptureRecord(**item) for item in data.get("captures", []))
-    if len(records) != 6:
-        raise VisualCaptureError(f"Expected 6 screenshots, found {len(records)}.")
+    if len(records) != 8:
+        raise VisualCaptureError(f"Expected 8 screenshots, found {len(records)}.")
 
     for record in records:
         if not Path(record.path).exists():
