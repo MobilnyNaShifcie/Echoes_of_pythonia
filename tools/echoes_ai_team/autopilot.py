@@ -48,8 +48,8 @@ MAX_REPLACEMENTS_PER_FILE = int(os.getenv("EOP_AUTOPILOT_MAX_REPLACEMENTS_PER_FI
 MAX_TOTAL_NEW_CHARS = int(os.getenv("EOP_AUTOPILOT_MAX_NEW_CHARS", "26000"))
 MAX_DIFF_CHARS = int(os.getenv("EOP_AUTOPILOT_MAX_DIFF_CHARS", "42000"))
 MAX_REVIEW_CYCLES = int(os.getenv("EOP_AUTOPILOT_MAX_REVIEW_CYCLES", "2"))
-DEVELOPER_MAX_TURNS = int(os.getenv("EOP_AUTOPILOT_DEVELOPER_MAX_TURNS", "4"))
-REVIEWER_MAX_TURNS = int(os.getenv("EOP_AUTOPILOT_REVIEWER_MAX_TURNS", "3"))
+DEVELOPER_MAX_TURNS = int(os.getenv("EOP_AUTOPILOT_DEVELOPER_MAX_TURNS", "8"))
+REVIEWER_MAX_TURNS = int(os.getenv("EOP_AUTOPILOT_REVIEWER_MAX_TURNS", "5"))
 
 
 class AutopilotError(RuntimeError):
@@ -236,17 +236,32 @@ def _write_json(path: Path, value: object) -> None:
     )
 
 
-def _start_task_branch(task: str) -> tuple[str, str]:
+def _prepare_task_branch(task: str, *, resume_current: bool) -> tuple[str, str]:
     branch = _branch()
     _ensure_safe_branch(branch)
-    if branch != BASE_BRANCH:
-        raise AutopilotError(
-            f"Start Autopilot from {BASE_BRANCH}. Current branch: {branch}"
-        )
     _ensure_clean()
     _fetch()
 
     remote_base = f"{REMOTE}/{BASE_BRANCH}"
+
+    if resume_current:
+        if not branch.startswith("ai/task/EOP-"):
+            raise AutopilotError(
+                "--resume-latest must run on an existing ai/task/EOP-... branch."
+            )
+        behind, ahead = _divergence(remote_base, branch)
+        if behind:
+            raise AutopilotError(
+                f"Current task branch is behind origin/{BASE_BRANCH} by {behind} commit(s). "
+                "Fast-forward it before resuming."
+            )
+        return branch, _git_text(["merge-base", branch, remote_base])
+
+    if branch != BASE_BRANCH:
+        raise AutopilotError(
+            f"Start Autopilot from {BASE_BRANCH}. Current branch: {branch}"
+        )
+
     behind, ahead = _divergence(remote_base, BASE_BRANCH)
     if behind or ahead:
         raise AutopilotError(
@@ -256,6 +271,21 @@ def _start_task_branch(task: str) -> tuple[str, str]:
     task_branch = f"ai/task/{_task_id()}-{_slugify(task)}"
     _git(["switch", "-c", task_branch])
     return task_branch, _head()
+
+
+def _latest_autopilot_task() -> str:
+    candidates = sorted(
+        [p for p in OUTPUT_ROOT.glob("AUTOPILOT-*") if p.is_dir()],
+        key=lambda p: p.stat().st_mtime,
+        reverse=True,
+    )
+    for directory in candidates:
+        task_path = directory / "task.txt"
+        if task_path.exists():
+            task = task_path.read_text(encoding="utf-8").strip()
+            if task:
+                return task
+    raise AutopilotError("No previous AUTOPILOT task was found to resume.")
 
 
 def _safe_edit_path(relative: str) -> Path:
@@ -407,7 +437,10 @@ Zasady pracy:
 - Najpierw odkryj właściwe źródła w repo. Batchuj wiele wyszukiwań i odczytów
   w jednym wywołaniu narzędzia.
 - Zwykle wystarczą: 1 wywołanie discovery + 1 wywołanie odczytu plików.
-- Możesz wykonać dodatkowe wywołanie, jeśli naprawdę go potrzebujesz.
+- Batchuj maksymalnie dużo pracy w jednym inspect_repo.
+- Gdy masz wystarczające dowody, NATYCHMIAST zwróć finalny ChangeProposal zamiast
+  wykonywać kolejne wyszukiwanie "na wszelki wypadek".
+- Możesz wykonać dodatkowe wywołanie tylko jeśli naprawdę go potrzebujesz.
 - MUSISZ jawnie przeczytać każdy plik, który chcesz edytować.
 - Nie zgaduj ścieżek ani implementacji. Szukaj symboli, dokumentów i referencji.
 - Jeśli brakuje kontekstu repo, użyj narzędzia ponownie zamiast zwracać BLOCKED.
@@ -681,13 +714,13 @@ def _print_usage(ledger: UsageLedger) -> None:
     print(f"Reasoning tokens:  {t['reasoning_tokens']:,}")
 
 
-async def run_task(task: str, *, publish: bool) -> int:
+async def run_task(task: str, *, publish: bool, resume_current: bool = False) -> int:
     if not task.strip():
         raise AutopilotError("Task is empty")
     if not os.getenv("OPENAI_API_KEY", "").strip():
         raise AutopilotError("OPENAI_API_KEY is missing from local .env")
 
-    task_branch, base_head = _start_task_branch(task)
+    task_branch, base_head = _prepare_task_branch(task, resume_current=resume_current)
     run_dir = _run_dir()
     (run_dir / "task.txt").write_text(task + "\n", encoding="utf-8")
     _write_json(
@@ -828,6 +861,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("task", nargs="?", default="")
     parser.add_argument("--no-publish", action="store_true")
     parser.add_argument("--doctor", action="store_true")
+    parser.add_argument(
+        "--resume-latest",
+        action="store_true",
+        help="Resume the latest failed Autopilot task on the current ai/task branch.",
+    )
     return parser.parse_args()
 
 
@@ -835,10 +873,25 @@ async def async_main() -> int:
     args = parse_args()
     if args.doctor:
         return doctor()
+    if args.resume_latest:
+        task = _latest_autopilot_task()
+        print(f"Resuming task: {task}")
+        return await run_task(
+            task,
+            publish=not args.no_publish,
+            resume_current=True,
+        )
     if not args.task:
-        print('Użyj: python tools\\echoes_ai_team\\autopilot.py "opis zadania"')
+        print(
+            'Użyj: python tools\\echoes_ai_team\\autopilot.py "opis zadania" '
+            'lub --resume-latest'
+        )
         return 1
-    return await run_task(args.task, publish=not args.no_publish)
+    return await run_task(
+        args.task,
+        publish=not args.no_publish,
+        resume_current=False,
+    )
 
 
 def main() -> None:
@@ -847,6 +900,17 @@ def main() -> None:
     except (AutopilotError, FileNotFoundError, RuntimeError) as exc:
         print(f"\nAUTOPILOT SAFETY STOP ❌\n{exc}")
         code = 2
+    except Exception as exc:
+        if exc.__class__.__name__ == "MaxTurnsExceeded":
+            print(
+                "\nAUTOPILOT SAFETY STOP ❌\n"
+                "Agent wyczerpał budżet tur zanim zwrócił finalny wynik. "
+                f"Current Developer max_turns={DEVELOPER_MAX_TURNS}. "
+                "Working tree pozostaje bez zmian; użyj --resume-latest po zwiększeniu limitu."
+            )
+            code = 2
+        else:
+            raise
     except KeyboardInterrupt:
         print("\nPrzerwano. Autopilot nigdy nie wykonuje automatycznego merge.")
         code = 130

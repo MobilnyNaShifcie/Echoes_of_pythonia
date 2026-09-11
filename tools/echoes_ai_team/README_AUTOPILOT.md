@@ -39,8 +39,8 @@ Defaults:
 ```text
 EOP_REPO_TOOL_MAX_CALLS=4
 EOP_REPO_TOOL_MAX_OUTPUT_CHARS=45000
-EOP_AUTOPILOT_DEVELOPER_MAX_TURNS=4
-EOP_AUTOPILOT_REVIEWER_MAX_TURNS=3
+EOP_AUTOPILOT_DEVELOPER_MAX_TURNS=8
+EOP_AUTOPILOT_REVIEWER_MAX_TURNS=5
 EOP_AUTOPILOT_MAX_REVIEW_CYCLES=2
 ```
 
@@ -114,3 +114,18 @@ To stop after local commit and skip push/PR:
 ```powershell
 python tools\echoes_ai_team\autopilot.py --no-publish "opis zadania"
 ```
+
+
+## Resume after a safe interruption
+
+If the agent hit its turn budget before producing a proposal, the task branch
+is kept and no project files are edited. After upgrading the runner, resume it
+without creating another branch or retyping the task:
+
+```powershell
+python tools\echoes_ai_team\autopilot.py --resume-latest
+```
+
+The Developer default is now 8 turns. This is a ceiling, not a target; the
+repo tool still has its own bounded call budget and the prompt tells Astra to
+batch discovery/read operations and finish as soon as it has enough evidence.
