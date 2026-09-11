@@ -90,6 +90,9 @@ func _capture() -> void:
     await process_frame
 
     screen.region_map._set_hovered_region(hover_region)
+    # Mirror real mouse-hover behavior: _gui_input() also positions the hint.
+    # Use the top-left pointer position as a deterministic clipping stress test.
+    screen.region_map._position_hint(Vector2(0.0, 0.0))
 
     await process_frame
     await process_frame
