@@ -491,6 +491,7 @@ def _promote_required_world_map_candidates(
     preferred = [
         "godot/ui/screens/world_map/world_region_map.gd",
         "godot/ui/screens/world_map/world_map.gd",
+        "godot/ui/screens/world_map/world_map.tscn",
         "godot/ui/screens/world_map/region_hover.gdshader",
         "godot/ui/screens/world_map/region_highlight.gdshaderinc",
         "godot/ui/screens/world_map/varenhold_valley.gdshader",
