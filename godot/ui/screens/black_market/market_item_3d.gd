@@ -62,33 +62,39 @@ func build(item_id: String) -> void:
 	if item_id.is_empty():
 		return
 	var bronze := material("6c5236", 0.65, 0.5)
-	if item_id == "grandmaster_elixir":
-		preload("res://ui/screens/black_market/elixir_reference_model.gd").new().build(self)
+	var reference_builder: Script = null
+	match item_id:
+		"grandmaster_elixir":
+			reference_builder = preload("res://ui/screens/black_market/elixir_reference_model.gd")
+		"black_pearl":
+			reference_builder = preload(
+				"res://ui/screens/black_market/black_pearl_reference_model.gd"
+			)
+		"mastery_attack_speed_book":
+			reference_builder = preload(
+				"res://ui/screens/black_market/swift_blade_manuscript_reference_model.gd"
+			)
+		"hearth_core":
+			reference_builder = preload(
+				"res://ui/screens/black_market/hearth_core_reference_model.gd"
+			)
+		"azhar_sigil":
+			reference_builder = preload(
+				"res://ui/screens/black_market/azhar_sigil_reference_model.gd"
+			)
+		"leviathan_scale":
+			reference_builder = preload(
+				"res://ui/screens/black_market/leviathan_scale_reference_model.gd"
+			)
+		"spark_of_life":
+			reference_builder = preload(
+				"res://ui/screens/black_market/spark_of_life_reference_model.gd"
+			)
+
+	if reference_builder != null:
+		reference_builder.new().build(self)
 		return
-	if item_id == "black_pearl":
-		preload("res://ui/screens/black_market/black_pearl_reference_model.gd").new().build(self)
-		return
-	if item_id == "mastery_attack_speed_book":
-		(
-			preload("res://ui/screens/black_market/swift_blade_manuscript_reference_model.gd")
-			. new()
-			. build(self)
-		)
-		return
-	if item_id == "hearth_core":
-		preload("res://ui/screens/black_market/hearth_core_reference_model.gd").new().build(self)
-		return
-	if item_id == "azhar_sigil":
-		preload("res://ui/screens/black_market/azhar_sigil_reference_model.gd").new().build(self)
-		return
-	if item_id == "leviathan_scale":
-		preload("res://ui/screens/black_market/leviathan_scale_reference_model.gd").new().build(
-			self
-		)
-		return
-	if item_id == "spark_of_life":
-		preload("res://ui/screens/black_market/spark_of_life_reference_model.gd").new().build(self)
-		return
+
 	match item_id:
 		"common_essence":
 			var gem := material("7796b1", 0.25, 0.3)
