@@ -19,29 +19,57 @@ func _market(gold := 200000):
 
 func test_price_boards_hang_from_front_lip_at_multiple_aspect_ratios() -> void:
 	var market = _market()
-	for screen_size in [Vector2(1920, 1080), Vector2(1600, 900), Vector2(1280, 800), Vector2(2560, 1080)]:
+	for screen_size in [
+		Vector2(1920, 1080), Vector2(1600, 900), Vector2(1280, 800), Vector2(2560, 1080)
+	]:
 		market.size = screen_size
 		await get_tree().process_frame
 		market._layout_offer_slots()
-		var factor: float = maxf(screen_size.x / market.SOURCE_ART_SIZE.x, screen_size.y / market.SOURCE_ART_SIZE.y)
+		var factor: float = maxf(
+			screen_size.x / market.SOURCE_ART_SIZE.x, screen_size.y / market.SOURCE_ART_SIZE.y
+		)
 		var origin: Vector2 = (screen_size - market.SOURCE_ART_SIZE * factor) * 0.5
 		for index in market.offer_slots.size():
 			var slot = market.offer_slots[index]
 			var sign = slot.price_sign
-			var mount: Vector2 = sign.get_global_transform_with_canvas() * sign.camera.unproject_position(Vector3.ZERO)
+			var mount: Vector2 = (
+				sign.get_global_transform_with_canvas()
+				* sign.camera.unproject_position(Vector3.ZERO)
+			)
 			var expected: Vector2 = origin + market.SOURCE_PRICE_ANCHORS[index] * factor
-			assert_lt(mount.distance_to(expected), 0.1, "Rope mounts stay attached to the artwork at every aspect")
-			assert_gt(mount.y, origin.y + market.SOURCE_PAD_CENTERS[index].y * factor, "Mounts are on the front lip, beyond the display mat")
+			assert_lt(
+				mount.distance_to(expected),
+				0.1,
+				"Rope mounts stay attached to the artwork at every aspect"
+			)
+			assert_gt(
+				mount.y,
+				origin.y + market.SOURCE_PAD_CENTERS[index].y * factor,
+				"Mounts are on the front lip, beyond the display mat"
+			)
 			var board: Node3D = sign.stand.get_node("HangingBoard")
-			var board_center: Vector2 = sign.get_global_transform_with_canvas() * sign.camera.unproject_position(board.global_position)
-			assert_gt(board_center.y,mount.y+20*factor,"The board visibly hangs below its two cords")
-			for part in ["LeftCord","RightCord","LeftEyelet","RightEyelet","LeftMount","RightMount"]:
+			var board_center: Vector2 = (
+				sign.get_global_transform_with_canvas()
+				* sign.camera.unproject_position(board.global_position)
+			)
+			assert_gt(
+				board_center.y, mount.y + 20 * factor, "The board visibly hangs below its two cords"
+			)
+			for part in [
+				"LeftCord", "RightCord", "LeftEyelet", "RightEyelet", "LeftMount", "RightMount"
+			]:
 				assert_true(sign.stand.get_node(part) is MeshInstance3D)
-			assert_null(sign.stand.get_node_or_null("Foot"),"No tabletop pedestal left behind")
-			assert_null(sign.stand.get_node_or_null("ContactShadow"),"No horizontal sign shadow on the mat")
-			assert_true(sign.price_text is Label3D,"Price is written on the hanging board itself")
-			assert_lt(sign.get_index(), slot.model_view.get_index(), "Item occludes sign, not the reverse")
-			assert_almost_eq(sign.scale.x,sign.scale.y,0.0001,"Sign and cords keep natural proportions")
+			assert_null(sign.stand.get_node_or_null("Foot"), "No tabletop pedestal left behind")
+			assert_null(
+				sign.stand.get_node_or_null("ContactShadow"), "No horizontal sign shadow on the mat"
+			)
+			assert_true(sign.price_text is Label3D, "Price is written on the hanging board itself")
+			assert_lt(
+				sign.get_index(), slot.model_view.get_index(), "Item occludes sign, not the reverse"
+			)
+			assert_almost_eq(
+				sign.scale.x, sign.scale.y, 0.0001, "Sign and cords keep natural proportions"
+			)
 
 
 func test_price_matches_negotiated_offer_and_sold_state() -> void:

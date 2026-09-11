@@ -16,19 +16,23 @@ const PlayerClassCatalogClass := preload("res://core/player/player_class_catalog
 
 const DEFAULT_ART_GENDER_CODE := "female"
 const CLASS_ART_PATHS := {
-	"warrior": {
+	"warrior":
+	{
 		"male": "res://assets/ui/class_selection/warrior_male.png",
 		"female": "res://assets/ui/class_selection/warrior_female.png",
 	},
-	"hunter": {
+	"hunter":
+	{
 		"male": "res://assets/ui/class_selection/hunter_male.png",
 		"female": "res://assets/ui/class_selection/hunter_female.png",
 	},
-	"mage": {
+	"mage":
+	{
 		"male": "res://assets/ui/class_selection/mage_male.png",
 		"female": "res://assets/ui/class_selection/mage_female.png",
 	},
-	"pierrot": {
+	"pierrot":
+	{
 		"male": "res://assets/ui/class_selection/pierrot_male.png",
 		"female": "res://assets/ui/class_selection/pierrot_female.png",
 	},
@@ -269,10 +273,7 @@ func _render_lock_state() -> void:
 		lock_label.text = "Wybrana Droga: %s. Ten wybór jest stały." % player.character_class_name
 		return
 	if player.level < 5:
-		lock_label.text = (
-			"Wybór odblokuje się na poziomie 5. Obecny poziom: %d."
-			% player.level
-		)
+		lock_label.text = ("Wybór odblokuje się na poziomie 5. Obecny poziom: %d." % player.level)
 		return
 	lock_label.text = "Wybór jest stały dla tej postaci."
 	choose_button.disabled = _selected_code.is_empty()

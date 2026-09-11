@@ -69,7 +69,11 @@ func build(item_id: String) -> void:
 		preload("res://ui/screens/black_market/black_pearl_reference_model.gd").new().build(self)
 		return
 	if item_id == "mastery_attack_speed_book":
-		preload("res://ui/screens/black_market/swift_blade_manuscript_reference_model.gd").new().build(self)
+		(
+			preload("res://ui/screens/black_market/swift_blade_manuscript_reference_model.gd")
+			. new()
+			. build(self)
+		)
 		return
 	if item_id == "hearth_core":
 		preload("res://ui/screens/black_market/hearth_core_reference_model.gd").new().build(self)
@@ -78,7 +82,9 @@ func build(item_id: String) -> void:
 		preload("res://ui/screens/black_market/azhar_sigil_reference_model.gd").new().build(self)
 		return
 	if item_id == "leviathan_scale":
-		preload("res://ui/screens/black_market/leviathan_scale_reference_model.gd").new().build(self)
+		preload("res://ui/screens/black_market/leviathan_scale_reference_model.gd").new().build(
+			self
+		)
 		return
 	if item_id == "spark_of_life":
 		preload("res://ui/screens/black_market/spark_of_life_reference_model.gd").new().build(self)
@@ -87,7 +93,14 @@ func build(item_id: String) -> void:
 		"common_essence":
 			var gem := material("7796b1", 0.25, 0.3)
 			for i in 5:
-				var crystal := cylinder(0.11 + i * 0.014, 0.0, 0.65 + (i % 3) * 0.19, Vector3((i - 2) * 0.16, 0.43, (i % 2) * 0.13 - 0.05), gem, 5)
+				var crystal := cylinder(
+					0.11 + i * 0.014,
+					0.0,
+					0.65 + (i % 3) * 0.19,
+					Vector3((i - 2) * 0.16, 0.43, (i % 2) * 0.13 - 0.05),
+					gem,
+					5
+				)
 				crystal.rotation_degrees.z = (i - 2) * -12.0
 		_:
 			# The remaining rotation entries are mastery/path books.
@@ -100,7 +113,11 @@ func build(item_id: String) -> void:
 			box(Vector3(0.2, 0.04, 0.22), Vector3(0, 0.33, 0), bronze)
 			box(Vector3(0.06, 0.18, 0.86), Vector3(-0.38, 0.21, 0), leather)
 			for i in 4:
-				box(Vector3(0.71, 0.006, 0.85), Vector3(0, 0.17 + i * 0.027, 0), material("79654c", 0, 1))
+				box(
+					Vector3(0.71, 0.006, 0.85),
+					Vector3(0, 0.17 + i * 0.027, 0),
+					material("79654c", 0, 1)
+				)
 			for x in [-0.32, 0.32]:
 				for z in [-0.38, 0.38]:
 					box(Vector3(0.13, 0.012, 0.12), Vector3(x, 0.318, z), bronze)
@@ -112,7 +129,9 @@ func _place_legacy_on_counter(on_side: bool) -> void:
 	var first := true
 	for part: MeshInstance3D in model.get_children():
 		if on_side:
-			part.transform = Transform3D(Basis(Vector3.FORWARD, PI * 0.5), Vector3.ZERO) * part.transform
+			part.transform = (
+				Transform3D(Basis(Vector3.FORWARD, PI * 0.5), Vector3.ZERO) * part.transform
+			)
 		var box: AABB = part.transform * part.get_aabb()
 		bounds = box if first else bounds.merge(box)
 		first = false
@@ -154,7 +173,9 @@ func box(dimensions: Vector3, pos: Vector3, surface: Material) -> MeshInstance3D
 	return mesh_node(mesh, pos, surface)
 
 
-func cylinder(bottom: float, top: float, height: float, pos: Vector3, surface: Material, sides := 12) -> MeshInstance3D:
+func cylinder(
+	bottom: float, top: float, height: float, pos: Vector3, surface: Material, sides := 12
+) -> MeshInstance3D:
 	var mesh := CylinderMesh.new()
 	mesh.bottom_radius = bottom
 	mesh.top_radius = top
@@ -193,7 +214,12 @@ func lathe(profile: PackedVector2Array, surface: Material) -> void:
 			var b := TAU * (side + 1) / segments
 			var low := profile[row]
 			var high := profile[row + 1]
-			var points := [Vector3(cos(a) * low.x, low.y, sin(a) * low.x), Vector3(cos(b) * low.x, low.y, sin(b) * low.x), Vector3(cos(a) * high.x, high.y, sin(a) * high.x), Vector3(cos(b) * high.x, high.y, sin(b) * high.x)]
+			var points := [
+				Vector3(cos(a) * low.x, low.y, sin(a) * low.x),
+				Vector3(cos(b) * low.x, low.y, sin(b) * low.x),
+				Vector3(cos(a) * high.x, high.y, sin(a) * high.x),
+				Vector3(cos(b) * high.x, high.y, sin(b) * high.x)
+			]
 			for index in [0, 2, 1, 1, 2, 3]:
 				builder.add_vertex(points[index])
 	builder.generate_normals()

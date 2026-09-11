@@ -141,12 +141,15 @@ func _render_talents() -> void:
 		node_button.custom_minimum_size = Vector2(0, 72)
 		node_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		node_button.alignment = HORIZONTAL_ALIGNMENT_LEFT
-		node_button.text = "%s  %s\nRANGA %d/%d" % [
-			"◆" if talent.prerequisites.is_empty() else "└─",
-			talent.display_name.to_upper(),
-			rank,
-			talent.max_rank,
-		]
+		node_button.text = (
+			"%s  %s\nRANGA %d/%d"
+			% [
+				"◆" if talent.prerequisites.is_empty() else "└─",
+				talent.display_name.to_upper(),
+				rank,
+				talent.max_rank,
+			]
+		)
 		node_button.set_meta("talent_id", talent.talent_id)
 		node_button.pressed.connect(_select_talent_node.bind(talent_index))
 		talent_nodes.add_child(node_button)
@@ -238,12 +241,15 @@ func _render_passives() -> void:
 		passive_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		passive_button.size_flags_vertical = Control.SIZE_EXPAND_FILL
 		passive_button.alignment = HORIZONTAL_ALIGNMENT_LEFT
-		passive_button.text = "%s\nRANGA %d/%d\n%s" % [
-			str(PassiveProgressionServiceClass.PASSIVE_NAMES[passive_code]).to_upper(),
-			rank,
-			cap,
-			PassiveProgressionServiceClass.effect_description(_session.player, passive_code),
-		]
+		passive_button.text = (
+			"%s\nRANGA %d/%d\n%s"
+			% [
+				str(PassiveProgressionServiceClass.PASSIVE_NAMES[passive_code]).to_upper(),
+				rank,
+				cap,
+				PassiveProgressionServiceClass.effect_description(_session.player, passive_code),
+			]
+		)
 		passive_button.set_meta("passive_code", passive_code)
 		passive_button.pressed.connect(_select_passive_card.bind(passive_index))
 		passive_cards.add_child(passive_button)
@@ -367,9 +373,9 @@ func _refresh_talent_node_styles() -> void:
 	for button: Button in talent_node_buttons:
 		var talent_id := str(button.get_meta("talent_id", ""))
 		var rank := TalentProgressionServiceClass.talent_rank(_session.player, talent_id)
-		var available := TalentProgressionServiceClass.get_learn_error(
-			_session.player, talent_id
-		).is_empty()
+		var available := (
+			TalentProgressionServiceClass.get_learn_error(_session.player, talent_id).is_empty()
+		)
 		var accent := Color(0.35, 0.42, 0.53)
 		if rank > 0:
 			accent = Color(0.34, 0.76, 0.52)

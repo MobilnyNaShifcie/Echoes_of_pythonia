@@ -47,7 +47,9 @@ func test_all_thirty_icons_resolve_through_unified_catalog_without_data_changes(
 		assert_not_null(item, item_id)
 		if item == null:
 			continue
-		assert_eq([item.rarity, item.category, item.slot, item.required_level], EXPECTED[item_id], item_id)
+		assert_eq(
+			[item.rarity, item.category, item.slot, item.required_level], EXPECTED[item_id], item_id
+		)
 		assert_not_null(item.icon, item_id)
 		if item.icon == null:
 			continue
@@ -63,7 +65,9 @@ func test_all_thirty_icons_resolve_through_unified_catalog_without_data_changes(
 		assert_lte(bounds.end.x, 477, item_id)
 		assert_lte(bounds.end.y, 477, item_id)
 		assert_gt(bounds.get_area(), 1000, item_id)
-		for corner: Vector2i in [Vector2i.ZERO, Vector2i(511, 0), Vector2i(0, 511), Vector2i(511, 511)]:
+		for corner: Vector2i in [
+			Vector2i.ZERO, Vector2i(511, 0), Vector2i(0, 511), Vector2i(511, 511)
+		]:
 			assert_eq(pixels.get_pixelv(corner).a, 0.0, item_id)
 
 
@@ -72,18 +76,25 @@ func test_every_new_icon_reaches_inventory_slot_tooltip_quantity_and_quality_fra
 		var item = Items.get_definition(item_id)
 		var slot = Slot.instantiate()
 		add_child(slot)
-		slot.configure({
-			"title": item.display_name,
-			"icon": item.icon,
-			"rarity": item.rarity,
-			"quantity": 2,
-			"tooltip": item.description,
-		})
+		(
+			slot
+			. configure(
+				{
+					"title": item.display_name,
+					"icon": item.icon,
+					"rarity": item.rarity,
+					"quantity": 2,
+					"tooltip": item.description,
+				}
+			)
+		)
 		assert_eq(slot.item_texture, item.icon, item_id)
 		assert_true(slot.get_node("ItemIcon").visible, item_id)
 		assert_eq(slot.get_node("ItemIcon").texture, item.icon, item_id)
 		assert_eq(slot.get_node("QuantityBadge").text, "×2", item_id)
-		assert_eq(slot.get_theme_stylebox("normal").border_color, Palette.color_for(item.rarity), item_id)
+		assert_eq(
+			slot.get_theme_stylebox("normal").border_color, Palette.color_for(item.rarity), item_id
+		)
 		var tooltip = slot._make_custom_tooltip(slot.tooltip_text)
 		var icons = tooltip.find_children("*", "TextureRect", true, false)
 		assert_eq(icons.size(), 1, item_id)

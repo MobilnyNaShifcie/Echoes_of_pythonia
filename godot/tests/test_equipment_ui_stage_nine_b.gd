@@ -102,9 +102,9 @@ func test_equipment_layout_places_close_columns_on_both_sides_of_the_character()
 	var chest: Control = screen.slot_buttons.chest
 	var belt: Control = screen.slot_buttons.belt
 	var feet: Control = screen.slot_buttons.feet
-	var paperdoll_stage := screen.get_node(
-		"Page/Workspace/PaperdollPanel/Content/Paperdoll"
-	) as PanelContainer
+	var paperdoll_stage := (
+		screen.get_node("Page/Workspace/PaperdollPanel/Content/Paperdoll") as PanelContainer
+	)
 	var stage_style := paperdoll_stage.get_theme_stylebox("panel") as StyleBoxFlat
 	assert_lte(stage_style.bg_color.a, 0.2)
 	var body_left: float = screen.character_visual.position.x
@@ -116,7 +116,11 @@ func test_equipment_layout_places_close_columns_on_both_sides_of_the_character()
 	assert_lt(screen.slot_buttons.hands.position.y, belt.position.y)
 	assert_lt(belt.position.y, feet.position.y)
 	var left_equipment_slots: Array[Control] = [
-		head, chest, screen.slot_buttons.hands, belt, feet,
+		head,
+		chest,
+		screen.slot_buttons.hands,
+		belt,
+		feet,
 	]
 	for slot_index: int in range(left_equipment_slots.size() - 1):
 		var current_slot: Control = left_equipment_slots[slot_index]
@@ -130,15 +134,17 @@ func test_equipment_layout_places_close_columns_on_both_sides_of_the_character()
 	assert_almost_eq(screen.slot_buttons.hands.position.x, head.position.x, 1.0)
 	assert_lte(chest.position.x + chest.size.x, body_left + 90.0)
 	assert_gt(screen.slot_buttons.weapon.position.x, 100.0)
-	var left_column_gap: float = chest.position.x - (
-		screen.slot_buttons.weapon.position.x + screen.slot_buttons.weapon.size.x
+	var left_column_gap: float = (
+		chest.position.x
+		- (screen.slot_buttons.weapon.position.x + screen.slot_buttons.weapon.size.x)
 	)
 	assert_gte(left_column_gap, 0.0)
 	assert_lte(left_column_gap, 5.0)
 
 	var offhand: Control = screen.slot_buttons.off_hand
-	var mirrored_offhand_x: float = paperdoll_stage.size.x - (
-		screen.slot_buttons.weapon.position.x + screen.slot_buttons.weapon.size.x
+	var mirrored_offhand_x: float = (
+		paperdoll_stage.size.x
+		- (screen.slot_buttons.weapon.position.x + screen.slot_buttons.weapon.size.x)
 	)
 	assert_almost_eq(offhand.position.x, mirrored_offhand_x, 1.0)
 	assert_almost_eq(offhand.position.y, screen.slot_buttons.weapon.position.y, 1.0)
@@ -149,8 +155,15 @@ func test_equipment_layout_places_close_columns_on_both_sides_of_the_character()
 	var bracelet: Control = screen.slot_buttons.bracelet
 	var ring: Control = screen.slot_buttons.ring
 	for regular_slot: Control in [
-		head, chest, screen.slot_buttons.hands, belt, feet,
-		earrings, necklace, bracelet, ring,
+		head,
+		chest,
+		screen.slot_buttons.hands,
+		belt,
+		feet,
+		earrings,
+		necklace,
+		bracelet,
+		ring,
 	]:
 		assert_almost_eq(regular_slot.size.x, 74.0, 1.0)
 		assert_almost_eq(regular_slot.size.y, 74.0, 1.0)
@@ -233,7 +246,9 @@ func test_equipment_below_required_level_is_visibly_locked_but_keeps_hover_detai
 	assert_eq(labels.size(), 3)
 	assert_string_contains(tooltip.find_child("ItemDescription", true, false).text, "Ząb Wilka")
 	assert_string_contains(tooltip.find_child("LockDescription", true, false).text, "🔒")
-	assert_string_contains(tooltip.find_child("LockDescription", true, false).text, "Twój poziom: 0")
+	assert_string_contains(
+		tooltip.find_child("LockDescription", true, false).text, "Twój poziom: 0"
+	)
 	assert_string_contains(tooltip.find_child("RarityLabel", true, false).text, "Rzadki")
 	var locked_style := cell.get_theme_stylebox("normal") as StyleBoxFlat
 	assert_lt(locked_style.border_color.r, locked_style.border_color.b)

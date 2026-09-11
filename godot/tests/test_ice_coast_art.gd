@@ -63,8 +63,10 @@ func test_real_combat_scene_binds_region_five_in_day_night_and_boss_context() ->
 			assert_false(screen.battlefield_placeholder.visible, enemy_id)
 			assert_eq(screen.enemy_visual.mode(), Visual.Mode.STATIC_TEXTURE, enemy_id)
 			assert_eq(screen.enemy_visual.source_texture(), Catalog.enemy_texture(enemy_id))
-			assert_eq(screen.battlefield_texture.texture,
-				Catalog.battlefield_texture("ice_coast", session.period_code(), context))
+			assert_eq(
+				screen.battlefield_texture.texture,
+				Catalog.battlefield_texture("ice_coast", session.period_code(), context)
+			)
 			assert_true(screen.attack_button.visible)
 			assert_false(screen.attack_button.disabled)
 			screen.free()

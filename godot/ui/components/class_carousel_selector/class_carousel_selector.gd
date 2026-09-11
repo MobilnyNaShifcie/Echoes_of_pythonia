@@ -30,11 +30,7 @@ func _ready() -> void:
 
 
 func configure(
-	code: String,
-	display_name: String,
-	base_mana: int,
-	symbol: String,
-	accent: Color
+	code: String, display_name: String, base_mana: int, symbol: String, accent: Color
 ) -> void:
 	class_code = code
 	_accent = accent

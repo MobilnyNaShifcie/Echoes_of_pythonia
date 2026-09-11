@@ -79,16 +79,16 @@ func _build_stand() -> void:
 	var fibers := Shader.new()
 	fibers.code = "shader_type spatial; void fragment(){float strand=sin(UV.x*18.8496+UV.y*30.0)*0.10; ALBEDO=vec3(0.45,0.32,0.17)*(1.0+strand); ROUGHNESS=0.98;}"
 	twine.shader = fibers
-	for side: int in [-1,1]:
+	for side: int in [-1, 1]:
 		var prefix := "Left" if side == -1 else "Right"
-		var mount := Vector3(side*0.68,0,0.015)
-		var eye := Vector3(side*0.68,-0.49,0.11)
-		_sphere(stand,prefix+"Mount",mount,0.03,brass)
-		_eyelet(prefix+"Eyelet",eye,brass)
-		_cord(prefix+"Cord",mount+Vector3(0,-0.013,0.015),eye,twine)
+		var mount := Vector3(side * 0.68, 0, 0.015)
+		var eye := Vector3(side * 0.68, -0.49, 0.11)
+		_sphere(stand, prefix + "Mount", mount, 0.03, brass)
+		_eyelet(prefix + "Eyelet", eye, brass)
+		_cord(prefix + "Cord", mount + Vector3(0, -0.013, 0.015), eye, twine)
 		# A small wrapped knot at each metal eye gives the rope a real termination.
-		var knot := _sphere(stand,prefix+"Knot",eye+Vector3(0,0.015,0.026),0.027,twine)
-		knot.scale = Vector3(0.9,1.35,0.8)
+		var knot := _sphere(stand, prefix + "Knot", eye + Vector3(0, 0.015, 0.026), 0.027, twine)
+		knot.scale = Vector3(0.9, 1.35, 0.8)
 	price_text = Label3D.new()
 	price_text.name = "WrittenPrice"
 	price_text.font = ThemeDB.fallback_font
@@ -126,7 +126,12 @@ func set_price(price: int, sold: bool) -> void:
 	price_text.text = "SPRZEDANE" if sold else "%s zł" % grouped
 	price_text.modulate = Color("9c8c76") if sold else Color("dcc698")
 	# Keep even a six-digit price inside the physical frame.
-	var width := price_text.font.get_string_size(price_text.text, HORIZONTAL_ALIGNMENT_LEFT, -1, price_text.font_size).x
+	var width := (
+		price_text
+		. font
+		. get_string_size(price_text.text, HORIZONTAL_ALIGNMENT_LEFT, -1, price_text.font_size)
+		. x
+	)
 	price_text.pixel_size = minf(0.0039, 1.5 / maxf(width, 1.0))
 	_request_render()
 
@@ -139,10 +144,12 @@ func hang_from_counter(anchor: Vector2, display_size: Vector2) -> void:
 	position = anchor - camera.unproject_position(Vector3.ZERO) * scale
 
 
-func _sphere(parent: Node3D, node_name: String, at: Vector3, radius: float, mat: Material) -> MeshInstance3D:
+func _sphere(
+	parent: Node3D, node_name: String, at: Vector3, radius: float, mat: Material
+) -> MeshInstance3D:
 	var mesh := SphereMesh.new()
 	mesh.radius = radius
-	mesh.height = radius*2.0
+	mesh.height = radius * 2.0
 	mesh.radial_segments = 12
 	mesh.rings = 6
 	var node := MeshInstance3D.new()
@@ -176,13 +183,20 @@ func _cord(node_name: String, start: Vector3, end: Vector3, mat: Material) -> vo
 		for side in 10:
 			var vertices: Array[Vector3] = []
 			var uvs: Array[Vector2] = []
-			for corner: Vector2i in [Vector2i(side,row),Vector2i(side+1,row),Vector2i(side,row+1),Vector2i(side+1,row+1)]:
-				var t := corner.y/16.0
-				var angle := TAU*corner.x/10.0
-				var center := start.lerp(end,t)+Vector3(0.006*sin(t*PI),0,0.012*sin(t*PI))
-				vertices.append(center+Vector3(cos(angle),0,sin(angle))*0.019)
-				uvs.append(Vector2(corner.x/10.0,t))
-			for index in [0,2,1,1,2,3]:
+			for corner: Vector2i in [
+				Vector2i(side, row),
+				Vector2i(side + 1, row),
+				Vector2i(side, row + 1),
+				Vector2i(side + 1, row + 1)
+			]:
+				var t := corner.y / 16.0
+				var angle := TAU * corner.x / 10.0
+				var center := (
+					start.lerp(end, t) + Vector3(0.006 * sin(t * PI), 0, 0.012 * sin(t * PI))
+				)
+				vertices.append(center + Vector3(cos(angle), 0, sin(angle)) * 0.019)
+				uvs.append(Vector2(corner.x / 10.0, t))
+			for index in [0, 2, 1, 1, 2, 3]:
 				st.set_uv(uvs[index])
 				st.add_vertex(vertices[index])
 	st.generate_normals()
@@ -212,7 +226,9 @@ func _material(hex: String, metallic: float, roughness: float) -> StandardMateri
 	return mat
 
 
-func _box(parent: Node3D, node_name: String, dimensions: Vector3, at: Vector3, mat: Material) -> MeshInstance3D:
+func _box(
+	parent: Node3D, node_name: String, dimensions: Vector3, at: Vector3, mat: Material
+) -> MeshInstance3D:
 	var mesh := BoxMesh.new()
 	mesh.size = dimensions
 	var node := MeshInstance3D.new()

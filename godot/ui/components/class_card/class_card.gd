@@ -151,9 +151,7 @@ func _apply_button_styles(active: bool) -> void:
 	add_theme_stylebox_override("normal", style)
 	add_theme_stylebox_override("hover", style)
 	add_theme_stylebox_override("focus", style)
-	add_theme_stylebox_override(
-		"pressed", _card_style(GOLD_BORDER, background.lightened(0.05), 3)
-	)
+	add_theme_stylebox_override("pressed", _card_style(GOLD_BORDER, background.lightened(0.05), 3))
 
 
 func _card_style(border: Color, background: Color, width: int) -> StyleBoxFlat:

@@ -182,8 +182,7 @@ static func buy(session, offer_id: String) -> Dictionary:
 		return {
 			"ok": false,
 			"message":
-				"Brak udźwigu. Po zakupie: %.1f/%.1f kg."
-				% [current_weight + added_weight, capacity],
+			"Brak udźwigu. Po zakupie: %.1f/%.1f kg." % [current_weight + added_weight, capacity],
 		}
 	if not session.player.inventory.add(offer.item_id, offer.quantity):
 		return {"ok": false, "message": "Nie udało się dodać przedmiotu do plecaka."}

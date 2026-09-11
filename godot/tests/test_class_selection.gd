@@ -93,19 +93,23 @@ func test_class_screen_builds_a_three_figure_carousel_with_minimal_selectors() -
 
 func test_carousel_uses_full_body_gender_art_without_cover_or_stretch() -> void:
 	var expected_paths := {
-		"warrior": {
+		"warrior":
+		{
 			"male": "res://assets/ui/class_selection/warrior_male.png",
 			"female": "res://assets/ui/class_selection/warrior_female.png",
 		},
-		"hunter": {
+		"hunter":
+		{
 			"male": "res://assets/ui/class_selection/hunter_male.png",
 			"female": "res://assets/ui/class_selection/hunter_female.png",
 		},
-		"mage": {
+		"mage":
+		{
 			"male": "res://assets/ui/class_selection/mage_male.png",
 			"female": "res://assets/ui/class_selection/mage_female.png",
 		},
-		"pierrot": {
+		"pierrot":
+		{
 			"male": "res://assets/ui/class_selection/pierrot_male.png",
 			"female": "res://assets/ui/class_selection/pierrot_female.png",
 		},

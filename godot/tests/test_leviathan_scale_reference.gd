@@ -11,7 +11,17 @@ func test_scale_has_closed_textured_shell_ribs_and_separate_metal_collar() -> vo
 	var view = ModelView.new()
 	add_child_autofree(view)
 	view.build("leviathan_scale")
-	for part in ["IridescentShell", "GrowthRib0", "GrowthRib1", "GrowthRib2", "ArmoredRim", "WeatheredCollar", "CollarBevel0", "CollarBevel1", "CollarBevel2"]:
+	for part in [
+		"IridescentShell",
+		"GrowthRib0",
+		"GrowthRib1",
+		"GrowthRib2",
+		"ArmoredRim",
+		"WeatheredCollar",
+		"CollarBevel0",
+		"CollarBevel1",
+		"CollarBevel2"
+	]:
 		var node: MeshInstance3D = view.model.get_node(part)
 		assert_true(node.mesh is ArrayMesh)
 		var arrays := node.mesh.surface_get_arrays(0)
@@ -31,7 +41,9 @@ func test_scale_has_closed_textured_shell_ribs_and_separate_metal_collar() -> vo
 	var original_shell = view.model.get_node("IridescentShell")
 	view.highlight(true)
 	view.build("leviathan_scale")
-	assert_same(view.model.get_node("IridescentShell"), original_shell, "Hover never rebuilds the model")
+	assert_same(
+		view.model.get_node("IridescentShell"), original_shell, "Hover never rebuilds the model"
+	)
 
 
 func test_scale_curves_inward_towards_a_narrow_edge() -> void:
@@ -61,11 +73,20 @@ func test_scale_lies_on_counter_and_fits_in_viewport() -> void:
 	assert_almost_eq(minimum_y, 0.018, 0.0001)
 	assert_almost_eq(view.model.get_node("ContactShadow").position.y, 0.004, 0.0001)
 	var scale_rect := _projected_rect(view)
-	assert_lt(scale_rect.size.y / elixir.size.y, 0.8, "A lying scale is lower than an upright bottle")
-	assert_gt(scale_rect.size.y / elixir.size.y, 0.2, "Lying does not shrink the item into an unreadable speck")
+	assert_lt(
+		scale_rect.size.y / elixir.size.y, 0.8, "A lying scale is lower than an upright bottle"
+	)
+	assert_gt(
+		scale_rect.size.y / elixir.size.y,
+		0.2,
+		"Lying does not shrink the item into an unreadable speck"
+	)
 	for turn in [0, 35, -35]:
 		view.model.rotation_degrees.y = turn
-		assert_true(Rect2(Vector2.ZERO, view.size).encloses(_projected_rect(view)), "Entire shell remains in frame at %d degrees" % turn)
+		assert_true(
+			Rect2(Vector2.ZERO, view.size).encloses(_projected_rect(view)),
+			"Entire shell remains in frame at %d degrees" % turn
+		)
 
 
 func test_scale_live_drag_cancel_and_purchase_keep_original_item_and_price() -> void:
@@ -94,7 +115,12 @@ func test_scale_live_drag_cancel_and_purchase_keep_original_item_and_price() -> 
 	assert_same(view.get_parent(), slot)
 	assert_true(world.get_node("ContactShadow").visible)
 	var camera: Camera3D = view.viewport_3d.get_camera_3d()
-	assert_lt((view.position + camera.unproject_position(Vector3(0, 0.035, 0))).distance_to(slot._counter_anchor), 0.1)
+	assert_lt(
+		(view.position + camera.unproject_position(Vector3(0, 0.035, 0))).distance_to(
+			slot._counter_anchor
+		),
+		0.1
+	)
 	assert_eq(market._session.player.gold, 200000)
 	slot._get_drag_data(Vector2(70, 35))
 	market.inventory_drop_target._drop_data(Vector2.ZERO, data)

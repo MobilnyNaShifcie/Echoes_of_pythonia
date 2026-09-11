@@ -10,7 +10,15 @@ var _item_texture: Texture2D
 var _sold := false
 const ModelView := preload("res://ui/screens/black_market/market_item_3d.gd")
 const REFERENCE_DISPLAY_SCALE := 1.5
-const REFERENCE_ITEMS := ["grandmaster_elixir", "black_pearl", "mastery_attack_speed_book", "hearth_core", "azhar_sigil", "leviathan_scale", "spark_of_life"]
+const REFERENCE_ITEMS := [
+	"grandmaster_elixir",
+	"black_pearl",
+	"mastery_attack_speed_book",
+	"hearth_core",
+	"azhar_sigil",
+	"leviathan_scale",
+	"spark_of_life"
+]
 var model_view: SubViewportContainer
 var _dragging := false
 var _drag_layer: CanvasLayer
@@ -116,10 +124,18 @@ func _apply_item_pose() -> void:
 func _has_point(point: Vector2) -> bool:
 	if Rect2(Vector2.ZERO, size).has_point(point):
 		return true
-	if item_id in REFERENCE_ITEMS and not _dragging and not disabled and is_instance_valid(model_view):
+	if (
+		item_id in REFERENCE_ITEMS
+		and not _dragging
+		and not disabled
+		and is_instance_valid(model_view)
+	):
 		# Books and the pearl's gold cradle are wider than the bottle.
 		var inset := 0.3 if item_id == "grandmaster_elixir" else 0.18
-		var item_area := Rect2(model_view.position + Vector2(model_view.size.x * inset, 0), Vector2(model_view.size.x * (1.0 - 2.0*inset), model_view.size.y))
+		var item_area := Rect2(
+			model_view.position + Vector2(model_view.size.x * inset, 0),
+			Vector2(model_view.size.x * (1.0 - 2.0 * inset), model_view.size.y)
+		)
 		return item_area.has_point(point)
 	return false
 

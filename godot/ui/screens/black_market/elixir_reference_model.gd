@@ -16,10 +16,58 @@ const SEGMENTS := 64
 
 # Pixel-space radius / height measurements, bottom to top. These form a closed
 # cross-section reconstruction of the octagonal foot, vessel, neck and stopper.
-const FOOT := [Vector2(0,1511), Vector2(105,1496), Vector2(192,1465), Vector2(231,1433), Vector2(235,1411), Vector2(215,1394), Vector2(162,1350), Vector2(136,1326)]
-const BODY := [Vector2(136,1326), Vector2(147,1274), Vector2(177,1200), Vector2(214,1114), Vector2(250,1025), Vector2(289,935), Vector2(315,850), Vector2(331,779), Vector2(315,735), Vector2(284,687), Vector2(246,639), Vector2(201,591), Vector2(161,548), Vector2(139,507)]
-const NECK := [Vector2(139,507), Vector2(132,490), Vector2(128,462), Vector2(128,419), Vector2(126,386), Vector2(130,369), Vector2(120,349), Vector2(128,322), Vector2(151,293), Vector2(163,270), Vector2(160,248), Vector2(139,230)]
-const CORK := [Vector2(139,230), Vector2(132,209), Vector2(136,175), Vector2(141,134), Vector2(151,101), Vector2(151,81), Vector2(140,56), Vector2(110,30), Vector2(72,16), Vector2(0,9)]
+const FOOT := [
+	Vector2(0, 1511),
+	Vector2(105, 1496),
+	Vector2(192, 1465),
+	Vector2(231, 1433),
+	Vector2(235, 1411),
+	Vector2(215, 1394),
+	Vector2(162, 1350),
+	Vector2(136, 1326)
+]
+const BODY := [
+	Vector2(136, 1326),
+	Vector2(147, 1274),
+	Vector2(177, 1200),
+	Vector2(214, 1114),
+	Vector2(250, 1025),
+	Vector2(289, 935),
+	Vector2(315, 850),
+	Vector2(331, 779),
+	Vector2(315, 735),
+	Vector2(284, 687),
+	Vector2(246, 639),
+	Vector2(201, 591),
+	Vector2(161, 548),
+	Vector2(139, 507)
+]
+const NECK := [
+	Vector2(139, 507),
+	Vector2(132, 490),
+	Vector2(128, 462),
+	Vector2(128, 419),
+	Vector2(126, 386),
+	Vector2(130, 369),
+	Vector2(120, 349),
+	Vector2(128, 322),
+	Vector2(151, 293),
+	Vector2(163, 270),
+	Vector2(160, 248),
+	Vector2(139, 230)
+]
+const CORK := [
+	Vector2(139, 230),
+	Vector2(132, 209),
+	Vector2(136, 175),
+	Vector2(141, 134),
+	Vector2(151, 101),
+	Vector2(151, 81),
+	Vector2(140, 56),
+	Vector2(110, 30),
+	Vector2(72, 16),
+	Vector2(0, 9)
+]
 
 var host
 var surface: StandardMaterial3D
@@ -45,10 +93,31 @@ func build(view) -> void:
 	build_shell(NECK, "LeatherCollarAndLip", 0.7, 0.012)
 	build_shell(CORK, "WaxSealedCork", 0.7, 0.015)
 	# Front relief follows the actual jewellery in the painting, not invented rings.
-	beveled_diamond(Vector2(513,446), Vector2(58,81), 89, "CollarAmethyst")
-	beveled_diamond(Vector2(690,770), Vector2(35,59), 196, "HangingAmethyst")
-	cord([Vector2(653,498),Vector2(673,538),Vector2(674,578),Vector2(667,620),Vector2(663,664),Vector2(672,707)], 5.0, "LeatherCord")
-	cord([Vector2(709,817),Vector2(726,866),Vector2(749,920),Vector2(778,965),Vector2(800,987)], 5.0, "LeatherTail")
+	beveled_diamond(Vector2(513, 446), Vector2(58, 81), 89, "CollarAmethyst")
+	beveled_diamond(Vector2(690, 770), Vector2(35, 59), 196, "HangingAmethyst")
+	cord(
+		[
+			Vector2(653, 498),
+			Vector2(673, 538),
+			Vector2(674, 578),
+			Vector2(667, 620),
+			Vector2(663, 664),
+			Vector2(672, 707)
+		],
+		5.0,
+		"LeatherCord"
+	)
+	cord(
+		[
+			Vector2(709, 817),
+			Vector2(726, 866),
+			Vector2(749, 920),
+			Vector2(778, 965),
+			Vector2(800, 987)
+		],
+		5.0,
+		"LeatherTail"
+	)
 	# A low, soft ground contact. Separate geometry, not an item-image rectangle.
 	var contact := CylinderMesh.new()
 	contact.top_radius = 0.21
@@ -77,7 +146,12 @@ func build_shell(profile: Array, label: String, depth_ratio: float, bevel: float
 		for side in SEGMENTS:
 			var vertices: Array[Vector3] = []
 			var uvs: Array[Vector2] = []
-			for corner: Vector2i in [Vector2i(side,row),Vector2i(side+1,row),Vector2i(side,row+1),Vector2i(side+1,row+1)]:
+			for corner: Vector2i in [
+				Vector2i(side, row),
+				Vector2i(side + 1, row),
+				Vector2i(side, row + 1),
+				Vector2i(side + 1, row + 1)
+			]:
 				var theta := TAU * corner.x / SEGMENTS
 				var sample: Vector2 = profile[corner.y]
 				var flute := 1.0 - bevel * (1.0 - cos(theta * 8.0)) * 0.5
@@ -98,16 +172,18 @@ func build_shell(profile: Array, label: String, depth_ratio: float, bevel: float
 func beveled_diamond(center: Vector2, extent: Vector2, depth: float, label: String) -> void:
 	var st := SurfaceTool.new()
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
-	var shape := [Vector2(0,-1),Vector2(1,0),Vector2(0,1),Vector2(-1,0)]
+	var shape := [Vector2(0, -1), Vector2(1, 0), Vector2(0, 1), Vector2(-1, 0)]
 	for i in 4:
 		var j := (i + 1) % 4
 		var a: Vector2 = center + shape[i] * extent
 		var b: Vector2 = center + shape[j] * extent
 		var inner_a := center.lerp(a, 0.78)
 		var inner_b := center.lerp(b, 0.78)
-		for tri in [[a,inner_a,b],[b,inner_a,inner_b],[inner_a,center,inner_b]]:
+		for tri in [[a, inner_a, b], [b, inner_a, inner_b], [inner_a, center, inner_b]]:
 			for px: Vector2 in tri:
-				var raised := 17.0 if px == center else (10.0 if px == inner_a or px == inner_b else 0.0)
+				var raised := (
+					17.0 if px == center else (10.0 if px == inner_a or px == inner_b else 0.0)
+				)
 				st.set_uv(px / ART_SIZE)
 				st.add_vertex(point(px, depth + raised))
 	st.generate_normals()
@@ -135,13 +211,15 @@ func cord(path: Array, width: float, label: String) -> void:
 		for j in 12:
 			var points: Array[Vector3] = []
 			var uvs: Array[Vector2] = []
-			for corner: Vector2i in [Vector2i(j,i),Vector2i(j+1,i),Vector2i(j,i+1),Vector2i(j+1,i+1)]:
+			for corner: Vector2i in [
+				Vector2i(j, i), Vector2i(j + 1, i), Vector2i(j, i + 1), Vector2i(j + 1, i + 1)
+			]:
 				var a := TAU * corner.x / 12.0
 				var p: Vector2 = path[corner.y]
 				p.x += cos(a) * width
 				points.append(point(p, surface_depth(path[corner.y]) + 4.0 + sin(a) * width))
 				uvs.append(p / ART_SIZE)
-			for index in [0,2,1,1,2,3]:
+			for index in [0, 2, 1, 1, 2, 3]:
 				st.set_uv(uvs[index])
 				st.add_vertex(points[index])
 	st.generate_normals()

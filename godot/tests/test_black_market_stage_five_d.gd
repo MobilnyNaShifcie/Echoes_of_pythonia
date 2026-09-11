@@ -13,7 +13,10 @@ const BLACK_MARKET_SCENE := preload("res://ui/screens/black_market/black_market.
 const CITY_HUB_SCENE := preload("res://ui/screens/city_hub/city_hub.tscn")
 const CITY_ECONOMY_SCENE := preload("res://ui/screens/city_economy/city_economy.tscn")
 
-class NoDiskSaveService extends SaveGameService:
+
+class NoDiskSaveService:
+	extends SaveGameService
+
 	func any_save_exists() -> bool:
 		return false
 

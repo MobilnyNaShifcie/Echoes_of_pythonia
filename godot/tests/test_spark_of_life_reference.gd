@@ -35,7 +35,10 @@ func test_original_icon_is_mapped_to_closed_core_leaves_stem_and_veins() -> void
 		view.model.rotation_degrees.y = 0
 	var core: MeshInstance3D = view.model.get_node("LivingCrystal")
 	assert_gt(core.get_aabb().size.z, 0.30)
-	assert_gt(core.material_override.emission_energy_multiplier, view.model.get_node("LeftBronzeLeaf").material_override.emission_energy_multiplier)
+	assert_gt(
+		core.material_override.emission_energy_multiplier,
+		view.model.get_node("LeftBronzeLeaf").material_override.emission_energy_multiplier
+	)
 	view.highlight(true)
 	view.build("spark_of_life")
 	assert_same(view.model.get_node("LivingCrystal"), core)
@@ -78,8 +81,22 @@ func test_crystal_overlaps_leaf_lips_instead_of_leaving_dark_seams() -> void:
 	add_child_autofree(view)
 	var builder = Builder.new()
 	builder.build(view)
-	for pixel: Vector2 in [Vector2(641, 227), Vector2(597, 252), Vector2(524, 322), Vector2(480, 412), Vector2(470, 462), Vector2(589, 961), Vector2(673, 871), Vector2(810, 753), Vector2(948, 575), Vector2(524, 1030)]:
-		assert_true(Geometry2D.is_point_in_polygon(pixel, builder.core_outline), "Crystal extends under the metal lip at " + str(pixel))
+	for pixel: Vector2 in [
+		Vector2(641, 227),
+		Vector2(597, 252),
+		Vector2(524, 322),
+		Vector2(480, 412),
+		Vector2(470, 462),
+		Vector2(589, 961),
+		Vector2(673, 871),
+		Vector2(810, 753),
+		Vector2(948, 575),
+		Vector2(524, 1030)
+	]:
+		assert_true(
+			Geometry2D.is_point_in_polygon(pixel, builder.core_outline),
+			"Crystal extends under the metal lip at " + str(pixel)
+		)
 
 
 func test_live_drag_cancel_and_purchase_preserve_identity_and_price() -> void:
@@ -108,7 +125,12 @@ func test_live_drag_cancel_and_purchase_preserve_identity_and_price() -> void:
 	assert_same(view.get_parent(), slot)
 	assert_true(world.get_node("ContactShadow").visible)
 	var camera: Camera3D = view.viewport_3d.get_camera_3d()
-	assert_lt((view.position + camera.unproject_position(Vector3(0, 0.035, 0))).distance_to(slot._counter_anchor), 0.1)
+	assert_lt(
+		(view.position + camera.unproject_position(Vector3(0, 0.035, 0))).distance_to(
+			slot._counter_anchor
+		),
+		0.1
+	)
 	assert_eq(market._session.player.gold, 200000)
 	slot._get_drag_data(Vector2(70, 35))
 	market.inventory_drop_target._drop_data(Vector2.ZERO, data)
