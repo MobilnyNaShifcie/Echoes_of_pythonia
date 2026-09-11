@@ -1,0 +1,143 @@
+extends RefCounted
+
+# Presentation-only configuration extracted from CityEconomyScreen.
+# Keep gameplay and interaction logic in city_economy.gd.
+
+const SERVICE_PRESENTATION := {
+	"merchant":
+	{
+		"role": "OREN • KUPIEC",
+		"caption": "OREN",
+		"hint": "Towary codzienne, zapasy i skup łupów.",
+		"greeting": "Oren poprawia towary na ladzie i czeka na twoją decyzję.",
+		"action": "Otwórz sklep",
+		"accent": Color(0.72, 0.51, 0.22, 0.72),
+		"zoom": 1.0,
+		"offset": Vector2.ZERO,
+		"anchor_x": 0.63,
+		"ambient_scale": 0.72,
+		"ambient_shift": Vector2(0, -85),
+		"clip_bottom_ratio": 1.0,
+		"ambient_width": 1200.0,
+		"counter_y": 0.71,
+		"counter_slope": -0.04,
+		"counter_right": 0.67,
+		"highlight_center": Vector2(0.44, 0.45),
+		"highlight_radius": Vector2(0.09, 0.21),
+		"hit_polygon":
+		[
+			Vector2(0.435, 0.264),
+			Vector2(0.452, 0.268),
+			Vector2(0.465, 0.292),
+			Vector2(0.460, 0.331),
+			Vector2(0.451, 0.365),
+			Vector2(0.475, 0.394),
+			Vector2(0.492, 0.550),
+			Vector2(0.515, 0.609),
+			Vector2(0.520, 0.630),
+			Vector2(0.404, 0.636),
+			Vector2(0.382, 0.614),
+			Vector2(0.365, 0.567),
+			Vector2(0.364, 0.500),
+			Vector2(0.377, 0.412),
+			Vector2(0.413, 0.366),
+			Vector2(0.420, 0.341),
+			Vector2(0.418, 0.301),
+			Vector2(0.425, 0.280),
+		],
+	},
+	"blacksmith":
+	{
+		"role": "GARRAN • KOWAL",
+		"caption": "GARRAN",
+		"hint": "Ulepszanie broni i osobistego wyposażenia.",
+		"greeting":
+		"Garran kończy uderzenie, odkłada rozgrzany metal i spogląda na twoje wyposażenie.",
+		"action": "Przejdź do ulepszania",
+		"accent": Color(0.72, 0.32, 0.19, 0.72),
+		"zoom": 0.9,
+		"offset": Vector2(34, 10),
+		"ambient_shift": Vector2(70, 8),
+		"clip_bottom_ratio": 1.0,
+		"ambient_width": 1000.0,
+		"highlight_center": Vector2(0.36, 0.47),
+		"highlight_radius": Vector2(0.15, 0.40),
+		"hit_center": Vector2(0.36, 0.47),
+		"hit_radius": Vector2(0.14, 0.39),
+	},
+	"workshop":
+	{
+		"role": "MIRELA • RZEMIEŚLNICZKA",
+		"caption": "MIRELA",
+		"hint": "Receptury regionalne i wytwarzanie przedmiotów.",
+		"greeting": "Mirela odkłada fiolkę na ladę. Możesz przejrzeć jej regionalne receptury.",
+		"action": "Zobacz receptury",
+		"accent": Color(0.38, 0.63, 0.51, 0.72),
+		"zoom": 1.0,
+		"offset": Vector2.ZERO,
+		"anchor_x": 0.48,
+		"ambient_scale": 0.51,
+		"ambient_shift": Vector2(10, 0),
+		"clip_bottom_ratio": 1.0,
+		"ambient_width": 860.0,
+		"counter_y": 0.66,
+		"counter_slope": -0.08,
+		"counter_right": 0.64,
+		"highlight_center": Vector2(0.26, 0.45),
+		"highlight_radius": Vector2(0.10, 0.23),
+		"hit_center": Vector2(0.26, 0.45),
+		"hit_radius": Vector2(0.10, 0.23),
+	},
+	"inn":
+	{
+		"role": "RUNA • KARCZMARKA",
+		"caption": "RUNA",
+		"hint": "Nocleg, osobisty magazyn i rozwój udźwigu.",
+		"greeting":
+		"Runa kończy polerować kufel. Możesz wynająć pokój albo skorzystać ze swojej skrytki.",
+		"action": "Przejdź do usług karczmy",
+		"accent": Color(0.66, 0.39, 0.27, 0.72),
+		"zoom": 0.96,
+		"offset": Vector2(0, -22),
+		"anchor_x": 0.28,
+		"ambient_scale": 0.83,
+		"ambient_shift": Vector2(144, -24),
+		"clip_bottom_ratio": 1.0,
+		"clip_bottom_slope": 0.0,
+		"ambient_width": 860.0,
+		"counter_y": 0.50,
+		"counter_slope": -0.12,
+		"counter_right": 0.58,
+		"counter_shade": 1.0,
+		"highlight_center": Vector2(0.335, 0.45),
+		"highlight_radius": Vector2(0.11, 0.20),
+		"hit_center": Vector2(0.335, 0.45),
+		"hit_radius": Vector2(0.11, 0.20),
+	},
+}
+const MODES := {
+	"merchant":
+	[
+		{"id": "merchant_buy", "name": "Kup przedmioty"},
+		{"id": "merchant_sell_stacks", "name": "Sprzedaj materiały i zapasy"},
+		{"id": "merchant_sell_equipment", "name": "Sprzedaj wyposażenie z plecaka"},
+	],
+	"blacksmith": [{"id": "blacksmith", "name": "Ulepsz wyposażenie +0–+10"}],
+	"workshop":
+	[
+		{"id": "workshop_twilight_plains", "name": "Zmierzchowe Równiny"},
+		{"id": "workshop_black_forest", "name": "Czarny Bór"},
+		{"id": "workshop_silent_water_marshes", "name": "Mokradła Głuchej Wody"},
+		{"id": "workshop_ashen_borderlands", "name": "Popielne Pogranicze"},
+		{"id": "workshop_ice_coast", "name": "Lodowe Wybrzeże"},
+	],
+	"inn":
+	[
+		{"id": "inn_rest", "name": "Nocleg i odpoczynek"},
+		{"id": "storage_deposit_stacks", "name": "Odłóż materiały i zapasy"},
+		{"id": "storage_withdraw_stacks", "name": "Odbierz materiały i zapasy"},
+		{"id": "storage_deposit_equipment", "name": "Odłóż wyposażenie"},
+		{"id": "storage_withdraw_equipment", "name": "Odbierz wyposażenie"},
+		{"id": "carry_upgrade", "name": "Ulepszenia udźwigu"},
+	],
+}
