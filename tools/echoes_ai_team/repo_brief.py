@@ -201,6 +201,36 @@ def _expanded_terms(task: str) -> set[str]:
             }
         )
 
+    if any(
+        x in t
+        for x in (
+            "maphintlabel",
+            "etykiet",
+            "label",
+            "clipping",
+            "ucin",
+            "anchor",
+            "offset",
+            "pozyc",
+        )
+    ):
+        terms.update(
+            {
+                "maphintlabel",
+                "clip_contents",
+                "maplayer",
+                "regionmap",
+                "anchors",
+                "anchor_left",
+                "anchor_top",
+                "offset_left",
+                "offset_top",
+                "position",
+                "size",
+                "parent",
+            }
+        )
+
     if any(x in t for x in ("test", "sprawd", "walid", "validation")):
         terms.update({"test", "check", "validation"})
 
@@ -488,15 +518,37 @@ def _promote_required_world_map_candidates(
     if not _is_world_map_task(task):
         return candidates
 
-    preferred = [
-        "godot/ui/screens/world_map/world_region_map.gd",
-        "godot/ui/screens/world_map/world_map.gd",
-        "godot/ui/screens/world_map/world_map.tscn",
-        "godot/ui/screens/world_map/region_hover.gdshader",
-        "godot/ui/screens/world_map/region_highlight.gdshaderinc",
-        "godot/ui/screens/world_map/varenhold_valley.gdshader",
-        "godot/tests/test_world_map_interaction.gd",
-    ]
+    label_task = any(
+        x in task.casefold()
+        for x in (
+            "maphintlabel",
+            "etykiet",
+            "label",
+            "clipping",
+            "ucin",
+        )
+    )
+
+    if label_task:
+        preferred = [
+            "godot/ui/screens/world_map/world_map.tscn",
+            "godot/ui/screens/world_map/world_map.gd",
+            "godot/ui/screens/world_map/world_region_map.gd",
+            "godot/tests/test_world_map_interaction.gd",
+            "godot/ui/screens/world_map/region_hover.gdshader",
+            "godot/ui/screens/world_map/region_highlight.gdshaderinc",
+            "godot/ui/screens/world_map/varenhold_valley.gdshader",
+        ]
+    else:
+        preferred = [
+            "godot/ui/screens/world_map/world_region_map.gd",
+            "godot/ui/screens/world_map/world_map.gd",
+            "godot/ui/screens/world_map/world_map.tscn",
+            "godot/ui/screens/world_map/region_hover.gdshader",
+            "godot/ui/screens/world_map/region_highlight.gdshaderinc",
+            "godot/ui/screens/world_map/varenhold_valley.gdshader",
+            "godot/tests/test_world_map_interaction.gd",
+        ]
 
     by_path = {
         item.path.relative_to(ROOT).as_posix(): item
