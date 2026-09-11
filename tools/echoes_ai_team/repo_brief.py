@@ -412,6 +412,45 @@ def _rank_files(task: str) -> tuple[list[Candidate], int]:
 
         lines = text.splitlines()
         content_score, matches = _content_matches(lines, terms)
+
+        # UI-label tasks need the actual node chain from world_map.tscn.
+        # Broad terms such as anchors/size occur so often near the start of
+        # the scene that they can otherwise exhaust the snippet match budget
+        # before MapHintLabel is reached.
+        label_map_task = _is_world_map_task(task) and any(
+            token in task.casefold()
+            for token in (
+                "maphintlabel",
+                "etykiet",
+                "label",
+                "clipping",
+                "ucin",
+            )
+        )
+
+        if (
+            label_map_task
+            and relative == "godot/ui/screens/world_map/world_map.tscn"
+        ):
+            focus_needles = (
+                'node name="maplayer"',
+                "clip_contents",
+                'node name="regionmap"',
+                'node name="maphintlabel"',
+            )
+            focus_matches = tuple(
+                line_no
+                for line_no, line in enumerate(lines, start=1)
+                if any(
+                    needle in line.casefold()
+                    for needle in focus_needles
+                )
+            )
+
+            if focus_matches:
+                matches = focus_matches
+                content_score += 40.0
+
         score += content_score
 
         rel_lower = relative.casefold()
