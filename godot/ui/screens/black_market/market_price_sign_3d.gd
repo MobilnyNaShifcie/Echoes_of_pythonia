@@ -47,7 +47,11 @@ func _ready() -> void:
 func _build_stand() -> void:
 	var wood := ShaderMaterial.new()
 	var grain := Shader.new()
-	grain.code = "shader_type spatial; void fragment(){ float g=sin(UV.y*103.0+sin(UV.x*9.0)*0.8)*0.035+sin(UV.y*37.0)*0.045; ALBEDO=vec3(0.23,0.145,0.08)*(0.96+g); ROUGHNESS=0.91; }"
+	grain.code = (
+		"shader_type spatial; void fragment(){ float g=sin(UV.y*103.0+sin("
+		+ "UV.x*9.0)*0.8)*0.035+sin(UV.y*37.0)*0.045; ALBEDO=vec3(0.23,0.145"
+		+ ",0.08)*(0.96+g); ROUGHNESS=0.91; }"
+	)
 	wood.shader = grain
 	var dark_wood := _material("302219", 0.0, 0.93)
 	var edge := _material("65472f", 0.0, 0.86)
@@ -77,7 +81,11 @@ func _build_stand() -> void:
 			board.add_child(rivet)
 	var twine := ShaderMaterial.new()
 	var fibers := Shader.new()
-	fibers.code = "shader_type spatial; void fragment(){float strand=sin(UV.x*18.8496+UV.y*30.0)*0.10; ALBEDO=vec3(0.45,0.32,0.17)*(1.0+strand); ROUGHNESS=0.98;}"
+	fibers.code = (
+		"shader_type spatial; void fragment(){float strand=sin(UV.x*18.849"
+		+ "6+UV.y*30.0)*0.10; ALBEDO=vec3(0.45,0.32,0.17)*(1.0+strand); ROUG"
+		+ "HNESS=0.98;}"
+	)
 	twine.shader = fibers
 	for side: int in [-1, 1]:
 		var prefix := "Left" if side == -1 else "Right"
@@ -107,7 +115,12 @@ func _build_stand() -> void:
 	plane.size = Vector2(2.13, 0.91)
 	shadow.mesh = plane
 	var shader := Shader.new()
-	shader.code = "shader_type spatial; render_mode unshaded, cull_disabled, depth_draw_never; void fragment(){vec2 p=abs(UV-vec2(0.5))*2.0; float r=length(max(p-vec2(0.7),vec2(0.0)))/0.3; ALBEDO=vec3(0.02,0.012,0.007); ALPHA=0.36*(1.0-smoothstep(0.0,1.0,r));}"
+	shader.code = (
+		"shader_type spatial; render_mode unshaded, cull_disabled, depth_d"
+		+ "raw_never; void fragment(){vec2 p=abs(UV-vec2(0.5))*2.0; float r="
+		+ "length(max(p-vec2(0.7),vec2(0.0)))/0.3; ALBEDO=vec3(0.02,0.012,0."
+		+ "007); ALPHA=0.36*(1.0-smoothstep(0.0,1.0,r));}"
+	)
 	var mat := ShaderMaterial.new()
 	mat.shader = shader
 	shadow.material_override = mat

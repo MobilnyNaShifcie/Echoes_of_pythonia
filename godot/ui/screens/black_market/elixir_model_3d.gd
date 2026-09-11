@@ -52,7 +52,18 @@ func build(view) -> void:
 	profile_mesh(profile, glass, 0.018).name = "FlutedGlass"
 	var liquid := ShaderMaterial.new()
 	liquid.shader = preload("res://ui/screens/black_market/elixir_liquid.gdshader")
-	profile_mesh([Vector2(0, 0.17), Vector2(0.15, 0.17), Vector2(0.235, 0.22), Vector2(0.319, 0.32), Vector2(0.345, 0.44), Vector2(0.335, 0.55), Vector2(0.294, 0.66), Vector2(0.28, 0.676), Vector2(0, 0.666)], liquid, 0.01).name = "LiquidWithMeniscus"
+	var liquid_profile := [
+		Vector2(0, 0.17),
+		Vector2(0.15, 0.17),
+		Vector2(0.235, 0.22),
+		Vector2(0.319, 0.32),
+		Vector2(0.345, 0.44),
+		Vector2(0.335, 0.55),
+		Vector2(0.294, 0.66),
+		Vector2(0.28, 0.676),
+		Vector2(0, 0.666),
+	]
+	profile_mesh(liquid_profile, liquid, 0.01).name = "LiquidWithMeniscus"
 	# Filigree follows the body instead of floating straight bars around it.
 	for i in 6:
 		var angle := TAU * i / 6.0
@@ -106,7 +117,15 @@ func build(view) -> void:
 		enamel
 	)
 	var ruby = host.material("852837", 0.18, 0.18)
-	profile_mesh([Vector2(0, 1.24), Vector2(0.10, 1.24), Vector2(0.155, 1.33), Vector2(0.14, 1.42), Vector2(0.075, 1.49), Vector2(0, 1.5)], ruby, 0, 8, false).name = "GarnetStopper"
+	var garnet_profile := [
+		Vector2(0, 1.24),
+		Vector2(0.10, 1.24),
+		Vector2(0.155, 1.33),
+		Vector2(0.14, 1.42),
+		Vector2(0.075, 1.49),
+		Vector2(0, 1.5),
+	]
+	profile_mesh(garnet_profile, ruby, 0, 8, false).name = "GarnetStopper"
 	hoop(0.112, 1.275, 0.012, edge)
 	# Front setting and small inset gemstone provide a readable focal point.
 	var setting = host.sphere(Vector3(0.15, 0.22, 0.052), Vector3(0, 0.48, 0.412), gold)

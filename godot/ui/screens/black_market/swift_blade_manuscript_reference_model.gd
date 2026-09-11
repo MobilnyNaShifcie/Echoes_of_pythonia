@@ -713,7 +713,12 @@ func _contact_shadow() -> void:
 	var mesh := PlaneMesh.new()
 	mesh.size = resting_footprint + Vector2(0.10, 0.10)
 	var shader := Shader.new()
-	shader.code = "shader_type spatial; render_mode unshaded,cull_disabled,depth_draw_never; void fragment(){vec2 p=abs(UV-vec2(0.5))*2.0; float r=length(max(p-vec2(0.68),vec2(0.0)))/0.32; ALBEDO=vec3(0.025,0.012,0.006); ALPHA=0.40*(1.0-smoothstep(0.0,1.0,r));}"
+	shader.code = (
+		"shader_type spatial; render_mode unshaded,cull_disabled,depth_dra"
+		+ "w_never; void fragment(){vec2 p=abs(UV-vec2(0.5))*2.0; float r=le"
+		+ "ngth(max(p-vec2(0.68),vec2(0.0)))/0.32; ALBEDO=vec3(0.025,0.012,0"
+		+ ".006); ALPHA=0.40*(1.0-smoothstep(0.0,1.0,r));}"
+	)
 	var mat := ShaderMaterial.new()
 	mat.shader = shader
 	var contact = host.mesh_node(mesh, Vector3(0, 0.004, 0), mat)

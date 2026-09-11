@@ -142,7 +142,12 @@ func _place_legacy_on_counter(on_side: bool) -> void:
 	var plane := PlaneMesh.new()
 	plane.size = Vector2(bounds.size.x + 0.12, bounds.size.z + 0.12)
 	var shader := Shader.new()
-	shader.code = "shader_type spatial; render_mode unshaded,cull_disabled,depth_draw_never; void fragment(){float r=length((UV-vec2(0.5))*2.0); ALBEDO=vec3(0.025,0.012,0.006); ALPHA=0.38*(1.0-smoothstep(0.15,1.0,r));}"
+	shader.code = (
+		"shader_type spatial; render_mode unshaded,cull_disabled,depth_dra"
+		+ "w_never; void fragment(){float r=length((UV-vec2(0.5))*2.0); ALBE"
+		+ "DO=vec3(0.025,0.012,0.006); ALPHA=0.38*(1.0-smoothstep(0.15,1.0,r"
+		+ "));}"
+	)
 	var mat := ShaderMaterial.new()
 	mat.shader = shader
 	var contact := mesh_node(plane, Vector3(0, 0.004, 0), mat)
