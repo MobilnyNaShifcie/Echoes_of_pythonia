@@ -213,6 +213,60 @@ func test_result_replaces_commands_and_reconfigure_resets_all_transient_panels()
 	screen.free()
 
 
+func test_enemy_queue_name_and_resource_text_fit_supported_canvases() -> void:
+	var host := Control.new()
+	add_child(host)
+	var screen = _screen(_session("mage", 12), host)
+	for dimensions: Vector2 in [Vector2(1280, 720), Vector2(1920, 1080), Vector2(2560, 1080)]:
+		host.size = dimensions
+		for enemy_id: String in ["wolf", "ice_crab"]:
+			screen.configure(_session("mage", 12), enemy_id, "expedition")
+			for actor: String in ["player", "enemy"]:
+				screen._presentation_controller._set_turn_actor(actor, 99)
+				await _settle()
+				var name_label: Label = screen.enemy_turn_label
+				var font := name_label.get_theme_font("font")
+				var font_size := name_label.get_theme_font_size("font_size")
+				var text_width := (
+					font
+					. get_string_size(name_label.text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size)
+					. x
+				)
+				assert_gte(name_label.size.x, text_width, enemy_id)
+				var queue: Control = screen.get_node("Page/Arena/TurnOrder")
+				assert_lte(name_label.get_global_rect().end.x, queue.get_global_rect().end.x)
+				for label: Label in [screen.player_stats_label, screen.enemy_stats_label]:
+					assert_gte(label.get_theme_font_size("font_size"), 21)
+					assert_gte(label.get_theme_color("font_color").r, 0.9)
+				for label: Label in [screen.player_effect_label, screen.enemy_effect_label]:
+					assert_gte(label.get_theme_font_size("font_size"), 21)
+					assert_gte(label.get_theme_color("font_color").r, 0.9)
+				for side: String in ["Player", "Enemy"]:
+					var hud: Control = screen.get_node("Page/Arena/" + side + "Panel")
+					var visual: Control = screen.get_node("%" + side + "Visual")
+					assert_lte(hud.get_global_rect().end.y, visual.global_position.y)
+	host.free()
+
+
+func test_combat_teardown_releases_engine_and_transient_atlas_textures() -> void:
+	var host := Control.new()
+	host.size = Vector2(1920, 1080)
+	add_child(host)
+	var screen = _screen(_session("mage", 12), host)
+	await _settle()
+	var references: Array[WeakRef] = [
+		weakref(screen),
+		weakref(screen._engine),
+		weakref(screen._engine.fate_resolver),
+		weakref(screen.player_visual.static_texture.texture),
+		weakref(screen.enemy_visual.static_texture.texture),
+	]
+	host.queue_free()
+	await _settle()
+	for reference: WeakRef in references:
+		assert_null(reference.get_ref(), "The scene must release its transient resources")
+
+
 func _session(code: String, level: int):
 	var session = NewGame.new().create_session("Aria", 1)
 	session.player.level = level

@@ -110,6 +110,9 @@ PINNED_CORE = """\
 - Canonical full validation is .\\scripts\\check.ps1 when available.
 - Meaningful UI changes require 1920x1080 review and functional 1280x720 review.
 - New creative art requires owner approval before production integration.
+- Enemy/boss generation and regeneration must read AI_CONTEXT/ART_DIRECTION.md section 35
+  and prepare its current class/map/region references with scripts/build_art_reference_board.py --region.
+  Prior enemy artwork is identity-only, not a rendering-style reference. Missing references block art review.
 - Reviewer verdicts: APPROVED, CHANGES_REQUESTED, HUMAN_DECISION_REQUIRED.
 - Reviewer is read-only during review; Developer performs fixes.
 - Maximum default review cycles: 4.

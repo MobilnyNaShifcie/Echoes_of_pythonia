@@ -1,0 +1,23 @@
+{
+  "region": "silentwater_marshes",
+  "policy_document": "AI_CONTEXT/ART_DIRECTION.md",
+  "policy_fingerprint": "09971ed6ea332e5505de4afbd72645c86e014ca1358ae4b5b61319ef90319c8b",
+  "references": [
+    {
+      "path": "godot/assets/combat/heroes/hunter_male.png",
+      "role": "ZATWIERDZONY WZORZEC KLASY"
+    },
+    {
+      "path": "godot/assets/combat/heroes/mage_female.png",
+      "role": "ZATWIERDZONY WZORZEC KLASY"
+    },
+    {
+      "path": "godot/assets/world_map/pythonia_world_map_integrated.png",
+      "role": "AKTUALNA MAPA ŚWIATA / REGIONÓW"
+    },
+    {
+      "path": "godot/assets/combat/backgrounds/silentwater_marshes_day.png",
+      "role": "KRAJOBRAZ REGIONU silentwater_marshes"
+    }
+  ]
+}

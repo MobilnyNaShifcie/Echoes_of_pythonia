@@ -689,6 +689,139 @@ Ask:
 
 Do not generate a generic monster and recolor it for five regions.
 
+### Global enemy and boss production policy
+
+Owner direction, 2026-09-12: **stylized fantasy game illustration** matching
+current region maps/landscapes and approved class illustrations. This applies
+to every new or regenerated enemy: ordinary monsters, elites, minibosses and
+bosses, including dungeon creatures. It does not authorize retroactive bitmap
+changes or gameplay changes. Existing realistic enemies preserve design identity,
+not rendering-style precedence over this policy.
+
+The following is the **single machine-readable policy** used by the reference
+board, Art Studio generation and Autopilot visual review. Class references define
+contours, grouped shading, material treatment and shape language; they do not
+impose human anatomy, costumes or class palettes on monsters. Regional landscapes
+and the current world map define environmental palette and motifs. ID masks are
+not style art. Keep controlled detail without flattening the art into chibi or
+featureless cartoons. Preserve species anatomy, including limbless creatures.
+
+One subject, complete silhouette, real alpha, combat idle, enemy staged RIGHT and
+facing LEFT toward the hero, readable separable limbs: these are mandatory.
+Center the cutout on its own canvas with breathing room; do not right-align its
+pixels just because the combat slot is on the right. Use a readable side/3/4 pose.
+
+Reference paths below point at approved production art tracked in
+`godot/assets/ASSET_MANIFEST.md`. Adding a region/scenario requires its approved
+references and source mapping; do not guess a replacement or invent Region 6.
+Generated briefs and cached Studio catalogs are derived outputs, never competing
+sources of truth. Re-read this policy before every generation and review; a policy
+or reference change invalidates an earlier visual approval. Owner approval is
+still required for integration. Follow `docs/ART_AND_AUDIO_PIPELINE_v0.25.0.md`.
+
+```autopilot-art-policy
+{
+  "version": 1,
+  "style_rules": [
+    "Wszystkie nowe i regenerowane potwory oraz bossowie: stylized fantasy game illustration, zgodna z aktualnymi mapami regionów i zatwierdzonymi ilustracjami klas.",
+    "Wyraźnie mniej realistyczne materiały: bez fotorealistycznej mikrofaktury skóry, futra, kamienia, metalu i tkanin. Kontrolowana ilość detalu, czytelny kontur, duże grupy światła i cienia oraz shape language pasujący do bohaterów i map.",
+    "Zachowaj regionalną tożsamość kolorystyczną i tematyczną. Referencje klas określają sposób rysowania, nie wymuszają ich stroju, anatomii ani palety na przeciwniku.",
+    "Enemy asset: jedna postać, pełna nieucięta sylwetka, prawdziwe RGBA i całkowicie przezroczyste narożniki. Wycentruj postać bez zmiany proporcji; docelowy margines 5–8% płótna, co najmniej 5% z każdej strony całej sylwetki. Spokojna poza combat idle w prawym slocie, zwrócona w lewo ku bohaterowi. Przy kolejnej regeneracji Lodowego Kraba wymagane ujęcie 3/4 w lewo: oczy i szczypce prowadzą ku lewemu slotowi; samo odbicie frontalnej pozy nie wystarcza.",
+    "Czytelne, rozdzielone kończyny i elementy wyposażenia do przyszłego riggingu 2D; bez nieuzasadnionych zrostów i zasłaniania ważnych stawów. Zachowaj anatomię gatunku, także stworzeń bez kończyn.",
+    "Nowe referencje wymagają świadomego wyboru zatwierdzonych ilustracji; starszy realistyczny enemy art nie jest wzorcem stylu. Ta polityka nie zmienia istniejących bitmap ani mechanik.",
+    "Zatwierdzone starsze enemy arty zachowują tożsamość gatunku, rekwizyty i anatomię, ale nie mają pierwszeństwa jako wzorce renderowania przy regeneracji. Nie kopiuj ich realistycznych faktur. Sylwetka jest wycentrowana na przezroczystym płótnie; prawy slot oznacza ustawienie w scenie, nie przesunięcie rysunku do prawej krawędzi."
+  ],
+  "review_rules": [
+    "Porównaj enemy art z dołączonymi klasami, aktualną mapą i krajobrazem jego regionu: kontur, kształty, poziom detalu, cieniowanie i sposób przedstawiania materiałów.",
+    "Zbyt realistyczna skóra, pojedyncze fotorealistyczne włosy futra, fotograficzne materiały lub wygląd renderu 3D są niespójnością wymagającą poprawy. Wskaż konkretny obszar oraz referencję, która potwierdza różnicę.",
+    "Oceń zachowanie regionalnej palety i motywów; nie uznawaj celowych różnic gatunku, anatomii czy materiału za błąd stylu.",
+    "Sprawdź pełną sylwetkę, jedną postać, combat idle, kierunek w lewo i separację kończyn na oryginalnym enemy PNG. Wymagaj wyniku bramki RGBA, przezroczystych narożników i minimum 5% marginesu każdej krawędzi, z rozmiarem płótna, alpha_bounds i SHA-256. Brak dotykania krawędzi nie dowodzi marginesu 5%. Piksele nie potwierdzają kompletnej anatomii: obejrzyj końce ogona, łap, szczypiec oraz stawy.",
+    "Każdy nowy lub zmieniony enemy PNG musi mieć mapowanie scenario_enemies i scenario_regions, manifest scenariusza z enemy_source oraz review źródła i renderu. Brak mapowania, źródła, zgodnego pomiaru lub scenariusza obejmującego zmianę oznacza niepełne dowody i wyklucza PASS. Źródłowy enemy PNG jest przedmiotem kontroli, nie zatwierdzonym wzorcem stylu.",
+    "Oddziel błędy samego assetu od problemów skali, zakotwiczenia lub oświetlenia sceny. Przegląd AI wskazuje poprawki i dowody, nie nadaje automatycznie akceptacji autora nowej grafice.",
+    "Dla każdego kontrolowanego enemy PNG jawnie oceń: material_stylization, shape_detail_shading, regional_identity, full_body_single_subject, left_facing_idle, rigging_readability. Każda ocena wymaga PASS, FAIL lub NOT_ASSESSABLE i konkretnego dowodu (obraz + obszar). Realizm i spójność porównaj z nazwanymi wzorcami klasy i regionu. FAIL wymaga poprawki; NOT_ASSESSABLE wymaga dodatkowych dowodów i wyklucza PASS. Dawny niezmieniony asset to dług wizualny, nie zgoda na kopiowanie jego stylu do nowej wersji."
+  ],
+  "class_references": [
+    "godot/assets/combat/heroes/hunter_male.png",
+    "godot/assets/combat/heroes/mage_female.png"
+  ],
+  "world_references": [
+    "godot/assets/world_map/pythonia_world_map_integrated.png"
+  ],
+  "region_references": {
+    "twilight_plains": [
+      "godot/assets/combat/backgrounds/twilight_plains_day.png"
+    ],
+    "black_forest": [
+      "godot/assets/combat/backgrounds/black_forest_day.png"
+    ],
+    "silentwater_marshes": [
+      "godot/assets/combat/backgrounds/silentwater_marshes_day.png"
+    ],
+    "ashen_borderlands": [
+      "godot/assets/combat/backgrounds/ashen_borderlands_day.png"
+    ],
+    "ice_coast": [
+      "godot/assets/combat/backgrounds/ice_coast_day.png"
+    ]
+  },
+  "scenario_regions": {
+    "combat_wolf": "twilight_plains",
+    "combat_ice_crab": "ice_coast",
+    "combat_wild_dog": "twilight_plains",
+    "combat_slime": "twilight_plains",
+    "combat_boar": "twilight_plains",
+    "combat_cursed_scarecrow": "twilight_plains",
+    "combat_plains_spirit": "twilight_plains",
+    "combat_nature_guardian": "twilight_plains",
+    "combat_forest_cultist": "black_forest",
+    "combat_rotting_knight": "black_forest",
+    "combat_corrupted_bear": "black_forest",
+    "combat_black_hart": "black_forest",
+    "combat_gallows_wraith": "black_forest",
+    "combat_blackwood_executioner": "black_forest",
+    "combat_bog_crawler": "silentwater_marshes",
+    "combat_drowned_dead": "silentwater_marshes",
+    "combat_swamp_witch": "silentwater_marshes",
+    "combat_bone_crocodile": "silentwater_marshes",
+    "combat_mist_walker": "silentwater_marshes",
+    "combat_drowned_mother": "silentwater_marshes",
+    "combat_boneburner": "ashen_borderlands",
+    "combat_red_salamander": "ashen_borderlands",
+    "combat_hearth_devourer": "ashen_borderlands",
+    "combat_azhar": "ashen_borderlands",
+    "combat_frozen_castaway": "ice_coast"
+  },
+  "scenario_enemies": {
+    "combat_wolf": "godot/assets/combat/enemies/wolf.png",
+    "combat_ice_crab": "godot/assets/combat/enemies/ice_crab.png",
+    "combat_wild_dog": "godot/assets/combat/enemies/wild_dog.png",
+    "combat_slime": "godot/assets/combat/enemies/slime.png",
+    "combat_boar": "godot/assets/combat/enemies/boar.png",
+    "combat_cursed_scarecrow": "godot/assets/combat/enemies/cursed_scarecrow.png",
+    "combat_plains_spirit": "godot/assets/combat/enemies/plains_spirit.png",
+    "combat_nature_guardian": "godot/assets/combat/enemies/nature_guardian.png",
+    "combat_forest_cultist": "godot/assets/combat/enemies/forest_cultist.png",
+    "combat_rotting_knight": "godot/assets/combat/enemies/rotting_knight.png",
+    "combat_corrupted_bear": "godot/assets/combat/enemies/corrupted_bear.png",
+    "combat_black_hart": "godot/assets/combat/enemies/black_hart.png",
+    "combat_gallows_wraith": "godot/assets/combat/enemies/gallows_wraith.png",
+    "combat_blackwood_executioner": "godot/assets/combat/enemies/blackwood_executioner.png",
+    "combat_bog_crawler": "godot/assets/combat/enemies/bog_crawler.png",
+    "combat_drowned_dead": "godot/assets/combat/enemies/drowned_dead.png",
+    "combat_swamp_witch": "godot/assets/combat/enemies/swamp_witch.png",
+    "combat_bone_crocodile": "godot/assets/combat/enemies/bone_crocodile.png",
+    "combat_mist_walker": "godot/assets/combat/enemies/mist_walker.png",
+    "combat_drowned_mother": "godot/assets/combat/enemies/drowned_mother.png",
+    "combat_boneburner": "godot/assets/combat/enemies/boneburner.png",
+    "combat_red_salamander": "godot/assets/combat/enemies/red_salamander.png",
+    "combat_hearth_devourer": "godot/assets/combat/enemies/hearth_devourer.png",
+    "combat_azhar": "godot/assets/combat/enemies/azhar.png",
+    "combat_frozen_castaway": "godot/assets/combat/enemies/frozen_castaway.png"
+  }
+}
+```
+
+
 ---
 
 ## 36. Ordinary enemy readability
@@ -2116,6 +2249,15 @@ Reviewer should check:
 - no anatomy/limb errors;
 - rigging potential.
 
+For every new/regenerated enemy, apply the machine-readable review rules in
+section 35 and compare the original cutout AND real combat captures against its
+approved class/map/region references. Report material stylization, shape/detail/
+shading, regional identity, full-body single-subject composition, left-facing
+idle and rigging readability separately with image/area evidence. Excessive
+realism or stylistic mismatch requires changes. Missing evidence is NOT_ASSESSABLE,
+never PASS. Pixel gates cannot judge artistic coherence. Review of unchanged
+legacy assets records visual debt, not authorization to regenerate them.
+
 ---
 
 ## 120. Face review
@@ -2309,6 +2451,12 @@ no frame
 
 Then add character-specific details.
 
+For enemies and bosses, do not hand-maintain these as a separate prompt template.
+Build the current brief and original-image references from section 35 using
+`scripts/build_art_reference_board.py --region <region_id> --output <review.png>`.
+Art Studio uses the same policy automatically, even for an older saved request.
+Never use an old realistic enemy as the rendering reference for a regeneration.
+
 ---
 
 ## 132. Do not overload prompts
@@ -2419,7 +2567,10 @@ Reject if one enemy suddenly looks:
 - watercolor;
 - comic cel-shaded;
 
-while neighbors use the established anime-fantasy illustration style, unless deliberate.
+while the approved class/map references use the established anime-fantasy
+illustration style. Neighbouring legacy enemies are not the rendering benchmark.
+Judge actual material treatment and grouped shading, not just a style label;
+intentional regional colors/species differences are not a style violation.
 
 ---
 

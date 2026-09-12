@@ -1,0 +1,62 @@
+{
+  "enemy": "drowned_dead",
+  "variant": "v1",
+  "source_sha256": "8a60841e255ca21f755c7ca3d5fee4ac9a24eb63fe79a72fd8fda74cff34651e",
+  "profile": {
+    "mode": "magenta",
+    "reviewed_all_matte": true,
+    "review_note": "Teal/slate/olive undead, pure magenta in hair/cloth gaps is background."
+  },
+  "extraction": {
+    "background_fraction": 0.593536376953125,
+    "unchanged_core_rgb_pixels": 527486
+  },
+  "framing": {
+    "source_alpha_bounds": [
+      37,
+      37,
+      986,
+      1509
+    ],
+    "padding_xy": [
+      78,
+      120
+    ],
+    "resampled": false
+  },
+  "pixel_gate": {
+    "status": "PASS",
+    "mode": "RGBA",
+    "size": [
+      1105,
+      1712
+    ],
+    "alpha_bounds": [
+      78,
+      120,
+      1027,
+      1592
+    ],
+    "corner_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "margin_fractions_ltrb": [
+      0.07058823529411765,
+      0.07009345794392523,
+      0.07058823529411765,
+      0.07009345794392523
+    ],
+    "problems": [],
+    "sha256": "64c397727235ca1acbc36e9d8214469dc57fdc73b50559a6e96ff200ecdf4710",
+    "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+  },
+  "source_silhouette_touched_canvas": false,
+  "remaining_key_candidate_pixels": 0,
+  "production_changed": false,
+  "owner_art_approval": false,
+  "visual_review": "PENDING",
+  "note": "Pixel PASS is not evidence of no clipping, no matte remnants, style or correct anatomy."
+}

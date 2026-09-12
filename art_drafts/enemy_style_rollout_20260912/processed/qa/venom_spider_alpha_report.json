@@ -1,0 +1,64 @@
+{
+  "enemy": "venom_spider",
+  "variant": "v3",
+  "source_sha256": "efc3dfd63eae3f5127b3e57f2f04b10aab501f3e5c068a00ea39550083eff2ca",
+  "profile": {
+    "mode": "magenta",
+    "variant": "v3",
+    "reviewed_all_matte": true,
+    "review_note": "Brown/olive chitin and green venom. Magenta is only background between legs/webs. V3 has full framing, but overlapping far-side legs still require anatomy/rigging review; do not mark rig-ready."
+  },
+  "extraction": {
+    "background_fraction": 0.7416463668911084,
+    "unchanged_core_rgb_pixels": 331403,
+    "reviewed_interior_spill_pixels": 0
+  },
+  "framing": {
+    "source_alpha_bounds": [
+      63,
+      183,
+      1260,
+      1051
+    ],
+    "padding_xy": [
+      98,
+      71
+    ],
+    "resampled": false
+  },
+  "pixel_gate": {
+    "status": "PASS",
+    "mode": "RGBA",
+    "size": [
+      1393,
+      1010
+    ],
+    "alpha_bounds": [
+      98,
+      71,
+      1295,
+      939
+    ],
+    "corner_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "margin_fractions_ltrb": [
+      0.07035175879396985,
+      0.0702970297029703,
+      0.07035175879396985,
+      0.0702970297029703
+    ],
+    "problems": [],
+    "sha256": "61c8f7acf2728833a81ca8236205caee768c1fac4387a92d3e3fd7b5eadc7289",
+    "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+  },
+  "source_silhouette_touched_canvas": false,
+  "remaining_key_candidate_pixels": 0,
+  "production_changed": false,
+  "owner_art_approval": false,
+  "visual_review": "PENDING",
+  "note": "Pixel PASS is not evidence of no clipping, no matte remnants, style or correct anatomy."
+}

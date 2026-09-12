@@ -1,0 +1,63 @@
+{
+  "enemy": "azhar",
+  "variant": "v1",
+  "source_sha256": "341c61aeede6f614205e4442584a9443c47a79d5bc977a74cea78c58f2ca6cd7",
+  "profile": {
+    "mode": "magenta",
+    "reviewed_all_matte": true,
+    "review_note": "Raw reviewed: ochre/rust/ivory/bronze, no magenta elements."
+  },
+  "extraction": {
+    "background_fraction": 0.5706658323413001,
+    "unchanged_core_rgb_pixels": 542641,
+    "reviewed_interior_spill_pixels": 0
+  },
+  "framing": {
+    "source_alpha_bounds": [
+      15,
+      4,
+      1073,
+      1434
+    ],
+    "padding_xy": [
+      87,
+      117
+    ],
+    "resampled": false
+  },
+  "pixel_gate": {
+    "status": "PASS",
+    "mode": "RGBA",
+    "size": [
+      1232,
+      1664
+    ],
+    "alpha_bounds": [
+      87,
+      117,
+      1145,
+      1547
+    ],
+    "corner_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "margin_fractions_ltrb": [
+      0.07061688311688312,
+      0.0703125,
+      0.07061688311688312,
+      0.0703125
+    ],
+    "problems": [],
+    "sha256": "43e70296d98eb2b185748d3c2b0335d4a623a57e542b408875cb4e07cca29b1b",
+    "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+  },
+  "source_silhouette_touched_canvas": false,
+  "remaining_key_candidate_pixels": 0,
+  "production_changed": false,
+  "owner_art_approval": false,
+  "visual_review": "PENDING",
+  "note": "Pixel PASS is not evidence of no clipping, no matte remnants, style or correct anatomy."
+}

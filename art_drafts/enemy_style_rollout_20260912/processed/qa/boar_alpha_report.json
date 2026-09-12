@@ -1,0 +1,63 @@
+{
+  "enemy": "boar",
+  "source_sha256": "ac3dbf5e15f7fa3ececf4e4cb767a7c96e9e678b345d359fedfccf04f7b92546",
+  "profile": {
+    "mode": "neutral",
+    "minimum": 105,
+    "spread": 14,
+    "holes": []
+  },
+  "extraction": {
+    "background_fraction": 0.4461520653209506,
+    "unchanged_core_rgb_pixels": 842445,
+    "matte_edge_band_pixels": 28369
+  },
+  "framing": {
+    "source_alpha_bounds": [
+      11,
+      5,
+      1373,
+      1139
+    ],
+    "padding_xy": [
+      111,
+      93
+    ],
+    "resampled": false
+  },
+  "pixel_gate": {
+    "status": "PASS",
+    "mode": "RGBA",
+    "size": [
+      1584,
+      1320
+    ],
+    "alpha_bounds": [
+      111,
+      93,
+      1473,
+      1227
+    ],
+    "corner_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "margin_fractions_ltrb": [
+      0.07007575757575757,
+      0.07045454545454545,
+      0.07007575757575757,
+      0.07045454545454545
+    ],
+    "problems": [],
+    "sha256": "9174af22700f40cbd0e40bccb101e5f634f208d565191d12668fb24a56ecdc9b",
+    "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+  },
+  "source_silhouette_touched_canvas": false,
+  "remaining_key_candidate_pixels": 1584,
+  "production_changed": false,
+  "owner_art_approval": false,
+  "visual_review": "PENDING",
+  "note": "Pixel PASS is not evidence of no clipping, no matte remnants, style or correct anatomy."
+}

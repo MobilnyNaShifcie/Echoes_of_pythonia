@@ -1,0 +1,64 @@
+{
+  "enemy": "gallows_wraith",
+  "variant": "v1",
+  "source_sha256": "f4c95aaa3ae3b5b19785862571b43f88854307cc897adefff3c56d50115e996c",
+  "profile": {
+    "mode": "magenta",
+    "reviewed_all_matte": true,
+    "strict_matte_despill": true,
+    "review_note": "Grey/ochre spectral figure, no magenta spell. Gaps in ribbons and hair are matte. Pink flecks observed in the dark/light composite on grey streamers and hair are matte contamination."
+  },
+  "extraction": {
+    "background_fraction": 0.5430476415682027,
+    "unchanged_core_rgb_pixels": 586293,
+    "reviewed_interior_spill_pixels": 764
+  },
+  "framing": {
+    "source_alpha_bounds": [
+      2,
+      2,
+      1064,
+      1447
+    ],
+    "padding_xy": [
+      87,
+      118
+    ],
+    "resampled": false
+  },
+  "pixel_gate": {
+    "status": "PASS",
+    "mode": "RGBA",
+    "size": [
+      1236,
+      1681
+    ],
+    "alpha_bounds": [
+      87,
+      118,
+      1149,
+      1563
+    ],
+    "corner_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "margin_fractions_ltrb": [
+      0.0703883495145631,
+      0.07019631171921475,
+      0.0703883495145631,
+      0.07019631171921475
+    ],
+    "problems": [],
+    "sha256": "b4fbbd2e0fa6502d2c11c66bd933b365a8030296286e5af0194649142684df16",
+    "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+  },
+  "source_silhouette_touched_canvas": false,
+  "remaining_key_candidate_pixels": 0,
+  "production_changed": false,
+  "owner_art_approval": false,
+  "visual_review": "PENDING",
+  "note": "Pixel PASS is not evidence of no clipping, no matte remnants, style or correct anatomy."
+}

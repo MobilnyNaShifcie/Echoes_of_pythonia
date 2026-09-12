@@ -1,0 +1,62 @@
+{
+  "enemy": "bog_crawler",
+  "variant": "v1",
+  "source_sha256": "034c92940ca43d0182bdef3cd5da84b61e5b644a5c6a4aa658eb7a0db475d0a0",
+  "profile": {
+    "mode": "magenta",
+    "reviewed_all_matte": true,
+    "review_note": "Olive/ochre reptile, no magenta body detail."
+  },
+  "extraction": {
+    "background_fraction": 0.6164334615071615,
+    "unchanged_core_rgb_pixels": 537412
+  },
+  "framing": {
+    "source_alpha_bounds": [
+      21,
+      147,
+      1516,
+      912
+    ],
+    "padding_xy": [
+      122,
+      63
+    ],
+    "resampled": false
+  },
+  "pixel_gate": {
+    "status": "PASS",
+    "mode": "RGBA",
+    "size": [
+      1739,
+      891
+    ],
+    "alpha_bounds": [
+      122,
+      63,
+      1617,
+      828
+    ],
+    "corner_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "margin_fractions_ltrb": [
+      0.07015526164462335,
+      0.0707070707070707,
+      0.07015526164462335,
+      0.0707070707070707
+    ],
+    "problems": [],
+    "sha256": "817a413825323646e319e1704eaeb177a8ee075cbce878976578a0ae4787138c",
+    "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+  },
+  "source_silhouette_touched_canvas": false,
+  "remaining_key_candidate_pixels": 0,
+  "production_changed": false,
+  "owner_art_approval": false,
+  "visual_review": "PENDING",
+  "note": "Pixel PASS is not evidence of no clipping, no matte remnants, style or correct anatomy."
+}

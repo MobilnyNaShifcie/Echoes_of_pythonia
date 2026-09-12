@@ -4,11 +4,16 @@ extends RefCounted
 const FateRollClass := preload("res://core/combat/fate_roll.gd")
 const SkillDefinitionClass := preload("res://core/skills/skill_definition.gd")
 
-var combat
+# The combat engine owns this resolver; the reverse link must not own the engine.
+var combat:
+	get:
+		return _combat_ref.get_ref() if _combat_ref != null else null
+
+var _combat_ref: WeakRef
 
 
 func _init(turn_combat) -> void:
-	combat = turn_combat
+	_combat_ref = weakref(turn_combat)
 
 
 func resolve(skill: SkillDefinitionClass, report: Dictionary) -> void:

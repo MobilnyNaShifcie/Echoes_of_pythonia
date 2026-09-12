@@ -5,6 +5,38 @@ const EnemyCatalogClass := preload("res://core/combat/enemy_catalog.gd")
 const PlayerFactoryClass := preload("res://core/player/player_factory.gd")
 
 
+func test_releasing_combat_releases_resolver_player_enemy_and_effects() -> void:
+	var player = PlayerFactoryClass.create_player("Lifetime")
+	var enemy = EnemyCatalogClass.create_enemy("wolf")
+	var combat := CombatEngineClass.new(player, enemy)
+	var references: Array[WeakRef] = [
+		weakref(combat),
+		weakref(combat.fate_resolver),
+		weakref(player),
+		weakref(enemy),
+		weakref(combat.effects),
+		weakref(combat.hit_resolver),
+	]
+	combat.player_defend()
+	player = null
+	enemy = null
+	combat = null
+	for reference: WeakRef in references:
+		assert_null(reference.get_ref(), "Combat ownership must not form a reference cycle")
+
+
+func test_retained_fate_resolver_does_not_keep_its_owner_alive() -> void:
+	var combat := CombatEngineClass.new(
+		PlayerFactoryClass.create_player("Lifetime"), EnemyCatalogClass.create_enemy("wolf")
+	)
+	var resolver = combat.fate_resolver
+	var reference: WeakRef = weakref(combat)
+	assert_eq(resolver.combat, combat)
+	combat = null
+	assert_null(reference.get_ref())
+	assert_null(resolver.combat)
+
+
 func test_prologue_combat_uses_legacy_damage_and_ends_in_victory() -> void:
 	var player = PlayerFactoryClass.create_player("Tester")
 	var enemy = EnemyCatalogClass.create_enemy("prologue_scarecrow")

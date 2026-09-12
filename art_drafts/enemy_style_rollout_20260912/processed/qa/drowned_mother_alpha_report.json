@@ -1,0 +1,65 @@
+{
+  "enemy": "drowned_mother",
+  "variant": "v2",
+  "source_sha256": "cc611392de7c427e7c66ec5262943a23f9b86da393f1077ed351c1284b141888",
+  "profile": {
+    "mode": "magenta",
+    "variant": "v2",
+    "reviewed_all_matte": true,
+    "strict_matte_despill": true,
+    "review_note": "Olive/brown/ivory and natural pale skin, magenta only in hair/garment gaps. V2 restores full staff tip and trailing cloth. Dark/light alpha preview revealed dark pink matte remnants in hair and between hanging strips; explicit local despill is authorized for those, not a costume recolor."
+  },
+  "extraction": {
+    "background_fraction": 0.7105399713073471,
+    "unchanged_core_rgb_pixels": 343033,
+    "reviewed_interior_spill_pixels": 671
+  },
+  "framing": {
+    "source_alpha_bounds": [
+      133,
+      167,
+      1026,
+      1290
+    ],
+    "padding_xy": [
+      73,
+      92
+    ],
+    "resampled": false
+  },
+  "pixel_gate": {
+    "status": "PASS",
+    "mode": "RGBA",
+    "size": [
+      1039,
+      1307
+    ],
+    "alpha_bounds": [
+      73,
+      92,
+      966,
+      1215
+    ],
+    "corner_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "margin_fractions_ltrb": [
+      0.07025986525505294,
+      0.0703902065799541,
+      0.07025986525505294,
+      0.0703902065799541
+    ],
+    "problems": [],
+    "sha256": "7c698c1ef71bc3fcedb3a123ab69825123585a7a18b455eba4df20f604dac1f5",
+    "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+  },
+  "source_silhouette_touched_canvas": false,
+  "remaining_key_candidate_pixels": 0,
+  "production_changed": false,
+  "owner_art_approval": false,
+  "visual_review": "PENDING",
+  "note": "Pixel PASS is not evidence of no clipping, no matte remnants, style or correct anatomy."
+}

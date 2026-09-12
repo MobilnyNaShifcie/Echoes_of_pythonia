@@ -1,0 +1,50 @@
+{
+  "review_scope": "Manual source-art observations for the owner preview; NOT a formal ENEMY_REVIEW PASS or Godot capture review.",
+  "canonical_criteria": [
+    "material_stylization",
+    "shape_detail_shading",
+    "regional_identity",
+    "full_body_single_subject",
+    "left_facing_idle",
+    "rigging_readability"
+  ],
+  "limitations": "Single flattened cutouts, not separated rig layers. In-engine scale, grounding, crop, overlap with hero/UI and lighting have not been tested. Exact generation references and policy fingerprint are recorded separately for every candidate. Pixel PASS is not creative approval.",
+  "observations": {
+    "wolf": "Broad grey fur tufts, drawn facial planes and red accents replace granular fur. Four paws and full tail are visible; pilot alpha preview retained.",
+    "wild_dog": "Brown/charcoal grouped fur and painted muzzle retain the lean feral dog identity, distinct from the larger wolf; four complete legs and small tail.",
+    "slime": "Painted teal liquid lobes, violet eyes/core and clean mouth replace photographic caustics. Naturally limbless; detached droplets are an effect and need separate treatment if animated.",
+    "boar": "Broad charcoal/russet bristles and ivory tusks keep the heavy boar silhouette. Four hoofed legs and red corruption are retained without photographic hide.",
+    "cursed_scarecrow": "Grouped ochre straw, coat folds and drawn black face with red eyes. Complete curved scythe, hands and straw feet; grounded dry-plains identity.",
+    "plains_spirit": "Broad slate/cyan robe ribbons and drawn skeletal hands replace filament-like cloth. Cyan lantern and dry-grass motifs preserved. Ribbon alpha gaps locally cleaned; no invented feet on the naturally dissolving ghost.",
+    "nature_guardian": "Broad wooden armor planes, olive moss and amber core preserve the treant. V2 includes the complete branch crown, shield and root feet, unlike clipped v1.",
+    "venom_spider": "Brown/olive chitin, chartreuse venom and broad plate shading fit the forest palette. V3 keeps the body and extremities inside the frame, but far-side leg overlaps still prevent confident counting/tracing of eight walking legs.",
+    "forest_cultist": "Deer-skull mask, drawn ivory antlers and grouped olive robes remain recognizable. Staff and boots are complete; bone/rope surfaces are illustrated rather than pore-textured.",
+    "rotting_knight": "Broader iron planes and fewer painted corrosion patches. Green visor, sword, shield and two boots remain distinct, without exposing an unrelated human face.",
+    "corrupted_bear": "Grouped charcoal fur and localized violet fissures retain hefty bear anatomy. Interior violet corruption is intentionally preserved by alpha processing, not treated as background.",
+    "black_hart": "Clear dark antler branches, grouped plum fur and restrained magenta veins. Four slim hooved legs; reviewed gaps between antlers/fur cleaned without erasing the corruption veins.",
+    "gallows_wraith": "Drawn grey face/hands, broad grey ribbons and ochre noose distinguish it from the lantern ghost. Both bare feet visible; pink matte flecks locally cleaned from grey cloth/hair.",
+    "blackwood_executioner": "Broad illustrated muscular arm and iron/bark armor retain asymmetry. V2 restores full branch tips and frame; axe and both heavy boots remain visible.",
+    "bog_crawler": "Large olive/ochre hide plates and blunt reptile head replace granular mud. Low four-legged body and long tapering tail keep its marsh identity.",
+    "drowned_dead": "Drawn slate skin and broad teal coat folds retain the waterlogged undead. Two hands and boots remain readable; algae simplified into larger strips.",
+    "swamp_witch": "Illustrated mature face and grouped brown hair match class rendering while retaining olive ragged dress, branch staff and boots; not recolored as the player mage.",
+    "bone_crocodile": "Ivory bone plates over olive hide replace porous bone textures. V2 reveals four separate clawed feet; long snout, teeth and curling tail stay inside frame.",
+    "mist_walker": "Ochre reed bundles, long bird-skull beak and drawn claws keep the strange marsh identity. Two long digitigrade legs; no separate birds or background fog.",
+    "drowned_mother": "Drawn face, grouped dark hair and grey-olive robe folds align with class illustration while keeping the bone/reed crown. V2 contains the full staff, bare feet and trailing robe. Local matte cleanup preserves the muted costume palette.",
+    "boneburner": "Larger illustrated charred-bone forms and cloth strips preserve the thin ember-ribbed undead. Two arms and clawed feet; rust/ivory/charcoal regional identity retained.",
+    "red_salamander": "Broader red scale groups and orange crest planes replace constant tiny molten highlights. Four connected legs and a complete long curling tail, without new wings.",
+    "hearth_devourer": "Broader scorched plates and clear orange furnace ribs retain the towering horned silhouette. Two clawed hands and feet; chains and cloth are subordinate to body shape.",
+    "azhar": "Drawn mature face and broad ochre/rust robe folds retain pale hair, crown and curved polearm. Full weapon and boots visible; no unrelated violet/blue hero palette.",
+    "frozen_castaway": "Broad painted icy facets and navy coat folds replace microcrystalline crust. Full cutlass, icy hand and two boots; mature undead sailor identity preserved.",
+    "ice_crab": "Large blue/white ice facets, drawn shell plates and clear claws replace granular ice. Reuses the alpha-checked pilot; feet/grounding still need Godot capture review."
+  },
+  "needs_revision": {
+    "venom_spider": "Dopracować czytelność ośmiu nóg: dalsze odnóża nadal nakładają się. Nie zatwierdzać do riggingu ani produkcji na podstawie samego podglądu stylu."
+  },
+  "revision_log": {
+    "nature_guardian": "v1 clipped branch crown -> v2 full frame",
+    "venom_spider": "v1 clipped foot -> v2 full frame -> v3 leg-separation attempt; anatomy readability remains unresolved",
+    "blackwood_executioner": "v1 branch tips cropped/touching -> v2 full frame",
+    "bone_crocodile": "v1 only three readable legs -> v2 four visible feet",
+    "drowned_mother": "v1 staff/robe touch canvas -> v2 full frame"
+  }
+}

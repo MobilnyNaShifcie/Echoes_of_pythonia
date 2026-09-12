@@ -1,0 +1,63 @@
+{
+  "enemy": "red_salamander",
+  "variant": "v1",
+  "source_sha256": "eb62e4c5fce4d20853de43a6a105b7f08fff2e10be4056644d04c1eb79d5aaf3",
+  "profile": {
+    "mode": "magenta",
+    "reviewed_all_matte": true,
+    "review_note": "Raw reviewed: crimson/orange/amber reptile, pure magenta only in negative space, not flame color."
+  },
+  "extraction": {
+    "background_fraction": 0.6071694654081653,
+    "unchanged_core_rgb_pixels": 514787,
+    "reviewed_interior_spill_pixels": 0
+  },
+  "framing": {
+    "source_alpha_bounds": [
+      28,
+      24,
+      1291,
+      1188
+    ],
+    "padding_xy": [
+      103,
+      95
+    ],
+    "resampled": false
+  },
+  "pixel_gate": {
+    "status": "PASS",
+    "mode": "RGBA",
+    "size": [
+      1469,
+      1354
+    ],
+    "alpha_bounds": [
+      103,
+      95,
+      1366,
+      1259
+    ],
+    "corner_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "margin_fractions_ltrb": [
+      0.07011572498298162,
+      0.07016248153618906,
+      0.07011572498298162,
+      0.07016248153618906
+    ],
+    "problems": [],
+    "sha256": "b3c5d34fefb16b3d13880204d3bdfcfeb6fde08a80b73456643cad26591e5f88",
+    "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+  },
+  "source_silhouette_touched_canvas": false,
+  "remaining_key_candidate_pixels": 0,
+  "production_changed": false,
+  "owner_art_approval": false,
+  "visual_review": "PENDING",
+  "note": "Pixel PASS is not evidence of no clipping, no matte remnants, style or correct anatomy."
+}

@@ -132,6 +132,36 @@ func test_region_one_battlefield_uses_session_day_and_night_without_rng() -> voi
 	)
 
 
+func test_surface_enemy_region_selects_background_without_changing_session() -> void:
+	var session = NewGameServiceClass.new().create_session("Aria", 1)
+	session.current_location_id = "twilight_plains"
+	var screen := COMBAT_SCENE.instantiate() as CombatScreenClass
+	add_child_autofree(screen)
+	for hour: int in [12, 22]:
+		session.hour = hour
+		screen.configure(session, "ice_crab", "expedition")
+		var period := session.period_code()
+		assert_eq(
+			screen.battlefield_texture.texture.resource_path,
+			"res://assets/combat/backgrounds/ice_coast_%s.png" % period
+		)
+		assert_eq(session.current_location_id, "twilight_plains")
+		assert_string_contains(screen.encounter_label.text, "LODOWE")
+		screen.configure(session, "wolf", "expedition")
+		assert_eq(
+			screen.battlefield_texture.texture.resource_path,
+			"res://assets/combat/backgrounds/twilight_plains_%s.png" % period
+		)
+	screen.configure(session, "ice_crab", "dungeon")
+	assert_null(screen.battlefield_texture.texture)
+	screen.configure(session, "ice_crab", "prologue")
+	assert_null(screen.battlefield_texture.texture)
+	assert_eq(
+		CombatPresentationCatalogClass.enemy_region_id("unknown_enemy", "black_forest"),
+		"black_forest"
+	)
+
+
 func test_region_one_uses_every_technically_valid_approved_enemy_asset() -> void:
 	var expected_paths := {
 		"wild_dog": "res://assets/combat/enemies/wild_dog.png",
@@ -230,13 +260,13 @@ func test_new_enemy_cutouts_keep_transparent_canvas_corners() -> void:
 
 
 func test_region_one_profiles_crop_padding_and_share_a_ground_line() -> void:
-	for enemy_id: String in ["wild_dog", "slime", "wolf", "boar", "bandit"]:
+	for enemy_id: String in ["wild_dog", "slime", "wolf", "boar"]:
 		var presentation := CombatPresentationCatalogClass.enemy_presentation(enemy_id)
-		var crop: Rect2 = presentation.crop
 		var frame: Rect2 = presentation.frame
-		assert_gt(crop.size.x, 0.0, enemy_id)
-		assert_gt(crop.size.y, 0.0, enemy_id)
+		# Approved padded cutouts use their complete alpha bounds, not old pixel crops.
+		assert_false(presentation.has("crop"), enemy_id)
 		assert_almost_eq(frame.end.y, 0.96, 0.001, enemy_id)
+	assert_true(CombatPresentationCatalogClass.enemy_presentation("bandit").has("crop"))
 	for enemy_id: String in [
 		"cursed_scarecrow", "plains_spirit", "night_guard", "hunter", "nature_guardian"
 	]:

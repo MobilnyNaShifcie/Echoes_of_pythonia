@@ -29,6 +29,15 @@ func _ready() -> void:
 	drawer.configure(get_parent(), self, "bottom", "UMIEJĘTNOŚCI I AKCJE")
 	_dock.add_theme_stylebox_override("panel", Style.panel())
 	$PlayerCommandHud.add_theme_stylebox_override("panel", Style.panel())
+	for side: String in ["Player", "Enemy"]:
+		var hud: Control = _screen.get_node("Page/Arena/" + side + "Panel")
+		hud.add_theme_stylebox_override("panel", Style.panel(0.94))
+		hud.minimum_size_changed.connect(update_layout)
+		for suffix: String in ["StatsLabel", "EffectLabel"]:
+			var label: Label = _screen.get_node("%" + side + suffix)
+			# 21 canvas pixels remain 14 physical pixels at the 720p capture scale.
+			label.add_theme_font_size_override("font_size", 21)
+			label.add_theme_color_override("font_color", Color(0.92, 0.95, 0.98))
 	update_layout.call_deferred()
 
 
@@ -63,14 +72,14 @@ func _layout_stage() -> void:
 	var arena: Control = _screen.get_node("Page/Arena")
 	_rect(_screen.get_node("Page/EncounterHeader"), Rect2(18, 8, bounds.x - 36, 38))
 	_rect(arena, Rect2(0, 52, bounds.x, bounds.y - 52))
-	var hud_width := minf(420, bounds.x * 0.32)
+	_layout_turn_queue(arena, bounds.x)
+	var hud_width := minf(480, bounds.x * 0.32)
 	for side: String in ["Player", "Enemy"]:
 		var hud: Control = arena.get_node(side + "Panel")
-		_rect(hud, Rect2(22 if side == "Player" else bounds.x - hud_width - 22, 58, hud_width, 116))
-		hud.add_theme_stylebox_override("panel", Style.panel(0.78))
+		_rect(hud, Rect2(22 if side == "Player" else bounds.x - hud_width - 22, 76, hud_width, 152))
 	# Keep the dice readable between the HUDs, away from the hero-to-enemy VFX path.
 	var fate_width := minf(360.0, bounds.x - 2.0 * hud_width - 76.0)
-	_rect(arena.get_node("VfxStage"), Rect2((bounds.x - fate_width) * 0.5, 58, fate_width, 144))
+	_rect(arena.get_node("VfxStage"), Rect2((bounds.x - fate_width) * 0.5, 76, fate_width, 144))
 	arena.get_node("Versus").hide()
 	var actor_top := (
 		maxf(
@@ -100,6 +109,20 @@ func _layout_stage() -> void:
 	result.add_theme_stylebox_override("panel", Style.panel(0.88, Color(0.38, 0.64, 0.51, 0.65)))
 	Style.quiet_button(_screen.log_toggle_button)
 	Style.quiet_button(_screen.motion_toggle_button)
+
+
+func _layout_turn_queue(arena: Control, available_width: float) -> void:
+	var width := minf(1120.0, available_width - 44.0)
+	var left := (available_width - width) * 0.5
+	_rect(arena.get_node("TurnQueueBackdrop"), Rect2(left, 8, width, 60))
+	_rect(arena.get_node("TurnOrder"), Rect2(left + 12, 12, width - 24, 52))
+	for label: Label in [_screen.player_turn_label, _screen.enemy_turn_label]:
+		label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		label.add_theme_font_size_override("font_size", 20)
+	_screen.player_turn_label.custom_minimum_size.x = 100
+	_screen.enemy_turn_label.custom_minimum_size.x = 220
+	_screen.enemy_turn_label.size_flags_stretch_ratio = 2.0
+	_screen.enemy_turn_label.add_theme_color_override("font_color", Color(1.0, 0.72, 0.8))
 
 
 func _rect(control: Control, rect: Rect2) -> void:

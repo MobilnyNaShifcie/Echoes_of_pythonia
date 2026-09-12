@@ -1,0 +1,42 @@
+{
+  "output": "C:\\Users\\kamil\\OneDrive\\Desktop\\echoes_of_pythonia_v0.24.7_refactored\\echoes_of_pythonia\\art_drafts\\enemy_style_rollout_20260912\\integration\\in_game",
+  "scenarios": [
+    "combat_wild_dog",
+    "combat_slime",
+    "combat_wolf",
+    "combat_boar",
+    "combat_cursed_scarecrow",
+    "combat_plains_spirit",
+    "combat_nature_guardian",
+    "combat_forest_cultist",
+    "combat_rotting_knight",
+    "combat_corrupted_bear",
+    "combat_black_hart",
+    "combat_gallows_wraith",
+    "combat_blackwood_executioner",
+    "combat_bog_crawler",
+    "combat_drowned_dead",
+    "combat_swamp_witch",
+    "combat_bone_crocodile",
+    "combat_mist_walker",
+    "combat_drowned_mother",
+    "combat_boneburner",
+    "combat_red_salamander",
+    "combat_hearth_devourer",
+    "combat_azhar",
+    "combat_frozen_castaway",
+    "combat_ice_crab"
+  ],
+  "resolutions": [
+    [
+      1280,
+      720
+    ],
+    [
+      1920,
+      1080
+    ]
+  ],
+  "hero_class": "mage",
+  "hour": 12
+}

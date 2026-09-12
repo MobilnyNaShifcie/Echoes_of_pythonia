@@ -1,0 +1,63 @@
+{
+  "enemy": "frozen_castaway",
+  "variant": "v1",
+  "source_sha256": "38df17e041e76f94b6dfef9cdddb487ecec815fe2313a7f1dc7596e3d4b706d8",
+  "profile": {
+    "mode": "magenta",
+    "reviewed_all_matte": true,
+    "review_note": "Raw reviewed: navy/slate/ice-blue with painted frost, no magenta elements."
+  },
+  "extraction": {
+    "background_fraction": 0.5978599797127349,
+    "unchanged_core_rgb_pixels": 527298,
+    "reviewed_interior_spill_pixels": 0
+  },
+  "framing": {
+    "source_alpha_bounds": [
+      20,
+      21,
+      1089,
+      1384
+    ],
+    "padding_xy": [
+      88,
+      111
+    ],
+    "resampled": false
+  },
+  "pixel_gate": {
+    "status": "PASS",
+    "mode": "RGBA",
+    "size": [
+      1245,
+      1585
+    ],
+    "alpha_bounds": [
+      88,
+      111,
+      1157,
+      1474
+    ],
+    "corner_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "margin_fractions_ltrb": [
+      0.07068273092369477,
+      0.07003154574132492,
+      0.07068273092369477,
+      0.07003154574132492
+    ],
+    "problems": [],
+    "sha256": "178532b3f8175080ba1e808dfd76ea0f7a2704003f0114bd88ce6679a6eca108",
+    "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+  },
+  "source_silhouette_touched_canvas": false,
+  "remaining_key_candidate_pixels": 0,
+  "production_changed": false,
+  "owner_art_approval": false,
+  "visual_review": "PENDING",
+  "note": "Pixel PASS is not evidence of no clipping, no matte remnants, style or correct anatomy."
+}

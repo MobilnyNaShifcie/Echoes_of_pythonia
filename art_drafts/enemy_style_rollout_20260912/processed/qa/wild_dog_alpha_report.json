@@ -1,0 +1,63 @@
+{
+  "enemy": "wild_dog",
+  "source_sha256": "bd45d3e2cec83ced549b6411b0caba36b435f964743f64d92c83f19cbbe49c30",
+  "profile": {
+    "mode": "neutral",
+    "minimum": 175,
+    "spread": 14,
+    "holes": []
+  },
+  "extraction": {
+    "background_fraction": 0.630704687321222,
+    "unchanged_core_rgb_pixels": 555265,
+    "matte_edge_band_pixels": 25703
+  },
+  "framing": {
+    "source_alpha_bounds": [
+      10,
+      96,
+      1189,
+      1253
+    ],
+    "padding_xy": [
+      96,
+      95
+    ],
+    "resampled": false
+  },
+  "pixel_gate": {
+    "status": "PASS",
+    "mode": "RGBA",
+    "size": [
+      1371,
+      1347
+    ],
+    "alpha_bounds": [
+      96,
+      95,
+      1275,
+      1252
+    ],
+    "corner_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "margin_fractions_ltrb": [
+      0.0700218818380744,
+      0.07052709725315516,
+      0.0700218818380744,
+      0.07052709725315516
+    ],
+    "problems": [],
+    "sha256": "80de20b5dca009312a6b38ac12de2ed40abd001aa14f772d172d31244d11d809",
+    "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+  },
+  "source_silhouette_touched_canvas": false,
+  "remaining_key_candidate_pixels": 64,
+  "production_changed": false,
+  "owner_art_approval": false,
+  "visual_review": "PENDING",
+  "note": "Pixel PASS is not evidence of no clipping, no matte remnants, style or correct anatomy."
+}

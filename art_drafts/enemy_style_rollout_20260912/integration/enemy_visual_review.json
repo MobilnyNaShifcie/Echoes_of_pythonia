@@ -1,0 +1,1552 @@
+{
+  "verdict": "PASS",
+  "summary": "Codex manual visual inspection: 25 owner-approved sources and 50 final Godot frames, viewed as boards 01–13. PASS applies to art/style/framing only, not a clean engine-log gate. Original source observations are supplemented by actual in-game review; this is not a separate Sol or human review.",
+  "reviewed_images": [
+    "combat_wild_dog_1280x720.png",
+    "combat_slime_1280x720.png",
+    "combat_wolf_1280x720.png",
+    "combat_boar_1280x720.png",
+    "combat_cursed_scarecrow_1280x720.png",
+    "combat_plains_spirit_1280x720.png",
+    "combat_nature_guardian_1280x720.png",
+    "combat_forest_cultist_1280x720.png",
+    "combat_rotting_knight_1280x720.png",
+    "combat_corrupted_bear_1280x720.png",
+    "combat_black_hart_1280x720.png",
+    "combat_gallows_wraith_1280x720.png",
+    "combat_blackwood_executioner_1280x720.png",
+    "combat_bog_crawler_1280x720.png",
+    "combat_drowned_dead_1280x720.png",
+    "combat_swamp_witch_1280x720.png",
+    "combat_bone_crocodile_1280x720.png",
+    "combat_mist_walker_1280x720.png",
+    "combat_drowned_mother_1280x720.png",
+    "combat_boneburner_1280x720.png",
+    "combat_red_salamander_1280x720.png",
+    "combat_hearth_devourer_1280x720.png",
+    "combat_azhar_1280x720.png",
+    "combat_frozen_castaway_1280x720.png",
+    "combat_ice_crab_1280x720.png",
+    "combat_wild_dog_1920x1080.png",
+    "combat_slime_1920x1080.png",
+    "combat_wolf_1920x1080.png",
+    "combat_boar_1920x1080.png",
+    "combat_cursed_scarecrow_1920x1080.png",
+    "combat_plains_spirit_1920x1080.png",
+    "combat_nature_guardian_1920x1080.png",
+    "combat_forest_cultist_1920x1080.png",
+    "combat_rotting_knight_1920x1080.png",
+    "combat_corrupted_bear_1920x1080.png",
+    "combat_black_hart_1920x1080.png",
+    "combat_gallows_wraith_1920x1080.png",
+    "combat_blackwood_executioner_1920x1080.png",
+    "combat_bog_crawler_1920x1080.png",
+    "combat_drowned_dead_1920x1080.png",
+    "combat_swamp_witch_1920x1080.png",
+    "combat_bone_crocodile_1920x1080.png",
+    "combat_mist_walker_1920x1080.png",
+    "combat_drowned_mother_1920x1080.png",
+    "combat_boneburner_1920x1080.png",
+    "combat_red_salamander_1920x1080.png",
+    "combat_hearth_devourer_1920x1080.png",
+    "combat_azhar_1920x1080.png",
+    "combat_frozen_castaway_1920x1080.png",
+    "combat_ice_crab_1920x1080.png"
+  ],
+  "findings": [
+    {
+      "title": "Host/import diagnostics retained; engine logs are not clean",
+      "priority": "P3",
+      "category": "bug",
+      "must_fix": false,
+      "evidence": [
+        "in_game_final/capture.log: ERROR: Failed to read the root certificate store.",
+        "in_game/import.log: two UndoRedo instances leaked at editor-import exit; absent from final capture.",
+        "tests/gut_final.log: same certificate error; 676/676 tests pass."
+      ],
+      "recommendation": "Investigate Windows certificate-store access and import-only editor cleanup separately. Do not suppress these logs or count this art PASS as a warning-free runtime gate."
+    }
+  ],
+  "suggestions": [
+    "venom_spider remains on its original production art pending readable eight-leg anatomy.",
+    "These are flattened idle cutouts; layered 2D rigging and animation deformation are not implemented or certified.",
+    "Coverage is static day combat with the female mage at 720p and 1080p; no night, animation or every-class coverage is claimed."
+  ],
+  "enemy_art_checks": [
+    {
+      "source": "godot/assets/combat/enemies/wild_dog.png",
+      "criteria": [
+        {
+          "criterion": "material_stylization",
+          "status": "PASS",
+          "evidence": [
+            "godot/assets/combat/enemies/wild_dog.png, body/materials: Brown/charcoal grouped fur and painted muzzle retain the lean feral dog identity, distinct from the larger wolf; four complete legs and small tail.",
+            "combat_wild_dog_1920x1080.png and combat_wild_dog_1280x720.png, right combatant slot: Lean dog is now smaller than the hero; four paws, ears and tail complete, brown fur separates from the grey plain."
+          ]
+        },
+        {
+          "criterion": "shape_detail_shading",
+          "status": "PASS",
+          "evidence": [
+            "combat_wild_dog_1920x1080.png and combat_wild_dog_1280x720.png, right combatant slot: Lean dog is now smaller than the hero; four paws, ears and tail complete, brown fur separates from the grey plain.",
+            "Compared to the class-reference drawn planes and grouped shadows; decorative detail remains subordinate to the silhouette."
+          ]
+        },
+        {
+          "criterion": "regional_identity",
+          "status": "PASS",
+          "evidence": [
+            "combat_wild_dog_1920x1080.png and combat_wild_dog_1280x720.png, right combatant slot: Lean dog is now smaller than the hero; four paws, ears and tail complete, brown fur separates from the grey plain.",
+            "Region reference: godot/assets/combat/backgrounds/twilight_plains_day.png; geography/palette also compared to the integrated world map."
+          ]
+        },
+        {
+          "criterion": "full_body_single_subject",
+          "status": "PASS",
+          "evidence": [
+            "combat_wild_dog_1920x1080.png and combat_wild_dog_1280x720.png, right combatant slot: Lean dog is now smaller than the hero; four paws, ears and tail complete, brown fur separates from the grey plain.",
+            "godot/assets/combat/enemies/wild_dog.png: transparent cutout with complete alpha bounds; no rectangular background or extra subject visible."
+          ]
+        },
+        {
+          "criterion": "left_facing_idle",
+          "status": "PASS",
+          "evidence": [
+            "combat_wild_dog_1920x1080.png and combat_wild_dog_1280x720.png, right combatant slot: Lean dog is now smaller than the hero; four paws, ears and tail complete, brown fur separates from the grey plain.",
+            "Head/weapon direction is toward the left-side mage in combat idle, not an attack impact; no horizontal flip applied."
+          ]
+        },
+        {
+          "criterion": "rigging_readability",
+          "status": "PASS",
+          "evidence": [
+            "combat_wild_dog_1920x1080.png and combat_wild_dog_1280x720.png, right combatant slot: Lean dog is now smaller than the hero; four paws, ears and tail complete, brown fur separates from the grey plain.",
+            "Visible limb/major-part boundaries are readable for future segmentation. Ordinary pose occlusion is not a layered rig; hidden surfaces and deformation still require production work."
+          ]
+        }
+      ],
+      "compared_references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/twilight_plains_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/slime.png",
+      "criteria": [
+        {
+          "criterion": "material_stylization",
+          "status": "PASS",
+          "evidence": [
+            "godot/assets/combat/enemies/slime.png, body/materials: Painted teal liquid lobes, violet eyes/core and clean mouth replace photographic caustics. Naturally limbless; detached droplets are an effect and need separate treatment if animated.",
+            "combat_slime_1920x1080.png and combat_slime_1280x720.png, right combatant slot: Compact teal body stays low on the battlefield; entire lobe outline and violet core visible. Droplets are effects, not extra creatures."
+          ]
+        },
+        {
+          "criterion": "shape_detail_shading",
+          "status": "PASS",
+          "evidence": [
+            "combat_slime_1920x1080.png and combat_slime_1280x720.png, right combatant slot: Compact teal body stays low on the battlefield; entire lobe outline and violet core visible. Droplets are effects, not extra creatures.",
+            "Compared to the class-reference drawn planes and grouped shadows; decorative detail remains subordinate to the silhouette."
+          ]
+        },
+        {
+          "criterion": "regional_identity",
+          "status": "PASS",
+          "evidence": [
+            "combat_slime_1920x1080.png and combat_slime_1280x720.png, right combatant slot: Compact teal body stays low on the battlefield; entire lobe outline and violet core visible. Droplets are effects, not extra creatures.",
+            "Region reference: godot/assets/combat/backgrounds/twilight_plains_day.png; geography/palette also compared to the integrated world map."
+          ]
+        },
+        {
+          "criterion": "full_body_single_subject",
+          "status": "PASS",
+          "evidence": [
+            "combat_slime_1920x1080.png and combat_slime_1280x720.png, right combatant slot: Compact teal body stays low on the battlefield; entire lobe outline and violet core visible. Droplets are effects, not extra creatures.",
+            "godot/assets/combat/enemies/slime.png: transparent cutout with complete alpha bounds; no rectangular background or extra subject visible."
+          ]
+        },
+        {
+          "criterion": "left_facing_idle",
+          "status": "PASS",
+          "evidence": [
+            "combat_slime_1920x1080.png and combat_slime_1280x720.png, right combatant slot: Compact teal body stays low on the battlefield; entire lobe outline and violet core visible. Droplets are effects, not extra creatures.",
+            "Head/weapon direction is toward the left-side mage in combat idle, not an attack impact; no horizontal flip applied."
+          ]
+        },
+        {
+          "criterion": "rigging_readability",
+          "status": "PASS",
+          "evidence": [
+            "combat_slime_1920x1080.png and combat_slime_1280x720.png, right combatant slot: Compact teal body stays low on the battlefield; entire lobe outline and violet core visible. Droplets are effects, not extra creatures.",
+            "Visible limb/major-part boundaries are readable for future segmentation. Ordinary pose occlusion is not a layered rig; hidden surfaces and deformation still require production work."
+          ]
+        }
+      ],
+      "compared_references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/twilight_plains_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/wolf.png",
+      "criteria": [
+        {
+          "criterion": "material_stylization",
+          "status": "PASS",
+          "evidence": [
+            "godot/assets/combat/enemies/wolf.png, body/materials: Broad grey fur tufts, drawn facial planes and red accents replace granular fur. Four paws and full tail are visible; pilot alpha preview retained.",
+            "combat_wolf_1920x1080.png and combat_wolf_1280x720.png, right combatant slot: Grey wolf is larger than dog but below hero height; four paws and tail remain visible, muzzle directed toward mage."
+          ]
+        },
+        {
+          "criterion": "shape_detail_shading",
+          "status": "PASS",
+          "evidence": [
+            "combat_wolf_1920x1080.png and combat_wolf_1280x720.png, right combatant slot: Grey wolf is larger than dog but below hero height; four paws and tail remain visible, muzzle directed toward mage.",
+            "Compared to the class-reference drawn planes and grouped shadows; decorative detail remains subordinate to the silhouette."
+          ]
+        },
+        {
+          "criterion": "regional_identity",
+          "status": "PASS",
+          "evidence": [
+            "combat_wolf_1920x1080.png and combat_wolf_1280x720.png, right combatant slot: Grey wolf is larger than dog but below hero height; four paws and tail remain visible, muzzle directed toward mage.",
+            "Region reference: godot/assets/combat/backgrounds/twilight_plains_day.png; geography/palette also compared to the integrated world map."
+          ]
+        },
+        {
+          "criterion": "full_body_single_subject",
+          "status": "PASS",
+          "evidence": [
+            "combat_wolf_1920x1080.png and combat_wolf_1280x720.png, right combatant slot: Grey wolf is larger than dog but below hero height; four paws and tail remain visible, muzzle directed toward mage.",
+            "godot/assets/combat/enemies/wolf.png: transparent cutout with complete alpha bounds; no rectangular background or extra subject visible."
+          ]
+        },
+        {
+          "criterion": "left_facing_idle",
+          "status": "PASS",
+          "evidence": [
+            "combat_wolf_1920x1080.png and combat_wolf_1280x720.png, right combatant slot: Grey wolf is larger than dog but below hero height; four paws and tail remain visible, muzzle directed toward mage.",
+            "Head/weapon direction is toward the left-side mage in combat idle, not an attack impact; no horizontal flip applied."
+          ]
+        },
+        {
+          "criterion": "rigging_readability",
+          "status": "PASS",
+          "evidence": [
+            "combat_wolf_1920x1080.png and combat_wolf_1280x720.png, right combatant slot: Grey wolf is larger than dog but below hero height; four paws and tail remain visible, muzzle directed toward mage.",
+            "Visible limb/major-part boundaries are readable for future segmentation. Ordinary pose occlusion is not a layered rig; hidden surfaces and deformation still require production work."
+          ]
+        }
+      ],
+      "compared_references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/twilight_plains_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/boar.png",
+      "criteria": [
+        {
+          "criterion": "material_stylization",
+          "status": "PASS",
+          "evidence": [
+            "godot/assets/combat/enemies/boar.png, body/materials: Broad charcoal/russet bristles and ivory tusks keep the heavy boar silhouette. Four hoofed legs and red corruption are retained without photographic hide.",
+            "combat_boar_1920x1080.png and combat_boar_1280x720.png, right combatant slot: Heavy russet body, full tusks, hooves and back bristles remain inside the slot at reduced scale."
+          ]
+        },
+        {
+          "criterion": "shape_detail_shading",
+          "status": "PASS",
+          "evidence": [
+            "combat_boar_1920x1080.png and combat_boar_1280x720.png, right combatant slot: Heavy russet body, full tusks, hooves and back bristles remain inside the slot at reduced scale.",
+            "Compared to the class-reference drawn planes and grouped shadows; decorative detail remains subordinate to the silhouette."
+          ]
+        },
+        {
+          "criterion": "regional_identity",
+          "status": "PASS",
+          "evidence": [
+            "combat_boar_1920x1080.png and combat_boar_1280x720.png, right combatant slot: Heavy russet body, full tusks, hooves and back bristles remain inside the slot at reduced scale.",
+            "Region reference: godot/assets/combat/backgrounds/twilight_plains_day.png; geography/palette also compared to the integrated world map."
+          ]
+        },
+        {
+          "criterion": "full_body_single_subject",
+          "status": "PASS",
+          "evidence": [
+            "combat_boar_1920x1080.png and combat_boar_1280x720.png, right combatant slot: Heavy russet body, full tusks, hooves and back bristles remain inside the slot at reduced scale.",
+            "godot/assets/combat/enemies/boar.png: transparent cutout with complete alpha bounds; no rectangular background or extra subject visible."
+          ]
+        },
+        {
+          "criterion": "left_facing_idle",
+          "status": "PASS",
+          "evidence": [
+            "combat_boar_1920x1080.png and combat_boar_1280x720.png, right combatant slot: Heavy russet body, full tusks, hooves and back bristles remain inside the slot at reduced scale.",
+            "Head/weapon direction is toward the left-side mage in combat idle, not an attack impact; no horizontal flip applied."
+          ]
+        },
+        {
+          "criterion": "rigging_readability",
+          "status": "PASS",
+          "evidence": [
+            "combat_boar_1920x1080.png and combat_boar_1280x720.png, right combatant slot: Heavy russet body, full tusks, hooves and back bristles remain inside the slot at reduced scale.",
+            "Visible limb/major-part boundaries are readable for future segmentation. Ordinary pose occlusion is not a layered rig; hidden surfaces and deformation still require production work."
+          ]
+        }
+      ],
+      "compared_references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/twilight_plains_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/cursed_scarecrow.png",
+      "criteria": [
+        {
+          "criterion": "material_stylization",
+          "status": "PASS",
+          "evidence": [
+            "godot/assets/combat/enemies/cursed_scarecrow.png, body/materials: Grouped ochre straw, coat folds and drawn black face with red eyes. Complete curved scythe, hands and straw feet; grounded dry-plains identity.",
+            "combat_cursed_scarecrow_1920x1080.png and combat_cursed_scarecrow_1280x720.png, right combatant slot: Complete ochre straw crown, scythe arc and both straw feet; wrists and limbs remain traceable against the dry plain."
+          ]
+        },
+        {
+          "criterion": "shape_detail_shading",
+          "status": "PASS",
+          "evidence": [
+            "combat_cursed_scarecrow_1920x1080.png and combat_cursed_scarecrow_1280x720.png, right combatant slot: Complete ochre straw crown, scythe arc and both straw feet; wrists and limbs remain traceable against the dry plain.",
+            "Compared to the class-reference drawn planes and grouped shadows; decorative detail remains subordinate to the silhouette."
+          ]
+        },
+        {
+          "criterion": "regional_identity",
+          "status": "PASS",
+          "evidence": [
+            "combat_cursed_scarecrow_1920x1080.png and combat_cursed_scarecrow_1280x720.png, right combatant slot: Complete ochre straw crown, scythe arc and both straw feet; wrists and limbs remain traceable against the dry plain.",
+            "Region reference: godot/assets/combat/backgrounds/twilight_plains_day.png; geography/palette also compared to the integrated world map."
+          ]
+        },
+        {
+          "criterion": "full_body_single_subject",
+          "status": "PASS",
+          "evidence": [
+            "combat_cursed_scarecrow_1920x1080.png and combat_cursed_scarecrow_1280x720.png, right combatant slot: Complete ochre straw crown, scythe arc and both straw feet; wrists and limbs remain traceable against the dry plain.",
+            "godot/assets/combat/enemies/cursed_scarecrow.png: transparent cutout with complete alpha bounds; no rectangular background or extra subject visible."
+          ]
+        },
+        {
+          "criterion": "left_facing_idle",
+          "status": "PASS",
+          "evidence": [
+            "combat_cursed_scarecrow_1920x1080.png and combat_cursed_scarecrow_1280x720.png, right combatant slot: Complete ochre straw crown, scythe arc and both straw feet; wrists and limbs remain traceable against the dry plain.",
+            "Head/weapon direction is toward the left-side mage in combat idle, not an attack impact; no horizontal flip applied."
+          ]
+        },
+        {
+          "criterion": "rigging_readability",
+          "status": "PASS",
+          "evidence": [
+            "combat_cursed_scarecrow_1920x1080.png and combat_cursed_scarecrow_1280x720.png, right combatant slot: Complete ochre straw crown, scythe arc and both straw feet; wrists and limbs remain traceable against the dry plain.",
+            "Visible limb/major-part boundaries are readable for future segmentation. Ordinary pose occlusion is not a layered rig; hidden surfaces and deformation still require production work."
+          ]
+        }
+      ],
+      "compared_references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/twilight_plains_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/plains_spirit.png",
+      "criteria": [
+        {
+          "criterion": "material_stylization",
+          "status": "PASS",
+          "evidence": [
+            "godot/assets/combat/enemies/plains_spirit.png, body/materials: Broad slate/cyan robe ribbons and drawn skeletal hands replace filament-like cloth. Cyan lantern and dry-grass motifs preserved. Ribbon alpha gaps locally cleaned; no invented feet on the naturally dissolving ghost.",
+            "combat_plains_spirit_1920x1080.png and combat_plains_spirit_1280x720.png, right combatant slot: Blue lantern, two hands and flowing robe tips remain distinct; no cropping of the naturally dissolving lower silhouette."
+          ]
+        },
+        {
+          "criterion": "shape_detail_shading",
+          "status": "PASS",
+          "evidence": [
+            "combat_plains_spirit_1920x1080.png and combat_plains_spirit_1280x720.png, right combatant slot: Blue lantern, two hands and flowing robe tips remain distinct; no cropping of the naturally dissolving lower silhouette.",
+            "Compared to the class-reference drawn planes and grouped shadows; decorative detail remains subordinate to the silhouette."
+          ]
+        },
+        {
+          "criterion": "regional_identity",
+          "status": "PASS",
+          "evidence": [
+            "combat_plains_spirit_1920x1080.png and combat_plains_spirit_1280x720.png, right combatant slot: Blue lantern, two hands and flowing robe tips remain distinct; no cropping of the naturally dissolving lower silhouette.",
+            "Region reference: godot/assets/combat/backgrounds/twilight_plains_day.png; geography/palette also compared to the integrated world map."
+          ]
+        },
+        {
+          "criterion": "full_body_single_subject",
+          "status": "PASS",
+          "evidence": [
+            "combat_plains_spirit_1920x1080.png and combat_plains_spirit_1280x720.png, right combatant slot: Blue lantern, two hands and flowing robe tips remain distinct; no cropping of the naturally dissolving lower silhouette.",
+            "godot/assets/combat/enemies/plains_spirit.png: transparent cutout with complete alpha bounds; no rectangular background or extra subject visible."
+          ]
+        },
+        {
+          "criterion": "left_facing_idle",
+          "status": "PASS",
+          "evidence": [
+            "combat_plains_spirit_1920x1080.png and combat_plains_spirit_1280x720.png, right combatant slot: Blue lantern, two hands and flowing robe tips remain distinct; no cropping of the naturally dissolving lower silhouette.",
+            "Head/weapon direction is toward the left-side mage in combat idle, not an attack impact; no horizontal flip applied."
+          ]
+        },
+        {
+          "criterion": "rigging_readability",
+          "status": "PASS",
+          "evidence": [
+            "combat_plains_spirit_1920x1080.png and combat_plains_spirit_1280x720.png, right combatant slot: Blue lantern, two hands and flowing robe tips remain distinct; no cropping of the naturally dissolving lower silhouette.",
+            "Visible limb/major-part boundaries are readable for future segmentation. Ordinary pose occlusion is not a layered rig; hidden surfaces and deformation still require production work."
+          ]
+        }
+      ],
+      "compared_references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/twilight_plains_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/nature_guardian.png",
+      "criteria": [
+        {
+          "criterion": "material_stylization",
+          "status": "PASS",
+          "evidence": [
+            "godot/assets/combat/enemies/nature_guardian.png, body/materials: Broad wooden armor planes, olive moss and amber core preserve the treant. V2 includes the complete branch crown, shield and root feet, unlike clipped v1.",
+            "combat_nature_guardian_1920x1080.png and combat_nature_guardian_1280x720.png, right combatant slot: Branch crown now below the HUD and inside slot; amber core, shield and root feet are complete after frame correction."
+          ]
+        },
+        {
+          "criterion": "shape_detail_shading",
+          "status": "PASS",
+          "evidence": [
+            "combat_nature_guardian_1920x1080.png and combat_nature_guardian_1280x720.png, right combatant slot: Branch crown now below the HUD and inside slot; amber core, shield and root feet are complete after frame correction.",
+            "Compared to the class-reference drawn planes and grouped shadows; decorative detail remains subordinate to the silhouette."
+          ]
+        },
+        {
+          "criterion": "regional_identity",
+          "status": "PASS",
+          "evidence": [
+            "combat_nature_guardian_1920x1080.png and combat_nature_guardian_1280x720.png, right combatant slot: Branch crown now below the HUD and inside slot; amber core, shield and root feet are complete after frame correction.",
+            "Region reference: godot/assets/combat/backgrounds/twilight_plains_day.png; geography/palette also compared to the integrated world map."
+          ]
+        },
+        {
+          "criterion": "full_body_single_subject",
+          "status": "PASS",
+          "evidence": [
+            "combat_nature_guardian_1920x1080.png and combat_nature_guardian_1280x720.png, right combatant slot: Branch crown now below the HUD and inside slot; amber core, shield and root feet are complete after frame correction.",
+            "godot/assets/combat/enemies/nature_guardian.png: transparent cutout with complete alpha bounds; no rectangular background or extra subject visible."
+          ]
+        },
+        {
+          "criterion": "left_facing_idle",
+          "status": "PASS",
+          "evidence": [
+            "combat_nature_guardian_1920x1080.png and combat_nature_guardian_1280x720.png, right combatant slot: Branch crown now below the HUD and inside slot; amber core, shield and root feet are complete after frame correction.",
+            "Head/weapon direction is toward the left-side mage in combat idle, not an attack impact; no horizontal flip applied."
+          ]
+        },
+        {
+          "criterion": "rigging_readability",
+          "status": "PASS",
+          "evidence": [
+            "combat_nature_guardian_1920x1080.png and combat_nature_guardian_1280x720.png, right combatant slot: Branch crown now below the HUD and inside slot; amber core, shield and root feet are complete after frame correction.",
+            "Visible limb/major-part boundaries are readable for future segmentation. Ordinary pose occlusion is not a layered rig; hidden surfaces and deformation still require production work."
+          ]
+        }
+      ],
+      "compared_references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/twilight_plains_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/forest_cultist.png",
+      "criteria": [
+        {
+          "criterion": "material_stylization",
+          "status": "PASS",
+          "evidence": [
+            "godot/assets/combat/enemies/forest_cultist.png, body/materials: Deer-skull mask, drawn ivory antlers and grouped olive robes remain recognizable. Staff and boots are complete; bone/rope surfaces are illustrated rather than pore-textured.",
+            "combat_forest_cultist_1920x1080.png and combat_forest_cultist_1280x720.png, right combatant slot: Skull mask and antlers, staff, hands and boot silhouettes fit under HUD; olive cloth belongs to Black Forest."
+          ]
+        },
+        {
+          "criterion": "shape_detail_shading",
+          "status": "PASS",
+          "evidence": [
+            "combat_forest_cultist_1920x1080.png and combat_forest_cultist_1280x720.png, right combatant slot: Skull mask and antlers, staff, hands and boot silhouettes fit under HUD; olive cloth belongs to Black Forest.",
+            "Compared to the class-reference drawn planes and grouped shadows; decorative detail remains subordinate to the silhouette."
+          ]
+        },
+        {
+          "criterion": "regional_identity",
+          "status": "PASS",
+          "evidence": [
+            "combat_forest_cultist_1920x1080.png and combat_forest_cultist_1280x720.png, right combatant slot: Skull mask and antlers, staff, hands and boot silhouettes fit under HUD; olive cloth belongs to Black Forest.",
+            "Region reference: godot/assets/combat/backgrounds/black_forest_day.png; geography/palette also compared to the integrated world map."
+          ]
+        },
+        {
+          "criterion": "full_body_single_subject",
+          "status": "PASS",
+          "evidence": [
+            "combat_forest_cultist_1920x1080.png and combat_forest_cultist_1280x720.png, right combatant slot: Skull mask and antlers, staff, hands and boot silhouettes fit under HUD; olive cloth belongs to Black Forest.",
+            "godot/assets/combat/enemies/forest_cultist.png: transparent cutout with complete alpha bounds; no rectangular background or extra subject visible."
+          ]
+        },
+        {
+          "criterion": "left_facing_idle",
+          "status": "PASS",
+          "evidence": [
+            "combat_forest_cultist_1920x1080.png and combat_forest_cultist_1280x720.png, right combatant slot: Skull mask and antlers, staff, hands and boot silhouettes fit under HUD; olive cloth belongs to Black Forest.",
+            "Head/weapon direction is toward the left-side mage in combat idle, not an attack impact; no horizontal flip applied."
+          ]
+        },
+        {
+          "criterion": "rigging_readability",
+          "status": "PASS",
+          "evidence": [
+            "combat_forest_cultist_1920x1080.png and combat_forest_cultist_1280x720.png, right combatant slot: Skull mask and antlers, staff, hands and boot silhouettes fit under HUD; olive cloth belongs to Black Forest.",
+            "Visible limb/major-part boundaries are readable for future segmentation. Ordinary pose occlusion is not a layered rig; hidden surfaces and deformation still require production work."
+          ]
+        }
+      ],
+      "compared_references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/black_forest_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/rotting_knight.png",
+      "criteria": [
+        {
+          "criterion": "material_stylization",
+          "status": "PASS",
+          "evidence": [
+            "godot/assets/combat/enemies/rotting_knight.png, body/materials: Broader iron planes and fewer painted corrosion patches. Green visor, sword, shield and two boots remain distinct, without exposing an unrelated human face.",
+            "combat_rotting_knight_1920x1080.png and combat_rotting_knight_1280x720.png, right combatant slot: Green visor, sword, shield and boots are readable against forest; strong armor blocks match illustrated hero materials."
+          ]
+        },
+        {
+          "criterion": "shape_detail_shading",
+          "status": "PASS",
+          "evidence": [
+            "combat_rotting_knight_1920x1080.png and combat_rotting_knight_1280x720.png, right combatant slot: Green visor, sword, shield and boots are readable against forest; strong armor blocks match illustrated hero materials.",
+            "Compared to the class-reference drawn planes and grouped shadows; decorative detail remains subordinate to the silhouette."
+          ]
+        },
+        {
+          "criterion": "regional_identity",
+          "status": "PASS",
+          "evidence": [
+            "combat_rotting_knight_1920x1080.png and combat_rotting_knight_1280x720.png, right combatant slot: Green visor, sword, shield and boots are readable against forest; strong armor blocks match illustrated hero materials.",
+            "Region reference: godot/assets/combat/backgrounds/black_forest_day.png; geography/palette also compared to the integrated world map."
+          ]
+        },
+        {
+          "criterion": "full_body_single_subject",
+          "status": "PASS",
+          "evidence": [
+            "combat_rotting_knight_1920x1080.png and combat_rotting_knight_1280x720.png, right combatant slot: Green visor, sword, shield and boots are readable against forest; strong armor blocks match illustrated hero materials.",
+            "godot/assets/combat/enemies/rotting_knight.png: transparent cutout with complete alpha bounds; no rectangular background or extra subject visible."
+          ]
+        },
+        {
+          "criterion": "left_facing_idle",
+          "status": "PASS",
+          "evidence": [
+            "combat_rotting_knight_1920x1080.png and combat_rotting_knight_1280x720.png, right combatant slot: Green visor, sword, shield and boots are readable against forest; strong armor blocks match illustrated hero materials.",
+            "Head/weapon direction is toward the left-side mage in combat idle, not an attack impact; no horizontal flip applied."
+          ]
+        },
+        {
+          "criterion": "rigging_readability",
+          "status": "PASS",
+          "evidence": [
+            "combat_rotting_knight_1920x1080.png and combat_rotting_knight_1280x720.png, right combatant slot: Green visor, sword, shield and boots are readable against forest; strong armor blocks match illustrated hero materials.",
+            "Visible limb/major-part boundaries are readable for future segmentation. Ordinary pose occlusion is not a layered rig; hidden surfaces and deformation still require production work."
+          ]
+        }
+      ],
+      "compared_references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/black_forest_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/corrupted_bear.png",
+      "criteria": [
+        {
+          "criterion": "material_stylization",
+          "status": "PASS",
+          "evidence": [
+            "godot/assets/combat/enemies/corrupted_bear.png, body/materials: Grouped charcoal fur and localized violet fissures retain hefty bear anatomy. Interior violet corruption is intentionally preserved by alpha processing, not treated as background.",
+            "combat_corrupted_bear_1920x1080.png and combat_corrupted_bear_1280x720.png, right combatant slot: Large charcoal bear remains distinct from forest; purple fissures localized to body, full paws visible."
+          ]
+        },
+        {
+          "criterion": "shape_detail_shading",
+          "status": "PASS",
+          "evidence": [
+            "combat_corrupted_bear_1920x1080.png and combat_corrupted_bear_1280x720.png, right combatant slot: Large charcoal bear remains distinct from forest; purple fissures localized to body, full paws visible.",
+            "Compared to the class-reference drawn planes and grouped shadows; decorative detail remains subordinate to the silhouette."
+          ]
+        },
+        {
+          "criterion": "regional_identity",
+          "status": "PASS",
+          "evidence": [
+            "combat_corrupted_bear_1920x1080.png and combat_corrupted_bear_1280x720.png, right combatant slot: Large charcoal bear remains distinct from forest; purple fissures localized to body, full paws visible.",
+            "Region reference: godot/assets/combat/backgrounds/black_forest_day.png; geography/palette also compared to the integrated world map."
+          ]
+        },
+        {
+          "criterion": "full_body_single_subject",
+          "status": "PASS",
+          "evidence": [
+            "combat_corrupted_bear_1920x1080.png and combat_corrupted_bear_1280x720.png, right combatant slot: Large charcoal bear remains distinct from forest; purple fissures localized to body, full paws visible.",
+            "godot/assets/combat/enemies/corrupted_bear.png: transparent cutout with complete alpha bounds; no rectangular background or extra subject visible."
+          ]
+        },
+        {
+          "criterion": "left_facing_idle",
+          "status": "PASS",
+          "evidence": [
+            "combat_corrupted_bear_1920x1080.png and combat_corrupted_bear_1280x720.png, right combatant slot: Large charcoal bear remains distinct from forest; purple fissures localized to body, full paws visible.",
+            "Head/weapon direction is toward the left-side mage in combat idle, not an attack impact; no horizontal flip applied."
+          ]
+        },
+        {
+          "criterion": "rigging_readability",
+          "status": "PASS",
+          "evidence": [
+            "combat_corrupted_bear_1920x1080.png and combat_corrupted_bear_1280x720.png, right combatant slot: Large charcoal bear remains distinct from forest; purple fissures localized to body, full paws visible.",
+            "Visible limb/major-part boundaries are readable for future segmentation. Ordinary pose occlusion is not a layered rig; hidden surfaces and deformation still require production work."
+          ]
+        }
+      ],
+      "compared_references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/black_forest_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/black_hart.png",
+      "criteria": [
+        {
+          "criterion": "material_stylization",
+          "status": "PASS",
+          "evidence": [
+            "godot/assets/combat/enemies/black_hart.png, body/materials: Clear dark antler branches, grouped plum fur and restrained magenta veins. Four slim hooved legs; reviewed gaps between antlers/fur cleaned without erasing the corruption veins.",
+            "combat_black_hart_1920x1080.png and combat_black_hart_1280x720.png, right combatant slot: Complete antler branches, four thin hooved legs and dark plum body; magenta veins provide restrained contrast against forest."
+          ]
+        },
+        {
+          "criterion": "shape_detail_shading",
+          "status": "PASS",
+          "evidence": [
+            "combat_black_hart_1920x1080.png and combat_black_hart_1280x720.png, right combatant slot: Complete antler branches, four thin hooved legs and dark plum body; magenta veins provide restrained contrast against forest.",
+            "Compared to the class-reference drawn planes and grouped shadows; decorative detail remains subordinate to the silhouette."
+          ]
+        },
+        {
+          "criterion": "regional_identity",
+          "status": "PASS",
+          "evidence": [
+            "combat_black_hart_1920x1080.png and combat_black_hart_1280x720.png, right combatant slot: Complete antler branches, four thin hooved legs and dark plum body; magenta veins provide restrained contrast against forest.",
+            "Region reference: godot/assets/combat/backgrounds/black_forest_day.png; geography/palette also compared to the integrated world map."
+          ]
+        },
+        {
+          "criterion": "full_body_single_subject",
+          "status": "PASS",
+          "evidence": [
+            "combat_black_hart_1920x1080.png and combat_black_hart_1280x720.png, right combatant slot: Complete antler branches, four thin hooved legs and dark plum body; magenta veins provide restrained contrast against forest.",
+            "godot/assets/combat/enemies/black_hart.png: transparent cutout with complete alpha bounds; no rectangular background or extra subject visible."
+          ]
+        },
+        {
+          "criterion": "left_facing_idle",
+          "status": "PASS",
+          "evidence": [
+            "combat_black_hart_1920x1080.png and combat_black_hart_1280x720.png, right combatant slot: Complete antler branches, four thin hooved legs and dark plum body; magenta veins provide restrained contrast against forest.",
+            "Head/weapon direction is toward the left-side mage in combat idle, not an attack impact; no horizontal flip applied."
+          ]
+        },
+        {
+          "criterion": "rigging_readability",
+          "status": "PASS",
+          "evidence": [
+            "combat_black_hart_1920x1080.png and combat_black_hart_1280x720.png, right combatant slot: Complete antler branches, four thin hooved legs and dark plum body; magenta veins provide restrained contrast against forest.",
+            "Visible limb/major-part boundaries are readable for future segmentation. Ordinary pose occlusion is not a layered rig; hidden surfaces and deformation still require production work."
+          ]
+        }
+      ],
+      "compared_references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/black_forest_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/gallows_wraith.png",
+      "criteria": [
+        {
+          "criterion": "material_stylization",
+          "status": "PASS",
+          "evidence": [
+            "godot/assets/combat/enemies/gallows_wraith.png, body/materials: Drawn grey face/hands, broad grey ribbons and ochre noose distinguish it from the lantern ghost. Both bare feet visible; pink matte flecks locally cleaned from grey cloth/hair.",
+            "combat_gallows_wraith_1920x1080.png and combat_gallows_wraith_1280x720.png, right combatant slot: Grey arms, ochre noose, robe ribbons and both bare feet readable; complete single hanging-ghost silhouette."
+          ]
+        },
+        {
+          "criterion": "shape_detail_shading",
+          "status": "PASS",
+          "evidence": [
+            "combat_gallows_wraith_1920x1080.png and combat_gallows_wraith_1280x720.png, right combatant slot: Grey arms, ochre noose, robe ribbons and both bare feet readable; complete single hanging-ghost silhouette.",
+            "Compared to the class-reference drawn planes and grouped shadows; decorative detail remains subordinate to the silhouette."
+          ]
+        },
+        {
+          "criterion": "regional_identity",
+          "status": "PASS",
+          "evidence": [
+            "combat_gallows_wraith_1920x1080.png and combat_gallows_wraith_1280x720.png, right combatant slot: Grey arms, ochre noose, robe ribbons and both bare feet readable; complete single hanging-ghost silhouette.",
+            "Region reference: godot/assets/combat/backgrounds/black_forest_day.png; geography/palette also compared to the integrated world map."
+          ]
+        },
+        {
+          "criterion": "full_body_single_subject",
+          "status": "PASS",
+          "evidence": [
+            "combat_gallows_wraith_1920x1080.png and combat_gallows_wraith_1280x720.png, right combatant slot: Grey arms, ochre noose, robe ribbons and both bare feet readable; complete single hanging-ghost silhouette.",
+            "godot/assets/combat/enemies/gallows_wraith.png: transparent cutout with complete alpha bounds; no rectangular background or extra subject visible."
+          ]
+        },
+        {
+          "criterion": "left_facing_idle",
+          "status": "PASS",
+          "evidence": [
+            "combat_gallows_wraith_1920x1080.png and combat_gallows_wraith_1280x720.png, right combatant slot: Grey arms, ochre noose, robe ribbons and both bare feet readable; complete single hanging-ghost silhouette.",
+            "Head/weapon direction is toward the left-side mage in combat idle, not an attack impact; no horizontal flip applied."
+          ]
+        },
+        {
+          "criterion": "rigging_readability",
+          "status": "PASS",
+          "evidence": [
+            "combat_gallows_wraith_1920x1080.png and combat_gallows_wraith_1280x720.png, right combatant slot: Grey arms, ochre noose, robe ribbons and both bare feet readable; complete single hanging-ghost silhouette.",
+            "Visible limb/major-part boundaries are readable for future segmentation. Ordinary pose occlusion is not a layered rig; hidden surfaces and deformation still require production work."
+          ]
+        }
+      ],
+      "compared_references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/black_forest_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/blackwood_executioner.png",
+      "criteria": [
+        {
+          "criterion": "material_stylization",
+          "status": "PASS",
+          "evidence": [
+            "godot/assets/combat/enemies/blackwood_executioner.png, body/materials: Broad illustrated muscular arm and iron/bark armor retain asymmetry. V2 restores full branch tips and frame; axe and both heavy boots remain visible.",
+            "combat_blackwood_executioner_1920x1080.png and combat_blackwood_executioner_1280x720.png, right combatant slot: Full axe blade, branching shoulder armor and two heavy boots; both grips readable and no overlap with mage or HUD."
+          ]
+        },
+        {
+          "criterion": "shape_detail_shading",
+          "status": "PASS",
+          "evidence": [
+            "combat_blackwood_executioner_1920x1080.png and combat_blackwood_executioner_1280x720.png, right combatant slot: Full axe blade, branching shoulder armor and two heavy boots; both grips readable and no overlap with mage or HUD.",
+            "Compared to the class-reference drawn planes and grouped shadows; decorative detail remains subordinate to the silhouette."
+          ]
+        },
+        {
+          "criterion": "regional_identity",
+          "status": "PASS",
+          "evidence": [
+            "combat_blackwood_executioner_1920x1080.png and combat_blackwood_executioner_1280x720.png, right combatant slot: Full axe blade, branching shoulder armor and two heavy boots; both grips readable and no overlap with mage or HUD.",
+            "Region reference: godot/assets/combat/backgrounds/black_forest_day.png; geography/palette also compared to the integrated world map."
+          ]
+        },
+        {
+          "criterion": "full_body_single_subject",
+          "status": "PASS",
+          "evidence": [
+            "combat_blackwood_executioner_1920x1080.png and combat_blackwood_executioner_1280x720.png, right combatant slot: Full axe blade, branching shoulder armor and two heavy boots; both grips readable and no overlap with mage or HUD.",
+            "godot/assets/combat/enemies/blackwood_executioner.png: transparent cutout with complete alpha bounds; no rectangular background or extra subject visible."
+          ]
+        },
+        {
+          "criterion": "left_facing_idle",
+          "status": "PASS",
+          "evidence": [
+            "combat_blackwood_executioner_1920x1080.png and combat_blackwood_executioner_1280x720.png, right combatant slot: Full axe blade, branching shoulder armor and two heavy boots; both grips readable and no overlap with mage or HUD.",
+            "Head/weapon direction is toward the left-side mage in combat idle, not an attack impact; no horizontal flip applied."
+          ]
+        },
+        {
+          "criterion": "rigging_readability",
+          "status": "PASS",
+          "evidence": [
+            "combat_blackwood_executioner_1920x1080.png and combat_blackwood_executioner_1280x720.png, right combatant slot: Full axe blade, branching shoulder armor and two heavy boots; both grips readable and no overlap with mage or HUD.",
+            "Visible limb/major-part boundaries are readable for future segmentation. Ordinary pose occlusion is not a layered rig; hidden surfaces and deformation still require production work."
+          ]
+        }
+      ],
+      "compared_references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/black_forest_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/bog_crawler.png",
+      "criteria": [
+        {
+          "criterion": "material_stylization",
+          "status": "PASS",
+          "evidence": [
+            "godot/assets/combat/enemies/bog_crawler.png, body/materials: Large olive/ochre hide plates and blunt reptile head replace granular mud. Low four-legged body and long tapering tail keep its marsh identity.",
+            "combat_bog_crawler_1920x1080.png and combat_bog_crawler_1280x720.png, right combatant slot: Low olive reptile shows four limbs and complete curling tail; muzzle points left, body rests on the marsh plane."
+          ]
+        },
+        {
+          "criterion": "shape_detail_shading",
+          "status": "PASS",
+          "evidence": [
+            "combat_bog_crawler_1920x1080.png and combat_bog_crawler_1280x720.png, right combatant slot: Low olive reptile shows four limbs and complete curling tail; muzzle points left, body rests on the marsh plane.",
+            "Compared to the class-reference drawn planes and grouped shadows; decorative detail remains subordinate to the silhouette."
+          ]
+        },
+        {
+          "criterion": "regional_identity",
+          "status": "PASS",
+          "evidence": [
+            "combat_bog_crawler_1920x1080.png and combat_bog_crawler_1280x720.png, right combatant slot: Low olive reptile shows four limbs and complete curling tail; muzzle points left, body rests on the marsh plane.",
+            "Region reference: godot/assets/combat/backgrounds/silentwater_marshes_day.png; geography/palette also compared to the integrated world map."
+          ]
+        },
+        {
+          "criterion": "full_body_single_subject",
+          "status": "PASS",
+          "evidence": [
+            "combat_bog_crawler_1920x1080.png and combat_bog_crawler_1280x720.png, right combatant slot: Low olive reptile shows four limbs and complete curling tail; muzzle points left, body rests on the marsh plane.",
+            "godot/assets/combat/enemies/bog_crawler.png: transparent cutout with complete alpha bounds; no rectangular background or extra subject visible."
+          ]
+        },
+        {
+          "criterion": "left_facing_idle",
+          "status": "PASS",
+          "evidence": [
+            "combat_bog_crawler_1920x1080.png and combat_bog_crawler_1280x720.png, right combatant slot: Low olive reptile shows four limbs and complete curling tail; muzzle points left, body rests on the marsh plane.",
+            "Head/weapon direction is toward the left-side mage in combat idle, not an attack impact; no horizontal flip applied."
+          ]
+        },
+        {
+          "criterion": "rigging_readability",
+          "status": "PASS",
+          "evidence": [
+            "combat_bog_crawler_1920x1080.png and combat_bog_crawler_1280x720.png, right combatant slot: Low olive reptile shows four limbs and complete curling tail; muzzle points left, body rests on the marsh plane.",
+            "Visible limb/major-part boundaries are readable for future segmentation. Ordinary pose occlusion is not a layered rig; hidden surfaces and deformation still require production work."
+          ]
+        }
+      ],
+      "compared_references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/silentwater_marshes_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/drowned_dead.png",
+      "criteria": [
+        {
+          "criterion": "material_stylization",
+          "status": "PASS",
+          "evidence": [
+            "godot/assets/combat/enemies/drowned_dead.png, body/materials: Drawn slate skin and broad teal coat folds retain the waterlogged undead. Two hands and boots remain readable; algae simplified into larger strips.",
+            "combat_drowned_dead_1920x1080.png and combat_drowned_dead_1280x720.png, right combatant slot: Slate face, both hands and boots remain readable; teal coat strips follow the muted marsh palette."
+          ]
+        },
+        {
+          "criterion": "shape_detail_shading",
+          "status": "PASS",
+          "evidence": [
+            "combat_drowned_dead_1920x1080.png and combat_drowned_dead_1280x720.png, right combatant slot: Slate face, both hands and boots remain readable; teal coat strips follow the muted marsh palette.",
+            "Compared to the class-reference drawn planes and grouped shadows; decorative detail remains subordinate to the silhouette."
+          ]
+        },
+        {
+          "criterion": "regional_identity",
+          "status": "PASS",
+          "evidence": [
+            "combat_drowned_dead_1920x1080.png and combat_drowned_dead_1280x720.png, right combatant slot: Slate face, both hands and boots remain readable; teal coat strips follow the muted marsh palette.",
+            "Region reference: godot/assets/combat/backgrounds/silentwater_marshes_day.png; geography/palette also compared to the integrated world map."
+          ]
+        },
+        {
+          "criterion": "full_body_single_subject",
+          "status": "PASS",
+          "evidence": [
+            "combat_drowned_dead_1920x1080.png and combat_drowned_dead_1280x720.png, right combatant slot: Slate face, both hands and boots remain readable; teal coat strips follow the muted marsh palette.",
+            "godot/assets/combat/enemies/drowned_dead.png: transparent cutout with complete alpha bounds; no rectangular background or extra subject visible."
+          ]
+        },
+        {
+          "criterion": "left_facing_idle",
+          "status": "PASS",
+          "evidence": [
+            "combat_drowned_dead_1920x1080.png and combat_drowned_dead_1280x720.png, right combatant slot: Slate face, both hands and boots remain readable; teal coat strips follow the muted marsh palette.",
+            "Head/weapon direction is toward the left-side mage in combat idle, not an attack impact; no horizontal flip applied."
+          ]
+        },
+        {
+          "criterion": "rigging_readability",
+          "status": "PASS",
+          "evidence": [
+            "combat_drowned_dead_1920x1080.png and combat_drowned_dead_1280x720.png, right combatant slot: Slate face, both hands and boots remain readable; teal coat strips follow the muted marsh palette.",
+            "Visible limb/major-part boundaries are readable for future segmentation. Ordinary pose occlusion is not a layered rig; hidden surfaces and deformation still require production work."
+          ]
+        }
+      ],
+      "compared_references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/silentwater_marshes_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/swamp_witch.png",
+      "criteria": [
+        {
+          "criterion": "material_stylization",
+          "status": "PASS",
+          "evidence": [
+            "godot/assets/combat/enemies/swamp_witch.png, body/materials: Illustrated mature face and grouped brown hair match class rendering while retaining olive ragged dress, branch staff and boots; not recolored as the player mage.",
+            "combat_swamp_witch_1920x1080.png and combat_swamp_witch_1280x720.png, right combatant slot: Drawn face and grouped hair match the illustrated mage; branch staff, extended hand and both boots remain clear."
+          ]
+        },
+        {
+          "criterion": "shape_detail_shading",
+          "status": "PASS",
+          "evidence": [
+            "combat_swamp_witch_1920x1080.png and combat_swamp_witch_1280x720.png, right combatant slot: Drawn face and grouped hair match the illustrated mage; branch staff, extended hand and both boots remain clear.",
+            "Compared to the class-reference drawn planes and grouped shadows; decorative detail remains subordinate to the silhouette."
+          ]
+        },
+        {
+          "criterion": "regional_identity",
+          "status": "PASS",
+          "evidence": [
+            "combat_swamp_witch_1920x1080.png and combat_swamp_witch_1280x720.png, right combatant slot: Drawn face and grouped hair match the illustrated mage; branch staff, extended hand and both boots remain clear.",
+            "Region reference: godot/assets/combat/backgrounds/silentwater_marshes_day.png; geography/palette also compared to the integrated world map."
+          ]
+        },
+        {
+          "criterion": "full_body_single_subject",
+          "status": "PASS",
+          "evidence": [
+            "combat_swamp_witch_1920x1080.png and combat_swamp_witch_1280x720.png, right combatant slot: Drawn face and grouped hair match the illustrated mage; branch staff, extended hand and both boots remain clear.",
+            "godot/assets/combat/enemies/swamp_witch.png: transparent cutout with complete alpha bounds; no rectangular background or extra subject visible."
+          ]
+        },
+        {
+          "criterion": "left_facing_idle",
+          "status": "PASS",
+          "evidence": [
+            "combat_swamp_witch_1920x1080.png and combat_swamp_witch_1280x720.png, right combatant slot: Drawn face and grouped hair match the illustrated mage; branch staff, extended hand and both boots remain clear.",
+            "Head/weapon direction is toward the left-side mage in combat idle, not an attack impact; no horizontal flip applied."
+          ]
+        },
+        {
+          "criterion": "rigging_readability",
+          "status": "PASS",
+          "evidence": [
+            "combat_swamp_witch_1920x1080.png and combat_swamp_witch_1280x720.png, right combatant slot: Drawn face and grouped hair match the illustrated mage; branch staff, extended hand and both boots remain clear.",
+            "Visible limb/major-part boundaries are readable for future segmentation. Ordinary pose occlusion is not a layered rig; hidden surfaces and deformation still require production work."
+          ]
+        }
+      ],
+      "compared_references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/silentwater_marshes_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/bone_crocodile.png",
+      "criteria": [
+        {
+          "criterion": "material_stylization",
+          "status": "PASS",
+          "evidence": [
+            "godot/assets/combat/enemies/bone_crocodile.png, body/materials: Ivory bone plates over olive hide replace porous bone textures. V2 reveals four separate clawed feet; long snout, teeth and curling tail stay inside frame.",
+            "combat_bone_crocodile_1920x1080.png and combat_bone_crocodile_1280x720.png, right combatant slot: All four clawed feet, long jaw and curled tail remain in frame; ivory armor groups stay readable over olive hide."
+          ]
+        },
+        {
+          "criterion": "shape_detail_shading",
+          "status": "PASS",
+          "evidence": [
+            "combat_bone_crocodile_1920x1080.png and combat_bone_crocodile_1280x720.png, right combatant slot: All four clawed feet, long jaw and curled tail remain in frame; ivory armor groups stay readable over olive hide.",
+            "Compared to the class-reference drawn planes and grouped shadows; decorative detail remains subordinate to the silhouette."
+          ]
+        },
+        {
+          "criterion": "regional_identity",
+          "status": "PASS",
+          "evidence": [
+            "combat_bone_crocodile_1920x1080.png and combat_bone_crocodile_1280x720.png, right combatant slot: All four clawed feet, long jaw and curled tail remain in frame; ivory armor groups stay readable over olive hide.",
+            "Region reference: godot/assets/combat/backgrounds/silentwater_marshes_day.png; geography/palette also compared to the integrated world map."
+          ]
+        },
+        {
+          "criterion": "full_body_single_subject",
+          "status": "PASS",
+          "evidence": [
+            "combat_bone_crocodile_1920x1080.png and combat_bone_crocodile_1280x720.png, right combatant slot: All four clawed feet, long jaw and curled tail remain in frame; ivory armor groups stay readable over olive hide.",
+            "godot/assets/combat/enemies/bone_crocodile.png: transparent cutout with complete alpha bounds; no rectangular background or extra subject visible."
+          ]
+        },
+        {
+          "criterion": "left_facing_idle",
+          "status": "PASS",
+          "evidence": [
+            "combat_bone_crocodile_1920x1080.png and combat_bone_crocodile_1280x720.png, right combatant slot: All four clawed feet, long jaw and curled tail remain in frame; ivory armor groups stay readable over olive hide.",
+            "Head/weapon direction is toward the left-side mage in combat idle, not an attack impact; no horizontal flip applied."
+          ]
+        },
+        {
+          "criterion": "rigging_readability",
+          "status": "PASS",
+          "evidence": [
+            "combat_bone_crocodile_1920x1080.png and combat_bone_crocodile_1280x720.png, right combatant slot: All four clawed feet, long jaw and curled tail remain in frame; ivory armor groups stay readable over olive hide.",
+            "Visible limb/major-part boundaries are readable for future segmentation. Ordinary pose occlusion is not a layered rig; hidden surfaces and deformation still require production work."
+          ]
+        }
+      ],
+      "compared_references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/silentwater_marshes_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/mist_walker.png",
+      "criteria": [
+        {
+          "criterion": "material_stylization",
+          "status": "PASS",
+          "evidence": [
+            "godot/assets/combat/enemies/mist_walker.png, body/materials: Ochre reed bundles, long bird-skull beak and drawn claws keep the strange marsh identity. Two long digitigrade legs; no separate birds or background fog.",
+            "combat_mist_walker_1920x1080.png and combat_mist_walker_1280x720.png, right combatant slot: Long skull beak points left; reed bundles, two hanging arms and separated long legs form a clear marsh silhouette."
+          ]
+        },
+        {
+          "criterion": "shape_detail_shading",
+          "status": "PASS",
+          "evidence": [
+            "combat_mist_walker_1920x1080.png and combat_mist_walker_1280x720.png, right combatant slot: Long skull beak points left; reed bundles, two hanging arms and separated long legs form a clear marsh silhouette.",
+            "Compared to the class-reference drawn planes and grouped shadows; decorative detail remains subordinate to the silhouette."
+          ]
+        },
+        {
+          "criterion": "regional_identity",
+          "status": "PASS",
+          "evidence": [
+            "combat_mist_walker_1920x1080.png and combat_mist_walker_1280x720.png, right combatant slot: Long skull beak points left; reed bundles, two hanging arms and separated long legs form a clear marsh silhouette.",
+            "Region reference: godot/assets/combat/backgrounds/silentwater_marshes_day.png; geography/palette also compared to the integrated world map."
+          ]
+        },
+        {
+          "criterion": "full_body_single_subject",
+          "status": "PASS",
+          "evidence": [
+            "combat_mist_walker_1920x1080.png and combat_mist_walker_1280x720.png, right combatant slot: Long skull beak points left; reed bundles, two hanging arms and separated long legs form a clear marsh silhouette.",
+            "godot/assets/combat/enemies/mist_walker.png: transparent cutout with complete alpha bounds; no rectangular background or extra subject visible."
+          ]
+        },
+        {
+          "criterion": "left_facing_idle",
+          "status": "PASS",
+          "evidence": [
+            "combat_mist_walker_1920x1080.png and combat_mist_walker_1280x720.png, right combatant slot: Long skull beak points left; reed bundles, two hanging arms and separated long legs form a clear marsh silhouette.",
+            "Head/weapon direction is toward the left-side mage in combat idle, not an attack impact; no horizontal flip applied."
+          ]
+        },
+        {
+          "criterion": "rigging_readability",
+          "status": "PASS",
+          "evidence": [
+            "combat_mist_walker_1920x1080.png and combat_mist_walker_1280x720.png, right combatant slot: Long skull beak points left; reed bundles, two hanging arms and separated long legs form a clear marsh silhouette.",
+            "Visible limb/major-part boundaries are readable for future segmentation. Ordinary pose occlusion is not a layered rig; hidden surfaces and deformation still require production work."
+          ]
+        }
+      ],
+      "compared_references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/silentwater_marshes_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/drowned_mother.png",
+      "criteria": [
+        {
+          "criterion": "material_stylization",
+          "status": "PASS",
+          "evidence": [
+            "godot/assets/combat/enemies/drowned_mother.png, body/materials: Drawn face, grouped dark hair and grey-olive robe folds align with class illustration while keeping the bone/reed crown. V2 contains the full staff, bare feet and trailing robe. Local matte cleanup preserves the muted costume palette.",
+            "combat_drowned_mother_1920x1080.png and combat_drowned_mother_1280x720.png, right combatant slot: Complete crown, tall staff, trailing robe and bare feet; grouped hair and muted olive fabrics sit naturally against marsh."
+          ]
+        },
+        {
+          "criterion": "shape_detail_shading",
+          "status": "PASS",
+          "evidence": [
+            "combat_drowned_mother_1920x1080.png and combat_drowned_mother_1280x720.png, right combatant slot: Complete crown, tall staff, trailing robe and bare feet; grouped hair and muted olive fabrics sit naturally against marsh.",
+            "Compared to the class-reference drawn planes and grouped shadows; decorative detail remains subordinate to the silhouette."
+          ]
+        },
+        {
+          "criterion": "regional_identity",
+          "status": "PASS",
+          "evidence": [
+            "combat_drowned_mother_1920x1080.png and combat_drowned_mother_1280x720.png, right combatant slot: Complete crown, tall staff, trailing robe and bare feet; grouped hair and muted olive fabrics sit naturally against marsh.",
+            "Region reference: godot/assets/combat/backgrounds/silentwater_marshes_day.png; geography/palette also compared to the integrated world map."
+          ]
+        },
+        {
+          "criterion": "full_body_single_subject",
+          "status": "PASS",
+          "evidence": [
+            "combat_drowned_mother_1920x1080.png and combat_drowned_mother_1280x720.png, right combatant slot: Complete crown, tall staff, trailing robe and bare feet; grouped hair and muted olive fabrics sit naturally against marsh.",
+            "godot/assets/combat/enemies/drowned_mother.png: transparent cutout with complete alpha bounds; no rectangular background or extra subject visible."
+          ]
+        },
+        {
+          "criterion": "left_facing_idle",
+          "status": "PASS",
+          "evidence": [
+            "combat_drowned_mother_1920x1080.png and combat_drowned_mother_1280x720.png, right combatant slot: Complete crown, tall staff, trailing robe and bare feet; grouped hair and muted olive fabrics sit naturally against marsh.",
+            "Head/weapon direction is toward the left-side mage in combat idle, not an attack impact; no horizontal flip applied."
+          ]
+        },
+        {
+          "criterion": "rigging_readability",
+          "status": "PASS",
+          "evidence": [
+            "combat_drowned_mother_1920x1080.png and combat_drowned_mother_1280x720.png, right combatant slot: Complete crown, tall staff, trailing robe and bare feet; grouped hair and muted olive fabrics sit naturally against marsh.",
+            "Visible limb/major-part boundaries are readable for future segmentation. Ordinary pose occlusion is not a layered rig; hidden surfaces and deformation still require production work."
+          ]
+        }
+      ],
+      "compared_references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/silentwater_marshes_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/boneburner.png",
+      "criteria": [
+        {
+          "criterion": "material_stylization",
+          "status": "PASS",
+          "evidence": [
+            "godot/assets/combat/enemies/boneburner.png, body/materials: Larger illustrated charred-bone forms and cloth strips preserve the thin ember-ribbed undead. Two arms and clawed feet; rust/ivory/charcoal regional identity retained.",
+            "combat_boneburner_1920x1080.png and combat_boneburner_1280x720.png, right combatant slot: Charred rib shapes, both long arms and feet remain clear; rust ribbons connect visually to the ash region."
+          ]
+        },
+        {
+          "criterion": "shape_detail_shading",
+          "status": "PASS",
+          "evidence": [
+            "combat_boneburner_1920x1080.png and combat_boneburner_1280x720.png, right combatant slot: Charred rib shapes, both long arms and feet remain clear; rust ribbons connect visually to the ash region.",
+            "Compared to the class-reference drawn planes and grouped shadows; decorative detail remains subordinate to the silhouette."
+          ]
+        },
+        {
+          "criterion": "regional_identity",
+          "status": "PASS",
+          "evidence": [
+            "combat_boneburner_1920x1080.png and combat_boneburner_1280x720.png, right combatant slot: Charred rib shapes, both long arms and feet remain clear; rust ribbons connect visually to the ash region.",
+            "Region reference: godot/assets/combat/backgrounds/ashen_borderlands_day.png; geography/palette also compared to the integrated world map."
+          ]
+        },
+        {
+          "criterion": "full_body_single_subject",
+          "status": "PASS",
+          "evidence": [
+            "combat_boneburner_1920x1080.png and combat_boneburner_1280x720.png, right combatant slot: Charred rib shapes, both long arms and feet remain clear; rust ribbons connect visually to the ash region.",
+            "godot/assets/combat/enemies/boneburner.png: transparent cutout with complete alpha bounds; no rectangular background or extra subject visible."
+          ]
+        },
+        {
+          "criterion": "left_facing_idle",
+          "status": "PASS",
+          "evidence": [
+            "combat_boneburner_1920x1080.png and combat_boneburner_1280x720.png, right combatant slot: Charred rib shapes, both long arms and feet remain clear; rust ribbons connect visually to the ash region.",
+            "Head/weapon direction is toward the left-side mage in combat idle, not an attack impact; no horizontal flip applied."
+          ]
+        },
+        {
+          "criterion": "rigging_readability",
+          "status": "PASS",
+          "evidence": [
+            "combat_boneburner_1920x1080.png and combat_boneburner_1280x720.png, right combatant slot: Charred rib shapes, both long arms and feet remain clear; rust ribbons connect visually to the ash region.",
+            "Visible limb/major-part boundaries are readable for future segmentation. Ordinary pose occlusion is not a layered rig; hidden surfaces and deformation still require production work."
+          ]
+        }
+      ],
+      "compared_references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/ashen_borderlands_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/red_salamander.png",
+      "criteria": [
+        {
+          "criterion": "material_stylization",
+          "status": "PASS",
+          "evidence": [
+            "godot/assets/combat/enemies/red_salamander.png, body/materials: Broader red scale groups and orange crest planes replace constant tiny molten highlights. Four connected legs and a complete long curling tail, without new wings.",
+            "combat_red_salamander_1920x1080.png and combat_red_salamander_1280x720.png, right combatant slot: Four clawed legs and complete curling crest/tail visible; grouped red plates and orange highlights fit the scorched region."
+          ]
+        },
+        {
+          "criterion": "shape_detail_shading",
+          "status": "PASS",
+          "evidence": [
+            "combat_red_salamander_1920x1080.png and combat_red_salamander_1280x720.png, right combatant slot: Four clawed legs and complete curling crest/tail visible; grouped red plates and orange highlights fit the scorched region.",
+            "Compared to the class-reference drawn planes and grouped shadows; decorative detail remains subordinate to the silhouette."
+          ]
+        },
+        {
+          "criterion": "regional_identity",
+          "status": "PASS",
+          "evidence": [
+            "combat_red_salamander_1920x1080.png and combat_red_salamander_1280x720.png, right combatant slot: Four clawed legs and complete curling crest/tail visible; grouped red plates and orange highlights fit the scorched region.",
+            "Region reference: godot/assets/combat/backgrounds/ashen_borderlands_day.png; geography/palette also compared to the integrated world map."
+          ]
+        },
+        {
+          "criterion": "full_body_single_subject",
+          "status": "PASS",
+          "evidence": [
+            "combat_red_salamander_1920x1080.png and combat_red_salamander_1280x720.png, right combatant slot: Four clawed legs and complete curling crest/tail visible; grouped red plates and orange highlights fit the scorched region.",
+            "godot/assets/combat/enemies/red_salamander.png: transparent cutout with complete alpha bounds; no rectangular background or extra subject visible."
+          ]
+        },
+        {
+          "criterion": "left_facing_idle",
+          "status": "PASS",
+          "evidence": [
+            "combat_red_salamander_1920x1080.png and combat_red_salamander_1280x720.png, right combatant slot: Four clawed legs and complete curling crest/tail visible; grouped red plates and orange highlights fit the scorched region.",
+            "Head/weapon direction is toward the left-side mage in combat idle, not an attack impact; no horizontal flip applied."
+          ]
+        },
+        {
+          "criterion": "rigging_readability",
+          "status": "PASS",
+          "evidence": [
+            "combat_red_salamander_1920x1080.png and combat_red_salamander_1280x720.png, right combatant slot: Four clawed legs and complete curling crest/tail visible; grouped red plates and orange highlights fit the scorched region.",
+            "Visible limb/major-part boundaries are readable for future segmentation. Ordinary pose occlusion is not a layered rig; hidden surfaces and deformation still require production work."
+          ]
+        }
+      ],
+      "compared_references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/ashen_borderlands_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/hearth_devourer.png",
+      "criteria": [
+        {
+          "criterion": "material_stylization",
+          "status": "PASS",
+          "evidence": [
+            "godot/assets/combat/enemies/hearth_devourer.png, body/materials: Broader scorched plates and clear orange furnace ribs retain the towering horned silhouette. Two clawed hands and feet; chains and cloth are subordinate to body shape.",
+            "combat_hearth_devourer_1920x1080.png and combat_hearth_devourer_1280x720.png, right combatant slot: Horns, two clawed hands, furnace ribs and both feet readable; limited orange glow separates the charcoal body from ruins."
+          ]
+        },
+        {
+          "criterion": "shape_detail_shading",
+          "status": "PASS",
+          "evidence": [
+            "combat_hearth_devourer_1920x1080.png and combat_hearth_devourer_1280x720.png, right combatant slot: Horns, two clawed hands, furnace ribs and both feet readable; limited orange glow separates the charcoal body from ruins.",
+            "Compared to the class-reference drawn planes and grouped shadows; decorative detail remains subordinate to the silhouette."
+          ]
+        },
+        {
+          "criterion": "regional_identity",
+          "status": "PASS",
+          "evidence": [
+            "combat_hearth_devourer_1920x1080.png and combat_hearth_devourer_1280x720.png, right combatant slot: Horns, two clawed hands, furnace ribs and both feet readable; limited orange glow separates the charcoal body from ruins.",
+            "Region reference: godot/assets/combat/backgrounds/ashen_borderlands_day.png; geography/palette also compared to the integrated world map."
+          ]
+        },
+        {
+          "criterion": "full_body_single_subject",
+          "status": "PASS",
+          "evidence": [
+            "combat_hearth_devourer_1920x1080.png and combat_hearth_devourer_1280x720.png, right combatant slot: Horns, two clawed hands, furnace ribs and both feet readable; limited orange glow separates the charcoal body from ruins.",
+            "godot/assets/combat/enemies/hearth_devourer.png: transparent cutout with complete alpha bounds; no rectangular background or extra subject visible."
+          ]
+        },
+        {
+          "criterion": "left_facing_idle",
+          "status": "PASS",
+          "evidence": [
+            "combat_hearth_devourer_1920x1080.png and combat_hearth_devourer_1280x720.png, right combatant slot: Horns, two clawed hands, furnace ribs and both feet readable; limited orange glow separates the charcoal body from ruins.",
+            "Head/weapon direction is toward the left-side mage in combat idle, not an attack impact; no horizontal flip applied."
+          ]
+        },
+        {
+          "criterion": "rigging_readability",
+          "status": "PASS",
+          "evidence": [
+            "combat_hearth_devourer_1920x1080.png and combat_hearth_devourer_1280x720.png, right combatant slot: Horns, two clawed hands, furnace ribs and both feet readable; limited orange glow separates the charcoal body from ruins.",
+            "Visible limb/major-part boundaries are readable for future segmentation. Ordinary pose occlusion is not a layered rig; hidden surfaces and deformation still require production work."
+          ]
+        }
+      ],
+      "compared_references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/ashen_borderlands_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/azhar.png",
+      "criteria": [
+        {
+          "criterion": "material_stylization",
+          "status": "PASS",
+          "evidence": [
+            "godot/assets/combat/enemies/azhar.png, body/materials: Drawn mature face and broad ochre/rust robe folds retain pale hair, crown and curved polearm. Full weapon and boots visible; no unrelated violet/blue hero palette.",
+            "combat_azhar_1920x1080.png and combat_azhar_1280x720.png, right combatant slot: Full crown, pale hair, curved polearm and boots; layered ochre/rust cloth retains ash-boss identity without copying mage colors."
+          ]
+        },
+        {
+          "criterion": "shape_detail_shading",
+          "status": "PASS",
+          "evidence": [
+            "combat_azhar_1920x1080.png and combat_azhar_1280x720.png, right combatant slot: Full crown, pale hair, curved polearm and boots; layered ochre/rust cloth retains ash-boss identity without copying mage colors.",
+            "Compared to the class-reference drawn planes and grouped shadows; decorative detail remains subordinate to the silhouette."
+          ]
+        },
+        {
+          "criterion": "regional_identity",
+          "status": "PASS",
+          "evidence": [
+            "combat_azhar_1920x1080.png and combat_azhar_1280x720.png, right combatant slot: Full crown, pale hair, curved polearm and boots; layered ochre/rust cloth retains ash-boss identity without copying mage colors.",
+            "Region reference: godot/assets/combat/backgrounds/ashen_borderlands_day.png; geography/palette also compared to the integrated world map."
+          ]
+        },
+        {
+          "criterion": "full_body_single_subject",
+          "status": "PASS",
+          "evidence": [
+            "combat_azhar_1920x1080.png and combat_azhar_1280x720.png, right combatant slot: Full crown, pale hair, curved polearm and boots; layered ochre/rust cloth retains ash-boss identity without copying mage colors.",
+            "godot/assets/combat/enemies/azhar.png: transparent cutout with complete alpha bounds; no rectangular background or extra subject visible."
+          ]
+        },
+        {
+          "criterion": "left_facing_idle",
+          "status": "PASS",
+          "evidence": [
+            "combat_azhar_1920x1080.png and combat_azhar_1280x720.png, right combatant slot: Full crown, pale hair, curved polearm and boots; layered ochre/rust cloth retains ash-boss identity without copying mage colors.",
+            "Head/weapon direction is toward the left-side mage in combat idle, not an attack impact; no horizontal flip applied."
+          ]
+        },
+        {
+          "criterion": "rigging_readability",
+          "status": "PASS",
+          "evidence": [
+            "combat_azhar_1920x1080.png and combat_azhar_1280x720.png, right combatant slot: Full crown, pale hair, curved polearm and boots; layered ochre/rust cloth retains ash-boss identity without copying mage colors.",
+            "Visible limb/major-part boundaries are readable for future segmentation. Ordinary pose occlusion is not a layered rig; hidden surfaces and deformation still require production work."
+          ]
+        }
+      ],
+      "compared_references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/ashen_borderlands_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/frozen_castaway.png",
+      "criteria": [
+        {
+          "criterion": "material_stylization",
+          "status": "PASS",
+          "evidence": [
+            "godot/assets/combat/enemies/frozen_castaway.png, body/materials: Broad painted icy facets and navy coat folds replace microcrystalline crust. Full cutlass, icy hand and two boots; mature undead sailor identity preserved.",
+            "combat_frozen_castaway_1920x1080.png and combat_frozen_castaway_1280x720.png, right combatant slot: Full cutlass, ice hand and two boots visible; large navy folds and ice facets echo coastal greys and blues."
+          ]
+        },
+        {
+          "criterion": "shape_detail_shading",
+          "status": "PASS",
+          "evidence": [
+            "combat_frozen_castaway_1920x1080.png and combat_frozen_castaway_1280x720.png, right combatant slot: Full cutlass, ice hand and two boots visible; large navy folds and ice facets echo coastal greys and blues.",
+            "Compared to the class-reference drawn planes and grouped shadows; decorative detail remains subordinate to the silhouette."
+          ]
+        },
+        {
+          "criterion": "regional_identity",
+          "status": "PASS",
+          "evidence": [
+            "combat_frozen_castaway_1920x1080.png and combat_frozen_castaway_1280x720.png, right combatant slot: Full cutlass, ice hand and two boots visible; large navy folds and ice facets echo coastal greys and blues.",
+            "Region reference: godot/assets/combat/backgrounds/ice_coast_day.png; geography/palette also compared to the integrated world map."
+          ]
+        },
+        {
+          "criterion": "full_body_single_subject",
+          "status": "PASS",
+          "evidence": [
+            "combat_frozen_castaway_1920x1080.png and combat_frozen_castaway_1280x720.png, right combatant slot: Full cutlass, ice hand and two boots visible; large navy folds and ice facets echo coastal greys and blues.",
+            "godot/assets/combat/enemies/frozen_castaway.png: transparent cutout with complete alpha bounds; no rectangular background or extra subject visible."
+          ]
+        },
+        {
+          "criterion": "left_facing_idle",
+          "status": "PASS",
+          "evidence": [
+            "combat_frozen_castaway_1920x1080.png and combat_frozen_castaway_1280x720.png, right combatant slot: Full cutlass, ice hand and two boots visible; large navy folds and ice facets echo coastal greys and blues.",
+            "Head/weapon direction is toward the left-side mage in combat idle, not an attack impact; no horizontal flip applied."
+          ]
+        },
+        {
+          "criterion": "rigging_readability",
+          "status": "PASS",
+          "evidence": [
+            "combat_frozen_castaway_1920x1080.png and combat_frozen_castaway_1280x720.png, right combatant slot: Full cutlass, ice hand and two boots visible; large navy folds and ice facets echo coastal greys and blues.",
+            "Visible limb/major-part boundaries are readable for future segmentation. Ordinary pose occlusion is not a layered rig; hidden surfaces and deformation still require production work."
+          ]
+        }
+      ],
+      "compared_references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/ice_coast_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/ice_crab.png",
+      "criteria": [
+        {
+          "criterion": "material_stylization",
+          "status": "PASS",
+          "evidence": [
+            "godot/assets/combat/enemies/ice_crab.png, body/materials: Large blue/white ice facets, drawn shell plates and clear claws replace granular ice. Reuses the alpha-checked pilot; feet/grounding still need Godot capture review.",
+            "combat_ice_crab_1920x1080.png and combat_ice_crab_1280x720.png, right combatant slot: Complete claws and exposed leg tips under angular blue shell; reduced height grounds the crab below hero, without clipping ice spikes."
+          ]
+        },
+        {
+          "criterion": "shape_detail_shading",
+          "status": "PASS",
+          "evidence": [
+            "combat_ice_crab_1920x1080.png and combat_ice_crab_1280x720.png, right combatant slot: Complete claws and exposed leg tips under angular blue shell; reduced height grounds the crab below hero, without clipping ice spikes.",
+            "Compared to the class-reference drawn planes and grouped shadows; decorative detail remains subordinate to the silhouette."
+          ]
+        },
+        {
+          "criterion": "regional_identity",
+          "status": "PASS",
+          "evidence": [
+            "combat_ice_crab_1920x1080.png and combat_ice_crab_1280x720.png, right combatant slot: Complete claws and exposed leg tips under angular blue shell; reduced height grounds the crab below hero, without clipping ice spikes.",
+            "Region reference: godot/assets/combat/backgrounds/ice_coast_day.png; geography/palette also compared to the integrated world map."
+          ]
+        },
+        {
+          "criterion": "full_body_single_subject",
+          "status": "PASS",
+          "evidence": [
+            "combat_ice_crab_1920x1080.png and combat_ice_crab_1280x720.png, right combatant slot: Complete claws and exposed leg tips under angular blue shell; reduced height grounds the crab below hero, without clipping ice spikes.",
+            "godot/assets/combat/enemies/ice_crab.png: transparent cutout with complete alpha bounds; no rectangular background or extra subject visible."
+          ]
+        },
+        {
+          "criterion": "left_facing_idle",
+          "status": "PASS",
+          "evidence": [
+            "combat_ice_crab_1920x1080.png and combat_ice_crab_1280x720.png, right combatant slot: Complete claws and exposed leg tips under angular blue shell; reduced height grounds the crab below hero, without clipping ice spikes.",
+            "Head/weapon direction is toward the left-side mage in combat idle, not an attack impact; no horizontal flip applied."
+          ]
+        },
+        {
+          "criterion": "rigging_readability",
+          "status": "PASS",
+          "evidence": [
+            "combat_ice_crab_1920x1080.png and combat_ice_crab_1280x720.png, right combatant slot: Complete claws and exposed leg tips under angular blue shell; reduced height grounds the crab below hero, without clipping ice spikes.",
+            "Visible limb/major-part boundaries are readable for future segmentation. Ordinary pose occlusion is not a layered rig; hidden surfaces and deformation still require production work."
+          ]
+        }
+      ],
+      "compared_references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/ice_coast_day.png"
+      ]
+    }
+  ]
+}

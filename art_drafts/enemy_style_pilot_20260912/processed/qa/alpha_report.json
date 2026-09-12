@@ -1,0 +1,149 @@
+{
+  "status": "DRAFT — alpha processing only, pending visual and owner review",
+  "authorization": "User explicitly approved local Python background extraction; 2026-09-12",
+  "network_or_paid_services": false,
+  "production_changed": false,
+  "limitations": "Pixel gate does not prove anatomy, rigging readiness, style or in-game placement.",
+  "assets": [
+    {
+      "enemy": "wolf",
+      "source": "art_drafts\\enemy_style_pilot_20260912\\wolf_style_v2_alpha_attempt.png",
+      "source_sha256": "f0514d63391568a6bf0332bfe81bb7160bf6a6a9e68efa75584b846e66cf89e6",
+      "output": "art_drafts\\enemy_style_pilot_20260912\\processed\\wolf_rgba.png",
+      "method": "reviewed_neutral_connectivity_and_local_edge_unmatting",
+      "profile": {
+        "source": "wolf_style_v2_alpha_attempt.png",
+        "sha256": "f0514d63391568a6bf0332bfe81bb7160bf6a6a9e68efa75584b846e66cf89e6",
+        "minimum": 175,
+        "spread": 14,
+        "holes": [
+          [
+            434,
+            829
+          ]
+        ]
+      },
+      "extraction": {
+        "background_fraction": 0.6635315634308331,
+        "unchanged_core_rgb_pixels": 504019,
+        "matte_edge_band_pixels": 25083
+      },
+      "framing": {
+        "source_alpha_bounds": [
+          63,
+          127,
+          1205,
+          1127
+        ],
+        "padding_xy": [
+          93,
+          82
+        ],
+        "resampled": false
+      },
+      "pixel_gate": {
+        "status": "PASS",
+        "mode": "RGBA",
+        "size": [
+          1328,
+          1164
+        ],
+        "alpha_bounds": [
+          93,
+          82,
+          1235,
+          1082
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.07003012048192771,
+          0.070446735395189,
+          0.07003012048192771,
+          0.070446735395189
+        ],
+        "problems": [],
+        "sha256": "51a9ebf87bd437ac70d6338740e716879f635d2f3bd8538501baf7aabf75e81c",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "transparent_rgb_zero": true,
+      "production_sha256_unchanged": "394ee4a494fef7e72dd4b164bbd89720065ca58142c3288162f6684292221486"
+    },
+    {
+      "enemy": "ice_crab",
+      "source": "art_drafts\\enemy_style_pilot_20260912\\ice_crab_left_v2.png",
+      "source_sha256": "71ac35ed950b2b2fd36e3f7168be1ed8a1ebafd3b7371a100a829a1aa0acb738",
+      "output": "art_drafts\\enemy_style_pilot_20260912\\processed\\ice_crab_rgba.png",
+      "method": "reviewed_neutral_connectivity_and_local_edge_unmatting",
+      "profile": {
+        "source": "ice_crab_left_v2.png",
+        "sha256": "71ac35ed950b2b2fd36e3f7168be1ed8a1ebafd3b7371a100a829a1aa0acb738",
+        "minimum": 95,
+        "spread": 14,
+        "holes": [
+          [
+            330,
+            585
+          ],
+          [
+            1210,
+            550
+          ]
+        ]
+      },
+      "extraction": {
+        "background_fraction": 0.5546716054280599,
+        "unchanged_core_rgb_pixels": 675704,
+        "matte_edge_band_pixels": 24737
+      },
+      "framing": {
+        "source_alpha_bounds": [
+          35,
+          20,
+          1503,
+          998
+        ],
+        "padding_xy": [
+          120,
+          80
+        ],
+        "resampled": false
+      },
+      "pixel_gate": {
+        "status": "PASS",
+        "mode": "RGBA",
+        "size": [
+          1708,
+          1138
+        ],
+        "alpha_bounds": [
+          120,
+          80,
+          1588,
+          1058
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.0702576112412178,
+          0.070298769771529,
+          0.0702576112412178,
+          0.070298769771529
+        ],
+        "problems": [],
+        "sha256": "c4c499414da4b13e9cdfe90205ed858dbd823624cdcafe30815ef886f5f4d258",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "transparent_rgb_zero": true,
+      "production_sha256_unchanged": "a3c22d023f8f32f451f1504045f38e364822163ee43efd3aa97b752bd7087147"
+    }
+  ]
+}

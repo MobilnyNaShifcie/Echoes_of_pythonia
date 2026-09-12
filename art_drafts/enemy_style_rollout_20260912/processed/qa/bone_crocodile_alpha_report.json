@@ -1,0 +1,64 @@
+{
+  "enemy": "bone_crocodile",
+  "variant": "v2",
+  "source_sha256": "0815253e351ebb76bd101a66a709b2f801e55cf6d00feb04e67019b975b78813",
+  "profile": {
+    "mode": "magenta",
+    "variant": "v2",
+    "reviewed_all_matte": true,
+    "review_note": "Raw reviewed: ivory/olive creature, magenta only in gaps. V2 reveals fourth hind leg and wider frame."
+  },
+  "extraction": {
+    "background_fraction": 0.8111801147460938,
+    "unchanged_core_rgb_pixels": 237009,
+    "reviewed_interior_spill_pixels": 0
+  },
+  "framing": {
+    "source_alpha_bounds": [
+      222,
+      182,
+      1292,
+      848
+    ],
+    "padding_xy": [
+      88,
+      55
+    ],
+    "resampled": false
+  },
+  "pixel_gate": {
+    "status": "PASS",
+    "mode": "RGBA",
+    "size": [
+      1246,
+      776
+    ],
+    "alpha_bounds": [
+      88,
+      55,
+      1158,
+      721
+    ],
+    "corner_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "margin_fractions_ltrb": [
+      0.07062600321027288,
+      0.07087628865979381,
+      0.07062600321027288,
+      0.07087628865979381
+    ],
+    "problems": [],
+    "sha256": "69aca36d508f93775739687c5376cc34c10409b81d682aa481d1debed3abb56e",
+    "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+  },
+  "source_silhouette_touched_canvas": false,
+  "remaining_key_candidate_pixels": 0,
+  "production_changed": false,
+  "owner_art_approval": false,
+  "visual_review": "PENDING",
+  "note": "Pixel PASS is not evidence of no clipping, no matte remnants, style or correct anatomy."
+}

@@ -1,0 +1,63 @@
+{
+  "enemy": "mist_walker",
+  "variant": "v1",
+  "source_sha256": "11cb40a93f276391d55ea8d2446c18d4388dd518c12d188d214eec13b925c4c3",
+  "profile": {
+    "mode": "magenta",
+    "reviewed_all_matte": true,
+    "review_note": "Raw reviewed: ochre/olive/bone creature, no magenta motif."
+  },
+  "extraction": {
+    "background_fraction": 0.5742842356363932,
+    "unchanged_core_rgb_pixels": 495281,
+    "reviewed_interior_spill_pixels": 0
+  },
+  "framing": {
+    "source_alpha_bounds": [
+      29,
+      14,
+      1009,
+      1523
+    ],
+    "padding_xy": [
+      80,
+      123
+    ],
+    "resampled": false
+  },
+  "pixel_gate": {
+    "status": "PASS",
+    "mode": "RGBA",
+    "size": [
+      1140,
+      1755
+    ],
+    "alpha_bounds": [
+      80,
+      123,
+      1060,
+      1632
+    ],
+    "corner_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "margin_fractions_ltrb": [
+      0.07017543859649122,
+      0.07008547008547009,
+      0.07017543859649122,
+      0.07008547008547009
+    ],
+    "problems": [],
+    "sha256": "9d95d5a1e6745cc1d964e3a67a727f381b174a8b8d9aa73436554733db31899e",
+    "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+  },
+  "source_silhouette_touched_canvas": false,
+  "remaining_key_candidate_pixels": 0,
+  "production_changed": false,
+  "owner_art_approval": false,
+  "visual_review": "PENDING",
+  "note": "Pixel PASS is not evidence of no clipping, no matte remnants, style or correct anatomy."
+}

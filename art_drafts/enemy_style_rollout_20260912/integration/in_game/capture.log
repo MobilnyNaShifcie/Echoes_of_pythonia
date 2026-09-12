@@ -1,0 +1,1354 @@
+WorkerThreadPool: 8 threads, 2 max low-priority.
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+TextServer: Added interface "Dummy"
+TextServer: Added interface "ICU / HarfBuzz / Graphite (Built-in)"
+Accessibility: AccessKit driver loaded.
+Native OpenGL API detected: 3.3: Intel - Intel(R) UHD Graphics 620
+Accessibility: window 0 adapter created.
+SDL: Init OK!
+Using "winink" pen tablet driver...
+Shader 'CanvasSdfShaderGLES3' SHA256: 45238a333ddeec41bdd4fc1ec1d6621f8a48f03baff7efbca9ad37e2858d2ba3
+Shader 'SkeletonShaderGLES3' SHA256: e40d39d2f2ba9d9a5253845636129a93858991191dfa2e013850d8f544b6fa99
+Shader 'ParticlesShaderGLES3' SHA256: b27b3ee010607812262f4d73e039c1ddab23b41250a0b5668a042c9a7be266d2
+Shader 'ParticlesCopyShaderGLES3' SHA256: 543c469db9e6039647237972b29eede22a5b87dc94b6e3b0321ddb04fa3821bb
+Shader 'CopyShaderGLES3' SHA256: 1e231cee45f55f90a6272954c3f6070e6c4e96a9a305ff1c000e31e809c314aa
+Shader 'CubemapFilterShaderGLES3' SHA256: f4a06da2a0198c5d10f225e568f38e9723c109b6721e67a5364e3c800c205b40
+Shader 'GlowShaderGLES3' SHA256: 826f09dd9f4a2ae4260bfb9bd4b1cc65e7ade3f0818ccabdd59f5437426031f0
+Shader 'PostShaderGLES3' SHA256: 61849598631d637a20400bc805f0086e5191b484922b60cdc0ad71a273219dac
+Shader 'FeedShaderGLES3' SHA256: dff7858fe2e4c7677bc6dbee21f7e295c4c1290ab6ad5aca166a6089957273ea
+Shader 'CanvasShaderGLES3' SHA256: 3360b1cea41b6c49172b1ad1cef82469bbe8ee1aa8c5b3091e8fadafae3aad32
+Shader 'CanvasOcclusionShaderGLES3' SHA256: 12c2a8a3e2d3bd95cb8d990b9bdae75fbde6c0059252cfafe89a4de9e00e7c74
+Shader 'SceneShaderGLES3' SHA256: 3ef6fded18e7982f07cbe7eeec0227bd318fdfbf12d22226be9313067cdd99ec
+Shader 'SkyShaderGLES3' SHA256: 681bb0ac46f2fb6180ed7e89242ffe5249ed2189514b81762be0e9dea5560e9e
+Shader 'TexBlitShaderGLES3' SHA256: 2e2eefbe31b6fd71151c647e2006a2b193d64ec6e12fedc646c979f7799101af
+OpenGL API 3.3.0 - Build 31.0.101.2135 - Compatibility - Using Device: Intel - Intel(R) UHD Graphics 620
+
+TextServer: Primary interface set to: "ICU / HarfBuzz / Graphite (Built-in)".
+CORE API HASH: 3769296884
+EDITOR API HASH: 3146738256
+Loading resource: res://tools/autopilot_capture.gd remapped: res://tools/autopilot_capture.gd
+Loading resource: res://scenes/app/app.tscn remapped: res://scenes/app/app.tscn
+Loading resource: res://scenes/app/app.gd remapped: res://scenes/app/app.gd
+Loading resource: res://ui/screens/character_sheet/character_sheet.tscn remapped: res://ui/screens/character_sheet/character_sheet.tscn
+Loading resource: res://ui/screens/character_sheet/character_sheet.gd remapped: res://ui/screens/character_sheet/character_sheet.gd
+Loading resource: res://data/classes/seeker.tres remapped: res://data/classes/seeker.tres
+Loading resource: res://core/player/player_class_definition.gd remapped: res://core/player/player_class_definition.gd
+Completed load for: 'res://core/player/player_class_definition.gd' remapped 'res://core/player/player_class_definition.gd' at thread -1
+Completed load for: 'res://data/classes/seeker.tres' remapped 'res://data/classes/seeker.tres' at thread -1
+Loading resource: res://data/classes/warrior.tres remapped: res://data/classes/warrior.tres
+Completed load for: 'res://data/classes/warrior.tres' remapped 'res://data/classes/warrior.tres' at thread -1
+Loading resource: res://data/classes/hunter.tres remapped: res://data/classes/hunter.tres
+Completed load for: 'res://data/classes/hunter.tres' remapped 'res://data/classes/hunter.tres' at thread -1
+Loading resource: res://data/classes/mage.tres remapped: res://data/classes/mage.tres
+Completed load for: 'res://data/classes/mage.tres' remapped 'res://data/classes/mage.tres' at thread -1
+Loading resource: res://data/classes/pierrot.tres remapped: res://data/classes/pierrot.tres
+Completed load for: 'res://data/classes/pierrot.tres' remapped 'res://data/classes/pierrot.tres' at thread -1
+Loading resource: res://data/items/starter_sword.tres remapped: res://data/items/starter_sword.tres
+Loading resource: res://assets/items/equipment/starter_sword.png remapped: res://assets/items/equipment/starter_sword.png
+Loading resource: res://.godot/imported/starter_sword.png-8eba4cc7f46dca061c3c826572c1356d.ctex remapped: res://.godot/imported/starter_sword.png-8eba4cc7f46dca061c3c826572c1356d.ctex
+Completed load for: 'res://assets/items/equipment/starter_sword.png' remapped 'res://assets/items/equipment/starter_sword.png' at thread -1
+Completed load for: 'res://data/items/starter_sword.tres' remapped 'res://data/items/starter_sword.tres' at thread -1
+Loading resource: res://data/items/worn_leather_armor.tres remapped: res://data/items/worn_leather_armor.tres
+Loading resource: res://assets/items/equipment/worn_leather_armor.png remapped: res://assets/items/equipment/worn_leather_armor.png
+Loading resource: res://.godot/imported/worn_leather_armor.png-a1e6ed70fc5279b0f5525d0ef3644024.ctex remapped: res://.godot/imported/worn_leather_armor.png-a1e6ed70fc5279b0f5525d0ef3644024.ctex
+Completed load for: 'res://assets/items/equipment/worn_leather_armor.png' remapped 'res://assets/items/equipment/worn_leather_armor.png' at thread -1
+Completed load for: 'res://data/items/worn_leather_armor.tres' remapped 'res://data/items/worn_leather_armor.tres' at thread -1
+Loading resource: res://data/items/weak_leather.tres remapped: res://data/items/weak_leather.tres
+Loading resource: res://assets/items/materials/weak_leather.png remapped: res://assets/items/materials/weak_leather.png
+Loading resource: res://.godot/imported/weak_leather.png-ce7bc21e6935a20ced15075f91ad220e.ctex remapped: res://.godot/imported/weak_leather.png-ce7bc21e6935a20ced15075f91ad220e.ctex
+Completed load for: 'res://assets/items/materials/weak_leather.png' remapped 'res://assets/items/materials/weak_leather.png' at thread -1
+Completed load for: 'res://data/items/weak_leather.tres' remapped 'res://data/items/weak_leather.tres' at thread -1
+Loading resource: res://data/items/slime_gel.tres remapped: res://data/items/slime_gel.tres
+Loading resource: res://assets/items/materials/slime_gel.png remapped: res://assets/items/materials/slime_gel.png
+Loading resource: res://.godot/imported/slime_gel.png-6ec85a77071f9db8f196a57d656dde85.ctex remapped: res://.godot/imported/slime_gel.png-6ec85a77071f9db8f196a57d656dde85.ctex
+Completed load for: 'res://assets/items/materials/slime_gel.png' remapped 'res://assets/items/materials/slime_gel.png' at thread -1
+Completed load for: 'res://data/items/slime_gel.tres' remapped 'res://data/items/slime_gel.tres' at thread -1
+Loading resource: res://data/items/weak_healing_potion.tres remapped: res://data/items/weak_healing_potion.tres
+Loading resource: res://assets/items/consumables/weak_healing_potion.png remapped: res://assets/items/consumables/weak_healing_potion.png
+Loading resource: res://.godot/imported/weak_healing_potion.png-51928269ba963db8b3fe054e8c27e0e9.ctex remapped: res://.godot/imported/weak_healing_potion.png-51928269ba963db8b3fe054e8c27e0e9.ctex
+Completed load for: 'res://assets/items/consumables/weak_healing_potion.png' remapped 'res://assets/items/consumables/weak_healing_potion.png' at thread -1
+Completed load for: 'res://data/items/weak_healing_potion.tres' remapped 'res://data/items/weak_healing_potion.tres' at thread -1
+Loading resource: res://data/items/wolf_fur.tres remapped: res://data/items/wolf_fur.tres
+Loading resource: res://assets/items/materials/wolf_fur.png remapped: res://assets/items/materials/wolf_fur.png
+Loading resource: res://.godot/imported/wolf_fur.png-9bb9bc62647d6161822dd6dca75fbc95.ctex remapped: res://.godot/imported/wolf_fur.png-9bb9bc62647d6161822dd6dca75fbc95.ctex
+Completed load for: 'res://assets/items/materials/wolf_fur.png' remapped 'res://assets/items/materials/wolf_fur.png' at thread -1
+Completed load for: 'res://data/items/wolf_fur.tres' remapped 'res://data/items/wolf_fur.tres' at thread -1
+Loading resource: res://data/items/wolf_fang.tres remapped: res://data/items/wolf_fang.tres
+Loading resource: res://assets/items/materials/wolf_fang.png remapped: res://assets/items/materials/wolf_fang.png
+Loading resource: res://.godot/imported/wolf_fang.png-c6464ec54718fa0e62c24ef9e2afde3f.ctex remapped: res://.godot/imported/wolf_fang.png-c6464ec54718fa0e62c24ef9e2afde3f.ctex
+Completed load for: 'res://assets/items/materials/wolf_fang.png' remapped 'res://assets/items/materials/wolf_fang.png' at thread -1
+Completed load for: 'res://data/items/wolf_fang.tres' remapped 'res://data/items/wolf_fang.tres' at thread -1
+Loading resource: res://data/items/wolf_tooth_necklace.tres remapped: res://data/items/wolf_tooth_necklace.tres
+Loading resource: res://assets/items/equipment/wolf_tooth_necklace.png remapped: res://assets/items/equipment/wolf_tooth_necklace.png
+Loading resource: res://.godot/imported/wolf_tooth_necklace.png-f8883efdad87f302ca44b3ebcd810118.ctex remapped: res://.godot/imported/wolf_tooth_necklace.png-f8883efdad87f302ca44b3ebcd810118.ctex
+Completed load for: 'res://assets/items/equipment/wolf_tooth_necklace.png' remapped 'res://assets/items/equipment/wolf_tooth_necklace.png' at thread -1
+Completed load for: 'res://data/items/wolf_tooth_necklace.tres' remapped 'res://data/items/wolf_tooth_necklace.tres' at thread -1
+Loading resource: res://data/items/raw_boar_meat.tres remapped: res://data/items/raw_boar_meat.tres
+Loading resource: res://assets/items/materials/raw_boar_meat.png remapped: res://assets/items/materials/raw_boar_meat.png
+Loading resource: res://.godot/imported/raw_boar_meat.png-8aef4716cef457b119e1537b4d3a2705.ctex remapped: res://.godot/imported/raw_boar_meat.png-8aef4716cef457b119e1537b4d3a2705.ctex
+Completed load for: 'res://assets/items/materials/raw_boar_meat.png' remapped 'res://assets/items/materials/raw_boar_meat.png' at thread -1
+Completed load for: 'res://data/items/raw_boar_meat.tres' remapped 'res://data/items/raw_boar_meat.tres' at thread -1
+Loading resource: res://data/items/truffle.tres remapped: res://data/items/truffle.tres
+Loading resource: res://assets/items/materials/truffle.png remapped: res://assets/items/materials/truffle.png
+Loading resource: res://.godot/imported/truffle.png-42e26eefd8c74a3a6304a5dcf0ef14ed.ctex remapped: res://.godot/imported/truffle.png-42e26eefd8c74a3a6304a5dcf0ef14ed.ctex
+Completed load for: 'res://assets/items/materials/truffle.png' remapped 'res://assets/items/materials/truffle.png' at thread -1
+Completed load for: 'res://data/items/truffle.tres' remapped 'res://data/items/truffle.tres' at thread -1
+Loading resource: res://data/items/whetstone.tres remapped: res://data/items/whetstone.tres
+Loading resource: res://assets/items/materials/whetstone.png remapped: res://assets/items/materials/whetstone.png
+Loading resource: res://.godot/imported/whetstone.png-865a7d471db4d755082ebfdc47b81aa2.ctex remapped: res://.godot/imported/whetstone.png-865a7d471db4d755082ebfdc47b81aa2.ctex
+Completed load for: 'res://assets/items/materials/whetstone.png' remapped 'res://assets/items/materials/whetstone.png' at thread -1
+Completed load for: 'res://data/items/whetstone.tres' remapped 'res://data/items/whetstone.tres' at thread -1
+Loading resource: res://data/items/grinding_stone.tres remapped: res://data/items/grinding_stone.tres
+Loading resource: res://assets/items/materials/grinding_stone.png remapped: res://assets/items/materials/grinding_stone.png
+Loading resource: res://.godot/imported/grinding_stone.png-e6679ddd3fcdaf10b823dde1b79eab51.ctex remapped: res://.godot/imported/grinding_stone.png-e6679ddd3fcdaf10b823dde1b79eab51.ctex
+Completed load for: 'res://assets/items/materials/grinding_stone.png' remapped 'res://assets/items/materials/grinding_stone.png' at thread -1
+Completed load for: 'res://data/items/grinding_stone.tres' remapped 'res://data/items/grinding_stone.tres' at thread -1
+Loading resource: res://data/items/leather_hood.tres remapped: res://data/items/leather_hood.tres
+Loading resource: res://assets/items/equipment/leather_hood.png remapped: res://assets/items/equipment/leather_hood.png
+Loading resource: res://.godot/imported/leather_hood.png-dbe5b8a92c2784e911b1f04e286aa32e.ctex remapped: res://.godot/imported/leather_hood.png-dbe5b8a92c2784e911b1f04e286aa32e.ctex
+Completed load for: 'res://assets/items/equipment/leather_hood.png' remapped 'res://assets/items/equipment/leather_hood.png' at thread -1
+Completed load for: 'res://data/items/leather_hood.tres' remapped 'res://data/items/leather_hood.tres' at thread -1
+Loading resource: res://data/items/stitched_armor.tres remapped: res://data/items/stitched_armor.tres
+Loading resource: res://assets/items/equipment/stitched_armor.png remapped: res://assets/items/equipment/stitched_armor.png
+Loading resource: res://.godot/imported/stitched_armor.png-68cd4579d4eb5926be7383df63820faa.ctex remapped: res://.godot/imported/stitched_armor.png-68cd4579d4eb5926be7383df63820faa.ctex
+Completed load for: 'res://assets/items/equipment/stitched_armor.png' remapped 'res://assets/items/equipment/stitched_armor.png' at thread -1
+Completed load for: 'res://data/items/stitched_armor.tres' remapped 'res://data/items/stitched_armor.tres' at thread -1
+Loading resource: res://data/items/sharpened_sword.tres remapped: res://data/items/sharpened_sword.tres
+Loading resource: res://assets/items/equipment/sharpened_sword.png remapped: res://assets/items/equipment/sharpened_sword.png
+Loading resource: res://.godot/imported/sharpened_sword.png-de77d74a7747d76092a61471c7261dbd.ctex remapped: res://.godot/imported/sharpened_sword.png-de77d74a7747d76092a61471c7261dbd.ctex
+Completed load for: 'res://assets/items/equipment/sharpened_sword.png' remapped 'res://assets/items/equipment/sharpened_sword.png' at thread -1
+Completed load for: 'res://data/items/sharpened_sword.tres' remapped 'res://data/items/sharpened_sword.tres' at thread -1
+Loading resource: res://data/items/hunter_provisions.tres remapped: res://data/items/hunter_provisions.tres
+Loading resource: res://assets/items/consumables/hunter_provisions.png remapped: res://assets/items/consumables/hunter_provisions.png
+Loading resource: res://.godot/imported/hunter_provisions.png-35602d5f90276e1654db1c3405f50c18.ctex remapped: res://.godot/imported/hunter_provisions.png-35602d5f90276e1654db1c3405f50c18.ctex
+Completed load for: 'res://assets/items/consumables/hunter_provisions.png' remapped 'res://assets/items/consumables/hunter_provisions.png' at thread -1
+Completed load for: 'res://data/items/hunter_provisions.tres' remapped 'res://data/items/hunter_provisions.tres' at thread -1
+Loading resource: res://data/items/strong_healing_potion.tres remapped: res://data/items/strong_healing_potion.tres
+Loading resource: res://assets/items/consumables/strong_healing_potion.png remapped: res://assets/items/consumables/strong_healing_potion.png
+Loading resource: res://.godot/imported/strong_healing_potion.png-3b31e5232dc0ba4856b1ebbe25b97f55.ctex remapped: res://.godot/imported/strong_healing_potion.png-3b31e5232dc0ba4856b1ebbe25b97f55.ctex
+Completed load for: 'res://assets/items/consumables/strong_healing_potion.png' remapped 'res://assets/items/consumables/strong_healing_potion.png' at thread -1
+Completed load for: 'res://data/items/strong_healing_potion.tres' remapped 'res://data/items/strong_healing_potion.tres' at thread -1
+Loading resource: res://data/items/grandmaster_elixir.tres remapped: res://data/items/grandmaster_elixir.tres
+Loading resource: res://assets/items/consumables/grandmaster_elixir.png remapped: res://assets/items/consumables/grandmaster_elixir.png
+Loading resource: res://.godot/imported/grandmaster_elixir.png-98583e4d26b3ab2fcdb7324500c4f155.ctex remapped: res://.godot/imported/grandmaster_elixir.png-98583e4d26b3ab2fcdb7324500c4f155.ctex
+Completed load for: 'res://assets/items/consumables/grandmaster_elixir.png' remapped 'res://assets/items/consumables/grandmaster_elixir.png' at thread -1
+Completed load for: 'res://data/items/grandmaster_elixir.tres' remapped 'res://data/items/grandmaster_elixir.tres' at thread -1
+Loading resource: res://data/items/old_clothes.tres remapped: res://data/items/old_clothes.tres
+Loading resource: res://assets/items/materials/old_clothes.png remapped: res://assets/items/materials/old_clothes.png
+Loading resource: res://.godot/imported/old_clothes.png-4f77c721042f65d15c8c98fe773c3025.ctex remapped: res://.godot/imported/old_clothes.png-4f77c721042f65d15c8c98fe773c3025.ctex
+Completed load for: 'res://assets/items/materials/old_clothes.png' remapped 'res://assets/items/materials/old_clothes.png' at thread -1
+Completed load for: 'res://data/items/old_clothes.tres' remapped 'res://data/items/old_clothes.tres' at thread -1
+Loading resource: res://data/items/spark_of_life.tres remapped: res://data/items/spark_of_life.tres
+Loading resource: res://assets/items/materials/spark_of_life.png remapped: res://assets/items/materials/spark_of_life.png
+Loading resource: res://.godot/imported/spark_of_life.png-beb8c18536d2f5b2cc6202a44b19de46.ctex remapped: res://.godot/imported/spark_of_life.png-beb8c18536d2f5b2cc6202a44b19de46.ctex
+Completed load for: 'res://assets/items/materials/spark_of_life.png' remapped 'res://assets/items/materials/spark_of_life.png' at thread -1
+Completed load for: 'res://data/items/spark_of_life.tres' remapped 'res://data/items/spark_of_life.tres' at thread -1
+Loading resource: res://data/items/common_essence.tres remapped: res://data/items/common_essence.tres
+Loading resource: res://assets/items/materials/common_essence.png remapped: res://assets/items/materials/common_essence.png
+Loading resource: res://.godot/imported/common_essence.png-249c4716a9855e2e63cbf7116f3040eb.ctex remapped: res://.godot/imported/common_essence.png-249c4716a9855e2e63cbf7116f3040eb.ctex
+Completed load for: 'res://assets/items/materials/common_essence.png' remapped 'res://assets/items/materials/common_essence.png' at thread -1
+Completed load for: 'res://data/items/common_essence.tres' remapped 'res://data/items/common_essence.tres' at thread -1
+Loading resource: res://data/items/hard_wood.tres remapped: res://data/items/hard_wood.tres
+Loading resource: res://assets/items/materials/hard_wood.png remapped: res://assets/items/materials/hard_wood.png
+Loading resource: res://.godot/imported/hard_wood.png-05824a19dfd34c7dc03dbd54895d44c1.ctex remapped: res://.godot/imported/hard_wood.png-05824a19dfd34c7dc03dbd54895d44c1.ctex
+Completed load for: 'res://assets/items/materials/hard_wood.png' remapped 'res://assets/items/materials/hard_wood.png' at thread -1
+Completed load for: 'res://data/items/hard_wood.tres' remapped 'res://data/items/hard_wood.tres' at thread -1
+Loading resource: res://data/items/worn_strap.tres remapped: res://data/items/worn_strap.tres
+Loading resource: res://assets/items/materials/worn_strap.png remapped: res://assets/items/materials/worn_strap.png
+Loading resource: res://.godot/imported/worn_strap.png-4ff4854b28ed0e857096250d3e5df072.ctex remapped: res://.godot/imported/worn_strap.png-4ff4854b28ed0e857096250d3e5df072.ctex
+Completed load for: 'res://assets/items/materials/worn_strap.png' remapped 'res://assets/items/materials/worn_strap.png' at thread -1
+Completed load for: 'res://data/items/worn_strap.tres' remapped 'res://data/items/worn_strap.tres' at thread -1
+Loading resource: res://data/items/metal_buckle.tres remapped: res://data/items/metal_buckle.tres
+Loading resource: res://assets/items/materials/metal_buckle.png remapped: res://assets/items/materials/metal_buckle.png
+Loading resource: res://.godot/imported/metal_buckle.png-027092e49bf75e49ef30b669ca406b64.ctex remapped: res://.godot/imported/metal_buckle.png-027092e49bf75e49ef30b669ca406b64.ctex
+Completed load for: 'res://assets/items/materials/metal_buckle.png' remapped 'res://assets/items/materials/metal_buckle.png' at thread -1
+Completed load for: 'res://data/items/metal_buckle.tres' remapped 'res://data/items/metal_buckle.tres' at thread -1
+Loading resource: res://data/items/hunter_gloves.tres remapped: res://data/items/hunter_gloves.tres
+Loading resource: res://assets/items/equipment/hunter_gloves.png remapped: res://assets/items/equipment/hunter_gloves.png
+Loading resource: res://.godot/imported/hunter_gloves.png-ba5616bc179fd970bf21beef6fd40c4e.ctex remapped: res://.godot/imported/hunter_gloves.png-ba5616bc179fd970bf21beef6fd40c4e.ctex
+Completed load for: 'res://assets/items/equipment/hunter_gloves.png' remapped 'res://assets/items/equipment/hunter_gloves.png' at thread -1
+Completed load for: 'res://data/items/hunter_gloves.tres' remapped 'res://data/items/hunter_gloves.tres' at thread -1
+Loading resource: res://data/items/reinforced_boots.tres remapped: res://data/items/reinforced_boots.tres
+Loading resource: res://assets/items/equipment/reinforced_boots.png remapped: res://assets/items/equipment/reinforced_boots.png
+Loading resource: res://.godot/imported/reinforced_boots.png-a6ce4d7c2ccf7b64f5d9cfaf2cfa1266.ctex remapped: res://.godot/imported/reinforced_boots.png-a6ce4d7c2ccf7b64f5d9cfaf2cfa1266.ctex
+Completed load for: 'res://assets/items/equipment/reinforced_boots.png' remapped 'res://assets/items/equipment/reinforced_boots.png' at thread -1
+Completed load for: 'res://data/items/reinforced_boots.tres' remapped 'res://data/items/reinforced_boots.tres' at thread -1
+Loading resource: res://data/items/leather_belt.tres remapped: res://data/items/leather_belt.tres
+Loading resource: res://assets/items/equipment/leather_belt.png remapped: res://assets/items/equipment/leather_belt.png
+Loading resource: res://.godot/imported/leather_belt.png-3bda29813a5b0a69586f60af5c9f0a70.ctex remapped: res://.godot/imported/leather_belt.png-3bda29813a5b0a69586f60af5c9f0a70.ctex
+Completed load for: 'res://assets/items/equipment/leather_belt.png' remapped 'res://assets/items/equipment/leather_belt.png' at thread -1
+Completed load for: 'res://data/items/leather_belt.tres' remapped 'res://data/items/leather_belt.tres' at thread -1
+Loading resource: res://data/items/nature_amulet.tres remapped: res://data/items/nature_amulet.tres
+Loading resource: res://assets/items/equipment/nature_amulet.png remapped: res://assets/items/equipment/nature_amulet.png
+Loading resource: res://.godot/imported/nature_amulet.png-43870c803511ecb49a634c6d065e7d50.ctex remapped: res://.godot/imported/nature_amulet.png-43870c803511ecb49a634c6d065e7d50.ctex
+Completed load for: 'res://assets/items/equipment/nature_amulet.png' remapped 'res://assets/items/equipment/nature_amulet.png' at thread -1
+Completed load for: 'res://data/items/nature_amulet.tres' remapped 'res://data/items/nature_amulet.tres' at thread -1
+Loading resource: res://data/items/nature_bracelet.tres remapped: res://data/items/nature_bracelet.tres
+Loading resource: res://assets/items/equipment/nature_bracelet.png remapped: res://assets/items/equipment/nature_bracelet.png
+Loading resource: res://.godot/imported/nature_bracelet.png-b2d19b65caaa2c131cb1520c0677342c.ctex remapped: res://.godot/imported/nature_bracelet.png-b2d19b65caaa2c131cb1520c0677342c.ctex
+Completed load for: 'res://assets/items/equipment/nature_bracelet.png' remapped 'res://assets/items/equipment/nature_bracelet.png' at thread -1
+Completed load for: 'res://data/items/nature_bracelet.tres' remapped 'res://data/items/nature_bracelet.tres' at thread -1
+Loading resource: res://data/items/nature_earrings.tres remapped: res://data/items/nature_earrings.tres
+Loading resource: res://assets/items/equipment/nature_earrings.png remapped: res://assets/items/equipment/nature_earrings.png
+Loading resource: res://.godot/imported/nature_earrings.png-7d6a65ad497f42e8ca7fd24bc5ecf1ea.ctex remapped: res://.godot/imported/nature_earrings.png-7d6a65ad497f42e8ca7fd24bc5ecf1ea.ctex
+Completed load for: 'res://assets/items/equipment/nature_earrings.png' remapped 'res://assets/items/equipment/nature_earrings.png' at thread -1
+Completed load for: 'res://data/items/nature_earrings.tres' remapped 'res://data/items/nature_earrings.tres' at thread -1
+Loading resource: res://data/items/nature_ring.tres remapped: res://data/items/nature_ring.tres
+Loading resource: res://assets/items/equipment/nature_ring.png remapped: res://assets/items/equipment/nature_ring.png
+Loading resource: res://.godot/imported/nature_ring.png-aec984461ef62a9148c95e2898424d7c.ctex remapped: res://.godot/imported/nature_ring.png-aec984461ef62a9148c95e2898424d7c.ctex
+Completed load for: 'res://assets/items/equipment/nature_ring.png' remapped 'res://assets/items/equipment/nature_ring.png' at thread -1
+Completed load for: 'res://data/items/nature_ring.tres' remapped 'res://data/items/nature_ring.tres' at thread -1
+Loading resource: res://data/items/training_shield.tres remapped: res://data/items/training_shield.tres
+Loading resource: res://assets/items/equipment/training_shield.png remapped: res://assets/items/equipment/training_shield.png
+Loading resource: res://.godot/imported/training_shield.png-71eefc8c96146143668e8123d4583f2c.ctex remapped: res://.godot/imported/training_shield.png-71eefc8c96146143668e8123d4583f2c.ctex
+Completed load for: 'res://assets/items/equipment/training_shield.png' remapped 'res://assets/items/equipment/training_shield.png' at thread -1
+Completed load for: 'res://data/items/training_shield.tres' remapped 'res://data/items/training_shield.tres' at thread -1
+Loading resource: res://data/items/hunting_bow.tres remapped: res://data/items/hunting_bow.tres
+Loading resource: res://assets/items/equipment/hunting_bow.png remapped: res://assets/items/equipment/hunting_bow.png
+Loading resource: res://.godot/imported/hunting_bow.png-352570e1bc257ba0ee943c4144286392.ctex remapped: res://.godot/imported/hunting_bow.png-352570e1bc257ba0ee943c4144286392.ctex
+Completed load for: 'res://assets/items/equipment/hunting_bow.png' remapped 'res://assets/items/equipment/hunting_bow.png' at thread -1
+Completed load for: 'res://data/items/hunting_bow.tres' remapped 'res://data/items/hunting_bow.tres' at thread -1
+Loading resource: res://data/items/simple_quiver.tres remapped: res://data/items/simple_quiver.tres
+Loading resource: res://assets/items/equipment/simple_quiver.png remapped: res://assets/items/equipment/simple_quiver.png
+Loading resource: res://.godot/imported/simple_quiver.png-306b497c20993626bbdb175a151e8b21.ctex remapped: res://.godot/imported/simple_quiver.png-306b497c20993626bbdb175a151e8b21.ctex
+Completed load for: 'res://assets/items/equipment/simple_quiver.png' remapped 'res://assets/items/equipment/simple_quiver.png' at thread -1
+Completed load for: 'res://data/items/simple_quiver.tres' remapped 'res://data/items/simple_quiver.tres' at thread -1
+Loading resource: res://data/items/apprentice_staff.tres remapped: res://data/items/apprentice_staff.tres
+Loading resource: res://assets/items/equipment/apprentice_staff.png remapped: res://assets/items/equipment/apprentice_staff.png
+Loading resource: res://.godot/imported/apprentice_staff.png-1717c7a5d304aabfc27b75adcec70540.ctex remapped: res://.godot/imported/apprentice_staff.png-1717c7a5d304aabfc27b75adcec70540.ctex
+Completed load for: 'res://assets/items/equipment/apprentice_staff.png' remapped 'res://assets/items/equipment/apprentice_staff.png' at thread -1
+Completed load for: 'res://data/items/apprentice_staff.tres' remapped 'res://data/items/apprentice_staff.tres' at thread -1
+Loading resource: res://data/items/mana_crystal_artifact.tres remapped: res://data/items/mana_crystal_artifact.tres
+Loading resource: res://assets/items/equipment/mana_crystal_artifact.png remapped: res://assets/items/equipment/mana_crystal_artifact.png
+Loading resource: res://.godot/imported/mana_crystal_artifact.png-3888b3feafde8ecf9fd57ef0e77e3e32.ctex remapped: res://.godot/imported/mana_crystal_artifact.png-3888b3feafde8ecf9fd57ef0e77e3e32.ctex
+Completed load for: 'res://assets/items/equipment/mana_crystal_artifact.png' remapped 'res://assets/items/equipment/mana_crystal_artifact.png' at thread -1
+Completed load for: 'res://data/items/mana_crystal_artifact.tres' remapped 'res://data/items/mana_crystal_artifact.tres' at thread -1
+Loading resource: res://data/items/caprice_lance.tres remapped: res://data/items/caprice_lance.tres
+Loading resource: res://assets/items/equipment/caprice_lance.png remapped: res://assets/items/equipment/caprice_lance.png
+Loading resource: res://.godot/imported/caprice_lance.png-5e7ae03a1dfd4d7d5693d50df292fe89.ctex remapped: res://.godot/imported/caprice_lance.png-5e7ae03a1dfd4d7d5693d50df292fe89.ctex
+Completed load for: 'res://assets/items/equipment/caprice_lance.png' remapped 'res://assets/items/equipment/caprice_lance.png' at thread -1
+Completed load for: 'res://data/items/caprice_lance.tres' remapped 'res://data/items/caprice_lance.tres' at thread -1
+Loading resource: res://data/items/worn_fate_dice.tres remapped: res://data/items/worn_fate_dice.tres
+Loading resource: res://assets/items/equipment/worn_fate_dice.png remapped: res://assets/items/equipment/worn_fate_dice.png
+Loading resource: res://.godot/imported/worn_fate_dice.png-1ab9029f6bfc367a8d10c17b080ebda0.ctex remapped: res://.godot/imported/worn_fate_dice.png-1ab9029f6bfc367a8d10c17b080ebda0.ctex
+Completed load for: 'res://assets/items/equipment/worn_fate_dice.png' remapped 'res://assets/items/equipment/worn_fate_dice.png' at thread -1
+Completed load for: 'res://data/items/worn_fate_dice.tres' remapped 'res://data/items/worn_fate_dice.tres' at thread -1
+Loading resource: res://data/items/mastery_regeneration_book.tres remapped: res://data/items/mastery_regeneration_book.tres
+Loading resource: res://assets/items/books/mastery_regeneration_book.png remapped: res://assets/items/books/mastery_regeneration_book.png
+Loading resource: res://.godot/imported/mastery_regeneration_book.png-980ae56f6471e75f0ea81c0d85cccbb8.ctex remapped: res://.godot/imported/mastery_regeneration_book.png-980ae56f6471e75f0ea81c0d85cccbb8.ctex
+Completed load for: 'res://assets/items/books/mastery_regeneration_book.png' remapped 'res://assets/items/books/mastery_regeneration_book.png' at thread -1
+Completed load for: 'res://data/items/mastery_regeneration_book.tres' remapped 'res://data/items/mastery_regeneration_book.tres' at thread -1
+Loading resource: res://data/items/mastery_attack_speed_book.tres remapped: res://data/items/mastery_attack_speed_book.tres
+Loading resource: res://assets/items/books/mastery_attack_speed_book.png remapped: res://assets/items/books/mastery_attack_speed_book.png
+Loading resource: res://.godot/imported/mastery_attack_speed_book.png-647b24a8ef95dce8afa1e4e2cf0baa89.ctex remapped: res://.godot/imported/mastery_attack_speed_book.png-647b24a8ef95dce8afa1e4e2cf0baa89.ctex
+Completed load for: 'res://assets/items/books/mastery_attack_speed_book.png' remapped 'res://assets/items/books/mastery_attack_speed_book.png' at thread -1
+Completed load for: 'res://data/items/mastery_attack_speed_book.tres' remapped 'res://data/items/mastery_attack_speed_book.tres' at thread -1
+Loading resource: res://data/items/mastery_critical_book.tres remapped: res://data/items/mastery_critical_book.tres
+Loading resource: res://assets/items/books/mastery_critical_book.png remapped: res://assets/items/books/mastery_critical_book.png
+Loading resource: res://.godot/imported/mastery_critical_book.png-e6a815169c6ad131c0c91b45d5de453b.ctex remapped: res://.godot/imported/mastery_critical_book.png-e6a815169c6ad131c0c91b45d5de453b.ctex
+Completed load for: 'res://assets/items/books/mastery_critical_book.png' remapped 'res://assets/items/books/mastery_critical_book.png' at thread -1
+Completed load for: 'res://data/items/mastery_critical_book.tres' remapped 'res://data/items/mastery_critical_book.tres' at thread -1
+Loading resource: res://data/items/mastery_strength_book.tres remapped: res://data/items/mastery_strength_book.tres
+Loading resource: res://assets/items/books/mastery_strength_book.png remapped: res://assets/items/books/mastery_strength_book.png
+Loading resource: res://.godot/imported/mastery_strength_book.png-43091ea3959f3a1d340fda8ff8781078.ctex remapped: res://.godot/imported/mastery_strength_book.png-43091ea3959f3a1d340fda8ff8781078.ctex
+Completed load for: 'res://assets/items/books/mastery_strength_book.png' remapped 'res://assets/items/books/mastery_strength_book.png' at thread -1
+Completed load for: 'res://data/items/mastery_strength_book.tres' remapped 'res://data/items/mastery_strength_book.tres' at thread -1
+Loading resource: res://data/items/path_heavy_knight_book.tres remapped: res://data/items/path_heavy_knight_book.tres
+Loading resource: res://assets/items/books/path_heavy_knight_book.png remapped: res://assets/items/books/path_heavy_knight_book.png
+Loading resource: res://.godot/imported/path_heavy_knight_book.png-e2fe374e9d20e3453e03b71a45d94e45.ctex remapped: res://.godot/imported/path_heavy_knight_book.png-e2fe374e9d20e3453e03b71a45d94e45.ctex
+Completed load for: 'res://assets/items/books/path_heavy_knight_book.png' remapped 'res://assets/items/books/path_heavy_knight_book.png' at thread -1
+Completed load for: 'res://data/items/path_heavy_knight_book.tres' remapped 'res://data/items/path_heavy_knight_book.tres' at thread -1
+Loading resource: res://data/items/path_phantom_archer_book.tres remapped: res://data/items/path_phantom_archer_book.tres
+Loading resource: res://assets/items/books/path_phantom_archer_book.png remapped: res://assets/items/books/path_phantom_archer_book.png
+Loading resource: res://.godot/imported/path_phantom_archer_book.png-99ac209f59c4bc0347f998baedd4d095.ctex remapped: res://.godot/imported/path_phantom_archer_book.png-99ac209f59c4bc0347f998baedd4d095.ctex
+Completed load for: 'res://assets/items/books/path_phantom_archer_book.png' remapped 'res://assets/items/books/path_phantom_archer_book.png' at thread -1
+Completed load for: 'res://data/items/path_phantom_archer_book.tres' remapped 'res://data/items/path_phantom_archer_book.tres' at thread -1
+Loading resource: res://data/items/path_arcana_book.tres remapped: res://data/items/path_arcana_book.tres
+Loading resource: res://assets/items/books/path_arcana_book.png remapped: res://assets/items/books/path_arcana_book.png
+Loading resource: res://.godot/imported/path_arcana_book.png-4d8cc94cce43718b52c9d7919fb14e60.ctex remapped: res://.godot/imported/path_arcana_book.png-4d8cc94cce43718b52c9d7919fb14e60.ctex
+Completed load for: 'res://assets/items/books/path_arcana_book.png' remapped 'res://assets/items/books/path_arcana_book.png' at thread -1
+Completed load for: 'res://data/items/path_arcana_book.tres' remapped 'res://data/items/path_arcana_book.tres' at thread -1
+Loading resource: res://data/items/path_fortuna_book.tres remapped: res://data/items/path_fortuna_book.tres
+Loading resource: res://assets/items/books/path_fortuna_book.png remapped: res://assets/items/books/path_fortuna_book.png
+Loading resource: res://.godot/imported/path_fortuna_book.png-49f4ea8608d938ea4926cf10a9007c6f.ctex remapped: res://.godot/imported/path_fortuna_book.png-49f4ea8608d938ea4926cf10a9007c6f.ctex
+Completed load for: 'res://assets/items/books/path_fortuna_book.png' remapped 'res://assets/items/books/path_fortuna_book.png' at thread -1
+Completed load for: 'res://data/items/path_fortuna_book.tres' remapped 'res://data/items/path_fortuna_book.tres' at thread -1
+Loading resource: res://assets/items/regional/echo_quiver.png remapped: res://assets/items/regional/echo_quiver.png
+Loading resource: res://.godot/imported/echo_quiver.png-35b1b024858fc770c5f2d808a157e55d.ctex remapped: res://.godot/imported/echo_quiver.png-35b1b024858fc770c5f2d808a157e55d.ctex
+Completed load for: 'res://assets/items/regional/echo_quiver.png' remapped 'res://assets/items/regional/echo_quiver.png' at thread -1
+Loading resource: res://assets/items/regional/weave_relic.png remapped: res://assets/items/regional/weave_relic.png
+Loading resource: res://.godot/imported/weave_relic.png-5170d0c845c9de995cd5e8bbeed57f7e.ctex remapped: res://.godot/imported/weave_relic.png-5170d0c845c9de995cd5e8bbeed57f7e.ctex
+Completed load for: 'res://assets/items/regional/weave_relic.png' remapped 'res://assets/items/regional/weave_relic.png' at thread -1
+Loading resource: res://assets/items/regional/trickster_card_deck.png remapped: res://assets/items/regional/trickster_card_deck.png
+Loading resource: res://.godot/imported/trickster_card_deck.png-06a6f67ff351e467ace1d35c9a74a57d.ctex remapped: res://.godot/imported/trickster_card_deck.png-06a6f67ff351e467ace1d35c9a74a57d.ctex
+Completed load for: 'res://assets/items/regional/trickster_card_deck.png' remapped 'res://assets/items/regional/trickster_card_deck.png' at thread -1
+Loading resource: res://assets/items/regional/rift_bastion_shield.png remapped: res://assets/items/regional/rift_bastion_shield.png
+Loading resource: res://.godot/imported/rift_bastion_shield.png-66cc18e0d57e0836ec62bb398cdecfbc.ctex remapped: res://.godot/imported/rift_bastion_shield.png-66cc18e0d57e0836ec62bb398cdecfbc.ctex
+Completed load for: 'res://assets/items/regional/rift_bastion_shield.png' remapped 'res://assets/items/regional/rift_bastion_shield.png' at thread -1
+Loading resource: res://assets/items/regional/last_guard_plate.png remapped: res://assets/items/regional/last_guard_plate.png
+Loading resource: res://.godot/imported/last_guard_plate.png-c99e89fba85417430b53f83565e45b42.ctex remapped: res://.godot/imported/last_guard_plate.png-c99e89fba85417430b53f83565e45b42.ctex
+Completed load for: 'res://assets/items/regional/last_guard_plate.png' remapped 'res://assets/items/regional/last_guard_plate.png' at thread -1
+Loading resource: res://assets/items/regional/oathbreaker_edge.png remapped: res://assets/items/regional/oathbreaker_edge.png
+Loading resource: res://.godot/imported/oathbreaker_edge.png-d076c44af8f42df82a79a52b461a9241.ctex remapped: res://.godot/imported/oathbreaker_edge.png-d076c44af8f42df82a79a52b461a9241.ctex
+Completed load for: 'res://assets/items/regional/oathbreaker_edge.png' remapped 'res://assets/items/regional/oathbreaker_edge.png' at thread -1
+Loading resource: res://assets/items/regional/warden_chain.png remapped: res://assets/items/regional/warden_chain.png
+Loading resource: res://.godot/imported/warden_chain.png-721025fef04a6ac7db7ac9cfb66d02b0.ctex remapped: res://.godot/imported/warden_chain.png-721025fef04a6ac7db7ac9cfb66d02b0.ctex
+Completed load for: 'res://assets/items/regional/warden_chain.png' remapped 'res://assets/items/regional/warden_chain.png' at thread -1
+Loading resource: res://assets/items/regional/third_echo_quiver.png remapped: res://assets/items/regional/third_echo_quiver.png
+Loading resource: res://.godot/imported/third_echo_quiver.png-5b36bfb292667a167005c0289820b470.ctex remapped: res://.godot/imported/third_echo_quiver.png-5b36bfb292667a167005c0289820b470.ctex
+Completed load for: 'res://assets/items/regional/third_echo_quiver.png' remapped 'res://assets/items/regional/third_echo_quiver.png' at thread -1
+Loading resource: res://assets/items/regional/riftglass_bow.png remapped: res://assets/items/regional/riftglass_bow.png
+Loading resource: res://.godot/imported/riftglass_bow.png-e85fc4ba5999c6a029fdada149ac3355.ctex remapped: res://.godot/imported/riftglass_bow.png-e85fc4ba5999c6a029fdada149ac3355.ctex
+Completed load for: 'res://assets/items/regional/riftglass_bow.png' remapped 'res://assets/items/regional/riftglass_bow.png' at thread -1
+Loading resource: res://assets/items/regional/silent_volley_cloak.png remapped: res://assets/items/regional/silent_volley_cloak.png
+Loading resource: res://.godot/imported/silent_volley_cloak.png-b5d4017dfd0153876706472577ad812f.ctex remapped: res://.godot/imported/silent_volley_cloak.png-b5d4017dfd0153876706472577ad812f.ctex
+Completed load for: 'res://assets/items/regional/silent_volley_cloak.png' remapped 'res://assets/items/regional/silent_volley_cloak.png' at thread -1
+Loading resource: res://assets/items/regional/afterimage_ring.png remapped: res://assets/items/regional/afterimage_ring.png
+Loading resource: res://.godot/imported/afterimage_ring.png-f90dd1b2430e5ba87bf721795254c981.ctex remapped: res://.godot/imported/afterimage_ring.png-f90dd1b2430e5ba87bf721795254c981.ctex
+Completed load for: 'res://assets/items/regional/afterimage_ring.png' remapped 'res://assets/items/regional/afterimage_ring.png' at thread -1
+Loading resource: res://assets/items/regional/split_weave_artifact.png remapped: res://assets/items/regional/split_weave_artifact.png
+Loading resource: res://.godot/imported/split_weave_artifact.png-0601b92ebe0a21688b7a7fb785323620.ctex remapped: res://.godot/imported/split_weave_artifact.png-0601b92ebe0a21688b7a7fb785323620.ctex
+Completed load for: 'res://assets/items/regional/split_weave_artifact.png' remapped 'res://assets/items/regional/split_weave_artifact.png' at thread -1
+Loading resource: res://assets/items/regional/twin_star_staff.png remapped: res://assets/items/regional/twin_star_staff.png
+Loading resource: res://.godot/imported/twin_star_staff.png-8d9b235f641ddf7a066bc7eef8a76a56.ctex remapped: res://.godot/imported/twin_star_staff.png-8d9b235f641ddf7a066bc7eef8a76a56.ctex
+Completed load for: 'res://assets/items/regional/twin_star_staff.png' remapped 'res://assets/items/regional/twin_star_staff.png' at thread -1
+Loading resource: res://assets/items/regional/empty_mana_robe.png remapped: res://assets/items/regional/empty_mana_robe.png
+Loading resource: res://.godot/imported/empty_mana_robe.png-51e3eeb2af73c9c394f8f2248d619d8b.ctex remapped: res://.godot/imported/empty_mana_robe.png-51e3eeb2af73c9c394f8f2248d619d8b.ctex
+Completed load for: 'res://assets/items/regional/empty_mana_robe.png' remapped 'res://assets/items/regional/empty_mana_robe.png' at thread -1
+Loading resource: res://assets/items/regional/storm_archive_relic.png remapped: res://assets/items/regional/storm_archive_relic.png
+Loading resource: res://.godot/imported/storm_archive_relic.png-ce2109dba139cd5a7bdb9e6671266400.ctex remapped: res://.godot/imported/storm_archive_relic.png-ce2109dba139cd5a7bdb9e6671266400.ctex
+Completed load for: 'res://assets/items/regional/storm_archive_relic.png' remapped 'res://assets/items/regional/storm_archive_relic.png' at thread -1
+Loading resource: res://assets/items/regional/two_lies_dice.png remapped: res://assets/items/regional/two_lies_dice.png
+Loading resource: res://.godot/imported/two_lies_dice.png-cdbc7d5d5ecd6e5119dd850f2657ac56.ctex remapped: res://.godot/imported/two_lies_dice.png-cdbc7d5d5ecd6e5119dd850f2657ac56.ctex
+Completed load for: 'res://assets/items/regional/two_lies_dice.png' remapped 'res://assets/items/regional/two_lies_dice.png' at thread -1
+Loading resource: res://assets/items/regional/deck_without_ace.png remapped: res://assets/items/regional/deck_without_ace.png
+Loading resource: res://.godot/imported/deck_without_ace.png-7c84efadf20ac076a5b04d2be7d19732.ctex remapped: res://.godot/imported/deck_without_ace.png-7c84efadf20ac076a5b04d2be7d19732.ctex
+Completed load for: 'res://assets/items/regional/deck_without_ace.png' remapped 'res://assets/items/regional/deck_without_ace.png' at thread -1
+Loading resource: res://assets/items/regional/seven_chances_lance.png remapped: res://assets/items/regional/seven_chances_lance.png
+Loading resource: res://.godot/imported/seven_chances_lance.png-b86048a7e9348018a0891d496bc0aa0d.ctex remapped: res://.godot/imported/seven_chances_lance.png-b86048a7e9348018a0891d496bc0aa0d.ctex
+Completed load for: 'res://assets/items/regional/seven_chances_lance.png' remapped 'res://assets/items/regional/seven_chances_lance.png' at thread -1
+Loading resource: res://assets/items/regional/crooked_smile_mask.png remapped: res://assets/items/regional/crooked_smile_mask.png
+Loading resource: res://.godot/imported/crooked_smile_mask.png-2d33d3fb1cf0d46268f5c99998d8b876.ctex remapped: res://.godot/imported/crooked_smile_mask.png-2d33d3fb1cf0d46268f5c99998d8b876.ctex
+Completed load for: 'res://assets/items/regional/crooked_smile_mask.png' remapped 'res://assets/items/regional/crooked_smile_mask.png' at thread -1
+Loading resource: res://assets/items/regional/varek_sabre.png remapped: res://assets/items/regional/varek_sabre.png
+Loading resource: res://.godot/imported/varek_sabre.png-6f4f4a8f271401b5e12eb3ba31211c7f.ctex remapped: res://.godot/imported/varek_sabre.png-6f4f4a8f271401b5e12eb3ba31211c7f.ctex
+Completed load for: 'res://assets/items/regional/varek_sabre.png' remapped 'res://assets/items/regional/varek_sabre.png' at thread -1
+Loading resource: res://assets/items/regional/black_sea_bow.png remapped: res://assets/items/regional/black_sea_bow.png
+Loading resource: res://.godot/imported/black_sea_bow.png-bb1c844ac0c79e309de69cba925637f7.ctex remapped: res://.godot/imported/black_sea_bow.png-bb1c844ac0c79e309de69cba925637f7.ctex
+Completed load for: 'res://assets/items/regional/black_sea_bow.png' remapped 'res://assets/items/regional/black_sea_bow.png' at thread -1
+Loading resource: res://assets/items/regional/black_sea_staff.png remapped: res://assets/items/regional/black_sea_staff.png
+Loading resource: res://.godot/imported/black_sea_staff.png-78328fb3606d4ed5e01ec91dca146c04.ctex remapped: res://.godot/imported/black_sea_staff.png-78328fb3606d4ed5e01ec91dca146c04.ctex
+Completed load for: 'res://assets/items/regional/black_sea_staff.png' remapped 'res://assets/items/regional/black_sea_staff.png' at thread -1
+Loading resource: res://assets/items/regional/black_tide_fate_lance.png remapped: res://assets/items/regional/black_tide_fate_lance.png
+Loading resource: res://.godot/imported/black_tide_fate_lance.png-7fe7cd939cfadb711630eca7916d905e.ctex remapped: res://.godot/imported/black_tide_fate_lance.png-7fe7cd939cfadb711630eca7916d905e.ctex
+Completed load for: 'res://assets/items/regional/black_tide_fate_lance.png' remapped 'res://assets/items/regional/black_tide_fate_lance.png' at thread -1
+Loading resource: res://assets/items/regional/hearthguard_shield.png remapped: res://assets/items/regional/hearthguard_shield.png
+Loading resource: res://.godot/imported/hearthguard_shield.png-fc61dc03428a1b661bf96d5dacb7b1ad.ctex remapped: res://.godot/imported/hearthguard_shield.png-fc61dc03428a1b661bf96d5dacb7b1ad.ctex
+Completed load for: 'res://assets/items/regional/hearthguard_shield.png' remapped 'res://assets/items/regional/hearthguard_shield.png' at thread -1
+Loading resource: res://assets/items/regional/order_bracelet.png remapped: res://assets/items/regional/order_bracelet.png
+Loading resource: res://.godot/imported/order_bracelet.png-94a2a047b374cb5acacd28d39b175503.ctex remapped: res://.godot/imported/order_bracelet.png-94a2a047b374cb5acacd28d39b175503.ctex
+Completed load for: 'res://assets/items/regional/order_bracelet.png' remapped 'res://assets/items/regional/order_bracelet.png' at thread -1
+Loading resource: res://assets/items/regional/abyss_ring.png remapped: res://assets/items/regional/abyss_ring.png
+Loading resource: res://.godot/imported/abyss_ring.png-99bd524e06c02d81ae4af78f866bb978.ctex remapped: res://.godot/imported/abyss_ring.png-99bd524e06c02d81ae4af78f866bb978.ctex
+Completed load for: 'res://assets/items/regional/abyss_ring.png' remapped 'res://assets/items/regional/abyss_ring.png' at thread -1
+Loading resource: res://assets/items/regional/mireglass_bow.png remapped: res://assets/items/regional/mireglass_bow.png
+Loading resource: res://.godot/imported/mireglass_bow.png-689217c9c485fcbb6a706c1b3d1ab265.ctex remapped: res://.godot/imported/mireglass_bow.png-689217c9c485fcbb6a706c1b3d1ab265.ctex
+Completed load for: 'res://assets/items/regional/mireglass_bow.png' remapped 'res://assets/items/regional/mireglass_bow.png' at thread -1
+Loading resource: res://assets/items/regional/mire_staff.png remapped: res://assets/items/regional/mire_staff.png
+Loading resource: res://.godot/imported/mire_staff.png-884a42e86d5d78e9fff08ee6e52f4f3b.ctex remapped: res://.godot/imported/mire_staff.png-884a42e86d5d78e9fff08ee6e52f4f3b.ctex
+Completed load for: 'res://assets/items/regional/mire_staff.png' remapped 'res://assets/items/regional/mire_staff.png' at thread -1
+Loading resource: res://assets/items/regional/drowned_fate_lance.png remapped: res://assets/items/regional/drowned_fate_lance.png
+Loading resource: res://.godot/imported/drowned_fate_lance.png-b813ed3ae8de657d5e7e29ada45cf469.ctex remapped: res://.godot/imported/drowned_fate_lance.png-b813ed3ae8de657d5e7e29ada45cf469.ctex
+Completed load for: 'res://assets/items/regional/drowned_fate_lance.png' remapped 'res://assets/items/regional/drowned_fate_lance.png' at thread -1
+Loading resource: res://assets/items/regional/ashwind_bow.png remapped: res://assets/items/regional/ashwind_bow.png
+Loading resource: res://.godot/imported/ashwind_bow.png-713c8d1455186ebcf28b063517f87756.ctex remapped: res://.godot/imported/ashwind_bow.png-713c8d1455186ebcf28b063517f87756.ctex
+Completed load for: 'res://assets/items/regional/ashwind_bow.png' remapped 'res://assets/items/regional/ashwind_bow.png' at thread -1
+Loading resource: res://assets/items/regional/ember_staff.png remapped: res://assets/items/regional/ember_staff.png
+Loading resource: res://.godot/imported/ember_staff.png-42119d1098247f61db9b8d97f8471c5f.ctex remapped: res://.godot/imported/ember_staff.png-42119d1098247f61db9b8d97f8471c5f.ctex
+Completed load for: 'res://assets/items/regional/ember_staff.png' remapped 'res://assets/items/regional/ember_staff.png' at thread -1
+Loading resource: res://assets/items/regional/ashen_fate_lance.png remapped: res://assets/items/regional/ashen_fate_lance.png
+Loading resource: res://.godot/imported/ashen_fate_lance.png-207cadc7be0e2869d2e49c07429c21ae.ctex remapped: res://.godot/imported/ashen_fate_lance.png-207cadc7be0e2869d2e49c07429c21ae.ctex
+Completed load for: 'res://assets/items/regional/ashen_fate_lance.png' remapped 'res://assets/items/regional/ashen_fate_lance.png' at thread -1
+Loading resource: res://assets/items/regional/blackwood_longbow.png remapped: res://assets/items/regional/blackwood_longbow.png
+Loading resource: res://.godot/imported/blackwood_longbow.png-515c6624869648da325d16443d10af31.ctex remapped: res://.godot/imported/blackwood_longbow.png-515c6624869648da325d16443d10af31.ctex
+Completed load for: 'res://assets/items/regional/blackwood_longbow.png' remapped 'res://assets/items/regional/blackwood_longbow.png' at thread -1
+Loading resource: res://assets/items/regional/blackwood_staff.png remapped: res://assets/items/regional/blackwood_staff.png
+Loading resource: res://.godot/imported/blackwood_staff.png-389f81911e8166f906d4aae361a855c3.ctex remapped: res://.godot/imported/blackwood_staff.png-389f81911e8166f906d4aae361a855c3.ctex
+Completed load for: 'res://assets/items/regional/blackwood_staff.png' remapped 'res://assets/items/regional/blackwood_staff.png' at thread -1
+Loading resource: res://assets/items/regional/crooked_fate_lance.png remapped: res://assets/items/regional/crooked_fate_lance.png
+Loading resource: res://.godot/imported/crooked_fate_lance.png-e55dcd0a36a6074b6ed140a25dd9ac32.ctex remapped: res://.godot/imported/crooked_fate_lance.png-e55dcd0a36a6074b6ed140a25dd9ac32.ctex
+Completed load for: 'res://assets/items/regional/crooked_fate_lance.png' remapped 'res://assets/items/regional/crooked_fate_lance.png' at thread -1
+Loading resource: res://assets/items/regional/ancient_order_key.png remapped: res://assets/items/regional/ancient_order_key.png
+Loading resource: res://.godot/imported/ancient_order_key.png-048e1256ad4f05fdb604099bfd5439e6.ctex remapped: res://.godot/imported/ancient_order_key.png-048e1256ad4f05fdb604099bfd5439e6.ctex
+Completed load for: 'res://assets/items/regional/ancient_order_key.png' remapped 'res://assets/items/regional/ancient_order_key.png' at thread -1
+Loading resource: res://assets/items/regional/order_seal.png remapped: res://assets/items/regional/order_seal.png
+Loading resource: res://.godot/imported/order_seal.png-e1af0e8fbf999d65254b80a4c02e5483.ctex remapped: res://.godot/imported/order_seal.png-e1af0e8fbf999d65254b80a4c02e5483.ctex
+Completed load for: 'res://assets/items/regional/order_seal.png' remapped 'res://assets/items/regional/order_seal.png' at thread -1
+Loading resource: res://assets/items/regional/grandmaster_chain.png remapped: res://assets/items/regional/grandmaster_chain.png
+Loading resource: res://.godot/imported/grandmaster_chain.png-e0c9318186b0e48613bce00aecb7fbe4.ctex remapped: res://.godot/imported/grandmaster_chain.png-e0c9318186b0e48613bce00aecb7fbe4.ctex
+Completed load for: 'res://assets/items/regional/grandmaster_chain.png' remapped 'res://assets/items/regional/grandmaster_chain.png' at thread -1
+Loading resource: res://assets/items/regional/crown_fragment.png remapped: res://assets/items/regional/crown_fragment.png
+Loading resource: res://.godot/imported/crown_fragment.png-792b85ca61839d184f927d83719d2f4e.ctex remapped: res://.godot/imported/crown_fragment.png-792b85ca61839d184f927d83719d2f4e.ctex
+Completed load for: 'res://assets/items/regional/crown_fragment.png' remapped 'res://assets/items/regional/crown_fragment.png' at thread -1
+Loading resource: res://assets/items/regional/grandmaster_sword.png remapped: res://assets/items/regional/grandmaster_sword.png
+Loading resource: res://.godot/imported/grandmaster_sword.png-0cede6aa13c54f1d78cf31067641ad66.ctex remapped: res://.godot/imported/grandmaster_sword.png-0cede6aa13c54f1d78cf31067641ad66.ctex
+Completed load for: 'res://assets/items/regional/grandmaster_sword.png' remapped 'res://assets/items/regional/grandmaster_sword.png' at thread -1
+Loading resource: res://assets/items/regional/sunken_order_cloak.png remapped: res://assets/items/regional/sunken_order_cloak.png
+Loading resource: res://.godot/imported/sunken_order_cloak.png-979dc8cecad821d4a69da85107577166.ctex remapped: res://.godot/imported/sunken_order_cloak.png-979dc8cecad821d4a69da85107577166.ctex
+Completed load for: 'res://assets/items/regional/sunken_order_cloak.png' remapped 'res://assets/items/regional/sunken_order_cloak.png' at thread -1
+Loading resource: res://assets/items/regional/varek_sabre_fragment.png remapped: res://assets/items/regional/varek_sabre_fragment.png
+Loading resource: res://.godot/imported/varek_sabre_fragment.png-a7e30e7f5599fac88e185150db560612.ctex remapped: res://.godot/imported/varek_sabre_fragment.png-a7e30e7f5599fac88e185150db560612.ctex
+Completed load for: 'res://assets/items/regional/varek_sabre_fragment.png' remapped 'res://assets/items/regional/varek_sabre_fragment.png' at thread -1
+Loading resource: res://assets/items/regional/azhar_blade.png remapped: res://assets/items/regional/azhar_blade.png
+Loading resource: res://.godot/imported/azhar_blade.png-29cce8fc547a9db1065d0feea3515ed3.ctex remapped: res://.godot/imported/azhar_blade.png-29cce8fc547a9db1065d0feea3515ed3.ctex
+Completed load for: 'res://assets/items/regional/azhar_blade.png' remapped 'res://assets/items/regional/azhar_blade.png' at thread -1
+Loading resource: res://assets/items/regional/azhar_crown.png remapped: res://assets/items/regional/azhar_crown.png
+Loading resource: res://.godot/imported/azhar_crown.png-d1d17ea4a3548a392dbf6b5bb28d6e23.ctex remapped: res://.godot/imported/azhar_crown.png-d1d17ea4a3548a392dbf6b5bb28d6e23.ctex
+Completed load for: 'res://assets/items/regional/azhar_crown.png' remapped 'res://assets/items/regional/azhar_crown.png' at thread -1
+Loading resource: res://assets/items/regional/azhar_ring.png remapped: res://assets/items/regional/azhar_ring.png
+Loading resource: res://.godot/imported/azhar_ring.png-702275a329316f803c7877e01cf31cb7.ctex remapped: res://.godot/imported/azhar_ring.png-702275a329316f803c7877e01cf31cb7.ctex
+Completed load for: 'res://assets/items/regional/azhar_ring.png' remapped 'res://assets/items/regional/azhar_ring.png' at thread -1
+Loading resource: res://assets/items/regional/black_fleet_medallion.png remapped: res://assets/items/regional/black_fleet_medallion.png
+Loading resource: res://.godot/imported/black_fleet_medallion.png-19fb2b9a5b8b4b585905b9e8ab24a289.ctex remapped: res://.godot/imported/black_fleet_medallion.png-19fb2b9a5b8b4b585905b9e8ab24a289.ctex
+Completed load for: 'res://assets/items/regional/black_fleet_medallion.png' remapped 'res://assets/items/regional/black_fleet_medallion.png' at thread -1
+Loading resource: res://assets/items/regional/black_pearl_earrings.png remapped: res://assets/items/regional/black_pearl_earrings.png
+Loading resource: res://.godot/imported/black_pearl_earrings.png-4e42480524e5137ddb976443f88d644e.ctex remapped: res://.godot/imported/black_pearl_earrings.png-4e42480524e5137ddb976443f88d644e.ctex
+Completed load for: 'res://assets/items/regional/black_pearl_earrings.png' remapped 'res://assets/items/regional/black_pearl_earrings.png' at thread -1
+Loading resource: res://assets/items/regional/black_sea_amulet.png remapped: res://assets/items/regional/black_sea_amulet.png
+Loading resource: res://.godot/imported/black_sea_amulet.png-37aca7c0fc009ca8bf03414dca4e2907.ctex remapped: res://.godot/imported/black_sea_amulet.png-37aca7c0fc009ca8bf03414dca4e2907.ctex
+Completed load for: 'res://assets/items/regional/black_sea_amulet.png' remapped 'res://assets/items/regional/black_sea_amulet.png' at thread -1
+Loading resource: res://assets/items/regional/captain_signet.png remapped: res://assets/items/regional/captain_signet.png
+Loading resource: res://.godot/imported/captain_signet.png-902b1c04fcc3df807d1fae476bdaf32d.ctex remapped: res://.godot/imported/captain_signet.png-902b1c04fcc3df807d1fae476bdaf32d.ctex
+Completed load for: 'res://assets/items/regional/captain_signet.png' remapped 'res://assets/items/regional/captain_signet.png' at thread -1
+Loading resource: res://assets/items/regional/cursed_compass.png remapped: res://assets/items/regional/cursed_compass.png
+Loading resource: res://.godot/imported/cursed_compass.png-90a641feeb54cf96649cc19ee704b48e.ctex remapped: res://.godot/imported/cursed_compass.png-90a641feeb54cf96649cc19ee704b48e.ctex
+Completed load for: 'res://assets/items/regional/cursed_compass.png' remapped 'res://assets/items/regional/cursed_compass.png' at thread -1
+Loading resource: res://assets/items/regional/frozen_cloth.png remapped: res://assets/items/regional/frozen_cloth.png
+Loading resource: res://.godot/imported/frozen_cloth.png-1366729dedd1f4e87ccac7462f8939ea.ctex remapped: res://.godot/imported/frozen_cloth.png-1366729dedd1f4e87ccac7462f8939ea.ctex
+Completed load for: 'res://assets/items/regional/frozen_cloth.png' remapped 'res://assets/items/regional/frozen_cloth.png' at thread -1
+Loading resource: res://assets/items/regional/ice_chitin.png remapped: res://assets/items/regional/ice_chitin.png
+Loading resource: res://.godot/imported/ice_chitin.png-46a1e0822e3e659110473feae38789c6.ctex remapped: res://.godot/imported/ice_chitin.png-46a1e0822e3e659110473feae38789c6.ctex
+Completed load for: 'res://assets/items/regional/ice_chitin.png' remapped 'res://assets/items/regional/ice_chitin.png' at thread -1
+Loading resource: res://assets/items/regional/leviathan_ring.png remapped: res://assets/items/regional/leviathan_ring.png
+Loading resource: res://.godot/imported/leviathan_ring.png-634a76c9c64a588d070960a2cb5e35b4.ctex remapped: res://.godot/imported/leviathan_ring.png-634a76c9c64a588d070960a2cb5e35b4.ctex
+Completed load for: 'res://assets/items/regional/leviathan_ring.png' remapped 'res://assets/items/regional/leviathan_ring.png' at thread -1
+Loading resource: res://assets/items/regional/north_armor.png remapped: res://assets/items/regional/north_armor.png
+Loading resource: res://.godot/imported/north_armor.png-318fd3e558a5a0ad2d44f97b1d4f286a.ctex remapped: res://.godot/imported/north_armor.png-318fd3e558a5a0ad2d44f97b1d4f286a.ctex
+Completed load for: 'res://assets/items/regional/north_armor.png' remapped 'res://assets/items/regional/north_armor.png' at thread -1
+Loading resource: res://assets/items/regional/northern_trail_boots.png remapped: res://assets/items/regional/northern_trail_boots.png
+Loading resource: res://.godot/imported/northern_trail_boots.png-d7b1e34b5d2b372e91774c66aebb6826.ctex remapped: res://.godot/imported/northern_trail_boots.png-d7b1e34b5d2b372e91774c66aebb6826.ctex
+Completed load for: 'res://assets/items/regional/northern_trail_boots.png' remapped 'res://assets/items/regional/northern_trail_boots.png' at thread -1
+Loading resource: res://assets/items/regional/snow_griffin_cloak.png remapped: res://assets/items/regional/snow_griffin_cloak.png
+Loading resource: res://.godot/imported/snow_griffin_cloak.png-13642ed7f051db6d9f084240504d4184.ctex remapped: res://.godot/imported/snow_griffin_cloak.png-13642ed7f051db6d9f084240504d4184.ctex
+Completed load for: 'res://assets/items/regional/snow_griffin_cloak.png' remapped 'res://assets/items/regional/snow_griffin_cloak.png' at thread -1
+Loading resource: res://assets/items/regional/snow_griffin_feather.png remapped: res://assets/items/regional/snow_griffin_feather.png
+Loading resource: res://.godot/imported/snow_griffin_feather.png-6d0b5a11faa21c299d11af3ec3e8b566.ctex remapped: res://.godot/imported/snow_griffin_feather.png-6d0b5a11faa21c299d11af3ec3e8b566.ctex
+Completed load for: 'res://assets/items/regional/snow_griffin_feather.png' remapped 'res://assets/items/regional/snow_griffin_feather.png' at thread -1
+Loading resource: res://assets/items/regional/white_fur.png remapped: res://assets/items/regional/white_fur.png
+Loading resource: res://.godot/imported/white_fur.png-a18267f0666df8a995c9ba2b8d8926b6.ctex remapped: res://.godot/imported/white_fur.png-a18267f0666df8a995c9ba2b8d8926b6.ctex
+Completed load for: 'res://assets/items/regional/white_fur.png' remapped 'res://assets/items/regional/white_fur.png' at thread -1
+Loading resource: res://assets/items/regional/ancient_scale.png remapped: res://assets/items/regional/ancient_scale.png
+Loading resource: res://.godot/imported/ancient_scale.png-392957b7a3dacd9b0d48b909c3b5e8e8.ctex remapped: res://.godot/imported/ancient_scale.png-392957b7a3dacd9b0d48b909c3b5e8e8.ctex
+Completed load for: 'res://assets/items/regional/ancient_scale.png' remapped 'res://assets/items/regional/ancient_scale.png' at thread -1
+Loading resource: res://assets/items/regional/bone_fang.png remapped: res://assets/items/regional/bone_fang.png
+Loading resource: res://.godot/imported/bone_fang.png-e9929b1819656c0e99ea511964ba9e6f.ctex remapped: res://.godot/imported/bone_fang.png-e9929b1819656c0e99ea511964ba9e6f.ctex
+Completed load for: 'res://assets/items/regional/bone_fang.png' remapped 'res://assets/items/regional/bone_fang.png' at thread -1
+Loading resource: res://assets/items/regional/scale_belt.png remapped: res://assets/items/regional/scale_belt.png
+Loading resource: res://.godot/imported/scale_belt.png-f0d0234ae557408cde352e71daeb852e.ctex remapped: res://.godot/imported/scale_belt.png-f0d0234ae557408cde352e71daeb852e.ctex
+Completed load for: 'res://assets/items/regional/scale_belt.png' remapped 'res://assets/items/regional/scale_belt.png' at thread -1
+Loading resource: res://assets/items/regional/mist_essence.png remapped: res://assets/items/regional/mist_essence.png
+Loading resource: res://.godot/imported/mist_essence.png-9764d5b54490c77eb24b4a4c8bd6338f.ctex remapped: res://.godot/imported/mist_essence.png-9764d5b54490c77eb24b4a4c8bd6338f.ctex
+Completed load for: 'res://assets/items/regional/mist_essence.png' remapped 'res://assets/items/regional/mist_essence.png' at thread -1
+Loading resource: res://assets/items/regional/mist_earrings.png remapped: res://assets/items/regional/mist_earrings.png
+Loading resource: res://.godot/imported/mist_earrings.png-96f10c47cfd8572ea532257f8af64886.ctex remapped: res://.godot/imported/mist_earrings.png-96f10c47cfd8572ea532257f8af64886.ctex
+Completed load for: 'res://assets/items/regional/mist_earrings.png' remapped 'res://assets/items/regional/mist_earrings.png' at thread -1
+Loading resource: res://assets/items/regional/witch_herb.png remapped: res://assets/items/regional/witch_herb.png
+Loading resource: res://.godot/imported/witch_herb.png-af96d48bfcad2f995c5d1f6befffdef8.ctex remapped: res://.godot/imported/witch_herb.png-af96d48bfcad2f995c5d1f6befffdef8.ctex
+Completed load for: 'res://assets/items/regional/witch_herb.png' remapped 'res://assets/items/regional/witch_herb.png' at thread -1
+Loading resource: res://assets/items/regional/witchbone_ring.png remapped: res://assets/items/regional/witchbone_ring.png
+Loading resource: res://.godot/imported/witchbone_ring.png-82279bee88b27c77a068b047da967ec1.ctex remapped: res://.godot/imported/witchbone_ring.png-82279bee88b27c77a068b047da967ec1.ctex
+Completed load for: 'res://assets/items/regional/witchbone_ring.png' remapped 'res://assets/items/regional/witchbone_ring.png' at thread -1
+Loading resource: res://assets/items/regional/sunken_plate.png remapped: res://assets/items/regional/sunken_plate.png
+Loading resource: res://.godot/imported/sunken_plate.png-af74a44cfea888b9c9b7bb43360c0da8.ctex remapped: res://.godot/imported/sunken_plate.png-af74a44cfea888b9c9b7bb43360c0da8.ctex
+Completed load for: 'res://assets/items/regional/sunken_plate.png' remapped 'res://assets/items/regional/sunken_plate.png' at thread -1
+Loading resource: res://assets/items/regional/sunken_knight_armor.png remapped: res://assets/items/regional/sunken_knight_armor.png
+Loading resource: res://.godot/imported/sunken_knight_armor.png-2489743ea4560c73b039a4025f22c12c.ctex remapped: res://.godot/imported/sunken_knight_armor.png-2489743ea4560c73b039a4025f22c12c.ctex
+Completed load for: 'res://assets/items/regional/sunken_knight_armor.png' remapped 'res://assets/items/regional/sunken_knight_armor.png' at thread -1
+Loading resource: res://assets/items/regional/silentwater_heart.png remapped: res://assets/items/regional/silentwater_heart.png
+Loading resource: res://.godot/imported/silentwater_heart.png-b79dc651d19e49844a2d24ca1ee4aee3.ctex remapped: res://.godot/imported/silentwater_heart.png-b79dc651d19e49844a2d24ca1ee4aee3.ctex
+Completed load for: 'res://assets/items/regional/silentwater_heart.png' remapped 'res://assets/items/regional/silentwater_heart.png' at thread -1
+Loading resource: res://assets/items/regional/drowned_mother_medallion.png remapped: res://assets/items/regional/drowned_mother_medallion.png
+Loading resource: res://.godot/imported/drowned_mother_medallion.png-e569c5d5335ca54f2439cc58ae3a02aa.ctex remapped: res://.godot/imported/drowned_mother_medallion.png-e569c5d5335ca54f2439cc58ae3a02aa.ctex
+Completed load for: 'res://assets/items/regional/drowned_mother_medallion.png' remapped 'res://assets/items/regional/drowned_mother_medallion.png' at thread -1
+Loading resource: res://assets/items/regional/drowned_mother_blade.png remapped: res://assets/items/regional/drowned_mother_blade.png
+Loading resource: res://.godot/imported/drowned_mother_blade.png-f956efc2089c004966fb81cc356f066d.ctex remapped: res://.godot/imported/drowned_mother_blade.png-f956efc2089c004966fb81cc356f066d.ctex
+Completed load for: 'res://assets/items/regional/drowned_mother_blade.png' remapped 'res://assets/items/regional/drowned_mother_blade.png' at thread -1
+Loading resource: res://assets/items/regional/drowned_mother_crown.png remapped: res://assets/items/regional/drowned_mother_crown.png
+Loading resource: res://.godot/imported/drowned_mother_crown.png-2dbc6a450e02445b1c3d28ae502cae34.ctex remapped: res://.godot/imported/drowned_mother_crown.png-2dbc6a450e02445b1c3d28ae502cae34.ctex
+Completed load for: 'res://assets/items/regional/drowned_mother_crown.png' remapped 'res://assets/items/regional/drowned_mother_crown.png' at thread -1
+Loading resource: res://assets/items/regional/charred_bone.png remapped: res://assets/items/regional/charred_bone.png
+Loading resource: res://.godot/imported/charred_bone.png-5f21fa0713afcffe627a11629efb17e7.ctex remapped: res://.godot/imported/charred_bone.png-5f21fa0713afcffe627a11629efb17e7.ctex
+Completed load for: 'res://assets/items/regional/charred_bone.png' remapped 'res://assets/items/regional/charred_bone.png' at thread -1
+Loading resource: res://assets/items/regional/cursed_resin.png remapped: res://assets/items/regional/cursed_resin.png
+Loading resource: res://.godot/imported/cursed_resin.png-f709f4e5c82ff29c3c3386af00df71cc.ctex remapped: res://.godot/imported/cursed_resin.png-f709f4e5c82ff29c3c3386af00df71cc.ctex
+Completed load for: 'res://assets/items/regional/cursed_resin.png' remapped 'res://assets/items/regional/cursed_resin.png' at thread -1
+Loading resource: res://assets/items/regional/desert_cloth.png remapped: res://assets/items/regional/desert_cloth.png
+Loading resource: res://.godot/imported/desert_cloth.png-2123c22ae424fa7e7f9666928f18e2c9.ctex remapped: res://.godot/imported/desert_cloth.png-2123c22ae424fa7e7f9666928f18e2c9.ctex
+Completed load for: 'res://assets/items/regional/desert_cloth.png' remapped 'res://assets/items/regional/desert_cloth.png' at thread -1
+Loading resource: res://assets/items/regional/wasteland_belt.png remapped: res://assets/items/regional/wasteland_belt.png
+Loading resource: res://.godot/imported/wasteland_belt.png-2cd0728b16bba91040b69efa45a8420b.ctex remapped: res://.godot/imported/wasteland_belt.png-2cd0728b16bba91040b69efa45a8420b.ctex
+Completed load for: 'res://assets/items/regional/wasteland_belt.png' remapped 'res://assets/items/regional/wasteland_belt.png' at thread -1
+Loading resource: res://assets/items/regional/wasteland_armor.png remapped: res://assets/items/regional/wasteland_armor.png
+Loading resource: res://.godot/imported/wasteland_armor.png-41e99739ac9813ee93ae2e9505301e3f.ctex remapped: res://.godot/imported/wasteland_armor.png-41e99739ac9813ee93ae2e9505301e3f.ctex
+Completed load for: 'res://assets/items/regional/wasteland_armor.png' remapped 'res://assets/items/regional/wasteland_armor.png' at thread -1
+Loading resource: res://assets/items/regional/harpy_feather.png remapped: res://assets/items/regional/harpy_feather.png
+Loading resource: res://.godot/imported/harpy_feather.png-d373dd2985e2a52e7601b968a9d203c3.ctex remapped: res://.godot/imported/harpy_feather.png-d373dd2985e2a52e7601b968a9d203c3.ctex
+Completed load for: 'res://assets/items/regional/harpy_feather.png' remapped 'res://assets/items/regional/harpy_feather.png' at thread -1
+Loading resource: res://assets/items/regional/salamander_scale.png remapped: res://assets/items/regional/salamander_scale.png
+Loading resource: res://.godot/imported/salamander_scale.png-c4d7f09f447d7e11643e97c04371ddf4.ctex remapped: res://.godot/imported/salamander_scale.png-c4d7f09f447d7e11643e97c04371ddf4.ctex
+Completed load for: 'res://assets/items/regional/salamander_scale.png' remapped 'res://assets/items/regional/salamander_scale.png' at thread -1
+Loading resource: res://assets/items/regional/hearth_gauntlets.png remapped: res://assets/items/regional/hearth_gauntlets.png
+Loading resource: res://.godot/imported/hearth_gauntlets.png-f2c9175becf9a2dbf2fc95474540222c.ctex remapped: res://.godot/imported/hearth_gauntlets.png-f2c9175becf9a2dbf2fc95474540222c.ctex
+Completed load for: 'res://assets/items/regional/hearth_gauntlets.png' remapped 'res://assets/items/regional/hearth_gauntlets.png' at thread -1
+Loading resource: res://assets/items/regional/sand_golem_core.png remapped: res://assets/items/regional/sand_golem_core.png
+Loading resource: res://.godot/imported/sand_golem_core.png-c1ea41781b53c47118f452cfce01eb6a.ctex remapped: res://.godot/imported/sand_golem_core.png-c1ea41781b53c47118f452cfce01eb6a.ctex
+Completed load for: 'res://assets/items/regional/sand_golem_core.png' remapped 'res://assets/items/regional/sand_golem_core.png' at thread -1
+Loading resource: res://assets/items/regional/sun_talisman.png remapped: res://assets/items/regional/sun_talisman.png
+Loading resource: res://.godot/imported/sun_talisman.png-5b72daacecf9fb94968f708ccb1442ab.ctex remapped: res://.godot/imported/sun_talisman.png-5b72daacecf9fb94968f708ccb1442ab.ctex
+Completed load for: 'res://assets/items/regional/sun_talisman.png' remapped 'res://assets/items/regional/sun_talisman.png' at thread -1
+Loading resource: res://assets/items/regional/great_healing_potion.png remapped: res://assets/items/regional/great_healing_potion.png
+Loading resource: res://.godot/imported/great_healing_potion.png-45d49bf9c4ae22cde9f8a6ff11fd4a62.ctex remapped: res://.godot/imported/great_healing_potion.png-45d49bf9c4ae22cde9f8a6ff11fd4a62.ctex
+Completed load for: 'res://assets/items/regional/great_healing_potion.png' remapped 'res://assets/items/regional/great_healing_potion.png' at thread -1
+Loading resource: res://assets/items/regional/spider_silk.png remapped: res://assets/items/regional/spider_silk.png
+Loading resource: res://.godot/imported/spider_silk.png-c244629793e64f68866f57cdfb301e66.ctex remapped: res://.godot/imported/spider_silk.png-c244629793e64f68866f57cdfb301e66.ctex
+Completed load for: 'res://assets/items/regional/spider_silk.png' remapped 'res://assets/items/regional/spider_silk.png' at thread -1
+Loading resource: res://assets/items/regional/venom_gland.png remapped: res://assets/items/regional/venom_gland.png
+Loading resource: res://.godot/imported/venom_gland.png-f989b8bb757c1934e0351a0aa7341ced.ctex remapped: res://.godot/imported/venom_gland.png-f989b8bb757c1934e0351a0aa7341ced.ctex
+Completed load for: 'res://assets/items/regional/venom_gland.png' remapped 'res://assets/items/regional/venom_gland.png' at thread -1
+Loading resource: res://assets/items/regional/spiderstep_boots.png remapped: res://assets/items/regional/spiderstep_boots.png
+Loading resource: res://.godot/imported/spiderstep_boots.png-06f1a995ed17b7e2ec906cca06f6b1f7.ctex remapped: res://.godot/imported/spiderstep_boots.png-06f1a995ed17b7e2ec906cca06f6b1f7.ctex
+Completed load for: 'res://assets/items/regional/spiderstep_boots.png' remapped 'res://assets/items/regional/spiderstep_boots.png' at thread -1
+Loading resource: res://assets/items/regional/spiderweave_gloves.png remapped: res://assets/items/regional/spiderweave_gloves.png
+Loading resource: res://.godot/imported/spiderweave_gloves.png-5b95c578970601ad3d6ff75d51152ba6.ctex remapped: res://.godot/imported/spiderweave_gloves.png-5b95c578970601ad3d6ff75d51152ba6.ctex
+Completed load for: 'res://assets/items/regional/spiderweave_gloves.png' remapped 'res://assets/items/regional/spiderweave_gloves.png' at thread -1
+Loading resource: res://assets/items/regional/cultist_cloth.png remapped: res://assets/items/regional/cultist_cloth.png
+Loading resource: res://.godot/imported/cultist_cloth.png-3c1a06d530b3214a6b69a2af6235b782.ctex remapped: res://.godot/imported/cultist_cloth.png-3c1a06d530b3214a6b69a2af6235b782.ctex
+Completed load for: 'res://assets/items/regional/cultist_cloth.png' remapped 'res://assets/items/regional/cultist_cloth.png' at thread -1
+Loading resource: res://assets/items/regional/dark_sigil.png remapped: res://assets/items/regional/dark_sigil.png
+Loading resource: res://.godot/imported/dark_sigil.png-5b68a266e37c472ca38ed77fbfeda1f1.ctex remapped: res://.godot/imported/dark_sigil.png-5b68a266e37c472ca38ed77fbfeda1f1.ctex
+Completed load for: 'res://assets/items/regional/dark_sigil.png' remapped 'res://assets/items/regional/dark_sigil.png' at thread -1
+Loading resource: res://assets/items/regional/cultist_pendant.png remapped: res://assets/items/regional/cultist_pendant.png
+Loading resource: res://.godot/imported/cultist_pendant.png-fe4191cf344ce44edd59c9b009d676f4.ctex remapped: res://.godot/imported/cultist_pendant.png-fe4191cf344ce44edd59c9b009d676f4.ctex
+Completed load for: 'res://assets/items/regional/cultist_pendant.png' remapped 'res://assets/items/regional/cultist_pendant.png' at thread -1
+Loading resource: res://assets/items/regional/dark_sigil_ring.png remapped: res://assets/items/regional/dark_sigil_ring.png
+Loading resource: res://.godot/imported/dark_sigil_ring.png-b5bef9ddb53e33a6cb3a7d5d7d0a4a9b.ctex remapped: res://.godot/imported/dark_sigil_ring.png-b5bef9ddb53e33a6cb3a7d5d7d0a4a9b.ctex
+Completed load for: 'res://assets/items/regional/dark_sigil_ring.png' remapped 'res://assets/items/regional/dark_sigil_ring.png' at thread -1
+Loading resource: res://assets/items/regional/rusted_plate.png remapped: res://assets/items/regional/rusted_plate.png
+Loading resource: res://.godot/imported/rusted_plate.png-13b025f2a6278c4116b03b922c19fdd8.ctex remapped: res://.godot/imported/rusted_plate.png-13b025f2a6278c4116b03b922c19fdd8.ctex
+Completed load for: 'res://assets/items/regional/rusted_plate.png' remapped 'res://assets/items/regional/rusted_plate.png' at thread -1
+Loading resource: res://assets/items/regional/rotting_knight_helm.png remapped: res://assets/items/regional/rotting_knight_helm.png
+Loading resource: res://.godot/imported/rotting_knight_helm.png-db2e107e82e5f3c4aa25240a5bffb1f8.ctex remapped: res://.godot/imported/rotting_knight_helm.png-db2e107e82e5f3c4aa25240a5bffb1f8.ctex
+Completed load for: 'res://assets/items/regional/rotting_knight_helm.png' remapped 'res://assets/items/regional/rotting_knight_helm.png' at thread -1
+Loading resource: res://assets/items/regional/corrupted_hide.png remapped: res://assets/items/regional/corrupted_hide.png
+Loading resource: res://.godot/imported/corrupted_hide.png-986e0f7c487b9d9fbddbdb2486509946.ctex remapped: res://.godot/imported/corrupted_hide.png-986e0f7c487b9d9fbddbdb2486509946.ctex
+Completed load for: 'res://assets/items/regional/corrupted_hide.png' remapped 'res://assets/items/regional/corrupted_hide.png' at thread -1
+Loading resource: res://assets/items/regional/black_bear_claw.png remapped: res://assets/items/regional/black_bear_claw.png
+Loading resource: res://.godot/imported/black_bear_claw.png-35d856d3f5207a17dec35f918fa1ff44.ctex remapped: res://.godot/imported/black_bear_claw.png-35d856d3f5207a17dec35f918fa1ff44.ctex
+Completed load for: 'res://assets/items/regional/black_bear_claw.png' remapped 'res://assets/items/regional/black_bear_claw.png' at thread -1
+Loading resource: res://assets/items/regional/bearhide_belt.png remapped: res://assets/items/regional/bearhide_belt.png
+Loading resource: res://.godot/imported/bearhide_belt.png-bf1409353e4cbaa3fbde46e68603cd48.ctex remapped: res://.godot/imported/bearhide_belt.png-bf1409353e4cbaa3fbde46e68603cd48.ctex
+Completed load for: 'res://assets/items/regional/bearhide_belt.png' remapped 'res://assets/items/regional/bearhide_belt.png' at thread -1
+Loading resource: res://assets/items/regional/blackwood_mail.png remapped: res://assets/items/regional/blackwood_mail.png
+Loading resource: res://.godot/imported/blackwood_mail.png-2a5e2277edeb558e3ea9400ead5c1321.ctex remapped: res://.godot/imported/blackwood_mail.png-2a5e2277edeb558e3ea9400ead5c1321.ctex
+Completed load for: 'res://assets/items/regional/blackwood_mail.png' remapped 'res://assets/items/regional/blackwood_mail.png' at thread -1
+Loading resource: res://assets/items/regional/damned_essence.png remapped: res://assets/items/regional/damned_essence.png
+Loading resource: res://.godot/imported/damned_essence.png-e0fcd76539f1f92eb2d1ab1c505431dd.ctex remapped: res://.godot/imported/damned_essence.png-e0fcd76539f1f92eb2d1ab1c505431dd.ctex
+Completed load for: 'res://assets/items/regional/damned_essence.png' remapped 'res://assets/items/regional/damned_essence.png' at thread -1
+Loading resource: res://assets/items/regional/wraith_ring.png remapped: res://assets/items/regional/wraith_ring.png
+Loading resource: res://.godot/imported/wraith_ring.png-c2f47a6d9b700ce4a20223239b2be496.ctex remapped: res://.godot/imported/wraith_ring.png-c2f47a6d9b700ce4a20223239b2be496.ctex
+Completed load for: 'res://assets/items/regional/wraith_ring.png' remapped 'res://assets/items/regional/wraith_ring.png' at thread -1
+Loading resource: res://assets/items/regional/black_antler.png remapped: res://assets/items/regional/black_antler.png
+Loading resource: res://.godot/imported/black_antler.png-bb4d51bdcb47697ed538628ef15498ac.ctex remapped: res://.godot/imported/black_antler.png-bb4d51bdcb47697ed538628ef15498ac.ctex
+Completed load for: 'res://assets/items/regional/black_antler.png' remapped 'res://assets/items/regional/black_antler.png' at thread -1
+Loading resource: res://assets/items/regional/black_antler_charm.png remapped: res://assets/items/regional/black_antler_charm.png
+Loading resource: res://.godot/imported/black_antler_charm.png-023adf4a3d800e5496763795a17dc940.ctex remapped: res://.godot/imported/black_antler_charm.png-023adf4a3d800e5496763795a17dc940.ctex
+Completed load for: 'res://assets/items/regional/black_antler_charm.png' remapped 'res://assets/items/regional/black_antler_charm.png' at thread -1
+Loading resource: res://assets/items/regional/blackwood_heart.png remapped: res://assets/items/regional/blackwood_heart.png
+Loading resource: res://.godot/imported/blackwood_heart.png-c91e557c2dc884135870e7402de0e637.ctex remapped: res://.godot/imported/blackwood_heart.png-c91e557c2dc884135870e7402de0e637.ctex
+Completed load for: 'res://assets/items/regional/blackwood_heart.png' remapped 'res://assets/items/regional/blackwood_heart.png' at thread -1
+Loading resource: res://assets/items/regional/executioner_axe.png remapped: res://assets/items/regional/executioner_axe.png
+Loading resource: res://.godot/imported/executioner_axe.png-abb03b41e542731f2b8e3f905f13ac91.ctex remapped: res://.godot/imported/executioner_axe.png-abb03b41e542731f2b8e3f905f13ac91.ctex
+Completed load for: 'res://assets/items/regional/executioner_axe.png' remapped 'res://assets/items/regional/executioner_axe.png' at thread -1
+Loading resource: res://assets/items/regional/executioner_mask.png remapped: res://assets/items/regional/executioner_mask.png
+Loading resource: res://.godot/imported/executioner_mask.png-cd2d1dfd09e8d7252794fa25323d8e8c.ctex remapped: res://.godot/imported/executioner_mask.png-cd2d1dfd09e8d7252794fa25323d8e8c.ctex
+Completed load for: 'res://assets/items/regional/executioner_mask.png' remapped 'res://assets/items/regional/executioner_mask.png' at thread -1
+Loading resource: res://assets/items/regional/bog_ichor.png remapped: res://assets/items/regional/bog_ichor.png
+Loading resource: res://.godot/imported/bog_ichor.png-878c16d1453766b354084d00d294b031.ctex remapped: res://.godot/imported/bog_ichor.png-878c16d1453766b354084d00d294b031.ctex
+Completed load for: 'res://assets/items/regional/bog_ichor.png' remapped 'res://assets/items/regional/bog_ichor.png' at thread -1
+Loading resource: res://assets/items/regional/swamp_reed.png remapped: res://assets/items/regional/swamp_reed.png
+Loading resource: res://.godot/imported/swamp_reed.png-8dd07c2263fd4f85e21c58de6ec157aa.ctex remapped: res://.godot/imported/swamp_reed.png-8dd07c2263fd4f85e21c58de6ec157aa.ctex
+Completed load for: 'res://assets/items/regional/swamp_reed.png' remapped 'res://assets/items/regional/swamp_reed.png' at thread -1
+Loading resource: res://assets/items/regional/mirewalker_boots.png remapped: res://assets/items/regional/mirewalker_boots.png
+Loading resource: res://.godot/imported/mirewalker_boots.png-fa570e75212c034a317b2359c83592f5.ctex remapped: res://.godot/imported/mirewalker_boots.png-fa570e75212c034a317b2359c83592f5.ctex
+Completed load for: 'res://assets/items/regional/mirewalker_boots.png' remapped 'res://assets/items/regional/mirewalker_boots.png' at thread -1
+Loading resource: res://assets/items/regional/drowned_bone.png remapped: res://assets/items/regional/drowned_bone.png
+Loading resource: res://.godot/imported/drowned_bone.png-83744911fe50d8b92077c0fbcc8de1c3.ctex remapped: res://.godot/imported/drowned_bone.png-83744911fe50d8b92077c0fbcc8de1c3.ctex
+Completed load for: 'res://assets/items/regional/drowned_bone.png' remapped 'res://assets/items/regional/drowned_bone.png' at thread -1
+Loading resource: res://assets/items/regional/drowned_coin.png remapped: res://assets/items/regional/drowned_coin.png
+Loading resource: res://.godot/imported/drowned_coin.png-79c25f838db823faabd8d2524d60098e.ctex remapped: res://.godot/imported/drowned_coin.png-79c25f838db823faabd8d2524d60098e.ctex
+Completed load for: 'res://assets/items/regional/drowned_coin.png' remapped 'res://assets/items/regional/drowned_coin.png' at thread -1
+Loading resource: res://assets/items/regional/drowned_gauntlets.png remapped: res://assets/items/regional/drowned_gauntlets.png
+Loading resource: res://.godot/imported/drowned_gauntlets.png-c42325a4d0bbff95869ef51ec38af3cd.ctex remapped: res://.godot/imported/drowned_gauntlets.png-c42325a4d0bbff95869ef51ec38af3cd.ctex
+Completed load for: 'res://assets/items/regional/drowned_gauntlets.png' remapped 'res://assets/items/regional/drowned_gauntlets.png' at thread -1
+Loading resource: res://assets/items/materials/azhar_sigil.png remapped: res://assets/items/materials/azhar_sigil.png
+Loading resource: res://.godot/imported/azhar_sigil.png-362f530e8917949db2a7426f9b8026c1.ctex remapped: res://.godot/imported/azhar_sigil.png-362f530e8917949db2a7426f9b8026c1.ctex
+Completed load for: 'res://assets/items/materials/azhar_sigil.png' remapped 'res://assets/items/materials/azhar_sigil.png' at thread -1
+Loading resource: res://assets/items/materials/black_pearl.png remapped: res://assets/items/materials/black_pearl.png
+Loading resource: res://.godot/imported/black_pearl.png-112dd8e481e24f3787b9b1ee89d888d3.ctex remapped: res://.godot/imported/black_pearl.png-112dd8e481e24f3787b9b1ee89d888d3.ctex
+Completed load for: 'res://assets/items/materials/black_pearl.png' remapped 'res://assets/items/materials/black_pearl.png' at thread -1
+Loading resource: res://assets/items/materials/hearth_core.png remapped: res://assets/items/materials/hearth_core.png
+Loading resource: res://.godot/imported/hearth_core.png-08936ebd9a10649073350e3ca362a347.ctex remapped: res://.godot/imported/hearth_core.png-08936ebd9a10649073350e3ca362a347.ctex
+Completed load for: 'res://assets/items/materials/hearth_core.png' remapped 'res://assets/items/materials/hearth_core.png' at thread -1
+Loading resource: res://assets/items/materials/leviathan_scale.png remapped: res://assets/items/materials/leviathan_scale.png
+Loading resource: res://.godot/imported/leviathan_scale.png-cab9da817dbdf069c68abc8db49b6a22.ctex remapped: res://.godot/imported/leviathan_scale.png-cab9da817dbdf069c68abc8db49b6a22.ctex
+Completed load for: 'res://assets/items/materials/leviathan_scale.png' remapped 'res://assets/items/materials/leviathan_scale.png' at thread -1
+Completed load for: 'res://ui/screens/character_sheet/character_sheet.gd' remapped 'res://ui/screens/character_sheet/character_sheet.gd' at thread -1
+Completed load for: 'res://ui/screens/character_sheet/character_sheet.tscn' remapped 'res://ui/screens/character_sheet/character_sheet.tscn' at thread -1
+Loading resource: res://ui/screens/character_menu/character_menu.tscn remapped: res://ui/screens/character_menu/character_menu.tscn
+Loading resource: res://ui/screens/character_menu/character_menu.gd remapped: res://ui/screens/character_menu/character_menu.gd
+Loading resource: res://ui/screens/equipment/equipment.tscn remapped: res://ui/screens/equipment/equipment.tscn
+Loading resource: res://ui/screens/equipment/equipment.gd remapped: res://ui/screens/equipment/equipment.gd
+Loading resource: res://assets/combat/backgrounds/twilight_plains_day.png remapped: res://assets/combat/backgrounds/twilight_plains_day.png
+Loading resource: res://.godot/imported/twilight_plains_day.png-0b3fa41c5b9794776e9acb88a5d42750.ctex remapped: res://.godot/imported/twilight_plains_day.png-0b3fa41c5b9794776e9acb88a5d42750.ctex
+Completed load for: 'res://assets/combat/backgrounds/twilight_plains_day.png' remapped 'res://assets/combat/backgrounds/twilight_plains_day.png' at thread -1
+Loading resource: res://assets/combat/backgrounds/twilight_plains_night.png remapped: res://assets/combat/backgrounds/twilight_plains_night.png
+Loading resource: res://.godot/imported/twilight_plains_night.png-97ac10af0aebae085e6c762e4e049a9f.ctex remapped: res://.godot/imported/twilight_plains_night.png-97ac10af0aebae085e6c762e4e049a9f.ctex
+Completed load for: 'res://assets/combat/backgrounds/twilight_plains_night.png' remapped 'res://assets/combat/backgrounds/twilight_plains_night.png' at thread -1
+Loading resource: res://assets/combat/backgrounds/black_forest_day.png remapped: res://assets/combat/backgrounds/black_forest_day.png
+Loading resource: res://.godot/imported/black_forest_day.png-5964b94d5a5b9842f2cab598e7325d04.ctex remapped: res://.godot/imported/black_forest_day.png-5964b94d5a5b9842f2cab598e7325d04.ctex
+Completed load for: 'res://assets/combat/backgrounds/black_forest_day.png' remapped 'res://assets/combat/backgrounds/black_forest_day.png' at thread -1
+Loading resource: res://assets/combat/backgrounds/black_forest_night.png remapped: res://assets/combat/backgrounds/black_forest_night.png
+Loading resource: res://.godot/imported/black_forest_night.png-01c34e0667446654d412350f6bf57542.ctex remapped: res://.godot/imported/black_forest_night.png-01c34e0667446654d412350f6bf57542.ctex
+Completed load for: 'res://assets/combat/backgrounds/black_forest_night.png' remapped 'res://assets/combat/backgrounds/black_forest_night.png' at thread -1
+Loading resource: res://assets/combat/backgrounds/silentwater_marshes_day.png remapped: res://assets/combat/backgrounds/silentwater_marshes_day.png
+Loading resource: res://.godot/imported/silentwater_marshes_day.png-4ee9238e7e81c780aa6b17f0dce1f3c3.ctex remapped: res://.godot/imported/silentwater_marshes_day.png-4ee9238e7e81c780aa6b17f0dce1f3c3.ctex
+Completed load for: 'res://assets/combat/backgrounds/silentwater_marshes_day.png' remapped 'res://assets/combat/backgrounds/silentwater_marshes_day.png' at thread -1
+Loading resource: res://assets/combat/backgrounds/silentwater_marshes_night.png remapped: res://assets/combat/backgrounds/silentwater_marshes_night.png
+Loading resource: res://.godot/imported/silentwater_marshes_night.png-3f554efc769c970736c2c3546f144fcb.ctex remapped: res://.godot/imported/silentwater_marshes_night.png-3f554efc769c970736c2c3546f144fcb.ctex
+Completed load for: 'res://assets/combat/backgrounds/silentwater_marshes_night.png' remapped 'res://assets/combat/backgrounds/silentwater_marshes_night.png' at thread -1
+Loading resource: res://assets/combat/backgrounds/ashen_borderlands_day.png remapped: res://assets/combat/backgrounds/ashen_borderlands_day.png
+Loading resource: res://.godot/imported/ashen_borderlands_day.png-9d2baf5d4aa3383c9d47da90da94e74b.ctex remapped: res://.godot/imported/ashen_borderlands_day.png-9d2baf5d4aa3383c9d47da90da94e74b.ctex
+Completed load for: 'res://assets/combat/backgrounds/ashen_borderlands_day.png' remapped 'res://assets/combat/backgrounds/ashen_borderlands_day.png' at thread -1
+Loading resource: res://assets/combat/backgrounds/ashen_borderlands_night.png remapped: res://assets/combat/backgrounds/ashen_borderlands_night.png
+Loading resource: res://.godot/imported/ashen_borderlands_night.png-3aa96360c69b64211a9d832d01472053.ctex remapped: res://.godot/imported/ashen_borderlands_night.png-3aa96360c69b64211a9d832d01472053.ctex
+Completed load for: 'res://assets/combat/backgrounds/ashen_borderlands_night.png' remapped 'res://assets/combat/backgrounds/ashen_borderlands_night.png' at thread -1
+Loading resource: res://assets/combat/backgrounds/ice_coast_day.png remapped: res://assets/combat/backgrounds/ice_coast_day.png
+Loading resource: res://.godot/imported/ice_coast_day.png-1ac4ee63bba7e77ff3f0cb4b812cbac9.ctex remapped: res://.godot/imported/ice_coast_day.png-1ac4ee63bba7e77ff3f0cb4b812cbac9.ctex
+Completed load for: 'res://assets/combat/backgrounds/ice_coast_day.png' remapped 'res://assets/combat/backgrounds/ice_coast_day.png' at thread -1
+Loading resource: res://assets/combat/backgrounds/ice_coast_night.png remapped: res://assets/combat/backgrounds/ice_coast_night.png
+Loading resource: res://.godot/imported/ice_coast_night.png-d9159c3a117079e0cd3850edc841cb5b.ctex remapped: res://.godot/imported/ice_coast_night.png-d9159c3a117079e0cd3850edc841cb5b.ctex
+Completed load for: 'res://assets/combat/backgrounds/ice_coast_night.png' remapped 'res://assets/combat/backgrounds/ice_coast_night.png' at thread -1
+Loading resource: res://assets/combat/enemies/wild_dog.png remapped: res://assets/combat/enemies/wild_dog.png
+Loading resource: res://.godot/imported/wild_dog.png-4bc6c91506f6f80f6a36c65384d73feb.ctex remapped: res://.godot/imported/wild_dog.png-4bc6c91506f6f80f6a36c65384d73feb.ctex
+Completed load for: 'res://assets/combat/enemies/wild_dog.png' remapped 'res://assets/combat/enemies/wild_dog.png' at thread -1
+Loading resource: res://assets/combat/enemies/slime.png remapped: res://assets/combat/enemies/slime.png
+Loading resource: res://.godot/imported/slime.png-6a946aa48d317a93bad04c19b9443f69.ctex remapped: res://.godot/imported/slime.png-6a946aa48d317a93bad04c19b9443f69.ctex
+Completed load for: 'res://assets/combat/enemies/slime.png' remapped 'res://assets/combat/enemies/slime.png' at thread -1
+Loading resource: res://assets/combat/enemies/wolf.png remapped: res://assets/combat/enemies/wolf.png
+Loading resource: res://.godot/imported/wolf.png-87dcfaf9ff91da2dcc77368c72a6de59.ctex remapped: res://.godot/imported/wolf.png-87dcfaf9ff91da2dcc77368c72a6de59.ctex
+Completed load for: 'res://assets/combat/enemies/wolf.png' remapped 'res://assets/combat/enemies/wolf.png' at thread -1
+Loading resource: res://assets/combat/enemies/boar.png remapped: res://assets/combat/enemies/boar.png
+Loading resource: res://.godot/imported/boar.png-ed542cab8e355cb6f78915585990dfcf.ctex remapped: res://.godot/imported/boar.png-ed542cab8e355cb6f78915585990dfcf.ctex
+Completed load for: 'res://assets/combat/enemies/boar.png' remapped 'res://assets/combat/enemies/boar.png' at thread -1
+Loading resource: res://assets/combat/enemies/bandit.png remapped: res://assets/combat/enemies/bandit.png
+Loading resource: res://.godot/imported/bandit.png-694ccc1b5fd7bd9ff96a28535adc7f78.ctex remapped: res://.godot/imported/bandit.png-694ccc1b5fd7bd9ff96a28535adc7f78.ctex
+Completed load for: 'res://assets/combat/enemies/bandit.png' remapped 'res://assets/combat/enemies/bandit.png' at thread -1
+Loading resource: res://assets/combat/enemies/cursed_scarecrow.png remapped: res://assets/combat/enemies/cursed_scarecrow.png
+Loading resource: res://.godot/imported/cursed_scarecrow.png-55b58f711b733aafee3ece1a1c58bf7c.ctex remapped: res://.godot/imported/cursed_scarecrow.png-55b58f711b733aafee3ece1a1c58bf7c.ctex
+Completed load for: 'res://assets/combat/enemies/cursed_scarecrow.png' remapped 'res://assets/combat/enemies/cursed_scarecrow.png' at thread -1
+Loading resource: res://assets/combat/enemies/plains_spirit.png remapped: res://assets/combat/enemies/plains_spirit.png
+Loading resource: res://.godot/imported/plains_spirit.png-556377d7a6ae69715b42a85233c63f41.ctex remapped: res://.godot/imported/plains_spirit.png-556377d7a6ae69715b42a85233c63f41.ctex
+Completed load for: 'res://assets/combat/enemies/plains_spirit.png' remapped 'res://assets/combat/enemies/plains_spirit.png' at thread -1
+Loading resource: res://assets/combat/enemies/night_guard.png remapped: res://assets/combat/enemies/night_guard.png
+Loading resource: res://.godot/imported/night_guard.png-64f953e9a1ba4d934b165d03bd088f98.ctex remapped: res://.godot/imported/night_guard.png-64f953e9a1ba4d934b165d03bd088f98.ctex
+Completed load for: 'res://assets/combat/enemies/night_guard.png' remapped 'res://assets/combat/enemies/night_guard.png' at thread -1
+Loading resource: res://assets/combat/enemies/hunter.png remapped: res://assets/combat/enemies/hunter.png
+Loading resource: res://.godot/imported/hunter.png-329136d6a6097a143bc9d75f8847f541.ctex remapped: res://.godot/imported/hunter.png-329136d6a6097a143bc9d75f8847f541.ctex
+Completed load for: 'res://assets/combat/enemies/hunter.png' remapped 'res://assets/combat/enemies/hunter.png' at thread -1
+Loading resource: res://assets/combat/enemies/nature_guardian.png remapped: res://assets/combat/enemies/nature_guardian.png
+Loading resource: res://.godot/imported/nature_guardian.png-6f4bd74a9ea3a71bf67195eff6579d26.ctex remapped: res://.godot/imported/nature_guardian.png-6f4bd74a9ea3a71bf67195eff6579d26.ctex
+Completed load for: 'res://assets/combat/enemies/nature_guardian.png' remapped 'res://assets/combat/enemies/nature_guardian.png' at thread -1
+Loading resource: res://assets/combat/enemies/venom_spider.png remapped: res://assets/combat/enemies/venom_spider.png
+Loading resource: res://.godot/imported/venom_spider.png-c6495a46731440fed786669018140b48.ctex remapped: res://.godot/imported/venom_spider.png-c6495a46731440fed786669018140b48.ctex
+Completed load for: 'res://assets/combat/enemies/venom_spider.png' remapped 'res://assets/combat/enemies/venom_spider.png' at thread -1
+Loading resource: res://assets/combat/enemies/forest_cultist.png remapped: res://assets/combat/enemies/forest_cultist.png
+Loading resource: res://.godot/imported/forest_cultist.png-2af4272f13232df037adb2550e11247c.ctex remapped: res://.godot/imported/forest_cultist.png-2af4272f13232df037adb2550e11247c.ctex
+Completed load for: 'res://assets/combat/enemies/forest_cultist.png' remapped 'res://assets/combat/enemies/forest_cultist.png' at thread -1
+Loading resource: res://assets/combat/enemies/rotting_knight.png remapped: res://assets/combat/enemies/rotting_knight.png
+Loading resource: res://.godot/imported/rotting_knight.png-7e99e8d4462a1383a12f711f441195e4.ctex remapped: res://.godot/imported/rotting_knight.png-7e99e8d4462a1383a12f711f441195e4.ctex
+Completed load for: 'res://assets/combat/enemies/rotting_knight.png' remapped 'res://assets/combat/enemies/rotting_knight.png' at thread -1
+Loading resource: res://assets/combat/enemies/corrupted_bear.png remapped: res://assets/combat/enemies/corrupted_bear.png
+Loading resource: res://.godot/imported/corrupted_bear.png-931fd423af30c0aae25228217416ee81.ctex remapped: res://.godot/imported/corrupted_bear.png-931fd423af30c0aae25228217416ee81.ctex
+Completed load for: 'res://assets/combat/enemies/corrupted_bear.png' remapped 'res://assets/combat/enemies/corrupted_bear.png' at thread -1
+Loading resource: res://assets/combat/enemies/black_hart.png remapped: res://assets/combat/enemies/black_hart.png
+Loading resource: res://.godot/imported/black_hart.png-1db0f875af7ef86c42647af1c9432191.ctex remapped: res://.godot/imported/black_hart.png-1db0f875af7ef86c42647af1c9432191.ctex
+Completed load for: 'res://assets/combat/enemies/black_hart.png' remapped 'res://assets/combat/enemies/black_hart.png' at thread -1
+Loading resource: res://assets/combat/enemies/gallows_wraith.png remapped: res://assets/combat/enemies/gallows_wraith.png
+Loading resource: res://.godot/imported/gallows_wraith.png-61abb7a5f836cb767139b4feee728bd8.ctex remapped: res://.godot/imported/gallows_wraith.png-61abb7a5f836cb767139b4feee728bd8.ctex
+Completed load for: 'res://assets/combat/enemies/gallows_wraith.png' remapped 'res://assets/combat/enemies/gallows_wraith.png' at thread -1
+Loading resource: res://assets/combat/enemies/blackwood_executioner.png remapped: res://assets/combat/enemies/blackwood_executioner.png
+Loading resource: res://.godot/imported/blackwood_executioner.png-d10c92f25f7ad12380e88266e4865567.ctex remapped: res://.godot/imported/blackwood_executioner.png-d10c92f25f7ad12380e88266e4865567.ctex
+Completed load for: 'res://assets/combat/enemies/blackwood_executioner.png' remapped 'res://assets/combat/enemies/blackwood_executioner.png' at thread -1
+Loading resource: res://assets/combat/enemies/bog_crawler.png remapped: res://assets/combat/enemies/bog_crawler.png
+Loading resource: res://.godot/imported/bog_crawler.png-d27f5596ba1fafa5cf3ea5ef71464dae.ctex remapped: res://.godot/imported/bog_crawler.png-d27f5596ba1fafa5cf3ea5ef71464dae.ctex
+Completed load for: 'res://assets/combat/enemies/bog_crawler.png' remapped 'res://assets/combat/enemies/bog_crawler.png' at thread -1
+Loading resource: res://assets/combat/enemies/drowned_dead.png remapped: res://assets/combat/enemies/drowned_dead.png
+Loading resource: res://.godot/imported/drowned_dead.png-f28899b82828e680aead08c19d55a9d0.ctex remapped: res://.godot/imported/drowned_dead.png-f28899b82828e680aead08c19d55a9d0.ctex
+Completed load for: 'res://assets/combat/enemies/drowned_dead.png' remapped 'res://assets/combat/enemies/drowned_dead.png' at thread -1
+Loading resource: res://assets/combat/enemies/swamp_witch.png remapped: res://assets/combat/enemies/swamp_witch.png
+Loading resource: res://.godot/imported/swamp_witch.png-b08f05e66652623daaa1658a51c46887.ctex remapped: res://.godot/imported/swamp_witch.png-b08f05e66652623daaa1658a51c46887.ctex
+Completed load for: 'res://assets/combat/enemies/swamp_witch.png' remapped 'res://assets/combat/enemies/swamp_witch.png' at thread -1
+Loading resource: res://assets/combat/enemies/bone_crocodile.png remapped: res://assets/combat/enemies/bone_crocodile.png
+Loading resource: res://.godot/imported/bone_crocodile.png-f410dfbb292c30be6f7f24c75ffe26b1.ctex remapped: res://.godot/imported/bone_crocodile.png-f410dfbb292c30be6f7f24c75ffe26b1.ctex
+Completed load for: 'res://assets/combat/enemies/bone_crocodile.png' remapped 'res://assets/combat/enemies/bone_crocodile.png' at thread -1
+Loading resource: res://assets/combat/enemies/mist_walker.png remapped: res://assets/combat/enemies/mist_walker.png
+Loading resource: res://.godot/imported/mist_walker.png-21c3caee86b528fda2b93e32bd3d18bf.ctex remapped: res://.godot/imported/mist_walker.png-21c3caee86b528fda2b93e32bd3d18bf.ctex
+Completed load for: 'res://assets/combat/enemies/mist_walker.png' remapped 'res://assets/combat/enemies/mist_walker.png' at thread -1
+Loading resource: res://assets/combat/enemies/sunken_knight_anime.png remapped: res://assets/combat/enemies/sunken_knight_anime.png
+Loading resource: res://.godot/imported/sunken_knight_anime.png-4ce40d3e22bc1f616b7734fe49950df2.ctex remapped: res://.godot/imported/sunken_knight_anime.png-4ce40d3e22bc1f616b7734fe49950df2.ctex
+Completed load for: 'res://assets/combat/enemies/sunken_knight_anime.png' remapped 'res://assets/combat/enemies/sunken_knight_anime.png' at thread -1
+Loading resource: res://assets/combat/enemies/drowned_acolyte.png remapped: res://assets/combat/enemies/drowned_acolyte.png
+Loading resource: res://.godot/imported/drowned_acolyte.png-f82f8f2b3ef3c08130746816114bf826.ctex remapped: res://.godot/imported/drowned_acolyte.png-f82f8f2b3ef3c08130746816114bf826.ctex
+Completed load for: 'res://assets/combat/enemies/drowned_acolyte.png' remapped 'res://assets/combat/enemies/drowned_acolyte.png' at thread -1
+Loading resource: res://assets/combat/enemies/drowned_priestess.png remapped: res://assets/combat/enemies/drowned_priestess.png
+Loading resource: res://.godot/imported/drowned_priestess.png-65e3e791859d55bb73d0615d24e545b2.ctex remapped: res://.godot/imported/drowned_priestess.png-65e3e791859d55bb73d0615d24e545b2.ctex
+Completed load for: 'res://assets/combat/enemies/drowned_priestess.png' remapped 'res://assets/combat/enemies/drowned_priestess.png' at thread -1
+Loading resource: res://assets/combat/enemies/iron_gate_guardian.png remapped: res://assets/combat/enemies/iron_gate_guardian.png
+Loading resource: res://.godot/imported/iron_gate_guardian.png-67a9c6c31d1abc7ae922a687d972428f.ctex remapped: res://.godot/imported/iron_gate_guardian.png-67a9c6c31d1abc7ae922a687d972428f.ctex
+Completed load for: 'res://assets/combat/enemies/iron_gate_guardian.png' remapped 'res://assets/combat/enemies/iron_gate_guardian.png' at thread -1
+Loading resource: res://assets/combat/enemies/crypt_warden.png remapped: res://assets/combat/enemies/crypt_warden.png
+Loading resource: res://.godot/imported/crypt_warden.png-8381f1303c16098cfdd15c3245561461.ctex remapped: res://.godot/imported/crypt_warden.png-8381f1303c16098cfdd15c3245561461.ctex
+Completed load for: 'res://assets/combat/enemies/crypt_warden.png' remapped 'res://assets/combat/enemies/crypt_warden.png' at thread -1
+Loading resource: res://assets/combat/enemies/order_grandmaster.png remapped: res://assets/combat/enemies/order_grandmaster.png
+Loading resource: res://.godot/imported/order_grandmaster.png-2a2f8d4f93354ae5a3ef5f7c654135f8.ctex remapped: res://.godot/imported/order_grandmaster.png-2a2f8d4f93354ae5a3ef5f7c654135f8.ctex
+Completed load for: 'res://assets/combat/enemies/order_grandmaster.png' remapped 'res://assets/combat/enemies/order_grandmaster.png' at thread -1
+Loading resource: res://assets/combat/enemies/drowned_mother.png remapped: res://assets/combat/enemies/drowned_mother.png
+Loading resource: res://.godot/imported/drowned_mother.png-d76ca8a446303e4f009a6b970490748a.ctex remapped: res://.godot/imported/drowned_mother.png-d76ca8a446303e4f009a6b970490748a.ctex
+Completed load for: 'res://assets/combat/enemies/drowned_mother.png' remapped 'res://assets/combat/enemies/drowned_mother.png' at thread -1
+Loading resource: res://assets/combat/enemies/sand_golem.png remapped: res://assets/combat/enemies/sand_golem.png
+Loading resource: res://.godot/imported/sand_golem.png-2a752b95f5798e322e1e116d21cab714.ctex remapped: res://.godot/imported/sand_golem.png-2a752b95f5798e322e1e116d21cab714.ctex
+Completed load for: 'res://assets/combat/enemies/sand_golem.png' remapped 'res://assets/combat/enemies/sand_golem.png' at thread -1
+Loading resource: res://assets/combat/enemies/desert_harpy.png remapped: res://assets/combat/enemies/desert_harpy.png
+Loading resource: res://.godot/imported/desert_harpy.png-807efe9112e835672dee03bd278e4f45.ctex remapped: res://.godot/imported/desert_harpy.png-807efe9112e835672dee03bd278e4f45.ctex
+Completed load for: 'res://assets/combat/enemies/desert_harpy.png' remapped 'res://assets/combat/enemies/desert_harpy.png' at thread -1
+Loading resource: res://assets/combat/enemies/desert_wanderer.png remapped: res://assets/combat/enemies/desert_wanderer.png
+Loading resource: res://.godot/imported/desert_wanderer.png-63f785cf9815266628847fec2142a3bf.ctex remapped: res://.godot/imported/desert_wanderer.png-63f785cf9815266628847fec2142a3bf.ctex
+Completed load for: 'res://assets/combat/enemies/desert_wanderer.png' remapped 'res://assets/combat/enemies/desert_wanderer.png' at thread -1
+Loading resource: res://assets/combat/enemies/boneburner.png remapped: res://assets/combat/enemies/boneburner.png
+Loading resource: res://.godot/imported/boneburner.png-c349d40a98767bc2a01860ce3dfa8d0f.ctex remapped: res://.godot/imported/boneburner.png-c349d40a98767bc2a01860ce3dfa8d0f.ctex
+Completed load for: 'res://assets/combat/enemies/boneburner.png' remapped 'res://assets/combat/enemies/boneburner.png' at thread -1
+Loading resource: res://assets/combat/enemies/red_salamander.png remapped: res://assets/combat/enemies/red_salamander.png
+Loading resource: res://.godot/imported/red_salamander.png-8556f54499eac45141aa01a525b258ba.ctex remapped: res://.godot/imported/red_salamander.png-8556f54499eac45141aa01a525b258ba.ctex
+Completed load for: 'res://assets/combat/enemies/red_salamander.png' remapped 'res://assets/combat/enemies/red_salamander.png' at thread -1
+Loading resource: res://assets/combat/enemies/hearth_devourer.png remapped: res://assets/combat/enemies/hearth_devourer.png
+Loading resource: res://.godot/imported/hearth_devourer.png-64f5146b0a26afa3e437302414dd385b.ctex remapped: res://.godot/imported/hearth_devourer.png-64f5146b0a26afa3e437302414dd385b.ctex
+Completed load for: 'res://assets/combat/enemies/hearth_devourer.png' remapped 'res://assets/combat/enemies/hearth_devourer.png' at thread -1
+Loading resource: res://assets/combat/enemies/azhar.png remapped: res://assets/combat/enemies/azhar.png
+Loading resource: res://.godot/imported/azhar.png-fe1a5712174d45849c895f5f9342b1b2.ctex remapped: res://.godot/imported/azhar.png-fe1a5712174d45849c895f5f9342b1b2.ctex
+Completed load for: 'res://assets/combat/enemies/azhar.png' remapped 'res://assets/combat/enemies/azhar.png' at thread -1
+Loading resource: res://assets/combat/enemies/frozen_castaway.png remapped: res://assets/combat/enemies/frozen_castaway.png
+Loading resource: res://.godot/imported/frozen_castaway.png-8cfaacd5abb12801a2adf0f5ceeefc46.ctex remapped: res://.godot/imported/frozen_castaway.png-8cfaacd5abb12801a2adf0f5ceeefc46.ctex
+Completed load for: 'res://assets/combat/enemies/frozen_castaway.png' remapped 'res://assets/combat/enemies/frozen_castaway.png' at thread -1
+Loading resource: res://assets/combat/enemies/black_sea_siren.png remapped: res://assets/combat/enemies/black_sea_siren.png
+Loading resource: res://.godot/imported/black_sea_siren.png-6f9f234ad9529ced05f8534a1f5e10db.ctex remapped: res://.godot/imported/black_sea_siren.png-6f9f234ad9529ced05f8534a1f5e10db.ctex
+Completed load for: 'res://assets/combat/enemies/black_sea_siren.png' remapped 'res://assets/combat/enemies/black_sea_siren.png' at thread -1
+Loading resource: res://assets/combat/enemies/ghost_ship_captain.png remapped: res://assets/combat/enemies/ghost_ship_captain.png
+Loading resource: res://.godot/imported/ghost_ship_captain.png-c432b414c2d0035b29934a4ef65e71fc.ctex remapped: res://.godot/imported/ghost_ship_captain.png-c432b414c2d0035b29934a4ef65e71fc.ctex
+Completed load for: 'res://assets/combat/enemies/ghost_ship_captain.png' remapped 'res://assets/combat/enemies/ghost_ship_captain.png' at thread -1
+Loading resource: res://assets/combat/enemies/ice_bear.png remapped: res://assets/combat/enemies/ice_bear.png
+Loading resource: res://.godot/imported/ice_bear.png-036d3151aced4a9ecb45dbb3052d6c11.ctex remapped: res://.godot/imported/ice_bear.png-036d3151aced4a9ecb45dbb3052d6c11.ctex
+Completed load for: 'res://assets/combat/enemies/ice_bear.png' remapped 'res://assets/combat/enemies/ice_bear.png' at thread -1
+Loading resource: res://assets/combat/enemies/snow_griffin.png remapped: res://assets/combat/enemies/snow_griffin.png
+Loading resource: res://.godot/imported/snow_griffin.png-ba37c7484e5727e994dd970efd9b8749.ctex remapped: res://.godot/imported/snow_griffin.png-ba37c7484e5727e994dd970efd9b8749.ctex
+Completed load for: 'res://assets/combat/enemies/snow_griffin.png' remapped 'res://assets/combat/enemies/snow_griffin.png' at thread -1
+Loading resource: res://assets/combat/enemies/ice_crab.png remapped: res://assets/combat/enemies/ice_crab.png
+Loading resource: res://.godot/imported/ice_crab.png-4bac900ccf5d7877ce73e25d0194423c.ctex remapped: res://.godot/imported/ice_crab.png-4bac900ccf5d7877ce73e25d0194423c.ctex
+Completed load for: 'res://assets/combat/enemies/ice_crab.png' remapped 'res://assets/combat/enemies/ice_crab.png' at thread -1
+Loading resource: res://assets/combat/enemies/leviathan_north.png remapped: res://assets/combat/enemies/leviathan_north.png
+Loading resource: res://.godot/imported/leviathan_north.png-8b570a28f983bc40e66d6b3bca270e5c.ctex remapped: res://.godot/imported/leviathan_north.png-8b570a28f983bc40e66d6b3bca270e5c.ctex
+Completed load for: 'res://assets/combat/enemies/leviathan_north.png' remapped 'res://assets/combat/enemies/leviathan_north.png' at thread -1
+Loading resource: res://assets/combat/heroes/seeker_female.png remapped: res://assets/combat/heroes/seeker_female.png
+Loading resource: res://.godot/imported/seeker_female.png-4f056654580bc28ed66002a0abb5b823.ctex remapped: res://.godot/imported/seeker_female.png-4f056654580bc28ed66002a0abb5b823.ctex
+Completed load for: 'res://assets/combat/heroes/seeker_female.png' remapped 'res://assets/combat/heroes/seeker_female.png' at thread -1
+Loading resource: res://assets/combat/heroes/seeker_male.png remapped: res://assets/combat/heroes/seeker_male.png
+Loading resource: res://.godot/imported/seeker_male.png-ec9116700381eae882da6eac51d76a01.ctex remapped: res://.godot/imported/seeker_male.png-ec9116700381eae882da6eac51d76a01.ctex
+Completed load for: 'res://assets/combat/heroes/seeker_male.png' remapped 'res://assets/combat/heroes/seeker_male.png' at thread -1
+Loading resource: res://assets/combat/heroes/warrior.png remapped: res://assets/combat/heroes/warrior.png
+Loading resource: res://.godot/imported/warrior.png-531132e0cf63290eaa4890b8fbf7e685.ctex remapped: res://.godot/imported/warrior.png-531132e0cf63290eaa4890b8fbf7e685.ctex
+Completed load for: 'res://assets/combat/heroes/warrior.png' remapped 'res://assets/combat/heroes/warrior.png' at thread -1
+Loading resource: res://assets/combat/heroes/warrior_female.png remapped: res://assets/combat/heroes/warrior_female.png
+Loading resource: res://.godot/imported/warrior_female.png-cbd5709c87158c5ad6f5f1275d3f0c49.ctex remapped: res://.godot/imported/warrior_female.png-cbd5709c87158c5ad6f5f1275d3f0c49.ctex
+Completed load for: 'res://assets/combat/heroes/warrior_female.png' remapped 'res://assets/combat/heroes/warrior_female.png' at thread -1
+Loading resource: res://assets/combat/heroes/hunter_male.png remapped: res://assets/combat/heroes/hunter_male.png
+Loading resource: res://.godot/imported/hunter_male.png-8649ff587d5799fbfced6f18b3d3178f.ctex remapped: res://.godot/imported/hunter_male.png-8649ff587d5799fbfced6f18b3d3178f.ctex
+Completed load for: 'res://assets/combat/heroes/hunter_male.png' remapped 'res://assets/combat/heroes/hunter_male.png' at thread -1
+Loading resource: res://assets/combat/heroes/hunter_female.png remapped: res://assets/combat/heroes/hunter_female.png
+Loading resource: res://.godot/imported/hunter_female.png-cf9f3ebb2c126dd5226b10866448264d.ctex remapped: res://.godot/imported/hunter_female.png-cf9f3ebb2c126dd5226b10866448264d.ctex
+Completed load for: 'res://assets/combat/heroes/hunter_female.png' remapped 'res://assets/combat/heroes/hunter_female.png' at thread -1
+Loading resource: res://assets/combat/heroes/mage_male.png remapped: res://assets/combat/heroes/mage_male.png
+Loading resource: res://.godot/imported/mage_male.png-de21f58c1fbaf9035acc48d0705708f5.ctex remapped: res://.godot/imported/mage_male.png-de21f58c1fbaf9035acc48d0705708f5.ctex
+Completed load for: 'res://assets/combat/heroes/mage_male.png' remapped 'res://assets/combat/heroes/mage_male.png' at thread -1
+Loading resource: res://assets/combat/heroes/mage_female.png remapped: res://assets/combat/heroes/mage_female.png
+Loading resource: res://.godot/imported/mage_female.png-e7e0263d710a8b95c8a12e311e9562cd.ctex remapped: res://.godot/imported/mage_female.png-e7e0263d710a8b95c8a12e311e9562cd.ctex
+Completed load for: 'res://assets/combat/heroes/mage_female.png' remapped 'res://assets/combat/heroes/mage_female.png' at thread -1
+Loading resource: res://assets/combat/heroes/pierrot.png remapped: res://assets/combat/heroes/pierrot.png
+Loading resource: res://.godot/imported/pierrot.png-821cd39b58e0d1d1d6fb084d2a83c7bd.ctex remapped: res://.godot/imported/pierrot.png-821cd39b58e0d1d1d6fb084d2a83c7bd.ctex
+Completed load for: 'res://assets/combat/heroes/pierrot.png' remapped 'res://assets/combat/heroes/pierrot.png' at thread -1
+Loading resource: res://assets/combat/heroes/pierrot_male.png remapped: res://assets/combat/heroes/pierrot_male.png
+Loading resource: res://.godot/imported/pierrot_male.png-377f70710d5674338f742e0dec851228.ctex remapped: res://.godot/imported/pierrot_male.png-377f70710d5674338f742e0dec851228.ctex
+Completed load for: 'res://assets/combat/heroes/pierrot_male.png' remapped 'res://assets/combat/heroes/pierrot_male.png' at thread -1
+Loading resource: res://assets/combat/heroes/warrior_heavy_knight.png remapped: res://assets/combat/heroes/warrior_heavy_knight.png
+Loading resource: res://.godot/imported/warrior_heavy_knight.png-5d5a568343202bbbc32eedf14667b5c4.ctex remapped: res://.godot/imported/warrior_heavy_knight.png-5d5a568343202bbbc32eedf14667b5c4.ctex
+Completed load for: 'res://assets/combat/heroes/warrior_heavy_knight.png' remapped 'res://assets/combat/heroes/warrior_heavy_knight.png' at thread -1
+Loading resource: res://assets/combat/backgrounds/dungeons/sunken_order_crypt/sunken_vestibule.png remapped: res://assets/combat/backgrounds/dungeons/sunken_order_crypt/sunken_vestibule.png
+Loading resource: res://.godot/imported/sunken_vestibule.png-8023dfd8d25cc106fb20bb7b00ca5099.ctex remapped: res://.godot/imported/sunken_vestibule.png-8023dfd8d25cc106fb20bb7b00ca5099.ctex
+Completed load for: 'res://assets/combat/backgrounds/dungeons/sunken_order_crypt/sunken_vestibule.png' remapped 'res://assets/combat/backgrounds/dungeons/sunken_order_crypt/sunken_vestibule.png' at thread -1
+Loading resource: res://assets/combat/backgrounds/dungeons/sunken_order_crypt/seal_corridor.png remapped: res://assets/combat/backgrounds/dungeons/sunken_order_crypt/seal_corridor.png
+Loading resource: res://.godot/imported/seal_corridor.png-bc94bc7327ee82dc8d55ff4f9a7ffb9c.ctex remapped: res://.godot/imported/seal_corridor.png-bc94bc7327ee82dc8d55ff4f9a7ffb9c.ctex
+Completed load for: 'res://assets/combat/backgrounds/dungeons/sunken_order_crypt/seal_corridor.png' remapped 'res://assets/combat/backgrounds/dungeons/sunken_order_crypt/seal_corridor.png' at thread -1
+Loading resource: res://assets/combat/backgrounds/dungeons/sunken_order_crypt/drowned_gallery.png remapped: res://assets/combat/backgrounds/dungeons/sunken_order_crypt/drowned_gallery.png
+Loading resource: res://.godot/imported/drowned_gallery.png-7584614ff33b2683d1d7ed4a3c90ea87.ctex remapped: res://.godot/imported/drowned_gallery.png-7584614ff33b2683d1d7ed4a3c90ea87.ctex
+Completed load for: 'res://assets/combat/backgrounds/dungeons/sunken_order_crypt/drowned_gallery.png' remapped 'res://assets/combat/backgrounds/dungeons/sunken_order_crypt/drowned_gallery.png' at thread -1
+Loading resource: res://assets/combat/backgrounds/dungeons/sunken_order_crypt/sunken_chapel.png remapped: res://assets/combat/backgrounds/dungeons/sunken_order_crypt/sunken_chapel.png
+Loading resource: res://.godot/imported/sunken_chapel.png-1777d50e7357b752bd16f6aa4982c340.ctex remapped: res://.godot/imported/sunken_chapel.png-1777d50e7357b752bd16f6aa4982c340.ctex
+Completed load for: 'res://assets/combat/backgrounds/dungeons/sunken_order_crypt/sunken_chapel.png' remapped 'res://assets/combat/backgrounds/dungeons/sunken_order_crypt/sunken_chapel.png' at thread -1
+Loading resource: res://assets/combat/backgrounds/dungeons/sunken_order_crypt/chain_hall.png remapped: res://assets/combat/backgrounds/dungeons/sunken_order_crypt/chain_hall.png
+Loading resource: res://.godot/imported/chain_hall.png-678b9200ae9a1bad22e534a9aadb83d5.ctex remapped: res://.godot/imported/chain_hall.png-678b9200ae9a1bad22e534a9aadb83d5.ctex
+Completed load for: 'res://assets/combat/backgrounds/dungeons/sunken_order_crypt/chain_hall.png' remapped 'res://assets/combat/backgrounds/dungeons/sunken_order_crypt/chain_hall.png' at thread -1
+Loading resource: res://assets/combat/backgrounds/dungeons/sunken_order_crypt/grandmaster_gate.png remapped: res://assets/combat/backgrounds/dungeons/sunken_order_crypt/grandmaster_gate.png
+Loading resource: res://.godot/imported/grandmaster_gate.png-5d23796faa5bffd556dad4cf85b5859a.ctex remapped: res://.godot/imported/grandmaster_gate.png-5d23796faa5bffd556dad4cf85b5859a.ctex
+Completed load for: 'res://assets/combat/backgrounds/dungeons/sunken_order_crypt/grandmaster_gate.png' remapped 'res://assets/combat/backgrounds/dungeons/sunken_order_crypt/grandmaster_gate.png' at thread -1
+Loading resource: res://data/skills/power_slash.tres remapped: res://data/skills/power_slash.tres
+Loading resource: res://assets/skills/warrior/power_slash.png remapped: res://assets/skills/warrior/power_slash.png
+Loading resource: res://.godot/imported/power_slash.png-c7992af8ddf54be7fd86008c9bd9ab01.ctex remapped: res://.godot/imported/power_slash.png-c7992af8ddf54be7fd86008c9bd9ab01.ctex
+Completed load for: 'res://assets/skills/warrior/power_slash.png' remapped 'res://assets/skills/warrior/power_slash.png' at thread -1
+Completed load for: 'res://data/skills/power_slash.tres' remapped 'res://data/skills/power_slash.tres' at thread -1
+Loading resource: res://data/skills/armor_break.tres remapped: res://data/skills/armor_break.tres
+Loading resource: res://assets/skills/warrior/armor_break.png remapped: res://assets/skills/warrior/armor_break.png
+Loading resource: res://.godot/imported/armor_break.png-1286ec50870d4e48c4712df45116d65c.ctex remapped: res://.godot/imported/armor_break.png-1286ec50870d4e48c4712df45116d65c.ctex
+Completed load for: 'res://assets/skills/warrior/armor_break.png' remapped 'res://assets/skills/warrior/armor_break.png' at thread -1
+Completed load for: 'res://data/skills/armor_break.tres' remapped 'res://data/skills/armor_break.tres' at thread -1
+Loading resource: res://data/skills/defensive_stance.tres remapped: res://data/skills/defensive_stance.tres
+Loading resource: res://assets/skills/warrior/defensive_stance.png remapped: res://assets/skills/warrior/defensive_stance.png
+Loading resource: res://.godot/imported/defensive_stance.png-7b9916f70fe5944e0b9a8cafaa2df3bc.ctex remapped: res://.godot/imported/defensive_stance.png-7b9916f70fe5944e0b9a8cafaa2df3bc.ctex
+Completed load for: 'res://assets/skills/warrior/defensive_stance.png' remapped 'res://assets/skills/warrior/defensive_stance.png' at thread -1
+Completed load for: 'res://data/skills/defensive_stance.tres' remapped 'res://data/skills/defensive_stance.tres' at thread -1
+Loading resource: res://data/skills/blood_strike.tres remapped: res://data/skills/blood_strike.tres
+Loading resource: res://assets/skills/warrior/blood_strike.png remapped: res://assets/skills/warrior/blood_strike.png
+Loading resource: res://.godot/imported/blood_strike.png-3dbba1837035726e97146ed5a86f115f.ctex remapped: res://.godot/imported/blood_strike.png-3dbba1837035726e97146ed5a86f115f.ctex
+Completed load for: 'res://assets/skills/warrior/blood_strike.png' remapped 'res://assets/skills/warrior/blood_strike.png' at thread -1
+Completed load for: 'res://data/skills/blood_strike.tres' remapped 'res://data/skills/blood_strike.tres' at thread -1
+Loading resource: res://data/skills/shield_bash.tres remapped: res://data/skills/shield_bash.tres
+Loading resource: res://assets/skills/warrior/shield_bash.png remapped: res://assets/skills/warrior/shield_bash.png
+Loading resource: res://.godot/imported/shield_bash.png-7beab43dec1b71da8dfef273ed7c3797.ctex remapped: res://.godot/imported/shield_bash.png-7beab43dec1b71da8dfef273ed7c3797.ctex
+Completed load for: 'res://assets/skills/warrior/shield_bash.png' remapped 'res://assets/skills/warrior/shield_bash.png' at thread -1
+Completed load for: 'res://data/skills/shield_bash.tres' remapped 'res://data/skills/shield_bash.tres' at thread -1
+Loading resource: res://data/skills/provoke.tres remapped: res://data/skills/provoke.tres
+Loading resource: res://assets/skills/warrior/provoke.png remapped: res://assets/skills/warrior/provoke.png
+Loading resource: res://.godot/imported/provoke.png-ce8c7fb360fb35709983d9fc71a08b93.ctex remapped: res://.godot/imported/provoke.png-ce8c7fb360fb35709983d9fc71a08b93.ctex
+Completed load for: 'res://assets/skills/warrior/provoke.png' remapped 'res://assets/skills/warrior/provoke.png' at thread -1
+Completed load for: 'res://data/skills/provoke.tres' remapped 'res://data/skills/provoke.tres' at thread -1
+Loading resource: res://data/skills/precise_shot.tres remapped: res://data/skills/precise_shot.tres
+Loading resource: res://assets/skills/hunter/precise_shot.png remapped: res://assets/skills/hunter/precise_shot.png
+Loading resource: res://.godot/imported/precise_shot.png-cd6486a4d37d97d5119d4f396a5d5d02.ctex remapped: res://.godot/imported/precise_shot.png-cd6486a4d37d97d5119d4f396a5d5d02.ctex
+Completed load for: 'res://assets/skills/hunter/precise_shot.png' remapped 'res://assets/skills/hunter/precise_shot.png' at thread -1
+Completed load for: 'res://data/skills/precise_shot.tres' remapped 'res://data/skills/precise_shot.tres' at thread -1
+Loading resource: res://data/skills/bleeding_shot.tres remapped: res://data/skills/bleeding_shot.tres
+Loading resource: res://assets/skills/hunter/bleeding_shot.png remapped: res://assets/skills/hunter/bleeding_shot.png
+Loading resource: res://.godot/imported/bleeding_shot.png-424a968db6c512dfb04df0c073acb88a.ctex remapped: res://.godot/imported/bleeding_shot.png-424a968db6c512dfb04df0c073acb88a.ctex
+Completed load for: 'res://assets/skills/hunter/bleeding_shot.png' remapped 'res://assets/skills/hunter/bleeding_shot.png' at thread -1
+Completed load for: 'res://data/skills/bleeding_shot.tres' remapped 'res://data/skills/bleeding_shot.tres' at thread -1
+Loading resource: res://data/skills/shadow_step.tres remapped: res://data/skills/shadow_step.tres
+Loading resource: res://assets/skills/hunter/shadow_step.png remapped: res://assets/skills/hunter/shadow_step.png
+Loading resource: res://.godot/imported/shadow_step.png-6dd65ae3f4ce6738f5cf52b2abc6003d.ctex remapped: res://.godot/imported/shadow_step.png-6dd65ae3f4ce6738f5cf52b2abc6003d.ctex
+Completed load for: 'res://assets/skills/hunter/shadow_step.png' remapped 'res://assets/skills/hunter/shadow_step.png' at thread -1
+Completed load for: 'res://data/skills/shadow_step.tres' remapped 'res://data/skills/shadow_step.tres' at thread -1
+Loading resource: res://data/skills/double_shot.tres remapped: res://data/skills/double_shot.tres
+Loading resource: res://assets/skills/hunter/double_shot.png remapped: res://assets/skills/hunter/double_shot.png
+Loading resource: res://.godot/imported/double_shot.png-3306f47153b570e25a76ca2efac2ef01.ctex remapped: res://.godot/imported/double_shot.png-3306f47153b570e25a76ca2efac2ef01.ctex
+Completed load for: 'res://assets/skills/hunter/double_shot.png' remapped 'res://assets/skills/hunter/double_shot.png' at thread -1
+Completed load for: 'res://data/skills/double_shot.tres' remapped 'res://data/skills/double_shot.tres' at thread -1
+Loading resource: res://data/skills/piercing_arrow.tres remapped: res://data/skills/piercing_arrow.tres
+Loading resource: res://assets/skills/hunter/piercing_arrow.png remapped: res://assets/skills/hunter/piercing_arrow.png
+Loading resource: res://.godot/imported/piercing_arrow.png-f21df0933dc656de0c1b3b0fac59bcfe.ctex remapped: res://.godot/imported/piercing_arrow.png-f21df0933dc656de0c1b3b0fac59bcfe.ctex
+Completed load for: 'res://assets/skills/hunter/piercing_arrow.png' remapped 'res://assets/skills/hunter/piercing_arrow.png' at thread -1
+Completed load for: 'res://data/skills/piercing_arrow.tres' remapped 'res://data/skills/piercing_arrow.tres' at thread -1
+Loading resource: res://data/skills/frost_arrow.tres remapped: res://data/skills/frost_arrow.tres
+Loading resource: res://assets/skills/hunter/frost_arrow.png remapped: res://assets/skills/hunter/frost_arrow.png
+Loading resource: res://.godot/imported/frost_arrow.png-752b61bb8e4014b3a8557f3a38baddf3.ctex remapped: res://.godot/imported/frost_arrow.png-752b61bb8e4014b3a8557f3a38baddf3.ctex
+Completed load for: 'res://assets/skills/hunter/frost_arrow.png' remapped 'res://assets/skills/hunter/frost_arrow.png' at thread -1
+Completed load for: 'res://data/skills/frost_arrow.tres' remapped 'res://data/skills/frost_arrow.tres' at thread -1
+Loading resource: res://data/skills/explosive_arrow.tres remapped: res://data/skills/explosive_arrow.tres
+Loading resource: res://assets/skills/hunter/explosive_arrow.png remapped: res://assets/skills/hunter/explosive_arrow.png
+Loading resource: res://.godot/imported/explosive_arrow.png-558186c799214393a88d96ff1de79bbf.ctex remapped: res://.godot/imported/explosive_arrow.png-558186c799214393a88d96ff1de79bbf.ctex
+Completed load for: 'res://assets/skills/hunter/explosive_arrow.png' remapped 'res://assets/skills/hunter/explosive_arrow.png' at thread -1
+Completed load for: 'res://data/skills/explosive_arrow.tres' remapped 'res://data/skills/explosive_arrow.tres' at thread -1
+Loading resource: res://data/skills/phantom_arrow.tres remapped: res://data/skills/phantom_arrow.tres
+Loading resource: res://assets/skills/hunter/phantom_arrow.png remapped: res://assets/skills/hunter/phantom_arrow.png
+Loading resource: res://.godot/imported/phantom_arrow.png-81907c660e29bd424b59d92021ad3773.ctex remapped: res://.godot/imported/phantom_arrow.png-81907c660e29bd424b59d92021ad3773.ctex
+Completed load for: 'res://assets/skills/hunter/phantom_arrow.png' remapped 'res://assets/skills/hunter/phantom_arrow.png' at thread -1
+Completed load for: 'res://data/skills/phantom_arrow.tres' remapped 'res://data/skills/phantom_arrow.tres' at thread -1
+Loading resource: res://data/skills/rain_of_arrows.tres remapped: res://data/skills/rain_of_arrows.tres
+Loading resource: res://assets/skills/hunter/rain_of_arrows.png remapped: res://assets/skills/hunter/rain_of_arrows.png
+Loading resource: res://.godot/imported/rain_of_arrows.png-3e4fb16c17bbda3f1e3ac6746c1dcf72.ctex remapped: res://.godot/imported/rain_of_arrows.png-3e4fb16c17bbda3f1e3ac6746c1dcf72.ctex
+Completed load for: 'res://assets/skills/hunter/rain_of_arrows.png' remapped 'res://assets/skills/hunter/rain_of_arrows.png' at thread -1
+Completed load for: 'res://data/skills/rain_of_arrows.tres' remapped 'res://data/skills/rain_of_arrows.tres' at thread -1
+Loading resource: res://data/skills/splitting_arrow.tres remapped: res://data/skills/splitting_arrow.tres
+Loading resource: res://assets/skills/hunter/splitting_arrow.png remapped: res://assets/skills/hunter/splitting_arrow.png
+Loading resource: res://.godot/imported/splitting_arrow.png-235d37799b5760c223d66ac6ff1416f1.ctex remapped: res://.godot/imported/splitting_arrow.png-235d37799b5760c223d66ac6ff1416f1.ctex
+Completed load for: 'res://assets/skills/hunter/splitting_arrow.png' remapped 'res://assets/skills/hunter/splitting_arrow.png' at thread -1
+Completed load for: 'res://data/skills/splitting_arrow.tres' remapped 'res://data/skills/splitting_arrow.tres' at thread -1
+Loading resource: res://data/skills/thousand_arrows.tres remapped: res://data/skills/thousand_arrows.tres
+Loading resource: res://assets/skills/hunter/thousand_arrows.png remapped: res://assets/skills/hunter/thousand_arrows.png
+Loading resource: res://.godot/imported/thousand_arrows.png-522b4b3fc7345a995b3dcfa0fcfe805e.ctex remapped: res://.godot/imported/thousand_arrows.png-522b4b3fc7345a995b3dcfa0fcfe805e.ctex
+Completed load for: 'res://assets/skills/hunter/thousand_arrows.png' remapped 'res://assets/skills/hunter/thousand_arrows.png' at thread -1
+Completed load for: 'res://data/skills/thousand_arrows.tres' remapped 'res://data/skills/thousand_arrows.tres' at thread -1
+Loading resource: res://data/skills/fire_bolt.tres remapped: res://data/skills/fire_bolt.tres
+Loading resource: res://assets/skills/mage/fire_bolt.png remapped: res://assets/skills/mage/fire_bolt.png
+Loading resource: res://.godot/imported/fire_bolt.png-6da2d591cce5c22d626354798e67f4da.ctex remapped: res://.godot/imported/fire_bolt.png-6da2d591cce5c22d626354798e67f4da.ctex
+Completed load for: 'res://assets/skills/mage/fire_bolt.png' remapped 'res://assets/skills/mage/fire_bolt.png' at thread -1
+Completed load for: 'res://data/skills/fire_bolt.tres' remapped 'res://data/skills/fire_bolt.tres' at thread -1
+Loading resource: res://data/skills/frost_lance.tres remapped: res://data/skills/frost_lance.tres
+Loading resource: res://assets/skills/mage/frost_lance.png remapped: res://assets/skills/mage/frost_lance.png
+Loading resource: res://.godot/imported/frost_lance.png-6b2762835781bae7390abc8710f34ac1.ctex remapped: res://.godot/imported/frost_lance.png-6b2762835781bae7390abc8710f34ac1.ctex
+Completed load for: 'res://assets/skills/mage/frost_lance.png' remapped 'res://assets/skills/mage/frost_lance.png' at thread -1
+Completed load for: 'res://data/skills/frost_lance.tres' remapped 'res://data/skills/frost_lance.tres' at thread -1
+Loading resource: res://data/skills/lightning.tres remapped: res://data/skills/lightning.tres
+Loading resource: res://assets/skills/mage/lightning.png remapped: res://assets/skills/mage/lightning.png
+Loading resource: res://.godot/imported/lightning.png-6dc61a151a26b077a28f47721609a301.ctex remapped: res://.godot/imported/lightning.png-6dc61a151a26b077a28f47721609a301.ctex
+Completed load for: 'res://assets/skills/mage/lightning.png' remapped 'res://assets/skills/mage/lightning.png' at thread -1
+Completed load for: 'res://data/skills/lightning.tres' remapped 'res://data/skills/lightning.tres' at thread -1
+Loading resource: res://data/skills/mana_burst.tres remapped: res://data/skills/mana_burst.tres
+Loading resource: res://assets/skills/mage/mana_burst.png remapped: res://assets/skills/mage/mana_burst.png
+Loading resource: res://.godot/imported/mana_burst.png-237add78f17cc04e8eb8aea5a7f607b6.ctex remapped: res://.godot/imported/mana_burst.png-237add78f17cc04e8eb8aea5a7f607b6.ctex
+Completed load for: 'res://assets/skills/mage/mana_burst.png' remapped 'res://assets/skills/mage/mana_burst.png' at thread -1
+Completed load for: 'res://data/skills/mana_burst.tres' remapped 'res://data/skills/mana_burst.tres' at thread -1
+Loading resource: res://data/skills/fate_thrust.tres remapped: res://data/skills/fate_thrust.tres
+Loading resource: res://assets/skills/pierrot/fate_thrust.png remapped: res://assets/skills/pierrot/fate_thrust.png
+Loading resource: res://.godot/imported/fate_thrust.png-e3d6c3d8943882e677c480f68f9873e2.ctex remapped: res://.godot/imported/fate_thrust.png-e3d6c3d8943882e677c480f68f9873e2.ctex
+Completed load for: 'res://assets/skills/pierrot/fate_thrust.png' remapped 'res://assets/skills/pierrot/fate_thrust.png' at thread -1
+Completed load for: 'res://data/skills/fate_thrust.tres' remapped 'res://data/skills/fate_thrust.tres' at thread -1
+Loading resource: res://data/skills/double_roll.tres remapped: res://data/skills/double_roll.tres
+Loading resource: res://assets/skills/pierrot/double_roll.png remapped: res://assets/skills/pierrot/double_roll.png
+Loading resource: res://.godot/imported/double_roll.png-365668852561e6bc928f44d05dd8237f.ctex remapped: res://.godot/imported/double_roll.png-365668852561e6bc928f44d05dd8237f.ctex
+Completed load for: 'res://assets/skills/pierrot/double_roll.png' remapped 'res://assets/skills/pierrot/double_roll.png' at thread -1
+Completed load for: 'res://data/skills/double_roll.tres' remapped 'res://data/skills/double_roll.tres' at thread -1
+Loading resource: res://data/skills/fate_feint.tres remapped: res://data/skills/fate_feint.tres
+Loading resource: res://assets/skills/pierrot/fate_feint.png remapped: res://assets/skills/pierrot/fate_feint.png
+Loading resource: res://.godot/imported/fate_feint.png-c1969cec13487fdbc43b012fd6b98bc0.ctex remapped: res://.godot/imported/fate_feint.png-c1969cec13487fdbc43b012fd6b98bc0.ctex
+Completed load for: 'res://assets/skills/pierrot/fate_feint.png' remapped 'res://assets/skills/pierrot/fate_feint.png' at thread -1
+Completed load for: 'res://data/skills/fate_feint.tres' remapped 'res://data/skills/fate_feint.tres' at thread -1
+Loading resource: res://data/skills/grand_gamble.tres remapped: res://data/skills/grand_gamble.tres
+Loading resource: res://assets/skills/pierrot/grand_gamble.png remapped: res://assets/skills/pierrot/grand_gamble.png
+Loading resource: res://.godot/imported/grand_gamble.png-fde30a6d7303d0aa3b5257c5a61c8316.ctex remapped: res://.godot/imported/grand_gamble.png-fde30a6d7303d0aa3b5257c5a61c8316.ctex
+Completed load for: 'res://assets/skills/pierrot/grand_gamble.png' remapped 'res://assets/skills/pierrot/grand_gamble.png' at thread -1
+Completed load for: 'res://data/skills/grand_gamble.tres' remapped 'res://data/skills/grand_gamble.tres' at thread -1
+Loading resource: res://data/skills/va_banque.tres remapped: res://data/skills/va_banque.tres
+Loading resource: res://assets/skills/pierrot/va_banque.png remapped: res://assets/skills/pierrot/va_banque.png
+Loading resource: res://.godot/imported/va_banque.png-8e50edefdafdd14abedda58b0c48e9e4.ctex remapped: res://.godot/imported/va_banque.png-8e50edefdafdd14abedda58b0c48e9e4.ctex
+Completed load for: 'res://assets/skills/pierrot/va_banque.png' remapped 'res://assets/skills/pierrot/va_banque.png' at thread -1
+Completed load for: 'res://data/skills/va_banque.tres' remapped 'res://data/skills/va_banque.tres' at thread -1
+Loading resource: res://ui/components/inventory_grid/inventory_item_slot.tscn remapped: res://ui/components/inventory_grid/inventory_item_slot.tscn
+Loading resource: res://ui/components/inventory_grid/inventory_item_slot.gd remapped: res://ui/components/inventory_grid/inventory_item_slot.gd
+Completed load for: 'res://ui/components/inventory_grid/inventory_item_slot.gd' remapped 'res://ui/components/inventory_grid/inventory_item_slot.gd' at thread -1
+Completed load for: 'res://ui/components/inventory_grid/inventory_item_slot.tscn' remapped 'res://ui/components/inventory_grid/inventory_item_slot.tscn' at thread -1
+Completed load for: 'res://ui/screens/equipment/equipment.gd' remapped 'res://ui/screens/equipment/equipment.gd' at thread -1
+Loading resource: res://ui/components/inventory_grid/inventory_grid_view.tscn remapped: res://ui/components/inventory_grid/inventory_grid_view.tscn
+Completed load for: 'res://ui/components/inventory_grid/inventory_grid_view.tscn' remapped 'res://ui/components/inventory_grid/inventory_grid_view.tscn' at thread -1
+Completed load for: 'res://ui/screens/equipment/equipment.tscn' remapped 'res://ui/screens/equipment/equipment.tscn' at thread -1
+Loading resource: res://ui/screens/skills/skills.tscn remapped: res://ui/screens/skills/skills.tscn
+Loading resource: res://ui/screens/skills/skills.gd remapped: res://ui/screens/skills/skills.gd
+Loading resource: res://ui/components/combat_action_card/combat_action_card.tscn remapped: res://ui/components/combat_action_card/combat_action_card.tscn
+Loading resource: res://ui/components/combat_action_card/combat_action_card.gd remapped: res://ui/components/combat_action_card/combat_action_card.gd
+Completed load for: 'res://ui/components/combat_action_card/combat_action_card.gd' remapped 'res://ui/components/combat_action_card/combat_action_card.gd' at thread -1
+Completed load for: 'res://ui/components/combat_action_card/combat_action_card.tscn' remapped 'res://ui/components/combat_action_card/combat_action_card.tscn' at thread -1
+Completed load for: 'res://ui/screens/skills/skills.gd' remapped 'res://ui/screens/skills/skills.gd' at thread -1
+Completed load for: 'res://ui/screens/skills/skills.tscn' remapped 'res://ui/screens/skills/skills.tscn' at thread -1
+Loading resource: res://ui/screens/progression/progression.tscn remapped: res://ui/screens/progression/progression.tscn
+Loading resource: res://ui/screens/progression/progression.gd remapped: res://ui/screens/progression/progression.gd
+Completed load for: 'res://ui/screens/progression/progression.gd' remapped 'res://ui/screens/progression/progression.gd' at thread -1
+Completed load for: 'res://ui/screens/progression/progression.tscn' remapped 'res://ui/screens/progression/progression.tscn' at thread -1
+Completed load for: 'res://ui/screens/character_menu/character_menu.gd' remapped 'res://ui/screens/character_menu/character_menu.gd' at thread -1
+Loading resource: res://assets/ui/character_menu/character_armory_background_v1.png remapped: res://assets/ui/character_menu/character_armory_background_v1.png
+Loading resource: res://.godot/imported/character_armory_background_v1.png-0cd648e03d8cbc268f2dd5508f401def.ctex remapped: res://.godot/imported/character_armory_background_v1.png-0cd648e03d8cbc268f2dd5508f401def.ctex
+Completed load for: 'res://assets/ui/character_menu/character_armory_background_v1.png' remapped 'res://assets/ui/character_menu/character_armory_background_v1.png' at thread -1
+Completed load for: 'res://ui/screens/character_menu/character_menu.tscn' remapped 'res://ui/screens/character_menu/character_menu.tscn' at thread -1
+Loading resource: res://ui/screens/adventure_log/adventure_log.tscn remapped: res://ui/screens/adventure_log/adventure_log.tscn
+Loading resource: res://ui/screens/adventure_log/adventure_log.gd remapped: res://ui/screens/adventure_log/adventure_log.gd
+Completed load for: 'res://ui/screens/adventure_log/adventure_log.gd' remapped 'res://ui/screens/adventure_log/adventure_log.gd' at thread -1
+Completed load for: 'res://ui/screens/adventure_log/adventure_log.tscn' remapped 'res://ui/screens/adventure_log/adventure_log.tscn' at thread -1
+Loading resource: res://ui/screens/achievements/achievements.tscn remapped: res://ui/screens/achievements/achievements.tscn
+Loading resource: res://ui/screens/achievements/achievements.gd remapped: res://ui/screens/achievements/achievements.gd
+Completed load for: 'res://ui/screens/achievements/achievements.gd' remapped 'res://ui/screens/achievements/achievements.gd' at thread -1
+Completed load for: 'res://ui/screens/achievements/achievements.tscn' remapped 'res://ui/screens/achievements/achievements.tscn' at thread -1
+Loading resource: res://ui/screens/black_market/black_market.tscn remapped: res://ui/screens/black_market/black_market.tscn
+Loading resource: res://ui/screens/black_market/black_market.gd remapped: res://ui/screens/black_market/black_market.gd
+Loading resource: res://ui/screens/black_market/elixir_contact.gdshader remapped: res://ui/screens/black_market/elixir_contact.gdshader
+Completed load for: 'res://ui/screens/black_market/elixir_contact.gdshader' remapped 'res://ui/screens/black_market/elixir_contact.gdshader' at thread -1
+Completed load for: 'res://ui/screens/black_market/black_market.gd' remapped 'res://ui/screens/black_market/black_market.gd' at thread -1
+Loading resource: res://assets/city/varenhold/interiors/black_market_anime_integrated_v4.png remapped: res://assets/city/varenhold/interiors/black_market_anime_integrated_v4.png
+Loading resource: res://.godot/imported/black_market_anime_integrated_v4.png-5a19e00093f3b0e67578009eadf26b2e.ctex remapped: res://.godot/imported/black_market_anime_integrated_v4.png-5a19e00093f3b0e67578009eadf26b2e.ctex
+Completed load for: 'res://assets/city/varenhold/interiors/black_market_anime_integrated_v4.png' remapped 'res://assets/city/varenhold/interiors/black_market_anime_integrated_v4.png' at thread -1
+Loading resource: res://ui/screens/black_market/black_market_offer_slot.tscn remapped: res://ui/screens/black_market/black_market_offer_slot.tscn
+Loading resource: res://ui/screens/black_market/market_price_sign_3d.gd remapped: res://ui/screens/black_market/market_price_sign_3d.gd
+Completed load for: 'res://ui/screens/black_market/market_price_sign_3d.gd' remapped 'res://ui/screens/black_market/market_price_sign_3d.gd' at thread -1
+Completed load for: 'res://ui/screens/black_market/black_market_offer_slot.tscn' remapped 'res://ui/screens/black_market/black_market_offer_slot.tscn' at thread -1
+Loading resource: res://assets/ui/city_icons/inventory.svg remapped: res://assets/ui/city_icons/inventory.svg
+Loading resource: res://.godot/imported/inventory.svg-196fef699037fc2134521f032aa38f18.ctex remapped: res://.godot/imported/inventory.svg-196fef699037fc2134521f032aa38f18.ctex
+Completed load for: 'res://assets/ui/city_icons/inventory.svg' remapped 'res://assets/ui/city_icons/inventory.svg' at thread -1
+Completed load for: 'res://ui/screens/black_market/black_market.tscn' remapped 'res://ui/screens/black_market/black_market.tscn' at thread -1
+Loading resource: res://ui/screens/city_hub/city_hub.tscn remapped: res://ui/screens/city_hub/city_hub.tscn
+Loading resource: res://ui/screens/city_hub/city_hub.gd remapped: res://ui/screens/city_hub/city_hub.gd
+Loading resource: res://assets/city/varenhold/backgrounds/varenhold_city_hub_day_v1.png remapped: res://assets/city/varenhold/backgrounds/varenhold_city_hub_day_v1.png
+Loading resource: res://.godot/imported/varenhold_city_hub_day_v1.png-052b829b39431bcd0597a65aad428bcf.ctex remapped: res://.godot/imported/varenhold_city_hub_day_v1.png-052b829b39431bcd0597a65aad428bcf.ctex
+Completed load for: 'res://assets/city/varenhold/backgrounds/varenhold_city_hub_day_v1.png' remapped 'res://assets/city/varenhold/backgrounds/varenhold_city_hub_day_v1.png' at thread -1
+Loading resource: res://assets/city/varenhold/backgrounds/varenhold_city_hub_night_v1.png remapped: res://assets/city/varenhold/backgrounds/varenhold_city_hub_night_v1.png
+Loading resource: res://.godot/imported/varenhold_city_hub_night_v1.png-038958c6ede2cfea48d4208b2c806690.ctex remapped: res://.godot/imported/varenhold_city_hub_night_v1.png-038958c6ede2cfea48d4208b2c806690.ctex
+Completed load for: 'res://assets/city/varenhold/backgrounds/varenhold_city_hub_night_v1.png' remapped 'res://assets/city/varenhold/backgrounds/varenhold_city_hub_night_v1.png' at thread -1
+Loading resource: res://assets/ui/city_icons/guild.svg remapped: res://assets/ui/city_icons/guild.svg
+Loading resource: res://.godot/imported/guild.svg-077571e3827f9e04071ffb6e3c030812.ctex remapped: res://.godot/imported/guild.svg-077571e3827f9e04071ffb6e3c030812.ctex
+Completed load for: 'res://assets/ui/city_icons/guild.svg' remapped 'res://assets/ui/city_icons/guild.svg' at thread -1
+Loading resource: res://assets/ui/city_icons/gate.svg remapped: res://assets/ui/city_icons/gate.svg
+Loading resource: res://.godot/imported/gate.svg-56738b02983256de3c83541b21f87926.ctex remapped: res://.godot/imported/gate.svg-56738b02983256de3c83541b21f87926.ctex
+Completed load for: 'res://assets/ui/city_icons/gate.svg' remapped 'res://assets/ui/city_icons/gate.svg' at thread -1
+Loading resource: res://assets/ui/city_icons/blacksmith.svg remapped: res://assets/ui/city_icons/blacksmith.svg
+Loading resource: res://.godot/imported/blacksmith.svg-28fe70aad8a552926290f48ffd8f3e54.ctex remapped: res://.godot/imported/blacksmith.svg-28fe70aad8a552926290f48ffd8f3e54.ctex
+Completed load for: 'res://assets/ui/city_icons/blacksmith.svg' remapped 'res://assets/ui/city_icons/blacksmith.svg' at thread -1
+Loading resource: res://assets/ui/city_icons/merchant.svg remapped: res://assets/ui/city_icons/merchant.svg
+Loading resource: res://.godot/imported/merchant.svg-698e5756943694c958ddb8298b468b37.ctex remapped: res://.godot/imported/merchant.svg-698e5756943694c958ddb8298b468b37.ctex
+Completed load for: 'res://assets/ui/city_icons/merchant.svg' remapped 'res://assets/ui/city_icons/merchant.svg' at thread -1
+Loading resource: res://assets/ui/city_icons/inn.svg remapped: res://assets/ui/city_icons/inn.svg
+Loading resource: res://.godot/imported/inn.svg-46f72f739dd07ae9a45848f6bc1f1445.ctex remapped: res://.godot/imported/inn.svg-46f72f739dd07ae9a45848f6bc1f1445.ctex
+Completed load for: 'res://assets/ui/city_icons/inn.svg' remapped 'res://assets/ui/city_icons/inn.svg' at thread -1
+Loading resource: res://assets/ui/city_icons/workshop.svg remapped: res://assets/ui/city_icons/workshop.svg
+Loading resource: res://.godot/imported/workshop.svg-e027cb892eb09826c4a35e5090ec20ae.ctex remapped: res://.godot/imported/workshop.svg-e027cb892eb09826c4a35e5090ec20ae.ctex
+Completed load for: 'res://assets/ui/city_icons/workshop.svg' remapped 'res://assets/ui/city_icons/workshop.svg' at thread -1
+Completed load for: 'res://ui/screens/city_hub/city_hub.gd' remapped 'res://ui/screens/city_hub/city_hub.gd' at thread -1
+Loading resource: res://assets/ui/city_icons/journal.svg remapped: res://assets/ui/city_icons/journal.svg
+Loading resource: res://.godot/imported/journal.svg-d8ef92a50ba2f7eb7b1d605eb4f09736.ctex remapped: res://.godot/imported/journal.svg-d8ef92a50ba2f7eb7b1d605eb4f09736.ctex
+Completed load for: 'res://assets/ui/city_icons/journal.svg' remapped 'res://assets/ui/city_icons/journal.svg' at thread -1
+Loading resource: res://assets/ui/city_icons/achievements.svg remapped: res://assets/ui/city_icons/achievements.svg
+Loading resource: res://.godot/imported/achievements.svg-7c7653a85863cfe4470196a98c2b4f6d.ctex remapped: res://.godot/imported/achievements.svg-7c7653a85863cfe4470196a98c2b4f6d.ctex
+Completed load for: 'res://assets/ui/city_icons/achievements.svg' remapped 'res://assets/ui/city_icons/achievements.svg' at thread -1
+Loading resource: res://assets/ui/city_icons/class_path.svg remapped: res://assets/ui/city_icons/class_path.svg
+Loading resource: res://.godot/imported/class_path.svg-4975c78f0c71380b795ba97161a61636.ctex remapped: res://.godot/imported/class_path.svg-4975c78f0c71380b795ba97161a61636.ctex
+Completed load for: 'res://assets/ui/city_icons/class_path.svg' remapped 'res://assets/ui/city_icons/class_path.svg' at thread -1
+Loading resource: res://assets/ui/city_icons/black_market.svg remapped: res://assets/ui/city_icons/black_market.svg
+Loading resource: res://.godot/imported/black_market.svg-c996760b05ff32a38f64067e82a83deb.ctex remapped: res://.godot/imported/black_market.svg-c996760b05ff32a38f64067e82a83deb.ctex
+Completed load for: 'res://assets/ui/city_icons/black_market.svg' remapped 'res://assets/ui/city_icons/black_market.svg' at thread -1
+Loading resource: res://assets/ui/city_icons/exit.svg remapped: res://assets/ui/city_icons/exit.svg
+Loading resource: res://.godot/imported/exit.svg-82ec40e77ea56faaae84b3c648260437.ctex remapped: res://.godot/imported/exit.svg-82ec40e77ea56faaae84b3c648260437.ctex
+Completed load for: 'res://assets/ui/city_icons/exit.svg' remapped 'res://assets/ui/city_icons/exit.svg' at thread -1
+Loading resource: res://assets/ui/city_icons/party.svg remapped: res://assets/ui/city_icons/party.svg
+Loading resource: res://.godot/imported/party.svg-0ed88c053e8eb1fd6c4af9bd4ac667c9.ctex remapped: res://.godot/imported/party.svg-0ed88c053e8eb1fd6c4af9bd4ac667c9.ctex
+Completed load for: 'res://assets/ui/city_icons/party.svg' remapped 'res://assets/ui/city_icons/party.svg' at thread -1
+Completed load for: 'res://ui/screens/city_hub/city_hub.tscn' remapped 'res://ui/screens/city_hub/city_hub.tscn' at thread -1
+Loading resource: res://ui/screens/city_economy/city_economy.tscn remapped: res://ui/screens/city_economy/city_economy.tscn
+Loading resource: res://ui/screens/city_economy/city_economy.gd remapped: res://ui/screens/city_economy/city_economy.gd
+Loading resource: res://assets/city/varenhold/npcs/oren_counter_v6.png remapped: res://assets/city/varenhold/npcs/oren_counter_v6.png
+Loading resource: res://.godot/imported/oren_counter_v6.png-02fb9af33a026b445e2be65df5c610f7.ctex remapped: res://.godot/imported/oren_counter_v6.png-02fb9af33a026b445e2be65df5c610f7.ctex
+Completed load for: 'res://assets/city/varenhold/npcs/oren_counter_v6.png' remapped 'res://assets/city/varenhold/npcs/oren_counter_v6.png' at thread -1
+Loading resource: res://assets/city/varenhold/npcs/garran_forging_v5.png remapped: res://assets/city/varenhold/npcs/garran_forging_v5.png
+Loading resource: res://.godot/imported/garran_forging_v5.png-4fbfca2a7a1a4560894c182e15de87b9.ctex remapped: res://.godot/imported/garran_forging_v5.png-4fbfca2a7a1a4560894c182e15de87b9.ctex
+Completed load for: 'res://assets/city/varenhold/npcs/garran_forging_v5.png' remapped 'res://assets/city/varenhold/npcs/garran_forging_v5.png' at thread -1
+Loading resource: res://assets/city/varenhold/npcs/mirela_counter_v3.png remapped: res://assets/city/varenhold/npcs/mirela_counter_v3.png
+Loading resource: res://.godot/imported/mirela_counter_v3.png-4d2c36ee23cd6d1ac59c826f5301478c.ctex remapped: res://.godot/imported/mirela_counter_v3.png-4d2c36ee23cd6d1ac59c826f5301478c.ctex
+Completed load for: 'res://assets/city/varenhold/npcs/mirela_counter_v3.png' remapped 'res://assets/city/varenhold/npcs/mirela_counter_v3.png' at thread -1
+Loading resource: res://assets/city/varenhold/npcs/runa_innkeeper_v7.png remapped: res://assets/city/varenhold/npcs/runa_innkeeper_v7.png
+Loading resource: res://.godot/imported/runa_innkeeper_v7.png-49375afe002b207d116db056298d6e54.ctex remapped: res://.godot/imported/runa_innkeeper_v7.png-49375afe002b207d116db056298d6e54.ctex
+Completed load for: 'res://assets/city/varenhold/npcs/runa_innkeeper_v7.png' remapped 'res://assets/city/varenhold/npcs/runa_innkeeper_v7.png' at thread -1
+Loading resource: res://assets/city/varenhold/interiors/oren_stall_anime_wide_integrated_v2.png remapped: res://assets/city/varenhold/interiors/oren_stall_anime_wide_integrated_v2.png
+Loading resource: res://.godot/imported/oren_stall_anime_wide_integrated_v2.png-a78792c5d80983d6284954f7d9ca1d61.ctex remapped: res://.godot/imported/oren_stall_anime_wide_integrated_v2.png-a78792c5d80983d6284954f7d9ca1d61.ctex
+Completed load for: 'res://assets/city/varenhold/interiors/oren_stall_anime_wide_integrated_v2.png' remapped 'res://assets/city/varenhold/interiors/oren_stall_anime_wide_integrated_v2.png' at thread -1
+Loading resource: res://assets/city/varenhold/interiors/garran_forge_anime_integrated_v4.png remapped: res://assets/city/varenhold/interiors/garran_forge_anime_integrated_v4.png
+Loading resource: res://.godot/imported/garran_forge_anime_integrated_v4.png-c86b0150193a7f6ad223cb914d330c0f.ctex remapped: res://.godot/imported/garran_forge_anime_integrated_v4.png-c86b0150193a7f6ad223cb914d330c0f.ctex
+Completed load for: 'res://assets/city/varenhold/interiors/garran_forge_anime_integrated_v4.png' remapped 'res://assets/city/varenhold/interiors/garran_forge_anime_integrated_v4.png' at thread -1
+Loading resource: res://assets/city/varenhold/interiors/mirela_workshop_anime_integrated_v5.png remapped: res://assets/city/varenhold/interiors/mirela_workshop_anime_integrated_v5.png
+Loading resource: res://.godot/imported/mirela_workshop_anime_integrated_v5.png-42c03ae23dca4b5e6bd22fa40d4a00be.ctex remapped: res://.godot/imported/mirela_workshop_anime_integrated_v5.png-42c03ae23dca4b5e6bd22fa40d4a00be.ctex
+Completed load for: 'res://assets/city/varenhold/interiors/mirela_workshop_anime_integrated_v5.png' remapped 'res://assets/city/varenhold/interiors/mirela_workshop_anime_integrated_v5.png' at thread -1
+Loading resource: res://assets/city/varenhold/interiors/inn_tavern_anime_wide_integrated_v5.png remapped: res://assets/city/varenhold/interiors/inn_tavern_anime_wide_integrated_v5.png
+Loading resource: res://.godot/imported/inn_tavern_anime_wide_integrated_v5.png-13ae92072586d8065ee6870c210db98a.ctex remapped: res://.godot/imported/inn_tavern_anime_wide_integrated_v5.png-13ae92072586d8065ee6870c210db98a.ctex
+Completed load for: 'res://assets/city/varenhold/interiors/inn_tavern_anime_wide_integrated_v5.png' remapped 'res://assets/city/varenhold/interiors/inn_tavern_anime_wide_integrated_v5.png' at thread -1
+Loading resource: res://assets/city/varenhold/interiors/inn_tavern_anime_wide_informant_integrated_v5.png remapped: res://assets/city/varenhold/interiors/inn_tavern_anime_wide_informant_integrated_v5.png
+Loading resource: res://.godot/imported/inn_tavern_anime_wide_informant_integrated_v5.png-130f018a9af97c0b79de1f7dc47172a9.ctex remapped: res://.godot/imported/inn_tavern_anime_wide_informant_integrated_v5.png-130f018a9af97c0b79de1f7dc47172a9.ctex
+Completed load for: 'res://assets/city/varenhold/interiors/inn_tavern_anime_wide_informant_integrated_v5.png' remapped 'res://assets/city/varenhold/interiors/inn_tavern_anime_wide_informant_integrated_v5.png' at thread -1
+Completed load for: 'res://ui/screens/city_economy/city_economy.gd' remapped 'res://ui/screens/city_economy/city_economy.gd' at thread -1
+Completed load for: 'res://ui/screens/city_economy/city_economy.tscn' remapped 'res://ui/screens/city_economy/city_economy.tscn' at thread -1
+Loading resource: res://ui/screens/city_service/city_service.tscn remapped: res://ui/screens/city_service/city_service.tscn
+Loading resource: res://ui/screens/city_service/city_service.gd remapped: res://ui/screens/city_service/city_service.gd
+Completed load for: 'res://ui/screens/city_service/city_service.gd' remapped 'res://ui/screens/city_service/city_service.gd' at thread -1
+Completed load for: 'res://ui/screens/city_service/city_service.tscn' remapped 'res://ui/screens/city_service/city_service.tscn' at thread -1
+Loading resource: res://ui/screens/class_selection/class_selection.tscn remapped: res://ui/screens/class_selection/class_selection.tscn
+Loading resource: res://ui/screens/class_selection/class_selection.gd remapped: res://ui/screens/class_selection/class_selection.gd
+Loading resource: res://ui/components/class_carousel_selector/class_carousel_selector.tscn remapped: res://ui/components/class_carousel_selector/class_carousel_selector.tscn
+Loading resource: res://ui/components/class_carousel_selector/class_carousel_selector.gd remapped: res://ui/components/class_carousel_selector/class_carousel_selector.gd
+Completed load for: 'res://ui/components/class_carousel_selector/class_carousel_selector.gd' remapped 'res://ui/components/class_carousel_selector/class_carousel_selector.gd' at thread -1
+Completed load for: 'res://ui/components/class_carousel_selector/class_carousel_selector.tscn' remapped 'res://ui/components/class_carousel_selector/class_carousel_selector.tscn' at thread -1
+Completed load for: 'res://ui/screens/class_selection/class_selection.gd' remapped 'res://ui/screens/class_selection/class_selection.gd' at thread -1
+Loading resource: res://ui/screens/class_selection/class_atmosphere.gdshader remapped: res://ui/screens/class_selection/class_atmosphere.gdshader
+Completed load for: 'res://ui/screens/class_selection/class_atmosphere.gdshader' remapped 'res://ui/screens/class_selection/class_atmosphere.gdshader' at thread -1
+Loading resource: res://ui/screens/class_selection/class_cutout_glow.gdshader remapped: res://ui/screens/class_selection/class_cutout_glow.gdshader
+Completed load for: 'res://ui/screens/class_selection/class_cutout_glow.gdshader' remapped 'res://ui/screens/class_selection/class_cutout_glow.gdshader' at thread -1
+Loading resource: res://ui/screens/class_selection/class_pedestal.gdshader remapped: res://ui/screens/class_selection/class_pedestal.gdshader
+Completed load for: 'res://ui/screens/class_selection/class_pedestal.gdshader' remapped 'res://ui/screens/class_selection/class_pedestal.gdshader' at thread -1
+Completed load for: 'res://ui/screens/class_selection/class_selection.tscn' remapped 'res://ui/screens/class_selection/class_selection.tscn' at thread -1
+Loading resource: res://ui/screens/combat/combat.tscn remapped: res://ui/screens/combat/combat.tscn
+Loading resource: res://ui/screens/combat/combat.gd remapped: res://ui/screens/combat/combat.gd
+Loading resource: res://ui/components/combat_die/combat_die.tscn remapped: res://ui/components/combat_die/combat_die.tscn
+Loading resource: res://ui/components/combat_die/combat_die.gd remapped: res://ui/components/combat_die/combat_die.gd
+Completed load for: 'res://ui/components/combat_die/combat_die.gd' remapped 'res://ui/components/combat_die/combat_die.gd' at thread -1
+Completed load for: 'res://ui/components/combat_die/combat_die.tscn' remapped 'res://ui/components/combat_die/combat_die.tscn' at thread -1
+Loading resource: res://assets/combat/vfx/pierrot/fate_thrust_streak.png remapped: res://assets/combat/vfx/pierrot/fate_thrust_streak.png
+Loading resource: res://.godot/imported/fate_thrust_streak.png-d0c7f4c3eac95775eb245e6371d7a14a.ctex remapped: res://.godot/imported/fate_thrust_streak.png-d0c7f4c3eac95775eb245e6371d7a14a.ctex
+Completed load for: 'res://assets/combat/vfx/pierrot/fate_thrust_streak.png' remapped 'res://assets/combat/vfx/pierrot/fate_thrust_streak.png' at thread -1
+Completed load for: 'res://ui/screens/combat/combat.gd' remapped 'res://ui/screens/combat/combat.gd' at thread -1
+Loading resource: res://ui/components/combatant_visual/combatant_visual.tscn remapped: res://ui/components/combatant_visual/combatant_visual.tscn
+Completed load for: 'res://ui/components/combatant_visual/combatant_visual.tscn' remapped 'res://ui/components/combatant_visual/combatant_visual.tscn' at thread -1
+Loading resource: res://ui/screens/combat/combat_command_layout.gd remapped: res://ui/screens/combat/combat_command_layout.gd
+Completed load for: 'res://ui/screens/combat/combat_command_layout.gd' remapped 'res://ui/screens/combat/combat_command_layout.gd' at thread -1
+Completed load for: 'res://ui/screens/combat/combat.tscn' remapped 'res://ui/screens/combat/combat.tscn' at thread -1
+Loading resource: res://ui/screens/dungeon/dungeon.tscn remapped: res://ui/screens/dungeon/dungeon.tscn
+Loading resource: res://ui/screens/dungeon/dungeon.gd remapped: res://ui/screens/dungeon/dungeon.gd
+Completed load for: 'res://ui/screens/dungeon/dungeon.gd' remapped 'res://ui/screens/dungeon/dungeon.gd' at thread -1
+Completed load for: 'res://ui/screens/dungeon/dungeon.tscn' remapped 'res://ui/screens/dungeon/dungeon.tscn' at thread -1
+Loading resource: res://ui/screens/rift_board/rift_board.tscn remapped: res://ui/screens/rift_board/rift_board.tscn
+Loading resource: res://ui/screens/rift_board/rift_board.gd remapped: res://ui/screens/rift_board/rift_board.gd
+Completed load for: 'res://ui/screens/rift_board/rift_board.gd' remapped 'res://ui/screens/rift_board/rift_board.gd' at thread -1
+Completed load for: 'res://ui/screens/rift_board/rift_board.tscn' remapped 'res://ui/screens/rift_board/rift_board.tscn' at thread -1
+Loading resource: res://ui/screens/expedition_preparation/expedition_preparation.tscn remapped: res://ui/screens/expedition_preparation/expedition_preparation.tscn
+Loading resource: res://ui/screens/expedition_preparation/expedition_preparation.gd remapped: res://ui/screens/expedition_preparation/expedition_preparation.gd
+Completed load for: 'res://ui/screens/expedition_preparation/expedition_preparation.gd' remapped 'res://ui/screens/expedition_preparation/expedition_preparation.gd' at thread -1
+Completed load for: 'res://ui/screens/expedition_preparation/expedition_preparation.tscn' remapped 'res://ui/screens/expedition_preparation/expedition_preparation.tscn' at thread -1
+Loading resource: res://ui/screens/guild/guild.tscn remapped: res://ui/screens/guild/guild.tscn
+Loading resource: res://ui/screens/guild/guild.gd remapped: res://ui/screens/guild/guild.gd
+Completed load for: 'res://ui/screens/guild/guild.gd' remapped 'res://ui/screens/guild/guild.gd' at thread -1
+Loading resource: res://assets/city/varenhold/interiors/guild_hall_anime_integrated_v3.png remapped: res://assets/city/varenhold/interiors/guild_hall_anime_integrated_v3.png
+Loading resource: res://.godot/imported/guild_hall_anime_integrated_v3.png-ecbcc5c897d868e7b36411f9a9b82fc6.ctex remapped: res://.godot/imported/guild_hall_anime_integrated_v3.png-ecbcc5c897d868e7b36411f9a9b82fc6.ctex
+Completed load for: 'res://assets/city/varenhold/interiors/guild_hall_anime_integrated_v3.png' remapped 'res://assets/city/varenhold/interiors/guild_hall_anime_integrated_v3.png' at thread -1
+Completed load for: 'res://ui/screens/guild/guild.tscn' remapped 'res://ui/screens/guild/guild.tscn' at thread -1
+Loading resource: res://ui/screens/party_hub/party_hub.tscn remapped: res://ui/screens/party_hub/party_hub.tscn
+Loading resource: res://ui/screens/party_hub/party_hub.gd remapped: res://ui/screens/party_hub/party_hub.gd
+Completed load for: 'res://ui/screens/party_hub/party_hub.gd' remapped 'res://ui/screens/party_hub/party_hub.gd' at thread -1
+Completed load for: 'res://ui/screens/party_hub/party_hub.tscn' remapped 'res://ui/screens/party_hub/party_hub.tscn' at thread -1
+Loading resource: res://ui/screens/load_game/load_game.tscn remapped: res://ui/screens/load_game/load_game.tscn
+Loading resource: res://ui/screens/load_game/load_game.gd remapped: res://ui/screens/load_game/load_game.gd
+Completed load for: 'res://ui/screens/load_game/load_game.gd' remapped 'res://ui/screens/load_game/load_game.gd' at thread -1
+Completed load for: 'res://ui/screens/load_game/load_game.tscn' remapped 'res://ui/screens/load_game/load_game.tscn' at thread -1
+Loading resource: res://ui/screens/main_menu/main_menu.tscn remapped: res://ui/screens/main_menu/main_menu.tscn
+Loading resource: res://ui/screens/main_menu/main_menu.gd remapped: res://ui/screens/main_menu/main_menu.gd
+Completed load for: 'res://ui/screens/main_menu/main_menu.gd' remapped 'res://ui/screens/main_menu/main_menu.gd' at thread -1
+Loading resource: res://assets/city/varenhold/backgrounds/varenhold_main_menu.png remapped: res://assets/city/varenhold/backgrounds/varenhold_main_menu.png
+Loading resource: res://.godot/imported/varenhold_main_menu.png-8ef37c7a3bf111a7d8f57916c9846be3.ctex remapped: res://.godot/imported/varenhold_main_menu.png-8ef37c7a3bf111a7d8f57916c9846be3.ctex
+Completed load for: 'res://assets/city/varenhold/backgrounds/varenhold_main_menu.png' remapped 'res://assets/city/varenhold/backgrounds/varenhold_main_menu.png' at thread -1
+Completed load for: 'res://ui/screens/main_menu/main_menu.tscn' remapped 'res://ui/screens/main_menu/main_menu.tscn' at thread -1
+Loading resource: res://ui/screens/new_game/new_game.tscn remapped: res://ui/screens/new_game/new_game.tscn
+Loading resource: res://ui/screens/new_game/new_game.gd remapped: res://ui/screens/new_game/new_game.gd
+Completed load for: 'res://ui/screens/new_game/new_game.gd' remapped 'res://ui/screens/new_game/new_game.gd' at thread -1
+Completed load for: 'res://ui/screens/new_game/new_game.tscn' remapped 'res://ui/screens/new_game/new_game.tscn' at thread -1
+Loading resource: res://ui/screens/prologue/prologue.tscn remapped: res://ui/screens/prologue/prologue.tscn
+Loading resource: res://ui/screens/prologue/prologue.gd remapped: res://ui/screens/prologue/prologue.gd
+Completed load for: 'res://ui/screens/prologue/prologue.gd' remapped 'res://ui/screens/prologue/prologue.gd' at thread -1
+Completed load for: 'res://ui/screens/prologue/prologue.tscn' remapped 'res://ui/screens/prologue/prologue.tscn' at thread -1
+Loading resource: res://ui/screens/session_ready/session_ready.tscn remapped: res://ui/screens/session_ready/session_ready.tscn
+Loading resource: res://ui/screens/session_ready/session_ready.gd remapped: res://ui/screens/session_ready/session_ready.gd
+Completed load for: 'res://ui/screens/session_ready/session_ready.gd' remapped 'res://ui/screens/session_ready/session_ready.gd' at thread -1
+Completed load for: 'res://ui/screens/session_ready/session_ready.tscn' remapped 'res://ui/screens/session_ready/session_ready.tscn' at thread -1
+Loading resource: res://ui/screens/world_map/world_map.tscn remapped: res://ui/screens/world_map/world_map.tscn
+Loading resource: res://ui/screens/world_map/world_map.gd remapped: res://ui/screens/world_map/world_map.gd
+Loading resource: res://assets/world_map/pythonia_region_atlas_v2.png remapped: res://assets/world_map/pythonia_region_atlas_v2.png
+Loading resource: res://.godot/imported/pythonia_region_atlas_v2.png-8f944570e203a2f4407b4a7d8026f8b6.ctex remapped: res://.godot/imported/pythonia_region_atlas_v2.png-8f944570e203a2f4407b4a7d8026f8b6.ctex
+Completed load for: 'res://assets/world_map/pythonia_region_atlas_v2.png' remapped 'res://assets/world_map/pythonia_region_atlas_v2.png' at thread -1
+Completed load for: 'res://ui/screens/world_map/world_map.gd' remapped 'res://ui/screens/world_map/world_map.gd' at thread -1
+Loading resource: res://assets/world_map/pythonia_world_map_integrated.png remapped: res://assets/world_map/pythonia_world_map_integrated.png
+Loading resource: res://.godot/imported/pythonia_world_map_integrated.png-983d4a34dbfffd26eaac8d92cc2efcf8.ctex remapped: res://.godot/imported/pythonia_world_map_integrated.png-983d4a34dbfffd26eaac8d92cc2efcf8.ctex
+Completed load for: 'res://assets/world_map/pythonia_world_map_integrated.png' remapped 'res://assets/world_map/pythonia_world_map_integrated.png' at thread -1
+Loading resource: res://assets/world_map/modules/varenhold_valley_two_cities_v2.png remapped: res://assets/world_map/modules/varenhold_valley_two_cities_v2.png
+Loading resource: res://.godot/imported/varenhold_valley_two_cities_v2.png-be9d12ca3465f75cb1fd7e2016c33e1b.ctex remapped: res://.godot/imported/varenhold_valley_two_cities_v2.png-be9d12ca3465f75cb1fd7e2016c33e1b.ctex
+Completed load for: 'res://assets/world_map/modules/varenhold_valley_two_cities_v2.png' remapped 'res://assets/world_map/modules/varenhold_valley_two_cities_v2.png' at thread -1
+Loading resource: res://ui/screens/world_map/varenhold_valley.gdshader remapped: res://ui/screens/world_map/varenhold_valley.gdshader
+Loading resource: res://ui/screens/world_map/region_highlight.gdshaderinc remapped: res://ui/screens/world_map/region_highlight.gdshaderinc
+Completed load for: 'res://ui/screens/world_map/region_highlight.gdshaderinc' remapped 'res://ui/screens/world_map/region_highlight.gdshaderinc' at thread -1
+Completed load for: 'res://ui/screens/world_map/varenhold_valley.gdshader' remapped 'res://ui/screens/world_map/varenhold_valley.gdshader' at thread -1
+Loading resource: res://ui/screens/world_map/region_hover.gdshader remapped: res://ui/screens/world_map/region_hover.gdshader
+Completed load for: 'res://ui/screens/world_map/region_hover.gdshader' remapped 'res://ui/screens/world_map/region_hover.gdshader' at thread -1
+Loading resource: res://ui/screens/world_map/region_borders.gdshader remapped: res://ui/screens/world_map/region_borders.gdshader
+Completed load for: 'res://ui/screens/world_map/region_borders.gdshader' remapped 'res://ui/screens/world_map/region_borders.gdshader' at thread -1
+Completed load for: 'res://ui/screens/world_map/world_map.tscn' remapped 'res://ui/screens/world_map/world_map.tscn' at thread -1
+Completed load for: 'res://scenes/app/app.gd' remapped 'res://scenes/app/app.gd' at thread -1
+Loading resource: res://ui/theme/game_theme.tres remapped: res://ui/theme/game_theme.tres
+Completed load for: 'res://ui/theme/game_theme.tres' remapped 'res://ui/theme/game_theme.tres' at thread -1
+Completed load for: 'res://scenes/app/app.tscn' remapped 'res://scenes/app/app.tscn' at thread -1
+Completed load for: 'res://tools/autopilot_capture.gd' remapped 'res://tools/autopilot_capture.gd' at thread -1
+SceneTreeFTI: traversal method DEFAULT
+Loading resource: res://addons/dialogic/Resources/CharacterResourceLoader.gd remapped: res://addons/dialogic/Resources/CharacterResourceLoader.gd
+Completed load for: 'res://addons/dialogic/Resources/CharacterResourceLoader.gd' remapped 'res://addons/dialogic/Resources/CharacterResourceLoader.gd' at thread -1
+Loading resource: res://addons/dialogic/Resources/TimelineResourceLoader.gd remapped: res://addons/dialogic/Resources/TimelineResourceLoader.gd
+Completed load for: 'res://addons/dialogic/Resources/TimelineResourceLoader.gd' remapped 'res://addons/dialogic/Resources/TimelineResourceLoader.gd' at thread -1
+Loading resource: res://addons/dialogic/Resources/CharacterResourceSaver.gd remapped: res://addons/dialogic/Resources/CharacterResourceSaver.gd
+Completed load for: 'res://addons/dialogic/Resources/CharacterResourceSaver.gd' remapped 'res://addons/dialogic/Resources/CharacterResourceSaver.gd' at thread -1
+Loading resource: res://addons/dialogic/Resources/TimelineResourceSaver.gd remapped: res://addons/dialogic/Resources/TimelineResourceSaver.gd
+Completed load for: 'res://addons/dialogic/Resources/TimelineResourceSaver.gd' remapped 'res://addons/dialogic/Resources/TimelineResourceSaver.gd' at thread -1
+Loaded builtin CA certificates
+Loading resource: res://addons/dialogic/Modules/Audio/index.gd remapped: res://addons/dialogic/Modules/Audio/index.gd
+Completed load for: 'res://addons/dialogic/Modules/Audio/index.gd' remapped 'res://addons/dialogic/Modules/Audio/index.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/Background/index.gd remapped: res://addons/dialogic/Modules/Background/index.gd
+Completed load for: 'res://addons/dialogic/Modules/Background/index.gd' remapped 'res://addons/dialogic/Modules/Background/index.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/Call/index.gd remapped: res://addons/dialogic/Modules/Call/index.gd
+Completed load for: 'res://addons/dialogic/Modules/Call/index.gd' remapped 'res://addons/dialogic/Modules/Call/index.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/Character/index.gd remapped: res://addons/dialogic/Modules/Character/index.gd
+Completed load for: 'res://addons/dialogic/Modules/Character/index.gd' remapped 'res://addons/dialogic/Modules/Character/index.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/Choice/index.gd remapped: res://addons/dialogic/Modules/Choice/index.gd
+Completed load for: 'res://addons/dialogic/Modules/Choice/index.gd' remapped 'res://addons/dialogic/Modules/Choice/index.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/Clear/index.gd remapped: res://addons/dialogic/Modules/Clear/index.gd
+Completed load for: 'res://addons/dialogic/Modules/Clear/index.gd' remapped 'res://addons/dialogic/Modules/Clear/index.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/Comment/index.gd remapped: res://addons/dialogic/Modules/Comment/index.gd
+Completed load for: 'res://addons/dialogic/Modules/Comment/index.gd' remapped 'res://addons/dialogic/Modules/Comment/index.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/Condition/index.gd remapped: res://addons/dialogic/Modules/Condition/index.gd
+Completed load for: 'res://addons/dialogic/Modules/Condition/index.gd' remapped 'res://addons/dialogic/Modules/Condition/index.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/Core/index.gd remapped: res://addons/dialogic/Modules/Core/index.gd
+Completed load for: 'res://addons/dialogic/Modules/Core/index.gd' remapped 'res://addons/dialogic/Modules/Core/index.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/DefaultLayoutParts/index.gd remapped: res://addons/dialogic/Modules/DefaultLayoutParts/index.gd
+Completed load for: 'res://addons/dialogic/Modules/DefaultLayoutParts/index.gd' remapped 'res://addons/dialogic/Modules/DefaultLayoutParts/index.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/End/index.gd remapped: res://addons/dialogic/Modules/End/index.gd
+Completed load for: 'res://addons/dialogic/Modules/End/index.gd' remapped 'res://addons/dialogic/Modules/End/index.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/Glossary/index.gd remapped: res://addons/dialogic/Modules/Glossary/index.gd
+Completed load for: 'res://addons/dialogic/Modules/Glossary/index.gd' remapped 'res://addons/dialogic/Modules/Glossary/index.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/HighlightPortrait/index.gd remapped: res://addons/dialogic/Modules/HighlightPortrait/index.gd
+Completed load for: 'res://addons/dialogic/Modules/HighlightPortrait/index.gd' remapped 'res://addons/dialogic/Modules/HighlightPortrait/index.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/History/index.gd remapped: res://addons/dialogic/Modules/History/index.gd
+Completed load for: 'res://addons/dialogic/Modules/History/index.gd' remapped 'res://addons/dialogic/Modules/History/index.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/Jump/index.gd remapped: res://addons/dialogic/Modules/Jump/index.gd
+Completed load for: 'res://addons/dialogic/Modules/Jump/index.gd' remapped 'res://addons/dialogic/Modules/Jump/index.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/LayeredPortrait/index.gd remapped: res://addons/dialogic/Modules/LayeredPortrait/index.gd
+Completed load for: 'res://addons/dialogic/Modules/LayeredPortrait/index.gd' remapped 'res://addons/dialogic/Modules/LayeredPortrait/index.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/Save/index.gd remapped: res://addons/dialogic/Modules/Save/index.gd
+Completed load for: 'res://addons/dialogic/Modules/Save/index.gd' remapped 'res://addons/dialogic/Modules/Save/index.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/Settings/index.gd remapped: res://addons/dialogic/Modules/Settings/index.gd
+Completed load for: 'res://addons/dialogic/Modules/Settings/index.gd' remapped 'res://addons/dialogic/Modules/Settings/index.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/Signal/index.gd remapped: res://addons/dialogic/Modules/Signal/index.gd
+Completed load for: 'res://addons/dialogic/Modules/Signal/index.gd' remapped 'res://addons/dialogic/Modules/Signal/index.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/Style/index.gd remapped: res://addons/dialogic/Modules/Style/index.gd
+Completed load for: 'res://addons/dialogic/Modules/Style/index.gd' remapped 'res://addons/dialogic/Modules/Style/index.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/StyleEditor/index.gd remapped: res://addons/dialogic/Modules/StyleEditor/index.gd
+Completed load for: 'res://addons/dialogic/Modules/StyleEditor/index.gd' remapped 'res://addons/dialogic/Modules/StyleEditor/index.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/Text/index.gd remapped: res://addons/dialogic/Modules/Text/index.gd
+Completed load for: 'res://addons/dialogic/Modules/Text/index.gd' remapped 'res://addons/dialogic/Modules/Text/index.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/TextInput/index.gd remapped: res://addons/dialogic/Modules/TextInput/index.gd
+Completed load for: 'res://addons/dialogic/Modules/TextInput/index.gd' remapped 'res://addons/dialogic/Modules/TextInput/index.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/Variable/index.gd remapped: res://addons/dialogic/Modules/Variable/index.gd
+Completed load for: 'res://addons/dialogic/Modules/Variable/index.gd' remapped 'res://addons/dialogic/Modules/Variable/index.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/Voice/index.gd remapped: res://addons/dialogic/Modules/Voice/index.gd
+Completed load for: 'res://addons/dialogic/Modules/Voice/index.gd' remapped 'res://addons/dialogic/Modules/Voice/index.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/Wait/index.gd remapped: res://addons/dialogic/Modules/Wait/index.gd
+Completed load for: 'res://addons/dialogic/Modules/Wait/index.gd' remapped 'res://addons/dialogic/Modules/Wait/index.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/WaitInput/index.gd remapped: res://addons/dialogic/Modules/WaitInput/index.gd
+Completed load for: 'res://addons/dialogic/Modules/WaitInput/index.gd' remapped 'res://addons/dialogic/Modules/WaitInput/index.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/Background/DefaultBackgroundScene/default_background.tscn remapped: res://addons/dialogic/Modules/Background/DefaultBackgroundScene/default_background.tscn
+Loading resource: res://addons/dialogic/Modules/Background/DefaultBackgroundScene/default_background.gd remapped: res://addons/dialogic/Modules/Background/DefaultBackgroundScene/default_background.gd
+Completed load for: 'res://addons/dialogic/Modules/Background/DefaultBackgroundScene/default_background.gd' remapped 'res://addons/dialogic/Modules/Background/DefaultBackgroundScene/default_background.gd' at thread -1
+Completed load for: 'res://addons/dialogic/Modules/Background/DefaultBackgroundScene/default_background.tscn' remapped 'res://addons/dialogic/Modules/Background/DefaultBackgroundScene/default_background.tscn' at thread -1
+Loading resource: res://addons/dialogic/Modules/Character/default_portrait.tscn remapped: res://addons/dialogic/Modules/Character/default_portrait.tscn
+Loading resource: res://addons/dialogic/Modules/Character/default_portrait.gd remapped: res://addons/dialogic/Modules/Character/default_portrait.gd
+Completed load for: 'res://addons/dialogic/Modules/Character/default_portrait.gd' remapped 'res://addons/dialogic/Modules/Character/default_portrait.gd' at thread -1
+Completed load for: 'res://addons/dialogic/Modules/Character/default_portrait.tscn' remapped 'res://addons/dialogic/Modules/Character/default_portrait.tscn' at thread -1
+Loading resource: res://addons/dialogic/Modules/Audio/event_audio.gd remapped: res://addons/dialogic/Modules/Audio/event_audio.gd
+Completed load for: 'res://addons/dialogic/Modules/Audio/event_audio.gd' remapped 'res://addons/dialogic/Modules/Audio/event_audio.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/Background/event_background.gd remapped: res://addons/dialogic/Modules/Background/event_background.gd
+Completed load for: 'res://addons/dialogic/Modules/Background/event_background.gd' remapped 'res://addons/dialogic/Modules/Background/event_background.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/Call/event_call.gd remapped: res://addons/dialogic/Modules/Call/event_call.gd
+Completed load for: 'res://addons/dialogic/Modules/Call/event_call.gd' remapped 'res://addons/dialogic/Modules/Call/event_call.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/Clear/event_clear.gd remapped: res://addons/dialogic/Modules/Clear/event_clear.gd
+Completed load for: 'res://addons/dialogic/Modules/Clear/event_clear.gd' remapped 'res://addons/dialogic/Modules/Clear/event_clear.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/Comment/event_comment.gd remapped: res://addons/dialogic/Modules/Comment/event_comment.gd
+Completed load for: 'res://addons/dialogic/Modules/Comment/event_comment.gd' remapped 'res://addons/dialogic/Modules/Comment/event_comment.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/Condition/event_condition.gd remapped: res://addons/dialogic/Modules/Condition/event_condition.gd
+Completed load for: 'res://addons/dialogic/Modules/Condition/event_condition.gd' remapped 'res://addons/dialogic/Modules/Condition/event_condition.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/End/event_end.gd remapped: res://addons/dialogic/Modules/End/event_end.gd
+Completed load for: 'res://addons/dialogic/Modules/End/event_end.gd' remapped 'res://addons/dialogic/Modules/End/event_end.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/History/event_history.gd remapped: res://addons/dialogic/Modules/History/event_history.gd
+Completed load for: 'res://addons/dialogic/Modules/History/event_history.gd' remapped 'res://addons/dialogic/Modules/History/event_history.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/Jump/event_return.gd remapped: res://addons/dialogic/Modules/Jump/event_return.gd
+Completed load for: 'res://addons/dialogic/Modules/Jump/event_return.gd' remapped 'res://addons/dialogic/Modules/Jump/event_return.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/Save/event_save.gd remapped: res://addons/dialogic/Modules/Save/event_save.gd
+Completed load for: 'res://addons/dialogic/Modules/Save/event_save.gd' remapped 'res://addons/dialogic/Modules/Save/event_save.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/Settings/event_setting.gd remapped: res://addons/dialogic/Modules/Settings/event_setting.gd
+Completed load for: 'res://addons/dialogic/Modules/Settings/event_setting.gd' remapped 'res://addons/dialogic/Modules/Settings/event_setting.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/Signal/event_signal.gd remapped: res://addons/dialogic/Modules/Signal/event_signal.gd
+Completed load for: 'res://addons/dialogic/Modules/Signal/event_signal.gd' remapped 'res://addons/dialogic/Modules/Signal/event_signal.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/Style/event_style.gd remapped: res://addons/dialogic/Modules/Style/event_style.gd
+Completed load for: 'res://addons/dialogic/Modules/Style/event_style.gd' remapped 'res://addons/dialogic/Modules/Style/event_style.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/TextInput/event_text_input.gd remapped: res://addons/dialogic/Modules/TextInput/event_text_input.gd
+Completed load for: 'res://addons/dialogic/Modules/TextInput/event_text_input.gd' remapped 'res://addons/dialogic/Modules/TextInput/event_text_input.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/Variable/event_variable.gd remapped: res://addons/dialogic/Modules/Variable/event_variable.gd
+Completed load for: 'res://addons/dialogic/Modules/Variable/event_variable.gd' remapped 'res://addons/dialogic/Modules/Variable/event_variable.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/Wait/event_wait.gd remapped: res://addons/dialogic/Modules/Wait/event_wait.gd
+Completed load for: 'res://addons/dialogic/Modules/Wait/event_wait.gd' remapped 'res://addons/dialogic/Modules/Wait/event_wait.gd' at thread -1
+Loading resource: res://addons/dialogic/Modules/WaitInput/event_wait_input.gd remapped: res://addons/dialogic/Modules/WaitInput/event_wait_input.gd
+Completed load for: 'res://addons/dialogic/Modules/WaitInput/event_wait_input.gd' remapped 'res://addons/dialogic/Modules/WaitInput/event_wait_input.gd' at thread -1
+CAPTURE combat_wild_dog_1280x720.png
+CAPTURE combat_slime_1280x720.png
+CAPTURE combat_wolf_1280x720.png
+CAPTURE combat_boar_1280x720.png
+CAPTURE combat_cursed_scarecrow_1280x720.png
+CAPTURE combat_plains_spirit_1280x720.png
+CAPTURE combat_nature_guardian_1280x720.png
+CAPTURE combat_forest_cultist_1280x720.png
+CAPTURE combat_rotting_knight_1280x720.png
+CAPTURE combat_corrupted_bear_1280x720.png
+CAPTURE combat_black_hart_1280x720.png
+CAPTURE combat_gallows_wraith_1280x720.png
+CAPTURE combat_blackwood_executioner_1280x720.png
+CAPTURE combat_bog_crawler_1280x720.png
+CAPTURE combat_drowned_dead_1280x720.png
+CAPTURE combat_swamp_witch_1280x720.png
+CAPTURE combat_bone_crocodile_1280x720.png
+CAPTURE combat_mist_walker_1280x720.png
+CAPTURE combat_drowned_mother_1280x720.png
+CAPTURE combat_boneburner_1280x720.png
+CAPTURE combat_red_salamander_1280x720.png
+CAPTURE combat_hearth_devourer_1280x720.png
+CAPTURE combat_azhar_1280x720.png
+CAPTURE combat_frozen_castaway_1280x720.png
+CAPTURE combat_ice_crab_1280x720.png
+CAPTURE combat_wild_dog_1920x1080.png
+CAPTURE combat_slime_1920x1080.png
+CAPTURE combat_wolf_1920x1080.png
+CAPTURE combat_boar_1920x1080.png
+CAPTURE combat_cursed_scarecrow_1920x1080.png
+CAPTURE combat_plains_spirit_1920x1080.png
+CAPTURE combat_nature_guardian_1920x1080.png
+CAPTURE combat_forest_cultist_1920x1080.png
+CAPTURE combat_rotting_knight_1920x1080.png
+CAPTURE combat_corrupted_bear_1920x1080.png
+CAPTURE combat_black_hart_1920x1080.png
+CAPTURE combat_gallows_wraith_1920x1080.png
+CAPTURE combat_blackwood_executioner_1920x1080.png
+CAPTURE combat_bog_crawler_1920x1080.png
+CAPTURE combat_drowned_dead_1920x1080.png
+CAPTURE combat_swamp_witch_1920x1080.png
+CAPTURE combat_bone_crocodile_1920x1080.png
+CAPTURE combat_mist_walker_1920x1080.png
+CAPTURE combat_drowned_mother_1920x1080.png
+CAPTURE combat_boneburner_1920x1080.png
+CAPTURE combat_red_salamander_1920x1080.png
+CAPTURE combat_hearth_devourer_1920x1080.png
+CAPTURE combat_azhar_1920x1080.png
+CAPTURE combat_frozen_castaway_1920x1080.png
+CAPTURE combat_ice_crab_1920x1080.png
+AUTOPILOT CAPTURE COMPLETE: 50
+XR: Clearing primary interface
+XR: Removed interface "Native mobile"
+XR: Removed interface "OpenXR"
+Accessibility: window 0 adapter destroyed.
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2582)

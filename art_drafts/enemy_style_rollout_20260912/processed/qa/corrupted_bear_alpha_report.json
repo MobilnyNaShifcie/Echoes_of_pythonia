@@ -1,0 +1,63 @@
+{
+  "enemy": "corrupted_bear",
+  "variant": "v1",
+  "source_sha256": "eb14c6dc4fde3c0833451a305925bc1171b3c19fd58c036c5a2c846d2fa7e8e9",
+  "profile": {
+    "mode": "magenta",
+    "despill_boundary": true,
+    "review_note": "Reviewed numbered islands: preserve all interior magenta corruption and eyes; only remove exterior matte and boundary spill."
+  },
+  "extraction": {
+    "background_fraction": 0.40256149300630356,
+    "unchanged_core_rgb_pixels": 876065,
+    "reviewed_interior_spill_pixels": 0
+  },
+  "framing": {
+    "source_alpha_bounds": [
+      16,
+      40,
+      1204,
+      1283
+    ],
+    "padding_xy": [
+      97,
+      102
+    ],
+    "resampled": false
+  },
+  "pixel_gate": {
+    "status": "PASS",
+    "mode": "RGBA",
+    "size": [
+      1382,
+      1447
+    ],
+    "alpha_bounds": [
+      97,
+      102,
+      1285,
+      1345
+    ],
+    "corner_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "margin_fractions_ltrb": [
+      0.07018813314037627,
+      0.07049067035245335,
+      0.07018813314037627,
+      0.07049067035245335
+    ],
+    "problems": [],
+    "sha256": "c88e89d5d7ce7179d4b3488371f4a6224516a148bc874a887db620b822d26331",
+    "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+  },
+  "source_silhouette_touched_canvas": false,
+  "remaining_key_candidate_pixels": 925,
+  "production_changed": false,
+  "owner_art_approval": false,
+  "visual_review": "PENDING",
+  "note": "Pixel PASS is not evidence of no clipping, no matte remnants, style or correct anatomy."
+}

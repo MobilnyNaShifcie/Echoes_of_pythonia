@@ -1,0 +1,64 @@
+{
+  "enemy": "nature_guardian",
+  "variant": "v2",
+  "source_sha256": "50af21093f065efde11d4b710c94f78e77fd2497555b42df9387b59e46b57e1d",
+  "profile": {
+    "mode": "magenta",
+    "variant": "v2",
+    "reviewed_all_matte": true,
+    "review_note": "Earth/moss/amber treant. Pure magenta is matte, no violet abilities. V2 completes antler tip and frame."
+  },
+  "extraction": {
+    "background_fraction": 0.6525162032091002,
+    "unchanged_core_rgb_pixels": 448737,
+    "reviewed_interior_spill_pixels": 0
+  },
+  "framing": {
+    "source_alpha_bounds": [
+      112,
+      149,
+      1015,
+      1282
+    ],
+    "padding_xy": [
+      74,
+      93
+    ],
+    "resampled": false
+  },
+  "pixel_gate": {
+    "status": "PASS",
+    "mode": "RGBA",
+    "size": [
+      1051,
+      1319
+    ],
+    "alpha_bounds": [
+      74,
+      93,
+      977,
+      1226
+    ],
+    "corner_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "margin_fractions_ltrb": [
+      0.07040913415794481,
+      0.07050796057619409,
+      0.07040913415794481,
+      0.07050796057619409
+    ],
+    "problems": [],
+    "sha256": "1b29c4efcb98bdd319f3a6fed9b62e086ad40e68ac4c2fb5b5d76a50cef84170",
+    "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+  },
+  "source_silhouette_touched_canvas": false,
+  "remaining_key_candidate_pixels": 0,
+  "production_changed": false,
+  "owner_art_approval": false,
+  "visual_review": "PENDING",
+  "note": "Pixel PASS is not evidence of no clipping, no matte remnants, style or correct anatomy."
+}

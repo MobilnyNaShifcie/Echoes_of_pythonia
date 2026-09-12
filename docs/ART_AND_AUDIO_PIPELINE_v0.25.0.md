@@ -52,11 +52,12 @@ result emphasis, optional manipulation or reroll, and combat resolution.
 
 ## Expedition-driven battle environments
 
-A battle backdrop must represent the expedition that produced the encounter.
-Region, current segment or location, time, weather, and encounter type select
-the environment independently of the active character and enemy. This rule is
-recorded now, but its implementation belongs to the later combat migration
-slice.
+A surface battle backdrop uses the encountered enemy's regional presentation
+mapping and the session's day/night period. Unknown enemy mappings fall back
+to the session region. This lookup also supplies the encounter's displayed
+region without changing travel state, weather mechanics, rewards or RNG.
+Dungeon room backgrounds and prologue presentation retain their own context
+and do not inherit a surface region from an enemy reused there.
 
 ## Modular city rule
 
@@ -78,7 +79,148 @@ design documents, and player-facing descriptions are the executable design
 specification. Migration means translating those mechanics into typed GDScript
 and Godot scenes. A deliberate mechanic change requires separate approval.
 
+## Enemy and boss style preparation and review
+
+The canonical style rules, approved class references, regional references and
+review criteria live in `AI_CONTEXT/ART_DIRECTION.md` (section 35), including its
+`autopilot-art-policy` data block. Every new or regenerated enemy uses that
+policy; do not maintain a separate prompt with copied, drifting style rules.
+
+Before preparing a generation request, run the existing reference-board tool
+with the target region, for example:
+
+```powershell
+.venv/Scripts/python.exe scripts/build_art_reference_board.py --region ice_coast --output output/art-review/ice_coast_references.png
+```
+
+This selects the approved class illustrations, the current world map and the
+matching regional landscape automatically. It writes a board, a `.prompt.txt`
+brief containing the canonical rules, and a `.references.json` manifest beside
+it. Use that generated brief and the original reference images from the manifest
+in the generation or regeneration request. The script prepares evidence; it
+does not call an image model or modify production images. Region-specific
+anatomy, lore and material identity supplement the shared illustration rules.
+Rebuild the brief for each request so changes to ART_DIRECTION take effect.
+
+Autopilot's Sol review reads the same policy on every cycle, attaches original
+class/map/region references to rendered combat scenes and checks realism,
+shading, silhouettes, regional identity and pose. Each combat scenario also maps to a source PNG in `scenario_enemies`. Sol receives
+that original enemy image alongside the rendered scene. The controller checks RGBA,
+transparent corners and silhouette margins; Sol assesses anatomy, pose, residual
+background and separation for future rigging. A pixel check alone does not prove
+a complete silhouette or animation readiness.
+The built-in fixture resolves surface enemy IDs through the production combat
+catalog. Canonical mappings now cover the 25 owner-approved restyled enemies
+and bosses from the 2026-09-12 batch, not only the original wolf/crab pilot.
+The deferred venom spider and unchanged enemies are not implied to have passed
+this batch's review.
+Adding a capture requires matching `scenario_regions` and `scenario_enemies` entries. Missing references
+produce an explicit diagnostic rather than silently substituting unrelated art.
+
+Art Studio re-reads that same policy before generating each variant and reviewing
+an imported/generated candidate. The saved request and UI reference catalog are
+not alternative policy sources. Enemy style attachments come only from the
+canonical class/world/selected-region paths; the old monster is labelled as an
+identity reference, never a rendering benchmark. Source, region and capture
+scenario must agree, even if the original PNG was opaque. Enemy candidates always
+require real RGBA. Missing mappings/references stop preparation rather than using
+an unrelated region. The reference-board `--region` mode also supports preparation
+of new enemies before a production PNG exists; integration review still requires
+the corresponding source/scenario mapping.
+
+Both Studio and Autopilot use the structured `ENEMY_REVIEW` contract: every enemy
+source requires all six criteria named in the canonical policy, image/area evidence
+and explicit comparison with the required reference paths. Missing criteria,
+FAIL or NOT_ASSESSABLE cannot yield PASS. A failed style criterion requires a
+visual finding and concrete correction. This is model-assisted visual judgment,
+not a deterministic photorealism detector. Pixel checks do not assess style.
+The old shader-only Stage 4.3 baseline review is not an enemy-art approval gate.
+
+Studio captures candidates at 1280×720 and 1920×1080. Its review receipt includes
+a fingerprint of policy data and reference bytes; changing either requires a new
+review before installation. Approval of a review does not replace owner approval
+of creative art. No generation, external service, regeneration, or installation
+is triggered merely by editing the policy.
+
+For each combat scenario, generate its source evidence as well:
+
+```powershell
+.venv/Scripts/python.exe scripts/build_art_reference_board.py --scenario combat_ice_crab --output output/art-review/combat_ice_crab.png
+.venv/Scripts/python.exe scripts/build_art_reference_board.py --check-enemies --output output/art-review/enemy-source-gate.json
+```
+
+The scenario's `.references.json` records `enemy_source`, region, original-source
+SHA-256, RGBA mode, dimensions, transparent corners, alpha bounds and all four
+margin fractions. The original PNG is included among its review references.
+The board preserves the enemy canvas instead of cropping away evidence of narrow
+margins. Both commands return nonzero on source-gate failure; the scenario board
+and measurements remain available for diagnosing a valid but noncompliant PNG.
+Invalid or missing mappings fail before a board can imply coverage.
+
+The source gate enforces at least 5% transparent margin on every side, targeting
+the canonical 5–8% centered composition without changing aspect ratio. Studio,
+Autopilot and the board now use the same source check. Sol still verifies
+complete anatomy, separated limbs, pose and absence of residual background on
+the original file; no pixel-bound test can prove these visual properties.
+A new or modified PNG in `godot/assets/combat/enemies` requires a policy mapping
+before either review command succeeds. By default this includes staged,
+unstaged and untracked changes against HEAD. For a review spanning commits,
+pass `--base-ref` with the revision before those changes to both commands.
+Every affected scenario must also be rendered and reviewed; a mapped but
+uncaptured enemy is not covered by the wolf/crab fixtures.
+
+### Audit follow-up evidence (2026-09-12)
+
+The current branch already integrates `oren_counter_v6.png` (1161×1355) and
+`mirela_counter_v3.png` (1180×1333) in the city scene, city tests, asset manifest
+and city gate. Git history includes their integration before HEAD and the
+quality correction in `697c2e7`. The historical missing-v5/v2 report is not a
+reason to restore obsolete variants or relax any city quality checks.
+
+Static inspection identified the ownership cycle
+`CombatEngine -> FateCombatResolver -> CombatEngine`. The resolver's reverse
+link is weak so releasing combat can also release its player, enemy, effects
+and referenced inventory resources. Lifetime tests cover the engine graph and
+the scene's transient AtlasTextures. The current capture fixture already queues
+the app and SubViewport for deletion and waits for rendering to settle.
+This diagnosis does not identify every historical RID or prove an error-free
+shutdown: the controller must run GUT and capture with `--verbose`, retain the
+leaked-instance/resource-path diagnostics, and repeat after any remaining owner
+fixes until both logs contain no `ERROR:`. Do not suppress those diagnostics.
+
+The text-only audit patch does not repair the source bitmaps. Current alpha
+bounds are wolf 1254×1254 / (0,19,1254,1254), and ice crab 1299×879 /
+(12,12,1287,867), so neither meets the source-margin gate. The next authorized
+raster pass must add centered transparent padding without stretching and
+regenerate the crab's left-facing 3/4 idle pose according to ART_DIRECTION.
+These asset findings remain open until original PNGs and fresh combat renders
+pass review. After regeneration, recheck crop metadata, ground contact and
+lighting against Ice Coast at 1280×720 and 1920×1080.
+Existing manual reference-board calls with explicit image paths still work for
+other art categories. New enemy assets still follow the owner approval and
+transparency workflow below; no existing bitmap or gameplay rule changes merely
+because the policy was updated.
+
 ## Author approval gate
+
+The owner accepted the 2026-09-12 enemy gallery with "pasują wprowadzaj".
+The exact 25 approved cutouts are integrated byte-for-byte; the venom spider
+remains deferred for leg readability. Approval, old-source backups, new-source
+hashes and the retained generation receipts are under
+`art_drafts/enemy_style_rollout_20260912/integration/`.
+Its `in_game_final/` contains all 25 encounters at 1280×720 and 1920×1080,
+with source crop, placement and matching region recorded in `manifest.json`.
+Read `capture_checks.json` and the visual review alongside the screenshots;
+successful image output is not an assertion of a warning-free host/runtime.
+The completed Codex inspection is recorded in `enemy_visual_review.json` using
+the existing ENEMY_REVIEW contract (25 sources, six criteria each); this is not
+a separate Sol review. `index.html` links all fifty final frames. Godot GUT
+passed 676 tests and the focused Python policy/autopilot suite passed 96 tests.
+The Windows certificate-store error and import-only UndoRedo cleanup diagnostics
+remain recorded separately; the runtime log gate is not labelled clean.
+This supersedes the pre-integration wolf/crab source-margin findings above.
+The six obsolete fixed enemy crops were removed in favor of complete alpha
+bounds. Small-creature framing was adjusted; no gameplay or save fields changed.
 
 No proposed visual or audio asset becomes a production Godot asset before the
 project owner approves it. Every proposal follows this lifecycle:

@@ -1,0 +1,64 @@
+{
+  "enemy": "blackwood_executioner",
+  "variant": "v2",
+  "source_sha256": "05ee6137e04788dcda207f13c87f4441d4479f69788ce782c13bb21242f8dfd8",
+  "profile": {
+    "mode": "magenta",
+    "variant": "v2",
+    "reviewed_all_matte": true,
+    "review_note": "Earth/iron/rust figure and orange visor, no magenta body detail. V2 restores full branch tips, axe and boots within the canvas."
+  },
+  "extraction": {
+    "background_fraction": 0.657555475041793,
+    "unchanged_core_rgb_pixels": 461124,
+    "reviewed_interior_spill_pixels": 0
+  },
+  "framing": {
+    "source_alpha_bounds": [
+      73,
+      93,
+      977,
+      1258
+    ],
+    "padding_xy": [
+      74,
+      95
+    ],
+    "resampled": false
+  },
+  "pixel_gate": {
+    "status": "PASS",
+    "mode": "RGBA",
+    "size": [
+      1052,
+      1355
+    ],
+    "alpha_bounds": [
+      74,
+      95,
+      978,
+      1260
+    ],
+    "corner_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "margin_fractions_ltrb": [
+      0.07034220532319392,
+      0.07011070110701106,
+      0.07034220532319392,
+      0.07011070110701106
+    ],
+    "problems": [],
+    "sha256": "0679b2e1acebec1fc531e41238ac863ca0b6aa4a55bc0bc7d333d78e43fb557c",
+    "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+  },
+  "source_silhouette_touched_canvas": false,
+  "remaining_key_candidate_pixels": 0,
+  "production_changed": false,
+  "owner_art_approval": false,
+  "visual_review": "PENDING",
+  "note": "Pixel PASS is not evidence of no clipping, no matte remnants, style or correct anatomy."
+}

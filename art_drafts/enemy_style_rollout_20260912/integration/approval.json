@@ -1,0 +1,1661 @@
+{
+  "owner_message": "pasują wprowadzaj",
+  "owner_art_approval": true,
+  "date": "2026-09-12",
+  "production_status": "INTEGRATED_VISUALLY_REVIEWED",
+  "preview_policy_fingerprint": "09971ed6ea332e5505de4afbd72645c86e014ca1358ae4b5b61319ef90319c8b",
+  "deferred": {
+    "venom_spider": "Dopracować czytelność ośmiu nóg: dalsze odnóża nadal nakładają się. Nie zatwierdzać do riggingu ani produkcji na podstawie samego podglądu stylu."
+  },
+  "assets": [
+    {
+      "enemy": "wild_dog",
+      "region": "twilight_plains",
+      "source": "godot/assets/combat/enemies/wild_dog.png",
+      "source_sha256": "f4391f7f6bcd0c212235245db8801e0947d11381734824be1e33da0b4e06fefe",
+      "pixel_gate": {
+        "status": "PASS",
+        "mode": "RGBA",
+        "size": [
+          1371,
+          1347
+        ],
+        "alpha_bounds": [
+          96,
+          95,
+          1275,
+          1252
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.0700218818380744,
+          0.07052709725315516,
+          0.0700218818380744,
+          0.07052709725315516
+        ],
+        "problems": [],
+        "sha256": "80de20b5dca009312a6b38ac12de2ed40abd001aa14f772d172d31244d11d809",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "OWNER_APPROVED_INTEGRATED_VISUALLY_REVIEWED",
+      "owner_art_approval": true,
+      "production_changed": true,
+      "candidate": "art_drafts/enemy_style_rollout_20260912/processed/wild_dog.png",
+      "variant": "v1",
+      "generation_receipt": "art_drafts/enemy_style_rollout_20260912/raw/wild_dog_v1.json",
+      "alpha_report": "art_drafts/enemy_style_rollout_20260912/processed/qa/wild_dog_alpha_report.json",
+      "source_silhouette_touched_canvas": false,
+      "remaining_key_candidate_pixels": 64,
+      "source_art_observation": "Brown/charcoal grouped fur and painted muzzle retain the lean feral dog identity, distinct from the larger wolf; four complete legs and small tail.",
+      "compared_style_references": [
+        {
+          "path": "godot/assets/combat/heroes/hunter_male.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/combat/heroes/mage_female.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/world_map/pythonia_world_map_integrated.png",
+          "role": "AKTUALNA MAPA ŚWIATA / REGIONÓW"
+        },
+        {
+          "path": "godot/assets/combat/backgrounds/twilight_plains_day.png",
+          "role": "KRAJOBRAZ REGIONU twilight_plains"
+        }
+      ],
+      "source_art_review": "CANDIDATE_FOR_OWNER_REVIEW",
+      "approved_sha256": "80de20b5dca009312a6b38ac12de2ed40abd001aa14f772d172d31244d11d809",
+      "backup": "art_drafts/enemy_style_rollout_20260912/integration/before/enemies/wild_dog.png"
+    },
+    {
+      "enemy": "slime",
+      "region": "twilight_plains",
+      "source": "godot/assets/combat/enemies/slime.png",
+      "source_sha256": "3573a6a57ab81812275b38f7a15c707cd011879b67e67a95605d554b5f2d96bb",
+      "pixel_gate": {
+        "status": "PASS",
+        "mode": "RGBA",
+        "size": [
+          1471,
+          1223
+        ],
+        "alpha_bounds": [
+          103,
+          86,
+          1368,
+          1137
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.07002039428959891,
+          0.07031888798037612,
+          0.07002039428959891,
+          0.07031888798037612
+        ],
+        "problems": [],
+        "sha256": "eabdf6fadee22ff7a44a23fed5f378f0db7a732caa41cc671704bb39c5caaca3",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "OWNER_APPROVED_INTEGRATED_VISUALLY_REVIEWED",
+      "owner_art_approval": true,
+      "production_changed": true,
+      "candidate": "art_drafts/enemy_style_rollout_20260912/processed/slime.png",
+      "variant": "v1",
+      "generation_receipt": "art_drafts/enemy_style_rollout_20260912/raw/slime_v1.json",
+      "alpha_report": "art_drafts/enemy_style_rollout_20260912/processed/qa/slime_alpha_report.json",
+      "source_silhouette_touched_canvas": false,
+      "remaining_key_candidate_pixels": 900,
+      "source_art_observation": "Painted teal liquid lobes, violet eyes/core and clean mouth replace photographic caustics. Naturally limbless; detached droplets are an effect and need separate treatment if animated.",
+      "compared_style_references": [
+        {
+          "path": "godot/assets/combat/heroes/hunter_male.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/combat/heroes/mage_female.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/world_map/pythonia_world_map_integrated.png",
+          "role": "AKTUALNA MAPA ŚWIATA / REGIONÓW"
+        },
+        {
+          "path": "godot/assets/combat/backgrounds/twilight_plains_day.png",
+          "role": "KRAJOBRAZ REGIONU twilight_plains"
+        }
+      ],
+      "source_art_review": "CANDIDATE_FOR_OWNER_REVIEW",
+      "approved_sha256": "eabdf6fadee22ff7a44a23fed5f378f0db7a732caa41cc671704bb39c5caaca3",
+      "backup": "art_drafts/enemy_style_rollout_20260912/integration/before/enemies/slime.png"
+    },
+    {
+      "enemy": "wolf",
+      "region": "twilight_plains",
+      "source": "godot/assets/combat/enemies/wolf.png",
+      "source_sha256": "394ee4a494fef7e72dd4b164bbd89720065ca58142c3288162f6684292221486",
+      "pixel_gate": {
+        "status": "PASS",
+        "mode": "RGBA",
+        "size": [
+          1328,
+          1164
+        ],
+        "alpha_bounds": [
+          93,
+          82,
+          1235,
+          1082
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.07003012048192771,
+          0.070446735395189,
+          0.07003012048192771,
+          0.070446735395189
+        ],
+        "problems": [],
+        "sha256": "51a9ebf87bd437ac70d6338740e716879f635d2f3bd8538501baf7aabf75e81c",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "OWNER_APPROVED_INTEGRATED_VISUALLY_REVIEWED",
+      "owner_art_approval": true,
+      "production_changed": true,
+      "candidate": "art_drafts/enemy_style_pilot_20260912/processed/wolf_rgba.png",
+      "variant": "pilot",
+      "generation_receipt": null,
+      "alpha_report": null,
+      "source_art_observation": "Broad grey fur tufts, drawn facial planes and red accents replace granular fur. Four paws and full tail are visible; pilot alpha preview retained.",
+      "compared_style_references": [
+        {
+          "path": "godot/assets/combat/heroes/hunter_male.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/combat/heroes/mage_female.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/world_map/pythonia_world_map_integrated.png",
+          "role": "AKTUALNA MAPA ŚWIATA / REGIONÓW"
+        },
+        {
+          "path": "godot/assets/combat/backgrounds/twilight_plains_day.png",
+          "role": "KRAJOBRAZ REGIONU twilight_plains"
+        }
+      ],
+      "source_art_review": "CANDIDATE_FOR_OWNER_REVIEW",
+      "approved_sha256": "51a9ebf87bd437ac70d6338740e716879f635d2f3bd8538501baf7aabf75e81c",
+      "backup": "art_drafts/enemy_style_rollout_20260912/integration/before/enemies/wolf.png"
+    },
+    {
+      "enemy": "boar",
+      "region": "twilight_plains",
+      "source": "godot/assets/combat/enemies/boar.png",
+      "source_sha256": "89af19ab95fb531080d2f230856de61f9c224593d72b3d13d4fbee0c28d9aec1",
+      "pixel_gate": {
+        "status": "PASS",
+        "mode": "RGBA",
+        "size": [
+          1584,
+          1320
+        ],
+        "alpha_bounds": [
+          111,
+          93,
+          1473,
+          1227
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.07007575757575757,
+          0.07045454545454545,
+          0.07007575757575757,
+          0.07045454545454545
+        ],
+        "problems": [],
+        "sha256": "9174af22700f40cbd0e40bccb101e5f634f208d565191d12668fb24a56ecdc9b",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "OWNER_APPROVED_INTEGRATED_VISUALLY_REVIEWED",
+      "owner_art_approval": true,
+      "production_changed": true,
+      "candidate": "art_drafts/enemy_style_rollout_20260912/processed/boar.png",
+      "variant": "v1",
+      "generation_receipt": "art_drafts/enemy_style_rollout_20260912/raw/boar_v1.json",
+      "alpha_report": "art_drafts/enemy_style_rollout_20260912/processed/qa/boar_alpha_report.json",
+      "source_silhouette_touched_canvas": false,
+      "remaining_key_candidate_pixels": 1584,
+      "source_art_observation": "Broad charcoal/russet bristles and ivory tusks keep the heavy boar silhouette. Four hoofed legs and red corruption are retained without photographic hide.",
+      "compared_style_references": [
+        {
+          "path": "godot/assets/combat/heroes/hunter_male.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/combat/heroes/mage_female.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/world_map/pythonia_world_map_integrated.png",
+          "role": "AKTUALNA MAPA ŚWIATA / REGIONÓW"
+        },
+        {
+          "path": "godot/assets/combat/backgrounds/twilight_plains_day.png",
+          "role": "KRAJOBRAZ REGIONU twilight_plains"
+        }
+      ],
+      "source_art_review": "CANDIDATE_FOR_OWNER_REVIEW",
+      "approved_sha256": "9174af22700f40cbd0e40bccb101e5f634f208d565191d12668fb24a56ecdc9b",
+      "backup": "art_drafts/enemy_style_rollout_20260912/integration/before/enemies/boar.png"
+    },
+    {
+      "enemy": "cursed_scarecrow",
+      "region": "twilight_plains",
+      "source": "godot/assets/combat/enemies/cursed_scarecrow.png",
+      "source_sha256": "8f054fd6a44c1e2c9ecfd361a8a36dc2b2cfa1f63a07ee3440d02eaf01032946",
+      "pixel_gate": {
+        "status": "PASS",
+        "mode": "RGBA",
+        "size": [
+          1165,
+          1714
+        ],
+        "alpha_bounds": [
+          82,
+          120,
+          1083,
+          1594
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.0703862660944206,
+          0.07001166861143523,
+          0.0703862660944206,
+          0.07001166861143523
+        ],
+        "problems": [],
+        "sha256": "cfba6202e803ce8f7c4ec88611e284a6e2811a90d5bfc953fff40bd9e13e9b62",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "OWNER_APPROVED_INTEGRATED_VISUALLY_REVIEWED",
+      "owner_art_approval": true,
+      "production_changed": true,
+      "candidate": "art_drafts/enemy_style_rollout_20260912/processed/cursed_scarecrow.png",
+      "variant": "v1",
+      "generation_receipt": "art_drafts/enemy_style_rollout_20260912/raw/cursed_scarecrow_v1.json",
+      "alpha_report": "art_drafts/enemy_style_rollout_20260912/processed/qa/cursed_scarecrow_alpha_report.json",
+      "source_silhouette_touched_canvas": false,
+      "remaining_key_candidate_pixels": 0,
+      "source_art_observation": "Grouped ochre straw, coat folds and drawn black face with red eyes. Complete curved scythe, hands and straw feet; grounded dry-plains identity.",
+      "compared_style_references": [
+        {
+          "path": "godot/assets/combat/heroes/hunter_male.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/combat/heroes/mage_female.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/world_map/pythonia_world_map_integrated.png",
+          "role": "AKTUALNA MAPA ŚWIATA / REGIONÓW"
+        },
+        {
+          "path": "godot/assets/combat/backgrounds/twilight_plains_day.png",
+          "role": "KRAJOBRAZ REGIONU twilight_plains"
+        }
+      ],
+      "source_art_review": "CANDIDATE_FOR_OWNER_REVIEW",
+      "approved_sha256": "cfba6202e803ce8f7c4ec88611e284a6e2811a90d5bfc953fff40bd9e13e9b62",
+      "backup": "art_drafts/enemy_style_rollout_20260912/integration/before/enemies/cursed_scarecrow.png"
+    },
+    {
+      "enemy": "plains_spirit",
+      "region": "twilight_plains",
+      "source": "godot/assets/combat/enemies/plains_spirit.png",
+      "source_sha256": "fcdde5f30338f42ecc856178971c2a849b3de2c70af96e4f27dcd46e659ca068",
+      "pixel_gate": {
+        "status": "PASS",
+        "mode": "RGBA",
+        "size": [
+          1174,
+          1764
+        ],
+        "alpha_bounds": [
+          83,
+          124,
+          1091,
+          1640
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.0706984667802385,
+          0.07029478458049887,
+          0.0706984667802385,
+          0.07029478458049887
+        ],
+        "problems": [],
+        "sha256": "b69134605f2557777c1dde459bf144e323027b6a08a4b4edf0aaea3cc50037bb",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "OWNER_APPROVED_INTEGRATED_VISUALLY_REVIEWED",
+      "owner_art_approval": true,
+      "production_changed": true,
+      "candidate": "art_drafts/enemy_style_rollout_20260912/processed/plains_spirit.png",
+      "variant": "v1",
+      "generation_receipt": "art_drafts/enemy_style_rollout_20260912/raw/plains_spirit_v1.json",
+      "alpha_report": "art_drafts/enemy_style_rollout_20260912/processed/qa/plains_spirit_alpha_report.json",
+      "source_silhouette_touched_canvas": false,
+      "remaining_key_candidate_pixels": 0,
+      "source_art_observation": "Broad slate/cyan robe ribbons and drawn skeletal hands replace filament-like cloth. Cyan lantern and dry-grass motifs preserved. Ribbon alpha gaps locally cleaned; no invented feet on the naturally dissolving ghost.",
+      "compared_style_references": [
+        {
+          "path": "godot/assets/combat/heroes/hunter_male.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/combat/heroes/mage_female.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/world_map/pythonia_world_map_integrated.png",
+          "role": "AKTUALNA MAPA ŚWIATA / REGIONÓW"
+        },
+        {
+          "path": "godot/assets/combat/backgrounds/twilight_plains_day.png",
+          "role": "KRAJOBRAZ REGIONU twilight_plains"
+        }
+      ],
+      "source_art_review": "CANDIDATE_FOR_OWNER_REVIEW",
+      "approved_sha256": "b69134605f2557777c1dde459bf144e323027b6a08a4b4edf0aaea3cc50037bb",
+      "backup": "art_drafts/enemy_style_rollout_20260912/integration/before/enemies/plains_spirit.png"
+    },
+    {
+      "enemy": "nature_guardian",
+      "region": "twilight_plains",
+      "source": "godot/assets/combat/enemies/nature_guardian.png",
+      "source_sha256": "de9618ac9453395643800775c78f28e2c8e9690e15e58ad25d32645398162de9",
+      "pixel_gate": {
+        "status": "PASS",
+        "mode": "RGBA",
+        "size": [
+          1051,
+          1319
+        ],
+        "alpha_bounds": [
+          74,
+          93,
+          977,
+          1226
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.07040913415794481,
+          0.07050796057619409,
+          0.07040913415794481,
+          0.07050796057619409
+        ],
+        "problems": [],
+        "sha256": "1b29c4efcb98bdd319f3a6fed9b62e086ad40e68ac4c2fb5b5d76a50cef84170",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "OWNER_APPROVED_INTEGRATED_VISUALLY_REVIEWED",
+      "owner_art_approval": true,
+      "production_changed": true,
+      "candidate": "art_drafts/enemy_style_rollout_20260912/processed/nature_guardian.png",
+      "variant": "v2",
+      "generation_receipt": "art_drafts/enemy_style_rollout_20260912/raw/nature_guardian_v2.json",
+      "alpha_report": "art_drafts/enemy_style_rollout_20260912/processed/qa/nature_guardian_alpha_report.json",
+      "source_silhouette_touched_canvas": false,
+      "remaining_key_candidate_pixels": 0,
+      "source_art_observation": "Broad wooden armor planes, olive moss and amber core preserve the treant. V2 includes the complete branch crown, shield and root feet, unlike clipped v1.",
+      "compared_style_references": [
+        {
+          "path": "godot/assets/combat/heroes/hunter_male.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/combat/heroes/mage_female.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/world_map/pythonia_world_map_integrated.png",
+          "role": "AKTUALNA MAPA ŚWIATA / REGIONÓW"
+        },
+        {
+          "path": "godot/assets/combat/backgrounds/twilight_plains_day.png",
+          "role": "KRAJOBRAZ REGIONU twilight_plains"
+        }
+      ],
+      "source_art_review": "CANDIDATE_FOR_OWNER_REVIEW",
+      "approved_sha256": "1b29c4efcb98bdd319f3a6fed9b62e086ad40e68ac4c2fb5b5d76a50cef84170",
+      "backup": "art_drafts/enemy_style_rollout_20260912/integration/before/enemies/nature_guardian.png"
+    },
+    {
+      "enemy": "forest_cultist",
+      "region": "black_forest",
+      "source": "godot/assets/combat/enemies/forest_cultist.png",
+      "source_sha256": "d04ec4b3a13e5aa99a30a0948904fb401d742383fc8ca967192eb49461c1935e",
+      "pixel_gate": {
+        "status": "PASS",
+        "mode": "RGBA",
+        "size": [
+          1228,
+          1635
+        ],
+        "alpha_bounds": [
+          86,
+          115,
+          1142,
+          1520
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.07003257328990228,
+          0.07033639143730887,
+          0.07003257328990228,
+          0.07033639143730887
+        ],
+        "problems": [],
+        "sha256": "8d2774fd2a6005de604ca058ad1c5da28f279a2c1e1f2250001061c68e207d69",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "OWNER_APPROVED_INTEGRATED_VISUALLY_REVIEWED",
+      "owner_art_approval": true,
+      "production_changed": true,
+      "candidate": "art_drafts/enemy_style_rollout_20260912/processed/forest_cultist.png",
+      "variant": "v1",
+      "generation_receipt": "art_drafts/enemy_style_rollout_20260912/raw/forest_cultist_v1.json",
+      "alpha_report": "art_drafts/enemy_style_rollout_20260912/processed/qa/forest_cultist_alpha_report.json",
+      "source_silhouette_touched_canvas": false,
+      "remaining_key_candidate_pixels": 0,
+      "source_art_observation": "Deer-skull mask, drawn ivory antlers and grouped olive robes remain recognizable. Staff and boots are complete; bone/rope surfaces are illustrated rather than pore-textured.",
+      "compared_style_references": [
+        {
+          "path": "godot/assets/combat/heroes/hunter_male.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/combat/heroes/mage_female.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/world_map/pythonia_world_map_integrated.png",
+          "role": "AKTUALNA MAPA ŚWIATA / REGIONÓW"
+        },
+        {
+          "path": "godot/assets/combat/backgrounds/black_forest_day.png",
+          "role": "KRAJOBRAZ REGIONU black_forest"
+        }
+      ],
+      "source_art_review": "CANDIDATE_FOR_OWNER_REVIEW",
+      "approved_sha256": "8d2774fd2a6005de604ca058ad1c5da28f279a2c1e1f2250001061c68e207d69",
+      "backup": "art_drafts/enemy_style_rollout_20260912/integration/before/enemies/forest_cultist.png"
+    },
+    {
+      "enemy": "rotting_knight",
+      "region": "black_forest",
+      "source": "godot/assets/combat/enemies/rotting_knight.png",
+      "source_sha256": "cde7f1160a96c057173b1405afd2e9e42241d5156d60ec64d90ffb77acb6f6b3",
+      "pixel_gate": {
+        "status": "PASS",
+        "mode": "RGBA",
+        "size": [
+          1252,
+          1666
+        ],
+        "alpha_bounds": [
+          88,
+          117,
+          1164,
+          1549
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.07028753993610223,
+          0.0702280912364946,
+          0.07028753993610223,
+          0.0702280912364946
+        ],
+        "problems": [],
+        "sha256": "f008ea2ada3da82621438be541b3d0c9b85eb7a8cc0d08bed97170759d93cfc0",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "OWNER_APPROVED_INTEGRATED_VISUALLY_REVIEWED",
+      "owner_art_approval": true,
+      "production_changed": true,
+      "candidate": "art_drafts/enemy_style_rollout_20260912/processed/rotting_knight.png",
+      "variant": "v1",
+      "generation_receipt": "art_drafts/enemy_style_rollout_20260912/raw/rotting_knight_v1.json",
+      "alpha_report": "art_drafts/enemy_style_rollout_20260912/processed/qa/rotting_knight_alpha_report.json",
+      "source_silhouette_touched_canvas": false,
+      "remaining_key_candidate_pixels": 0,
+      "source_art_observation": "Broader iron planes and fewer painted corrosion patches. Green visor, sword, shield and two boots remain distinct, without exposing an unrelated human face.",
+      "compared_style_references": [
+        {
+          "path": "godot/assets/combat/heroes/hunter_male.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/combat/heroes/mage_female.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/world_map/pythonia_world_map_integrated.png",
+          "role": "AKTUALNA MAPA ŚWIATA / REGIONÓW"
+        },
+        {
+          "path": "godot/assets/combat/backgrounds/black_forest_day.png",
+          "role": "KRAJOBRAZ REGIONU black_forest"
+        }
+      ],
+      "source_art_review": "CANDIDATE_FOR_OWNER_REVIEW",
+      "approved_sha256": "f008ea2ada3da82621438be541b3d0c9b85eb7a8cc0d08bed97170759d93cfc0",
+      "backup": "art_drafts/enemy_style_rollout_20260912/integration/before/enemies/rotting_knight.png"
+    },
+    {
+      "enemy": "corrupted_bear",
+      "region": "black_forest",
+      "source": "godot/assets/combat/enemies/corrupted_bear.png",
+      "source_sha256": "b01e5bee956a424ce1daa9423a77298e119c61ddecf76f21cfccde6e25ea801d",
+      "pixel_gate": {
+        "status": "PASS",
+        "mode": "RGBA",
+        "size": [
+          1382,
+          1447
+        ],
+        "alpha_bounds": [
+          97,
+          102,
+          1285,
+          1345
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.07018813314037627,
+          0.07049067035245335,
+          0.07018813314037627,
+          0.07049067035245335
+        ],
+        "problems": [],
+        "sha256": "c88e89d5d7ce7179d4b3488371f4a6224516a148bc874a887db620b822d26331",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "OWNER_APPROVED_INTEGRATED_VISUALLY_REVIEWED",
+      "owner_art_approval": true,
+      "production_changed": true,
+      "candidate": "art_drafts/enemy_style_rollout_20260912/processed/corrupted_bear.png",
+      "variant": "v1",
+      "generation_receipt": "art_drafts/enemy_style_rollout_20260912/raw/corrupted_bear_v1.json",
+      "alpha_report": "art_drafts/enemy_style_rollout_20260912/processed/qa/corrupted_bear_alpha_report.json",
+      "source_silhouette_touched_canvas": false,
+      "remaining_key_candidate_pixels": 925,
+      "source_art_observation": "Grouped charcoal fur and localized violet fissures retain hefty bear anatomy. Interior violet corruption is intentionally preserved by alpha processing, not treated as background.",
+      "compared_style_references": [
+        {
+          "path": "godot/assets/combat/heroes/hunter_male.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/combat/heroes/mage_female.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/world_map/pythonia_world_map_integrated.png",
+          "role": "AKTUALNA MAPA ŚWIATA / REGIONÓW"
+        },
+        {
+          "path": "godot/assets/combat/backgrounds/black_forest_day.png",
+          "role": "KRAJOBRAZ REGIONU black_forest"
+        }
+      ],
+      "source_art_review": "CANDIDATE_FOR_OWNER_REVIEW",
+      "approved_sha256": "c88e89d5d7ce7179d4b3488371f4a6224516a148bc874a887db620b822d26331",
+      "backup": "art_drafts/enemy_style_rollout_20260912/integration/before/enemies/corrupted_bear.png"
+    },
+    {
+      "enemy": "black_hart",
+      "region": "black_forest",
+      "source": "godot/assets/combat/enemies/black_hart.png",
+      "source_sha256": "2e713b8a9b610beb0d8261aa12edecd003e16085af2e2352ef4030a233c72a51",
+      "pixel_gate": {
+        "status": "PASS",
+        "mode": "RGBA",
+        "size": [
+          1176,
+          1713
+        ],
+        "alpha_bounds": [
+          83,
+          120,
+          1093,
+          1593
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.070578231292517,
+          0.07005253940455342,
+          0.070578231292517,
+          0.07005253940455342
+        ],
+        "problems": [],
+        "sha256": "38c8243bbc599f470c463b2fd9a7cf331116e1187c8f3ad2f44041b8eca4cae9",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "OWNER_APPROVED_INTEGRATED_VISUALLY_REVIEWED",
+      "owner_art_approval": true,
+      "production_changed": true,
+      "candidate": "art_drafts/enemy_style_rollout_20260912/processed/black_hart.png",
+      "variant": "v1",
+      "generation_receipt": "art_drafts/enemy_style_rollout_20260912/raw/black_hart_v1.json",
+      "alpha_report": "art_drafts/enemy_style_rollout_20260912/processed/qa/black_hart_alpha_report.json",
+      "source_silhouette_touched_canvas": false,
+      "remaining_key_candidate_pixels": 0,
+      "source_art_observation": "Clear dark antler branches, grouped plum fur and restrained magenta veins. Four slim hooved legs; reviewed gaps between antlers/fur cleaned without erasing the corruption veins.",
+      "compared_style_references": [
+        {
+          "path": "godot/assets/combat/heroes/hunter_male.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/combat/heroes/mage_female.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/world_map/pythonia_world_map_integrated.png",
+          "role": "AKTUALNA MAPA ŚWIATA / REGIONÓW"
+        },
+        {
+          "path": "godot/assets/combat/backgrounds/black_forest_day.png",
+          "role": "KRAJOBRAZ REGIONU black_forest"
+        }
+      ],
+      "source_art_review": "CANDIDATE_FOR_OWNER_REVIEW",
+      "approved_sha256": "38c8243bbc599f470c463b2fd9a7cf331116e1187c8f3ad2f44041b8eca4cae9",
+      "backup": "art_drafts/enemy_style_rollout_20260912/integration/before/enemies/black_hart.png"
+    },
+    {
+      "enemy": "gallows_wraith",
+      "region": "black_forest",
+      "source": "godot/assets/combat/enemies/gallows_wraith.png",
+      "source_sha256": "fef696a8369463e9f1e2583803d9d2d8cce3a2005aa58dff5a7650c07f15a32c",
+      "pixel_gate": {
+        "status": "PASS",
+        "mode": "RGBA",
+        "size": [
+          1236,
+          1681
+        ],
+        "alpha_bounds": [
+          87,
+          118,
+          1149,
+          1563
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.0703883495145631,
+          0.07019631171921475,
+          0.0703883495145631,
+          0.07019631171921475
+        ],
+        "problems": [],
+        "sha256": "b4fbbd2e0fa6502d2c11c66bd933b365a8030296286e5af0194649142684df16",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "OWNER_APPROVED_INTEGRATED_VISUALLY_REVIEWED",
+      "owner_art_approval": true,
+      "production_changed": true,
+      "candidate": "art_drafts/enemy_style_rollout_20260912/processed/gallows_wraith.png",
+      "variant": "v1",
+      "generation_receipt": "art_drafts/enemy_style_rollout_20260912/raw/gallows_wraith_v1.json",
+      "alpha_report": "art_drafts/enemy_style_rollout_20260912/processed/qa/gallows_wraith_alpha_report.json",
+      "source_silhouette_touched_canvas": false,
+      "remaining_key_candidate_pixels": 0,
+      "source_art_observation": "Drawn grey face/hands, broad grey ribbons and ochre noose distinguish it from the lantern ghost. Both bare feet visible; pink matte flecks locally cleaned from grey cloth/hair.",
+      "compared_style_references": [
+        {
+          "path": "godot/assets/combat/heroes/hunter_male.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/combat/heroes/mage_female.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/world_map/pythonia_world_map_integrated.png",
+          "role": "AKTUALNA MAPA ŚWIATA / REGIONÓW"
+        },
+        {
+          "path": "godot/assets/combat/backgrounds/black_forest_day.png",
+          "role": "KRAJOBRAZ REGIONU black_forest"
+        }
+      ],
+      "source_art_review": "CANDIDATE_FOR_OWNER_REVIEW",
+      "approved_sha256": "b4fbbd2e0fa6502d2c11c66bd933b365a8030296286e5af0194649142684df16",
+      "backup": "art_drafts/enemy_style_rollout_20260912/integration/before/enemies/gallows_wraith.png"
+    },
+    {
+      "enemy": "blackwood_executioner",
+      "region": "black_forest",
+      "source": "godot/assets/combat/enemies/blackwood_executioner.png",
+      "source_sha256": "ab621b95081f3d904d3a4cdded0c5e957f164b29082c0a33a8e1ebf1ca2aaff0",
+      "pixel_gate": {
+        "status": "PASS",
+        "mode": "RGBA",
+        "size": [
+          1052,
+          1355
+        ],
+        "alpha_bounds": [
+          74,
+          95,
+          978,
+          1260
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.07034220532319392,
+          0.07011070110701106,
+          0.07034220532319392,
+          0.07011070110701106
+        ],
+        "problems": [],
+        "sha256": "0679b2e1acebec1fc531e41238ac863ca0b6aa4a55bc0bc7d333d78e43fb557c",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "OWNER_APPROVED_INTEGRATED_VISUALLY_REVIEWED",
+      "owner_art_approval": true,
+      "production_changed": true,
+      "candidate": "art_drafts/enemy_style_rollout_20260912/processed/blackwood_executioner.png",
+      "variant": "v2",
+      "generation_receipt": "art_drafts/enemy_style_rollout_20260912/raw/blackwood_executioner_v2.json",
+      "alpha_report": "art_drafts/enemy_style_rollout_20260912/processed/qa/blackwood_executioner_alpha_report.json",
+      "source_silhouette_touched_canvas": false,
+      "remaining_key_candidate_pixels": 0,
+      "source_art_observation": "Broad illustrated muscular arm and iron/bark armor retain asymmetry. V2 restores full branch tips and frame; axe and both heavy boots remain visible.",
+      "compared_style_references": [
+        {
+          "path": "godot/assets/combat/heroes/hunter_male.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/combat/heroes/mage_female.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/world_map/pythonia_world_map_integrated.png",
+          "role": "AKTUALNA MAPA ŚWIATA / REGIONÓW"
+        },
+        {
+          "path": "godot/assets/combat/backgrounds/black_forest_day.png",
+          "role": "KRAJOBRAZ REGIONU black_forest"
+        }
+      ],
+      "source_art_review": "CANDIDATE_FOR_OWNER_REVIEW",
+      "approved_sha256": "0679b2e1acebec1fc531e41238ac863ca0b6aa4a55bc0bc7d333d78e43fb557c",
+      "backup": "art_drafts/enemy_style_rollout_20260912/integration/before/enemies/blackwood_executioner.png"
+    },
+    {
+      "enemy": "bog_crawler",
+      "region": "silentwater_marshes",
+      "source": "godot/assets/combat/enemies/bog_crawler.png",
+      "source_sha256": "3d647e9663363bd9c083cc794f61b26a7cfe5fa034e1fa314a7ffac761bbd8cc",
+      "pixel_gate": {
+        "status": "PASS",
+        "mode": "RGBA",
+        "size": [
+          1739,
+          891
+        ],
+        "alpha_bounds": [
+          122,
+          63,
+          1617,
+          828
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.07015526164462335,
+          0.0707070707070707,
+          0.07015526164462335,
+          0.0707070707070707
+        ],
+        "problems": [],
+        "sha256": "817a413825323646e319e1704eaeb177a8ee075cbce878976578a0ae4787138c",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "OWNER_APPROVED_INTEGRATED_VISUALLY_REVIEWED",
+      "owner_art_approval": true,
+      "production_changed": true,
+      "candidate": "art_drafts/enemy_style_rollout_20260912/processed/bog_crawler.png",
+      "variant": "v1",
+      "generation_receipt": "art_drafts/enemy_style_rollout_20260912/raw/bog_crawler_v1.json",
+      "alpha_report": "art_drafts/enemy_style_rollout_20260912/processed/qa/bog_crawler_alpha_report.json",
+      "source_silhouette_touched_canvas": false,
+      "remaining_key_candidate_pixels": 0,
+      "source_art_observation": "Large olive/ochre hide plates and blunt reptile head replace granular mud. Low four-legged body and long tapering tail keep its marsh identity.",
+      "compared_style_references": [
+        {
+          "path": "godot/assets/combat/heroes/hunter_male.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/combat/heroes/mage_female.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/world_map/pythonia_world_map_integrated.png",
+          "role": "AKTUALNA MAPA ŚWIATA / REGIONÓW"
+        },
+        {
+          "path": "godot/assets/combat/backgrounds/silentwater_marshes_day.png",
+          "role": "KRAJOBRAZ REGIONU silentwater_marshes"
+        }
+      ],
+      "source_art_review": "CANDIDATE_FOR_OWNER_REVIEW",
+      "approved_sha256": "817a413825323646e319e1704eaeb177a8ee075cbce878976578a0ae4787138c",
+      "backup": "art_drafts/enemy_style_rollout_20260912/integration/before/enemies/bog_crawler.png"
+    },
+    {
+      "enemy": "drowned_dead",
+      "region": "silentwater_marshes",
+      "source": "godot/assets/combat/enemies/drowned_dead.png",
+      "source_sha256": "8ead196ea79ebc9dc998efae5c5ad088b88b2a5f899f94d60c6a8da2a3e47d9b",
+      "pixel_gate": {
+        "status": "PASS",
+        "mode": "RGBA",
+        "size": [
+          1105,
+          1712
+        ],
+        "alpha_bounds": [
+          78,
+          120,
+          1027,
+          1592
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.07058823529411765,
+          0.07009345794392523,
+          0.07058823529411765,
+          0.07009345794392523
+        ],
+        "problems": [],
+        "sha256": "64c397727235ca1acbc36e9d8214469dc57fdc73b50559a6e96ff200ecdf4710",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "OWNER_APPROVED_INTEGRATED_VISUALLY_REVIEWED",
+      "owner_art_approval": true,
+      "production_changed": true,
+      "candidate": "art_drafts/enemy_style_rollout_20260912/processed/drowned_dead.png",
+      "variant": "v1",
+      "generation_receipt": "art_drafts/enemy_style_rollout_20260912/raw/drowned_dead_v1.json",
+      "alpha_report": "art_drafts/enemy_style_rollout_20260912/processed/qa/drowned_dead_alpha_report.json",
+      "source_silhouette_touched_canvas": false,
+      "remaining_key_candidate_pixels": 0,
+      "source_art_observation": "Drawn slate skin and broad teal coat folds retain the waterlogged undead. Two hands and boots remain readable; algae simplified into larger strips.",
+      "compared_style_references": [
+        {
+          "path": "godot/assets/combat/heroes/hunter_male.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/combat/heroes/mage_female.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/world_map/pythonia_world_map_integrated.png",
+          "role": "AKTUALNA MAPA ŚWIATA / REGIONÓW"
+        },
+        {
+          "path": "godot/assets/combat/backgrounds/silentwater_marshes_day.png",
+          "role": "KRAJOBRAZ REGIONU silentwater_marshes"
+        }
+      ],
+      "source_art_review": "CANDIDATE_FOR_OWNER_REVIEW",
+      "approved_sha256": "64c397727235ca1acbc36e9d8214469dc57fdc73b50559a6e96ff200ecdf4710",
+      "backup": "art_drafts/enemy_style_rollout_20260912/integration/before/enemies/drowned_dead.png"
+    },
+    {
+      "enemy": "swamp_witch",
+      "region": "silentwater_marshes",
+      "source": "godot/assets/combat/enemies/swamp_witch.png",
+      "source_sha256": "5ef0202c4b1ee8d9e938850285cfdd60111929f9f366455329b5d45c2dce86d5",
+      "pixel_gate": {
+        "status": "PASS",
+        "mode": "RGBA",
+        "size": [
+          1247,
+          1654
+        ],
+        "alpha_bounds": [
+          88,
+          116,
+          1159,
+          1538
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.07056936647955092,
+          0.07013301088270858,
+          0.07056936647955092,
+          0.07013301088270858
+        ],
+        "problems": [],
+        "sha256": "5735fbe72d8d9e89900e9b89991acfc51de09e96be6b399d23efbc526ec90d19",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "OWNER_APPROVED_INTEGRATED_VISUALLY_REVIEWED",
+      "owner_art_approval": true,
+      "production_changed": true,
+      "candidate": "art_drafts/enemy_style_rollout_20260912/processed/swamp_witch.png",
+      "variant": "v1",
+      "generation_receipt": "art_drafts/enemy_style_rollout_20260912/raw/swamp_witch_v1.json",
+      "alpha_report": "art_drafts/enemy_style_rollout_20260912/processed/qa/swamp_witch_alpha_report.json",
+      "source_silhouette_touched_canvas": false,
+      "remaining_key_candidate_pixels": 0,
+      "source_art_observation": "Illustrated mature face and grouped brown hair match class rendering while retaining olive ragged dress, branch staff and boots; not recolored as the player mage.",
+      "compared_style_references": [
+        {
+          "path": "godot/assets/combat/heroes/hunter_male.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/combat/heroes/mage_female.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/world_map/pythonia_world_map_integrated.png",
+          "role": "AKTUALNA MAPA ŚWIATA / REGIONÓW"
+        },
+        {
+          "path": "godot/assets/combat/backgrounds/silentwater_marshes_day.png",
+          "role": "KRAJOBRAZ REGIONU silentwater_marshes"
+        }
+      ],
+      "source_art_review": "CANDIDATE_FOR_OWNER_REVIEW",
+      "approved_sha256": "5735fbe72d8d9e89900e9b89991acfc51de09e96be6b399d23efbc526ec90d19",
+      "backup": "art_drafts/enemy_style_rollout_20260912/integration/before/enemies/swamp_witch.png"
+    },
+    {
+      "enemy": "bone_crocodile",
+      "region": "silentwater_marshes",
+      "source": "godot/assets/combat/enemies/bone_crocodile.png",
+      "source_sha256": "34bf027c0d5b3d9b4614d4f51e488aa0091b77e5f021f48616428cea842bb4df",
+      "pixel_gate": {
+        "status": "PASS",
+        "mode": "RGBA",
+        "size": [
+          1246,
+          776
+        ],
+        "alpha_bounds": [
+          88,
+          55,
+          1158,
+          721
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.07062600321027288,
+          0.07087628865979381,
+          0.07062600321027288,
+          0.07087628865979381
+        ],
+        "problems": [],
+        "sha256": "69aca36d508f93775739687c5376cc34c10409b81d682aa481d1debed3abb56e",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "OWNER_APPROVED_INTEGRATED_VISUALLY_REVIEWED",
+      "owner_art_approval": true,
+      "production_changed": true,
+      "candidate": "art_drafts/enemy_style_rollout_20260912/processed/bone_crocodile.png",
+      "variant": "v2",
+      "generation_receipt": "art_drafts/enemy_style_rollout_20260912/raw/bone_crocodile_v2.json",
+      "alpha_report": "art_drafts/enemy_style_rollout_20260912/processed/qa/bone_crocodile_alpha_report.json",
+      "source_silhouette_touched_canvas": false,
+      "remaining_key_candidate_pixels": 0,
+      "source_art_observation": "Ivory bone plates over olive hide replace porous bone textures. V2 reveals four separate clawed feet; long snout, teeth and curling tail stay inside frame.",
+      "compared_style_references": [
+        {
+          "path": "godot/assets/combat/heroes/hunter_male.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/combat/heroes/mage_female.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/world_map/pythonia_world_map_integrated.png",
+          "role": "AKTUALNA MAPA ŚWIATA / REGIONÓW"
+        },
+        {
+          "path": "godot/assets/combat/backgrounds/silentwater_marshes_day.png",
+          "role": "KRAJOBRAZ REGIONU silentwater_marshes"
+        }
+      ],
+      "source_art_review": "CANDIDATE_FOR_OWNER_REVIEW",
+      "approved_sha256": "69aca36d508f93775739687c5376cc34c10409b81d682aa481d1debed3abb56e",
+      "backup": "art_drafts/enemy_style_rollout_20260912/integration/before/enemies/bone_crocodile.png"
+    },
+    {
+      "enemy": "mist_walker",
+      "region": "silentwater_marshes",
+      "source": "godot/assets/combat/enemies/mist_walker.png",
+      "source_sha256": "1c3131b2fa697ef7a9fa60d16f9f4949b6fd86bebf4f54f3c55050a788affc0b",
+      "pixel_gate": {
+        "status": "PASS",
+        "mode": "RGBA",
+        "size": [
+          1140,
+          1755
+        ],
+        "alpha_bounds": [
+          80,
+          123,
+          1060,
+          1632
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.07017543859649122,
+          0.07008547008547009,
+          0.07017543859649122,
+          0.07008547008547009
+        ],
+        "problems": [],
+        "sha256": "9d95d5a1e6745cc1d964e3a67a727f381b174a8b8d9aa73436554733db31899e",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "OWNER_APPROVED_INTEGRATED_VISUALLY_REVIEWED",
+      "owner_art_approval": true,
+      "production_changed": true,
+      "candidate": "art_drafts/enemy_style_rollout_20260912/processed/mist_walker.png",
+      "variant": "v1",
+      "generation_receipt": "art_drafts/enemy_style_rollout_20260912/raw/mist_walker_v1.json",
+      "alpha_report": "art_drafts/enemy_style_rollout_20260912/processed/qa/mist_walker_alpha_report.json",
+      "source_silhouette_touched_canvas": false,
+      "remaining_key_candidate_pixels": 0,
+      "source_art_observation": "Ochre reed bundles, long bird-skull beak and drawn claws keep the strange marsh identity. Two long digitigrade legs; no separate birds or background fog.",
+      "compared_style_references": [
+        {
+          "path": "godot/assets/combat/heroes/hunter_male.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/combat/heroes/mage_female.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/world_map/pythonia_world_map_integrated.png",
+          "role": "AKTUALNA MAPA ŚWIATA / REGIONÓW"
+        },
+        {
+          "path": "godot/assets/combat/backgrounds/silentwater_marshes_day.png",
+          "role": "KRAJOBRAZ REGIONU silentwater_marshes"
+        }
+      ],
+      "source_art_review": "CANDIDATE_FOR_OWNER_REVIEW",
+      "approved_sha256": "9d95d5a1e6745cc1d964e3a67a727f381b174a8b8d9aa73436554733db31899e",
+      "backup": "art_drafts/enemy_style_rollout_20260912/integration/before/enemies/mist_walker.png"
+    },
+    {
+      "enemy": "drowned_mother",
+      "region": "silentwater_marshes",
+      "source": "godot/assets/combat/enemies/drowned_mother.png",
+      "source_sha256": "18f15eafb2ff32e347a53893508b99502cda7e2c70ffd6fcbb4966bb5f84454b",
+      "pixel_gate": {
+        "status": "PASS",
+        "mode": "RGBA",
+        "size": [
+          1039,
+          1307
+        ],
+        "alpha_bounds": [
+          73,
+          92,
+          966,
+          1215
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.07025986525505294,
+          0.0703902065799541,
+          0.07025986525505294,
+          0.0703902065799541
+        ],
+        "problems": [],
+        "sha256": "7c698c1ef71bc3fcedb3a123ab69825123585a7a18b455eba4df20f604dac1f5",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "OWNER_APPROVED_INTEGRATED_VISUALLY_REVIEWED",
+      "owner_art_approval": true,
+      "production_changed": true,
+      "candidate": "art_drafts/enemy_style_rollout_20260912/processed/drowned_mother.png",
+      "variant": "v2",
+      "generation_receipt": "art_drafts/enemy_style_rollout_20260912/raw/drowned_mother_v2.json",
+      "alpha_report": "art_drafts/enemy_style_rollout_20260912/processed/qa/drowned_mother_alpha_report.json",
+      "source_silhouette_touched_canvas": false,
+      "remaining_key_candidate_pixels": 0,
+      "source_art_observation": "Drawn face, grouped dark hair and grey-olive robe folds align with class illustration while keeping the bone/reed crown. V2 contains the full staff, bare feet and trailing robe. Local matte cleanup preserves the muted costume palette.",
+      "compared_style_references": [
+        {
+          "path": "godot/assets/combat/heroes/hunter_male.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/combat/heroes/mage_female.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/world_map/pythonia_world_map_integrated.png",
+          "role": "AKTUALNA MAPA ŚWIATA / REGIONÓW"
+        },
+        {
+          "path": "godot/assets/combat/backgrounds/silentwater_marshes_day.png",
+          "role": "KRAJOBRAZ REGIONU silentwater_marshes"
+        }
+      ],
+      "source_art_review": "CANDIDATE_FOR_OWNER_REVIEW",
+      "approved_sha256": "7c698c1ef71bc3fcedb3a123ab69825123585a7a18b455eba4df20f604dac1f5",
+      "backup": "art_drafts/enemy_style_rollout_20260912/integration/before/enemies/drowned_mother.png"
+    },
+    {
+      "enemy": "boneburner",
+      "region": "ashen_borderlands",
+      "source": "godot/assets/combat/enemies/boneburner.png",
+      "source_sha256": "f7d15cedb632b16ab1eb39098001d7f7c72213cb3a7a667e10b479b39c89fc46",
+      "pixel_gate": {
+        "status": "PASS",
+        "mode": "RGBA",
+        "size": [
+          1104,
+          1746
+        ],
+        "alpha_bounds": [
+          78,
+          123,
+          1026,
+          1623
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.07065217391304347,
+          0.070446735395189,
+          0.07065217391304347,
+          0.070446735395189
+        ],
+        "problems": [],
+        "sha256": "5b8b64a5048b40a43539cfa5b9aa35e994781c47b4e72af1b259412606bd4cca",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "OWNER_APPROVED_INTEGRATED_VISUALLY_REVIEWED",
+      "owner_art_approval": true,
+      "production_changed": true,
+      "candidate": "art_drafts/enemy_style_rollout_20260912/processed/boneburner.png",
+      "variant": "v1",
+      "generation_receipt": "art_drafts/enemy_style_rollout_20260912/raw/boneburner_v1.json",
+      "alpha_report": "art_drafts/enemy_style_rollout_20260912/processed/qa/boneburner_alpha_report.json",
+      "source_silhouette_touched_canvas": false,
+      "remaining_key_candidate_pixels": 0,
+      "source_art_observation": "Larger illustrated charred-bone forms and cloth strips preserve the thin ember-ribbed undead. Two arms and clawed feet; rust/ivory/charcoal regional identity retained.",
+      "compared_style_references": [
+        {
+          "path": "godot/assets/combat/heroes/hunter_male.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/combat/heroes/mage_female.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/world_map/pythonia_world_map_integrated.png",
+          "role": "AKTUALNA MAPA ŚWIATA / REGIONÓW"
+        },
+        {
+          "path": "godot/assets/combat/backgrounds/ashen_borderlands_day.png",
+          "role": "KRAJOBRAZ REGIONU ashen_borderlands"
+        }
+      ],
+      "source_art_review": "CANDIDATE_FOR_OWNER_REVIEW",
+      "approved_sha256": "5b8b64a5048b40a43539cfa5b9aa35e994781c47b4e72af1b259412606bd4cca",
+      "backup": "art_drafts/enemy_style_rollout_20260912/integration/before/enemies/boneburner.png"
+    },
+    {
+      "enemy": "red_salamander",
+      "region": "ashen_borderlands",
+      "source": "godot/assets/combat/enemies/red_salamander.png",
+      "source_sha256": "bffe936f6b5edaca77ebedf1450f6e5d23b9d5bcf06508c7bb30ac6f8f151ad6",
+      "pixel_gate": {
+        "status": "PASS",
+        "mode": "RGBA",
+        "size": [
+          1469,
+          1354
+        ],
+        "alpha_bounds": [
+          103,
+          95,
+          1366,
+          1259
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.07011572498298162,
+          0.07016248153618906,
+          0.07011572498298162,
+          0.07016248153618906
+        ],
+        "problems": [],
+        "sha256": "b3c5d34fefb16b3d13880204d3bdfcfeb6fde08a80b73456643cad26591e5f88",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "OWNER_APPROVED_INTEGRATED_VISUALLY_REVIEWED",
+      "owner_art_approval": true,
+      "production_changed": true,
+      "candidate": "art_drafts/enemy_style_rollout_20260912/processed/red_salamander.png",
+      "variant": "v1",
+      "generation_receipt": "art_drafts/enemy_style_rollout_20260912/raw/red_salamander_v1.json",
+      "alpha_report": "art_drafts/enemy_style_rollout_20260912/processed/qa/red_salamander_alpha_report.json",
+      "source_silhouette_touched_canvas": false,
+      "remaining_key_candidate_pixels": 0,
+      "source_art_observation": "Broader red scale groups and orange crest planes replace constant tiny molten highlights. Four connected legs and a complete long curling tail, without new wings.",
+      "compared_style_references": [
+        {
+          "path": "godot/assets/combat/heroes/hunter_male.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/combat/heroes/mage_female.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/world_map/pythonia_world_map_integrated.png",
+          "role": "AKTUALNA MAPA ŚWIATA / REGIONÓW"
+        },
+        {
+          "path": "godot/assets/combat/backgrounds/ashen_borderlands_day.png",
+          "role": "KRAJOBRAZ REGIONU ashen_borderlands"
+        }
+      ],
+      "source_art_review": "CANDIDATE_FOR_OWNER_REVIEW",
+      "approved_sha256": "b3c5d34fefb16b3d13880204d3bdfcfeb6fde08a80b73456643cad26591e5f88",
+      "backup": "art_drafts/enemy_style_rollout_20260912/integration/before/enemies/red_salamander.png"
+    },
+    {
+      "enemy": "hearth_devourer",
+      "region": "ashen_borderlands",
+      "source": "godot/assets/combat/enemies/hearth_devourer.png",
+      "source_sha256": "2ff3e89eaa0435b5387a917e8876ab25f1d7ce2db227ac6fa244216ff6b12fe4",
+      "pixel_gate": {
+        "status": "PASS",
+        "mode": "RGBA",
+        "size": [
+          1250,
+          1661
+        ],
+        "alpha_bounds": [
+          88,
+          117,
+          1162,
+          1544
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.0704,
+          0.07043949428055388,
+          0.0704,
+          0.07043949428055388
+        ],
+        "problems": [],
+        "sha256": "16970ef5a4f340028f28242d34a44c192e421fb41e94d71b6812cd32ad7f528e",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "OWNER_APPROVED_INTEGRATED_VISUALLY_REVIEWED",
+      "owner_art_approval": true,
+      "production_changed": true,
+      "candidate": "art_drafts/enemy_style_rollout_20260912/processed/hearth_devourer.png",
+      "variant": "v1",
+      "generation_receipt": "art_drafts/enemy_style_rollout_20260912/raw/hearth_devourer_v1.json",
+      "alpha_report": "art_drafts/enemy_style_rollout_20260912/processed/qa/hearth_devourer_alpha_report.json",
+      "source_silhouette_touched_canvas": false,
+      "remaining_key_candidate_pixels": 0,
+      "source_art_observation": "Broader scorched plates and clear orange furnace ribs retain the towering horned silhouette. Two clawed hands and feet; chains and cloth are subordinate to body shape.",
+      "compared_style_references": [
+        {
+          "path": "godot/assets/combat/heroes/hunter_male.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/combat/heroes/mage_female.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/world_map/pythonia_world_map_integrated.png",
+          "role": "AKTUALNA MAPA ŚWIATA / REGIONÓW"
+        },
+        {
+          "path": "godot/assets/combat/backgrounds/ashen_borderlands_day.png",
+          "role": "KRAJOBRAZ REGIONU ashen_borderlands"
+        }
+      ],
+      "source_art_review": "CANDIDATE_FOR_OWNER_REVIEW",
+      "approved_sha256": "16970ef5a4f340028f28242d34a44c192e421fb41e94d71b6812cd32ad7f528e",
+      "backup": "art_drafts/enemy_style_rollout_20260912/integration/before/enemies/hearth_devourer.png"
+    },
+    {
+      "enemy": "azhar",
+      "region": "ashen_borderlands",
+      "source": "godot/assets/combat/enemies/azhar.png",
+      "source_sha256": "8e756f5f04b9311bbf790d8d31ff5df02283919092764f341623770ad899665f",
+      "pixel_gate": {
+        "status": "PASS",
+        "mode": "RGBA",
+        "size": [
+          1232,
+          1664
+        ],
+        "alpha_bounds": [
+          87,
+          117,
+          1145,
+          1547
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.07061688311688312,
+          0.0703125,
+          0.07061688311688312,
+          0.0703125
+        ],
+        "problems": [],
+        "sha256": "43e70296d98eb2b185748d3c2b0335d4a623a57e542b408875cb4e07cca29b1b",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "OWNER_APPROVED_INTEGRATED_VISUALLY_REVIEWED",
+      "owner_art_approval": true,
+      "production_changed": true,
+      "candidate": "art_drafts/enemy_style_rollout_20260912/processed/azhar.png",
+      "variant": "v1",
+      "generation_receipt": "art_drafts/enemy_style_rollout_20260912/raw/azhar_v1.json",
+      "alpha_report": "art_drafts/enemy_style_rollout_20260912/processed/qa/azhar_alpha_report.json",
+      "source_silhouette_touched_canvas": false,
+      "remaining_key_candidate_pixels": 0,
+      "source_art_observation": "Drawn mature face and broad ochre/rust robe folds retain pale hair, crown and curved polearm. Full weapon and boots visible; no unrelated violet/blue hero palette.",
+      "compared_style_references": [
+        {
+          "path": "godot/assets/combat/heroes/hunter_male.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/combat/heroes/mage_female.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/world_map/pythonia_world_map_integrated.png",
+          "role": "AKTUALNA MAPA ŚWIATA / REGIONÓW"
+        },
+        {
+          "path": "godot/assets/combat/backgrounds/ashen_borderlands_day.png",
+          "role": "KRAJOBRAZ REGIONU ashen_borderlands"
+        }
+      ],
+      "source_art_review": "CANDIDATE_FOR_OWNER_REVIEW",
+      "approved_sha256": "43e70296d98eb2b185748d3c2b0335d4a623a57e542b408875cb4e07cca29b1b",
+      "backup": "art_drafts/enemy_style_rollout_20260912/integration/before/enemies/azhar.png"
+    },
+    {
+      "enemy": "frozen_castaway",
+      "region": "ice_coast",
+      "source": "godot/assets/combat/enemies/frozen_castaway.png",
+      "source_sha256": "8e45c081d12540da3a7390249a135e1566f1a0e60d4d7fce94e7575d8aa26a73",
+      "pixel_gate": {
+        "status": "PASS",
+        "mode": "RGBA",
+        "size": [
+          1245,
+          1585
+        ],
+        "alpha_bounds": [
+          88,
+          111,
+          1157,
+          1474
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.07068273092369477,
+          0.07003154574132492,
+          0.07068273092369477,
+          0.07003154574132492
+        ],
+        "problems": [],
+        "sha256": "178532b3f8175080ba1e808dfd76ea0f7a2704003f0114bd88ce6679a6eca108",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "OWNER_APPROVED_INTEGRATED_VISUALLY_REVIEWED",
+      "owner_art_approval": true,
+      "production_changed": true,
+      "candidate": "art_drafts/enemy_style_rollout_20260912/processed/frozen_castaway.png",
+      "variant": "v1",
+      "generation_receipt": "art_drafts/enemy_style_rollout_20260912/raw/frozen_castaway_v1.json",
+      "alpha_report": "art_drafts/enemy_style_rollout_20260912/processed/qa/frozen_castaway_alpha_report.json",
+      "source_silhouette_touched_canvas": false,
+      "remaining_key_candidate_pixels": 0,
+      "source_art_observation": "Broad painted icy facets and navy coat folds replace microcrystalline crust. Full cutlass, icy hand and two boots; mature undead sailor identity preserved.",
+      "compared_style_references": [
+        {
+          "path": "godot/assets/combat/heroes/hunter_male.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/combat/heroes/mage_female.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/world_map/pythonia_world_map_integrated.png",
+          "role": "AKTUALNA MAPA ŚWIATA / REGIONÓW"
+        },
+        {
+          "path": "godot/assets/combat/backgrounds/ice_coast_day.png",
+          "role": "KRAJOBRAZ REGIONU ice_coast"
+        }
+      ],
+      "source_art_review": "CANDIDATE_FOR_OWNER_REVIEW",
+      "approved_sha256": "178532b3f8175080ba1e808dfd76ea0f7a2704003f0114bd88ce6679a6eca108",
+      "backup": "art_drafts/enemy_style_rollout_20260912/integration/before/enemies/frozen_castaway.png"
+    },
+    {
+      "enemy": "ice_crab",
+      "region": "ice_coast",
+      "source": "godot/assets/combat/enemies/ice_crab.png",
+      "source_sha256": "a3c22d023f8f32f451f1504045f38e364822163ee43efd3aa97b752bd7087147",
+      "pixel_gate": {
+        "status": "PASS",
+        "mode": "RGBA",
+        "size": [
+          1708,
+          1138
+        ],
+        "alpha_bounds": [
+          120,
+          80,
+          1588,
+          1058
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.0702576112412178,
+          0.070298769771529,
+          0.0702576112412178,
+          0.070298769771529
+        ],
+        "problems": [],
+        "sha256": "c4c499414da4b13e9cdfe90205ed858dbd823624cdcafe30815ef886f5f4d258",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "OWNER_APPROVED_INTEGRATED_VISUALLY_REVIEWED",
+      "owner_art_approval": true,
+      "production_changed": true,
+      "candidate": "art_drafts/enemy_style_pilot_20260912/processed/ice_crab_rgba.png",
+      "variant": "pilot",
+      "generation_receipt": null,
+      "alpha_report": null,
+      "source_art_observation": "Large blue/white ice facets, drawn shell plates and clear claws replace granular ice. Reuses the alpha-checked pilot; feet/grounding still need Godot capture review.",
+      "compared_style_references": [
+        {
+          "path": "godot/assets/combat/heroes/hunter_male.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/combat/heroes/mage_female.png",
+          "role": "ZATWIERDZONY WZORZEC KLASY"
+        },
+        {
+          "path": "godot/assets/world_map/pythonia_world_map_integrated.png",
+          "role": "AKTUALNA MAPA ŚWIATA / REGIONÓW"
+        },
+        {
+          "path": "godot/assets/combat/backgrounds/ice_coast_day.png",
+          "role": "KRAJOBRAZ REGIONU ice_coast"
+        }
+      ],
+      "source_art_review": "CANDIDATE_FOR_OWNER_REVIEW",
+      "approved_sha256": "c4c499414da4b13e9cdfe90205ed858dbd823624cdcafe30815ef886f5f4d258",
+      "backup": "art_drafts/enemy_style_rollout_20260912/integration/before/enemies/ice_crab.png"
+    }
+  ],
+  "integration_policy_fingerprint": "ee5a3271e3188a894b89b8cb4ef07134d2419f5855bdc36f2cb8aaa86b7cd3a8",
+  "visual_review": "enemy_visual_review.json",
+  "engine_log_gate": "DIAGNOSTICS_PRESENT_NOT_CLEAN"
+}

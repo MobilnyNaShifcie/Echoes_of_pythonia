@@ -1,0 +1,1651 @@
+{
+  "policy": "AI_CONTEXT/ART_DIRECTION.md",
+  "policy_fingerprint": "09971ed6ea332e5505de4afbd72645c86e014ca1358ae4b5b61319ef90319c8b",
+  "production_changed": false,
+  "assets": [
+    {
+      "enemy": "wild_dog",
+      "region": "twilight_plains",
+      "source": "godot/assets/combat/enemies/wild_dog.png",
+      "source_sha256": "f4391f7f6bcd0c212235245db8801e0947d11381734824be1e33da0b4e06fefe",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1086,
+          1448
+        ],
+        "alpha_bounds": [
+          0,
+          19,
+          1086,
+          1424
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.0,
+          0.013121546961325966,
+          0.0,
+          0.016574585635359115
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "f4391f7f6bcd0c212235245db8801e0947d11381734824be1e33da0b4e06fefe",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "slime",
+      "region": "twilight_plains",
+      "source": "godot/assets/combat/enemies/slime.png",
+      "source_sha256": "3573a6a57ab81812275b38f7a15c707cd011879b67e67a95605d554b5f2d96bb",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1086,
+          1448
+        ],
+        "alpha_bounds": [
+          23,
+          19,
+          1067,
+          1416
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.02117863720073665,
+          0.013121546961325966,
+          0.017495395948434623,
+          0.022099447513812154
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "3573a6a57ab81812275b38f7a15c707cd011879b67e67a95605d554b5f2d96bb",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "wolf",
+      "region": "twilight_plains",
+      "source": "godot/assets/combat/enemies/wolf.png",
+      "source_sha256": "394ee4a494fef7e72dd4b164bbd89720065ca58142c3288162f6684292221486",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1254,
+          1254
+        ],
+        "alpha_bounds": [
+          0,
+          19,
+          1254,
+          1254
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.0,
+          0.015151515151515152,
+          0.0,
+          0.0
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "394ee4a494fef7e72dd4b164bbd89720065ca58142c3288162f6684292221486",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "boar",
+      "region": "twilight_plains",
+      "source": "godot/assets/combat/enemies/boar.png",
+      "source_sha256": "89af19ab95fb531080d2f230856de61f9c224593d72b3d13d4fbee0c28d9aec1",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1254,
+          1254
+        ],
+        "alpha_bounds": [
+          0,
+          19,
+          1253,
+          1254
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.0,
+          0.015151515151515152,
+          0.0007974481658692185,
+          0.0
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "89af19ab95fb531080d2f230856de61f9c224593d72b3d13d4fbee0c28d9aec1",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "bandit",
+      "region": "twilight_plains",
+      "source": "godot/assets/combat/enemies/bandit.png",
+      "source_sha256": "c7aece9a0b6f31ebb7a0e5e23a5baeccc4145987b20d0eba91599000c762d173",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1086,
+          1448
+        ],
+        "alpha_bounds": [
+          25,
+          33,
+          1058,
+          1430
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.02302025782688766,
+          0.022790055248618785,
+          0.02578268876611418,
+          0.012430939226519336
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "c7aece9a0b6f31ebb7a0e5e23a5baeccc4145987b20d0eba91599000c762d173",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "cursed_scarecrow",
+      "region": "twilight_plains",
+      "source": "godot/assets/combat/enemies/cursed_scarecrow.png",
+      "source_sha256": "8f054fd6a44c1e2c9ecfd361a8a36dc2b2cfa1f63a07ee3440d02eaf01032946",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1024,
+          1536
+        ],
+        "alpha_bounds": [
+          0,
+          5,
+          1024,
+          1516
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.0,
+          0.0032552083333333335,
+          0.0,
+          0.013020833333333334
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "8f054fd6a44c1e2c9ecfd361a8a36dc2b2cfa1f63a07ee3440d02eaf01032946",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "plains_spirit",
+      "region": "twilight_plains",
+      "source": "godot/assets/combat/enemies/plains_spirit.png",
+      "source_sha256": "fcdde5f30338f42ecc856178971c2a849b3de2c70af96e4f27dcd46e659ca068",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1024,
+          1536
+        ],
+        "alpha_bounds": [
+          0,
+          0,
+          1024,
+          1536
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          1,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "problems": [
+          "All four corners must be fully transparent.",
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "fcdde5f30338f42ecc856178971c2a849b3de2c70af96e4f27dcd46e659ca068",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "night_guard",
+      "region": "twilight_plains",
+      "source": "godot/assets/combat/enemies/night_guard.png",
+      "source_sha256": "12f052a610167717e0652baadd5442ce8b62add2c3dc108652e993d4d25b8ed5",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1024,
+          1536
+        ],
+        "alpha_bounds": [
+          0,
+          0,
+          1024,
+          1536
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "12f052a610167717e0652baadd5442ce8b62add2c3dc108652e993d4d25b8ed5",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "hunter",
+      "region": "twilight_plains",
+      "source": "godot/assets/combat/enemies/hunter.png",
+      "source_sha256": "47616c0c22fab4681618d6bff26606dbad132c5d2d449f18866a33ae1105704e",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1024,
+          1536
+        ],
+        "alpha_bounds": [
+          0,
+          18,
+          1024,
+          1527
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.0,
+          0.01171875,
+          0.0,
+          0.005859375
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "47616c0c22fab4681618d6bff26606dbad132c5d2d449f18866a33ae1105704e",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "nature_guardian",
+      "region": "twilight_plains",
+      "source": "godot/assets/combat/enemies/nature_guardian.png",
+      "source_sha256": "de9618ac9453395643800775c78f28e2c8e9690e15e58ad25d32645398162de9",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1086,
+          1448
+        ],
+        "alpha_bounds": [
+          0,
+          0,
+          1086,
+          1448
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          1,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "problems": [
+          "All four corners must be fully transparent.",
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "de9618ac9453395643800775c78f28e2c8e9690e15e58ad25d32645398162de9",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "venom_spider",
+      "region": "black_forest",
+      "source": "godot/assets/combat/enemies/venom_spider.png",
+      "source_sha256": "066f3d2ea52dc275493f0c9b5085f8156e6025b442488eecd33bf3b75e95e298",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1122,
+          1402
+        ],
+        "alpha_bounds": [
+          0,
+          36,
+          1107,
+          1402
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.0,
+          0.025677603423680456,
+          0.013368983957219251,
+          0.0
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "066f3d2ea52dc275493f0c9b5085f8156e6025b442488eecd33bf3b75e95e298",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "forest_cultist",
+      "region": "black_forest",
+      "source": "godot/assets/combat/enemies/forest_cultist.png",
+      "source_sha256": "d04ec4b3a13e5aa99a30a0948904fb401d742383fc8ca967192eb49461c1935e",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1086,
+          1448
+        ],
+        "alpha_bounds": [
+          0,
+          11,
+          1086,
+          1448
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.0,
+          0.007596685082872928,
+          0.0,
+          0.0
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "d04ec4b3a13e5aa99a30a0948904fb401d742383fc8ca967192eb49461c1935e",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "rotting_knight",
+      "region": "black_forest",
+      "source": "godot/assets/combat/enemies/rotting_knight.png",
+      "source_sha256": "cde7f1160a96c057173b1405afd2e9e42241d5156d60ec64d90ffb77acb6f6b3",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1086,
+          1448
+        ],
+        "alpha_bounds": [
+          0,
+          0,
+          1086,
+          1448
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "cde7f1160a96c057173b1405afd2e9e42241d5156d60ec64d90ffb77acb6f6b3",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "corrupted_bear",
+      "region": "black_forest",
+      "source": "godot/assets/combat/enemies/corrupted_bear.png",
+      "source_sha256": "b01e5bee956a424ce1daa9423a77298e119c61ddecf76f21cfccde6e25ea801d",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1086,
+          1448
+        ],
+        "alpha_bounds": [
+          32,
+          9,
+          1085,
+          1424
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.029465930018416207,
+          0.006215469613259668,
+          0.0009208103130755065,
+          0.016574585635359115
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "b01e5bee956a424ce1daa9423a77298e119c61ddecf76f21cfccde6e25ea801d",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "black_hart",
+      "region": "black_forest",
+      "source": "godot/assets/combat/enemies/black_hart.png",
+      "source_sha256": "2e713b8a9b610beb0d8261aa12edecd003e16085af2e2352ef4030a233c72a51",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1024,
+          1536
+        ],
+        "alpha_bounds": [
+          0,
+          15,
+          1024,
+          1518
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.0,
+          0.009765625,
+          0.0,
+          0.01171875
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "2e713b8a9b610beb0d8261aa12edecd003e16085af2e2352ef4030a233c72a51",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "gallows_wraith",
+      "region": "black_forest",
+      "source": "godot/assets/combat/enemies/gallows_wraith.png",
+      "source_sha256": "fef696a8369463e9f1e2583803d9d2d8cce3a2005aa58dff5a7650c07f15a32c",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1068,
+          1473
+        ],
+        "alpha_bounds": [
+          0,
+          0,
+          1055,
+          1473
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          1,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.0,
+          0.0,
+          0.012172284644194757,
+          0.0
+        ],
+        "problems": [
+          "All four corners must be fully transparent.",
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "fef696a8369463e9f1e2583803d9d2d8cce3a2005aa58dff5a7650c07f15a32c",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "blackwood_executioner",
+      "region": "black_forest",
+      "source": "godot/assets/combat/enemies/blackwood_executioner.png",
+      "source_sha256": "ab621b95081f3d904d3a4cdded0c5e957f164b29082c0a33a8e1ebf1ca2aaff0",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1086,
+          1448
+        ],
+        "alpha_bounds": [
+          0,
+          0,
+          1086,
+          1448
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "margin_fractions_ltrb": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "problems": [
+          "All four corners must be fully transparent.",
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "ab621b95081f3d904d3a4cdded0c5e957f164b29082c0a33a8e1ebf1ca2aaff0",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "bog_crawler",
+      "region": "silentwater_marshes",
+      "source": "godot/assets/combat/enemies/bog_crawler.png",
+      "source_sha256": "3d647e9663363bd9c083cc794f61b26a7cfe5fa034e1fa314a7ffac761bbd8cc",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1086,
+          1448
+        ],
+        "alpha_bounds": [
+          0,
+          19,
+          1086,
+          1420
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.0,
+          0.013121546961325966,
+          0.0,
+          0.019337016574585635
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "3d647e9663363bd9c083cc794f61b26a7cfe5fa034e1fa314a7ffac761bbd8cc",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "drowned_dead",
+      "region": "silentwater_marshes",
+      "source": "godot/assets/combat/enemies/drowned_dead.png",
+      "source_sha256": "8ead196ea79ebc9dc998efae5c5ad088b88b2a5f899f94d60c6a8da2a3e47d9b",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1024,
+          1536
+        ],
+        "alpha_bounds": [
+          41,
+          19,
+          978,
+          1519
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.0400390625,
+          0.012369791666666666,
+          0.044921875,
+          0.011067708333333334
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "8ead196ea79ebc9dc998efae5c5ad088b88b2a5f899f94d60c6a8da2a3e47d9b",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "swamp_witch",
+      "region": "silentwater_marshes",
+      "source": "godot/assets/combat/enemies/swamp_witch.png",
+      "source_sha256": "5ef0202c4b1ee8d9e938850285cfdd60111929f9f366455329b5d45c2dce86d5",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1086,
+          1448
+        ],
+        "alpha_bounds": [
+          0,
+          0,
+          1086,
+          1448
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "5ef0202c4b1ee8d9e938850285cfdd60111929f9f366455329b5d45c2dce86d5",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "bone_crocodile",
+      "region": "silentwater_marshes",
+      "source": "godot/assets/combat/enemies/bone_crocodile.png",
+      "source_sha256": "34bf027c0d5b3d9b4614d4f51e488aa0091b77e5f021f48616428cea842bb4df",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1024,
+          1536
+        ],
+        "alpha_bounds": [
+          0,
+          19,
+          1016,
+          1432
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.0,
+          0.012369791666666666,
+          0.0078125,
+          0.06770833333333333
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "34bf027c0d5b3d9b4614d4f51e488aa0091b77e5f021f48616428cea842bb4df",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "mist_walker",
+      "region": "silentwater_marshes",
+      "source": "godot/assets/combat/enemies/mist_walker.png",
+      "source_sha256": "1c3131b2fa697ef7a9fa60d16f9f4949b6fd86bebf4f54f3c55050a788affc0b",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1024,
+          1536
+        ],
+        "alpha_bounds": [
+          0,
+          13,
+          1024,
+          1536
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          1,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.0,
+          0.008463541666666666,
+          0.0,
+          0.0
+        ],
+        "problems": [
+          "All four corners must be fully transparent.",
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "1c3131b2fa697ef7a9fa60d16f9f4949b6fd86bebf4f54f3c55050a788affc0b",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "sunken_knight",
+      "region": "silentwater_marshes",
+      "source": "godot/assets/combat/enemies/sunken_knight_anime.png",
+      "source_sha256": "10720b2e3f1029dc5bb5e3b4c31f7b4f72a7939569470e1f8d319ee437b3208a",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1039,
+          1523
+        ],
+        "alpha_bounds": [
+          12,
+          12,
+          1027,
+          1511
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.011549566891241578,
+          0.007879185817465528,
+          0.011549566891241578,
+          0.007879185817465528
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "10720b2e3f1029dc5bb5e3b4c31f7b4f72a7939569470e1f8d319ee437b3208a",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "drowned_mother",
+      "region": "silentwater_marshes",
+      "source": "godot/assets/combat/enemies/drowned_mother.png",
+      "source_sha256": "18f15eafb2ff32e347a53893508b99502cda7e2c70ffd6fcbb4966bb5f84454b",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1086,
+          1448
+        ],
+        "alpha_bounds": [
+          0,
+          0,
+          1086,
+          1448
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          1,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "problems": [
+          "All four corners must be fully transparent.",
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "18f15eafb2ff32e347a53893508b99502cda7e2c70ffd6fcbb4966bb5f84454b",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "sand_golem",
+      "region": "ashen_borderlands",
+      "source": "godot/assets/combat/enemies/sand_golem.png",
+      "source_sha256": "2bca8b1322f4f1d137128b1f719aa50ce14e91e551ca5893c62179f914165f4e",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1024,
+          1536
+        ],
+        "alpha_bounds": [
+          0,
+          8,
+          1024,
+          1536
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.0,
+          0.005208333333333333,
+          0.0,
+          0.0
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "2bca8b1322f4f1d137128b1f719aa50ce14e91e551ca5893c62179f914165f4e",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "desert_harpy",
+      "region": "ashen_borderlands",
+      "source": "godot/assets/combat/enemies/desert_harpy.png",
+      "source_sha256": "08b25e14fe21614e972bd123618769e84964b66ea82481fd59b87350df317492",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1024,
+          1536
+        ],
+        "alpha_bounds": [
+          0,
+          0,
+          1024,
+          1536
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          1,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "problems": [
+          "All four corners must be fully transparent.",
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "08b25e14fe21614e972bd123618769e84964b66ea82481fd59b87350df317492",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "desert_wanderer",
+      "region": "ashen_borderlands",
+      "source": "godot/assets/combat/enemies/desert_wanderer.png",
+      "source_sha256": "49b51245fd14545a8b7c66219e21456ccca17f6f43bd1b710bb5ecbc8a7da7b5",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1086,
+          1448
+        ],
+        "alpha_bounds": [
+          0,
+          0,
+          1086,
+          1448
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "49b51245fd14545a8b7c66219e21456ccca17f6f43bd1b710bb5ecbc8a7da7b5",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "boneburner",
+      "region": "ashen_borderlands",
+      "source": "godot/assets/combat/enemies/boneburner.png",
+      "source_sha256": "f7d15cedb632b16ab1eb39098001d7f7c72213cb3a7a667e10b479b39c89fc46",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1024,
+          1536
+        ],
+        "alpha_bounds": [
+          0,
+          0,
+          980,
+          1536
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.0,
+          0.0,
+          0.04296875,
+          0.0
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "f7d15cedb632b16ab1eb39098001d7f7c72213cb3a7a667e10b479b39c89fc46",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "red_salamander",
+      "region": "ashen_borderlands",
+      "source": "godot/assets/combat/enemies/red_salamander.png",
+      "source_sha256": "bffe936f6b5edaca77ebedf1450f6e5d23b9d5bcf06508c7bb30ac6f8f151ad6",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1224,
+          1285
+        ],
+        "alpha_bounds": [
+          0,
+          19,
+          1224,
+          1285
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.0,
+          0.014785992217898832,
+          0.0,
+          0.0
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "bffe936f6b5edaca77ebedf1450f6e5d23b9d5bcf06508c7bb30ac6f8f151ad6",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "hearth_devourer",
+      "region": "ashen_borderlands",
+      "source": "godot/assets/combat/enemies/hearth_devourer.png",
+      "source_sha256": "2ff3e89eaa0435b5387a917e8876ab25f1d7ce2db227ac6fa244216ff6b12fe4",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1086,
+          1448
+        ],
+        "alpha_bounds": [
+          0,
+          0,
+          1086,
+          1448
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "2ff3e89eaa0435b5387a917e8876ab25f1d7ce2db227ac6fa244216ff6b12fe4",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "azhar",
+      "region": "ashen_borderlands",
+      "source": "godot/assets/combat/enemies/azhar.png",
+      "source_sha256": "8e756f5f04b9311bbf790d8d31ff5df02283919092764f341623770ad899665f",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1086,
+          1448
+        ],
+        "alpha_bounds": [
+          15,
+          0,
+          1086,
+          1448
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.013812154696132596,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "8e756f5f04b9311bbf790d8d31ff5df02283919092764f341623770ad899665f",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "frozen_castaway",
+      "region": "ice_coast",
+      "source": "godot/assets/combat/enemies/frozen_castaway.png",
+      "source_sha256": "8e45c081d12540da3a7390249a135e1566f1a0e60d4d7fce94e7575d8aa26a73",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1019,
+          1313
+        ],
+        "alpha_bounds": [
+          12,
+          12,
+          1007,
+          1301
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.011776251226692836,
+          0.00913937547600914,
+          0.011776251226692836,
+          0.00913937547600914
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "8e45c081d12540da3a7390249a135e1566f1a0e60d4d7fce94e7575d8aa26a73",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "black_sea_siren",
+      "region": "ice_coast",
+      "source": "godot/assets/combat/enemies/black_sea_siren.png",
+      "source_sha256": "02b28f0c75f779e24ddbcb0c8167f52a65a98db5da6e74dcd6991d40eb37d69d",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1000,
+          1431
+        ],
+        "alpha_bounds": [
+          12,
+          12,
+          988,
+          1419
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.012,
+          0.008385744234800839,
+          0.012,
+          0.008385744234800839
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "02b28f0c75f779e24ddbcb0c8167f52a65a98db5da6e74dcd6991d40eb37d69d",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "ghost_ship_captain",
+      "region": "ice_coast",
+      "source": "godot/assets/combat/enemies/ghost_ship_captain.png",
+      "source_sha256": "7031f5dc07bb963c9331abe68495a3e6ff9769f381ba0bf0d416225df6bb1b43",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1005,
+          1443
+        ],
+        "alpha_bounds": [
+          12,
+          12,
+          993,
+          1431
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.011940298507462687,
+          0.008316008316008316,
+          0.011940298507462687,
+          0.008316008316008316
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "7031f5dc07bb963c9331abe68495a3e6ff9769f381ba0bf0d416225df6bb1b43",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "ice_bear",
+      "region": "ice_coast",
+      "source": "godot/assets/combat/enemies/ice_bear.png",
+      "source_sha256": "01a4ed84c753af0c9d9810fb72edde233971a2fa54bf5b2d7bf6d10728a2d0a2",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1253,
+          1000
+        ],
+        "alpha_bounds": [
+          12,
+          12,
+          1241,
+          988
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.009577015163607342,
+          0.012,
+          0.009577015163607342,
+          0.012
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "01a4ed84c753af0c9d9810fb72edde233971a2fa54bf5b2d7bf6d10728a2d0a2",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "snow_griffin",
+      "region": "ice_coast",
+      "source": "godot/assets/combat/enemies/snow_griffin.png",
+      "source_sha256": "ece0fd3a39d9fe474ef553b00ae306399990f36465753605baeeb513afefa21b",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1185,
+          1170
+        ],
+        "alpha_bounds": [
+          12,
+          12,
+          1173,
+          1158
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.010126582278481013,
+          0.010256410256410256,
+          0.010126582278481013,
+          0.010256410256410256
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "ece0fd3a39d9fe474ef553b00ae306399990f36465753605baeeb513afefa21b",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "ice_crab",
+      "region": "ice_coast",
+      "source": "godot/assets/combat/enemies/ice_crab.png",
+      "source_sha256": "a3c22d023f8f32f451f1504045f38e364822163ee43efd3aa97b752bd7087147",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1299,
+          879
+        ],
+        "alpha_bounds": [
+          12,
+          12,
+          1287,
+          867
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.009237875288683603,
+          0.013651877133105802,
+          0.009237875288683603,
+          0.013651877133105802
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "a3c22d023f8f32f451f1504045f38e364822163ee43efd3aa97b752bd7087147",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "leviathan_north",
+      "region": "ice_coast",
+      "source": "godot/assets/combat/enemies/leviathan_north.png",
+      "source_sha256": "9fbb3730e50c3730a4c96e293b2434e96ed8d8112cf8bd8c142323858d5022f6",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1203,
+          1172
+        ],
+        "alpha_bounds": [
+          12,
+          12,
+          1191,
+          1160
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.00997506234413965,
+          0.010238907849829351,
+          0.00997506234413965,
+          0.010238907849829351
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "9fbb3730e50c3730a4c96e293b2434e96ed8d8112cf8bd8c142323858d5022f6",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "drowned_acolyte",
+      "region": "dungeon",
+      "source": "godot/assets/combat/enemies/drowned_acolyte.png",
+      "source_sha256": "8568c260a0de72e5873796b406ae8c2fb0c9eb502e3786dffcef33b1abebf24a",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          813,
+          1470
+        ],
+        "alpha_bounds": [
+          12,
+          12,
+          801,
+          1458
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.014760147601476014,
+          0.00816326530612245,
+          0.014760147601476014,
+          0.00816326530612245
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "8568c260a0de72e5873796b406ae8c2fb0c9eb502e3786dffcef33b1abebf24a",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "drowned_priestess",
+      "region": "dungeon",
+      "source": "godot/assets/combat/enemies/drowned_priestess.png",
+      "source_sha256": "9486a6690a49fe9216ec43bd6f95dc81c1de098177a152480332670cd98f40b4",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          970,
+          1490
+        ],
+        "alpha_bounds": [
+          12,
+          12,
+          958,
+          1478
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.012371134020618556,
+          0.008053691275167786,
+          0.012371134020618556,
+          0.008053691275167786
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "9486a6690a49fe9216ec43bd6f95dc81c1de098177a152480332670cd98f40b4",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "iron_gate_guardian",
+      "region": "dungeon",
+      "source": "godot/assets/combat/enemies/iron_gate_guardian.png",
+      "source_sha256": "0d83d16cc4fa13527658b888cf6e2cf401134d0fd93d608d80cacdec5e8a6205",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1019,
+          1285
+        ],
+        "alpha_bounds": [
+          12,
+          12,
+          1007,
+          1273
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.011776251226692836,
+          0.00933852140077821,
+          0.011776251226692836,
+          0.00933852140077821
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "0d83d16cc4fa13527658b888cf6e2cf401134d0fd93d608d80cacdec5e8a6205",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "crypt_warden",
+      "region": "dungeon",
+      "source": "godot/assets/combat/enemies/crypt_warden.png",
+      "source_sha256": "af65c5f97c82fd3297557b67e24cc4adc13045af9f67e77f018c02a8dcbf6ad3",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1015,
+          1519
+        ],
+        "alpha_bounds": [
+          12,
+          12,
+          1003,
+          1507
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.011822660098522168,
+          0.007899934167215274,
+          0.011822660098522168,
+          0.007899934167215274
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "af65c5f97c82fd3297557b67e24cc4adc13045af9f67e77f018c02a8dcbf6ad3",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    },
+    {
+      "enemy": "order_grandmaster",
+      "region": "dungeon",
+      "source": "godot/assets/combat/enemies/order_grandmaster.png",
+      "source_sha256": "75390ca7f2b05f96f5ec9337392cf9a7ffaa2ed1fe18c50738e123e9050fbd72",
+      "pixel_gate": {
+        "status": "FAIL",
+        "mode": "RGBA",
+        "size": [
+          1044,
+          1481
+        ],
+        "alpha_bounds": [
+          12,
+          12,
+          1032,
+          1469
+        ],
+        "corner_alpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "margin_fractions_ltrb": [
+          0.011494252873563218,
+          0.008102633355840648,
+          0.011494252873563218,
+          0.008102633355840648
+        ],
+        "problems": [
+          "Every side needs at least 5% transparent canvas margin."
+        ],
+        "sha256": "75390ca7f2b05f96f5ec9337392cf9a7ffaa2ed1fe18c50738e123e9050fbd72",
+        "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+      },
+      "decision": "PENDING_VISUAL_AUDIT"
+    }
+  ],
+  "unused_source_pngs": [
+    "godot/assets/combat/enemies/sunken_knight.png"
+  ]
+}

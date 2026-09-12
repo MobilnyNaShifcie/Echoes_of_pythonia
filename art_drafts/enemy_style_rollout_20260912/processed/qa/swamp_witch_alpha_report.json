@@ -1,0 +1,63 @@
+{
+  "enemy": "swamp_witch",
+  "variant": "v1",
+  "source_sha256": "043b1f334ab3f46db2a0e2502ee207dd6fd58f4ccaf6730dcacdd53b08732b46",
+  "profile": {
+    "mode": "magenta",
+    "reviewed_all_matte": true,
+    "review_note": "Raw reviewed: olive/brown clothing and natural skin, no magenta motif."
+  },
+  "extraction": {
+    "background_fraction": 0.5217916628511543,
+    "unchanged_core_rgb_pixels": 618198,
+    "reviewed_interior_spill_pixels": 0
+  },
+  "framing": {
+    "source_alpha_bounds": [
+      5,
+      10,
+      1076,
+      1432
+    ],
+    "padding_xy": [
+      88,
+      116
+    ],
+    "resampled": false
+  },
+  "pixel_gate": {
+    "status": "PASS",
+    "mode": "RGBA",
+    "size": [
+      1247,
+      1654
+    ],
+    "alpha_bounds": [
+      88,
+      116,
+      1159,
+      1538
+    ],
+    "corner_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "margin_fractions_ltrb": [
+      0.07056936647955092,
+      0.07013301088270858,
+      0.07056936647955092,
+      0.07013301088270858
+    ],
+    "problems": [],
+    "sha256": "5735fbe72d8d9e89900e9b89991acfc51de09e96be6b399d23efbc526ec90d19",
+    "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+  },
+  "source_silhouette_touched_canvas": false,
+  "remaining_key_candidate_pixels": 0,
+  "production_changed": false,
+  "owner_art_approval": false,
+  "visual_review": "PENDING",
+  "note": "Pixel PASS is not evidence of no clipping, no matte remnants, style or correct anatomy."
+}

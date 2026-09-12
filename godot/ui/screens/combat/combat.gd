@@ -215,11 +215,7 @@ func _configure_presentations() -> void:
 	if _session == null or _enemy == null:
 		return
 	var background := CombatPresentationCatalogClass.battlefield_texture(
-		_session.current_location_id,
-		_session.period_code(),
-		_context,
-		_dungeon_id,
-		_dungeon_room_id
+		_presentation_region_id(), _session.period_code(), _context, _dungeon_id, _dungeon_room_id
 	)
 	battlefield_texture.texture = background
 	battlefield_texture.visible = background != null
@@ -245,6 +241,14 @@ func _configure_presentations() -> void:
 		enemy_visual.show_static(
 			opponent_texture, "PRZECIWNIK", _enemy.display_name, opponent_presentation
 		)
+
+
+func _presentation_region_id() -> String:
+	if _uses_surface_weather() and _enemy != null:
+		return CombatPresentationCatalogClass.enemy_region_id(
+			_enemy.enemy_id, _session.current_location_id
+		)
+	return _session.current_location_id
 
 
 func _player_class_display_name() -> String:
@@ -576,10 +580,10 @@ func _render() -> void:
 		if not warnings.is_empty():
 			encounter_label.text += "\n" + "\n".join(warnings)
 	elif _context == "region_boss":
-		var region = RegionCatalogClass.get_definition(_session.current_location_id)
+		var region = RegionCatalogClass.get_definition(_presentation_region_id())
 		encounter_label.text = "%s — %s" % [region.display_name.to_upper(), _battle_title]
 	else:
-		var region = RegionCatalogClass.get_definition(_session.current_location_id)
+		var region = RegionCatalogClass.get_definition(_presentation_region_id())
 		encounter_label.text = "%s — WALKA TUROWA" % region.display_name.to_upper()
 		if not _enemy.elite_modifier_id.is_empty():
 			encounter_label.text += " — ELITA"
@@ -647,7 +651,9 @@ func _render() -> void:
 
 func _render_battlefield_context() -> void:
 	player_turn_label.text = _session.player.display_name.to_upper()
+	player_turn_label.tooltip_text = player_turn_label.text
 	enemy_turn_label.text = _enemy.display_name.to_upper()
+	enemy_turn_label.tooltip_text = enemy_turn_label.text
 	player_turn_icon.text = _player_class_display_name().left(1).to_upper()
 	enemy_turn_icon.text = _enemy.display_name.left(1).to_upper()
 	turn_state_label.text = (
@@ -675,7 +681,7 @@ func _render_battlefield_context() -> void:
 	elif _context == "dungeon":
 		battlefield_placeholder.text = "TŁO LOCHU — PLACEHOLDER"
 	else:
-		var region = RegionCatalogClass.get_definition(_session.current_location_id)
+		var region = RegionCatalogClass.get_definition(_presentation_region_id())
 		battlefield_placeholder.text = ("TŁO POLA WALKI — %s" % region.display_name.to_upper())
 
 

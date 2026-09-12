@@ -1,0 +1,758 @@
+{
+  "installed": 25,
+  "unchanged": 18,
+  "owner_art_approval": true,
+  "asset_checks": [
+    {
+      "enemy": "wild_dog",
+      "status": "PASS",
+      "mode": "RGBA",
+      "size": [
+        1371,
+        1347
+      ],
+      "alpha_bounds": [
+        96,
+        95,
+        1275,
+        1252
+      ],
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "margin_fractions_ltrb": [
+        0.0700218818380744,
+        0.07052709725315516,
+        0.0700218818380744,
+        0.07052709725315516
+      ],
+      "problems": [],
+      "sha256": "80de20b5dca009312a6b38ac12de2ed40abd001aa14f772d172d31244d11d809",
+      "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+    },
+    {
+      "enemy": "slime",
+      "status": "PASS",
+      "mode": "RGBA",
+      "size": [
+        1471,
+        1223
+      ],
+      "alpha_bounds": [
+        103,
+        86,
+        1368,
+        1137
+      ],
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "margin_fractions_ltrb": [
+        0.07002039428959891,
+        0.07031888798037612,
+        0.07002039428959891,
+        0.07031888798037612
+      ],
+      "problems": [],
+      "sha256": "eabdf6fadee22ff7a44a23fed5f378f0db7a732caa41cc671704bb39c5caaca3",
+      "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+    },
+    {
+      "enemy": "wolf",
+      "status": "PASS",
+      "mode": "RGBA",
+      "size": [
+        1328,
+        1164
+      ],
+      "alpha_bounds": [
+        93,
+        82,
+        1235,
+        1082
+      ],
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "margin_fractions_ltrb": [
+        0.07003012048192771,
+        0.070446735395189,
+        0.07003012048192771,
+        0.070446735395189
+      ],
+      "problems": [],
+      "sha256": "51a9ebf87bd437ac70d6338740e716879f635d2f3bd8538501baf7aabf75e81c",
+      "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+    },
+    {
+      "enemy": "boar",
+      "status": "PASS",
+      "mode": "RGBA",
+      "size": [
+        1584,
+        1320
+      ],
+      "alpha_bounds": [
+        111,
+        93,
+        1473,
+        1227
+      ],
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "margin_fractions_ltrb": [
+        0.07007575757575757,
+        0.07045454545454545,
+        0.07007575757575757,
+        0.07045454545454545
+      ],
+      "problems": [],
+      "sha256": "9174af22700f40cbd0e40bccb101e5f634f208d565191d12668fb24a56ecdc9b",
+      "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+    },
+    {
+      "enemy": "cursed_scarecrow",
+      "status": "PASS",
+      "mode": "RGBA",
+      "size": [
+        1165,
+        1714
+      ],
+      "alpha_bounds": [
+        82,
+        120,
+        1083,
+        1594
+      ],
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "margin_fractions_ltrb": [
+        0.0703862660944206,
+        0.07001166861143523,
+        0.0703862660944206,
+        0.07001166861143523
+      ],
+      "problems": [],
+      "sha256": "cfba6202e803ce8f7c4ec88611e284a6e2811a90d5bfc953fff40bd9e13e9b62",
+      "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+    },
+    {
+      "enemy": "plains_spirit",
+      "status": "PASS",
+      "mode": "RGBA",
+      "size": [
+        1174,
+        1764
+      ],
+      "alpha_bounds": [
+        83,
+        124,
+        1091,
+        1640
+      ],
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "margin_fractions_ltrb": [
+        0.0706984667802385,
+        0.07029478458049887,
+        0.0706984667802385,
+        0.07029478458049887
+      ],
+      "problems": [],
+      "sha256": "b69134605f2557777c1dde459bf144e323027b6a08a4b4edf0aaea3cc50037bb",
+      "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+    },
+    {
+      "enemy": "nature_guardian",
+      "status": "PASS",
+      "mode": "RGBA",
+      "size": [
+        1051,
+        1319
+      ],
+      "alpha_bounds": [
+        74,
+        93,
+        977,
+        1226
+      ],
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "margin_fractions_ltrb": [
+        0.07040913415794481,
+        0.07050796057619409,
+        0.07040913415794481,
+        0.07050796057619409
+      ],
+      "problems": [],
+      "sha256": "1b29c4efcb98bdd319f3a6fed9b62e086ad40e68ac4c2fb5b5d76a50cef84170",
+      "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+    },
+    {
+      "enemy": "forest_cultist",
+      "status": "PASS",
+      "mode": "RGBA",
+      "size": [
+        1228,
+        1635
+      ],
+      "alpha_bounds": [
+        86,
+        115,
+        1142,
+        1520
+      ],
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "margin_fractions_ltrb": [
+        0.07003257328990228,
+        0.07033639143730887,
+        0.07003257328990228,
+        0.07033639143730887
+      ],
+      "problems": [],
+      "sha256": "8d2774fd2a6005de604ca058ad1c5da28f279a2c1e1f2250001061c68e207d69",
+      "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+    },
+    {
+      "enemy": "rotting_knight",
+      "status": "PASS",
+      "mode": "RGBA",
+      "size": [
+        1252,
+        1666
+      ],
+      "alpha_bounds": [
+        88,
+        117,
+        1164,
+        1549
+      ],
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "margin_fractions_ltrb": [
+        0.07028753993610223,
+        0.0702280912364946,
+        0.07028753993610223,
+        0.0702280912364946
+      ],
+      "problems": [],
+      "sha256": "f008ea2ada3da82621438be541b3d0c9b85eb7a8cc0d08bed97170759d93cfc0",
+      "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+    },
+    {
+      "enemy": "corrupted_bear",
+      "status": "PASS",
+      "mode": "RGBA",
+      "size": [
+        1382,
+        1447
+      ],
+      "alpha_bounds": [
+        97,
+        102,
+        1285,
+        1345
+      ],
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "margin_fractions_ltrb": [
+        0.07018813314037627,
+        0.07049067035245335,
+        0.07018813314037627,
+        0.07049067035245335
+      ],
+      "problems": [],
+      "sha256": "c88e89d5d7ce7179d4b3488371f4a6224516a148bc874a887db620b822d26331",
+      "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+    },
+    {
+      "enemy": "black_hart",
+      "status": "PASS",
+      "mode": "RGBA",
+      "size": [
+        1176,
+        1713
+      ],
+      "alpha_bounds": [
+        83,
+        120,
+        1093,
+        1593
+      ],
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "margin_fractions_ltrb": [
+        0.070578231292517,
+        0.07005253940455342,
+        0.070578231292517,
+        0.07005253940455342
+      ],
+      "problems": [],
+      "sha256": "38c8243bbc599f470c463b2fd9a7cf331116e1187c8f3ad2f44041b8eca4cae9",
+      "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+    },
+    {
+      "enemy": "gallows_wraith",
+      "status": "PASS",
+      "mode": "RGBA",
+      "size": [
+        1236,
+        1681
+      ],
+      "alpha_bounds": [
+        87,
+        118,
+        1149,
+        1563
+      ],
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "margin_fractions_ltrb": [
+        0.0703883495145631,
+        0.07019631171921475,
+        0.0703883495145631,
+        0.07019631171921475
+      ],
+      "problems": [],
+      "sha256": "b4fbbd2e0fa6502d2c11c66bd933b365a8030296286e5af0194649142684df16",
+      "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+    },
+    {
+      "enemy": "blackwood_executioner",
+      "status": "PASS",
+      "mode": "RGBA",
+      "size": [
+        1052,
+        1355
+      ],
+      "alpha_bounds": [
+        74,
+        95,
+        978,
+        1260
+      ],
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "margin_fractions_ltrb": [
+        0.07034220532319392,
+        0.07011070110701106,
+        0.07034220532319392,
+        0.07011070110701106
+      ],
+      "problems": [],
+      "sha256": "0679b2e1acebec1fc531e41238ac863ca0b6aa4a55bc0bc7d333d78e43fb557c",
+      "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+    },
+    {
+      "enemy": "bog_crawler",
+      "status": "PASS",
+      "mode": "RGBA",
+      "size": [
+        1739,
+        891
+      ],
+      "alpha_bounds": [
+        122,
+        63,
+        1617,
+        828
+      ],
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "margin_fractions_ltrb": [
+        0.07015526164462335,
+        0.0707070707070707,
+        0.07015526164462335,
+        0.0707070707070707
+      ],
+      "problems": [],
+      "sha256": "817a413825323646e319e1704eaeb177a8ee075cbce878976578a0ae4787138c",
+      "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+    },
+    {
+      "enemy": "drowned_dead",
+      "status": "PASS",
+      "mode": "RGBA",
+      "size": [
+        1105,
+        1712
+      ],
+      "alpha_bounds": [
+        78,
+        120,
+        1027,
+        1592
+      ],
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "margin_fractions_ltrb": [
+        0.07058823529411765,
+        0.07009345794392523,
+        0.07058823529411765,
+        0.07009345794392523
+      ],
+      "problems": [],
+      "sha256": "64c397727235ca1acbc36e9d8214469dc57fdc73b50559a6e96ff200ecdf4710",
+      "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+    },
+    {
+      "enemy": "swamp_witch",
+      "status": "PASS",
+      "mode": "RGBA",
+      "size": [
+        1247,
+        1654
+      ],
+      "alpha_bounds": [
+        88,
+        116,
+        1159,
+        1538
+      ],
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "margin_fractions_ltrb": [
+        0.07056936647955092,
+        0.07013301088270858,
+        0.07056936647955092,
+        0.07013301088270858
+      ],
+      "problems": [],
+      "sha256": "5735fbe72d8d9e89900e9b89991acfc51de09e96be6b399d23efbc526ec90d19",
+      "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+    },
+    {
+      "enemy": "bone_crocodile",
+      "status": "PASS",
+      "mode": "RGBA",
+      "size": [
+        1246,
+        776
+      ],
+      "alpha_bounds": [
+        88,
+        55,
+        1158,
+        721
+      ],
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "margin_fractions_ltrb": [
+        0.07062600321027288,
+        0.07087628865979381,
+        0.07062600321027288,
+        0.07087628865979381
+      ],
+      "problems": [],
+      "sha256": "69aca36d508f93775739687c5376cc34c10409b81d682aa481d1debed3abb56e",
+      "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+    },
+    {
+      "enemy": "mist_walker",
+      "status": "PASS",
+      "mode": "RGBA",
+      "size": [
+        1140,
+        1755
+      ],
+      "alpha_bounds": [
+        80,
+        123,
+        1060,
+        1632
+      ],
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "margin_fractions_ltrb": [
+        0.07017543859649122,
+        0.07008547008547009,
+        0.07017543859649122,
+        0.07008547008547009
+      ],
+      "problems": [],
+      "sha256": "9d95d5a1e6745cc1d964e3a67a727f381b174a8b8d9aa73436554733db31899e",
+      "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+    },
+    {
+      "enemy": "drowned_mother",
+      "status": "PASS",
+      "mode": "RGBA",
+      "size": [
+        1039,
+        1307
+      ],
+      "alpha_bounds": [
+        73,
+        92,
+        966,
+        1215
+      ],
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "margin_fractions_ltrb": [
+        0.07025986525505294,
+        0.0703902065799541,
+        0.07025986525505294,
+        0.0703902065799541
+      ],
+      "problems": [],
+      "sha256": "7c698c1ef71bc3fcedb3a123ab69825123585a7a18b455eba4df20f604dac1f5",
+      "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+    },
+    {
+      "enemy": "boneburner",
+      "status": "PASS",
+      "mode": "RGBA",
+      "size": [
+        1104,
+        1746
+      ],
+      "alpha_bounds": [
+        78,
+        123,
+        1026,
+        1623
+      ],
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "margin_fractions_ltrb": [
+        0.07065217391304347,
+        0.070446735395189,
+        0.07065217391304347,
+        0.070446735395189
+      ],
+      "problems": [],
+      "sha256": "5b8b64a5048b40a43539cfa5b9aa35e994781c47b4e72af1b259412606bd4cca",
+      "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+    },
+    {
+      "enemy": "red_salamander",
+      "status": "PASS",
+      "mode": "RGBA",
+      "size": [
+        1469,
+        1354
+      ],
+      "alpha_bounds": [
+        103,
+        95,
+        1366,
+        1259
+      ],
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "margin_fractions_ltrb": [
+        0.07011572498298162,
+        0.07016248153618906,
+        0.07011572498298162,
+        0.07016248153618906
+      ],
+      "problems": [],
+      "sha256": "b3c5d34fefb16b3d13880204d3bdfcfeb6fde08a80b73456643cad26591e5f88",
+      "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+    },
+    {
+      "enemy": "hearth_devourer",
+      "status": "PASS",
+      "mode": "RGBA",
+      "size": [
+        1250,
+        1661
+      ],
+      "alpha_bounds": [
+        88,
+        117,
+        1162,
+        1544
+      ],
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "margin_fractions_ltrb": [
+        0.0704,
+        0.07043949428055388,
+        0.0704,
+        0.07043949428055388
+      ],
+      "problems": [],
+      "sha256": "16970ef5a4f340028f28242d34a44c192e421fb41e94d71b6812cd32ad7f528e",
+      "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+    },
+    {
+      "enemy": "azhar",
+      "status": "PASS",
+      "mode": "RGBA",
+      "size": [
+        1232,
+        1664
+      ],
+      "alpha_bounds": [
+        87,
+        117,
+        1145,
+        1547
+      ],
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "margin_fractions_ltrb": [
+        0.07061688311688312,
+        0.0703125,
+        0.07061688311688312,
+        0.0703125
+      ],
+      "problems": [],
+      "sha256": "43e70296d98eb2b185748d3c2b0335d4a623a57e542b408875cb4e07cca29b1b",
+      "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+    },
+    {
+      "enemy": "frozen_castaway",
+      "status": "PASS",
+      "mode": "RGBA",
+      "size": [
+        1245,
+        1585
+      ],
+      "alpha_bounds": [
+        88,
+        111,
+        1157,
+        1474
+      ],
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "margin_fractions_ltrb": [
+        0.07068273092369477,
+        0.07003154574132492,
+        0.07068273092369477,
+        0.07003154574132492
+      ],
+      "problems": [],
+      "sha256": "178532b3f8175080ba1e808dfd76ea0f7a2704003f0114bd88ce6679a6eca108",
+      "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+    },
+    {
+      "enemy": "ice_crab",
+      "status": "PASS",
+      "mode": "RGBA",
+      "size": [
+        1708,
+        1138
+      ],
+      "alpha_bounds": [
+        120,
+        80,
+        1588,
+        1058
+      ],
+      "corner_alpha": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "margin_fractions_ltrb": [
+        0.0702576112412178,
+        0.070298769771529,
+        0.0702576112412178,
+        0.070298769771529
+      ],
+      "problems": [],
+      "sha256": "c4c499414da4b13e9cdfe90205ed858dbd823624cdcafe30815ef886f5f4d258",
+      "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+    }
+  ],
+  "note": "Byte identity and PNG gate only; engine captures have a separate review."
+}

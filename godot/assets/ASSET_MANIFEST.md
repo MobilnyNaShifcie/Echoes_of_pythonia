@@ -1,5 +1,16 @@
 # Asset manifest
 
+Enemy restyle integration — 2026-09-12: the owner accepted the gallery with
+"pasują wprowadzaj". Twenty-five source files in the table below are now
+byte-identical to the approved RGBA candidates, generated with canonical class
+and regional references. No additional generation was performed during integration.
+The venom spider remains unchanged pending readable leg anatomy; seventeen other
+consistent illustrations were not replaced. Receipts, exact prompts, old-source
+backups and checks: `art_drafts/enemy_style_rollout_20260912/integration/` at the
+repository root. Actual 720p/1080p Godot captures: its `in_game_final/` directory.
+Only art, display framing and review/test metadata changed; stats, rewards,
+encounter probabilities and player saves were not modified.
+
 ## Project-owned generated artwork
 
 The following files were supplied by the project owner as generated artwork
@@ -21,16 +32,16 @@ artwork separately from the project.
 | `world_map/modules/varenhold_valley_two_cities_v2.png` | Zachodnia dolina — pola, góry, Varenhold i odległe warowne miasto z panoramy | Project-owner-previewed generated artwork, provisionally accepted 2026-09-03 | `B173C8CDE6FEC17BD651E2B6C6D20BC19A96007545ACAC16EA65E60ADD47168F` |
 | `combat/backgrounds/twilight_plains_day.png` | Zmierzchowe Równiny — dzień | Owner-supplied generated artwork | `A9A7012FEDE70335DB0AA237D425BFCB5A97BBE9208B2EA0D2E81F2DFB6DD5D7` |
 | `combat/backgrounds/twilight_plains_night.png` | Zmierzchowe Równiny — noc | Owner-supplied generated artwork | `D1629189A48CB736355AC694A7E4C3CD02873A94F22E1494C6BC4C75374435F5` |
-| `combat/enemies/wild_dog.png` | Dziki Pies — statyczny przeciwnik bojowy | Owner-supplied generated artwork | `F4391F7F6BCD0C212235245DB8801E0947D11381734824BE1E33DA0B4E06FEFE` |
-| `combat/enemies/slime.png` | Slime — statyczny przeciwnik bojowy | Owner-supplied generated artwork | `3573A6A57AB81812275B38F7A15C707CD011879B67E67A95605D554B5F2D96BB` |
-| `combat/enemies/wolf.png` | Wilk — statyczny przeciwnik bojowy | Owner-supplied generated artwork | `394EE4A494FEF7E72DD4B164BBD89720065CA58142C3288162F6684292221486` |
-| `combat/enemies/boar.png` | Spaczony Dzik — statyczny przeciwnik bojowy | Owner-supplied generated artwork | `89AF19AB95FB531080D2F230856DE61F9C224593D72B3D13D4FBEE0C28D9AEC1` |
+| `combat/enemies/wild_dog.png` | Dziki Pies — statyczny przeciwnik bojowy | Owner-approved anime-fantasy restyle, built-in imagegen + reviewed alpha, 2026-09-12 | `80DE20B5DCA009312A6B38AC12DE2ED40ABD001AA14F772D172D31244D11D809` |
+| `combat/enemies/slime.png` | Slime — statyczny przeciwnik bojowy | Owner-approved anime-fantasy restyle, built-in imagegen + reviewed alpha, 2026-09-12 | `EABDF6FADEE22FF7A44A23FED5F378F0DB7A732CAA41CC671704BB39C5CAACA3` |
+| `combat/enemies/wolf.png` | Wilk — statyczny przeciwnik bojowy | Owner-approved anime-fantasy restyle, built-in imagegen + reviewed alpha, 2026-09-12 | `51A9EBF87BD437AC70D6338740E716879F635D2F3BD8538501BAF7AABF75E81C` |
+| `combat/enemies/boar.png` | Spaczony Dzik — statyczny przeciwnik bojowy | Owner-approved anime-fantasy restyle, built-in imagegen + reviewed alpha, 2026-09-12 | `9174AF22700F40CBD0E40BCCB101E5F634F208D565191D12668FB24A56ECDC9B` |
 | `combat/enemies/bandit.png` | Bandyta — statyczny przeciwnik bojowy | Owner-supplied generated artwork | `C7AECE9A0B6F31EBB7A0E5E23A5BAECCC4145987B20D0EBA91599000C762D173` |
-| `combat/enemies/cursed_scarecrow.png` | Przeklęty Strach na Wróble — statyczny przeciwnik bojowy | Owner-supplied generated artwork | `8F054FD6A44C1E2C9ECFD361A8A36DC2B2CFA1F63A07EE3440D02EAF01032946` |
-| `combat/enemies/plains_spirit.png` | Duch Równin — statyczny przeciwnik bojowy | Owner-supplied generated artwork | `FCDDE5F30338F42ECC856178971C2A849B3DE2C70AF96E4F27DCD46E659CA068` |
+| `combat/enemies/cursed_scarecrow.png` | Przeklęty Strach na Wróble — statyczny przeciwnik bojowy | Owner-approved anime-fantasy restyle, built-in imagegen + reviewed alpha, 2026-09-12 | `CFBA6202E803CE8F7C4EC88611E284A6E2811A90D5BFC953FFF40BD9E13E9B62` |
+| `combat/enemies/plains_spirit.png` | Duch Równin — statyczny przeciwnik bojowy | Owner-approved anime-fantasy restyle, built-in imagegen + reviewed alpha, 2026-09-12 | `B69134605F2557777C1DDE459BF144E323027B6A08A4B4EDF0AAEA3CC50037BB` |
 | `combat/enemies/night_guard.png` | Nocny Strażnik — statyczny przeciwnik bojowy | Owner-supplied generated artwork | `12F052A610167717E0652BAADD5442CE8B62ADD2C3DC108652E993D4D25B8ED5` |
 | `combat/enemies/hunter.png` | Myśliwy — statyczny przeciwnik bojowy | Owner-supplied generated artwork | `47616C0C22FAB4681618D6BFF26606DBAD132C5D2D449F18866A33AE1105704E` |
-| `combat/enemies/nature_guardian.png` | Strażnik Natury — statyczny miniboss | Owner-supplied generated artwork | `DE9618AC9453395643800775C78F28E2C8E9690E15E58AD25D32645398162DE9` |
+| `combat/enemies/nature_guardian.png` | Strażnik Natury — statyczny miniboss | Owner-approved anime-fantasy restyle, built-in imagegen + reviewed alpha, 2026-09-12 | `1B29C4EFCB98BDD319F3A6FED9B62E086AD40E68AC4C2FB5B5D76A50CEF84170` |
 | `combat/backgrounds/black_forest_day.png` | Czarny Bór — dzień | Owner-supplied generated artwork | `7B09D3D7671AE187535E85C00C5AF484775F6185ECF5E95D28D4BA6901870AAF` |
 | `combat/backgrounds/black_forest_night.png` | Czarny Bór — noc | Owner-supplied generated artwork | `E3A821C61532FF12F0E43F0323354D62982F01875E9FA373EA49332B334F88EA` |
 | `combat/backgrounds/silentwater_marshes_day.png` | Mokradła Głuchej Wody — dzień | Owner-supplied generated artwork | `F53161DE5F6713E5CC1A99D58685CE6974792DEBFD31A68E09DFFC6D5FEE6AA0` |
@@ -38,26 +49,28 @@ artwork separately from the project.
 | `combat/backgrounds/ashen_borderlands_day.png` | Popielne Pogranicze — dzień | Owner-supplied generated artwork | `A648DC1AD0F5AA8DE3F7CE71F47C78627B8B17827C76FD07D5015909DE45C868` |
 | `combat/backgrounds/ashen_borderlands_night.png` | Popielne Pogranicze — noc | Owner-supplied generated artwork | `C619E8D44F336AFDCD15FA6BF01E560DFF473BDBF5F571AF9789ED9B2DEF292D` |
 | `combat/enemies/venom_spider.png` | Jadowity Pająk — statyczny przeciwnik bojowy | Owner-supplied generated artwork | `066F3D2EA52DC275493F0C9B5085F8156E6025B442488EECD33BF3B75E95E298` |
-| `combat/enemies/forest_cultist.png` | Kultysta Boru — statyczny przeciwnik bojowy | Owner-supplied generated artwork | `D04EC4B3A13E5AA99A30A0948904FB401D742383FC8CA967192EB49461C1935E` |
-| `combat/enemies/rotting_knight.png` | Zgniły Rycerz — statyczny przeciwnik bojowy | Owner-supplied generated artwork | `CDE7F1160A96C057173B1405AFD2E9E42241D5156D60EC64D90FFB77ACB6F6B3` |
-| `combat/enemies/corrupted_bear.png` | Spaczony Niedźwiedź — statyczny przeciwnik bojowy | Owner-supplied generated artwork | `B01E5BEE956A424CE1DAA9423A77298E119C61DDECF76F21CFCCDE6E25EA801D` |
-| `combat/enemies/black_hart.png` | Czarny Jeleń — statyczny przeciwnik bojowy | Owner-supplied generated artwork, production alpha derivative | `2E713B8A9B610BEB0D8261AA12EDECD003E16085AF2E2352EF4030A233C72A51` |
-| `combat/enemies/gallows_wraith.png` | Zjawa Wisielca — statyczny przeciwnik bojowy | Owner-supplied generated artwork, production alpha derivative | `FEF696A8369463E9F1E2583803D9D2D8CCE3A2005AA58DFF5A7650C07F15A32C` |
-| `combat/enemies/blackwood_executioner.png` | Leśny Egzekutor — statyczny miniboss | Owner-supplied generated artwork | `AB621B95081F3D904D3A4CDDED0C5E957F164B29082C0A33A8E1EBF1CA2AAFF0` |
-| `combat/enemies/bog_crawler.png` | Błotny Pełzacz — statyczny przeciwnik bojowy | Owner-supplied generated artwork | `3D647E9663363BD9C083CC794F61B26A7CFE5FA034E1FA314A7FFAC761BBD8CC` |
-| `combat/enemies/drowned_dead.png` | Topielec — statyczny przeciwnik bojowy | Owner-supplied generated artwork, production alpha derivative | `8EAD196EA79EBC9DC998EFAE5C5AD088B88B2A5F899F94D60C6A8DA2A3E47D9B` |
-| `combat/enemies/swamp_witch.png` | Bagienna Wiedźma — statyczny przeciwnik bojowy | Owner-supplied generated artwork | `5EF0202C4B1EE8D9E938850285CFDD60111929F9F366455329B5D45C2DCE86D5` |
-| `combat/enemies/bone_crocodile.png` | Kościany Krokodyl — statyczny przeciwnik bojowy | Owner-supplied generated artwork | `34BF027C0D5B3D9B4614D4F51E488AA0091B77E5F021F48616428CEA842BB4DF` |
-| `combat/enemies/mist_walker.png` | Trzcinowy Brodziec — statyczny przeciwnik bojowy | Owner-supplied generated artwork | `1C3131B2FA697EF7A9FA60D16F9F4949B6FD86BEBF4F54F3C55050A788AFFC0B` |
+| `combat/enemies/forest_cultist.png` | Kultysta Boru — statyczny przeciwnik bojowy | Owner-approved anime-fantasy restyle, built-in imagegen + reviewed alpha, 2026-09-12 | `8D2774FD2A6005DE604CA058AD1C5DA28F279A2C1E1F2250001061C68E207D69` |
+| `combat/enemies/rotting_knight.png` | Zgniły Rycerz — statyczny przeciwnik bojowy | Owner-approved anime-fantasy restyle, built-in imagegen + reviewed alpha, 2026-09-12 | `F008EA2ADA3DA82621438BE541B3D0C9B85EB7A8CC0D08BED97170759D93CFC0` |
+| `combat/enemies/corrupted_bear.png` | Spaczony Niedźwiedź — statyczny przeciwnik bojowy | Owner-approved anime-fantasy restyle, built-in imagegen + reviewed alpha, 2026-09-12 | `C88E89D5D7CE7179D4B3488371F4A6224516A148BC874A887DB620B822D26331` |
+| `combat/enemies/black_hart.png` | Czarny Jeleń — statyczny przeciwnik bojowy | Owner-approved anime-fantasy restyle, built-in imagegen + reviewed alpha, 2026-09-12 | `38C8243BBC599F470C463B2FD9A7CF331116E1187C8F3AD2F44041B8ECA4CAE9` |
+| `combat/enemies/gallows_wraith.png` | Zjawa Wisielca — statyczny przeciwnik bojowy | Owner-approved anime-fantasy restyle, built-in imagegen + reviewed alpha, 2026-09-12 | `B4FBBD2E0FA6502D2C11C66BD933B365A8030296286E5AF0194649142684DF16` |
+| `combat/enemies/blackwood_executioner.png` | Leśny Egzekutor — statyczny miniboss | Owner-approved anime-fantasy restyle, built-in imagegen + reviewed alpha, 2026-09-12 | `0679B2E1ACEBEC1FC531E41238AC863CA0B6AA4A55BC0BC7D333D78E43FB557C` |
+| `combat/enemies/bog_crawler.png` | Błotny Pełzacz — statyczny przeciwnik bojowy | Owner-approved anime-fantasy restyle, built-in imagegen + reviewed alpha, 2026-09-12 | `817A413825323646E319E1704EAEB177A8EE075CBCE878976578A0AE4787138C` |
+| `combat/enemies/drowned_dead.png` | Topielec — statyczny przeciwnik bojowy | Owner-approved anime-fantasy restyle, built-in imagegen + reviewed alpha, 2026-09-12 | `64C397727235CA1ACBC36E9D8214469DC57FDC73B50559A6E96FF200ECDF4710` |
+| `combat/enemies/swamp_witch.png` | Bagienna Wiedźma — statyczny przeciwnik bojowy | Owner-approved anime-fantasy restyle, built-in imagegen + reviewed alpha, 2026-09-12 | `5735FBE72D8D9E89900E9B89991ACFC51DE09E96BE6B399D23EFBC526EC90D19` |
+| `combat/enemies/bone_crocodile.png` | Kościany Krokodyl — statyczny przeciwnik bojowy | Owner-approved anime-fantasy restyle, built-in imagegen + reviewed alpha, 2026-09-12 | `69ACA36D508F93775739687C5376CC34C10409B81D682AA481D1DEBED3ABB56E` |
+| `combat/enemies/mist_walker.png` | Trzcinowy Brodziec — statyczny przeciwnik bojowy | Owner-approved anime-fantasy restyle, built-in imagegen + reviewed alpha, 2026-09-12 | `9D95D5A1E6745CC1D964E3A67A727F381B174A8B8D9AA73436554733DB31899E` |
 | `combat/enemies/sunken_knight.png` | Rycerz Zatopionego Zakonu — statyczny przeciwnik bojowy | Owner-supplied generated artwork | `29234D91A9256DD3919990327465DD098A1117DCBCBC5D2A8BE6EE931DC077D2` |
-| `combat/enemies/drowned_mother.png` | Matka Głuchej Wody — statyczny miniboss | Owner-supplied generated artwork | `18F15EAFB2FF32E347A53893508B99502CDA7E2C70FFD6FCBB4966BB5F84454B` |
+| `combat/enemies/drowned_mother.png` | Matka Głuchej Wody — statyczny miniboss | Owner-approved anime-fantasy restyle, built-in imagegen + reviewed alpha, 2026-09-12 | `7C698C1EF71BC3FCEDB3A123AB69825123585A7A18B455EBA4DF20F604DAC1F5` |
 | `combat/enemies/sand_golem.png` | Piaskowy Golem — statyczny przeciwnik bojowy | Owner-supplied generated artwork | `2BCA8B1322F4F1D137128B1F719AA50CE14E91E551CA5893C62179F914165F4E` |
 | `combat/enemies/desert_harpy.png` | Pustynna Harpia — statyczny przeciwnik bojowy | Owner-supplied generated artwork | `08B25E14FE21614E972BD123618769E84964B66EA82481FD59B87350DF317492` |
 | `combat/enemies/desert_wanderer.png` | Pustynny Wędrowiec — statyczny przeciwnik bojowy | Owner-supplied generated artwork | `49B51245FD14545A8B7C66219E21456CCCA17F6F43BD1B710BB5ECBC8A7DA7B5` |
-| `combat/enemies/boneburner.png` | Kościopal — statyczny przeciwnik bojowy | Owner-supplied generated artwork | `F7D15CEDB632B16AB1EB39098001D7F7C72213CB3A7A667E10B479B39C89FC46` |
-| `combat/enemies/red_salamander.png` | Czerwona Salamandra — statyczny przeciwnik bojowy | Owner-supplied generated artwork | `BFFE936F6B5EDACA77EBEDF1450F6E5D23B9D5BCF06508C7BB30AC6F8F151AD6` |
-| `combat/enemies/hearth_devourer.png` | Pożeracz Palenisk — statyczny miniboss | Owner-supplied generated artwork | `2FF3E89EAA0435B5387A917E8876AB25F1D7CE2DB227AC6FA244216FF6B12FE4` |
-| `combat/enemies/azhar.png` | Azhar, Władca Pustkowi — statyczny boss | Owner-supplied generated artwork | `8E756F5F04B9311BBF790D8D31FF5DF02283919092764F341623770AD899665F` |
+| `combat/enemies/boneburner.png` | Kościopal — statyczny przeciwnik bojowy | Owner-approved anime-fantasy restyle, built-in imagegen + reviewed alpha, 2026-09-12 | `5B8B64A5048B40A43539CFA5B9AA35E994781C47B4E72AF1B259412606BD4CCA` |
+| `combat/enemies/red_salamander.png` | Czerwona Salamandra — statyczny przeciwnik bojowy | Owner-approved anime-fantasy restyle, built-in imagegen + reviewed alpha, 2026-09-12 | `B3C5D34FEFB16B3D13880204D3BDFCFEB6FDE08A80B73456643CAD26591E5F88` |
+| `combat/enemies/hearth_devourer.png` | Pożeracz Palenisk — statyczny miniboss | Owner-approved anime-fantasy restyle, built-in imagegen + reviewed alpha, 2026-09-12 | `16970EF5A4F340028F28242D34A44C192E421FB41E94D71B6812CD32AD7F528E` |
+| `combat/enemies/azhar.png` | Azhar, Władca Pustkowi — statyczny boss | Owner-approved anime-fantasy restyle, built-in imagegen + reviewed alpha, 2026-09-12 | `43E70296D98EB2B185748D3C2B0335D4A623A57E542B408875CB4E07CCA29B1B` |
+| `combat/enemies/frozen_castaway.png` | Zamarznięty Rozbitek — statyczny przeciwnik bojowy | Owner-approved anime-fantasy restyle, built-in imagegen + reviewed alpha, 2026-09-12 | `178532B3F8175080BA1E808DFD76EA0F7A2704003F0114BD88CE6679A6ECA108` |
+| `combat/enemies/ice_crab.png` | Lodowy Krab — statyczny przeciwnik bojowy | Owner-approved anime-fantasy restyle, built-in imagegen + reviewed alpha, 2026-09-12 | `C4C499414DA4B13E9CDFE90205ED858DBD823624CDCAFE30815EF886F5F4D258` |
 | `combat/heroes/pierrot.png` | Pierrot v2 — żeński wariant bohatera bojowego | Owner-supplied generated artwork | `52552C68626C10B6E7BDF38F16EAD87A0D25F3A947EBD13E65F1977E52101C1E` |
 | `combat/heroes/seeker_female.png` | Poszukiwaczka — neutralny wariant przed wyborem Drogi | Owner-approved generated artwork, production alpha derivative | `2CE9360BDB942FA561A8DDD75DF5D2BDEF2CB2E3D2600CD8908463A6BFD6C60F` |
 | `combat/heroes/seeker_male.png` | Poszukiwacz — neutralny wariant przed wyborem Drogi | Owner-approved generated artwork, production alpha derivative | `CFE8394A4DA056B05D365918EA5D8CC4132915DAAA6A62CC5923F21728BFB466` |

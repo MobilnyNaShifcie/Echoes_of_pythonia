@@ -1,0 +1,63 @@
+{
+  "enemy": "hearth_devourer",
+  "variant": "v1",
+  "source_sha256": "e9ca4ac1cd7f9bae829c3490435725e675fc4572bb0b5469c8e7232163b8ab36",
+  "profile": {
+    "mode": "magenta",
+    "reviewed_all_matte": true,
+    "review_note": "Raw reviewed: charcoal, ivory and orange flame; magenta only in gaps, no purple spell motif."
+  },
+  "extraction": {
+    "background_fraction": 0.5442230599391553,
+    "unchanged_core_rgb_pixels": 560669,
+    "reviewed_interior_spill_pixels": 0
+  },
+  "framing": {
+    "source_alpha_bounds": [
+      10,
+      10,
+      1084,
+      1437
+    ],
+    "padding_xy": [
+      88,
+      117
+    ],
+    "resampled": false
+  },
+  "pixel_gate": {
+    "status": "PASS",
+    "mode": "RGBA",
+    "size": [
+      1250,
+      1661
+    ],
+    "alpha_bounds": [
+      88,
+      117,
+      1162,
+      1544
+    ],
+    "corner_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "margin_fractions_ltrb": [
+      0.0704,
+      0.07043949428055388,
+      0.0704,
+      0.07043949428055388
+    ],
+    "problems": [],
+    "sha256": "16970ef5a4f340028f28242d34a44c192e421fb41e94d71b6812cd32ad7f528e",
+    "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+  },
+  "source_silhouette_touched_canvas": false,
+  "remaining_key_candidate_pixels": 0,
+  "production_changed": false,
+  "owner_art_approval": false,
+  "visual_review": "PENDING",
+  "note": "Pixel PASS is not evidence of no clipping, no matte remnants, style or correct anatomy."
+}

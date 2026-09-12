@@ -1,0 +1,64 @@
+{
+  "enemy": "plains_spirit",
+  "variant": "v1",
+  "source_sha256": "d974704d2330a33bd131b309d54165fb91906b908bb58b3ac4a6bdea67c70c32",
+  "profile": {
+    "mode": "magenta",
+    "reviewed_all_matte": true,
+    "strict_matte_despill": true,
+    "review_note": "Cyan/blue ghost and lantern; magenta islands are gaps between ribbons. Saturated pink flecks on spectral ribbons in dark/light preview are also matte contamination, not authored violet magic."
+  },
+  "extraction": {
+    "background_fraction": 0.4916146596272786,
+    "unchanged_core_rgb_pixels": 646905,
+    "reviewed_interior_spill_pixels": 1700
+  },
+  "framing": {
+    "source_alpha_bounds": [
+      9,
+      8,
+      1017,
+      1524
+    ],
+    "padding_xy": [
+      83,
+      124
+    ],
+    "resampled": false
+  },
+  "pixel_gate": {
+    "status": "PASS",
+    "mode": "RGBA",
+    "size": [
+      1174,
+      1764
+    ],
+    "alpha_bounds": [
+      83,
+      124,
+      1091,
+      1640
+    ],
+    "corner_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "margin_fractions_ltrb": [
+      0.0706984667802385,
+      0.07029478458049887,
+      0.0706984667802385,
+      0.07029478458049887
+    ],
+    "problems": [],
+    "sha256": "b69134605f2557777c1dde459bf144e323027b6a08a4b4edf0aaea3cc50037bb",
+    "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+  },
+  "source_silhouette_touched_canvas": false,
+  "remaining_key_candidate_pixels": 0,
+  "production_changed": false,
+  "owner_art_approval": false,
+  "visual_review": "PENDING",
+  "note": "Pixel PASS is not evidence of no clipping, no matte remnants, style or correct anatomy."
+}

@@ -95,26 +95,22 @@ const ENEMY_PRESENTATIONS := {
 	"wild_dog":
 	{
 		"texture": preload("res://assets/combat/enemies/wild_dog.png"),
-		"crop": Rect2(23, 272, 1063, 977),
-		"frame": Rect2(0.06, 0.12, 0.88, 0.84),
+		"frame": Rect2(0.19, 0.49, 0.62, 0.47),
 	},
 	"slime":
 	{
 		"texture": preload("res://assets/combat/enemies/slime.png"),
-		"crop": Rect2(45, 400, 1035, 813),
-		"frame": Rect2(0.1, 0.27, 0.8, 0.69),
+		"frame": Rect2(0.19, 0.58, 0.62, 0.38),
 	},
 	"wolf":
 	{
 		"texture": preload("res://assets/combat/enemies/wolf.png"),
-		"crop": Rect2(21, 49, 1233, 1082),
-		"frame": Rect2(0.04, 0.08, 0.92, 0.88),
+		"frame": Rect2(0.1, 0.35, 0.8, 0.61),
 	},
 	"boar":
 	{
 		"texture": preload("res://assets/combat/enemies/boar.png"),
-		"crop": Rect2(0, 40, 1254, 1126),
-		"frame": Rect2(0.02, 0.08, 0.96, 0.88),
+		"frame": Rect2(0.08, 0.35, 0.84, 0.61),
 	},
 	"bandit":
 	{
@@ -145,7 +141,7 @@ const ENEMY_PRESENTATIONS := {
 	"nature_guardian":
 	{
 		"texture": preload("res://assets/combat/enemies/nature_guardian.png"),
-		"frame": Rect2(0.02, -0.01, 0.96, 0.97),
+		"frame": Rect2(0.02, 0.0, 0.96, 0.96),
 	},
 	"venom_spider":
 	{
@@ -185,7 +181,6 @@ const ENEMY_PRESENTATIONS := {
 	"bog_crawler":
 	{
 		"texture": preload("res://assets/combat/enemies/bog_crawler.png"),
-		"crop": Rect2(0, 420, 1086, 650),
 		"frame": Rect2(0.02, 0.2, 0.96, 0.76),
 	},
 	"drowned_dead":
@@ -201,7 +196,6 @@ const ENEMY_PRESENTATIONS := {
 	"bone_crocodile":
 	{
 		"texture": preload("res://assets/combat/enemies/bone_crocodile.png"),
-		"crop": Rect2(0, 270, 1024, 930),
 		"frame": Rect2(0.02, 0.18, 0.96, 0.78),
 	},
 	"mist_walker":
@@ -309,7 +303,7 @@ const ENEMY_PRESENTATIONS := {
 	"ice_crab":
 	{
 		"texture": preload("res://assets/combat/enemies/ice_crab.png"),
-		"frame": Rect2(0.04, 0.23, 0.92, 0.73),
+		"frame": Rect2(0.12, 0.4, 0.76, 0.56),
 	},
 	"leviathan_north":
 	{
@@ -387,6 +381,13 @@ static func battlefield_texture(
 		return null
 	var region_textures: Dictionary = BATTLEFIELD_TEXTURES.get(region_id, {})
 	return region_textures.get(period_code) as Texture2D
+
+
+static func enemy_region_id(enemy_id: String, fallback_region_id: String) -> String:
+	for region_id: String in REGION_ENEMY_IDS:
+		if enemy_id in REGION_ENEMY_IDS[region_id]:
+			return region_id
+	return fallback_region_id
 
 
 static func enemy_texture(enemy_id: String) -> Texture2D:

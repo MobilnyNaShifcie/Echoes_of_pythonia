@@ -1,0 +1,61 @@
+{
+  "enemy": "forest_cultist",
+  "source_sha256": "5d071c2dc263869e12da6b0bfbc0666759ef57364d83d76ac94223a005f33aee",
+  "profile": {
+    "mode": "magenta",
+    "reviewed_all_matte": true,
+    "review_note": "Reviewed raw: olive robes, ivory bone, green spell; magenta is gaps between antlers/ropes."
+  },
+  "extraction": {
+    "background_fraction": 0.5443750445143107,
+    "unchanged_core_rgb_pixels": 573794
+  },
+  "framing": {
+    "source_alpha_bounds": [
+      17,
+      19,
+      1073,
+      1424
+    ],
+    "padding_xy": [
+      86,
+      115
+    ],
+    "resampled": false
+  },
+  "pixel_gate": {
+    "status": "PASS",
+    "mode": "RGBA",
+    "size": [
+      1228,
+      1635
+    ],
+    "alpha_bounds": [
+      86,
+      115,
+      1142,
+      1520
+    ],
+    "corner_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "margin_fractions_ltrb": [
+      0.07003257328990228,
+      0.07033639143730887,
+      0.07003257328990228,
+      0.07033639143730887
+    ],
+    "problems": [],
+    "sha256": "8d2774fd2a6005de604ca058ad1c5da28f279a2c1e1f2250001061c68e207d69",
+    "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+  },
+  "source_silhouette_touched_canvas": false,
+  "remaining_key_candidate_pixels": 0,
+  "production_changed": false,
+  "owner_art_approval": false,
+  "visual_review": "PENDING",
+  "note": "Pixel PASS is not evidence of no clipping, no matte remnants, style or correct anatomy."
+}

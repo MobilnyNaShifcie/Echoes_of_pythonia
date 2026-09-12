@@ -1,0 +1,61 @@
+{
+  "enemy": "rotting_knight",
+  "source_sha256": "35d8cf157656b4b0a053760b2c1c53195aeb27907c30b747902497cc34722d83",
+  "profile": {
+    "mode": "magenta",
+    "reviewed_all_matte": true,
+    "review_note": "Reviewed raw: iron/olive/slate with green visor; pure magenta is gaps in torn cloth."
+  },
+  "extraction": {
+    "background_fraction": 0.541997980322131,
+    "unchanged_core_rgb_pixels": 619238
+  },
+  "framing": {
+    "source_alpha_bounds": [
+      6,
+      10,
+      1082,
+      1442
+    ],
+    "padding_xy": [
+      88,
+      117
+    ],
+    "resampled": false
+  },
+  "pixel_gate": {
+    "status": "PASS",
+    "mode": "RGBA",
+    "size": [
+      1252,
+      1666
+    ],
+    "alpha_bounds": [
+      88,
+      117,
+      1164,
+      1549
+    ],
+    "corner_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "margin_fractions_ltrb": [
+      0.07028753993610223,
+      0.0702280912364946,
+      0.07028753993610223,
+      0.0702280912364946
+    ],
+    "problems": [],
+    "sha256": "f008ea2ada3da82621438be541b3d0c9b85eb7a8cc0d08bed97170759d93cfc0",
+    "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+  },
+  "source_silhouette_touched_canvas": false,
+  "remaining_key_candidate_pixels": 0,
+  "production_changed": false,
+  "owner_art_approval": false,
+  "visual_review": "PENDING",
+  "note": "Pixel PASS is not evidence of no clipping, no matte remnants, style or correct anatomy."
+}

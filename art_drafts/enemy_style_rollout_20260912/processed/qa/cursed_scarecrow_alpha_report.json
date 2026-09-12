@@ -1,0 +1,61 @@
+{
+  "enemy": "cursed_scarecrow",
+  "source_sha256": "e89150ec38a648249e185bbf390f288fe985acf23dfd0dd3f9de6003486dec47",
+  "profile": {
+    "mode": "magenta",
+    "reviewed_all_matte": true,
+    "review_note": "Reviewed raw and alpha composite: pure magenta is technical matte between cloth/straw, not red eye or outfit color."
+  },
+  "extraction": {
+    "background_fraction": 0.6074377695719401,
+    "unchanged_core_rgb_pixels": 478057
+  },
+  "framing": {
+    "source_alpha_bounds": [
+      13,
+      15,
+      1014,
+      1489
+    ],
+    "padding_xy": [
+      82,
+      120
+    ],
+    "resampled": false
+  },
+  "pixel_gate": {
+    "status": "PASS",
+    "mode": "RGBA",
+    "size": [
+      1165,
+      1714
+    ],
+    "alpha_bounds": [
+      82,
+      120,
+      1083,
+      1594
+    ],
+    "corner_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "margin_fractions_ltrb": [
+      0.0703862660944206,
+      0.07001166861143523,
+      0.0703862660944206,
+      0.07001166861143523
+    ],
+    "problems": [],
+    "sha256": "cfba6202e803ce8f7c4ec88611e284a6e2811a90d5bfc953fff40bd9e13e9b62",
+    "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+  },
+  "source_silhouette_touched_canvas": false,
+  "remaining_key_candidate_pixels": 0,
+  "production_changed": false,
+  "owner_art_approval": false,
+  "visual_review": "PENDING",
+  "note": "Pixel PASS is not evidence of no clipping, no matte remnants, style or correct anatomy."
+}

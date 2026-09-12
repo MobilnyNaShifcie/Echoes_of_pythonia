@@ -1,0 +1,869 @@
+{
+  "owner_art_approval": true,
+  "installed": 25,
+  "deferred": [
+    "venom_spider"
+  ],
+  "policy_fingerprint": "ee5a3271e3188a894b89b8cb4ef07134d2419f5855bdc36f2cb8aaa86b7cd3a8",
+  "geometry_checks": [
+    {
+      "scenario": "combat_wild_dog",
+      "resolution": [
+        1280,
+        720
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_slime",
+      "resolution": [
+        1280,
+        720
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_wolf",
+      "resolution": [
+        1280,
+        720
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_boar",
+      "resolution": [
+        1280,
+        720
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_cursed_scarecrow",
+      "resolution": [
+        1280,
+        720
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_plains_spirit",
+      "resolution": [
+        1280,
+        720
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_nature_guardian",
+      "resolution": [
+        1280,
+        720
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_forest_cultist",
+      "resolution": [
+        1280,
+        720
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_rotting_knight",
+      "resolution": [
+        1280,
+        720
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_corrupted_bear",
+      "resolution": [
+        1280,
+        720
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_black_hart",
+      "resolution": [
+        1280,
+        720
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_gallows_wraith",
+      "resolution": [
+        1280,
+        720
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_blackwood_executioner",
+      "resolution": [
+        1280,
+        720
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_bog_crawler",
+      "resolution": [
+        1280,
+        720
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_drowned_dead",
+      "resolution": [
+        1280,
+        720
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_swamp_witch",
+      "resolution": [
+        1280,
+        720
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_bone_crocodile",
+      "resolution": [
+        1280,
+        720
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_mist_walker",
+      "resolution": [
+        1280,
+        720
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_drowned_mother",
+      "resolution": [
+        1280,
+        720
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_boneburner",
+      "resolution": [
+        1280,
+        720
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_red_salamander",
+      "resolution": [
+        1280,
+        720
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_hearth_devourer",
+      "resolution": [
+        1280,
+        720
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_azhar",
+      "resolution": [
+        1280,
+        720
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_frozen_castaway",
+      "resolution": [
+        1280,
+        720
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_ice_crab",
+      "resolution": [
+        1280,
+        720
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_wild_dog",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_slime",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_wolf",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_boar",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_cursed_scarecrow",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_plains_spirit",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_nature_guardian",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_forest_cultist",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_rotting_knight",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_corrupted_bear",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_black_hart",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_gallows_wraith",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_blackwood_executioner",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_bog_crawler",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_drowned_dead",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_swamp_witch",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_bone_crocodile",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_mist_walker",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_drowned_mother",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_boneburner",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_red_salamander",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_hearth_devourer",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_azhar",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_frozen_castaway",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    },
+    {
+      "scenario": "combat_ice_crab",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "full_source_crop": true,
+      "slot_containment": true,
+      "shared_ground_line": true,
+      "correct_region": true
+    }
+  ],
+  "review_targets": [
+    {
+      "source": "godot/assets/combat/enemies/wild_dog.png",
+      "references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/twilight_plains_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/slime.png",
+      "references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/twilight_plains_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/wolf.png",
+      "references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/twilight_plains_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/boar.png",
+      "references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/twilight_plains_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/cursed_scarecrow.png",
+      "references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/twilight_plains_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/plains_spirit.png",
+      "references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/twilight_plains_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/nature_guardian.png",
+      "references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/twilight_plains_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/forest_cultist.png",
+      "references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/black_forest_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/rotting_knight.png",
+      "references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/black_forest_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/corrupted_bear.png",
+      "references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/black_forest_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/black_hart.png",
+      "references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/black_forest_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/gallows_wraith.png",
+      "references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/black_forest_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/blackwood_executioner.png",
+      "references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/black_forest_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/bog_crawler.png",
+      "references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/silentwater_marshes_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/drowned_dead.png",
+      "references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/silentwater_marshes_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/swamp_witch.png",
+      "references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/silentwater_marshes_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/bone_crocodile.png",
+      "references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/silentwater_marshes_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/mist_walker.png",
+      "references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/silentwater_marshes_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/drowned_mother.png",
+      "references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/silentwater_marshes_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/boneburner.png",
+      "references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/ashen_borderlands_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/red_salamander.png",
+      "references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/ashen_borderlands_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/hearth_devourer.png",
+      "references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/ashen_borderlands_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/azhar.png",
+      "references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/ashen_borderlands_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/frozen_castaway.png",
+      "references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/ice_coast_day.png"
+      ]
+    },
+    {
+      "source": "godot/assets/combat/enemies/ice_crab.png",
+      "references": [
+        "godot/assets/combat/heroes/hunter_male.png",
+        "godot/assets/combat/heroes/mage_female.png",
+        "godot/assets/world_map/pythonia_world_map_integrated.png",
+        "godot/assets/combat/backgrounds/ice_coast_day.png"
+      ]
+    }
+  ],
+  "engine_log_diagnostics": {
+    "import": [
+      "Leaked instance: UndoRedo:1644855106787",
+      "Leaked instance: UndoRedo:1684583555512",
+      "ERROR: Failed to read the root certificate store.",
+      "WARNING: 2 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+    ],
+    "capture": [
+      "ERROR: Failed to read the root certificate store."
+    ]
+  },
+  "visual_review": "PASS_ART_AND_FRAMING_ONLY",
+  "source_review": "../qualitative_review.json",
+  "boards": [
+    "combat_review_01.png",
+    "combat_review_02.png",
+    "combat_review_03.png",
+    "combat_review_04.png",
+    "combat_review_05.png",
+    "combat_review_06.png",
+    "combat_review_07.png",
+    "combat_review_08.png",
+    "combat_review_09.png",
+    "combat_review_10.png",
+    "combat_review_11.png",
+    "combat_review_12.png",
+    "combat_review_13.png"
+  ],
+  "visual_review_file": "enemy_visual_review.json",
+  "engine_log_gate": "DIAGNOSTICS_PRESENT_NOT_CLEAN",
+  "reviewed_capture_sha256": {
+    "combat_wild_dog_1280x720.png": "4dc34cd99d76961754df9dce1f7701e85208f77ee33568d752e9adb0d7b9b950",
+    "combat_slime_1280x720.png": "361179fff7c676541e446a8231b7ae729285fe93b9d1374a0131fd08320f0c20",
+    "combat_wolf_1280x720.png": "04906c928215e2ac8a4e0056c0d919bd9dbc5c19abd7c8899d6b1f187acd55da",
+    "combat_boar_1280x720.png": "08368e7d40d8dbf450fc4e20c7c5bc6a84428c225c9599f4abcf2be2e091a74f",
+    "combat_cursed_scarecrow_1280x720.png": "cdff1a21488367b8114db7d89d1c1b9bf49d7793c020064b8e70cea284ee7426",
+    "combat_plains_spirit_1280x720.png": "818afbd37f1f943e0b4cfa11c30faa5e9b426b9b749119f39c4265fb53c558b5",
+    "combat_nature_guardian_1280x720.png": "ac0e4b454d6c3ffab8dfa578fce85e5e115dcf41ab2e1c6bbf9b1b38e13309a1",
+    "combat_forest_cultist_1280x720.png": "38e80bd0cf8562666890c076a289eba321a6692097e53ad355f5c48849911f16",
+    "combat_rotting_knight_1280x720.png": "c78ad958f6f13dd92248bf35bd3179239228e5bb89ca11675f596662e574698f",
+    "combat_corrupted_bear_1280x720.png": "4f5e5f53cf5af2ec62974c37c0dfff65717cecb1d30b5bc1b977469d60ea95d3",
+    "combat_black_hart_1280x720.png": "3ed10c4687902b117540cafde3e36423214bb1537ee0aab5edd7dca313177e76",
+    "combat_gallows_wraith_1280x720.png": "0b3f7fcc14761781ec654a0a8734af07164baa8bbfe5aba64120b1b384810b4a",
+    "combat_blackwood_executioner_1280x720.png": "55bcf8034c7aaee2a43e0a94b0e68e8510c842868d928087c57fdbe57968f6e8",
+    "combat_bog_crawler_1280x720.png": "7f3816c34092f75eb1a9ffee4a8b4e99daeaaca975a901049682ecf9da57a148",
+    "combat_drowned_dead_1280x720.png": "59355e31380ff83c0d5b080b225f8138ca65e913738bb686c869cc2cd512d50e",
+    "combat_swamp_witch_1280x720.png": "6bb9c1e123f9c24aa89ba19886d6e9822d4b2a2517572448b87d0b2c346045c8",
+    "combat_bone_crocodile_1280x720.png": "a0493f3c8a8594a0939005f906b5baa751eb02af108a7896750494c8e92b3f85",
+    "combat_mist_walker_1280x720.png": "e946fcc7cffd9e429e5b2bc75fe24287ecd802866e652929529dc75a962a657c",
+    "combat_drowned_mother_1280x720.png": "a776897a5a3cf8bb6b0cd3d991a0dbdec36f7af5abee6fdced072593a6cd86a7",
+    "combat_boneburner_1280x720.png": "b22f9553eb3fa9dbc316d0985516c3bc1c30da12e1fcde61ed2fabb5497bd88f",
+    "combat_red_salamander_1280x720.png": "ef76ea78e7e9cbcadf424739da7bac170bd3df6eebaa35cb359049782a084256",
+    "combat_hearth_devourer_1280x720.png": "ede0aa94b7e754319097b4f9c16a7123fe495a005e0eae8cd71165db02739e92",
+    "combat_azhar_1280x720.png": "372ddd47483d212f4ce4408caecf350d297d56ff570e6d49309c04d5cab630b3",
+    "combat_frozen_castaway_1280x720.png": "d765dbc058dfb8b86d8548a6dcd5193b3f019a4f89161b1f7a894e91849033ed",
+    "combat_ice_crab_1280x720.png": "f132ca77840d0e72fa76a37cf6b97bed5eeaac76ad0fc4177832b62bcfb12343",
+    "combat_wild_dog_1920x1080.png": "1ec8ad09e53b91f2437665422a93cb785e66de2e0882cab909f66fb0cba1eee7",
+    "combat_slime_1920x1080.png": "02201251841773bc61ad35ed2281787c07ef0906818c5c6186d01b8ea85c9923",
+    "combat_wolf_1920x1080.png": "7f2b817050dcbd6ec3f3e78293f97269f436a274ab554d4e113e4fe89499329a",
+    "combat_boar_1920x1080.png": "cbea5f5620d399fef31bc17f99e27a72a47c067693a18141df241b7a61cf21ff",
+    "combat_cursed_scarecrow_1920x1080.png": "428d52c5b1ee193855b42ee0ab0c27e521a34c468f0a958a01f0e91dfdad8530",
+    "combat_plains_spirit_1920x1080.png": "292bf04e3c39760f1a2288b33003265b9a4a2fc359858a4ee568956ec5a00cbd",
+    "combat_nature_guardian_1920x1080.png": "942786be2470bd0127210e9813c08d37a5ef47b46f3aa46464a6c793b4bc1581",
+    "combat_forest_cultist_1920x1080.png": "add348d0e42aeefc967d1d6809e49f44ede0dd5aafb4e4d1a6d9b1b7e1bd0a36",
+    "combat_rotting_knight_1920x1080.png": "515e32746c7f480779c89037a54d6bae90b784731c156e49b772a01bb1bee5b8",
+    "combat_corrupted_bear_1920x1080.png": "e24ff68bc4942099a65550864258061b3c33964f95f26c4ce97f06f69ecd6dd8",
+    "combat_black_hart_1920x1080.png": "92dcb794dda8e508b34439e6704d1caccdd3f9c945fa238a81d6005471543ae9",
+    "combat_gallows_wraith_1920x1080.png": "db2d3aa10785f9d9bfb00a8d3a251ffe9f486ef49b7603175ac3e95d446483ac",
+    "combat_blackwood_executioner_1920x1080.png": "b246a269db1e59d91e0fdeb6638840a84ac6b150ee2ec5915c55617fc617359d",
+    "combat_bog_crawler_1920x1080.png": "18e5e52ccdaccbcc3d87a23903355781a7612f7abdbe9cdf8be6ac28aae19621",
+    "combat_drowned_dead_1920x1080.png": "74197eaf4c309186ca9d2fed6b8db28a73ad4327a9bc2dcf37528f331176c4b2",
+    "combat_swamp_witch_1920x1080.png": "7a8f1831cbf11e15028745cd527137ddd3ef4c7f6cd6b15e16d870ccbf0f9a85",
+    "combat_bone_crocodile_1920x1080.png": "e2a3552348c83054e61a4b41772e0205d9ec5c1bb3d274f4912b0eefa80c1ea3",
+    "combat_mist_walker_1920x1080.png": "b4a5e355e31665fdd5ccd0994c203ef21816609c2675dc48747e7416d4759cca",
+    "combat_drowned_mother_1920x1080.png": "cbe8aa3f54b448d1b13adb83692cd88aa2fe3b9e8e588f5f22df67c472d8f9a9",
+    "combat_boneburner_1920x1080.png": "3c05856773e0af83f69e281405e53f1ae7ef0138dae3582af1e2dacd951a2a70",
+    "combat_red_salamander_1920x1080.png": "38587aa2474d3861f6b7e61a7789a406edeefbd950f94fcf5c3e20343ae5874d",
+    "combat_hearth_devourer_1920x1080.png": "48017f54cf3ac4971dbbc2e9fa23702f484bef988873a4dafd4439189b29651b",
+    "combat_azhar_1920x1080.png": "b5b1000c89a277ce16c52ac3e0402fb1aae3f109ecec719fa175cfb26ee984cd",
+    "combat_frozen_castaway_1920x1080.png": "af0fcf9de3f31b1fab92edb0617090c93209aded2cfa4486bc7acd4e4bac1558",
+    "combat_ice_crab_1920x1080.png": "3a48d6bc042c0a6bd1e5504165398ba49dcb89170634985916af507f064785bd"
+  }
+}

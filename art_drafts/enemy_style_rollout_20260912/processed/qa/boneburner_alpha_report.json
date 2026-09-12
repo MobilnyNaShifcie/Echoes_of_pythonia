@@ -1,0 +1,63 @@
+{
+  "enemy": "boneburner",
+  "variant": "v1",
+  "source_sha256": "0de6f33073072b78920ab676afb3a6f3806071c5e6b3279a59f134fa6999f12c",
+  "profile": {
+    "mode": "magenta",
+    "reviewed_all_matte": true,
+    "review_note": "Raw reviewed: charcoal/ivory/rust/ember orange; magenta only in cloth/limb gaps."
+  },
+  "extraction": {
+    "background_fraction": 0.6487140655517578,
+    "unchanged_core_rgb_pixels": 402853,
+    "reviewed_interior_spill_pixels": 0
+  },
+  "framing": {
+    "source_alpha_bounds": [
+      44,
+      19,
+      992,
+      1519
+    ],
+    "padding_xy": [
+      78,
+      123
+    ],
+    "resampled": false
+  },
+  "pixel_gate": {
+    "status": "PASS",
+    "mode": "RGBA",
+    "size": [
+      1104,
+      1746
+    ],
+    "alpha_bounds": [
+      78,
+      123,
+      1026,
+      1623
+    ],
+    "corner_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "margin_fractions_ltrb": [
+      0.07065217391304347,
+      0.070446735395189,
+      0.07065217391304347,
+      0.070446735395189
+    ],
+    "problems": [],
+    "sha256": "5b8b64a5048b40a43539cfa5b9aa35e994781c47b4e72af1b259412606bd4cca",
+    "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+  },
+  "source_silhouette_touched_canvas": false,
+  "remaining_key_candidate_pixels": 0,
+  "production_changed": false,
+  "owner_art_approval": false,
+  "visual_review": "PENDING",
+  "note": "Pixel PASS is not evidence of no clipping, no matte remnants, style or correct anatomy."
+}

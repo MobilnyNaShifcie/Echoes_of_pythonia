@@ -1,0 +1,2658 @@
+{
+  "images": [
+    "combat_wild_dog_1280x720.png",
+    "combat_slime_1280x720.png",
+    "combat_wolf_1280x720.png",
+    "combat_boar_1280x720.png",
+    "combat_cursed_scarecrow_1280x720.png",
+    "combat_plains_spirit_1280x720.png",
+    "combat_nature_guardian_1280x720.png",
+    "combat_forest_cultist_1280x720.png",
+    "combat_rotting_knight_1280x720.png",
+    "combat_corrupted_bear_1280x720.png",
+    "combat_black_hart_1280x720.png",
+    "combat_gallows_wraith_1280x720.png",
+    "combat_blackwood_executioner_1280x720.png",
+    "combat_bog_crawler_1280x720.png",
+    "combat_drowned_dead_1280x720.png",
+    "combat_swamp_witch_1280x720.png",
+    "combat_bone_crocodile_1280x720.png",
+    "combat_mist_walker_1280x720.png",
+    "combat_drowned_mother_1280x720.png",
+    "combat_boneburner_1280x720.png",
+    "combat_red_salamander_1280x720.png",
+    "combat_hearth_devourer_1280x720.png",
+    "combat_azhar_1280x720.png",
+    "combat_frozen_castaway_1280x720.png",
+    "combat_ice_crab_1280x720.png",
+    "combat_wild_dog_1920x1080.png",
+    "combat_slime_1920x1080.png",
+    "combat_wolf_1920x1080.png",
+    "combat_boar_1920x1080.png",
+    "combat_cursed_scarecrow_1920x1080.png",
+    "combat_plains_spirit_1920x1080.png",
+    "combat_nature_guardian_1920x1080.png",
+    "combat_forest_cultist_1920x1080.png",
+    "combat_rotting_knight_1920x1080.png",
+    "combat_corrupted_bear_1920x1080.png",
+    "combat_black_hart_1920x1080.png",
+    "combat_gallows_wraith_1920x1080.png",
+    "combat_blackwood_executioner_1920x1080.png",
+    "combat_bog_crawler_1920x1080.png",
+    "combat_drowned_dead_1920x1080.png",
+    "combat_swamp_witch_1920x1080.png",
+    "combat_bone_crocodile_1920x1080.png",
+    "combat_mist_walker_1920x1080.png",
+    "combat_drowned_mother_1920x1080.png",
+    "combat_boneburner_1920x1080.png",
+    "combat_red_salamander_1920x1080.png",
+    "combat_hearth_devourer_1920x1080.png",
+    "combat_azhar_1920x1080.png",
+    "combat_frozen_castaway_1920x1080.png",
+    "combat_ice_crab_1920x1080.png"
+  ],
+  "layouts": [
+    {
+      "background": "res://assets/combat/backgrounds/twilight_plains_day.png",
+      "enemy": {
+        "crop": [
+          96.0,
+          95.0,
+          1179.0,
+          1157.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1198.00146484375,
+          389.75,
+          587.197021484375,
+          576.239990234375
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/wild_dog.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1280,
+        720
+      ],
+      "scenario": "combat_wild_dog"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/twilight_plains_day.png",
+      "enemy": {
+        "crop": [
+          103.0,
+          86.0,
+          1265.0,
+          1051.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1206.740234375,
+          492.650024414063,
+          569.719360351563,
+          473.339965820313
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/slime.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1280,
+        720
+      ],
+      "scenario": "combat_slime"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/twilight_plains_day.png",
+      "enemy": {
+        "crop": [
+          93.0,
+          82.0,
+          1142.0,
+          1000.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1146.89868164063,
+          362.309997558594,
+          689.402587890625,
+          603.679992675781
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/wolf.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1280,
+        720
+      ],
+      "scenario": "combat_wolf"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/twilight_plains_day.png",
+      "enemy": {
+        "crop": [
+          111.0,
+          93.0,
+          1362.0,
+          1134.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1129.07263183594,
+          362.309997558594,
+          725.0546875,
+          603.679992675781
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/boar.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1280,
+        720
+      ],
+      "scenario": "combat_boar"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/twilight_plains_day.png",
+      "enemy": {
+        "crop": [
+          82.0,
+          120.0,
+          1001.0,
+          1474.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1267.98449707031,
+          307.429992675781,
+          447.231079101563,
+          658.559997558594
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/cursed_scarecrow.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1280,
+        720
+      ],
+      "scenario": "combat_cursed_scarecrow"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/twilight_plains_day.png",
+      "enemy": {
+        "crop": [
+          83.0,
+          124.0,
+          1008.0,
+          1516.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1272.6591796875,
+          307.429992675781,
+          437.881591796875,
+          658.559997558594
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/plains_spirit.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1280,
+        720
+      ],
+      "scenario": "combat_plains_spirit"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/twilight_plains_day.png",
+      "enemy": {
+        "crop": [
+          74.0,
+          93.0,
+          903.0,
+          1133.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1226.43041992188,
+          300.569946289063,
+          530.339111328125,
+          665.420043945313
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/nature_guardian.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1280,
+        720
+      ],
+      "scenario": "combat_nature_guardian"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/black_forest_day.png",
+      "enemy": {
+        "crop": [
+          86.0,
+          115.0,
+          1056.0,
+          1405.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1244.11267089844,
+          307.429992675781,
+          494.974609375,
+          658.559997558594
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/forest_cultist.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1280,
+        720
+      ],
+      "scenario": "combat_forest_cultist"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/black_forest_day.png",
+      "enemy": {
+        "crop": [
+          88.0,
+          117.0,
+          1076.0,
+          1432.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1244.18005371094,
+          307.429992675781,
+          494.839813232422,
+          658.559997558594
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/rotting_knight.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1280,
+        720
+      ],
+      "scenario": "combat_rotting_knight"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/black_forest_day.png",
+      "enemy": {
+        "crop": [
+          97.0,
+          102.0,
+          1188.0,
+          1243.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1199.83752441406,
+          355.450012207031,
+          583.52490234375,
+          610.539978027344
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/corrupted_bear.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1280,
+        720
+      ],
+      "scenario": "combat_corrupted_bear"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/black_forest_day.png",
+      "enemy": {
+        "crop": [
+          83.0,
+          120.0,
+          1010.0,
+          1473.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1265.82080078125,
+          307.429992675781,
+          451.558471679688,
+          658.559997558594
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/black_hart.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1280,
+        720
+      ],
+      "scenario": "combat_black_hart"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/black_forest_day.png",
+      "enemy": {
+        "crop": [
+          87.0,
+          118.0,
+          1062.0,
+          1445.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1249.59631347656,
+          307.429992675781,
+          484.007446289063,
+          658.559997558594
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/gallows_wraith.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1280,
+        720
+      ],
+      "scenario": "combat_gallows_wraith"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/black_forest_day.png",
+      "enemy": {
+        "crop": [
+          74.0,
+          95.0,
+          904.0,
+          1165.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1236.08996582031,
+          307.429992675781,
+          511.019897460938,
+          658.559997558594
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/blackwood_executioner.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1280,
+        720
+      ],
+      "scenario": "combat_blackwood_executioner"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/silentwater_marshes_day.png",
+      "enemy": {
+        "crop": [
+          122.0,
+          63.0,
+          1495.0,
+          765.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1103.3759765625,
+          568.677124023438,
+          776.447998046875,
+          397.312866210938
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/bog_crawler.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1280,
+        720
+      ],
+      "scenario": "combat_bog_crawler"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/silentwater_marshes_day.png",
+      "enemy": {
+        "crop": [
+          78.0,
+          120.0,
+          949.0,
+          1472.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1279.31274414063,
+          307.429992675781,
+          424.574340820313,
+          658.559997558594
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/drowned_dead.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1280,
+        720
+      ],
+      "scenario": "combat_drowned_dead"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/silentwater_marshes_day.png",
+      "enemy": {
+        "crop": [
+          88.0,
+          116.0,
+          1071.0,
+          1422.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1243.59790039063,
+          307.429992675781,
+          496.004028320313,
+          658.559997558594
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/swamp_witch.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1280,
+        720
+      ],
+      "scenario": "combat_swamp_witch"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/silentwater_marshes_day.png",
+      "enemy": {
+        "crop": [
+          88.0,
+          55.0,
+          1070.0,
+          666.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1103.3759765625,
+          482.705505371094,
+          776.447998046875,
+          483.284484863281
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/bone_crocodile.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1280,
+        720
+      ],
+      "scenario": "combat_bone_crocodile"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/silentwater_marshes_day.png",
+      "enemy": {
+        "crop": [
+          80.0,
+          123.0,
+          980.0,
+          1509.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1277.75341796875,
+          307.429992675781,
+          427.693084716797,
+          658.559997558594
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/mist_walker.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1280,
+        720
+      ],
+      "scenario": "combat_mist_walker"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/silentwater_marshes_day.png",
+      "enemy": {
+        "crop": [
+          73.0,
+          92.0,
+          893.0,
+          1123.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1229.75927734375,
+          307.429992675781,
+          523.681274414063,
+          658.559997558594
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/drowned_mother.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1280,
+        720
+      ],
+      "scenario": "combat_drowned_mother"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/ashen_borderlands_day.png",
+      "enemy": {
+        "crop": [
+          78.0,
+          123.0,
+          948.0,
+          1500.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1283.49499511719,
+          307.429992675781,
+          416.2099609375,
+          658.559997558594
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/boneburner.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1280,
+        720
+      ],
+      "scenario": "combat_boneburner"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/ashen_borderlands_day.png",
+      "enemy": {
+        "crop": [
+          103.0,
+          95.0,
+          1263.0,
+          1164.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1182.69665527344,
+          396.609985351563,
+          617.806640625,
+          569.380004882813
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/red_salamander.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1280,
+        720
+      ],
+      "scenario": "combat_red_salamander"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/ashen_borderlands_day.png",
+      "enemy": {
+        "crop": [
+          88.0,
+          117.0,
+          1074.0,
+          1427.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1243.77465820313,
+          307.429992675781,
+          495.650634765625,
+          658.559997558594
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/hearth_devourer.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1280,
+        720
+      ],
+      "scenario": "combat_hearth_devourer"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/ashen_borderlands_day.png",
+      "enemy": {
+        "crop": [
+          87.0,
+          117.0,
+          1058.0,
+          1430.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1247.97875976563,
+          307.429992675781,
+          487.242309570313,
+          658.559997558594
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/azhar.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1280,
+        720
+      ],
+      "scenario": "combat_azhar"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/ice_coast_day.png",
+      "enemy": {
+        "crop": [
+          88.0,
+          111.0,
+          1069.0,
+          1363.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1233.34594726563,
+          307.429992675781,
+          516.508178710938,
+          658.559997558594
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/frozen_castaway.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1280,
+        720
+      ],
+      "scenario": "combat_frozen_castaway"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/ice_coast_day.png",
+      "enemy": {
+        "crop": [
+          120.0,
+          80.0,
+          1468.0,
+          978.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1119.55200195313,
+          470.263916015625,
+          744.096069335938,
+          495.72607421875
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/ice_crab.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1280,
+        720
+      ],
+      "scenario": "combat_ice_crab"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/twilight_plains_day.png",
+      "enemy": {
+        "crop": [
+          96.0,
+          95.0,
+          1179.0,
+          1157.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1198.00146484375,
+          389.75,
+          587.197021484375,
+          576.239990234375
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/wild_dog.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1920,
+        1080
+      ],
+      "scenario": "combat_wild_dog"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/twilight_plains_day.png",
+      "enemy": {
+        "crop": [
+          103.0,
+          86.0,
+          1265.0,
+          1051.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1206.740234375,
+          492.650024414063,
+          569.719360351563,
+          473.339965820313
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/slime.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1920,
+        1080
+      ],
+      "scenario": "combat_slime"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/twilight_plains_day.png",
+      "enemy": {
+        "crop": [
+          93.0,
+          82.0,
+          1142.0,
+          1000.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1146.89868164063,
+          362.309997558594,
+          689.402587890625,
+          603.679992675781
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/wolf.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1920,
+        1080
+      ],
+      "scenario": "combat_wolf"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/twilight_plains_day.png",
+      "enemy": {
+        "crop": [
+          111.0,
+          93.0,
+          1362.0,
+          1134.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1129.07263183594,
+          362.309997558594,
+          725.0546875,
+          603.679992675781
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/boar.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1920,
+        1080
+      ],
+      "scenario": "combat_boar"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/twilight_plains_day.png",
+      "enemy": {
+        "crop": [
+          82.0,
+          120.0,
+          1001.0,
+          1474.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1267.98449707031,
+          307.429992675781,
+          447.231079101563,
+          658.559997558594
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/cursed_scarecrow.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1920,
+        1080
+      ],
+      "scenario": "combat_cursed_scarecrow"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/twilight_plains_day.png",
+      "enemy": {
+        "crop": [
+          83.0,
+          124.0,
+          1008.0,
+          1516.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1272.6591796875,
+          307.429992675781,
+          437.881591796875,
+          658.559997558594
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/plains_spirit.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1920,
+        1080
+      ],
+      "scenario": "combat_plains_spirit"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/twilight_plains_day.png",
+      "enemy": {
+        "crop": [
+          74.0,
+          93.0,
+          903.0,
+          1133.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1226.43041992188,
+          300.569946289063,
+          530.339111328125,
+          665.420043945313
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/nature_guardian.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1920,
+        1080
+      ],
+      "scenario": "combat_nature_guardian"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/black_forest_day.png",
+      "enemy": {
+        "crop": [
+          86.0,
+          115.0,
+          1056.0,
+          1405.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1244.11267089844,
+          307.429992675781,
+          494.974609375,
+          658.559997558594
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/forest_cultist.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1920,
+        1080
+      ],
+      "scenario": "combat_forest_cultist"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/black_forest_day.png",
+      "enemy": {
+        "crop": [
+          88.0,
+          117.0,
+          1076.0,
+          1432.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1244.18005371094,
+          307.429992675781,
+          494.839813232422,
+          658.559997558594
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/rotting_knight.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1920,
+        1080
+      ],
+      "scenario": "combat_rotting_knight"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/black_forest_day.png",
+      "enemy": {
+        "crop": [
+          97.0,
+          102.0,
+          1188.0,
+          1243.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1199.83752441406,
+          355.450012207031,
+          583.52490234375,
+          610.539978027344
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/corrupted_bear.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1920,
+        1080
+      ],
+      "scenario": "combat_corrupted_bear"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/black_forest_day.png",
+      "enemy": {
+        "crop": [
+          83.0,
+          120.0,
+          1010.0,
+          1473.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1265.82080078125,
+          307.429992675781,
+          451.558471679688,
+          658.559997558594
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/black_hart.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1920,
+        1080
+      ],
+      "scenario": "combat_black_hart"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/black_forest_day.png",
+      "enemy": {
+        "crop": [
+          87.0,
+          118.0,
+          1062.0,
+          1445.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1249.59631347656,
+          307.429992675781,
+          484.007446289063,
+          658.559997558594
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/gallows_wraith.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1920,
+        1080
+      ],
+      "scenario": "combat_gallows_wraith"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/black_forest_day.png",
+      "enemy": {
+        "crop": [
+          74.0,
+          95.0,
+          904.0,
+          1165.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1236.08996582031,
+          307.429992675781,
+          511.019897460938,
+          658.559997558594
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/blackwood_executioner.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1920,
+        1080
+      ],
+      "scenario": "combat_blackwood_executioner"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/silentwater_marshes_day.png",
+      "enemy": {
+        "crop": [
+          122.0,
+          63.0,
+          1495.0,
+          765.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1103.3759765625,
+          568.677124023438,
+          776.447998046875,
+          397.312866210938
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/bog_crawler.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1920,
+        1080
+      ],
+      "scenario": "combat_bog_crawler"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/silentwater_marshes_day.png",
+      "enemy": {
+        "crop": [
+          78.0,
+          120.0,
+          949.0,
+          1472.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1279.31274414063,
+          307.429992675781,
+          424.574340820313,
+          658.559997558594
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/drowned_dead.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1920,
+        1080
+      ],
+      "scenario": "combat_drowned_dead"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/silentwater_marshes_day.png",
+      "enemy": {
+        "crop": [
+          88.0,
+          116.0,
+          1071.0,
+          1422.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1243.59790039063,
+          307.429992675781,
+          496.004028320313,
+          658.559997558594
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/swamp_witch.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1920,
+        1080
+      ],
+      "scenario": "combat_swamp_witch"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/silentwater_marshes_day.png",
+      "enemy": {
+        "crop": [
+          88.0,
+          55.0,
+          1070.0,
+          666.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1103.3759765625,
+          482.705505371094,
+          776.447998046875,
+          483.284484863281
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/bone_crocodile.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1920,
+        1080
+      ],
+      "scenario": "combat_bone_crocodile"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/silentwater_marshes_day.png",
+      "enemy": {
+        "crop": [
+          80.0,
+          123.0,
+          980.0,
+          1509.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1277.75341796875,
+          307.429992675781,
+          427.693084716797,
+          658.559997558594
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/mist_walker.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1920,
+        1080
+      ],
+      "scenario": "combat_mist_walker"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/silentwater_marshes_day.png",
+      "enemy": {
+        "crop": [
+          73.0,
+          92.0,
+          893.0,
+          1123.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1229.75927734375,
+          307.429992675781,
+          523.681274414063,
+          658.559997558594
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/drowned_mother.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1920,
+        1080
+      ],
+      "scenario": "combat_drowned_mother"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/ashen_borderlands_day.png",
+      "enemy": {
+        "crop": [
+          78.0,
+          123.0,
+          948.0,
+          1500.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1283.49499511719,
+          307.429992675781,
+          416.2099609375,
+          658.559997558594
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/boneburner.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1920,
+        1080
+      ],
+      "scenario": "combat_boneburner"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/ashen_borderlands_day.png",
+      "enemy": {
+        "crop": [
+          103.0,
+          95.0,
+          1263.0,
+          1164.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1182.69665527344,
+          396.609985351563,
+          617.806640625,
+          569.380004882813
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/red_salamander.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1920,
+        1080
+      ],
+      "scenario": "combat_red_salamander"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/ashen_borderlands_day.png",
+      "enemy": {
+        "crop": [
+          88.0,
+          117.0,
+          1074.0,
+          1427.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1243.77465820313,
+          307.429992675781,
+          495.650634765625,
+          658.559997558594
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/hearth_devourer.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1920,
+        1080
+      ],
+      "scenario": "combat_hearth_devourer"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/ashen_borderlands_day.png",
+      "enemy": {
+        "crop": [
+          87.0,
+          117.0,
+          1058.0,
+          1430.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1247.97875976563,
+          307.429992675781,
+          487.242309570313,
+          658.559997558594
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/azhar.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1920,
+        1080
+      ],
+      "scenario": "combat_azhar"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/ice_coast_day.png",
+      "enemy": {
+        "crop": [
+          88.0,
+          111.0,
+          1069.0,
+          1363.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1233.34594726563,
+          307.429992675781,
+          516.508178710938,
+          658.559997558594
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/frozen_castaway.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1920,
+        1080
+      ],
+      "scenario": "combat_frozen_castaway"
+    },
+    {
+      "background": "res://assets/combat/backgrounds/ice_coast_day.png",
+      "enemy": {
+        "crop": [
+          120.0,
+          80.0,
+          1468.0,
+          978.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          1119.55200195313,
+          470.263916015625,
+          744.096069335938,
+          495.72607421875
+        ],
+        "slot_rect": [
+          1087.19995117188,
+          304.0,
+          808.800048828125,
+          686.0
+        ],
+        "source": "res://assets/combat/enemies/ice_crab.png"
+      },
+      "hero": {
+        "crop": [
+          0.0,
+          0.0,
+          1024.0,
+          1536.0
+        ],
+        "flip_h": false,
+        "painted_rect": [
+          207.736633300781,
+          304.0,
+          441.32666015625,
+          661.989990234375
+        ],
+        "slot_rect": [
+          24.0,
+          304.0,
+          808.799987792969,
+          686.0
+        ],
+        "source": "res://assets/combat/heroes/mage_female.png"
+      },
+      "resolution": [
+        1920,
+        1080
+      ],
+      "scenario": "combat_ice_crab"
+    }
+  ],
+  "ok": true,
+  "policy_fingerprint": "ee5a3271e3188a894b89b8cb4ef07134d2419f5855bdc36f2cb8aaa86b7cd3a8"
+}

@@ -12,6 +12,14 @@ Decyzja użytkownika z 2026-09-06: zachować istniejące postacie anime-fantasy 
 - Ramki jakości rysuje interfejs według `item_rarity_palette.gd`: szara → zielona → niebieska → fioletowa → czerwona → pomarańczowa. Nie wmalowywać ramek, napisów ani cen w PNG. Nie zmieniać statystyk ani rzadkości przy wymianie ilustracji.
 - Poświaty/animacje rezerwować dla wybranych artefaktów i wyjątkowych nagród; zwykły ekwipunek pozostaje 2D. Modeli 3D czarnego rynku nie zastępować hurtowo ikonami.
 
+## Globalna polityka przeciwników i bossów
+
+Kanoniczne reguły, kryteria review i maszynowy blok `autopilot-art-policy`
+znajdują się w `AI_CONTEXT/ART_DIRECTION.md`, sekcja 35. Ten dokument zachowuje
+historię zatwierdzonych kierunków przedmiotów i komnat; nie jest drugą kopią
+polityki enemy artów. Generator, plansze referencyjne i visual review odczytują
+reguły wyłącznie z kanonicznego pliku. Procedura: `docs/ART_AND_AUDIO_PIPELINE_v0.25.0.md`.
+
 ## Kolejność pracy
 
 1. **Zatwierdzone** przez użytkownika: Czarny Pazur, Hełm Zgniłego Rycerza, Wisiorek Kultysty. Karty kontrolne: `output/item_art/anime_style_pilot_review.png`.

@@ -1,0 +1,93 @@
+{
+  "enemy": "black_hart",
+  "variant": "v1",
+  "source_sha256": "b36c0ca77f95585bf4cd1b502869ae2d3f82f6982313f2c690920f7d2819bdb7",
+  "profile": {
+    "mode": "magenta",
+    "despill_boundary": true,
+    "holes": [
+      [
+        309,
+        318
+      ],
+      [
+        140,
+        812
+      ],
+      [
+        206,
+        386
+      ],
+      [
+        182,
+        959
+      ],
+      [
+        360,
+        615
+      ],
+      [
+        451,
+        1028
+      ],
+      [
+        135,
+        854
+      ]
+    ],
+    "review_note": "Reviewed seven numbered islands: gaps between antlers and along chest/belly fur; pink corruption veins remain opaque. Boundary despill only, never global key."
+  },
+  "extraction": {
+    "background_fraction": 0.6889273325602213,
+    "unchanged_core_rgb_pixels": 388218,
+    "reviewed_interior_spill_pixels": 0
+  },
+  "framing": {
+    "source_alpha_bounds": [
+      12,
+      19,
+      1022,
+      1492
+    ],
+    "padding_xy": [
+      83,
+      120
+    ],
+    "resampled": false
+  },
+  "pixel_gate": {
+    "status": "PASS",
+    "mode": "RGBA",
+    "size": [
+      1176,
+      1713
+    ],
+    "alpha_bounds": [
+      83,
+      120,
+      1093,
+      1593
+    ],
+    "corner_alpha": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "margin_fractions_ltrb": [
+      0.070578231292517,
+      0.07005253940455342,
+      0.070578231292517,
+      0.07005253940455342
+    ],
+    "problems": [],
+    "sha256": "38c8243bbc599f470c463b2fd9a7cf331116e1187c8f3ad2f44041b8eca4cae9",
+    "limitation": "Pixel checks cannot prove style, full anatomy, pose, background remnants or rigging separation."
+  },
+  "source_silhouette_touched_canvas": false,
+  "remaining_key_candidate_pixels": 0,
+  "production_changed": false,
+  "owner_art_approval": false,
+  "visual_review": "PENDING",
+  "note": "Pixel PASS is not evidence of no clipping, no matte remnants, style or correct anatomy."
+}

@@ -10,9 +10,22 @@ if ([string]::IsNullOrWhiteSpace($AssetRoot)) {
 
 Add-Type -AssemblyName System.Drawing
 $systemDrawingAssembly = [System.Drawing.Bitmap].Assembly.Location
-Add-Type -ReferencedAssemblies @(
-    $systemDrawingAssembly
-) -TypeDefinition @'
+# .NET 10 moved image interfaces into private Windows assemblies. Older runtimes
+# do not contain them; reference only assemblies available in this PowerShell.
+$drawingReferences = @($systemDrawingAssembly)
+foreach ($assemblyName in @(
+    'System.Drawing.Primitives', 'System.Collections',
+    'System.Private.Windows.GdiPlus', 'System.Private.Windows.Core'
+)) {
+    try {
+        $null = [System.Reflection.Assembly]::Load($assemblyName)
+        $drawingReferences += $assemblyName
+    }
+    catch [System.IO.FileNotFoundException] {
+        # This optional dependency is absent on older .NET runtimes.
+    }
+}
+Add-Type -ReferencedAssemblies ($drawingReferences | Select-Object -Unique) -TypeDefinition @'
 using System;
 using System.Collections.Generic;
 using System.Drawing;
