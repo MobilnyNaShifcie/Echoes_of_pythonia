@@ -92,22 +92,12 @@ var _session: GameSessionClass
 @onready var category_tabs: TabBar = %CategoryTabs
 @onready var inventory_grid: InventoryGridView = %InventoryGrid
 @onready var inventory_drop_zone: PanelContainer = %InventoryDropZone
-@onready var character_visual: CharacterPaperdoll = %CharacterVisual
+@onready
+var equipment_panel: CharacterEquipmentPanel = $Page/Workspace/PaperdollPanel/Content/Paperdoll
+@onready var character_visual: CharacterPaperdoll = equipment_panel.character_visual
 @onready var workspace: HBoxContainer = $Page/Workspace
 @onready var stats_panel: PanelContainer = $Page/Workspace/StatsPanel
-@onready var slot_buttons := {
-	PlayerEquipmentClass.WEAPON: %WeaponSlot,
-	PlayerEquipmentClass.OFF_HAND: %OffHandSlot,
-	PlayerEquipmentClass.HEAD: %HeadSlot,
-	PlayerEquipmentClass.CHEST: %ChestSlot,
-	PlayerEquipmentClass.HANDS: %HandsSlot,
-	PlayerEquipmentClass.FEET: %FeetSlot,
-	PlayerEquipmentClass.BELT: %BeltSlot,
-	PlayerEquipmentClass.NECKLACE: %NecklaceSlot,
-	PlayerEquipmentClass.BRACELET: %BraceletSlot,
-	PlayerEquipmentClass.EARRINGS: %EarringsSlot,
-	PlayerEquipmentClass.RING: %RingSlot,
-}
+@onready var slot_buttons: Dictionary = equipment_panel.slot_buttons
 
 
 func _ready() -> void:
@@ -218,6 +208,9 @@ func _category_changed(_index: int) -> void:
 
 func _refresh_paperdoll() -> void:
 	var class_display_name := _session.player.character_class_name.to_upper()
+	equipment_panel.show_identity(
+		_session.player.display_name, _session.player.level, class_display_name
+	)
 	(
 		character_visual
 		. show_character(

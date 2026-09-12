@@ -37,9 +37,7 @@ func test_equipment_uses_central_art_slot_transparent_slots_and_hover_details() 
 	screen.configure(session)
 	add_child_autofree(screen)
 
-	assert_not_null(
-		screen.get_node("Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage/CharacterVisual")
-	)
+	assert_eq(screen.character_visual, screen.equipment_panel.character_visual)
 	assert_not_null(screen.character_visual.character_texture())
 	assert_eq(
 		screen.character_visual.character_texture().resource_path,
@@ -79,7 +77,7 @@ func test_equipment_restores_neutral_seeker_art_for_legacy_unspecified_gender() 
 	)
 
 
-func test_equipment_layout_places_close_columns_on_both_sides_of_the_character() -> void:
+func test_equipment_layout_places_equal_columns_around_the_character() -> void:
 	var session = NewGameServiceClass.new().create_session("Aria", 1)
 	session.player.experience = 37
 	session.player.attributes.strength = 4
@@ -98,87 +96,18 @@ func test_equipment_layout_places_close_columns_on_both_sides_of_the_character()
 	assert_eq(screen.stats_strength_label.text, "4")
 	assert_eq(screen.stats_vitality_label.text, "3")
 
+	var panel: Control = screen.equipment_panel
 	var head: Control = screen.slot_buttons.head
-	var chest: Control = screen.slot_buttons.chest
-	var belt: Control = screen.slot_buttons.belt
-	var feet: Control = screen.slot_buttons.feet
-	var paperdoll_stage := (
-		screen.get_node("Page/Workspace/PaperdollPanel/Content/Paperdoll") as PanelContainer
-	)
-	var stage_style := paperdoll_stage.get_theme_stylebox("panel") as StyleBoxFlat
-	assert_lte(stage_style.bg_color.a, 0.2)
-	var body_left: float = screen.character_visual.position.x
-	for body_slot: Control in [head, chest, belt, feet]:
-		assert_lt(body_slot.position.x + body_slot.size.x, body_left + 132.0)
-		assert_gt(body_slot.position.x, body_left)
-	assert_lt(head.position.y, chest.position.y)
-	assert_lt(chest.position.y, screen.slot_buttons.hands.position.y)
-	assert_lt(screen.slot_buttons.hands.position.y, belt.position.y)
-	assert_lt(belt.position.y, feet.position.y)
-	var left_equipment_slots: Array[Control] = [
-		head,
-		chest,
-		screen.slot_buttons.hands,
-		belt,
-		feet,
-	]
-	for slot_index: int in range(left_equipment_slots.size() - 1):
-		var current_slot: Control = left_equipment_slots[slot_index]
-		var next_slot: Control = left_equipment_slots[slot_index + 1]
-		assert_almost_eq(
-			next_slot.position.y - (current_slot.position.y + current_slot.size.y),
-			10.0,
-			1.0,
-		)
-	assert_lt(screen.slot_buttons.weapon.position.x, head.position.x)
-	assert_almost_eq(screen.slot_buttons.hands.position.x, head.position.x, 1.0)
-	assert_lte(chest.position.x + chest.size.x, body_left + 90.0)
-	assert_gt(screen.slot_buttons.weapon.position.x, 100.0)
-	var left_column_gap: float = (
-		chest.position.x
-		- (screen.slot_buttons.weapon.position.x + screen.slot_buttons.weapon.size.x)
-	)
-	assert_gte(left_column_gap, 0.0)
-	assert_lte(left_column_gap, 5.0)
-
-	var offhand: Control = screen.slot_buttons.off_hand
-	var mirrored_offhand_x: float = (
-		paperdoll_stage.size.x
-		- (screen.slot_buttons.weapon.position.x + screen.slot_buttons.weapon.size.x)
-	)
-	assert_almost_eq(offhand.position.x, mirrored_offhand_x, 1.0)
-	assert_almost_eq(offhand.position.y, screen.slot_buttons.weapon.position.y, 1.0)
-	assert_almost_eq(offhand.size.x, screen.slot_buttons.weapon.size.x, 1.0)
-	assert_almost_eq(offhand.size.y, screen.slot_buttons.weapon.size.y, 1.0)
-	var earrings: Control = screen.slot_buttons.earrings
-	var necklace: Control = screen.slot_buttons.necklace
-	var bracelet: Control = screen.slot_buttons.bracelet
-	var ring: Control = screen.slot_buttons.ring
-	for regular_slot: Control in [
-		head,
-		chest,
-		screen.slot_buttons.hands,
-		belt,
-		feet,
-		earrings,
-		necklace,
-		bracelet,
-		ring,
-	]:
-		assert_almost_eq(regular_slot.size.x, 74.0, 1.0)
-		assert_almost_eq(regular_slot.size.y, 74.0, 1.0)
-	assert_almost_eq(screen.slot_buttons.weapon.size.x, 76.0, 1.0)
-	assert_almost_eq(screen.slot_buttons.weapon.size.y, 116.0, 1.0)
-	assert_almost_eq(offhand.size.x, 76.0, 1.0)
-	assert_almost_eq(offhand.size.y, 116.0, 1.0)
-	assert_almost_eq(earrings.position.x, bracelet.position.x, 1.0)
-	assert_almost_eq(necklace.position.x, ring.position.x, 1.0)
-	assert_lt(earrings.position.x, necklace.position.x)
-	assert_lte(necklace.position.x - (earrings.position.x + earrings.size.x), 12.0)
-	assert_lt(offhand.position.y, earrings.position.y)
-	assert_almost_eq(earrings.position.y, necklace.position.y, 1.0)
-	assert_lt(earrings.position.y, bracelet.position.y)
-	assert_almost_eq(bracelet.position.y, ring.position.y, 1.0)
+	var left: Control = screen.slot_buttons.weapon
+	var right: Control = screen.slot_buttons.off_hand
+	var center_x := panel.get_global_rect().get_center().x
+	assert_almost_eq(head.get_global_rect().get_center().x, center_x, 1.0)
+	assert_almost_eq(left.global_position.y, right.global_position.y, 1.0)
+	assert_almost_eq(left.size.x, right.size.x, 1.0)
+	assert_almost_eq(left.size.y, right.size.y, 1.0)
+	assert_lt(head.get_global_rect().end.y, left.global_position.y)
+	for button: Control in screen.slot_buttons.values():
+		assert_eq(button.size, head.size)
 	assert_true(screen.details_label.is_visible_in_tree())
 	assert_eq(screen.stats_name_label.text, "Aria")
 	assert_string_contains(screen.stats_level_label.text, "POZIOM 0")

@@ -1,21 +1,8 @@
-[gd_scene load_steps=13 format=3]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://ui/screens/equipment/equipment.gd" id="1_equipment"]
-[ext_resource type="PackedScene" path="res://ui/components/inventory_grid/inventory_item_slot.tscn" id="2_item_slot"]
 [ext_resource type="PackedScene" path="res://ui/components/inventory_grid/inventory_grid_view.tscn" id="3_item_grid"]
-[ext_resource type="Script" path="res://ui/components/character_paperdoll/character_paperdoll.gd" id="4_paperdoll"]
-
-[sub_resource type="StyleBoxFlat" id="StageStyle"]
-bg_color = Color(0.008, 0.015, 0.025, 0.14)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.55, 0.41, 0.18, 0.8)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[ext_resource type="PackedScene" path="res://ui/components/character_equipment_panel/character_equipment_panel.tscn" id="4_equipment_panel"]
 
 [sub_resource type="StyleBoxFlat" id="EquipmentPanelStyle"]
 bg_color = Color(0.018, 0.03, 0.047, 0.43)
@@ -196,136 +183,9 @@ theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
 theme_override_font_sizes/font_size = 20
 text = "Wyposażenie bohatera"
 
-[node name="Paperdoll" type="PanelContainer" parent="Page/Workspace/PaperdollPanel/Content"]
-custom_minimum_size = Vector2(730, 650)
+[node name="Paperdoll" parent="Page/Workspace/PaperdollPanel/Content" instance=ExtResource("4_equipment_panel")]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StageStyle")
-
-[node name="Stage" type="Control" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll"]
-custom_minimum_size = Vector2(730, 650)
-layout_mode = 2
-
-[node name="CharacterVisual" type="Control" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage"]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 185.0
-offset_top = 16.0
-offset_right = 570.0
-offset_bottom = 632.0
-mouse_filter = 2
-script = ExtResource("4_paperdoll")
-caption = ""
-
-[node name="HeadSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 190.0
-offset_top = 60.0
-offset_right = 264.0
-offset_bottom = 134.0
-text = "HEŁ"
-
-[node name="ChestSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 190.0
-offset_top = 144.0
-offset_right = 264.0
-offset_bottom = 218.0
-text = "ZBR"
-
-[node name="BeltSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 190.0
-offset_top = 312.0
-offset_right = 264.0
-offset_bottom = 386.0
-text = "PAS"
-
-[node name="FeetSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 190.0
-offset_top = 396.0
-offset_right = 264.0
-offset_bottom = 470.0
-text = "BUT"
-
-[node name="WeaponSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 110.0
-offset_top = 146.0
-offset_right = 186.0
-offset_bottom = 262.0
-text = "BR"
-
-[node name="HandsSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 190.0
-offset_top = 228.0
-offset_right = 264.0
-offset_bottom = 302.0
-text = "RĘK"
-
-[node name="OffHandSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 548.0
-offset_top = 146.0
-offset_right = 624.0
-offset_bottom = 262.0
-text = "II"
-
-[node name="JewelryTitle" type="Label" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage"]
-layout_mode = 0
-offset_left = 456.0
-offset_top = 120.0
-offset_right = 624.0
-offset_bottom = 142.0
-theme_override_colors/font_color = Color(0.76, 0.64, 0.39, 1)
-theme_override_font_sizes/font_size = 11
-text = "DRUGA RĘKA I BIŻUTERIA"
-horizontal_alignment = 1
-
-[node name="EarringsSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 464.0
-offset_top = 272.0
-offset_right = 538.0
-offset_bottom = 346.0
-text = "KOL"
-
-[node name="NecklaceSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 548.0
-offset_top = 272.0
-offset_right = 622.0
-offset_bottom = 346.0
-text = "NAS"
-
-[node name="BraceletSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 464.0
-offset_top = 356.0
-offset_right = 538.0
-offset_bottom = 430.0
-text = "BRA"
-
-[node name="RingSlot" parent="Page/Workspace/PaperdollPanel/Content/Paperdoll/Stage" instance=ExtResource("2_item_slot")]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 548.0
-offset_top = 356.0
-offset_right = 622.0
-offset_bottom = 430.0
-text = "PIE"
 
 [node name="UnequipButton" type="Button" parent="Page/Workspace/PaperdollPanel/Content"]
 unique_name_in_owner = true

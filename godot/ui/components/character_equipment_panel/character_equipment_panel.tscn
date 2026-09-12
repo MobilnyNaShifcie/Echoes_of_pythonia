@@ -1,0 +1,204 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://ui/components/character_equipment_panel/character_equipment_panel.gd" id="1_panel"]
+[ext_resource type="PackedScene" path="res://ui/components/inventory_grid/inventory_item_slot.tscn" id="2_slot"]
+[ext_resource type="Script" path="res://ui/components/character_paperdoll/character_paperdoll.gd" id="3_visual"]
+
+[sub_resource type="StyleBoxFlat" id="StageStyle"]
+bg_color = Color(0.008, 0.015, 0.025, 0.14)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.55, 0.41, 0.18, 0.8)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="NameplateStyle"]
+bg_color = Color(0.012, 0.018, 0.027, 0.78)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.7, 0.54, 0.24, 0.9)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_left = 4
+corner_radius_bottom_right = 4
+content_margin_left = 20.0
+content_margin_right = 20.0
+content_margin_top = 6.0
+content_margin_bottom = 6.0
+
+[node name="CharacterEquipmentPanel" type="PanelContainer"]
+custom_minimum_size = Vector2(730, 704)
+theme_override_styles/panel = SubResource("StageStyle")
+script = ExtResource("1_panel")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Layout" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="HelmetCenterContainer" type="CenterContainer" parent="Margin/Layout"]
+layout_mode = 2
+
+[node name="HeadSlot" parent="Margin/Layout/HelmetCenterContainer" instance=ExtResource("2_slot")]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(88, 88)
+
+[node name="EquipmentBodyHBox" type="HBoxContainer" parent="Margin/Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="LeftEquipmentVBox" type="VBoxContainer" parent="Margin/Layout/EquipmentBodyHBox"]
+custom_minimum_size = Vector2(144, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Heading" type="Label" parent="Margin/Layout/EquipmentBodyHBox/LeftEquipmentVBox"]
+custom_minimum_size = Vector2(144, 46)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
+theme_override_font_sizes/font_size = 14
+text = "BROŃ I PANCERZ"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Slots" type="VBoxContainer" parent="Margin/Layout/EquipmentBodyHBox/LeftEquipmentVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="WeaponSlot" parent="Margin/Layout/EquipmentBodyHBox/LeftEquipmentVBox/Slots" instance=ExtResource("2_slot")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ChestSlot" parent="Margin/Layout/EquipmentBodyHBox/LeftEquipmentVBox/Slots" instance=ExtResource("2_slot")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="HandsSlot" parent="Margin/Layout/EquipmentBodyHBox/LeftEquipmentVBox/Slots" instance=ExtResource("2_slot")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="BeltSlot" parent="Margin/Layout/EquipmentBodyHBox/LeftEquipmentVBox/Slots" instance=ExtResource("2_slot")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="FeetSlot" parent="Margin/Layout/EquipmentBodyHBox/LeftEquipmentVBox/Slots" instance=ExtResource("2_slot")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="CharacterCenterContainer" type="Control" parent="Margin/Layout/EquipmentBodyHBox"]
+custom_minimum_size = Vector2(260, 480)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="CharacterVisual" type="Control" parent="Margin/Layout/EquipmentBodyHBox/CharacterCenterContainer"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3_visual")
+caption = ""
+
+[node name="RightEquipmentVBox" type="VBoxContainer" parent="Margin/Layout/EquipmentBodyHBox"]
+custom_minimum_size = Vector2(144, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Heading" type="Label" parent="Margin/Layout/EquipmentBodyHBox/RightEquipmentVBox"]
+custom_minimum_size = Vector2(144, 46)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
+theme_override_font_sizes/font_size = 14
+text = "DRUGA RĘKA I BIŻUTERIA"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Slots" type="VBoxContainer" parent="Margin/Layout/EquipmentBodyHBox/RightEquipmentVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="OffHandSlot" parent="Margin/Layout/EquipmentBodyHBox/RightEquipmentVBox/Slots" instance=ExtResource("2_slot")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="EarringsSlot" parent="Margin/Layout/EquipmentBodyHBox/RightEquipmentVBox/Slots" instance=ExtResource("2_slot")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="NecklaceSlot" parent="Margin/Layout/EquipmentBodyHBox/RightEquipmentVBox/Slots" instance=ExtResource("2_slot")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="BraceletSlot" parent="Margin/Layout/EquipmentBodyHBox/RightEquipmentVBox/Slots" instance=ExtResource("2_slot")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="RingSlot" parent="Margin/Layout/EquipmentBodyHBox/RightEquipmentVBox/Slots" instance=ExtResource("2_slot")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(88, 88)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="CharacterNameplate" type="Control" parent="Margin/Layout"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 36)
+mouse_filter = 2
+
+[node name="Plaque" type="PanelContainer" parent="Margin/Layout/CharacterNameplate"]
+layout_mode = 0
+theme_override_styles/panel = SubResource("NameplateStyle")
+mouse_filter = 1
+
+[node name="NameplateLabel" type="Label" parent="Margin/Layout/CharacterNameplate/Plaque"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94, 0.79, 0.43, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.95)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
