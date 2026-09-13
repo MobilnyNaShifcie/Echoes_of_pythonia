@@ -84,9 +84,18 @@ func test_city_interiors_reveal_services_only_after_focusing_the_npc() -> void:
 		screen.open_service_button.pressed.emit()
 		await get_tree().process_frame
 		assert_eq(screen._interaction_state, "service", service_id)
-		assert_true(screen.service_toolbar.visible, service_id)
-		assert_eq(screen.catalogue_panel.visible, service_id not in ["merchant", "inn"], service_id)
-		assert_eq(screen.transaction_panel.visible, service_id != "merchant", service_id)
+		assert_eq(screen.service_toolbar.visible, service_id != "blacksmith", service_id)
+		assert_eq(
+			screen.catalogue_panel.visible,
+			service_id not in ["merchant", "inn", "blacksmith"],
+			service_id
+		)
+		assert_eq(
+			screen.transaction_panel.visible,
+			service_id not in ["merchant", "blacksmith"],
+			service_id
+		)
+		assert_eq(screen.blacksmith_workbench.visible, service_id == "blacksmith", service_id)
 		assert_eq(screen.merchant_trade_overlay.visible, service_id == "merchant", service_id)
 		assert_eq(npc_panel.custom_minimum_size.x, ambient_panel_width, service_id)
 		assert_almost_eq(npc_style.bg_color.a, 0.0, 0.001, service_id)
@@ -96,7 +105,10 @@ func test_city_interiors_reveal_services_only_after_focusing_the_npc() -> void:
 		assert_almost_eq(screen.npc_visual.character_zoom, ambient_zoom, 0.001, service_id)
 		assert_almost_eq(screen.npc_visual.character_anchor_x, ambient_anchor, 0.001, service_id)
 
-		screen.close_service_button.pressed.emit()
+		if service_id == "blacksmith":
+			screen.blacksmith_workbench.get_node("%ServicesButton").pressed.emit()
+		else:
+			screen.close_service_button.pressed.emit()
 		assert_eq(screen._interaction_state, "focused", service_id)
 		assert_true(screen.npc_action_panel.visible, service_id)
 		assert_false(screen.service_toolbar.visible, service_id)

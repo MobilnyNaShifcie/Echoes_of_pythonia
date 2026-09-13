@@ -273,6 +273,14 @@ func test_each_economy_service_uses_its_approved_npc_portrait() -> void:
 			assert_false(screen.service_grid.is_visible_in_tree())
 			assert_false(screen.transaction_drop_zone.is_visible_in_tree())
 			assert_true(screen.action_button.is_visible_in_tree())
+		elif service_id == "blacksmith":
+			assert_false(screen.service_grid.is_visible_in_tree())
+			assert_false(screen.transaction_drop_zone.is_visible_in_tree())
+			assert_true(screen.blacksmith_workbench.is_visible_in_tree())
+			var portrait: Texture2D = screen.blacksmith_workbench.get_node("%ForgePortrait").texture
+			assert_eq(
+				_source_texture_path(portrait), screen.location_background.texture.resource_path
+			)
 		else:
 			assert_false(screen.merchant_trade_overlay.is_visible_in_tree())
 			assert_true(screen.service_grid.is_visible_in_tree())

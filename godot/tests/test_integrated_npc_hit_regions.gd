@@ -149,6 +149,12 @@ func test_economy_navigation_receives_pointer_in_every_interaction_state() -> vo
 			for state in ["ambient", "focused", "service"]:
 				screen._set_interaction_state(state)
 				await wait_process_frames(3)
+				if service_id == "blacksmith" and state == "service":
+					assert_false(back.is_visible_in_tree())
+					var services: Button = screen.blacksmith_workbench.get_node("%ServicesButton")
+					await _click(screen.get_viewport(), services.get_global_rect().get_center())
+					assert_eq(screen._interaction_state, "focused")
+					continue
 				await _hover(screen.get_viewport(), back.get_global_rect().get_center())
 				assert_eq(
 					screen.get_viewport().gui_get_hovered_control(),
@@ -156,10 +162,14 @@ func test_economy_navigation_receives_pointer_in_every_interaction_state() -> vo
 					"Back is not occluded: %s / %s / %s" % [service_id, state, viewport_size]
 				)
 				await _click(screen.get_viewport(), back.get_global_rect().get_center())
-			assert_signal_emit_count(screen, "back_requested", 3)
-			await _click(
-				screen.get_viewport(), screen.close_service_button.get_global_rect().get_center()
+			assert_signal_emit_count(
+				screen, "back_requested", 2 if service_id == "blacksmith" else 3
 			)
+			if service_id != "blacksmith":
+				await _click(
+					screen.get_viewport(),
+					screen.close_service_button.get_global_rect().get_center()
+				)
 			assert_eq(
 				screen._interaction_state, "focused", "Close %s service by pointer" % service_id
 			)

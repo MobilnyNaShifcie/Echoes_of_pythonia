@@ -1,6 +1,7 @@
-[gd_scene load_steps=16 format=3]
+[gd_scene load_steps=17 format=3]
 
 [ext_resource type="Script" path="res://ui/screens/city_economy/city_economy.gd" id="1"]
+[ext_resource type="PackedScene" path="res://ui/screens/blacksmith_workbench/blacksmith_workbench.tscn" id="5_workbench"]
 [ext_resource type="PackedScene" path="res://ui/components/inventory_grid/inventory_grid_view.tscn" id="2_grid"]
 [ext_resource type="Script" path="res://ui/components/character_paperdoll/character_paperdoll.gd" id="3_portrait"]
 [ext_resource type="Script" path="res://ui/components/character_paperdoll/npc_alpha_hit_button.gd" id="4_alpha_hit"]
@@ -780,3 +781,9 @@ allow_reselect = true
 [node name="DetailsLabel" type="Label" parent="Page/Compatibility"]
 unique_name_in_owner = true
 layout_mode = 0
+
+[node name="BlacksmithWorkbench" parent="." instance=ExtResource("5_workbench")]
+unique_name_in_owner = true
+visible = false
+z_index = 40
+layout_mode = 1

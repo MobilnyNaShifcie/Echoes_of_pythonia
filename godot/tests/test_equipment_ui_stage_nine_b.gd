@@ -237,10 +237,21 @@ func test_every_city_service_reuses_the_npc_grid_and_drag_counter() -> void:
 			screen.mode_selector.select(1)
 			screen.mode_selector.item_selected.emit(1)
 		assert_string_contains(screen.npc_role_label.text, expected_roles[service_id])
-		assert_gt(screen.service_grid.entry_count(), 0)
+		if service_id != "blacksmith":
+			assert_gt(screen.service_grid.entry_count(), 0)
 		assert_false(screen.transaction_drop_zone.is_visible_in_tree())
 		screen.npc_hit_area.pressed.emit()
 		screen.open_service_button.pressed.emit()
+		if service_id == "blacksmith":
+			var bench = screen.blacksmith_workbench
+			assert_true(bench.is_visible_in_tree())
+			assert_true(bench.picker.backpack is InventoryGridView)
+			assert_gt(bench.picker.backpack.entry_count(), 0)
+			var weapon: InventoryItemSlot = bench.picker.character_panel.slot_buttons.weapon
+			assert_false(weapon.tooltip_text.is_empty())
+			assert_true(bench.upgrade_view.anvil._can_drop_data(Vector2.ZERO, weapon.drag_payload))
+			assert_false(screen.transaction_drop_zone.is_visible_in_tree())
+			continue
 		assert_eq(screen.transaction_drop_zone.is_visible_in_tree(), service_id != "merchant")
 		assert_eq(screen.merchant_trade_overlay.is_visible_in_tree(), service_id == "merchant")
 		assert_string_contains(screen.drop_hint_label.text, "PRZECIĄGNIJ")
