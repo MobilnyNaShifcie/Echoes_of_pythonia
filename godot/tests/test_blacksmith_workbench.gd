@@ -225,23 +225,50 @@ func test_filters_do_not_change_equipment_or_the_hero_art() -> void:
 	var picker = screen.blacksmith_workbench.picker
 	var before := _snapshot(session)
 	var texture: Texture2D = picker.character_panel.character_visual.character_texture()
-	picker.get_node("%EquippedButton").pressed.emit()
+	assert_null(picker.get_node_or_null("%AllButton"))
+	assert_eq(picker.get_node("Header").get_child_count(), 2)
+	assert_true(picker.get_node("%EquippedButton").button_pressed)
+	assert_false(picker.get_node("%BackpackButton").button_pressed)
+	assert_eq(picker._source, "equipped")
 	assert_false(picker.get_node("%BackpackPanel").visible)
+	assert_true(picker.character_panel.is_visible_in_tree())
+	assert_eq(picker.character_panel.slot_buttons.size(), 11)
+	picker.select_equipped("weapon")
+	var view = screen.blacksmith_workbench.upgrade_view
+	view.set_target_level(5)
+	var selected_id: String = view.model.selected_id
 	picker.get_node("%BackpackButton").pressed.emit()
-	assert_true(picker.character_panel.visible)
+	assert_false(picker.character_panel.is_visible_in_tree())
+	assert_false(picker.character_panel.nameplate_label.is_visible_in_tree())
+	for slot: Control in picker.character_panel.slot_buttons.values():
+		assert_false(slot.is_visible_in_tree())
 	assert_true(picker.get_node("%BackpackPanel").visible)
 	picker.select_equipped("weapon")
-	assert_true(screen.blacksmith_workbench.upgrade_view.model.selection().is_empty())
-	picker.get_node("%AllButton").pressed.emit()
-	picker.select_equipped("weapon")
-	assert_false(screen.blacksmith_workbench.upgrade_view.model.selection().is_empty())
+	assert_eq(view.model.selected_id, selected_id)
+	assert_eq(view.model.target_level, 5)
+	var bag_item = session.player.inventory.equipment_items[0]
+	picker._select(Model.payload(bag_item))
+	view.set_target_level(4)
+	picker.get_node("%EquippedButton").pressed.emit()
+	assert_same(view.model.selection().item, bag_item)
+	assert_eq(view.model.target_level, 4)
+	assert_true(picker.character_panel.is_visible_in_tree())
+	assert_false(picker.backpack.is_visible_in_tree())
 	assert_same(picker.character_panel.character_visual.character_texture(), texture)
 	assert_eq(_snapshot(session), before)
+	screen._show_ambient_view()
+	screen._open_service()
+	assert_eq(picker._source, "equipped", "Every fresh opening defaults to equipped.")
 
 
 func test_real_click_drag_and_cancel_do_not_equip_or_purchase_automatically() -> void:
+	for dimensions in [Vector2i(1920, 1080), Vector2i(1366, 768)]:
+		await _exercise_pointer_selection(dimensions)
+
+
+func _exercise_pointer_selection(dimensions: Vector2i) -> void:
 	var session = _session()
-	var screen = await _mount(session)
+	var screen = await _mount(session, dimensions)
 	var bench = screen.blacksmith_workbench
 	var viewport: Viewport = screen.get_viewport()
 	var button: Button = bench.picker.character_panel.slot_buttons.weapon
@@ -266,16 +293,16 @@ func test_real_click_drag_and_cancel_do_not_equip_or_purchase_automatically() ->
 	await _drag(viewport, button.get_global_rect().get_center(), Vector2(25, 500))
 	assert_false(viewport.gui_is_drag_successful())
 	assert_eq(_snapshot(session), before)
+	await _click(viewport, bench.picker.get_node("%BackpackButton").get_global_rect().get_center())
 	var backpack_item = session.player.inventory.equipment_items[0]
-	var backpack_button: InventoryItemSlot
-	for child in bench.picker.backpack.get_children():
-		if (
-			child is InventoryItemSlot
-			and child.item_metadata.get("instance_id") == backpack_item.instance_id
-		):
-			backpack_button = child
+	var backpack_button := _backpack_slot(bench.picker, backpack_item.instance_id)
 	assert_not_null(backpack_button)
 	if backpack_button != null:
+		await _click(viewport, backpack_button.get_global_rect().get_center())
+		assert_same(bench.upgrade_view.model.selection().item, backpack_item)
+		bench.upgrade_view.get_node("%ClearButton").pressed.emit()
+		await wait_process_frames(4)
+		backpack_button = _backpack_slot(bench.picker, backpack_item.instance_id)
 		await _drag(
 			viewport,
 			backpack_button.get_global_rect().get_center(),
@@ -326,7 +353,7 @@ func test_full_layout_at_both_resolutions_has_no_clipped_action_slots_or_backpac
 				bench.picker,
 				bench.upgrade_view.action_button,
 				bench.get_node("%CloseButton"),
-				bench.picker.get_node("%BackpackPanel")
+				bench.picker.character_panel
 			]:
 				assert_true(
 					bounds.encloses(control.get_global_rect()),
@@ -353,11 +380,112 @@ func test_full_layout_at_both_resolutions_has_no_clipped_action_slots_or_backpac
 		bench.upgrade_view.set_target_level(10)
 		await wait_process_frames(6)
 		assert_true(bounds.encloses(bench.upgrade_view.action_button.get_global_rect()))
-		assert_true(bounds.encloses(bench.picker.get_node("%BackpackPanel").get_global_rect()))
+		assert_true(bounds.encloses(bench.picker.character_panel.get_global_rect()))
 		var resources: Control = bench.upgrade_view.get_node("Content/ResourceScroll")
 		var tiles: Array[Node] = bench.upgrade_view.get_node("%Materials").get_children()
 		assert_eq(tiles[1].resource_id, "gold", "The total gold cost remains in the first row.")
 		assert_true(resources.get_global_rect().encloses(tiles[1].get_global_rect()))
+		bench.picker.get_node("%BackpackButton").pressed.emit()
+		await wait_process_frames(8)
+		var panel: Control = bench.picker.get_node("%BackpackPanel")
+		var scroll: ScrollContainer = bench.picker.get_node("%BackpackScroll")
+		var grid: InventoryGridView = bench.picker.backpack
+		assert_true(bounds.encloses(panel.get_global_rect()))
+		assert_gt(panel.size.y, bench.picker.size.y * 0.85)
+		assert_gt(scroll.size.y, panel.size.y * 0.85)
+		assert_gt(scroll.size.x, panel.size.x * 0.9)
+		assert_gte(grid.cell_size.x, 96.0)
+		assert_gte(grid.visible_rows, 5)
+		assert_lte(grid.custom_minimum_size.x, scroll.size.x)
+		assert_false(bench.picker.character_panel.is_visible_in_tree())
+		var equipped: Button = bench.picker.get_node("%EquippedButton")
+		var backpack: Button = bench.picker.get_node("%BackpackButton")
+		assert_almost_eq(equipped.size.x, backpack.size.x, 1.0)
+		assert_gt(
+			backpack.get_theme_stylebox("pressed").bg_color.get_luminance(),
+			equipped.get_theme_stylebox("normal").bg_color.get_luminance()
+		)
+
+
+func test_expanded_backpack_adapts_columns_and_scrolls_without_changing_ownership() -> void:
+	var session = _session()
+	var item_id: String = session.player.inventory.equipment_items[0].item_id
+	session.player.inventory.add(item_id, 100)
+	var before := _snapshot(session)
+	var picker = preload("res://ui/components/equipment_picker/equipment_picker.tscn").instantiate()
+	add_child_autofree(picker)
+	picker.configure(session)
+	picker.get_node("%BackpackButton").pressed.emit()
+	picker.size = Vector2(760, 900)
+	await wait_process_frames(8)
+	var narrow_columns: int = picker.backpack.columns
+	picker.size = Vector2(1100, 900)
+	await wait_process_frames(8)
+	assert_gt(picker.backpack.columns, narrow_columns)
+	var scroll: ScrollContainer = picker.get_node("%BackpackScroll")
+	assert_gt(picker.backpack.size.y, scroll.size.y)
+	assert_lte(picker.backpack.custom_minimum_size.x, scroll.size.x)
+	scroll.scroll_vertical = 100000
+	await wait_process_frames(3)
+	assert_gt(scroll.scroll_vertical, 0)
+	assert_eq(
+		picker.backpack.entry_count(),
+		session.player.inventory.equipment_items.size() + session.player.inventory.stacks.size()
+	)
+	assert_string_contains(
+		picker.get_node("%BackpackSummary").text,
+		"Zajęte miejsca: %d" % picker.backpack.entry_count()
+	)
+	assert_string_contains(picker.get_node("%BackpackSummary").text, "Udźwig")
+	assert_eq(_snapshot(session), before)
+
+
+func test_upgraded_instances_refresh_in_both_tabs_without_changing_the_active_source() -> void:
+	var session = _session()
+	var screen = await _mount(session)
+	var bench = screen.blacksmith_workbench
+	var picker = bench.picker
+	var equipped = session.player.equipment.get_item("weapon")
+	var bag_item = session.player.inventory.equipment_items[0]
+	var count: int = session.player.inventory.equipment_items.size()
+	for item in [equipped, bag_item]:
+		picker._filter("equipped" if item == equipped else "backpack")
+		picker._select(Model.payload(item))
+		# Confirm while viewing the other source: selection must remain on the anvil.
+		picker._filter("backpack" if item == equipped else "equipped")
+		var source: String = picker._source
+		var instance_id: String = item.instance_id
+		bench.upgrade_view.perform_upgrade()
+		await wait_process_frames(4)
+		assert_eq(picker._source, source)
+		assert_eq(item.instance_id, instance_id)
+		assert_eq(item.upgrade_level, 1)
+		var slot: InventoryItemSlot = (
+			picker.character_panel.slot_buttons.weapon
+			if item == equipped
+			else _backpack_slot(picker, instance_id)
+		)
+		assert_string_contains(slot.tooltip_text, "+1")
+		assert_eq(slot.item_metadata.instance_id, instance_id)
+		assert_eq(
+			slot.get_theme_stylebox("normal").border_color,
+			InventoryItemSlot.RARITY_FRAME_COLORS[slot.rarity]
+		)
+		assert_same(Model.resolve(session.player, instance_id).item, item)
+		assert_eq(session.player.inventory.equipment_items.size(), count)
+	assert_same(session.player.equipment.get_item("weapon"), equipped)
+	assert_true(session.player.inventory.equipment_items.has(bag_item))
+
+
+func _backpack_slot(picker, instance_id: String) -> InventoryItemSlot:
+	for child in picker.backpack.get_children():
+		if (
+			child is InventoryItemSlot
+			and not child.is_queued_for_deletion()
+			and child.item_metadata.get("instance_id") == instance_id
+		):
+			return child
+	return null
 
 
 func test_real_app_autosave_and_reload_keep_the_upgraded_instances() -> void:

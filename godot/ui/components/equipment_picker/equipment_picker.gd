@@ -6,18 +6,23 @@ const EquipmentScreenClass := preload("res://ui/screens/equipment/equipment.gd")
 const Presentation := preload("res://ui/presentation/combat_presentation_catalog.gd")
 const Catalog := preload("res://core/items/item_catalog.gd")
 const Style := preload("res://ui/screens/blacksmith_workbench/workbench_style.gd")
+const Carry := preload("res://core/economy/carry_weight_service.gd")
+const MIN_BACKPACK_CELL := 96.0
 var _session
-var _source := "all"
+var _source := "equipped"
 var _selected_id := ""
 
 @onready var character_panel: CharacterEquipmentPanel = %CharacterPanel
 @onready var backpack: InventoryGridView = %Backpack
+@onready var backpack_scroll: ScrollContainer = %BackpackScroll
 
 
 func _ready() -> void:
-	for button in [%AllButton, %EquippedButton, %BackpackButton]:
+	for button in [%EquippedButton, %BackpackButton]:
 		button.pressed.connect(_filter.bind(button.get_meta("source")))
+		_style_source_tab(button)
 	backpack.entry_selected.connect(_select)
+	backpack_scroll.resized.connect(_fit_backpack.call_deferred)
 	for slot: String in character_panel.slot_buttons:
 		character_panel.slot_buttons[slot].metadata_selected.connect(_select)
 	# Local overrides preserve the approved equipment layout and the other screen's theme.
@@ -27,9 +32,9 @@ func _ready() -> void:
 
 func configure(session) -> void:
 	_session = session
-	_source = "all"
+	_source = "equipped"
 	_selected_id = ""
-	_filter("all")
+	_filter("equipped")
 	character_panel.show_identity(
 		session.player.display_name, session.player.level, session.player.character_class_name
 	)
@@ -51,9 +56,6 @@ func refresh(selected_id := "") -> void:
 			entry.tooltip = entry.slot_caption + " — puste"
 		button.configure(entry)
 		_decorate(button)
-		button.modulate = Color(0.58, 0.58, 0.58) if _source == "backpack" else Color.WHITE
-		if _source == "backpack":
-			button.drag_payload = {}
 	var entries: Array[Dictionary] = []
 	for item in _session.player.inventory.equipment_items:
 		entries.append(_entry(item))
@@ -78,6 +80,12 @@ func refresh(selected_id := "") -> void:
 			)
 		)
 	backpack.set_entries(entries)
+	var load := Carry.carry_status(_session.player)
+	%BackpackSummary.text = (
+		"Udźwig %.1f / %.1f kg  ·  Zajęte miejsca: %d"
+		% [load.current_kg, load.capacity_kg, entries.size()]
+	)
+	%BackpackSummary.tooltip_text = %BackpackSummary.text
 	for button in backpack.get_children():
 		if button is InventoryItemSlot and not button.is_queued_for_deletion():
 			_decorate(button)
@@ -131,9 +139,55 @@ func _select(data: Dictionary) -> void:
 
 
 func _filter(source: String) -> void:
+	if source not in ["equipped", "backpack"]:
+		return
 	_source = source
-	character_panel.visible = true
-	%BackpackPanel.visible = source != "equipped"
-	for button in [%AllButton, %EquippedButton, %BackpackButton]:
+	character_panel.visible = source == "equipped"
+	%BackpackPanel.visible = source == "backpack"
+	for button in [%EquippedButton, %BackpackButton]:
 		button.set_pressed_no_signal(button.get_meta("source") == source)
+		button.add_theme_color_override(
+			"font_focus_color", Color(0.07, 0.05, 0.02) if button.button_pressed else Style.TEXT
+		)
 	refresh(_selected_id)
+	_fit_backpack.call_deferred()
+
+
+func _fit_backpack() -> void:
+	if _session == null or not backpack_scroll.is_visible_in_tree():
+		return
+	# Reserve the scrollbar gutter even when empty to prevent layout oscillation.
+	var gutter := backpack_scroll.get_v_scroll_bar().get_combined_minimum_size().x + 4.0
+	var available := maxf(MIN_BACKPACK_CELL, backpack_scroll.size.x - gutter)
+	var columns := clampi(
+		floori((available + backpack.gap) / (MIN_BACKPACK_CELL + backpack.gap)), 1, 12
+	)
+	var side := floorf((available - (columns - 1) * backpack.gap) / columns)
+	var rows := maxi(1, floori((backpack_scroll.size.y + backpack.gap) / (side + backpack.gap)))
+	if (
+		backpack.columns == columns
+		and backpack.visible_rows == rows
+		and backpack.cell_size == Vector2(side, side)
+	):
+		return
+	backpack.columns = columns
+	backpack.visible_rows = rows
+	backpack.cell_size = Vector2(side, side)
+	# Only presentation entries are rebuilt; inventory instances and anvil selection stay put.
+	refresh(_selected_id)
+
+
+func _style_source_tab(button: Button) -> void:
+	for state: String in ["normal", "hover", "pressed", "hover_pressed"]:
+		var style := Style.panel(0.97, 16)
+		style.border_color = Style.GOLD
+		var active := state in ["pressed", "hover_pressed"]
+		if active:
+			style.bg_color = Style.GOLD.lightened(0.1) if state == "hover_pressed" else Style.GOLD
+		elif state == "hover":
+			style.bg_color = Color(0.14, 0.11, 0.06, 0.98)
+		button.add_theme_stylebox_override(state, style)
+		button.add_theme_color_override(
+			"font_" + state + "_color" if state != "normal" else "font_color",
+			Color(0.07, 0.05, 0.02) if active else Style.TEXT
+		)

@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('stage', choices=['before', 'after'])
+    parser.add_argument('stage', choices=['before', 'after', 'tabs-before', 'tabs-after'])
     parser.add_argument('--tests', action='store_true')
     parser.add_argument('--only-tests', action='store_true')
     parser.add_argument('--test-script')
@@ -34,7 +34,9 @@ def main():
     common = [str(runtime / 'Godot_v4.7.1-stable_win64_console.exe'),
               '--path', str(ROOT / 'godot'), '--audio-driver', 'Dummy', '--verbose']
     commands = [] if args.only_tests else [
-        ('import', ['--headless', '--editor', '--import']),
+        # Editor plugins are unnecessary for resource import; recovery mode also
+        # prevents the GUT editor plugin from checking GitHub in an offline run.
+        ('import', ['--headless', '--editor', '--recovery-mode', '--import']),
         ('boot', ['--headless', '--quit-after', '4']),
         ('capture', ['--rendering-method', 'gl_compatibility', '--rendering-driver', 'opengl3',
                      '--position', '-20000,-20000', '--resolution', '640x360',

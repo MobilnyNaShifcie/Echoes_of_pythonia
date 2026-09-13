@@ -49,6 +49,13 @@ func _run() -> void:
 			workbench.upgrade_view.set_target_level(10)
 			await _settle()
 			await _capture(viewport, args[0].path_join("target10_" + suffix))
+			workbench.upgrade_view.set_target_level(1)
+			workbench.picker.get_node("%EquippedButton").pressed.emit()
+			await _settle()
+			await _capture(viewport, args[0].path_join("equipped_" + suffix))
+			workbench.picker.get_node("%BackpackButton").pressed.emit()
+			await _settle()
+			await _capture(viewport, args[0].path_join("backpack_" + suffix))
 		viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED
 		app.queue_free()
 		await _settle()

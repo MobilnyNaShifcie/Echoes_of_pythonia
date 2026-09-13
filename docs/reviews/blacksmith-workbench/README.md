@@ -6,6 +6,30 @@ Raport dotyczy commita, w którym znajduje się ten plik; pełny hash jest podan
 w odpowiedzi końcowej i dostępny przez `git rev-parse HEAD`.
 Zmiana nie jest scalana do `main` ani wypychana automatycznie.
 
+### Korekta punktu 7 — dwie zakładki źródła
+
+Baza tej korekty: `8439a046e54f0ec0f469e3f9003dc68a00bc28ac`.
+Usunięto kategorię „Wszystko” oraz wspólny widok postaci z małym paskiem
+plecaka. Domyślne „Założone” pokazuje wyłącznie zaakceptowany panel postaci;
+„Plecak” zastępuje go dużą siatką. Przyciski są równorzędne, aktywny ma złote
+wypełnienie, a nieaktywny ciemne tło ze złotym obramowaniem. Przełączanie nie
+zmienia wyboru na kowadle ani ustawionego poziomu docelowego.
+
+Ta korekta zmienia tylko sześć plików:
+
+```text
+godot/ui/components/equipment_picker/equipment_picker.gd
+godot/ui/components/equipment_picker/equipment_picker.tscn
+godot/tests/test_blacksmith_workbench.gd
+godot/tools/capture_blacksmith_workbench.gd
+scripts/review_blacksmith_workbench.py
+docs/reviews/blacksmith-workbench/README.md
+```
+
+Pliki wspólnego `CharacterEquipmentPanel`, `InventoryGridView`, głównego ekranu
+ekwipunku, mechanik, definicji przedmiotów i grafik nie zostały zmodyfikowane.
+Poniższa lista 33 plików opisuje całą przebudowę warsztatu względem `main`.
+
 ## Zakres i zachowane kontrakty
 
 Pełnoekranowy warsztat zastępuje dotychczasowy mały panel ulepszania.
@@ -22,12 +46,22 @@ wybór. Złoto jest zawsze w pierwszym wierszu wymagań; długa lista materiał�
 przewija się wewnętrznie, bez wypychania przycisku ulepszenia poza ekran.
 
 Prawa strona wykorzystuje niezmieniony `CharacterEquipmentPanel` i istniejącą
-siatkę `InventoryGridView`: pełna aktualna ilustracja bohatera, wszystkie
-11 dotychczasowych slotów, oryginalne mapowania i ramki rzadkości oraz
-zwarty plecak. Filtry Wszystko / Założone / Plecak wybierają źródło dostępnych
-przedmiotów. W trybie Plecak postać pozostaje widoczna, a sloty założone są
-wygaszone i nie służą do wyboru. Nieobsługiwane przedmioty pozostają widoczne
-z przyczyną blokady w podpowiedzi. W poprzednim widoku kowala nie było
+siatkę `InventoryGridView`. „Założone” jest aktywne po każdym otwarciu warsztatu:
+pełna aktualna ilustracja bohatera i lanca pozostają odsłonięte, hełm jest nad
+postacią, a po bokach jest po pięć istniejących slotów. Nie ma paska plecaka.
+W trybie „Plecak” cała postać, tabliczka i wszystkie założone sloty są ukryte.
+Plecak zajmuje ten sam duży obszar pod zakładkami. Ma nagłówek, aktualny udźwig
+i liczbę zajętych miejsc: jedna instancja wyposażenia lub jeden stos to jedno
+miejsce, bez zmiany modelu ekwipunku i bez sugerowania nowego limitu pojemności.
+
+Siatka dobiera liczbę kolumn do szerokości panelu. Kwadratowe komórki mają
+minimum 96 px na płótnie gry, zamiast wcześniejszych 60 px; liczba pustych
+wierszy także dopasowuje się do wysokości. Nadmiar zawartości przewija się
+pionowo wewnątrz panelu. Rezerwacja miejsca na pasek przewijania zapobiega
+oscylacji liczby kolumn. Nieobsługiwane przedmioty pozostają przygaszone
+z przyczyną blokady w podpowiedzi; ramki nadal pokazują jakość przedmiotów.
+Przełączenie zakładki nie czyści kowadła, a udane ulepszenie odświeża dane
+w obu widokach, również tym ukrytym. W poprzednim widoku kowala nie było
 dodatkowych filtrów typów, które wymagałyby zachowania.
 
 Wszystkie koszty, maksymalny poziom, skalowanie, walidacja i transakcja nadal
@@ -65,13 +99,13 @@ nie istniejącego zapisu gracza.
 
 | Kontrola | Wynik |
 | --- | --- |
-| Import projektu w edytorze headless | Kod wyjścia 0 |
+| Import projektu w edytorze headless, recovery mode | Kod wyjścia 0 |
 | Uruchomienie właściwej sceny aplikacji | Kod wyjścia 0 |
 | Zrzuty rzeczywistej aplikacji przez renderer | Kod wyjścia 0, oba rozmiary |
-| Pełna regresja GUT | 697/697 testów, 94 skrypty, 23 057 asercji |
-| Nowy zestaw warsztatu | 13/13 testów, włączony do pełnej regresji |
-| `gdformat --check` | 17 zmienionych/dodanych skryptów GDScript, bez zmian |
-| `gdlint` | Te same 17 skryptów, bez problemów |
+| Pełna regresja GUT | 699/699 testów, 94 skrypty, 23 143 asercje, 129,508 s |
+| Zestaw warsztatu | 15/15 testów, 671 asercji; także w pełnej regresji |
+| `gdformat --check` | 3 skrypty GDScript zmienione w korekcie, bez zmian |
+| `gdlint` | Te same 3 skrypty, bez problemów |
 | `git diff --check` | Bez błędów białych znaków |
 | Diff core/data/assets | Pusty |
 | Wygenerowane PNG i logi w Git | Brak; `build/` jest ignorowany |
@@ -86,22 +120,35 @@ Nowe testy obejmują:
 6. Ulepszenie o jeden i kilka poziomów w obu źródłach, koszty i sygnał zapisu.
 7. Przedmiot +10 i brak dalszej operacji.
 8. Powtórną walidację własności i złota bezpośrednio przed zatwierdzeniem.
-9. Filtry źródeł z zachowaniem bohatera, mapowań i danych.
+9. Brak „Wszystko”, domyślne „Założone”, ukrywanie całej postaci/tabliczki/slotów
+   w plecaku, brak małego paska, zachowanie grafiki, danych i wyboru/poziomu
+   na kowadle przy zmianie zakładek oraz powrót do domyślnej zakładki po otwarciu.
 10. Rzeczywiste zdarzenia myszy: kliknięcie slotu, przeciągnięcie ze slotu
     i plecaka na kowadło, anulowanie przeciągnięcia; bez automatycznego zakupu.
+    Te zdarzenia są wykonywane w obu wymaganych rozdzielczościach.
 11. Kliknięcie powrotu/X oraz Escape z aktywnym focusem kontrolki.
 12. Geometrię w 1920×1080 i 1366×768: wszystkie 11 slotów, brak kolizji,
     widoczny przycisk, plecak i koszt złota także dla celu +10.
 13. Zapis przez istniejącą aplikację i ponowny odczyt: identyfikator, źródło,
     liczba przedmiotów, statystyki, materiały i złoto po ulepszeniu.
+14. Pełnowymiarowy plecak, większe kwadratowe komórki, automatyczną zmianę
+    liczby kolumn przy zmianie szerokości 760 → 1100, licznik miejsc i pionowe
+    przewijanie fixture z ponad 100 przedmiotami, bez mutowania danych.
+15. Ulepszenie tej samej instancji podczas oglądania drugiego źródła:
+    odświeżone nazwy z poziomem i ramki rzadkości obu widoków, niezmieniony
+    instance ID, aktualna zakładka, liczba przedmiotów i założona broń.
 
 Nie wykryto błędów parsera, brakujących zasobów ani niedziałających odwołań
 do scen/skryptów. W środowisku występuje znany również przed zmianą komunikat
-`Failed to read the root certificate store.`. Import edytora zgłasza ponadto
-dwa obiekty `UndoRedo` przy zamykaniu — identyczny rodzaj ostrzeżenia znajduje
-się w zapisanym logu importu sprzed zmiany. Nie traktujemy tych komunikatów jako
-nowych usterek warsztatu. Narzędzie zachowuje je w logach i przepuszcza wyłącznie
-dokładnie rozpoznany błąd magazynu certyfikatów, nie dowolne błędy Godota.
+`Failed to read the root certificate store.`. Zwykły import edytora zgłaszał
+również dwa obiekty `UndoRedo` przy zamykaniu (obecne już przed przebudową),
+a podczas tej korekty próba sprawdzenia wersji dodatku GUT przez GitHub
+zakończyła się błędem sieciowym. Dlatego narzędzie uruchamia sam import
+w udokumentowanym trybie `--recovery-mode`, bez zbędnych dodatków edytora.
+Uruchomienie gry, renderowanie i GUT odbywają się normalnie, poza tym trybem.
+Końcowe logi nie zawierają błędów skryptów, brakujących zasobów ani ostrzeżeń
+o orphan nodes. Pozostał tylko komunikat magazynu certyfikatów; narzędzie
+przepuszcza wyłącznie ten dokładnie rozpoznany komunikat, nie dowolne błędy.
 
 ## Grafiki i ograniczenia
 
@@ -151,6 +198,30 @@ Z katalogu repozytorium, przy zainstalowanych lokalnych narzędziach:
 .venv/Scripts/python.exe scripts/review_blacksmith_workbench.py after --tests
 .venv/Scripts/python.exe scripts/review_blacksmith_workbench.py after --only-tests --test-script=res://tests/test_blacksmith_workbench.gd
 ```
+
+Korekta zakładek ma osobny, ignorowany katalog; nie nadpisuje wcześniejszych
+zrzutów warsztatu:
+
+```powershell
+.venv/Scripts/python.exe scripts/review_blacksmith_workbench.py tabs-after --tests
+.venv/Scripts/python.exe scripts/review_blacksmith_workbench.py tabs-after --only-tests --test-script=res://tests/test_blacksmith_workbench.gd
+```
+
+Aktualne pełne zrzuty obu zakładek:
+
+```text
+build/blacksmith-workbench-review/tabs-after/evidence/equipped_1920x1080.png
+build/blacksmith-workbench-review/tabs-after/evidence/equipped_1366x768.png
+build/blacksmith-workbench-review/tabs-after/evidence/backpack_1920x1080.png
+build/blacksmith-workbench-review/tabs-after/evidence/backpack_1366x768.png
+```
+
+Zachowano również `empty_*`, `selected_*` i `target10_*` w tym samym katalogu.
+Porównanie sprzed zmiany zakładek stanowią poprzednie `after/evidence/selected_*`:
+zostały wyrenderowane dla commita bazowego korekty i pozostają nietknięte.
+Katalog `tabs-before` zachowuje log nieudanej próby importu ze sprawdzaniem
+aktualizacji GUT; nie zawiera nowej serii zrzutów. Końcowe poprawne logi i zrzuty
+znajdują się w `tabs-after`.
 
 Pierwsze polecenie importuje, uruchamia aplikację, wykonuje zrzuty oraz pełne
 testy. Drugie uruchamia wyłącznie zestaw warsztatu. Argument `before` wybiera
@@ -213,6 +284,10 @@ scripts/review_blacksmith_workbench.py
   ciągłą widoczność złota i głównego przycisku.
 - Sprawdzić wszystkie 11 pierwotnych slotów, filtry źródła, podpowiedzi blokad
   i ramki jakości na bardziej wypełnionym plecaku oraz innych klasach/płciach.
+- Potwierdzić, że po otwarciu są tylko dwie równe zakładki, „Założone” jest
+  aktywne i nie ma paska plecaka, a „Plecak” całkowicie zastępuje postać.
+- Wybrać broń, zmienić poziom docelowy, przełączyć zakładki i zatwierdzić
+  ulepszenie: wybór i poziom nie powinny się zerować, broń nie może się zdjąć.
 - Przejść „Usługi kowala”, X i Escape, a następnie ponownie otworzyć usługę.
 - Wczytać istniejący zapis, ulepszyć własny przedmiot i ponownie wczytać:
   potwierdzić brak utraty/duplikacji oraz zachowanie tego samego wyposażenia.
