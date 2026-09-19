@@ -72,7 +72,6 @@ func _ready() -> void:
 	%BackButton.pressed.connect(back_requested.emit)
 	%CloseButton.pressed.connect(close_offers)
 	merchant_button.pressed.connect(show_conversation)
-	%MerchantHint.pressed.connect(show_conversation)
 	%OpenServiceButton.pressed.connect(show_buy_offers)
 	%OpenBookSalesButton.pressed.connect(show_book_sales)
 	%CloseInteractionButton.pressed.connect(close_conversation)
@@ -80,12 +79,6 @@ func _ready() -> void:
 		InterfaceStyle.quiet_button(button)
 	npc_action_panel.add_theme_stylebox_override("panel", InterfaceStyle.panel())
 	%DailyRefreshTimer.timeout.connect(_check_daily_rotation)
-	%MerchantHint.mouse_entered.connect(_merchant_feedback.bind(true))
-	%MerchantHint.mouse_exited.connect(_merchant_feedback.bind(false))
-	merchant_button.mouse_entered.connect(_merchant_feedback.bind(true))
-	merchant_button.mouse_exited.connect(_merchant_feedback.bind(false))
-	merchant_button.focus_entered.connect(_merchant_feedback.bind(true))
-	merchant_button.focus_exited.connect(_merchant_feedback.bind(false))
 	buy_tab.pressed.connect(_set_mode.bind(MODE_BUY))
 	sell_tab.pressed.connect(_set_mode.bind(MODE_SELL))
 	offer_list.item_selected.connect(_select_entry)
@@ -109,7 +102,6 @@ func close_offers() -> void:
 func show_conversation() -> void:
 	offer_window.hide()
 	npc_action_panel.show()
-	%MerchantHint.hide()
 	merchant_button.disabled = false
 	_check_daily_rotation()
 	%OpenServiceButton.grab_focus()
@@ -119,7 +111,6 @@ func show_conversation() -> void:
 
 func close_conversation() -> void:
 	npc_action_panel.hide()
-	%MerchantHint.show()
 	merchant_button.grab_focus()
 
 
@@ -134,13 +125,6 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 
-func _merchant_feedback(active: bool) -> void:
-	# Mouse/focus exit can arrive while children are being freed during navigation.
-	var hint := get_node_or_null("%MerchantHint") as Control
-	if is_instance_valid(hint):
-		hint.modulate = Color(1.0, 1.0, 1.0, 1.0 if active else 0.75)
-
-
 func _layout_market() -> void:
 	if not is_node_ready() or size.x <= 0 or size.y <= 0:
 		return
@@ -149,8 +133,6 @@ func _layout_market() -> void:
 	var origin := (size - SOURCE_ART_SIZE * art_scale) * 0.5
 	merchant_button.position = origin + MERCHANT_RECT.position * art_scale
 	merchant_button.size = MERCHANT_RECT.size * art_scale
-	%MerchantHint.position = merchant_button.position + Vector2(0, merchant_button.size.y + 12)
-	%MerchantHint.size = Vector2(merchant_button.size.x, 32)
 	# Same floating conversation geometry and shared styling as city service NPCs.
 	npc_action_panel.set_anchors_preset(Control.PRESET_TOP_LEFT)
 	npc_action_panel.position = Vector2(size.x - 466, size.y * 0.34)
@@ -187,7 +169,6 @@ func _set_mode(mode: String) -> void:
 	offer_window.show()
 	npc_action_panel.hide()
 	merchant_button.disabled = true
-	%MerchantHint.hide()
 	_mode = mode
 	_selected_id = ""
 	_require_offer_selection = false
@@ -286,10 +267,6 @@ func _refresh_offer_slots() -> void:
 			slot.clear_offer()
 			continue
 		var sold: bool = offer.offer_id in _session.black_market.purchased_offer_ids
-		var negotiated: bool = _session.black_market.buy_negotiated_prices.has(offer.offer_id)
-		var effective_price := BlackMarketServiceClass.effective_buy_price(
-			_session.black_market, offer
-		)
 		(
 			slot
 			. configure(
@@ -298,22 +275,9 @@ func _refresh_offer_slots() -> void:
 					"item_id": offer.item_id,
 					"icon": definition.icon,
 					"rarity": definition.rarity,
-					"price_text": _group_digits(effective_price),
 					"quantity": offer.quantity,
-					"base_price": offer.base_price,
-					"effective_price": effective_price,
-					"negotiated": negotiated,
 					"sold": sold,
-					"tooltip":
-					(
-						"%s\n%s\n\nCena: %s złota%s"
-						% [
-							definition.display_name,
-							definition.description,
-							_group_digits(effective_price),
-							"  •  ilość: %d" % offer.quantity if offer.quantity > 1 else "",
-						]
-					),
+					"tooltip": "%s\n%s" % [definition.display_name, definition.description],
 				}
 			)
 		)

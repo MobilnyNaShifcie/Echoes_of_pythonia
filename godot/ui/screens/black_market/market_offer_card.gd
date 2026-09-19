@@ -4,13 +4,11 @@ signal offer_selected(offer_id: String)
 
 const Palette = preload("res://ui/presentation/item_rarity_palette.gd")
 const GOLD := Color("e7bd62")
-const COIN := preload("res://assets/ui/black_market/gold_coin.svg")
+const FRAME_INSET := 8.0
 var offer_id := ""
 var item_id := ""
 var icon_rect: TextureRect
 var quantity_label: Label
-var price_label: Label
-var price_coin: TextureRect
 var sold_label: Label
 var _selected := false
 var _rarity := Color.GRAY
@@ -28,16 +26,16 @@ func _ready() -> void:
 	add_child(icon_rect)
 	icon_rect.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	icon_rect.offset_left = 22
-	icon_rect.offset_top = 12
+	icon_rect.offset_top = 16
 	icon_rect.offset_right = -22
-	icon_rect.offset_bottom = -42
+	icon_rect.offset_bottom = -16
 	quantity_label = Label.new()
 	add_child(quantity_label)
 	quantity_label.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
 	quantity_label.offset_left = -66
 	quantity_label.offset_right = -19
-	quantity_label.offset_top = -71
-	quantity_label.offset_bottom = -42
+	quantity_label.offset_top = -42
+	quantity_label.offset_bottom = -13
 	quantity_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	quantity_label.add_theme_font_size_override("font_size", 18)
 	var badge := StyleBoxFlat.new()
@@ -46,31 +44,6 @@ func _ready() -> void:
 	badge.set_border_width_all(1)
 	badge.set_corner_radius_all(4)
 	quantity_label.add_theme_stylebox_override("normal", badge)
-	var price_row := HBoxContainer.new()
-	add_child(price_row)
-	price_row.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
-	price_row.offset_top = -40
-	price_row.offset_bottom = -2
-	price_row.alignment = BoxContainer.ALIGNMENT_CENTER
-	price_row.add_theme_constant_override("separation", 6)
-	price_coin = TextureRect.new()
-	price_coin.name = "GoldCoin"
-	price_coin.texture = COIN
-	price_coin.custom_minimum_size = Vector2(28, 28)
-	price_coin.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	price_coin.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	price_coin.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	price_coin.tooltip_text = "Złoto"
-	price_row.add_child(price_coin)
-	price_label = Label.new()
-	price_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	price_row.add_child(price_label)
-	price_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	price_label.add_theme_font_size_override("font_size", 25)
-	price_label.add_theme_color_override("font_color", GOLD)
-	var serif := SystemFont.new()
-	serif.font_names = PackedStringArray(["Georgia", "Noto Serif", "DejaVu Serif"])
-	price_label.add_theme_font_override("font", serif)
 	sold_label = Label.new()
 	add_child(sold_label)
 	sold_label.set_anchors_and_offsets_preset(Control.PRESET_HCENTER_WIDE)
@@ -95,8 +68,6 @@ func configure(entry: Dictionary) -> void:
 	_rarity = Palette.color_for(str(entry.get("rarity", "common")))
 	quantity_label.text = "×%d" % int(entry.get("quantity", 1))
 	quantity_label.show()
-	price_label.text = str(entry.get("price_text", ""))
-	price_coin.show()
 	sold_label.visible = bool(entry.get("sold", false))
 	icon_rect.modulate = Color(0.4, 0.4, 0.4, 0.6) if sold_label.visible else Color.WHITE
 	disabled = offer_id.is_empty() or sold_label.visible
@@ -111,8 +82,6 @@ func clear_offer() -> void:
 	icon_rect.texture = null
 	quantity_label.hide()
 	sold_label.hide()
-	price_label.text = "—"
-	price_coin.hide()
 	tooltip_text = ""
 	queue_redraw()
 
@@ -120,6 +89,11 @@ func clear_offer() -> void:
 func set_selected(value: bool) -> void:
 	_selected = value
 	queue_redraw()
+
+
+func rarity_frame_rect() -> Rect2:
+	# Match the whole card, without reserving a separate price footer.
+	return Rect2(Vector2.ZERO, size).grow(-FRAME_INSET)
 
 
 func _draw() -> void:
@@ -133,7 +107,7 @@ func _draw() -> void:
 		outer.shadow_color = Color(0.86, 0.62, 0.22, 0.23)
 		outer.shadow_size = 8
 	draw_style_box(outer, Rect2(Vector2.ZERO, size))
-	var frame := Rect2(Vector2(14, 10), Vector2(size.x - 28, size.y - 51))
+	var frame := rarity_frame_rect()
 	draw_rect(frame, _rarity.darkened(0.5), false, 1)
 	for corner in [
 		frame.position,

@@ -48,7 +48,7 @@ func test_entry_has_empty_counter_and_no_visible_offer_ui_or_3d() -> void:
 	assert_null(screen.get_node_or_null("HeaderPanel"))
 	assert_null(screen.get_node_or_null("InventoryDropTarget"))
 	assert_eq(screen.find_children("*", "SubViewport", true, false).size(), 0)
-	assert_true(screen.get_node("%MerchantHint").visible)
+	assert_null(screen.get_node_or_null("%MerchantHint"))
 	for card in screen.offer_slots:
 		assert_false(card.is_visible_in_tree())
 		var definition = Catalog.get_definition(card.item_id)
@@ -75,7 +75,7 @@ func test_pointer_opens_selects_and_closes_at_supported_resolutions() -> void:
 		assert_false(screen.offer_window.visible)
 		assert_true(screen.npc_action_panel.visible)
 		await _click(screen.get_node("%CloseInteractionButton"))
-		await _click(screen.get_node("%MerchantHint"))
+		await _click(screen.merchant_button)
 		assert_false(screen.offer_window.visible)
 		await _click(screen.get_node("%OpenServiceButton"))
 		assert_true(screen.offer_window.visible)
@@ -127,8 +127,8 @@ func test_bargaining_updates_same_card_once_without_changing_delivery() -> void:
 	var rotation: String = screen._session.black_market.rotation_key
 	await _click(screen.bargain_button)
 	var price := Service.effective_buy_price(screen._session.black_market, offer)
-	assert_eq(card.price_label.text, screen._group_digits(price))
-	assert_true(card.price_coin.visible)
+	assert_eq(screen.price_label.text, screen._group_digits(price))
+	assert_true(screen.get_node("%PriceCoin").visible)
 	assert_true(screen.bargain_button.disabled)
 	assert_eq(screen._session.player.gold, 200000)
 	await _click(screen.bargain_button)
@@ -162,10 +162,19 @@ func test_book_sales_and_empty_state_still_work_in_same_window() -> void:
 	assert_eq(screen.offer_slots.size(), 4)
 
 
-func test_feedback_tolerates_hint_removed_during_screen_teardown() -> void:
+func test_merchant_keyboard_activation_works_without_persistent_hint() -> void:
 	var screen = await _mount()
-	screen.get_node("%MerchantHint").free()
-	screen._merchant_feedback(false)
+	screen.merchant_button.grab_focus()
+	var accept := InputEventAction.new()
+	accept.action = "ui_accept"
+	accept.pressed = true
+	screen.get_viewport().push_input(accept, true)
+	accept = accept.duplicate()
+	accept.pressed = false
+	screen.get_viewport().push_input(accept, true)
+	await wait_process_frames(2)
+	assert_true(screen.npc_action_panel.visible)
+	assert_false(screen.offer_window.visible)
 	assert_null(screen.get_node_or_null("%MerchantHint"))
 
 

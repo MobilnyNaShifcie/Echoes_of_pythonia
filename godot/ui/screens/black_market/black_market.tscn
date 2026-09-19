@@ -69,28 +69,13 @@ offset_left = 340.0
 offset_top = 160.0
 offset_right = 615.0
 offset_bottom = 515.0
-tooltip_text = "Porozmawiaj z handlarzem"
+tooltip_text = "Handlarz"
 mouse_default_cursor_shape = 2
 theme_override_styles/normal = SubResource("Empty")
 theme_override_styles/hover = SubResource("Empty")
 theme_override_styles/pressed = SubResource("Empty")
 theme_override_styles/disabled = SubResource("Empty")
 theme_override_styles/focus = SubResource("Empty")
-
-[node name="MerchantHint" type="Button" parent="."]
-unique_name_in_owner = true
-layout_mode = 0
-focus_mode = 0
-mouse_default_cursor_shape = 2
-theme_override_styles/normal = SubResource("Empty")
-theme_override_styles/hover = SubResource("Empty")
-theme_override_styles/pressed = SubResource("Empty")
-theme_override_colors/font_color = Color(0.92, 0.76, 0.42, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 2
-theme_override_constants/shadow_offset_y = 2
-theme_override_font_sizes/font_size = 19
-text = "◇  Porozmawiaj"
 
 [node name="BackButton" type="Button" parent="."]
 unique_name_in_owner = true
