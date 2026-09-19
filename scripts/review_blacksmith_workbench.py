@@ -13,7 +13,8 @@ def main():
     parser.add_argument('stage', choices=['before', 'after', 'tabs-before', 'tabs-after',
                                          'visual-before', 'visual-after',
                                          'cleanup-before', 'cleanup-after',
-                                         'fixed-before', 'fixed-after'])
+                                         'fixed-before', 'fixed-after',
+                                         'materials-before', 'materials-after'])
     parser.add_argument('--tests', action='store_true')
     parser.add_argument('--only-tests', action='store_true')
     parser.add_argument('--test-script')

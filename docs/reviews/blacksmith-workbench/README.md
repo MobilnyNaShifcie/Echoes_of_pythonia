@@ -1,5 +1,92 @@
 # Kuźnia Garrana — przegląd warsztatu ulepszania
 
+## Widoczność wszystkich materiałów ulepszenia — 2026-09-19
+
+Gałąź: `codex/forge-upgrade-materials`. Baza:
+`cfc7e0f7f4aff32217aaf2583e4fef1f4b7a211e`.
+Jeden commit, pełny hash w odpowiedzi końcowej. Bez scalania do main i bez push.
+Ta korekta zastępuje wcześniejsze przewijanie materiałów w dolnym panelu.
+
+### Przyczyna i zakres
+
+`UpgradeService` oraz `upgrade_view_model.requirements()` już zwracały wszystkie
+materiały. Problemem był `ResourceScroll` o wysokości 96 px: widoczny był tylko
+pierwszy wiersz (osełka i złoto), a materiały wyższych progów wymagały przewinięcia.
+
+- Koszt jest teraz w całości widoczny: siatka dobiera 2–4 kolumny tak, aby obecne
+  receptury, maksymalnie siedem kafelków wraz ze złotem, zajmowały najwyżej dwa wiersze.
+  Wysokość wynika z zawartości; nie ma ukrytych wierszy ani paska przewijania.
+- Dla więcej niż dwóch wymagań kafelki i odstępy panelu są kompaktowe. Każdy
+  zasób zachowuje ikonę, nazwę, posiadane/potrzebne oraz kolor dostępności.
+  Dłuższa nazwa ma wielokropek; pełna nazwa i obie liczby są w podpowiedzi.
+  Niskie progi zachowują duże kafelki osełki i złota.
+- Kowadło, tło, położenie przedmiotu i prawy panel wyposażenia pozostają
+  niezmienione. Dolna nakładka nie zakrywa nawet szerokiej lancy z trzema
+  wierszami porównania statystyk. Nie dodano animacji ani dodatkowych komunikatów.
+- Bez zmian receptur, kosztów, statystyk, definicji/ikon, transakcji i zapisów.
+  Osełka słusznie pozostaje w kosztach skoku +0 → +10, lecz nie w samym +9 → +10.
+
+Dla zgłoszonego Pancerza Zatopionego Zakonu +0 → +10 test potwierdza
+4 osełki, 15 kamieni szlifierskich, 12 płyt zakonu, 3 zwykłe esencje,
+5 serc Głuchej Wody oraz 5075 złota. To istniejąca receptura, nie zmiana balansu.
+Sam krok +9 → +10 wymaga 4 kamieni szlifierskich i 2 serc, bez osełki.
+
+### Testy i lokalne dowody
+
+- Nowy zestaw: 4/4 testy, 12 794 asercje. Wszystkie pojedyncze kroki +0…+10
+  i siedem profili mocy; zmiana celu w obie strony; zgodność ilości i ikon
+  z kanonicznym planem; brak pominiętych/zdublowanych kafelków; widoczność całych
+  kafelków i liczb bez przewijania w 1920×1080, 1366×768 i 1280×720.
+- Niezmienność danych podczas podglądu, pozycji kowadła i szerokości panelu;
+  brak przesłonięcia przedmiotu; blokada przy brakującym materiale bossa;
+  udane ulepszenie tej samej instancji z pobraniem wszystkich kosztów;
+  wyczyszczenie wymagań po osiągnięciu +10.
+- Pełna regresja: **734/734**, 99 skryptów, 37 353 asercje, 178,691 s.
+  Import, uruchomienie App i zrzuty OpenGL: kod 0. Brak błędów parsera,
+  brakujących zasobów, uszkodzonych odwołań i ostrzeżeń skryptów.
+  `gdformat --check`, `gdlint` (cztery skrypty) i `git diff --check`: poprawne.
+  Obejrzano pancerz +0 → +10 i +9 → +10 w 768p, siedem zasobów w 720p,
+  lancę w 1080p oraz trzywierszowe porównanie w 768p. Wszystkie wymagania
+  są widoczne, a panel nie zakrywa przedmiotu.
+- Generowane pliki pozostają wyłącznie w ignorowanym `build/`, poza Git.
+  Przed: `build/blacksmith-workbench-review/materials-before/evidence/`.
+  Po: `build/blacksmith-workbench-review/materials-after/evidence/`.
+  W każdej serii 45 PNG, także `sunken_knight_armor_target10_*`,
+  `sunken_knight_armor_9_to_10_*` oraz siedmioskładnikowy `sunken_order_cloak_target10_*`.
+  Zrzuty pochodzą z rzeczywistej sceny App, na odizolowanym profilu fixture,
+  bez odczytu lub nadpisywania zapisu użytkownika.
+  Losowane affiksy fixture mogą różnić się między seriami; receptury i ich
+  sumaryczne koszty pozostają identyczne.
+
+Odtworzenie (etap wybiera katalog dowodów, nie przełącza wersji Git):
+
+```powershell
+.venv/Scripts/python.exe scripts/review_blacksmith_workbench.py materials-after --tests
+.venv/Scripts/python.exe scripts/review_blacksmith_workbench.py materials-after --only-tests --test-script=res://tests/test_blacksmith_materials.gd
+```
+
+### Zmienione pliki i druga recenzja
+
+```text
+docs/reviews/blacksmith-workbench/README.md
+godot/tests/test_blacksmith_materials.gd
+godot/tests/test_blacksmith_materials.gd.uid
+godot/tools/capture_blacksmith_workbench.gd
+godot/ui/components/required_resource_tile/required_resource_tile.gd
+godot/ui/screens/blacksmith_workbench/upgrade_view.gd
+godot/ui/screens/blacksmith_workbench/upgrade_view.tscn
+scripts/review_blacksmith_workbench.py
+```
+
+Drugi recenzent: sprawdzić czytelność nazw/podpowiedzi na 720p i 768p,
+pełny koszt pancerza przy +10, zmianę celu z +10 na +1 i z powrotem oraz
+przeciąganie lancy bez kolizji z panelem. Więcej niż siedem zasobów w przyszłych
+recepturach lub zmiana skalowania płótna wymaga ponownej kontroli geometrii.
+W logach nadal występuje znany komunikat środowiska Windows
+`Failed to read the root certificate store.`; nie jest błędem zasobów gry.
+Niezwiązana lokalna kopia `forge_anvil_work_v2.png` z `.import` w katalogu
+sceny kuźni pozostaje nietknięta i poza commitem.
+
 ## Stałe kowadło i nakładany panel — 2026-09-19
 
 Gałąź: `codex/blacksmith-fixed-anvil-panel`. Baza:

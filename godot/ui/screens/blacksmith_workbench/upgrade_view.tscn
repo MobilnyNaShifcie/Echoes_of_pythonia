@@ -181,9 +181,9 @@ bbcode_enabled = true
 
 [node name="ResourceScroll" type="ScrollContainer" parent="Content/Stage/Overlay/UpgradeDetails/Details" unique_id=2079217365]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 96)
 layout_mode = 2
 horizontal_scroll_mode = 0
+vertical_scroll_mode = 0
 
 [node name="Resources" type="VBoxContainer" parent="Content/Stage/Overlay/UpgradeDetails/Details/ResourceScroll" unique_id=395599217]
 layout_mode = 2

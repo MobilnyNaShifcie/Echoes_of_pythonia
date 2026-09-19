@@ -134,10 +134,20 @@ func refresh() -> void:
 	for tile in %Materials.get_children():
 		%Materials.remove_child(tile)
 		tile.queue_free()
-	for resource: Dictionary in model.requirements():
+	var requirements := model.requirements()
+	var compact := requirements.size() > 2
+	# Show the complete canonical cost in at most two rows (currently up to seven tiles).
+	# The details remain an overlay: neither the anvil nor the item changes position.
+	%Materials.columns = maxi(2, ceili(requirements.size() / 2.0))
+	%Materials.add_theme_constant_override("v_separation", 6 if compact else 10)
+	var details_style: StyleBoxFlat = %UpgradeDetails.get_theme_stylebox("panel")
+	details_style.content_margin_top = 6 if compact else 10
+	details_style.content_margin_bottom = 6 if compact else 10
+	action_button.custom_minimum_size.y = 56 if compact else 64
+	for resource: Dictionary in requirements:
 		var tile = ResourceTile.instantiate()
 		%Materials.add_child(tile)
-		tile.configure(resource)
+		tile.configure(resource, compact)
 	%ResourceScroll.visible = has_item and not maximum
 	var blocked := model.error()
 	action_button.visible = has_item and not maximum

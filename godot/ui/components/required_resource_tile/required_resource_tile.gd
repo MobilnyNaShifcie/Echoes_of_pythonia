@@ -7,8 +7,14 @@ var owned := 0
 var required := 0
 
 
-func configure(data: Dictionary) -> void:
-	add_theme_stylebox_override("panel", Style.panel(0.65, 10))
+func configure(data: Dictionary, compact := false) -> void:
+	# Multiple upgrade tiers must fit together, not disappear below a one-row viewport.
+	add_theme_stylebox_override("panel", Style.panel(0.65, 4 if compact else 10))
+	custom_minimum_size.y = 60 if compact else 92
+	$Content.add_theme_constant_override("separation", 6 if compact else 14)
+	$Content/Icon.custom_minimum_size.x = 40 if compact else 62
+	%ResourceName.add_theme_font_size_override("font_size", 16 if compact else 18)
+	%Owned.add_theme_font_size_override("font_size", 18 if compact else 20)
 	resource_id = str(data.id)
 	owned = int(data.owned)
 	required = int(data.required)

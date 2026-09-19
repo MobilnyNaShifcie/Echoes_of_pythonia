@@ -104,6 +104,7 @@ func _run() -> void:
 			workbench.upgrade_view.set_target_level(10)
 			await _settle()
 			await _capture(viewport, args[0].path_join("multi_stat_" + suffix))
+			await _capture_materials(workbench, session, viewport, args[0], suffix)
 		viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED
 		app.queue_free()
 		await _settle()
@@ -111,6 +112,28 @@ func _run() -> void:
 		await _settle()
 		print("BLACKSMITH CAPTURE ", suffix)
 	quit(0)
+
+
+func _capture_materials(
+	workbench, session, viewport: SubViewport, output: String, suffix: String
+) -> void:
+	# Real regional armor and a seven-resource profile, using only detached review data.
+	for item_id in ["sunken_knight_armor", "sunken_order_cloak"]:
+		session.player.inventory.add(item_id)
+		var item = session.player.inventory.equipment_items.back()
+		assert(item.item_id == item_id)
+		workbench.upgrade_view.select_item(
+			{"kind": "upgrade_equipment", "instance_id": item.instance_id}
+		)
+		workbench.upgrade_view.set_target_level(10)
+		await _settle()
+		await _capture(viewport, output.path_join(item_id + "_target10_" + suffix))
+		item.upgrade_level = 9
+		workbench.upgrade_view.select_item(
+			{"kind": "upgrade_equipment", "instance_id": item.instance_id}
+		)
+		await _settle()
+		await _capture(viewport, output.path_join(item_id + "_9_to_10_" + suffix))
 
 
 func _capture(viewport: SubViewport, path: String) -> void:
