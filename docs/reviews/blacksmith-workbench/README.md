@@ -1,5 +1,109 @@
 # Kuźnia Garrana — przegląd warsztatu ulepszania
 
+## Oczyszczenie ekranu i odkładanie przeciągnięciem — 2026-09-19
+
+Gałąź: `codex/blacksmith-cleanup-drag-return`. Baza:
+`7b3831cc13bd00c827c130abcd21f64b6e86a297`.
+Jeden commit, którego pełny hash znajduje się w odpowiedzi końcowej.
+Bez scalania do main i bez push. Poniższa sekcja zastępuje opis zachowania
+kuźni z wcześniejszych sekcji historycznych.
+
+### Zmiany i bezpieczeństwo danych
+
+- Usunięte złoto/udźwig z nagłówka, podpis Garrana w dolnym lewym rogu,
+  Źródło/Odłóż, nagłówek wymagań, powtarzane komunikaty o brakach i wyniku
+  oraz zdanie o niezmienionych statystykach. Koszt pozostaje jeden raz,
+  na kafelkach posiadane/potrzebne; rzeczywiste zmiany statystyk są widoczne.
+  Brak środków zaznacza czerwony koszt i podpowiedź nieaktywnego przycisku.
+- Puste kowadło wypełnia dostępny panel ilustracją kuźni. Nie ma powielonych
+  instrukcji, pustej sekcji materiałów ani nieaktywnego przycisku na dole.
+  Instrukcja przeciągania jest dostępna dopiero jako podpowiedź po najechaniu.
+- Wybrany przedmiot znika wizualnie ze swojego slotu. Komórka jest zarezerwowana,
+  więc pozostałe rzeczy w plecaku nie przeskakują. Nie jest to usunięcie ani
+  zdjęcie przedmiotu w modelu gracza: pozostaje ta sama instancja i instance ID,
+  statystyki, udźwig i dane zapisu nie zmieniają się od samego wyboru.
+- Przeciągnięcie z kowadła do prawego panelu przywraca przedmiot dokładnie do
+  pierwotnego miejsca, także po zmianie zakładki lub upuszczeniu na inny zajęty
+  slot. To odłożenie, nie zamiana ani automatyczne założenie. Anulowanie przywraca
+  obraz na kowadle. Podczas przeciągania widoczny jest tylko przenoszony obraz,
+  ponad oboma panelami; nie dodatkowy kafelek. Ulepszanie jest wtedy zablokowane.
+  Backspace na zaznaczonym kowadle umożliwia odłożenie klawiaturą.
+- Zamknięcie kuźni czyści wyłącznie tymczasowy wybór prezentacji. Nie wymaga
+  odtwarzania skasowanych rzeczy, dlatego także zapis po ulepszeniu zachowuje
+  oryginalną instancję i źródło przedmiotu.
+- Pozostałe grafiki mają dopasowanie proporcji i widocznych granic alfa w czasie
+  wyświetlania. Zbroja, buty i biżuteria nie wychodzą ponad przycinany kadr.
+  Nie edytowano plików graficznych ani katalogowych ikon. Lanca zachowuje osobną
+  ilustrację kuźni; inne rzeczy nadal korzystają z istniejących ikon.
+- Bez zmian wspólnego CharacterEquipmentPanel, jego 11 slotów, grafiki Arii,
+  modelu ekwipunku, kosztów, mechanik ulepszeń i formatu zapisu. Bez animacji.
+
+### Testy i dowody
+
+Zrzuty PNG i logi są wyłącznie lokalnie, w ignorowanym `build/`.
+Poniżej podano ścieżki do odtworzenia, nie linki do nieśledzonych plików w repo.
+
+- Przed: `build/blacksmith-workbench-review/cleanup-before/evidence/`.
+  Stany empty/selected/target10/equipped/backpack, trzy rozdzielczości.
+- Po: `build/blacksmith-workbench-review/cleanup-after/evidence/`.
+  Dodatkowo chest/boots/earrings, drag_return (przedmiot trzymany myszą)
+  i returned. Razem 30 PNG w 1920×1080, 1366×768 i 1280×720.
+- Odtworzenie importu, uruchomienia rzeczywistej sceny App, zrzutów oraz pełnej
+  regresji: `.venv/Scripts/python.exe scripts/review_blacksmith_workbench.py cleanup-after --tests`.
+  Osobny profil i fixture chronią zapis użytkownika.
+- Testy skupione: `test_blacksmith_workbench.gd` (19) oraz
+  `test_blacksmith_cleanup.gd` (5). Wspólne narzędzia testowe przeniesiono do
+  `tests/fixtures/blacksmith_ui_test_base.gd`, bez wyłączenia starych testów.
+- Sprawdzane są rzeczywiste zdarzenia myszy/klawiatury, anulowanie w obie strony,
+  ukrywanie oryginalnego obrazu podczas przeciągania, zablokowanie ulepszenia
+  trzymanego przedmiotu, odrzucanie obcych/starych danych przeciągania, powrót
+  do innej zakładki, +10, ponowne otwarcie, pełna geometria wszystkich dostępnych
+  ikon, identyczność danych i istniejący autosave/reload po ulepszeniu.
+
+Pełna regresja: **708/708**, 95 skryptów, 23 621 asercji, 155,348 s.
+W tym wszystkie **24/24** testy kuźni. Import, boot i zrzuty OpenGL kończą się
+kodem 0, bez błędów parsera, brakujących zasobów ani odwołań do scen/skryptów.
+Formatowanie i lint 13 skryptów zakresu oraz `git diff --check`: bez błędów.
+Ręcznie obejrzano wybrany przedmiot i warstwę przeciągania w 1080p,
+zbroję/kolczyki w 768p oraz buty i pusty panel w 720p. Potwierdzono, że przeciągana
+lanca nie chowa się za postacią ani slotami, a podglądy nie są ucinane.
+
+### Ograniczenia i drugi recenzent
+
+Godot zgłasza istniejący również przed zmianą problem środowiska Windows:
+`Failed to read the root certificate store.` Pozostaje w logach; nie dotyczy
+parsera, zasobów ani scen kuźni. Stare, niezwiązane oznaczenia M plików .import
+oraz nieśledzona kopia właściciela `forge_anvil_work_v2.png` z .import nie są
+częścią zmiany; niczego nie usunięto i nie nadpisano.
+
+Drugi recenzent powinien sprawdzić przeciąganie wybranej rzeczy z obu zakładek,
+odłożenie na inny slot, anulowanie, wyjście z kuźni z zajętym kowadłem,
+jedno ulepszenie i zapis na swoim profilu, czytelność czerwonych kosztów oraz
+kompozycję pustego panelu i nietypowych ikon. Zbroja/biżuteria to wciąż istniejące
+ikony w podglądzie, a nie nowe ilustracje perspektywiczne ułożone płasko na kowadle.
+
+### Zmienione pliki
+
+```text
+docs/reviews/blacksmith-workbench/README.md
+godot/tests/fixtures/blacksmith_ui_test_base.gd
+godot/tests/fixtures/blacksmith_ui_test_base.gd.uid
+godot/tests/test_blacksmith_cleanup.gd
+godot/tests/test_blacksmith_cleanup.gd.uid
+godot/tests/test_blacksmith_workbench.gd
+godot/tools/capture_blacksmith_workbench.gd
+godot/ui/components/equipment_picker/equipment_picker.gd
+godot/ui/components/required_resource_tile/required_resource_tile.gd
+godot/ui/components/required_resource_tile/required_resource_tile.tscn
+godot/ui/components/upgrade_anvil/forge_item_presentation.gd
+godot/ui/components/upgrade_anvil/upgrade_anvil.gd
+godot/ui/screens/blacksmith_workbench/blacksmith_workbench.gd
+godot/ui/screens/blacksmith_workbench/blacksmith_workbench.tscn
+godot/ui/screens/blacksmith_workbench/upgrade_view.gd
+godot/ui/screens/blacksmith_workbench/upgrade_view.tscn
+scripts/review_blacksmith_workbench.py
+```
+
 ## Dopracowanie wizualne — 2026-09-19
 
 Gałąź: `codex/blacksmith-visual-polish`. Baza:

@@ -1,6 +1,7 @@
 extends VBoxContainer
 ## Selection only. The host decides what service to perform on the selected instance.
 signal item_selected(data: Dictionary)
+signal item_returned(data: Dictionary)
 const ViewModel := preload("res://ui/screens/blacksmith_workbench/upgrade_view_model.gd")
 const EquipmentScreenClass := preload("res://ui/screens/equipment/equipment.gd")
 const Presentation := preload("res://ui/presentation/combat_presentation_catalog.gd")
@@ -8,9 +9,11 @@ const Catalog := preload("res://core/items/item_catalog.gd")
 const Style := preload("res://ui/screens/blacksmith_workbench/workbench_style.gd")
 const Carry := preload("res://core/economy/carry_weight_service.gd")
 const MIN_BACKPACK_CELL := 96.0
+var return_accepts: Callable
 var _session
 var _source := "equipped"
 var _selected_id := ""
+var _incoming_drag := false
 
 @onready var character_panel: CharacterEquipmentPanel = %CharacterPanel
 @onready var backpack: InventoryGridView = %Backpack
@@ -28,6 +31,7 @@ func _ready() -> void:
 	# Local overrides preserve the approved equipment layout and the other screen's theme.
 	character_panel.add_theme_stylebox_override("panel", Style.panel(0.6, 0))
 	%BackpackPanel.add_theme_stylebox_override("panel", Style.panel(0.94, 12))
+	_install_return_targets(self)
 
 
 func configure(session) -> void:
@@ -89,9 +93,18 @@ func refresh(selected_id := "") -> void:
 	for button in backpack.get_children():
 		if button is InventoryItemSlot and not button.is_queued_for_deletion():
 			_decorate(button)
+	_install_return_targets(backpack)
 
 
 func _entry(item) -> Dictionary:
+	if item.instance_id == _selected_id:
+		# Keep the source cell reserved, but never remove the owned instance from player data.
+		return {
+			"placeholder": "◇",
+			"metadata": {"kind": "forge_reserved", "instance_id": item.instance_id},
+			"tooltip": item.formatted_name() + " — na kowadle",
+			"footprint": Vector2i.ONE,
+		}
 	var blocked: bool = item.upgrade_level >= 10
 	return {
 		"title": item.formatted_name(),
@@ -120,6 +133,64 @@ func _decorate(button: InventoryItemSlot) -> void:
 		style.shadow_color = Color(1, 0.55, 0.13, 0.34) if selected else Color.TRANSPARENT
 		style.shadow_size = 5 if selected else 0
 		button.add_theme_stylebox_override(state, style)
+
+
+func _install_return_targets(node: Node) -> void:
+	if node is Control:
+		var get_drag := _no_drag
+		if node is InventoryItemSlot:
+			get_drag = _drag_from_slot.bind(node)
+		node.set_drag_forwarding(get_drag, _can_drop_data, _drop_data)
+	for child in node.get_children():
+		if not child.is_queued_for_deletion():
+			_install_return_targets(child)
+
+
+func _no_drag(_position: Vector2) -> Variant:
+	return null
+
+
+func _drag_from_slot(position: Vector2, slot: InventoryItemSlot) -> Variant:
+	if slot.drag_payload.is_empty() or slot.disabled or slot.locked:
+		return null
+	# Move only the item art, not a second inventory tile, above the entire workbench.
+	var icon: TextureRect = slot.get_node("ItemIcon")
+	var preview := Control.new()
+	preview.z_as_relative = false
+	preview.z_index = 4095
+	preview.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var sprite := TextureRect.new()
+	sprite.texture = slot.item_texture
+	sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	sprite.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	sprite.size = icon.size
+	sprite.position = icon.position - position
+	sprite.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	preview.add_child(sprite)
+	slot.set_drag_preview(preview)
+	_incoming_drag = true
+	icon.hide()
+	return slot.drag_payload.duplicate(true)
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_DRAG_END and _incoming_drag:
+		_incoming_drag = false
+		refresh.call_deferred(_selected_id)
+
+
+func _can_drop_data(_position: Vector2, data: Variant) -> bool:
+	return return_accepts.is_valid() and return_accepts.call(data)
+
+
+func _drop_data(_position: Vector2, data: Variant) -> void:
+	if not _can_drop_data(Vector2.ZERO, data):
+		return
+	var entry := ViewModel.resolve(_session.player, str(data.instance_id))
+	var origin := "equipped" if entry.source == "Założone" else "backpack"
+	item_returned.emit(data)
+	# Dropping over the other tab still returns to the original place; it never equips/unequips.
+	_filter(origin)
 
 
 func select_equipped(slot: String) -> void:

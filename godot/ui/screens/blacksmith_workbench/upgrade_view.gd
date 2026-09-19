@@ -16,9 +16,8 @@ var model := Model.new()
 func _ready() -> void:
 	$Content/Heading.add_theme_font_override("font", Style.heading_font())
 	%ItemName.add_theme_font_override("font", Style.heading_font())
-	$Content/ResourcesHeading.add_theme_font_override("font", Style.heading_font())
 	%LevelRail.target_selected.connect(set_target_level)
-	for button in [%MinusButton, %PlusButton, %ClearButton]:
+	for button in [%MinusButton, %PlusButton]:
 		for state in ["normal", "hover", "pressed", "disabled"]:
 			var style := Style.panel(0.55, 4)
 			if state == "hover":
@@ -28,28 +27,27 @@ func _ready() -> void:
 	resized.connect(queue_redraw)
 	anvil.accepts_item = model.accepts
 	anvil.item_dropped.connect(select_item)
+	anvil.return_requested.connect(return_item)
+	anvil.drag_state_changed.connect(_on_drag_state_changed)
 	%MinusButton.pressed.connect(_step_target.bind(-1))
 	%PlusButton.pressed.connect(_step_target.bind(1))
-	%ClearButton.pressed.connect(_clear)
 	action_button.pressed.connect(perform_upgrade)
 
 
 func configure(session) -> void:
 	model.session = session
-	_clear()
+	clear_selection()
 
 
 func select_item(data: Dictionary) -> void:
 	if not model.select(data):
 		return
-	%Result.text = ""
 	refresh()
 	selection_changed.emit(model.selected_id)
 
 
 func set_target_level(level: int) -> void:
 	model.set_target(level)
-	%Result.text = ""
 	refresh()
 
 
@@ -57,26 +55,58 @@ func _step_target(step: int) -> void:
 	set_target_level(model.target_level + step)
 
 
-func _clear() -> void:
+func clear_selection() -> void:
 	model.selected_id = ""
-	%Result.text = ""
 	refresh()
 	selection_changed.emit("")
+
+
+func accepts_return(data: Variant) -> bool:
+	return (
+		data is Dictionary
+		and data.get("kind") == "forge_return"
+		and data.get("anvil_id") == anvil.get_instance_id()
+		and not model.selected_id.is_empty()
+		and data.get("instance_id") == model.selected_id
+		and not model.selection().is_empty()
+	)
+
+
+func return_item(data: Dictionary) -> void:
+	if accepts_return(data):
+		clear_selection()
+
+
+func _on_drag_state_changed(_active: bool) -> void:
+	refresh()
 
 
 func refresh() -> void:
 	var entry := model.selection()
 	var has_item := not entry.is_empty()
+	if not has_item and not model.selected_id.is_empty():
+		model.selected_id = ""
+		selection_changed.emit("")
 	var maximum: bool = has_item and entry.item.upgrade_level == 10
 	anvil.show_item(
 		entry.item.definition.icon if has_item else null, entry.item.item_id if has_item else ""
 	)
+	anvil.return_payload = (
+		{
+			"kind": "forge_return",
+			"instance_id": model.selected_id,
+			"anvil_id": anvil.get_instance_id()
+		}
+		if has_item
+		else {}
+	)
 	%LevelRail.configure(
 		entry.item.upgrade_level if has_item else -1, model.target_level if has_item else -1
 	)
-	%Source.text = "Źródło: " + entry.source if has_item else ""
-	%ClearButton.visible = has_item
-	%ItemName.text = entry.item.formatted_name() if has_item else "Umieść przedmiot do ulepszenia"
+	$Content/Target.visible = has_item
+	%LevelRail.visible = has_item
+	%ItemName.visible = has_item
+	%ItemName.text = entry.item.formatted_name() if has_item else ""
 	%ItemName.tooltip_text = %ItemName.text
 	%ItemName.add_theme_color_override("font_color", Color(0.95, 0.80, 0.47))
 	%TargetLabel.text = "Poziom ulepszenia"
@@ -88,7 +118,9 @@ func refresh() -> void:
 		else "Maksymalny poziom +10" if maximum else ""
 	)
 	%Transition.tooltip_text = %Transition.text
+	%Transition.visible = has_item and not maximum
 	comparison_label.text = _comparison_text()
+	comparison_label.visible = not comparison_label.text.is_empty()
 	# Keep multi-stat upgrades readable; a longer comparison retains internal scrolling.
 	comparison_label.custom_minimum_size.y = (
 		26.0 * clampi(comparison_label.text.count("\n") + 1, 1, 3)
@@ -100,25 +132,16 @@ func refresh() -> void:
 		var tile = ResourceTile.instantiate()
 		%Materials.add_child(tile)
 		tile.configure(resource)
-	%NoRequirements.visible = not has_item or maximum
-	%NoRequirements.text = (
-		"Wybierz przedmiot, aby poznać koszt."
-		if not has_item
-		else "Przedmiot jest w pełni ulepszony."
-	)
+	$Content/ResourceScroll.visible = has_item and not maximum
 	var blocked := model.error()
-	action_button.disabled = not blocked.is_empty()
+	action_button.visible = has_item and not maximum
+	action_button.disabled = not blocked.is_empty() or anvil.dragging
 	action_button.text = (
 		"Maksymalny poziom"
 		if maximum
 		else "Ulepsz do +%d" % model.target_level if has_item else "Ulepsz"
 	)
 	action_button.tooltip_text = blocked
-	%BlockReason.text = blocked if has_item and not maximum else ""
-	%BlockReason.tooltip_text = %BlockReason.text
-	%BlockReason.visible = not %BlockReason.text.is_empty()
-	%Result.visible = not %Result.text.is_empty()
-	%Result.tooltip_text = %Result.text
 
 
 func _draw() -> void:
@@ -154,8 +177,8 @@ func _comparison_text() -> String:
 				)
 			)
 		)
-	if lines.is_empty() and model.plan().ok:
-		return "[center][color=#b8b1a1]Na tym poziomie statystyki pozostają bez zmian.[/color][/center]"
+	if lines.is_empty():
+		return ""
 	return "[center]" + "\n".join(lines) + "[/center]"
 
 
@@ -164,11 +187,9 @@ func _number(value: float, stat: String) -> String:
 
 
 func perform_upgrade() -> void:
+	if anvil.dragging:
+		return
 	var result := model.execute()
-	%Result.text = result.message
-	%Result.add_theme_color_override(
-		"font_color", Color(0.48, 0.87, 0.59) if result.ok else Color(1, 0.43, 0.37)
-	)
 	if result.ok:
 		model.set_target(model.target_level + 1)
 	refresh()

@@ -1,48 +1,4 @@
-extends GutTest
-const Screen := preload("res://ui/screens/city_economy/city_economy.tscn")
-const Fixture := preload("res://tests/fixtures/equipment_layout_fixture.gd")
-const Model := preload("res://ui/screens/blacksmith_workbench/upgrade_view_model.gd")
-const Upgrades := preload("res://core/economy/upgrade_service.gd")
-const Saves := preload("res://core/save/save_game_service.gd")
-const App := preload("res://scenes/app/app.tscn")
-const ThemeResource := preload("res://ui/theme/game_theme.tres")
-
-
-func after_each() -> void:
-	# UI refreshes dispose replaced cells at the end of a frame, as in the running game.
-	await wait_process_frames(3)
-
-
-func _session():
-	var session = Fixture.create_session()
-	session.player.gold = 10000
-	var plan := Upgrades.get_upgrade_plan(session.player.equipment.get_item("weapon"), 10)
-	for item_id: String in plan.materials:
-		session.player.inventory.add(item_id, int(plan.materials[item_id]) + 5)
-	return session
-
-
-func _mount(session, dimensions := Vector2i(1920, 1080)):
-	var viewport := SubViewport.new()
-	viewport.size = dimensions
-	var factor := minf(float(dimensions.x) / 1920.0, float(dimensions.y) / 1080.0)
-	viewport.size_2d_override = Vector2i(Vector2(dimensions) / factor)
-	viewport.size_2d_override_stretch = true
-	add_child_autofree(viewport)
-	var screen = Screen.instantiate()
-	screen.theme = ThemeResource
-	screen.configure(session, "blacksmith")
-	viewport.add_child(screen)
-	screen._open_service()
-	await wait_process_frames(8)
-	return screen
-
-
-func _snapshot(session) -> Dictionary:
-	var data := Saves.new("user://blacksmith_snapshot_not_written")._serialize_session(session)
-	# Wall-clock export metadata is not player state; crossing a second must not fail this test.
-	data.erase("saved_at_unix")
-	return data
+extends "res://tests/fixtures/blacksmith_ui_test_base.gd"
 
 
 func test_empty_anvil_and_opening_do_not_modify_the_player() -> void:
@@ -52,8 +8,11 @@ func test_empty_anvil_and_opening_do_not_modify_the_player() -> void:
 	var view = screen.blacksmith_workbench.upgrade_view
 	assert_true(view.model.selection().is_empty())
 	assert_true(view.action_button.disabled)
-	assert_true(view.get_node("%EmptyHint").visible)
-	assert_eq(view.get_node("%ItemName").text, "Umieść przedmiot do ulepszenia")
+	assert_null(view.get_node_or_null("%EmptyHint"))
+	assert_false(view.get_node("%ItemName").visible)
+	assert_false(view.action_button.visible)
+	assert_false(view.get_node("Content/ResourceScroll").visible)
+	assert_gt(view.anvil.size.y, view.size.y * 0.85)
 	assert_false(screen.mode_selector.is_visible_in_tree())
 	assert_false(screen.get_node("%BackButton").is_visible_in_tree())
 	assert_false(screen.close_service_button.is_visible_in_tree())
@@ -72,7 +31,7 @@ func test_equipped_and_backpack_selection_only_borrows_the_same_instance() -> vo
 		assert_same(bench.upgrade_view.model.selection().item, item)
 		assert_true(bench.upgrade_view.anvil.occupied)
 		assert_eq(item.upgrade_level, 0)
-	assert_eq(bench.upgrade_view.get_node("%Source").text, "Źródło: Plecak")
+	assert_eq(bench.upgrade_view.model.selection().source, "Plecak")
 	assert_eq(_snapshot(session), before)
 
 
@@ -123,7 +82,9 @@ func test_unaffordable_resources_disable_confirmation_and_report_exact_shortage(
 			if tile.resource_id == ("whetstone" if missing == "material" else "gold"):
 				checked = true
 				assert_eq(tile.owned, 0)
-				assert_eq(tile.get_node("%Availability").text, "Brakuje %d" % tile.required)
+				assert_eq(tile.get_node("%Owned").text, "0 / %d" % tile.required)
+				assert_string_contains(tile.tooltip_text, "Potrzeba: %d" % tile.required)
+				assert_null(tile.get_node_or_null("%Availability"))
 		assert_true(checked)
 
 
@@ -278,7 +239,7 @@ func _exercise_pointer_selection(dimensions: Vector2i) -> void:
 		bench.upgrade_view.model.selected_id,
 		session.player.equipment.get_item("weapon").instance_id
 	)
-	bench.upgrade_view.get_node("%ClearButton").pressed.emit()
+	bench.upgrade_view.clear_selection()
 	await wait_process_frames(5)
 	await _drag(
 		viewport,
@@ -290,7 +251,8 @@ func _exercise_pointer_selection(dimensions: Vector2i) -> void:
 	assert_same(
 		session.player.equipment.get_item("weapon"), bench.upgrade_view.model.selection().item
 	)
-	await _drag(viewport, button.get_global_rect().get_center(), Vector2(25, 500))
+	var anvil = bench.upgrade_view.anvil
+	await _drag(viewport, anvil.global_position + anvil.contact_point, Vector2(25, 500))
 	assert_false(viewport.gui_is_drag_successful())
 	assert_eq(_snapshot(session), before)
 	await _click(viewport, bench.picker.get_node("%BackpackButton").get_global_rect().get_center())
@@ -300,7 +262,7 @@ func _exercise_pointer_selection(dimensions: Vector2i) -> void:
 	if backpack_button != null:
 		await _click(viewport, backpack_button.get_global_rect().get_center())
 		assert_same(bench.upgrade_view.model.selection().item, backpack_item)
-		bench.upgrade_view.get_node("%ClearButton").pressed.emit()
+		bench.upgrade_view.clear_selection()
 		await wait_process_frames(4)
 		backpack_button = _backpack_slot(bench.picker, backpack_item.instance_id)
 		await _drag(
@@ -355,6 +317,8 @@ func test_full_layout_at_both_resolutions_has_no_clipped_action_slots_or_backpac
 				bench.get_node("%CloseButton"),
 				bench.picker.character_panel
 			]:
+				if not control.is_visible_in_tree():
+					continue
 				assert_true(
 					bounds.encloses(control.get_global_rect()),
 					"%s at %s" % [control.name, dimensions]
@@ -467,6 +431,18 @@ func test_upgraded_instances_refresh_in_both_tabs_without_changing_the_active_so
 		)
 		assert_string_contains(slot.tooltip_text, "+1")
 		assert_eq(slot.item_metadata.instance_id, instance_id)
+		assert_null(
+			slot.item_texture, "Selected equipment stays visually on the anvil after upgrading."
+		)
+		bench.upgrade_view.return_item(bench.upgrade_view.anvil.return_payload)
+		await wait_process_frames(4)
+		slot = (
+			picker.character_panel.slot_buttons.weapon
+			if item == equipped
+			else _backpack_slot(picker, instance_id)
+		)
+		assert_same(slot.item_texture, item.definition.icon)
+		assert_string_contains(slot.tooltip_text, "+1")
 		assert_eq(
 			slot.get_theme_stylebox("normal").border_color,
 			InventoryItemSlot.RARITY_FRAME_COLORS[slot.rarity]
@@ -475,17 +451,6 @@ func test_upgraded_instances_refresh_in_both_tabs_without_changing_the_active_so
 		assert_eq(session.player.inventory.equipment_items.size(), count)
 	assert_same(session.player.equipment.get_item("weapon"), equipped)
 	assert_true(session.player.inventory.equipment_items.has(bag_item))
-
-
-func _backpack_slot(picker, instance_id: String) -> InventoryItemSlot:
-	for child in picker.backpack.get_children():
-		if (
-			child is InventoryItemSlot
-			and not child.is_queued_for_deletion()
-			and child.item_metadata.get("instance_id") == instance_id
-		):
-			return child
-	return null
 
 
 func test_real_app_autosave_and_reload_keep_the_upgraded_instances() -> void:
@@ -534,6 +499,7 @@ func test_visual_level_rail_selects_targets_without_an_upgrade_or_player_mutatio
 	var item = session.player.equipment.get_item("weapon")
 	view.select_item(Model.payload(item))
 	var before := _snapshot(session)
+	await wait_process_frames(5)
 	assert_eq(rail.current_level, 0)
 	assert_eq(rail.target_level, 1)
 	assert_true(rail.buttons[0].disabled)
@@ -582,9 +548,12 @@ func test_forge_lance_is_presentation_only_with_unchanged_inventory_icon_and_ins
 	assert_same(item.definition.icon, original_icon)
 	var bag_item = session.player.inventory.equipment_items[0]
 	bench.upgrade_view.select_item(Model.payload(bag_item))
-	assert_same(icon.texture, bag_item.definition.icon, "Other items retain their own artwork.")
+	assert_true(icon.texture is AtlasTexture)
+	assert_same(
+		icon.texture.atlas, bag_item.definition.icon, "Only transparent margins are cropped."
+	)
 	assert_eq(icon.rotation, 0.0, "The lance transform must not leak to another item.")
-	bench.upgrade_view.get_node("%ClearButton").pressed.emit()
+	bench.upgrade_view.clear_selection()
 	assert_null(icon.texture)
 	assert_false(bench.upgrade_view.anvil.occupied)
 	assert_eq(_snapshot(session), before)
@@ -653,47 +622,3 @@ func test_multi_stat_preview_keeps_readable_rows_and_confirmation_inside_panel()
 	assert_true(view.get_global_rect().encloses(view.action_button.get_global_rect()))
 	assert_lte(view.anvil.get_global_rect().end.y, view.get_node("%ItemName").global_position.y)
 	assert_eq(_snapshot(session), before)
-
-
-func _move(viewport: Viewport, point: Vector2, previous := Vector2.ZERO, held := false) -> void:
-	var motion := InputEventMouseMotion.new()
-	motion.position = point
-	motion.relative = point - previous
-	motion.button_mask = MOUSE_BUTTON_MASK_LEFT if held else 0
-	viewport.push_input(motion, true)
-
-
-func _click(viewport: Viewport, point: Vector2) -> void:
-	_move(viewport, point)
-	await wait_process_frames(1)
-	var event := InputEventMouseButton.new()
-	event.position = point
-	event.button_index = MOUSE_BUTTON_LEFT
-	event.pressed = true
-	viewport.push_input(event, true)
-	event = event.duplicate()
-	event.pressed = false
-	viewport.push_input(event, true)
-	await wait_process_frames(3)
-
-
-func _drag(viewport: Viewport, start: Vector2, finish: Vector2) -> void:
-	_move(viewport, start)
-	await wait_process_frames(1)
-	var event := InputEventMouseButton.new()
-	event.position = start
-	event.button_index = MOUSE_BUTTON_LEFT
-	event.button_mask = MOUSE_BUTTON_MASK_LEFT
-	event.pressed = true
-	viewport.push_input(event, true)
-	_move(viewport, start + Vector2(25, 0), start, true)
-	await wait_process_frames(2)
-	assert_true(viewport.gui_is_dragging())
-	_move(viewport, finish, start + Vector2(25, 0), true)
-	await wait_process_frames(2)
-	event = event.duplicate()
-	event.position = finish
-	event.button_mask = 0
-	event.pressed = false
-	viewport.push_input(event, true)
-	await wait_process_frames(4)

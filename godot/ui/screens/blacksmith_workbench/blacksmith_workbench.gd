@@ -4,7 +4,6 @@ signal services_requested
 signal close_requested
 signal state_changed
 const Style := preload("res://ui/screens/blacksmith_workbench/workbench_style.gd")
-const Carry := preload("res://core/economy/carry_weight_service.gd")
 var _session
 var _service_views := {}
 
@@ -19,10 +18,13 @@ func _ready() -> void:
 	%CloseButton.pressed.connect(close_requested.emit)
 	%UpgradeTab.pressed.connect(show_service.bind("upgrade"))
 	picker.item_selected.connect(upgrade_view.select_item)
+	picker.return_accepts = upgrade_view.accepts_return
+	picker.item_returned.connect(upgrade_view.return_item)
 	upgrade_view.selection_changed.connect(picker.refresh)
 	upgrade_view.operation_completed.connect(_on_operation_completed)
 	Style.style_primary(upgrade_view.action_button)
 	$Margin/Layout/Header/Title.add_theme_font_override("font", Style.heading_font())
+	visibility_changed.connect(_on_visibility_changed)
 
 
 func configure(session) -> void:
@@ -30,7 +32,6 @@ func configure(session) -> void:
 	picker.configure(session)
 	upgrade_view.configure(session)
 	show_service("upgrade")
-	_refresh_resources()
 
 
 func show_location(texture: Texture2D) -> void:
@@ -58,20 +59,12 @@ func _on_operation_completed(result: Dictionary) -> void:
 	_session.last_activity = result.message
 	_session.log_event(result.message)
 	picker.refresh(upgrade_view.model.selected_id)
-	_refresh_resources()
 	state_changed.emit()
 
 
-func _refresh_resources() -> void:
-	var load := Carry.carry_status(_session.player)
-	%ResourcesLabel.text = (
-		"Złoto %d   ·   Udźwig %.1f / %.1f kg"
-		% [
-			_session.player.gold,
-			load.current_kg,
-			load.capacity_kg,
-		]
-	)
+func _on_visibility_changed() -> void:
+	if is_node_ready() and not is_visible_in_tree():
+		upgrade_view.clear_selection()
 
 
 func _input(event: InputEvent) -> void:

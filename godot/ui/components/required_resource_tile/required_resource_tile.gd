@@ -16,14 +16,8 @@ func configure(data: Dictionary) -> void:
 	%ResourceName.tooltip_text = data.name
 	%ResourceIcon.texture = GOLD_ICON if resource_id == "gold" else data.icon
 	%Owned.text = "%d / %d" % [owned, required]
-	%Required.text = "Potrzeba %d" % required
 	var enough := owned >= required
 	tooltip_text = "%s\nPosiadasz: %d\nPotrzeba: %d" % [data.name, owned, required]
 	%Owned.add_theme_color_override(
-		"font_color", Color(0.48, 0.87, 0.59) if enough else Color(1, 0.43, 0.37)
-	)
-	%Availability.visible = not enough
-	%Availability.text = "✓  Wystarczy" if enough else "Brakuje %d" % (required - owned)
-	%Availability.add_theme_color_override(
 		"font_color", Color(0.48, 0.87, 0.59) if enough else Color(1, 0.43, 0.37)
 	)

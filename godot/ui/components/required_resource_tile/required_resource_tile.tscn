@@ -44,14 +44,3 @@ theme_override_font_sizes/font_size = 18
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
-
-[node name="Required" type="Label" parent="Content/Labels"]
-visible = false
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-
-[node name="Availability" type="Label" parent="Content/Labels"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 16

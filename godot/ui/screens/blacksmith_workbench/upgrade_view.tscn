@@ -100,51 +100,13 @@ mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="EmptyHint" type="Label" parent="Content/Anvil" unique_id=1264520684]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.04
-anchor_top = 0.0
-anchor_right = 0.96
-anchor_bottom = 0.22
-theme_override_colors/font_color = Color(0.94, 0.83, 0.61, 1)
-theme_override_constants/outline_size = 4
-theme_override_colors/font_outline_color = Color(0.04, 0.03, 0.02, 0.9)
-mouse_filter = 2
-theme_override_font_sizes/font_size = 20
-text = "Kliknij przedmiot
-w wyposażeniu lub plecaku"
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
-
 [node name="ItemName" type="Label" parent="Content" unique_id=1543682668]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 27
-text = "Umieść przedmiot do ulepszenia"
 horizontal_alignment = 1
 clip_text = true
 text_overrun_behavior = 3
-
-[node name="SourceRow" type="HBoxContainer" parent="Content/Target" unique_id=60128373]
-layout_mode = 2
-theme_override_constants/separation = 12
-alignment = 1
-
-[node name="Source" type="Label" parent="Content/Target/SourceRow" unique_id=418087549]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.69, 0.68, 0.63, 1)
-theme_override_font_sizes/font_size = 14
-
-[node name="ClearButton" type="Button" parent="Content/Target/SourceRow" unique_id=996796093]
-unique_name_in_owner = true
-layout_mode = 2
-tooltip_text = "Wyczyść wybór — przedmiot pozostaje w swoim miejscu"
-theme_override_font_sizes/font_size = 15
-text = "Odłóż"
 
 [node name="Transition" type="Label" parent="Content" unique_id=1526338913]
 unique_name_in_owner = true
@@ -160,12 +122,6 @@ custom_minimum_size = Vector2(0, 26)
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 17
 bbcode_enabled = true
-
-[node name="ResourcesHeading" type="Label" parent="Content" unique_id=173961179]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.93, 0.78, 0.44, 1)
-theme_override_font_sizes/font_size = 21
-text = "Wymagane materiały"
 
 [node name="ResourceScroll" type="ScrollContainer" parent="Content" unique_id=2079217365]
 custom_minimum_size = Vector2(0, 96)
@@ -184,30 +140,9 @@ theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 2
 
-[node name="NoRequirements" type="Label" parent="Content/ResourceScroll/Resources" unique_id=135694595]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.64, 0.63, 0.58, 1)
-text = "Wybierz przedmiot, aby poznać koszt."
-
-[node name="BlockReason" type="Label" parent="Content" unique_id=1456101576]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.49, 0.4, 1)
-theme_override_font_sizes/font_size = 16
-clip_text = true
-text_overrun_behavior = 3
-
 [node name="UpgradeButton" type="Button" parent="Content" unique_id=1578086231]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 theme_override_font_sizes/font_size = 27
 text = "Ulepsz"
-
-[node name="Result" type="Label" parent="Content" unique_id=1129116980]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 16
-clip_text = true
-text_overrun_behavior = 3

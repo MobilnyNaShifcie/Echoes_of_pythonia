@@ -56,6 +56,44 @@ func _run() -> void:
 			workbench.picker.get_node("%BackpackButton").pressed.emit()
 			await _settle()
 			await _capture(viewport, args[0].path_join("backpack_" + suffix))
+			workbench.picker._filter("equipped")
+			var preview_slots := {"chest": "chest", "boots": "feet", "earrings": "earrings"}
+			for label: String in preview_slots:
+				var slot: String = preview_slots[label]
+				var item = session.player.equipment.get_item(slot)
+				assert(item != null)
+				workbench.picker.select_equipped(slot)
+				await _settle()
+				assert(workbench.upgrade_view.model.selected_id == item.instance_id)
+				await _capture(viewport, args[0].path_join(label + "_" + suffix))
+			workbench.picker.select_equipped("weapon")
+			await _settle()
+			var icon: TextureRect = workbench.upgrade_view.get_node("%PreviewIcon")
+			var start: Vector2 = icon.get_global_transform() * (icon.size * 0.5)
+			var finish: Vector2 = workbench.picker.character_panel.get_global_rect().get_center()
+			_move(viewport, start)
+			await _settle()
+			var mouse := InputEventMouseButton.new()
+			mouse.position = start
+			mouse.button_index = MOUSE_BUTTON_LEFT
+			mouse.button_mask = MOUSE_BUTTON_MASK_LEFT
+			mouse.pressed = true
+			viewport.push_input(mouse, true)
+			_move(viewport, start + Vector2(25, 0), start, true)
+			await _settle()
+			assert(viewport.gui_is_dragging())
+			_move(viewport, finish, start + Vector2(25, 0), true)
+			await _settle()
+			await _capture(viewport, args[0].path_join("drag_return_" + suffix))
+			mouse = mouse.duplicate()
+			mouse.position = finish
+			mouse.button_mask = 0
+			mouse.pressed = false
+			viewport.push_input(mouse, true)
+			await _settle()
+			assert(viewport.gui_is_drag_successful())
+			assert(workbench.upgrade_view.model.selected_id.is_empty())
+			await _capture(viewport, args[0].path_join("returned_" + suffix))
 		viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED
 		app.queue_free()
 		await _settle()
@@ -68,6 +106,14 @@ func _run() -> void:
 func _capture(viewport: SubViewport, path: String) -> void:
 	await RenderingServer.frame_post_draw
 	assert(viewport.get_texture().get_image().save_png(path) == OK)
+
+
+func _move(viewport: Viewport, point: Vector2, previous := Vector2.ZERO, held := false) -> void:
+	var motion := InputEventMouseMotion.new()
+	motion.position = point
+	motion.relative = point - previous
+	motion.button_mask = MOUSE_BUTTON_MASK_LEFT if held else 0
+	viewport.push_input(motion, true)
 
 
 func _settle() -> void:
