@@ -33,6 +33,7 @@ const RegionBossChallengeServiceClass := preload(
 const EliteEncounterServiceClass := preload("res://core/world/elite_encounter_service.gd")
 const SkillCatalogClass := preload("res://core/skills/skill_catalog.gd")
 const WeatherServiceClass := preload("res://core/world/weather_service.gd")
+const VisualStyle := preload("res://ui/screens/combat/combat_visual_style.gd")
 
 var _session: GameSessionClass
 var _enemy
@@ -129,6 +130,8 @@ func _ready() -> void:
 	_configure_presentations()
 	_configure_presentation_controller()
 	_render()
+	VisualStyle.apply(self)
+	VisualStyle.button(get_node("Page/Lower").drawer.handle)
 
 
 func _configure_presentation_controller() -> void:
@@ -224,6 +227,8 @@ func _configure_presentations() -> void:
 	var hero_presentation := CombatPresentationCatalogClass.hero_presentation_for_player(
 		_session.player
 	)
+	player_visual.ground_shadow_enabled = true
+	enemy_visual.ground_shadow_enabled = true
 	var hero_texture := hero_presentation.get("texture") as Texture2D
 	var hero_role := "BOHATER • %s" % _player_class_display_name().to_upper()
 	if hero_texture == null:
@@ -647,6 +652,7 @@ func _render() -> void:
 	_render_double_weave_action()
 	_refresh_consumable_selector()
 	_render_consumable_action()
+	VisualStyle.refresh(self)
 
 
 func _render_battlefield_context() -> void:

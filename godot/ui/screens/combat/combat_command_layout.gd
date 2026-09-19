@@ -3,6 +3,7 @@ const ElementalResistancesClass := preload("res://core/combat/elemental_resistan
 const HunterComboCatalogClass := preload("res://core/combat/hunter_combo_catalog.gd")
 const SlideDrawer := preload("res://ui/components/slide_drawer.gd")
 const Style := preload("res://ui/presentation/interface_style.gd")
+const VisualStyle := preload("res://ui/screens/combat/combat_visual_style.gd")
 ## Presentation-only deck sizing and navigation; no combat state or actions.
 
 var drawer
@@ -76,15 +77,22 @@ func _layout_stage() -> void:
 	var hud_width := minf(480, bounds.x * 0.32)
 	for side: String in ["Player", "Enemy"]:
 		var hud: Control = arena.get_node(side + "Panel")
-		_rect(hud, Rect2(22 if side == "Player" else bounds.x - hud_width - 22, 76, hud_width, 152))
+		var hud_height := maxf(136.0, hud.get_combined_minimum_size().y)
+		_rect(
+			hud,
+			Rect2(22 if side == "Player" else bounds.x - hud_width - 22, 76, hud_width, hud_height)
+		)
 	# Keep the dice readable between the HUDs, away from the hero-to-enemy VFX path.
 	var fate_width := minf(360.0, bounds.x - 2.0 * hud_width - 76.0)
 	_rect(arena.get_node("VfxStage"), Rect2((bounds.x - fate_width) * 0.5, 76, fate_width, 144))
 	arena.get_node("Versus").hide()
 	var actor_top := (
 		maxf(
-			arena.get_node("PlayerPanel").get_rect().end.y,
-			arena.get_node("EnemyPanel").get_rect().end.y
+			252.0,
+			maxf(
+				arena.get_node("PlayerPanel").get_rect().end.y,
+				arena.get_node("EnemyPanel").get_rect().end.y
+			)
 		)
 		+ 16
 	)
@@ -96,7 +104,7 @@ func _layout_stage() -> void:
 	)
 	var result: Control = _screen.result_panel
 	var result_width := minf(1180, bounds.x - 40)
-	var result_height := maxf(82, result.get_combined_minimum_size().y)
+	var result_height := maxf(238, result.get_combined_minimum_size().y)
 	_rect(
 		result,
 		Rect2(
@@ -106,9 +114,7 @@ func _layout_stage() -> void:
 			result_height
 		)
 	)
-	result.add_theme_stylebox_override("panel", Style.panel(0.88, Color(0.38, 0.64, 0.51, 0.65)))
-	Style.quiet_button(_screen.log_toggle_button)
-	Style.quiet_button(_screen.motion_toggle_button)
+	result.add_theme_stylebox_override("panel", VisualStyle.surface())
 
 
 func _layout_turn_queue(arena: Control, available_width: float) -> void:
@@ -193,7 +199,7 @@ static func class_resource_summary(player, engine, last_combo: String) -> String
 			)
 		"pierrot":
 			return (
-				"LOS %d  •  ŻETONY %d/%d"
+				"SZCZĘŚCIE %d  •  ŻETONY %d/%d"
 				% [player.attributes.luck, engine.fate_tokens, engine.fate_token_cap()]
 			)
 	return "DROGA JESZCZE NIEWYBRANA"

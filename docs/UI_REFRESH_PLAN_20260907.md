@@ -1,5 +1,40 @@
 # Spójny, lekki interfejs — plan i dziennik realizacji
 
+## Kontynuacja zatwierdzona 2026-09-19 — spójność rozgrywki
+
+To kolejne etapy istniejącego planu, nie nowy system UI. Zachowujemy zaakceptowane
+wyposażenie, kuźnię, rynek i księgę Mireli oraz mechaniki, katalogi i zapisy.
+
+1. [ ] **Walka i nagrody.** 1A: kompozycja, czytelność HUD, spójne kontrolki,
+   podsumowanie walki i łup. 1B: dopracowanie istniejących reakcji/animacji oraz
+   osobny przegląd dźwięków. Akceptacja 1A nie oznacza ukończenia audio i animacji.
+2. [ ] **Gildia i zadania.** Czytelne zlecenia, cel/postęp/nagroda, obecne treści.
+3. [ ] **Mapa i przygotowanie wyprawy.** Cel, zagrożenie i przygotowanie bez
+   odbierania istniejącej głębi systemu.
+4. [ ] **Drużyna i rozwój.** Role kompanów i konsekwencje wyborów rozwoju.
+5. [ ] **Przegląd pełnej pętli.** Zadanie → wyprawa → walka → łup → wykorzystanie
+   nagrody; sprawdzenie przejść, nawigacji, dźwięku i czytelności na rzeczywistym runie.
+
+Wspólny kontrakt to `AI_CONTEXT/UI_RULES.md` i `AI_CONTEXT/ART_DIRECTION.md`.
+Motywy miejsc pozostają różne, lecz focus, przyciski, podpowiedzi i hierarchia
+informacji mają być konsekwentne. Bez nowych mechanik, płatnych narzędzi,
+hurtowego generowania grafik lub przechodzenia na 3D w ramach tych zmian.
+Każda część dostaje testy, uruchomienie Godota, zrzuty przed/po w ignorowanym
+`build/` i osobną ocenę właściciela przed kontynuacją dużej przebudowy.
+
+### Bieżąca część 1A
+
+- Baza: `d53ca6838651396928a12b59ebbf76ab594bad8a`.
+- Gałąź: `codex/combat-presentation-stage-one`; bez merge/push.
+- Zakres: wyłącznie prezentacja walki, wyników i narzędzia ich weryfikacji.
+- Status: część 1A wdrożona i przetestowana, oczekuje oceny wizualnej właściciela.
+  Część 1B jeszcze nierozpoczęta. Wynik: 753/753 GUT, 660 testów Python i 8 podtestów.
+- Zachowane akcje/zasoby/nagrody, HUD poza talią, wynik i Kontynuuj dostępne także
+  z długim raportem, brak powielania nagród przy odświeżaniu, reset kolejnej walki.
+- Szczegóły i lista plików: `docs/reviews/combat-presentation-stage-one/README.md`.
+
+## Archiwalny plan z 2026-09-07
+
 Zakres zatwierdzony przez użytkownika 2026-09-07. Kolejne etapy realizowane
 w projekcie, z zachowaniem istniejących grafik anime fantasy i zapisów gry.
 Nie generujemy jeszcze klatek animacji umiejętności.

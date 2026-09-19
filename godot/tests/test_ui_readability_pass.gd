@@ -136,7 +136,7 @@ func test_equipment_and_backpack_use_separate_layers_and_spaced_inventory_cells(
 	assert_gte(screen.inventory_grid.gap, 7.0)
 
 
-func test_compact_loot_cells_do_not_force_their_standalone_68_pixel_minimum() -> void:
+func test_result_loot_cells_use_the_readable_result_grid_size() -> void:
 	var host := Control.new()
 	host.size = Vector2(1920, 1080)
 	add_child_autofree(host)
@@ -149,7 +149,8 @@ func test_compact_loot_cells_do_not_force_their_standalone_68_pixel_minimum() ->
 	var loot_grid: InventoryGridView = combat.loot_presentation.loot_grid
 	var loot_slot := loot_grid.get_child(0) as InventoryItemSlot
 	assert_eq(loot_slot.custom_minimum_size, Vector2.ZERO)
-	assert_eq(loot_slot.size, Vector2(44, 44))
+	# Stage 1A intentionally promotes the former 44 px thumbnail row to readable loot.
+	assert_eq(loot_slot.size, Vector2(72, 72))
 	assert_lte(loot_slot.get_rect().end.x, loot_grid.size.x)
 	assert_lte(loot_slot.get_rect().end.y, loot_grid.size.y)
 

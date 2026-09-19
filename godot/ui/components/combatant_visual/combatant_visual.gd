@@ -9,6 +9,7 @@ enum Mode {
 
 static var _opaque_bounds: Dictionary = {}
 
+var ground_shadow_enabled := false
 var _mode := Mode.PLACEHOLDER
 var _animated_instance: Node
 var _source_texture: Texture2D
@@ -59,6 +60,7 @@ func show_static(
 
 func show_animated(scene: PackedScene, role: String, display_name: String) -> void:
 	_clear_animated_instance()
+	queue_redraw()
 	_source_texture = null
 	static_texture.texture = null
 	static_texture.flip_h = false
@@ -127,6 +129,7 @@ func _apply_static_frame(frame: Rect2) -> void:
 
 
 func _layout_grounded_texture() -> void:
+	queue_redraw()
 	if _mode != Mode.STATIC_TEXTURE or static_texture.texture == null or not size.x > 0:
 		return
 	# Fit the painted silhouette, not its transparent canvas, to a shared ground line.
@@ -136,10 +139,24 @@ func _layout_grounded_texture() -> void:
 	var scale_factor := minf(frame.size.x / dimensions.x, fit_height / dimensions.y)
 	var fitted := dimensions * scale_factor
 	static_texture.set_anchors_preset(Control.PRESET_TOP_LEFT)
+	# Vector2 rounds to floats; do not let fitting place art just above its frame.
 	static_texture.position = Vector2(
-		frame.get_center().x - fitted.x * 0.5, size.y * 0.965 - fitted.y
+		maxf(frame.position.x, frame.get_center().x - fitted.x * 0.5),
+		maxf(frame.position.y, size.y * 0.965 - fitted.y)
 	)
 	static_texture.size = fitted
+
+
+func _draw() -> void:
+	if not ground_shadow_enabled or _mode != Mode.STATIC_TEXTURE:
+		return
+	var rect := static_texture.get_rect()
+	var width := clampf(rect.size.x * 0.38, 45.0, 220.0)
+	var depth := clampf(rect.size.y * 0.035, 8.0, 22.0)
+	draw_set_transform(Vector2(rect.get_center().x, rect.end.y - 2), 0, Vector2(width, depth))
+	for layer in range(12, 0, -1):
+		draw_circle(Vector2.ZERO, float(layer) / 12.0, Color(0.015, 0.012, 0.01, 0.035))
+	draw_set_transform(Vector2.ZERO)
 
 
 func _clear_animated_instance() -> void:
