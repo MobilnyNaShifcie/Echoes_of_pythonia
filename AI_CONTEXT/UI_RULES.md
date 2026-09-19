@@ -1475,6 +1475,22 @@ Do not flip assets inconsistently between encounters.
 
 Combat text should be concise and readable.
 
+Impact feedback (stage 1B, 2026-09-19):
+
+- The recorded hit owns the timing of damage text and visible HP loss, including
+  damage remaining after a shield block. Never recalculate damage or roll RNG in VFX.
+- Distinguish a normal hit, critical hit, dodge and block with restrained local
+  reactions. No whole-screen flashes or camera shake; retain class-specific effects.
+- Passive damage (bleeding, aura, reflection) must not animate a new direct attack.
+- Anchor feedback to the painted combatant, keep it below the resource HUD and
+  inside the viewport. Limit simultaneous feedback to three non-overlapping messages
+  per combatant; the complete ordered messages remain in the combat log.
+- Reduced motion still shows static readable hit/block/dodge text, without moving
+  combatants, floating text or flashes. Clear old feedback on the next turn/result.
+- Visual feedback must not change domain results, RNG, saves, rewards or action locks.
+
+Reproduction and review: `docs/reviews/combat-impact-feedback/README.md`.
+
 Preferred critical phrasing:
 
 ```text

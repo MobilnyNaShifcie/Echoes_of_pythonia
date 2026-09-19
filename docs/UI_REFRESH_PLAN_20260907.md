@@ -22,13 +22,13 @@ hurtowego generowania grafik lub przechodzenia na 3D w ramach tych zmian.
 Każda część dostaje testy, uruchomienie Godota, zrzuty przed/po w ignorowanym
 `build/` i osobną ocenę właściciela przed kontynuacją dużej przebudowy.
 
-### Bieżąca część 1A
+### Pierwsze wdrożenie części 1A — historia
 
 - Baza: `d53ca6838651396928a12b59ebbf76ab594bad8a`.
 - Gałąź: `codex/combat-presentation-stage-one`; bez merge/push.
 - Zakres: wyłącznie prezentacja walki, wyników i narzędzia ich weryfikacji.
-- Status: część 1A wdrożona i przetestowana, oczekuje oceny wizualnej właściciela.
-  Część 1B jeszcze nierozpoczęta. Wynik: 753/753 GUT, 660 testów Python i 8 podtestów.
+- Pierwsze wdrożenie 1A przetestowano przed oceną wizualną właściciela;
+  późniejsza korekta znajduje się poniżej. Wynik: 753/753 GUT, 660 testów Python i 8 podtestów.
 - Zachowane akcje/zasoby/nagrody, HUD poza talią, wynik i Kontynuuj dostępne także
   z długim raportem, brak powielania nagród przy odświeżaniu, reset kolejnej walki.
 - Szczegóły i lista plików: `docs/reviews/combat-presentation-stage-one/README.md`.
@@ -41,8 +41,25 @@ Każda część dostaje testy, uruchomienie Godota, zrzuty przed/po w ignorowany
 - Zakres: ekran zwycięstwa, bez zmian zasad walki, katalogów, zapisów i nagród.
 - Kontynuacja etapu 1A, nie start animacji/efektów/audio części 1B.
 - Wdrożono i zweryfikowano: 762/762 GUT, 660 testów Python + 8 podtestów,
-  80 renderów rzeczywistej gry. Bez merge/push; gotowe do oceny wdrożenia przez właściciela.
+  80 renderów rzeczywistej gry. Kierunek zaakceptowany; właściciel zlecił następny
+  krok (1B poniżej). Bez merge/push.
 - Raport wdrożenia: `docs/reviews/combat-victory-banner/README.md`.
+
+### Część 1B — czytelny moment trafienia
+
+- Użytkownik zaakceptował kierunek 1A i poprosił o następny krok.
+- Gałąź `codex/combat-impact-feedback`, baza `1ae376b7abf62cfa4284e45c4d3e0cb5479f0ca5`.
+- Zakres: lokalne reakcje na trafienie, krytyk, unik i blok; synchronizacja PŻ;
+  czytelne komunikaty w ograniczonych animacjach. Bez przebudowy zwycięstwa,
+  zmiany grafik postaci, zasad walki, RNG, nagród i zapisów.
+- Przegląd audio: w repo znaleziono wyłącznie pięć przykładowych `typing*.wav`
+  dodatku Dialogic; brak własnych dźwięków walki i odtwarzaczy w UI/scenach.
+  Nie użyto próbek pisania jako odgłosów walki. Nie kupowano/generowano audio.
+- Pozostaje osobna decyzja o spójnym, licencjonowanym zestawie dźwięków oraz
+  późniejsze animacje właściwych sylwetek/skilli; ten krok ich nie zastępuje.
+- Weryfikacja: 771/771 GUT, 660 testów Python + 8 podtestów, 100 klatek przed/po.
+  Gotowe do oceny reakcji na żywo przez właściciela; część audio nadal otwarta.
+- Szczegóły: `docs/reviews/combat-impact-feedback/README.md`.
 
 ## Archiwalny plan z 2026-09-07
 

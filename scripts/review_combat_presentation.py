@@ -15,8 +15,12 @@ def main():
     parser.add_argument('--only-capture', action='store_true')
     parser.add_argument('--tests', action='store_true')
     parser.add_argument('--test-script')
-    parser.add_argument('--review-name', choices=['combat-presentation-review', 'combat-victory-review'],
+    parser.add_argument('--review-name', choices=['combat-presentation-review', 'combat-victory-review',
+                                                'combat-impact-review'],
                         default='combat-presentation-review')
+    parser.add_argument('--capture-script', choices=['render_combat_hud_preview.gd',
+                                                    'render_combat_feedback_preview.gd'],
+                        default='render_combat_hud_preview.gd')
     args = parser.parse_args()
     work = ROOT / 'build' / args.review_name / args.stage
     output = work / 'evidence'
@@ -41,7 +45,7 @@ def main():
         ('boot', ['--headless', '--quit-after', '4']),
         ('capture', ['--rendering-method', 'gl_compatibility', '--rendering-driver', 'opengl3',
                      '--position', '-20000,-20000', '--resolution', '640x360',
-                     '--script', 'res://tools/render_combat_hud_preview.gd', '--', str(output)])]
+                     '--script', 'res://tools/' + args.capture_script, '--', str(output)])]
     if args.only_capture:
         commands = [(label, flags) for label, flags in commands if label == 'capture']
     if args.tests or args.only_tests:
