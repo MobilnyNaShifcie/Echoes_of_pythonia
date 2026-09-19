@@ -229,6 +229,8 @@ func test_black_market_tabs_and_back_receive_pointer() -> void:
 	for viewport_size: Vector2i in [Vector2i(1920, 1080), Vector2i(2560, 1080)]:
 		var market = await _mount(MARKET_SCENE, viewport_size)
 		watch_signals(market)
+		await _click(market.get_viewport(), market.merchant_button.get_global_rect().get_center())
+		assert_true(market.offer_window.visible)
 		await _click(market.get_viewport(), market.sell_tab.get_global_rect().get_center())
 		assert_true(market.sell_panel.visible)
 		await _click(

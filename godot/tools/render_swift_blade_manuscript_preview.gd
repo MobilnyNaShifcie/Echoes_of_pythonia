@@ -12,40 +12,7 @@ func _init() -> void:
 
 
 func render_preview() -> void:
-	var session = load("res://core/game/new_game_service.gd").new().create_session("Aria",1)
-	session.black_market.unlocked = true
-	session.player.gold = 200000
-	var market = load("res://ui/screens/black_market/black_market.tscn").instantiate()
-	root.add_child(market)
-	market.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	market.configure(session,"2026-09-05")
-	var slot = market.offer_slots[0]
-	if slot.item_id != ITEM or not slot.model_view.model.has_node("EmbossedLeatherCover"):
-		push_error("Manuscript fixture/model unavailable")
-		quit(1)
-		return
-	market._select_offer(slot.offer_id)
-	await create_timer(0.7).timeout
-	await RenderingServer.frame_post_draw
-	root.get_texture().get_image().save_png(PREFIX+"_counter.png")
-	root.get_texture().get_image().get_region(Rect2i(105,490,1230,320)).save_png("res://../output/black_market_hanging_prices_detail.png")
-	var view = slot.model_view
-	slot.force_drag(slot._get_drag_data(Vector2(100,40)),null)
-	var motion := InputEventMouseMotion.new()
-	motion.position = Vector2(1150,400)
-	root.push_input(motion)
-	await create_timer(0.3).timeout
-	await RenderingServer.frame_post_draw
-	root.get_texture().get_image().save_png(PREFIX+"_held.png")
-	var release := InputEventMouseButton.new()
-	release.button_index = MOUSE_BUTTON_LEFT
-	release.pressed = false
-	release.position = motion.position
-	root.push_input(release)
-	await process_frame
-	print("Same live manuscript returned: ",view==slot.model_view and view.get_parent()==slot)
-	market.queue_free()
-	await process_frame
+	# Legacy 3D asset inspection only. Live market review: scripts/review_black_market.py.
 	var canvas := Control.new()
 	root.add_child(canvas)
 	canvas.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)

@@ -95,59 +95,34 @@ func test_artifacts_lie_on_counter_and_remain_in_frame() -> void:
 		)
 
 
-func test_both_new_artifacts_drag_live_return_and_buy_without_duplicate_or_changed_price() -> void:
+func test_both_artifact_cards_buy_without_duplicate_or_changed_price() -> void:
 	var session = NewGame.new().create_session("Aria", 1)
 	session.black_market.unlocked = true
 	session.player.gold = 200000
 	var market = Market.instantiate()
 	add_child_autofree(market)
-	market.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
-	market.size = Vector2(1920, 1080)
 	market.configure(session, "2026-09-06")
-	await get_tree().process_frame
+	market.show_buy_offers()
 	for item_id in PARTS:
 		var slot = null
 		for candidate in market.offer_slots:
 			if candidate.item_id == item_id:
 				slot = candidate
-		assert_not_null(slot, item_id + " is present in the isolated 6 September delivery")
+		assert_not_null(slot)
 		if slot == null:
 			continue
-		var view = slot.model_view
-		var world = view.model
-		var dimensions: Vector2 = view.size
 		var gold_before: int = session.player.gold
 		var price := 9500 if item_id == "hearth_core" else 12000
-		assert_almost_eq(dimensions.x / slot.size.x, 1.5, 0.01)
-		assert_string_contains(slot._item_texture.resource_path, item_id + ".png")
-		var data = slot._get_drag_data(Vector2(90, 45))
-		assert_eq(data.item_id, item_id)
-		assert_same(view.model, world)
-		assert_false(view.get_parent() == slot, "No duplicate left on the leather mat")
-		assert_same(
-			slot.price_sign.get_parent(), slot, "The hanging sign stays attached to the counter"
-		)
-		assert_lt(view.size.distance_to(dimensions), 0.001)
-		assert_false(world.get_node("ContactShadow").visible)
-		slot.notification(Control.NOTIFICATION_DRAG_END)
-		await get_tree().process_frame
-		assert_same(view.get_parent(), slot)
-		assert_true(world.get_node("ContactShadow").visible)
-		var camera: Camera3D = view.viewport_3d.get_camera_3d()
-		assert_lt(
-			(view.position + camera.unproject_position(Vector3(0, 0.035, 0))).distance_to(
-				slot._counter_anchor
-			),
-			0.1
-		)
+		assert_string_contains(slot.icon_rect.texture.resource_path, item_id + ".png")
+		slot.pressed.emit()
 		assert_eq(session.player.gold, gold_before)
-		slot._get_drag_data(Vector2(90, 45))
-		market.inventory_drop_target._drop_data(Vector2.ZERO, data)
-		slot.notification(Control.NOTIFICATION_DRAG_END)
-		assert_false(view.visible)
-		assert_eq(world.get_child_count(), 0)
+		market.action_button.pressed.emit()
+		assert_true(slot.sold_label.visible)
+		assert_true(slot.disabled)
 		assert_eq(session.player.inventory.count(item_id), 1)
-		assert_eq(session.player.gold, gold_before - price, "Original economy is unchanged")
+		assert_eq(session.player.gold, gold_before - price)
+		market._perform_action()
+		assert_eq(session.player.inventory.count(item_id), 1)
 
 
 func test_core_volume_tapers_at_silhouette_instead_of_extruding_texture_stripes() -> void:

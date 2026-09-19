@@ -12,43 +12,7 @@ func _init() -> void:
 
 
 func render_preview() -> void:
-	var session = load("res://core/game/new_game_service.gd").new().create_session("Aria",1)
-	session.black_market.unlocked = true
-	session.player.gold = 200000
-	var market = load("res://ui/screens/black_market/black_market.tscn").instantiate()
-	root.add_child(market)
-	market.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	market.configure(session,"2026-09-06")
-	await create_timer(0.7).timeout
-	await RenderingServer.frame_post_draw
-	root.get_texture().get_image().save_png(OUTPUT+"core_and_sigil_counter.png")
-	root.get_texture().get_image().get_region(Rect2i(100,400,1230,415)).save_png(OUTPUT+"core_and_sigil_counter_detail.png")
-	for item_id in ITEMS:
-		var slot = null
-		for candidate in market.offer_slots:
-			if candidate.item_id == item_id:
-				slot = candidate
-		if slot == null or slot.model_view.model.get_child_count()<20:
-			push_error("Missing artifact fixture/model: "+item_id)
-			quit(1)
-			return
-		var view = slot.model_view
-		slot.force_drag(slot._get_drag_data(Vector2(100,40)),null)
-		var motion := InputEventMouseMotion.new()
-		motion.position = Vector2(1150,400)
-		root.push_input(motion)
-		await create_timer(0.3).timeout
-		await RenderingServer.frame_post_draw
-		root.get_texture().get_image().save_png(OUTPUT+item_id+"_reference_held.png")
-		var release := InputEventMouseButton.new()
-		release.button_index = MOUSE_BUTTON_LEFT
-		release.pressed = false
-		release.position = motion.position
-		root.push_input(release)
-		await process_frame
-		print(item_id," same live world returned: ",view==slot.model_view and view.get_parent()==slot)
-	market.queue_free()
-	await process_frame
+	# Legacy 3D asset inspection only. Live market review: scripts/review_black_market.py.
 	var result := OK
 	for item_id in ITEMS:
 		var prefix: String = OUTPUT+item_id+"_reference"

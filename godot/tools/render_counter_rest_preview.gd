@@ -28,6 +28,7 @@ func render_preview() -> void:
 		root.add_child(market)
 		market.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		market.configure(session, "2026-09-06")
+		market.show_buy_offers()
 		await create_timer(0.5).timeout
 		await RenderingServer.frame_post_draw
 		root.get_texture().get_image().save_png(OUTPUT + group[0] + ".png")

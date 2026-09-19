@@ -63,6 +63,7 @@ func _run() -> void:
 	app._show_black_market()
 	await _settle()
 	var market = app.screen_host.get_child(0)
+	await _click(market.merchant_button)
 	await _click(market.sell_tab)
 	_check(market.sell_panel.visible, "black market book sales")
 	await _click(market.buy_tab)
