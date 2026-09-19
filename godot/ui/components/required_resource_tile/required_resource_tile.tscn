@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://ui/components/required_resource_tile/required_resource_tile.gd" id="1"]
 
 [node name="RequiredResourceTile" type="PanelContainer"]
-custom_minimum_size = Vector2(0, 120)
+custom_minimum_size = Vector2(0, 92)
 size_flags_horizontal = 3
 script = ExtResource("1")
 
@@ -26,18 +26,6 @@ expand_mode = 1
 stretch_mode = 5
 mouse_filter = 2
 
-[node name="GoldSymbol" type="Label" parent="Content/Icon"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-text = "◉"
-theme_override_font_sizes/font_size = 52
-theme_override_colors/font_color = Color(0.96, 0.73, 0.27, 1)
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="Labels" type="VBoxContainer" parent="Content"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -55,9 +43,10 @@ theme_override_font_sizes/font_size = 18
 [node name="Owned" type="Label" parent="Content/Labels"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 20
 
 [node name="Required" type="Label" parent="Content/Labels"]
+visible = false
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 16

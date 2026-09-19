@@ -10,7 +10,8 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('stage', choices=['before', 'after', 'tabs-before', 'tabs-after'])
+    parser.add_argument('stage', choices=['before', 'after', 'tabs-before', 'tabs-after',
+                                         'visual-before', 'visual-after'])
     parser.add_argument('--tests', action='store_true')
     parser.add_argument('--only-tests', action='store_true')
     parser.add_argument('--test-script')

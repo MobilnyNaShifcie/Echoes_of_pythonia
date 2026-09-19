@@ -415,3 +415,29 @@ Unknown dungeons and surface encounters do not inherit crypt room backgrounds.
 and loot/return handling with a memory-only save substitute. Actual renders at
 720p, Full HD and ultrawide: `output/dungeon_crypt/in_game_complete/`.
 Report and remaining out-of-scope warnings: `docs/CRYPT_COMPLETION_REPORT.md`.
+
+### Garran forge presentation — owner-supplied art, 2026-09-19
+
+Scope: `assets/ui/blacksmith/` only. The owner supplied/started integrating the
+anvil and backdrop on `manual/blacksmith-visual-polish`, then explicitly requested
+their composition be finished using the new forge-only Caprice Lance illustration.
+No AI generation, repainting, inventory-icon replacement or gameplay changes.
+All three PNGs are preserved byte-for-byte; atlas cropping/rotation happen at runtime.
+
+| File | Source / presentation role | Dimensions | SHA-256 |
+| --- | --- | --- | --- |
+| `forge_panel_backdrop_v1.png` | Owner's existing working-tree asset; opaque forge background | 1536×1024 RGB | `3f16d88fd2507824db6e1e54abe5094c4d04353f439c864d827fe110e7374749` |
+| `forge_anvil_work_v2.png` | Owner's existing working-tree asset; real-alpha foreground anvil | 1536×1024 RGBA | `4841960976ef6c4fc58cb5f975f661683e50ed40426c9ae6913f39e71270c2de` |
+| `caprice_lance_forge_v1.png` | Exact copy of owner's `ChatGPT Image 17 wrz 2026, 11_02_52.png`; forge preview only | 2172×724 RGBA | `e4b7f17fdb40e994448674c5d81a878273f0dc4262a37f2e98e297c9aa6fd985` |
+| `gold_stack.svg` | Original code-native UI cost symbol; not an item asset | 96×80 SVG | Versioned source |
+
+PNG sizes: 1,876,702 / 2,460,156 / 554,606 bytes respectively. Anvil/lance
+alpha ranges are 0–255. No opaque checkerboard appears in the in-game renders.
+The lance is selected through `forge_item_presentation.gd`; its catalog icon
+`items/equipment/caprice_lance.png` remains unchanged. Other equipment uses its
+existing icon as the fallback.
+
+Actual app captures and logs are reproducible through
+`scripts/review_blacksmith_workbench.py visual-after` and stay in ignored
+`build/blacksmith-workbench-review/visual-after/evidence/`, not in Git/docs.
+Review history and visual caveats: `docs/reviews/blacksmith-workbench/README.md`.

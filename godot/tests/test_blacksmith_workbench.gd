@@ -523,6 +523,138 @@ func test_real_app_autosave_and_reload_keep_the_upgraded_instances() -> void:
 		)
 
 
+func test_visual_level_rail_selects_targets_without_an_upgrade_or_player_mutation() -> void:
+	var session = _session()
+	var screen = await _mount(session)
+	var view = screen.blacksmith_workbench.upgrade_view
+	var rail = view.get_node("%LevelRail")
+	assert_eq(rail.buttons.size(), 11)
+	for button in rail.buttons:
+		assert_true(button.disabled)
+	var item = session.player.equipment.get_item("weapon")
+	view.select_item(Model.payload(item))
+	var before := _snapshot(session)
+	assert_eq(rail.current_level, 0)
+	assert_eq(rail.target_level, 1)
+	assert_true(rail.buttons[0].disabled)
+	await _click(screen.get_viewport(), rail.buttons[5].get_global_rect().get_center())
+	assert_eq(view.model.target_level, 5)
+	assert_eq(rail.target_level, 5)
+	assert_eq(view.model.plan(), Upgrades.get_upgrade_plan(item, 5))
+	assert_eq(_snapshot(session), before)
+	rail.buttons[10].grab_focus()
+	var accept := InputEventAction.new()
+	accept.action = "ui_accept"
+	accept.pressed = true
+	screen.get_viewport().push_input(accept, true)
+	accept = accept.duplicate()
+	accept.pressed = false
+	screen.get_viewport().push_input(accept, true)
+	await wait_process_frames(3)
+	assert_eq(view.model.target_level, 10)
+	assert_eq(_snapshot(session), before)
+	view.set_target_level(1)
+	view.perform_upgrade()
+	assert_eq(rail.current_level, 1)
+	assert_eq(rail.target_level, 2)
+	assert_true(rail.buttons[1].disabled)
+	item.upgrade_level = 10
+	view.refresh()
+	for button in rail.buttons:
+		assert_true(button.disabled)
+
+
+func test_forge_lance_is_presentation_only_with_unchanged_inventory_icon_and_instances() -> void:
+	var session = _session()
+	var item = session.player.equipment.get_item("weapon")
+	var original_icon: Texture2D = item.definition.icon
+	var before := _snapshot(session)
+	var screen = await _mount(session)
+	var bench = screen.blacksmith_workbench
+	bench.picker.select_equipped("weapon")
+	var icon: TextureRect = bench.upgrade_view.get_node("%PreviewIcon")
+	assert_true(icon.texture is AtlasTexture)
+	assert_string_contains(icon.texture.atlas.resource_path, "caprice_lance_forge_v1.png")
+	assert_same(item.definition.icon, original_icon)
+	assert_same(bench.upgrade_view.model.selection().item, item)
+	assert_eq(_snapshot(session), before)
+	bench.picker.get_node("%BackpackButton").pressed.emit()
+	assert_same(item.definition.icon, original_icon)
+	var bag_item = session.player.inventory.equipment_items[0]
+	bench.upgrade_view.select_item(Model.payload(bag_item))
+	assert_same(icon.texture, bag_item.definition.icon, "Other items retain their own artwork.")
+	assert_eq(icon.rotation, 0.0, "The lance transform must not leak to another item.")
+	bench.upgrade_view.get_node("%ClearButton").pressed.emit()
+	assert_null(icon.texture)
+	assert_false(bench.upgrade_view.anvil.occupied)
+	assert_eq(_snapshot(session), before)
+
+
+func test_forge_composition_contains_art_and_controls_at_supported_resolutions() -> void:
+	for dimensions in [Vector2i(1920, 1080), Vector2i(1366, 768), Vector2i(1280, 720)]:
+		var screen = await _mount(_session(), dimensions)
+		var view = screen.blacksmith_workbench.upgrade_view
+		view.select_item(Model.payload(view.model.session.player.equipment.get_item("weapon")))
+		for target in [1, 10]:
+			view.set_target_level(target)
+			await wait_process_frames(8)
+			var bounds: Rect2 = view.get_global_rect()
+			var stage: Control = view.anvil
+			assert_true(stage.clip_contents)
+			assert_true(
+				stage.get_global_rect().encloses(stage.get_node("ForgeBackdrop").get_global_rect())
+			)
+			var previous_bottom := bounds.position.y
+			for control in [
+				view.get_node("Content/Heading"),
+				view.get_node("%LevelRail"),
+				stage,
+				view.get_node("%ItemName"),
+				view.get_node("%Transition"),
+				view.get_node("Content/ResourceScroll"),
+				view.action_button
+			]:
+				assert_true(
+					bounds.encloses(control.get_global_rect()),
+					"%s at %s" % [control.name, dimensions]
+				)
+				assert_gte(control.global_position.y, previous_bottom)
+				previous_bottom = control.get_global_rect().end.y
+			var icon: TextureRect = view.get_node("%PreviewIcon")
+			var contact: Vector2 = icon.position + icon.pivot_offset
+			assert_almost_eq(contact, stage.contact_point, Vector2(0.01, 0.01))
+			assert_gt(
+				icon.size.x, stage.size.x * 0.9, "Lance must not revert to a tiny inventory icon."
+			)
+			assert_lt(absf(icon.rotation), 0.15, "The shaft stays nearly horizontal.")
+			assert_true(Rect2(Vector2.ZERO, stage.size).has_point(contact))
+			var tiles: Array[Node] = view.get_node("%Materials").get_children()
+			assert_string_contains(
+				tiles[1].get_node("%ResourceIcon").texture.resource_path, "gold_stack.svg"
+			)
+
+
+func test_multi_stat_preview_keeps_readable_rows_and_confirmation_inside_panel() -> void:
+	var session = _session()
+	var item = session.player.equipment.get_item("weapon")
+	# Private fixture resource, never the shared production definition.
+	item.definition = item.definition.duplicate()
+	item.definition.attack = 20
+	item.definition.defense = 20
+	item.definition.max_hp = 100
+	var screen = await _mount(session, Vector2i(1366, 768))
+	var view = screen.blacksmith_workbench.upgrade_view
+	view.select_item(Model.payload(item))
+	var before := _snapshot(session)
+	view.set_target_level(10)
+	await wait_process_frames(8)
+	assert_eq(view.model.comparison().size(), 3)
+	assert_gte(view.comparison_label.size.y, 78.0)
+	assert_true(view.get_global_rect().encloses(view.action_button.get_global_rect()))
+	assert_lte(view.anvil.get_global_rect().end.y, view.get_node("%ItemName").global_position.y)
+	assert_eq(_snapshot(session), before)
+
+
 func _move(viewport: Viewport, point: Vector2, previous := Vector2.ZERO, held := false) -> void:
 	var motion := InputEventMouseMotion.new()
 	motion.position = point

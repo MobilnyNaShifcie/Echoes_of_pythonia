@@ -18,7 +18,7 @@ func _run() -> void:
 		quit(1)
 		return
 	DirAccess.make_dir_recursive_absolute(args[0])
-	for dimensions: Vector2i in [Vector2i(1920, 1080), Vector2i(1366, 768)]:
+	for dimensions: Vector2i in [Vector2i(1920, 1080), Vector2i(1366, 768), Vector2i(1280, 720)]:
 		var viewport := SubViewport.new()
 		viewport.size = dimensions
 		var factor := minf(float(dimensions.x) / 1920.0, float(dimensions.y) / 1080.0)

@@ -5,6 +5,34 @@ const TEXT := Color(0.94, 0.92, 0.85)
 const MUTED := Color(0.63, 0.62, 0.59)
 
 
+static func heading_font() -> SystemFont:
+	var font := SystemFont.new()
+	font.font_names = PackedStringArray(["Georgia", "Noto Serif", "DejaVu Serif"])
+	font.font_weight = 700
+	return font
+
+
+static func style_primary(button: Button) -> void:
+	button.add_theme_font_override("font", heading_font())
+	for state in ["normal", "hover", "pressed", "disabled"]:
+		var style := panel(1.0, 10)
+		style.bg_color = Color("#dcac49")
+		style.border_color = Color("#f5d986")
+		style.set_border_width_all(2)
+		if state == "hover":
+			style.bg_color = Color("#f2c767")
+		elif state == "pressed":
+			style.bg_color = Color("#bb8830")
+		elif state == "disabled":
+			style.bg_color = Color("#393026")
+			style.border_color = Color("#72603e")
+		button.add_theme_stylebox_override(state, style)
+		var color := Color("#18110a") if state != "disabled" else Color("#b5a384")
+		var key: String = "font_color" if state == "normal" else "font_" + state + "_color"
+		button.add_theme_color_override(key, color)
+	button.add_theme_color_override("font_focus_color", Color("#18110a"))
+
+
 static func panel(alpha := 0.94, margin := 18.0) -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
 	style.bg_color = Color(0.038, 0.037, 0.035, alpha)

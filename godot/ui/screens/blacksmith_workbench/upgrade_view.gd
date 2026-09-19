@@ -5,7 +5,7 @@ const Model := preload("res://ui/screens/blacksmith_workbench/upgrade_view_model
 const ResourceTile := preload(
 	"res://ui/components/required_resource_tile/required_resource_tile.tscn"
 )
-const Palette := preload("res://ui/presentation/item_rarity_palette.gd")
+const Style := preload("res://ui/screens/blacksmith_workbench/workbench_style.gd")
 var model := Model.new()
 
 @onready var anvil: Control = %Anvil
@@ -14,6 +14,18 @@ var model := Model.new()
 
 
 func _ready() -> void:
+	$Content/Heading.add_theme_font_override("font", Style.heading_font())
+	%ItemName.add_theme_font_override("font", Style.heading_font())
+	$Content/ResourcesHeading.add_theme_font_override("font", Style.heading_font())
+	%LevelRail.target_selected.connect(set_target_level)
+	for button in [%MinusButton, %PlusButton, %ClearButton]:
+		for state in ["normal", "hover", "pressed", "disabled"]:
+			var style := Style.panel(0.55, 4)
+			if state == "hover":
+				style.border_color = Style.GOLD
+				style.bg_color = Color("#332617")
+			button.add_theme_stylebox_override(state, style)
+	resized.connect(queue_redraw)
 	anvil.accepts_item = model.accepts
 	anvil.item_dropped.connect(select_item)
 	%MinusButton.pressed.connect(_step_target.bind(-1))
@@ -56,34 +68,31 @@ func refresh() -> void:
 	var entry := model.selection()
 	var has_item := not entry.is_empty()
 	var maximum: bool = has_item and entry.item.upgrade_level == 10
-	anvil.show_item(entry.item.definition.icon if has_item else null)
+	anvil.show_item(
+		entry.item.definition.icon if has_item else null, entry.item.item_id if has_item else ""
+	)
+	%LevelRail.configure(
+		entry.item.upgrade_level if has_item else -1, model.target_level if has_item else -1
+	)
 	%Source.text = "Źródło: " + entry.source if has_item else ""
 	%ClearButton.visible = has_item
 	%ItemName.text = entry.item.formatted_name() if has_item else "Umieść przedmiot do ulepszenia"
-	%ItemName.add_theme_color_override(
-		"font_color",
-		Palette.color_for(entry.item.definition.rarity) if has_item else Color(0.92, 0.85, 0.69)
-	)
-	%TargetLabel.text = (
-		"Poziom docelowy: +%d" % model.target_level if has_item else "Poziom docelowy: —"
-	)
+	%ItemName.tooltip_text = %ItemName.text
+	%ItemName.add_theme_color_override("font_color", Color(0.95, 0.80, 0.47))
+	%TargetLabel.text = "Poziom ulepszenia"
 	%MinusButton.disabled = not has_item or model.target_level <= entry.item.upgrade_level + 1
 	%PlusButton.disabled = not has_item or model.target_level >= 10
 	%Transition.text = (
-		(
-			"%s +%d  →  %s +%d"
-			% [
-				entry.item.display_name,
-				entry.item.upgrade_level,
-				entry.item.display_name,
-				model.target_level
-			]
-		)
+		("+%d     →     +%d" % [entry.item.upgrade_level, model.target_level])
 		if has_item and not maximum
 		else "Maksymalny poziom +10" if maximum else ""
 	)
 	%Transition.tooltip_text = %Transition.text
 	comparison_label.text = _comparison_text()
+	# Keep multi-stat upgrades readable; a longer comparison retains internal scrolling.
+	comparison_label.custom_minimum_size.y = (
+		26.0 * clampi(comparison_label.text.count("\n") + 1, 1, 3)
+	)
 	for tile in %Materials.get_children():
 		%Materials.remove_child(tile)
 		tile.queue_free()
@@ -109,6 +118,23 @@ func refresh() -> void:
 	%BlockReason.tooltip_text = %BlockReason.text
 	%BlockReason.visible = not %BlockReason.text.is_empty()
 	%Result.visible = not %Result.text.is_empty()
+	%Result.tooltip_text = %Result.text
+
+
+func _draw() -> void:
+	# Small corner engravings, scoped to this panel instead of the accepted equipment panel.
+	var gold := Color(0.84, 0.65, 0.29, 0.8)
+	for corner in [
+		Vector2(6, 6), Vector2(size.x - 6, 6), Vector2(6, size.y - 6), size - Vector2(6, 6)
+	]:
+		var direction := Vector2(
+			1 if corner.x < size.x * 0.5 else -1, 1 if corner.y < size.y * 0.5 else -1
+		)
+		draw_line(corner, corner + Vector2(16 * direction.x, 0), gold, 1.5, true)
+		draw_line(corner, corner + Vector2(0, 16 * direction.y), gold, 1.5, true)
+		draw_line(
+			corner + Vector2(3, 3) * direction, corner + Vector2(9, 9) * direction, gold, 2, true
+		)
 
 
 func _comparison_text() -> String:

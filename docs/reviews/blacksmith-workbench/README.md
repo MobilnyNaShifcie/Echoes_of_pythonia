@@ -1,5 +1,114 @@
 # Kuźnia Garrana — przegląd warsztatu ulepszania
 
+## Dopracowanie wizualne — 2026-09-19
+
+Gałąź: `codex/blacksmith-visual-polish`. Baza:
+`37f211e25941da9bb627f9e73bbd4fcda1481cb9` oraz ręczne zmiany właściciela
+z gałęzi `manual/blacksmith-visual-polish`. Nie scalono do main, bez push.
+Pełny hash jednego commita tej korekty podano w końcowej odpowiedzi.
+
+### Zmiany
+
+- Zachowane i wykorzystane własne grafiki kowadła oraz tła właściciela.
+  Ich oryginały i dwa ręcznie zmienione pliki zachowano lokalnie w ignorowanym
+  `build/blacksmith-workbench-review/manual-backup-20260919/`.
+- Duże kowadło i pozioma Lanca Kaprysu w jednej przycinanej scenie.
+  Tło nie wychodzi już w obszar etykiet. Punkt oparcia broni skaluje się
+  razem z kowadłem; dolna część postumentu celowo wychodzi poza kadr.
+- Nowa lanca tylko w prezentacji kuźni: bez podmiany ikony katalogowej,
+  grafiki bohatera, definicji przedmiotu ani instancji. Pozostałe przedmioty
+  zachowują własne ikony — nie otrzymały wymyślonych nowych ilustracji.
+- Linia poziomów +0…+10 z podświetleniem obecnego/docelowego poziomu,
+  wyborem kliknięciem i klawiaturą. Zachowane pomocnicze przyciski −/+.
+  Wybór celu nadal jest wyłącznie podglądem; operację potwierdza główny przycisk.
+- Złote nagłówki szeryfowe, narożniki, kompaktowe wymagania posiadane/potrzebne,
+  wektorowa ikona złota i złoty przycisk. Źródło/Odłóż przeniesiono do górnej linii.
+  Skrócono powtórzoną nazwę w porównaniu poziomów; pełne teksty są w podpowiedziach.
+- Bez zmian CharacterEquipmentPanel, rozstawu 11 slotów, zakładek Założone/Plecak,
+  mechanik, kosztów, statystyk i schematu zapisu. Przykładowe liczby z makiety
+  nie zastępują prawdziwych danych UpgradeService.
+
+### Dowody i odtworzenie
+
+Automatyczne PNG i logi pozostają **wyłącznie lokalnie w build**, które Git ignoruje.
+Nazwy poniżej są instrukcją odtworzenia, nie linkami do plików w repozytorium:
+
+- Przed: `build/blacksmith-workbench-review/visual-before/evidence/`,
+  obrazy empty/selected/target10/equipped/backpack w 1920×1080 i 1366×768.
+  To rzeczywisty stan ręcznych zmian użytkownika przed tą korektą.
+- Po: `build/blacksmith-workbench-review/visual-after/evidence/`,
+  te same stany w 1920×1080, 1366×768 i 1280×720.
+- Import/uruchomienie/zrzuty: `.venv/Scripts/python.exe scripts/review_blacksmith_workbench.py visual-after`.
+- Testy kuźni: ten sam skrypt z `--only-tests --test-script res://tests/test_blacksmith_workbench.gd`.
+- Pełny GUT: ten sam skrypt z `--only-tests`.
+- Zrzuty uruchamiają rzeczywistą scenę App w osobnym profilu i na danych fixture,
+  bez odczytywania lub nadpisywania zapisu właściciela.
+
+### Kontrola i ograniczenia
+
+Testy kuźni: **19/19**. Obejmują także nową linię poziomów
+(mysz/klawiatura), osobną teksturę lancy, niezmienność danych i geometrię
+kompozycji w trzech rozdzielczościach i czytelność wielowierszowego porównania.
+Pełna regresja Godota: **703/703**, 94 skrypty, 23 320 asercji, 143,592 s.
+Import, boot oraz zrzuty OpenGL:
+bez błędów parsera, brakujących zasobów i odwołań.
+Godot zgłasza istniejący błąd środowiska Windows
+`Failed to read the root certificate store.` również w przebiegu „przed”;
+nie jest błędem sceny ani brakującym zasobem i nie został wyciszony w logach.
+
+Ręcznie sprawdzono wybrany przedmiot w 1080p, pusty panel w 720p i brak
+materiałów/złota przy celu +10 w 768p, a także wybrany przedmiot w 720p.
+Formatowanie i lint 10 plików/skryptów tego zakresu: bez problemów.
+`git diff --check` oraz kontrola staged: bez błędów.
+Walidator 10 bazowych ikon przedmiotów przechodzi.
+
+Drugi recenzent powinien sprawdzić zgodność skali/położenia lancy ze wzorem,
+czytelność cyfr na fizycznym ekranie 720p, przewijanie wymagań +10 oraz normalne
+ulepszenie z własnego zapisu. Pozostałe typy przedmiotów używają dawnych ikon,
+a nie nowych grafik ułożonych specjalnie na kowadle. Nagłówki używają systemowej
+Georgii z fallbackami Noto Serif/DejaVu Serif — na innym systemie krój może się różnić.
+Nie użyto odpłatnych fontów ani nowych usług generowania.
+
+Niezwiązane oznaczenia M przy plikach .import zastano przed zadaniem; nie są
+częścią commita. Nieużywana kopia właściciela
+`godot/ui/screens/blacksmith_workbench/forge_anvil_work_v2.png` i jej .import
+pozostają lokalnie nietknięte, poza commitem. Ma ten sam SHA-256 co użyta kopia
+w assets/ui/blacksmith; niczego nie usunięto.
+
+### Pliki tej korekty
+
+```text
+docs/reviews/blacksmith-workbench/README.md
+godot/assets/ASSET_MANIFEST.md
+godot/assets/ui/blacksmith/caprice_lance_forge_v1.png
+godot/assets/ui/blacksmith/caprice_lance_forge_v1.png.import
+godot/assets/ui/blacksmith/forge_anvil_work_v2.png
+godot/assets/ui/blacksmith/forge_anvil_work_v2.png.import
+godot/assets/ui/blacksmith/forge_panel_backdrop_v1.png
+godot/assets/ui/blacksmith/forge_panel_backdrop_v1.png.import
+godot/assets/ui/blacksmith/gold_stack.svg
+godot/assets/ui/blacksmith/gold_stack.svg.import
+godot/tests/test_blacksmith_workbench.gd
+godot/tools/capture_blacksmith_workbench.gd
+godot/ui/components/required_resource_tile/required_resource_tile.gd
+godot/ui/components/required_resource_tile/required_resource_tile.tscn
+godot/ui/components/upgrade_anvil/forge_edge_fade.gdshader
+godot/ui/components/upgrade_anvil/forge_edge_fade.gdshader.uid
+godot/ui/components/upgrade_anvil/forge_item_presentation.gd
+godot/ui/components/upgrade_anvil/forge_item_presentation.gd.uid
+godot/ui/components/upgrade_anvil/upgrade_anvil.gd
+godot/ui/components/upgrade_anvil/upgrade_level_rail.gd
+godot/ui/components/upgrade_anvil/upgrade_level_rail.gd.uid
+godot/ui/screens/blacksmith_workbench/blacksmith_workbench.gd
+godot/ui/screens/blacksmith_workbench/blacksmith_workbench.tscn
+godot/ui/screens/blacksmith_workbench/upgrade_view.gd
+godot/ui/screens/blacksmith_workbench/upgrade_view.tscn
+godot/ui/screens/blacksmith_workbench/workbench_style.gd
+scripts/review_blacksmith_workbench.py
+```
+
+## Historia — wcześniejsza przebudowa warsztatu
+
 Gałąź: `codex/blacksmith-workbench-redesign`.
 Baza: `dc73f3d928934999fd7054a458d29b4568664099`.
 Raport dotyczy commita, w którym znajduje się ten plik; pełny hash jest podany

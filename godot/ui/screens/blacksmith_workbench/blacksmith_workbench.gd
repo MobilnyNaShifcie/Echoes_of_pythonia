@@ -21,11 +21,8 @@ func _ready() -> void:
 	picker.item_selected.connect(upgrade_view.select_item)
 	upgrade_view.selection_changed.connect(picker.refresh)
 	upgrade_view.operation_completed.connect(_on_operation_completed)
-	var action := Style.panel(0.97, 16)
-	action.bg_color = Color(0.26, 0.15, 0.045, 0.96)
-	action.border_color = Style.GOLD
-	action.set_border_width_all(2)
-	upgrade_view.action_button.add_theme_stylebox_override("normal", action)
+	Style.style_primary(upgrade_view.action_button)
+	$Margin/Layout/Header/Title.add_theme_font_override("font", Style.heading_font())
 
 
 func configure(session) -> void:
