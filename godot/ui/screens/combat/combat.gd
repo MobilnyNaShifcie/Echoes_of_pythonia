@@ -34,7 +34,9 @@ const EliteEncounterServiceClass := preload("res://core/world/elite_encounter_se
 const SkillCatalogClass := preload("res://core/skills/skill_catalog.gd")
 const WeatherServiceClass := preload("res://core/world/weather_service.gd")
 const VisualStyle := preload("res://ui/screens/combat/combat_visual_style.gd")
+const VictoryPresentation := preload("res://ui/screens/combat/victory_presentation.gd")
 
+var victory_presentation: VictoryPresentation
 var _session: GameSessionClass
 var _enemy
 var _engine: CombatEngineClass
@@ -52,6 +54,7 @@ var _configuration_error := ""
 var _round_number := 1
 var _terminal_resources: Dictionary = {}
 var _presentation_controller: CombatPresentationControllerClass
+var _victory_receipt: Dictionary = {}
 
 @onready var encounter_label: Label = %EncounterLabel
 @onready var motion_toggle_button: Button = %MotionToggleButton
@@ -132,6 +135,9 @@ func _ready() -> void:
 	_render()
 	VisualStyle.apply(self)
 	VisualStyle.button(get_node("Page/Lower").drawer.handle)
+	victory_presentation = VictoryPresentation.new()
+	result_panel.add_child(victory_presentation)
+	victory_presentation.hide()
 
 
 func _configure_presentation_controller() -> void:
@@ -173,6 +179,7 @@ func configure(
 	_configuration_error = ""
 	_round_number = 1
 	_terminal_resources.clear()
+	_victory_receipt.clear()
 	if _uses_surface_weather():
 		WeatherServiceClass.apply_to_enemy(_enemy, _encounter_weather_code)
 		if _context == "expedition" and not elite_modifier_id.is_empty():
@@ -191,6 +198,9 @@ func configure(
 	_last_fate_outcome = ""
 	_last_hunter_combo = ""
 	if is_node_ready():
+		victory_presentation.reset()
+		result_panel.get_node("Result").show()
+		_set_victory_stage(false)
 		weave_toggle_button.set_pressed_no_signal(false)
 		result_panel.hide()
 		get_node("Page/Lower").drawer.pinned = false
@@ -509,6 +519,8 @@ func _finish_battle() -> void:
 		if bool(boss_respawn.get("started", false)):
 			result_label.text += "\n%s" % boss_respawn.message
 	_render()
+	if _engine.result == CombatEngineClass.VICTORY:
+		victory_presentation.show_result(self)
 	if _presentation_controller != null:
 		_presentation_controller.reveal_result(result_panel)
 	continue_button.grab_focus()
@@ -528,31 +540,20 @@ func _resolve_victory() -> String:
 		rewards = RegionBossChallengeServiceClass.resolve_victory(_session, _enemy, _rng)
 	else:
 		rewards = AdventureServiceClass.resolve_victory(_session, _enemy, _rng)
+	_victory_receipt = rewards.duplicate(true)
 	loot_presentation.set_drops(rewards.get("loot_drops", []))
-	var text := "Zwycięstwo  •  +%d EXP  •  +%d złota" % [rewards.experience, rewards.gold]
-	if rewards.levels_gained > 0:
-		text += "  •  Awans: +%d poziom" % rewards.levels_gained
-	if not rewards.loot_names.is_empty():
-		text += "\nŁup: %s" % ", ".join(rewards.loot_names)
-	if not rewards.quest_update.is_empty():
-		text += (
-			"\nMisja „%s”: %d/%d"
-			% [
-				rewards.quest_update.title,
-				rewards.quest_update.current,
-				rewards.quest_update.required,
-			]
-		)
-	for update: Dictionary in rewards.contract_updates:
-		text += "\nKontrakt „%s”: %d/%d" % [update.title, update.current, update.required]
-	for achievement in rewards.unlocked_achievements:
-		text += "\nOsiągnięcie: %s — tytuł „%s”" % [achievement.display_name, achievement.title]
-	if not rewards.elite_discovery_note.is_empty():
-		text += "\n%s" % rewards.elite_discovery_note
-	var milestone: Dictionary = rewards.get("guild_milestone", {})
-	if bool(milestone.get("awarded", false)):
-		text += "\n%s" % milestone.message
-	return text
+	return VictoryPresentation.describe_rewards(rewards)
+
+
+func _set_victory_stage(active: bool) -> void:
+	get_node("Page/EncounterHeader").visible = not active
+	for path: String in [
+		"PlayerPanel", "EnemyPanel", "TurnQueueBackdrop", "TurnOrder", "EnemyVisual", "VfxStage"
+	]:
+		get_node("Page/Arena/" + path).visible = not active
+	if active:
+		log_panel.hide()
+	get_node("Page/Lower").update_layout()
 
 
 func _resolve_defeat() -> String:

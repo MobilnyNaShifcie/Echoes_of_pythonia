@@ -33,6 +33,17 @@ Każda część dostaje testy, uruchomienie Godota, zrzuty przed/po w ignorowany
   z długim raportem, brak powielania nagród przy odświeżaniu, reset kolejnej walki.
 - Szczegóły i lista plików: `docs/reviews/combat-presentation-stage-one/README.md`.
 
+### Korekta wizualna części 1A — zaakceptowany sztandar zwycięstwa
+
+- Właściciel odrzucił podstawowy panel wyniku i księgę wzorowaną na Mireli.
+  Zaakceptował bordowy sztandar, metal/złoto i wariant z mniejszymi łupami.
+- Gałąź `codex/combat-victory-banner`, baza `aef0b741ce801720e250e2bc281ae36ee97998d5`.
+- Zakres: ekran zwycięstwa, bez zmian zasad walki, katalogów, zapisów i nagród.
+- Kontynuacja etapu 1A, nie start animacji/efektów/audio części 1B.
+- Wdrożono i zweryfikowano: 762/762 GUT, 660 testów Python + 8 podtestów,
+  80 renderów rzeczywistej gry. Bez merge/push; gotowe do oceny wdrożenia przez właściciela.
+- Raport wdrożenia: `docs/reviews/combat-victory-banner/README.md`.
+
 ## Archiwalny plan z 2026-09-07
 
 Zakres zatwierdzony przez użytkownika 2026-09-07. Kolejne etapy realizowane

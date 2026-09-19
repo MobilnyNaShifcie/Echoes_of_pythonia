@@ -1546,6 +1546,20 @@ If a detailed log exists, it is secondary.
 
 The main battle presentation should not require reading a scrolling transcript to know what happened.
 
+### Approved victory presentation (2026-09-19)
+
+After victory, replace the active battle HUD with the owner-approved burgundy
+standard, dark iron/gold reward strip, compact named loot cards, optional earned
+achievement and a prominent Continue button. Keep the existing full-body hero on
+the left and the actual battlefield behind the result. Do not reuse the workshop
+book, show a living defeated enemy, enlarge loot to fill the screen, or bake text
+and reward values into the decorative skin. Read one already-resolved receipt;
+presentation, scrolling and report toggles must never award rewards again.
+Long quest/contract/boss details and the combat log remain available in a scrollable
+report. Missing drops/achievements do not create placeholder rewards. Defeat and
+retreat retain their existing result presentation and terminal resource values.
+Implementation and reproducible evidence: `docs/reviews/combat-victory-banner/README.md`.
+
 ---
 
 # PART XV — EXPEDITION PREPARATION

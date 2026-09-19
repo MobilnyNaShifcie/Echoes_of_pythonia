@@ -100,12 +100,26 @@ func _render_previews() -> void:
 					drops.append({"item_id": "wolf_fang", "quantity": index + 1})
 				screen.loot_presentation.set_drops(drops)
 				screen.result_label.text += "\nDługi raport zadania: Żaneta Świętopełka.".repeat(12)
+				if screen.victory_presentation != null:
+					screen.victory_presentation.set_drops(drops)
+					screen.victory_presentation.report_text.text = screen.result_label.text
 				await _capture(viewport, "result_overflow", dimensions)
+				if screen.victory_presentation != null:
+					screen.victory_presentation.report_button.button_pressed = true
+					await _capture(viewport, "victory_report", dimensions)
 				screen.configure(session, "wolf", "expedition")
 				screen._enemy.attack = 5000
 				session.player.stats.dodge = 0.0
 				screen.attack_button.pressed.emit()
 				await _capture(viewport, "defeat", dimensions)
+			else:
+				screen.configure(session, "wolf", "expedition")
+				screen._rng.seed = 83
+				screen._enemy.current_hp = 1
+				screen._enemy.defense = 0
+				screen._enemy.dodge = 0.0
+				screen.attack_button.pressed.emit()
+				await _capture(viewport, code + "_victory", dimensions)
 		app.free()
 		viewport.queue_free()
 		await process_frame

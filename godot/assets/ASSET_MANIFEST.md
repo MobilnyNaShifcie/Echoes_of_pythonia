@@ -461,3 +461,21 @@ Both are in the task's local `.codex/generated_images/01a000c5-507d-7760-aa0e-b8
 Exact prompt, implementation review and capture command:
 `docs/reviews/workshop-book/README.md`. Generated evidence stays in ignored
 `build/workshop-book-review/<stage>/evidence/`, never in docs or Git.
+
+### Victory standard — owner-approved compact-loot direction, 2026-09-19
+
+`assets/ui/combat/victory_atlas_v1.png`: built-in **imagegen edit** of the approved
+burgundy-standard mockup, reconstructed as seven blank UI skin pieces. 1254×1254
+RGBA, 1,703,079 bytes, real transparent alpha outside sprites. SHA-256:
+`7856e1fc6ee729b61298936f909489ddc8d9721207425293e0b37bd384c031f7`.
+
+Production copy is byte-identical to the generated original; runtime AtlasTexture
+regions only, no raster postprocessing. No baked labels, numbers, loot or hero art.
+The original hero, region backgrounds and catalog item icons remain unchanged.
+Gold uses the existing `assets/ui/blacksmith/gold_stack.svg` symbol.
+
+Approved reference: `exec-4d9fae83-4dc8-4bfc-b95f-12d504fcdd28.png`.
+Production source: `exec-f264a523-aa0e-42f5-8067-af05a8171e8c.png`.
+Local originals are retained in the task's `.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/`.
+Prompt, atlas contract, tests and review: `docs/reviews/combat-victory-banner/README.md`.
+Evidence is generated into ignored `build/combat-victory-review/<stage>/evidence/`.

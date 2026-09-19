@@ -73,6 +73,16 @@ func _layout_stage() -> void:
 	var arena: Control = _screen.get_node("Page/Arena")
 	_rect(_screen.get_node("Page/EncounterHeader"), Rect2(18, 8, bounds.x - 36, 38))
 	_rect(arena, Rect2(0, 52, bounds.x, bounds.y - 52))
+	if _screen.victory_presentation != null and _screen.victory_presentation.visible:
+		var factor := minf(bounds.x / 1920.0, bounds.y / 1080.0)
+		var origin := (bounds - Vector2(1920, 1080) * factor) * 0.5
+		_rect(
+			_screen.player_visual,
+			Rect2(origin + Vector2(24, 72) * factor - arena.position, Vector2(700, 910) * factor)
+		)
+		_screen.result_panel.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
+		_rect(_screen.result_panel, Rect2(Vector2.ZERO, bounds))
+		return
 	_layout_turn_queue(arena, bounds.x)
 	var hud_width := minf(480, bounds.x * 0.32)
 	for side: String in ["Player", "Enemy"]:

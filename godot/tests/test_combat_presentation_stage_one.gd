@@ -22,7 +22,7 @@ func test_empty_effects_hide_but_real_guard_bleed_and_weather_remain_visible() -
 	assert_false(screen.player_effect_label.visible)
 
 
-func test_result_is_readable_and_does_not_move_actors_on_supported_canvases() -> void:
+func test_defeat_remains_readable_and_does_not_move_actors_on_supported_canvases() -> void:
 	for dimensions: Vector2 in [
 		Vector2(1280, 720), Vector2(1366, 768), Vector2(1920, 1080), Vector2(2560, 1080)
 	]:
@@ -30,7 +30,7 @@ func test_result_is_readable_and_does_not_move_actors_on_supported_canvases() ->
 		await _settle()
 		var hero: Rect2 = screen.player_visual.get_global_rect()
 		var enemy: Rect2 = screen.enemy_visual.get_global_rect()
-		_win(screen)
+		_lose(screen)
 		await _settle()
 		assert_eq(screen.player_visual.get_global_rect(), hero)
 		assert_eq(screen.enemy_visual.get_global_rect(), enemy)
@@ -54,9 +54,9 @@ func test_result_is_readable_and_does_not_move_actors_on_supported_canvases() ->
 		screen.get_parent().free()
 
 
-func test_loot_overflow_scrolls_without_resizing_result_or_hiding_continue() -> void:
+func test_legacy_result_loot_overflow_scrolls_without_hiding_continue() -> void:
 	var screen = _screen(Vector2(1280, 720))
-	_win(screen)
+	_lose(screen)
 	await _settle()
 	var initial_size: Vector2 = screen.result_panel.size
 	var drops: Array = []
@@ -151,6 +151,12 @@ func _win(screen) -> void:
 	screen._enemy.current_hp = 1
 	screen._enemy.defense = 0
 	screen._enemy.dodge = 0.0
+	screen.attack_button.pressed.emit()
+
+
+func _lose(screen) -> void:
+	screen._enemy.attack = 5000
+	screen._session.player.stats.dodge = 0.0
 	screen.attack_button.pressed.emit()
 
 

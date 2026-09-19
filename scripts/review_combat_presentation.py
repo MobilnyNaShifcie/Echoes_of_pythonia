@@ -15,8 +15,10 @@ def main():
     parser.add_argument('--only-capture', action='store_true')
     parser.add_argument('--tests', action='store_true')
     parser.add_argument('--test-script')
+    parser.add_argument('--review-name', choices=['combat-presentation-review', 'combat-victory-review'],
+                        default='combat-presentation-review')
     args = parser.parse_args()
-    work = ROOT / 'build/combat-presentation-review' / args.stage
+    work = ROOT / 'build' / args.review_name / args.stage
     output = work / 'evidence'
     output.mkdir(parents=True, exist_ok=True)
     runtime = work.parent / 'runtime'
