@@ -10,7 +10,7 @@ Decyzja użytkownika z 2026-09-06: zachować istniejące postacie anime-fantasy 
 - Materiały nie stają się biżuterią. Zwykły pazur pozostaje pazurem, stara zbroja może być zardzewiała; spójny jest sposób rysowania, nie jednakowy poziom przepychu.
 - Potwór wyznacza anatomię, materiał i motyw łupu. Receptura i zestaw wyznaczają wspólne elementy wyposażenia. Nie kopiować realistycznej mikrofaktury z potwora do ikony.
 - Ramki jakości rysuje interfejs według `item_rarity_palette.gd`: szara → zielona → niebieska → fioletowa → czerwona → pomarańczowa. Nie wmalowywać ramek, napisów ani cen w PNG. Nie zmieniać statystyk ani rzadkości przy wymianie ilustracji.
-- Poświaty/animacje rezerwować dla wybranych artefaktów i wyjątkowych nagród; zwykły ekwipunek pozostaje 2D. Decyzja użytkownika z 2026-09-19 zastępuje wcześniejszy wyjątek czarnego rynku: lada jest pusta, a kliknięcie handlarza otwiera cztery karty z istniejącymi ilustracjami 2D z katalogu. Ramki korzystają z kanonicznej palety jakości; historyczne modele 3D pozostają poza ekranem gry, do samodzielnego podglądu.
+- Poświaty/animacje rezerwować dla wybranych artefaktów i wyjątkowych nagród; zwykły ekwipunek pozostaje 2D. Decyzja użytkownika z 2026-09-19 zastępuje wcześniejszy wyjątek czarnego rynku: lada jest pusta, a kliknięcie handlarza najpierw otwiera standardową rozmowę NPC. Akcja „Zobacz ofertę” otwiera skrzynię z czterema kartami 2×2, korzystającymi z istniejących ilustracji 2D z katalogu. Skrzynia jest osobną dekoracją PNG z przezroczystością; napisy, karty, monety i przyciski pozostają żywym interfejsem. Ramki korzystają z kanonicznej palety jakości; historyczne modele 3D pozostają poza ekranem gry, do samodzielnego podglądu.
 
 ## Globalna polityka przeciwników i bossów
 

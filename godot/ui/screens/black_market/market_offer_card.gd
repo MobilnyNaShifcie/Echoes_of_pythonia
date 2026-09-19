@@ -4,11 +4,13 @@ signal offer_selected(offer_id: String)
 
 const Palette = preload("res://ui/presentation/item_rarity_palette.gd")
 const GOLD := Color("e7bd62")
+const COIN := preload("res://assets/ui/black_market/gold_coin.svg")
 var offer_id := ""
 var item_id := ""
 var icon_rect: TextureRect
 var quantity_label: Label
 var price_label: Label
+var price_coin: TextureRect
 var sold_label: Label
 var _selected := false
 var _rarity := Color.GRAY
@@ -17,6 +19,7 @@ var _rarity := Color.GRAY
 func _ready() -> void:
 	mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	size_flags_vertical = Control.SIZE_EXPAND_FILL
 	for state in ["normal", "hover", "pressed", "disabled", "focus"]:
 		add_theme_stylebox_override(state, StyleBoxEmpty.new())
 	icon_rect = TextureRect.new()
@@ -25,16 +28,16 @@ func _ready() -> void:
 	add_child(icon_rect)
 	icon_rect.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	icon_rect.offset_left = 22
-	icon_rect.offset_top = 22
+	icon_rect.offset_top = 12
 	icon_rect.offset_right = -22
-	icon_rect.offset_bottom = -62
+	icon_rect.offset_bottom = -42
 	quantity_label = Label.new()
 	add_child(quantity_label)
 	quantity_label.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
 	quantity_label.offset_left = -66
 	quantity_label.offset_right = -19
-	quantity_label.offset_top = -86
-	quantity_label.offset_bottom = -57
+	quantity_label.offset_top = -71
+	quantity_label.offset_bottom = -42
 	quantity_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	quantity_label.add_theme_font_size_override("font_size", 18)
 	var badge := StyleBoxFlat.new()
@@ -43,11 +46,25 @@ func _ready() -> void:
 	badge.set_border_width_all(1)
 	badge.set_corner_radius_all(4)
 	quantity_label.add_theme_stylebox_override("normal", badge)
+	var price_row := HBoxContainer.new()
+	add_child(price_row)
+	price_row.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
+	price_row.offset_top = -40
+	price_row.offset_bottom = -2
+	price_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	price_row.add_theme_constant_override("separation", 6)
+	price_coin = TextureRect.new()
+	price_coin.name = "GoldCoin"
+	price_coin.texture = COIN
+	price_coin.custom_minimum_size = Vector2(28, 28)
+	price_coin.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	price_coin.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	price_coin.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	price_coin.tooltip_text = "Złoto"
+	price_row.add_child(price_coin)
 	price_label = Label.new()
-	add_child(price_label)
-	price_label.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
-	price_label.offset_top = -46
-	price_label.offset_bottom = -8
+	price_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	price_row.add_child(price_label)
 	price_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	price_label.add_theme_font_size_override("font_size", 25)
 	price_label.add_theme_color_override("font_color", GOLD)
@@ -79,6 +96,7 @@ func configure(entry: Dictionary) -> void:
 	quantity_label.text = "×%d" % int(entry.get("quantity", 1))
 	quantity_label.show()
 	price_label.text = str(entry.get("price_text", ""))
+	price_coin.show()
 	sold_label.visible = bool(entry.get("sold", false))
 	icon_rect.modulate = Color(0.4, 0.4, 0.4, 0.6) if sold_label.visible else Color.WHITE
 	disabled = offer_id.is_empty() or sold_label.visible
@@ -94,6 +112,7 @@ func clear_offer() -> void:
 	quantity_label.hide()
 	sold_label.hide()
 	price_label.text = "—"
+	price_coin.hide()
 	tooltip_text = ""
 	queue_redraw()
 
@@ -106,7 +125,7 @@ func set_selected(value: bool) -> void:
 func _draw() -> void:
 	var active := _selected or has_focus() or (is_hovered() and not disabled)
 	var outer := StyleBoxFlat.new()
-	outer.bg_color = Color("151923") if active else Color("080f15")
+	outer.bg_color = Color("17121b") if active else Color("080c10")
 	outer.border_color = GOLD if active else Color("68522c")
 	outer.set_border_width_all(2 if active else 1)
 	outer.set_corner_radius_all(8)
@@ -114,7 +133,7 @@ func _draw() -> void:
 		outer.shadow_color = Color(0.86, 0.62, 0.22, 0.23)
 		outer.shadow_size = 8
 	draw_style_box(outer, Rect2(Vector2.ZERO, size))
-	var frame := Rect2(Vector2(14, 14), Vector2(size.x - 28, size.y - 68))
+	var frame := Rect2(Vector2(14, 10), Vector2(size.x - 28, size.y - 51))
 	draw_rect(frame, _rarity.darkened(0.5), false, 1)
 	for corner in [
 		frame.position,

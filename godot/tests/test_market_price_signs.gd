@@ -27,16 +27,25 @@ func test_four_equal_cards_and_prices_remain_inside_window_at_multiple_sizes() -
 		market._layout_market()
 		var window: Rect2 = market.offer_window.get_global_rect()
 		assert_true(market.get_global_rect().encloses(window))
-		var previous := Rect2()
+		var rectangles: Array[Rect2] = []
 		for card in market.offer_slots:
 			var rect: Rect2 = card.get_global_rect()
 			assert_true(window.encloses(rect))
 			assert_true(rect.encloses(card.price_label.get_global_rect()))
+			assert_true(rect.encloses(card.price_coin.get_global_rect()))
+			assert_not_null(card.price_coin.texture)
+			assert_false(card.price_label.text.contains("zł"))
 			assert_eq(card.icon_rect.stretch_mode, TextureRect.STRETCH_KEEP_ASPECT_CENTERED)
-			if previous.size.x > 0:
+			for previous in rectangles:
 				assert_almost_eq(rect.size.x, previous.size.x, 0.1)
-				assert_gt(rect.position.x, previous.end.x)
-			previous = rect
+				assert_almost_eq(rect.size.y, previous.size.y, 0.1)
+				assert_false(rect.intersects(previous))
+			rectangles.append(rect)
+		assert_eq(market.offer_layer.columns, 2)
+		assert_almost_eq(rectangles[0].position.y, rectangles[1].position.y, 0.1)
+		assert_almost_eq(rectangles[2].position.y, rectangles[3].position.y, 0.1)
+		assert_almost_eq(rectangles[0].position.x, rectangles[2].position.x, 0.1)
+		assert_gt(rectangles[2].position.y, rectangles[0].end.y)
 	assert_eq(market.find_children("*", "Node3D", true, false).size(), 0)
 
 
@@ -46,7 +55,8 @@ func test_price_matches_negotiated_offer_and_sold_state() -> void:
 	market._session.black_market.buy_negotiated_prices[card.offer_id] = 6000
 	market._render()
 	card.pressed.emit()
-	assert_eq(card.price_label.text, "6 000 zł")
+	assert_eq(card.price_label.text, "6 000")
+	assert_true(market.get_node("%PriceCoin").visible)
 	assert_string_contains(market.price_label.text, "6 000")
 	market.action_button.pressed.emit()
 	assert_true(card.sold_label.visible)
@@ -60,6 +70,7 @@ func test_card_clear_removes_stale_art_price_and_quantity() -> void:
 	card.clear_offer()
 	assert_null(card.icon_rect.texture)
 	assert_eq(card.price_label.text, "—")
+	assert_false(card.price_coin.visible)
 	assert_false(card.quantity_label.visible)
 	assert_true(card.disabled)
 

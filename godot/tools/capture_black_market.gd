@@ -40,7 +40,11 @@ func _run() -> void:
 		screen.configure(session, "2026-09-19")
 		var suffix := "_%dx%d.png" % [dimensions.x, dimensions.y]
 		await _capture(viewport, args[0].path_join("entrance" + suffix))
-		screen.show_buy_offers()
+		screen.merchant_button.pressed.emit()
+		await _capture(viewport, args[0].path_join("conversation" + suffix))
+		print("CONVERSATION RECT ", screen.npc_action_panel.get_rect())
+		assert(screen.npc_action_panel.size.y <= 343, "Conversation must stay compact")
+		screen.get_node("%OpenServiceButton").pressed.emit()
 		await _capture(viewport, args[0].path_join("offers" + suffix))
 		screen.action_button.pressed.emit()
 		await _capture(viewport, args[0].path_join("insufficient_gold" + suffix))

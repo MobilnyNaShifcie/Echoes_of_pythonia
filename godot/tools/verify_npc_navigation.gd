@@ -64,6 +64,8 @@ func _run() -> void:
 	await _settle()
 	var market = app.screen_host.get_child(0)
 	await _click(market.merchant_button)
+	_check(market.npc_action_panel.visible, "black market conversation")
+	await _click(market.get_node("%OpenServiceButton"))
 	await _click(market.sell_tab)
 	_check(market.sell_panel.visible, "black market book sales")
 	await _click(market.buy_tab)

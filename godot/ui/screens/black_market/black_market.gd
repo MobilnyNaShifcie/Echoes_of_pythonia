@@ -16,19 +16,21 @@ const MODE_BUY := "buy"
 const MODE_SELL := "sell"
 const SOURCE_ART_SIZE := Vector2(1672.0, 941.0)
 const MERCHANT_RECT := Rect2(340, 160, 275, 355)
-const WINDOW_SIZE := Vector2(1120, 660)
+const WINDOW_SIZE := Vector2(1120, 896)
 
 var offer_slots: Array[Button] = []
 var _session: GameSessionClass
 var _mode := MODE_BUY
 var _selected_id := ""
 var _rotation_date := ""
+var _require_offer_selection := false
 var _rng := RandomNumberGenerator.new()
 
 @onready var background: TextureRect = %Background
 @onready var offer_layer: Control = %OfferLayer
 @onready var offer_window: Panel = %OfferWindow
 @onready var merchant_button: Button = %MerchantButton
+@onready var npc_action_panel: PanelContainer = %NpcActionPanel
 @onready var delivery_label: Label = %DeliveryLabel
 @onready var buy_tab: Button = %BuyTab
 @onready var sell_tab: Button = %SellTab
@@ -69,8 +71,15 @@ func _ready() -> void:
 	offer_list.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
 	%BackButton.pressed.connect(back_requested.emit)
 	%CloseButton.pressed.connect(close_offers)
-	merchant_button.pressed.connect(show_buy_offers)
-	%MerchantHint.pressed.connect(show_buy_offers)
+	merchant_button.pressed.connect(show_conversation)
+	%MerchantHint.pressed.connect(show_conversation)
+	%OpenServiceButton.pressed.connect(show_buy_offers)
+	%OpenBookSalesButton.pressed.connect(show_book_sales)
+	%CloseInteractionButton.pressed.connect(close_conversation)
+	for button: Button in [%OpenServiceButton, %OpenBookSalesButton, %CloseInteractionButton]:
+		InterfaceStyle.quiet_button(button)
+	npc_action_panel.add_theme_stylebox_override("panel", InterfaceStyle.panel())
+	%DailyRefreshTimer.timeout.connect(_check_daily_rotation)
 	%MerchantHint.mouse_entered.connect(_merchant_feedback.bind(true))
 	%MerchantHint.mouse_exited.connect(_merchant_feedback.bind(false))
 	merchant_button.mouse_entered.connect(_merchant_feedback.bind(true))
@@ -94,7 +103,22 @@ func _ready() -> void:
 
 
 func close_offers() -> void:
+	show_conversation()
+
+
+func show_conversation() -> void:
 	offer_window.hide()
+	npc_action_panel.show()
+	%MerchantHint.hide()
+	merchant_button.disabled = false
+	_check_daily_rotation()
+	%OpenServiceButton.grab_focus()
+	# Wrapping/theme minimums settle after the conversation becomes visible.
+	_layout_market.call_deferred()
+
+
+func close_conversation() -> void:
+	npc_action_panel.hide()
 	%MerchantHint.show()
 	merchant_button.grab_focus()
 
@@ -103,6 +127,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		if offer_window.visible:
 			close_offers()
+		elif npc_action_panel.visible:
+			close_conversation()
 		else:
 			back_requested.emit()
 		get_viewport().set_input_as_handled()
@@ -125,7 +151,11 @@ func _layout_market() -> void:
 	merchant_button.size = MERCHANT_RECT.size * art_scale
 	%MerchantHint.position = merchant_button.position + Vector2(0, merchant_button.size.y + 12)
 	%MerchantHint.size = Vector2(merchant_button.size.x, 32)
-	var factor := minf(minf(size.x * 0.625 / WINDOW_SIZE.x, (size.y - 100) / WINDOW_SIZE.y), 1.1)
+	# Same floating conversation geometry and shared styling as city service NPCs.
+	npc_action_panel.set_anchors_preset(Control.PRESET_TOP_LEFT)
+	npc_action_panel.position = Vector2(size.x - 466, size.y * 0.34)
+	npc_action_panel.size = Vector2(442, 342)
+	var factor := minf(minf(size.x * 0.625 / WINDOW_SIZE.x, (size.y - 60) / WINDOW_SIZE.y), 1.1)
 	factor = maxf(factor, 0.1)
 	offer_window.scale = Vector2.ONE * factor
 	offer_window.size = WINDOW_SIZE
@@ -155,18 +185,25 @@ func show_book_sales() -> void:
 
 func _set_mode(mode: String) -> void:
 	offer_window.show()
+	npc_action_panel.hide()
+	merchant_button.disabled = true
 	%MerchantHint.hide()
 	_mode = mode
 	_selected_id = ""
+	_require_offer_selection = false
 	result_label.text = ""
 	result_label.hide()
+	_check_daily_rotation()
 	_render()
 	_focus_current_mode()
 
 
 func _select_offer(offer_id: String) -> void:
+	if _check_daily_rotation():
+		return
 	if _mode != MODE_BUY or offer_id.is_empty():
 		return
+	_require_offer_selection = false
 	_selected_id = offer_id
 	result_label.hide()
 	_render_details()
@@ -207,6 +244,8 @@ func _render() -> void:
 func _refresh_list() -> void:
 	offer_list.clear()
 	if _mode == MODE_BUY:
+		if _require_offer_selection:
+			return
 		if BlackMarketServiceClass.find_offer(_session.black_market, _selected_id) == null:
 			_selected_id = ""
 			for offer in _session.black_market.offers:
@@ -259,7 +298,7 @@ func _refresh_offer_slots() -> void:
 					"item_id": offer.item_id,
 					"icon": definition.icon,
 					"rarity": definition.rarity,
-					"price_text": _group_digits(effective_price) + " zł",
+					"price_text": _group_digits(effective_price),
 					"quantity": offer.quantity,
 					"base_price": offer.base_price,
 					"effective_price": effective_price,
@@ -285,17 +324,28 @@ func _render_details() -> void:
 		return
 	if _selected_id.is_empty():
 		category_label.text = "SKUP KSIĄG" if _mode == MODE_SELL else "DZIENNA DOSTAWA"
-		title_label.text = "Brak przedmiotów"
+		title_label.text = "Wybierz przedmiot" if _require_offer_selection else "Brak przedmiotów"
 		description_label.text = (
-			"Nie masz ksiąg na sprzedaż."
-			if _mode == MODE_SELL
-			else "Dostawa nie zawiera prawidłowych ofert."
+			"Dostawa odświeżyła się. Wybierz jedną z nowych ofert."
+			if _require_offer_selection
+			else (
+				"Nie masz ksiąg na sprzedaż."
+				if _mode == MODE_SELL
+				else "Dostawa nie zawiera prawidłowych ofert."
+			)
 		)
 		price_label.text = ""
+		price_label.tooltip_text = ""
+		%PriceCoin.hide()
 		%QuantityLabel.text = ""
+		%QuantityLabel.tooltip_text = ""
 		%DetailIcon.texture = null
 		%DetailIconFrame.hide()
 		status_label.text = ""
+		title_label.tooltip_text = title_label.text
+		description_label.tooltip_text = description_label.text
+		bargain_button.text = "Targuj"
+		action_button.text = "Sprzedaj 1" if _mode == MODE_SELL else "Kup"
 		bargain_button.disabled = true
 		action_button.disabled = true
 		return
@@ -320,13 +370,10 @@ func _render_buy_details() -> void:
 		else "RZADKI TOWAR"
 	)
 	_render_definition(definition)
-	price_label.text = (
-		"%s zł"
-		% [
-			_group_digits(BlackMarketServiceClass.effective_buy_price(market, offer)),
-		]
-	)
+	price_label.text = _group_digits(BlackMarketServiceClass.effective_buy_price(market, offer))
+	price_label.tooltip_text = "Cena oferty w złocie: " + price_label.text
 	%QuantityLabel.text = "Ilość: %d" % offer.quantity
+	%QuantityLabel.tooltip_text = %QuantityLabel.text
 	status_label.text = (
 		"SPRZEDANE" if sold else ("CENA PO TARGOWANIU" if negotiated else "JEDNA PRÓBA TARGOWANIA")
 	)
@@ -347,13 +394,12 @@ func _render_sell_details() -> void:
 		"KSIĘGA MISTRZOSTWA" if book.book_type == "mastery" else "KSIĘGA ŚCIEŻKI"
 	)
 	_render_definition(definition)
-	price_label.text = (
-		"%s zł / szt."
-		% [
-			_group_digits(BlackMarketServiceClass.effective_book_sell_price(market, _selected_id)),
-		]
+	price_label.text = _group_digits(
+		BlackMarketServiceClass.effective_book_sell_price(market, _selected_id)
 	)
+	price_label.tooltip_text = "Złoto za 1 księgę: " + price_label.text
 	%QuantityLabel.text = "Posiadasz: %d" % _session.player.inventory.count(_selected_id)
+	%QuantityLabel.tooltip_text = %QuantityLabel.text
 	status_label.text = "CENA PO TARGOWANIU" if negotiated else "JEDNA PRÓBA TARGOWANIA"
 	bargain_button.text = "Cena ustalona" if negotiated else "Targuj"
 	bargain_button.disabled = negotiated
@@ -362,6 +408,8 @@ func _render_sell_details() -> void:
 
 
 func _bargain() -> void:
+	if _check_daily_rotation() or _selected_id.is_empty():
+		return
 	var result := {"ok": false, "message": "Brak wybranej oferty."}
 	if _mode == MODE_BUY:
 		var offer = BlackMarketServiceClass.find_offer(_session.black_market, _selected_id)
@@ -378,6 +426,8 @@ func _bargain() -> void:
 
 
 func _perform_action() -> void:
+	if _check_daily_rotation() or _selected_id.is_empty():
+		return
 	var result := (
 		BlackMarketServiceClass.buy(_session, _selected_id)
 		if _mode == MODE_BUY
@@ -389,15 +439,26 @@ func _perform_action() -> void:
 	_render()
 
 
-func _purchase_offer(offer_id: String) -> void:
-	if _mode != MODE_BUY or offer_id.is_empty():
-		return
-	_selected_id = offer_id
-	var result := BlackMarketServiceClass.buy(_session, offer_id)
-	_show_result(result)
-	if result.ok:
-		state_changed.emit()
-	_render()
+func _check_daily_rotation() -> bool:
+	if _session == null:
+		return false
+	if not BlackMarketServiceClass.ensure_rotation(
+		_session.black_market, _session.player.display_name, _rotation_date
+	):
+		return false
+	# A new offer must never inherit an old purchase click or negotiated price.
+	_selected_id = ""
+	_require_offer_selection = _mode == MODE_BUY
+	if is_node_ready():
+		_render()
+		_show_result({"ok": true, "message": "Nowa dzienna dostawa. Wybierz ofertę."})
+	state_changed.emit()
+	return true
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_FOCUS_IN and is_node_ready():
+		_check_daily_rotation.call_deferred()
 
 
 func _show_result(result: Dictionary) -> void:
@@ -429,6 +490,7 @@ func _focus_current_mode() -> void:
 
 
 func _render_definition(definition) -> void:
+	%PriceCoin.show()
 	title_label.text = definition.display_name
 	title_label.tooltip_text = definition.display_name
 	description_label.text = definition.description
