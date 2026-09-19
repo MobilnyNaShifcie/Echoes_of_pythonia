@@ -441,3 +441,23 @@ Actual app captures and logs are reproducible through
 `scripts/review_blacksmith_workbench.py visual-after` and stay in ignored
 `build/blacksmith-workbench-review/visual-after/evidence/`, not in Git/docs.
 Review history and visual caveats: `docs/reviews/blacksmith-workbench/README.md`.
+
+### Mirela recipe book — owner-approved direction, 2026-09-19
+
+`assets/ui/workshop/recipe_book_v1.png`: isolated empty green-leather/brass book,
+warm parchment and botanical corners, generated with the built-in **imagegen edit**
+tool from the owner-approved open-book mockup. 1448×1086 RGBA, 2,255,847 bytes;
+real alpha 0–255 (outside corners fully transparent). SHA-256:
+`8de1774d2d4ad3ad50351774261c10f77535bde9cf6a49fe572410b042c04972`.
+
+No baked labels, item illustrations, prices or controls. All contents are live
+Godot UI driven by the canonical recipe/item catalogs. Original Mirela, workshop
+background and every item icon remain unchanged. The generated original is
+preserved outside the repo; the production copy is byte-identical.
+
+Approved mockup: `exec-caf93461-3d17-4bf4-baab-e4bd6a1b7c69.png`.
+Production source: `exec-42ad992b-5022-4ccb-8768-b44ee4b0b8ed.png`.
+Both are in the task's local `.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/`.
+Exact prompt, implementation review and capture command:
+`docs/reviews/workshop-book/README.md`. Generated evidence stays in ignored
+`build/workshop-book-review/<stage>/evidence/`, never in docs or Git.

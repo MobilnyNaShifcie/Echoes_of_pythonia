@@ -107,6 +107,7 @@ var _informant_present := false
 @onready var merchant_quantity_box: SpinBox = %MerchantQuantityBox
 @onready var merchant_action_button: Button = %MerchantActionButton
 @onready var blacksmith_workbench: Control = %BlacksmithWorkbench
+@onready var workshop_book: Control = %WorkshopBook
 
 
 static func display_name_for(service_id: String) -> String:
@@ -118,6 +119,9 @@ func _ready() -> void:
 	blacksmith_workbench.services_requested.connect(_focus_npc)
 	blacksmith_workbench.close_requested.connect(_show_ambient_view)
 	blacksmith_workbench.state_changed.connect(_on_workbench_state_changed)
+	workshop_book.services_requested.connect(_focus_npc)
+	workshop_book.close_requested.connect(_show_ambient_view)
+	workshop_book.state_changed.connect(_on_workbench_state_changed)
 	mode_selector.item_selected.connect(_on_mode_selected)
 	item_list.item_selected.connect(_on_item_selected)
 	quantity_box.value_changed.connect(_on_quantity_changed)
@@ -316,9 +320,13 @@ func _set_interaction_state(state: String) -> void:
 		blacksmith_workbench.show_location(location_background.texture)
 		blacksmith_workbench.configure(_session)
 	blacksmith_workbench.visible = workbench_open
-	get_node("Page/Header").visible = not workbench_open
-	summary_label.visible = not workbench_open
-	if workbench_open:
+	var book_open := service_open and _service_id == "workshop"
+	if book_open and not workshop_book.visible:
+		workshop_book.configure(_session)
+	workshop_book.visible = book_open
+	get_node("Page/Header").visible = not workbench_open and not book_open
+	summary_label.visible = not workbench_open and not book_open
+	if workbench_open or book_open:
 		service_toolbar.hide()
 		catalogue_panel.hide()
 		transaction_panel.hide()

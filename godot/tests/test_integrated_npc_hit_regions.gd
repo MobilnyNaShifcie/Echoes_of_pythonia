@@ -149,9 +149,13 @@ func test_economy_navigation_receives_pointer_in_every_interaction_state() -> vo
 			for state in ["ambient", "focused", "service"]:
 				screen._set_interaction_state(state)
 				await wait_process_frames(3)
-				if service_id == "blacksmith" and state == "service":
+				if service_id in ["blacksmith", "workshop"] and state == "service":
 					assert_false(back.is_visible_in_tree())
-					var services: Button = screen.blacksmith_workbench.get_node("%ServicesButton")
+					var services: Button = (
+						screen.workshop_book.services_button
+						if service_id == "workshop"
+						else screen.blacksmith_workbench.get_node("%ServicesButton")
+					)
 					await _click(screen.get_viewport(), services.get_global_rect().get_center())
 					assert_eq(screen._interaction_state, "focused")
 					continue
@@ -163,9 +167,9 @@ func test_economy_navigation_receives_pointer_in_every_interaction_state() -> vo
 				)
 				await _click(screen.get_viewport(), back.get_global_rect().get_center())
 			assert_signal_emit_count(
-				screen, "back_requested", 2 if service_id == "blacksmith" else 3
+				screen, "back_requested", 2 if service_id in ["blacksmith", "workshop"] else 3
 			)
-			if service_id != "blacksmith":
+			if service_id not in ["blacksmith", "workshop"]:
 				await _click(
 					screen.get_viewport(),
 					screen.close_service_button.get_global_rect().get_center()

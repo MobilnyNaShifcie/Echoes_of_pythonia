@@ -84,15 +84,17 @@ func test_city_interiors_reveal_services_only_after_focusing_the_npc() -> void:
 		screen.open_service_button.pressed.emit()
 		await get_tree().process_frame
 		assert_eq(screen._interaction_state, "service", service_id)
-		assert_eq(screen.service_toolbar.visible, service_id != "blacksmith", service_id)
+		assert_eq(
+			screen.service_toolbar.visible, service_id not in ["blacksmith", "workshop"], service_id
+		)
 		assert_eq(
 			screen.catalogue_panel.visible,
-			service_id not in ["merchant", "inn", "blacksmith"],
+			service_id not in ["merchant", "inn", "blacksmith", "workshop"],
 			service_id
 		)
 		assert_eq(
 			screen.transaction_panel.visible,
-			service_id not in ["merchant", "blacksmith"],
+			service_id not in ["merchant", "blacksmith", "workshop"],
 			service_id
 		)
 		assert_eq(screen.blacksmith_workbench.visible, service_id == "blacksmith", service_id)
@@ -107,6 +109,9 @@ func test_city_interiors_reveal_services_only_after_focusing_the_npc() -> void:
 
 		if service_id == "blacksmith":
 			screen.blacksmith_workbench.get_node("%ServicesButton").pressed.emit()
+		elif service_id == "workshop":
+			assert_true(screen.workshop_book.visible)
+			screen.workshop_book.services_button.pressed.emit()
 		else:
 			screen.close_service_button.pressed.emit()
 		assert_eq(screen._interaction_state, "focused", service_id)

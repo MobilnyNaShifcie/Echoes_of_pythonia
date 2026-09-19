@@ -252,6 +252,11 @@ func test_every_city_service_reuses_the_npc_grid_and_drag_counter() -> void:
 			assert_true(bench.upgrade_view.anvil._can_drop_data(Vector2.ZERO, weapon.drag_payload))
 			assert_false(screen.transaction_drop_zone.is_visible_in_tree())
 			continue
+		if service_id == "workshop":
+			assert_true(screen.workshop_book.is_visible_in_tree())
+			assert_false(screen.transaction_drop_zone.is_visible_in_tree())
+			assert_false(screen.workshop_book.recipe_buttons[0].tooltip_text.is_empty())
+			continue
 		assert_eq(screen.transaction_drop_zone.is_visible_in_tree(), service_id != "merchant")
 		assert_eq(screen.merchant_trade_overlay.is_visible_in_tree(), service_id == "merchant")
 		assert_string_contains(screen.drop_hint_label.text, "PRZECIĄGNIJ")

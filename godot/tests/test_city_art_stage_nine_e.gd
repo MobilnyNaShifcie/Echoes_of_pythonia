@@ -281,10 +281,11 @@ func test_each_economy_service_uses_its_approved_npc_portrait() -> void:
 			assert_eq(
 				_source_texture_path(portrait), screen.location_background.texture.resource_path
 			)
-		else:
+		elif service_id == "workshop":
 			assert_false(screen.merchant_trade_overlay.is_visible_in_tree())
-			assert_true(screen.service_grid.is_visible_in_tree())
-			assert_true(screen.transaction_drop_zone.is_visible_in_tree())
+			assert_false(screen.service_grid.is_visible_in_tree())
+			assert_false(screen.transaction_drop_zone.is_visible_in_tree())
+			assert_true(screen.workshop_book.is_visible_in_tree())
 
 
 func _source_texture_path(texture: Texture2D) -> String:

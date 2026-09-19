@@ -183,11 +183,10 @@ func test_same_item_art_contract_reaches_all_seven_required_ui_contexts() -> voi
 	var workshop = CITY_ECONOMY_SCENE.instantiate()
 	add_child_autofree(workshop)
 	workshop.configure(session, "workshop")
-	assert_not_null(
-		_find_cell_with_texture(
-			workshop.service_grid,
-			ItemCatalogClass.get_definition("leather_hood").icon,
-		)
+	workshop._open_service()
+	assert_eq(
+		workshop.workshop_book.recipe_image.texture,
+		ItemCatalogClass.get_definition("leather_hood").icon,
 	)
 
 	var inn = CITY_ECONOMY_SCENE.instantiate()

@@ -88,11 +88,11 @@ func refresh() -> void:
 	_rect(screen.get_node("Page/Header"), Rect2(24, 15, bounds.x - 48, 42))
 	_rect(screen.summary_label, Rect2(24, 61, bounds.x - 48, 27))
 	screen.npc_panel.hide()  # The approved backgrounds already include the NPC.
-	if screen._service_id == "blacksmith" and screen._interaction_state == "service":
+	if screen._service_id in ["blacksmith", "workshop"] and screen._interaction_state == "service":
 		screen.service_toolbar.hide()
 		screen.catalogue_panel.hide()
 		screen.transaction_panel.hide()
-		return  # The workbench owns its container-based layout, not the old service rectangles.
+		return  # Dedicated service views own their layout, not the old service rectangles.
 	var width := minf(912, bounds.x - 40)
 	var left := bounds.x - width - 24
 	var top := maxf(120, bounds.y * 0.20)
