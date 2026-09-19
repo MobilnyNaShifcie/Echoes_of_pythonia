@@ -212,6 +212,15 @@ theme_override_font_sizes/font_size = 13
 text = "Animacje: pełne"
 tooltip_text = "Przełącz między pełną a ograniczoną prezentacją walki."
 
+[node name="AudioToggleButton" type="Button" parent="Page/EncounterHeader"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 36)
+layout_mode = 2
+toggle_mode = true
+button_pressed = true
+text = "Dźwięk: wł."
+tooltip_text = "Wycisz dźwięki walki."
+
 [node name="Arena" type="Control" parent="Page"]
 custom_minimum_size = Vector2(0, 222)
 layout_mode = 2

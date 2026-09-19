@@ -2723,6 +2723,22 @@ Future UI should support:
 
 Audio should reinforce hierarchy rather than make every interaction loud.
 
+Combat audio baseline (stage 1B, 2026-09-19):
+
+- Play hit/critical/block/dodge from recorded presentation events at the same
+  impact as visual feedback. Passive damage is not another audible attack.
+- Audio must never delay a turn, consume gameplay RNG or change saves/rewards.
+  Reduced motion emits one priority cue per turn, not simultaneous event spam.
+- A restrained coin cue accompanies victory once, never a redraw or unmute.
+- Keep a keyboard-accessible combat mute available during action locks. Store
+  this preference separately from player saves; stop active voices immediately.
+- Limit concurrent voices and gain; do not change Master volume or other systems.
+- Ship only licensed local samples with provenance in the asset manifest.
+  No streaming, paid services, music or class-specific sound redesign in this slice.
+
+Implementation, reproducible offline mix and review:
+`docs/reviews/combat-audio-feedback/README.md`.
+
 ---
 
 ## 155. Localization readiness

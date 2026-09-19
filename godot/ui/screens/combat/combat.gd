@@ -522,7 +522,7 @@ func _finish_battle() -> void:
 	if _engine.result == CombatEngineClass.VICTORY:
 		victory_presentation.show_result(self)
 	if _presentation_controller != null:
-		_presentation_controller.reveal_result(result_panel)
+		_presentation_controller.reveal_result(result_panel, _engine.result)
 	continue_button.grab_focus()
 
 

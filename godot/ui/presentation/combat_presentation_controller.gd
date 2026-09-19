@@ -10,7 +10,9 @@ const COMBAT_DIE_SCENE := preload("res://ui/components/combat_die/combat_die.tsc
 const FateThrustEffect := preload("res://ui/presentation/fate_thrust_effect.gd")
 const HitEffect := preload("res://ui/presentation/combat_hit_effect.gd")
 const FeedbackText := preload("res://ui/presentation/combat_feedback_text.gd")
+const AudioFeedback := preload("res://ui/presentation/combat_audio_feedback.gd")
 
+var audio_feedback: AudioFeedback
 var reduced_motion := false
 var animation_duration_scale := 1.0
 var last_feedback_texts: Array[String] = []
@@ -36,6 +38,9 @@ var _feedback_labels: Array[Label] = []
 
 
 func configure(screen: Control) -> void:
+	audio_feedback = AudioFeedback.new()
+	add_child(audio_feedback)
+	audio_feedback.configure(screen)
 	_player_visual = screen.get_node("%PlayerVisual")
 	_enemy_visual = screen.get_node("%EnemyVisual")
 	_feedback_layer = screen.get_node("%FeedbackLayer")
@@ -87,10 +92,12 @@ func present(
 	_busy = true
 	clear_feedback()
 	last_feedback_texts.clear()
+	audio_feedback.begin_turn()
 	playback_started.emit()
 	_apply_resources(before)
 	if reduced_motion:
 		_present_instant(events)
+		audio_feedback.play_summary(events)
 		_apply_resources(after)
 		_set_turn_actor("player", round_number)
 		_finish_playback()
@@ -112,8 +119,10 @@ func render_dice(dice: Array[int], outcome: String) -> void:
 	_fate_outcome_label.text = "" if dice.is_empty() else outcome
 
 
-func reveal_result(panel: Control) -> void:
+func reveal_result(panel: Control, result_code := "") -> void:
 	clear_feedback()
+	if not result_code.is_empty():
+		audio_feedback.play_result(result_code)
 	panel.modulate.a = 1.0
 	panel.scale = Vector2.ONE
 	if reduced_motion:
@@ -229,6 +238,7 @@ func _apply_reaction_impact(event: Dictionary, displayed: Dictionary) -> void:
 	displayed[key] = maxf(0.0, float(displayed.get(key, 0)) - float(event.get("amount", 0)))
 	# Text and visible HP change on the same impact, including partial blocks.
 	_apply_resources(displayed)
+	audio_feedback.play_event(event)
 	impact_presented.emit(event)
 
 
@@ -250,6 +260,7 @@ func _play_fate_thrust(event: Dictionary, displayed: Dictionary) -> void:
 
 
 func _apply_damage_impact(event: Dictionary, displayed: Dictionary) -> void:
+	audio_feedback.play_event(event)
 	var target := str(event.get("target", "enemy"))
 	var text := _damage_text(event)
 	_record_feedback(text)

@@ -61,6 +61,20 @@ Każda część dostaje testy, uruchomienie Godota, zrzuty przed/po w ignorowany
   Gotowe do oceny reakcji na żywo przez właściciela; część audio nadal otwarta.
 - Szczegóły: `docs/reviews/combat-impact-feedback/README.md`.
 
+### Część 1B — dźwięki walki
+
+- Gałąź `codex/combat-audio-feedback`, baza `2f97c0d2619393b243ff6e2ce84b3cb69ed3675c`.
+- Pięć lokalnych próbek Kenney CC0: trafienie, krytyk, blok, unik i monety po
+  zwycięstwie. Bez kosztów, nowych zależności i muzyki w tle.
+- Synchronizacja z istniejącym impact, jeden sygnał w ograniczonych animacjach;
+  wyciszenie dostępne podczas tury, zapisane poza danymi postaci.
+- Zakres pozostaje prezentacyjny: bez zmian silnika, RNG, nagród i zapisów.
+- Wyniki testów, dowody i próbka odsłuchu: `docs/reviews/combat-audio-feedback/README.md`.
+- Weryfikacja: 783/783 GUT, 660 testów Python + 8 podtestów, 120 PNG przed/po
+  oraz rzeczywisty miks PCM z kontrolą ciszy i zapasu głośności.
+- Charakter brzmienia i poziom na słuchawkach/głośnikach pozostają do oceny
+  właściciela. To nie pełne udźwiękowienie umiejętności/regionów ani animacje szkieletowe.
+
 ## Archiwalny plan z 2026-09-07
 
 Zakres zatwierdzony przez użytkownika 2026-09-07. Kolejne etapy realizowane

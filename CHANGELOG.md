@@ -2,6 +2,10 @@
 
 ## [0.25.0-dev] — Pierwsza grywalna pętla w Godot 4
 
+- dźwięki walki 1B: lokalne próbki Kenney CC0 zsynchronizowane z trafieniem,
+  krytykiem, blokiem i unikiem oraz pojedynczy sygnał monet po zwycięstwie;
+  wyciszenie zapamiętywane osobno od postaci, limit głosów i spokojny tryb
+  ograniczonych animacji; bez zmian mechanik, RNG, nagród i zapisów,
 - etap prezentacji walki 1B: lokalne reakcje na trafienie, krytyk, unik i blok;
   tekst i ubytek PŻ pojawiają się w chwili uderzenia także przy częściowym bloku,
   a ograniczone animacje zachowują nieruchome, czytelne komunikaty; bez zmian

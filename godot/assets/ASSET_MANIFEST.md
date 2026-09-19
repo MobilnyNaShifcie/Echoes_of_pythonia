@@ -479,3 +479,28 @@ Production source: `exec-f264a523-aa0e-42f5-8067-af05a8171e8c.png`.
 Local originals are retained in the task's `.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/`.
 Prompt, atlas contract, tests and review: `docs/reviews/combat-victory-banner/README.md`.
 Evidence is generated into ignored `build/combat-victory-review/<stage>/evidence/`.
+
+### Combat audio — Kenney CC0, 2026-09-19
+
+Original OGG samples, byte-identical to entries from the official free packs
+[Impact Sounds](https://kenney.nl/assets/impact-sounds) and
+[RPG Audio](https://kenney.nl/assets/rpg-audio). Both packs are CC0, permitted for
+commercial use without required attribution. Original licenses are retained in
+`assets/audio/combat/LICENSE-impact-sounds.txt` and `LICENSE-rpg-audio.txt`
+(license wording unchanged; line endings/trailing whitespace normalized for Git).
+No generated audio, paid dependency, streaming or external runtime service.
+
+| File under `assets/audio/combat/` | Pack / original entry | Bytes | SHA-256 |
+| --- | --- | ---: | --- |
+| `hit.ogg` | Impact Sounds / `Audio/impactPunch_medium_000.ogg` | 8800 | `486988aa2d6440ffc4c62a0e8ccf3c23673ba84424bd4723378d451b7255eb5c` |
+| `critical.ogg` | Impact Sounds / `Audio/impactPunch_heavy_000.ogg` | 11617 | `b33a8f14068aec24ec69ba85e5e87fdc41228975f6a1a3e44a6e7d6fc3d9f8d8` |
+| `block.ogg` | Impact Sounds / `Audio/impactMetal_heavy_000.ogg` | 6110 | `e07045693e4a2b3d165c424e3dab4c781d9ff8880a386880ac89a51315d7f831` |
+| `dodge.ogg` | RPG Audio / `Audio/cloth1.ogg` | 16508 | `ddb93a3671233f95da0e0b10367f082f7eb42fa6caadcdcf776410aa8833c747d` |
+| `victory.ogg` | RPG Audio / `Audio/handleCoins2.ogg` | 13094 | `4b857968d64f9ac9336a10ffac6694d7547e1f01566ad6857b30bc8db3ee6c32` |
+
+All imports are non-looping. Runtime gain is -14/-12/-15/-16/-16 dB respectively,
+at most two voices, no random pitch. Mute is a presentation preference, not a
+player-save field. The coin cue describes reward presentation, not a second grant.
+Provenance ZIPs, rendered PCM mix and screenshots are local ignored evidence in
+`build/combat-audio-review/`; reproduction/review is documented in
+`docs/reviews/combat-audio-feedback/README.md`.
