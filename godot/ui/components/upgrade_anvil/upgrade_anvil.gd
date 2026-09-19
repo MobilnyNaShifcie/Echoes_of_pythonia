@@ -4,6 +4,7 @@ signal item_dropped(data: Dictionary)
 signal return_requested(data: Dictionary)
 signal drag_state_changed(active: bool)
 const Presentation := preload("res://ui/components/upgrade_anvil/forge_item_presentation.gd")
+const PLINTH_BOTTOM_INSET := 56.0
 var accepts_item: Callable
 var occupied := false
 var contact_point := Vector2.ZERO
@@ -38,22 +39,23 @@ func show_item(texture: Texture2D, item_id := "") -> void:
 func _layout_art() -> void:
 	if not is_node_ready():
 		return
-	# The lower plinth intentionally continues beyond the clipped stage, grounding it.
+	# The frame depends only on available space, never on selection or upgrade controls.
 	var art: TextureRect = $AnvilArt
 	var factor := size.x * 0.92 / 1442.0
 	art.size = Vector2(1442, 843) * factor
+	# Fixed breathing room also keeps the lance's ribbons above the compact details panel.
+	var surface_y := maxf(24.0, size.y - art.size.y - PLINTH_BOTTOM_INSET) + 45.0 * factor
+	art.position = Vector2(size.x * 0.04, surface_y - 45.0 * factor)
+	contact_point = Vector2(size.x * 0.5, surface_y)
 	var icon: TextureRect = %PreviewIcon
 	icon.rotation = 0
 	var item_size := Vector2.ZERO
 	if occupied and _item_id != "caprice_lance":
 		var source_size := icon.texture.get_size()
-		var limit := Vector2(size.x * 0.42, size.y * 0.39)
+		# Reserve space for the level rail above; fit the object, never move the anvil.
+		var height := maxf(16.0, minf(size.y * 0.22, surface_y - 112.0))
+		var limit := Vector2(size.x * 0.42, height)
 		item_size = source_size * minf(limit.x / source_size.x, limit.y / source_size.y)
-	var surface_y := maxf(size.y * 0.26, item_size.y + 16.0)
-	if not occupied:
-		surface_y = maxf(24.0, size.y - art.size.y - 24.0) + 45.0 * factor
-	art.position = Vector2(size.x * 0.04, surface_y - 45.0 * factor)
-	contact_point = Vector2(size.x * 0.5, surface_y)
 	if occupied and _item_id == "caprice_lance":
 		var item_scale := size.x * 0.94 / 2103.0
 		icon.size = Vector2(2103, 580) * item_scale

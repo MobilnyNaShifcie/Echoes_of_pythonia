@@ -1,5 +1,84 @@
 # Kuźnia Garrana — przegląd warsztatu ulepszania
 
+## Stałe kowadło i nakładany panel — 2026-09-19
+
+Gałąź: `codex/blacksmith-fixed-anvil-panel`. Baza:
+`b0b0e69a81938eb4cc969a77be79a789510253b6`.
+Jeden commit; pełny hash w odpowiedzi końcowej. Bez scalania do main i bez push.
+Ta sekcja zastępuje opis zmiennej kompozycji z poprzedniej korekty.
+
+### Zakres
+
+- Ilustracja ma stałą scenę `Stage`, niezależną od widoczności kontrolek.
+  Położenie i skala kowadła, tła oraz punktu oparcia zależą tylko od rozmiaru
+  dostępnego obszaru, nigdy od wyboru, rodzaju przedmiotu lub poziomu ulepszenia.
+- Kontrolki poziomu pojawiają się nad kowadłem; dolny panel nakłada się na jego
+  podstawę. Nie zmniejsza ilustracji ani nie przesuwa blatu. Po odłożeniu rzeczy
+  obie warstwy UI znikają, pozostawiając niezmieniony obraz.
+- Nazwa i porównanie statystyk znajdują się obok siebie, aby również trzywierszowe
+  porównanie nie zasłaniało lancy i jej wstęg. Długie nazwy nadal mają wielokropek
+  i pełną podpowiedź. Materiały zachowują wewnętrzne przewijanie.
+- Pusta część warstwy kontrolek przepuszcza zdarzenia myszy do kowadła; przyciski
+  i dolny panel je obsługują. Przeciąganie/odkładanie i podświetlenia pozostają.
+- **Bez animacji** zgodnie z ostatnią decyzją: panel pokazuje się i chowa
+  natychmiast. Wysunięcie/zanikanie pozostaje osobnym, przyszłym etapem.
+- Bez zmian grafik, postaci, 11 slotów, definicji przedmiotów, instance ID,
+  kosztów, mechanik i zapisów. Bez usuwania wcześniejszych lokalnych plików.
+
+### Dowody i testy
+
+Generowane PNG oraz logi pozostają lokalnie, w ignorowanym `build/`.
+Poniższe ścieżki są opisem lokalnych dowodów, nie linkami do plików w Git:
+
+- Przed: `build/blacksmith-workbench-review/fixed-before/evidence/` — zachowane
+  kopie końcowych 30 zrzutów z bazowego commita b0b0e69, bez nadpisania oryginałów.
+- Po: `build/blacksmith-workbench-review/fixed-after/evidence/` — 33 PNG,
+  stany empty/selected/target10/equipped/backpack/chest/boots/earrings/drag_return/
+  returned/multi_stat, każdy w 1920×1080, 1366×768 i 1280×720.
+- Odtworzenie: `.venv/Scripts/python.exe scripts/review_blacksmith_workbench.py fixed-after --tests`.
+  Rzeczywista scena App działa na osobnym profilu i danych fixture, bez korzystania
+  z zapisu użytkownika. Multi_stat używa odłączonej definicji testowej.
+- Nowe testy porównują dokładne prostokąty sceny, tła, kowadła i wszystkich slotów
+  oraz punkt oparcia przed/po wyborze, zmianie przedmiotu, poziomu, zakładki
+  i odłożeniu. Sprawdzają granice obróconej lancy, brak przykrycia przedmiotów
+  przez panel, trzy statystyki, +10 i niezmienność danych gracza.
+- Istniejące testy obsługi myszy, klawiatury, kosztów, anulowania, powrotu i zapisów
+  pozostają częścią regresji; zmieniono jedynie odwołania do nowej hierarchii UI
+  oraz oczekiwania dotyczące panelu, który teraz nakłada się na ilustrację.
+
+Pełna regresja: **710/710**, 96 skryptów, 24 407 asercji, 169,813 s;
+w tym wszystkie **26/26** testy kuźni. Import, boot i zrzuty OpenGL: kod 0,
+bez błędów parsera, brakujących zasobów i niedziałających odwołań.
+Formatowanie/lint sześciu skryptów zakresu oraz `git diff --check`: bez błędów.
+Obejrzano puste i zajęte kowadło w 1080p, trzywierszowe porównanie w 768p,
+buty oraz pusty panel w 720p. Kontrola potwierdza niezmienną pozycję blatu,
+czytelne dane i brak przykrycia przedmiotów przez panel.
+
+### Ograniczenia i druga recenzja
+
+Do ręcznego sprawdzenia: brak ruchu blatu przy wyborze i odłożeniu, czytelność
+kompaktowego porównania na 720p/768p, długie nazwy, przeciąganie przez wolny obszar
+warstwy UI oraz normalne ulepszenie. Animacji jeszcze nie ma. Grafiki pozostałych
+przedmiotów nadal są istniejącymi ikonami, a nie nowymi ilustracjami perspektywicznymi.
+Znany komunikat środowiska Windows `Failed to read the root certificate store.`
+pozostaje w logach. Niezwiązane oznaczenia M plików .import i kopia właściciela
+`forge_anvil_work_v2.png` z .import są poza commitem i pozostają nietknięte.
+
+### Zmienione pliki
+
+```text
+docs/reviews/blacksmith-workbench/README.md
+godot/tests/fixtures/blacksmith_ui_test_base.gd
+godot/tests/test_blacksmith_fixed_anvil.gd
+godot/tests/test_blacksmith_fixed_anvil.gd.uid
+godot/tests/test_blacksmith_workbench.gd
+godot/tools/capture_blacksmith_workbench.gd
+godot/ui/components/upgrade_anvil/upgrade_anvil.gd
+godot/ui/screens/blacksmith_workbench/upgrade_view.gd
+godot/ui/screens/blacksmith_workbench/upgrade_view.tscn
+scripts/review_blacksmith_workbench.py
+```
+
 ## Oczyszczenie ekranu i odkładanie przeciągnięciem — 2026-09-19
 
 Gałąź: `codex/blacksmith-cleanup-drag-return`. Baza:

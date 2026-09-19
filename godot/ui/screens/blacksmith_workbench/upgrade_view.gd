@@ -16,6 +16,10 @@ var model := Model.new()
 func _ready() -> void:
 	$Content/Heading.add_theme_font_override("font", Style.heading_font())
 	%ItemName.add_theme_font_override("font", Style.heading_font())
+	var details_style := Style.panel(0.94, 10)
+	details_style.set_border_width_all(0)
+	details_style.border_width_top = 1
+	%UpgradeDetails.add_theme_stylebox_override("panel", details_style)
 	%LevelRail.target_selected.connect(set_target_level)
 	for button in [%MinusButton, %PlusButton]:
 		for state in ["normal", "hover", "pressed", "disabled"]:
@@ -103,7 +107,9 @@ func refresh() -> void:
 	%LevelRail.configure(
 		entry.item.upgrade_level if has_item else -1, model.target_level if has_item else -1
 	)
-	$Content/Target.visible = has_item
+	# Both layers overlay the fixed stage; visibility never participates in its layout.
+	%LevelControls.visible = has_item
+	%UpgradeDetails.visible = has_item
 	%LevelRail.visible = has_item
 	%ItemName.visible = has_item
 	%ItemName.text = entry.item.formatted_name() if has_item else ""
@@ -132,7 +138,7 @@ func refresh() -> void:
 		var tile = ResourceTile.instantiate()
 		%Materials.add_child(tile)
 		tile.configure(resource)
-	$Content/ResourceScroll.visible = has_item and not maximum
+	%ResourceScroll.visible = has_item and not maximum
 	var blocked := model.error()
 	action_button.visible = has_item and not maximum
 	action_button.disabled = not blocked.is_empty() or anvil.dragging

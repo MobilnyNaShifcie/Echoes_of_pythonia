@@ -61,6 +61,14 @@ func _anvil_drag_point(view) -> Vector2:
 	return icon.get_global_transform() * (icon.size * 0.5)
 
 
+func _visual_bounds(control: Control) -> Rect2:
+	var transform := control.get_global_transform()
+	var bounds := Rect2(transform * Vector2.ZERO, Vector2.ZERO)
+	for corner in [Vector2(control.size.x, 0), control.size, Vector2(0, control.size.y)]:
+		bounds = bounds.expand(transform * corner)
+	return bounds
+
+
 func _move(viewport: Viewport, point: Vector2, previous := Vector2.ZERO, held := false) -> void:
 	var motion := InputEventMouseMotion.new()
 	motion.position = point

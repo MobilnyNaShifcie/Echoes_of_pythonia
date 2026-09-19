@@ -94,6 +94,16 @@ func _run() -> void:
 			assert(viewport.gui_is_drag_successful())
 			assert(workbench.upgrade_view.model.selected_id.is_empty())
 			await _capture(viewport, args[0].path_join("returned_" + suffix))
+			# Detached fixture definition: verify the largest comparison without touching saves.
+			var lance = session.player.equipment.get_item("weapon")
+			lance.definition = lance.definition.duplicate()
+			lance.definition.attack = 20
+			lance.definition.defense = 20
+			lance.definition.max_hp = 100
+			workbench.picker.select_equipped("weapon")
+			workbench.upgrade_view.set_target_level(10)
+			await _settle()
+			await _capture(viewport, args[0].path_join("multi_stat_" + suffix))
 		viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED
 		app.queue_free()
 		await _settle()

@@ -11,7 +11,7 @@ func test_empty_anvil_and_opening_do_not_modify_the_player() -> void:
 	assert_null(view.get_node_or_null("%EmptyHint"))
 	assert_false(view.get_node("%ItemName").visible)
 	assert_false(view.action_button.visible)
-	assert_false(view.get_node("Content/ResourceScroll").visible)
+	assert_false(view.get_node("%ResourceScroll").visible)
 	assert_gt(view.anvil.size.y, view.size.y * 0.85)
 	assert_false(screen.mode_selector.is_visible_in_tree())
 	assert_false(screen.get_node("%BackButton").is_visible_in_tree())
@@ -345,7 +345,7 @@ func test_full_layout_at_both_resolutions_has_no_clipped_action_slots_or_backpac
 		await wait_process_frames(6)
 		assert_true(bounds.encloses(bench.upgrade_view.action_button.get_global_rect()))
 		assert_true(bounds.encloses(bench.picker.character_panel.get_global_rect()))
-		var resources: Control = bench.upgrade_view.get_node("Content/ResourceScroll")
+		var resources: Control = bench.upgrade_view.get_node("%ResourceScroll")
 		var tiles: Array[Node] = bench.upgrade_view.get_node("%Materials").get_children()
 		assert_eq(tiles[1].resource_id, "gold", "The total gold cost remains in the first row.")
 		assert_true(resources.get_global_rect().encloses(tiles[1].get_global_rect()))
@@ -577,10 +577,9 @@ func test_forge_composition_contains_art_and_controls_at_supported_resolutions()
 			for control in [
 				view.get_node("Content/Heading"),
 				view.get_node("%LevelRail"),
-				stage,
 				view.get_node("%ItemName"),
 				view.get_node("%Transition"),
-				view.get_node("Content/ResourceScroll"),
+				view.get_node("%ResourceScroll"),
 				view.action_button
 			]:
 				assert_true(
@@ -620,5 +619,8 @@ func test_multi_stat_preview_keeps_readable_rows_and_confirmation_inside_panel()
 	assert_eq(view.model.comparison().size(), 3)
 	assert_gte(view.comparison_label.size.y, 78.0)
 	assert_true(view.get_global_rect().encloses(view.action_button.get_global_rect()))
-	assert_lte(view.anvil.get_global_rect().end.y, view.get_node("%ItemName").global_position.y)
+	assert_lte(
+		_visual_bounds(view.get_node("%PreviewIcon")).end.y,
+		view.get_node("%UpgradeDetails").global_position.y
+	)
 	assert_eq(_snapshot(session), before)
