@@ -1,0 +1,205 @@
+[gd_scene format=3 uid="uid://y1avktf33tr"]
+
+[ext_resource type="Script" uid="uid://cdwt8xb36lcy2" path="res://ui/screens/blacksmith_workbench/upgrade_view.gd" id="1"]
+[ext_resource type="Script" uid="uid://d2ms183fho0xg" path="res://ui/components/upgrade_anvil/upgrade_anvil.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://bingh42qsq8dd" path="res://assets/ui/blacksmith/forge_panel_backdrop_v1.png" id="3_fc6wv"]
+[ext_resource type="Texture2D" uid="uid://c3lc0gmfn4b6f" path="res://assets/ui/blacksmith/forge_anvil_work_v2.png" id="4_blevo"]
+[ext_resource type="Script" path="res://ui/components/upgrade_anvil/upgrade_level_rail.gd" id="5"]
+[ext_resource type="Shader" path="res://ui/components/upgrade_anvil/forge_edge_fade.gdshader" id="6"]
+
+[sub_resource type="AtlasTexture" id="AnvilCrop"]
+atlas = ExtResource("4_blevo")
+region = Rect2(47, 136, 1442, 843)
+
+[sub_resource type="ShaderMaterial" id="BackdropFade"]
+shader = ExtResource("6")
+
+[node name="UpgradeView" type="PanelContainer" unique_id=1777757335]
+custom_minimum_size = Vector2(580, 0)
+script = ExtResource("1")
+
+[node name="Content" type="VBoxContainer" parent="." unique_id=477718848]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Heading" type="Label" parent="Content" unique_id=1460700506]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.8, 0.47, 1)
+theme_override_font_sizes/font_size = 32
+text = "Ulepszanie wyposażenia"
+
+[node name="Stage" type="Control" parent="Content"]
+custom_minimum_size = Vector2(0, 280)
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="Anvil" type="Control" parent="Content/Stage" unique_id=1489981143]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+clip_contents = true
+script = ExtResource("2")
+
+[node name="ForgeBackdrop" type="TextureRect" parent="Content/Stage/Anvil" unique_id=1258033366]
+material = SubResource("BackdropFade")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_fc6wv")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="AnvilArt" type="TextureRect" parent="Content/Stage/Anvil" unique_id=1439429493]
+layout_mode = 0
+mouse_filter = 2
+texture = SubResource("AnvilCrop")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="ItemMount" type="Control" parent="Content/Stage/Anvil" unique_id=2043276261]
+layout_mode = 0
+mouse_filter = 2
+
+[node name="PreviewIcon" type="TextureRect" parent="Content/Stage/Anvil/ItemMount" unique_id=1633766531]
+unique_name_in_owner = true
+layout_mode = 0
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Overlay" type="VBoxContainer" parent="Content/Stage"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 6
+
+[node name="LevelControls" type="VBoxContainer" parent="Content/Stage/Overlay"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 6
+
+[node name="Target" type="HBoxContainer" parent="Content/Stage/Overlay/LevelControls" unique_id=858003550]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TargetLabel" type="Label" parent="Content/Stage/Overlay/LevelControls/Target" unique_id=1781509282]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "Poziom ulepszenia"
+
+[node name="MinusButton" type="Button" parent="Content/Stage/Overlay/LevelControls/Target" unique_id=1529356188]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 28)
+layout_mode = 2
+tooltip_text = "Obniż poziom docelowy"
+text = "−"
+theme_override_font_sizes/font_size = 14
+
+[node name="PlusButton" type="Button" parent="Content/Stage/Overlay/LevelControls/Target" unique_id=1760733522]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 28)
+layout_mode = 2
+tooltip_text = "Podnieś poziom docelowy (maks. +10)"
+text = "+"
+theme_override_font_sizes/font_size = 14
+
+[node name="LevelRail" type="HBoxContainer" parent="Content/Stage/Overlay/LevelControls"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 58)
+script = ExtResource("5")
+
+[node name="Spacer" type="Control" parent="Content/Stage/Overlay"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="UpgradeDetails" type="PanelContainer" parent="Content/Stage/Overlay"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+mouse_filter = 0
+
+[node name="Details" type="VBoxContainer" parent="Content/Stage/Overlay/UpgradeDetails"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 6
+
+[node name="Summary" type="HBoxContainer" parent="Content/Stage/Overlay/UpgradeDetails/Details"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 12
+
+[node name="Identity" type="VBoxContainer" parent="Content/Stage/Overlay/UpgradeDetails/Details/Summary"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="ItemName" type="Label" parent="Content/Stage/Overlay/UpgradeDetails/Details/Summary/Identity" unique_id=1543682668]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 27
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Transition" type="Label" parent="Content/Stage/Overlay/UpgradeDetails/Details/Summary/Identity" unique_id=1526338913]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+horizontal_alignment = 1
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Comparison" type="RichTextLabel" parent="Content/Stage/Overlay/UpgradeDetails/Details/Summary" unique_id=375570215]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_font_sizes/normal_font_size = 17
+bbcode_enabled = true
+
+[node name="ResourceScroll" type="ScrollContainer" parent="Content/Stage/Overlay/UpgradeDetails/Details" unique_id=2079217365]
+unique_name_in_owner = true
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 0
+
+[node name="Resources" type="VBoxContainer" parent="Content/Stage/Overlay/UpgradeDetails/Details/ResourceScroll" unique_id=395599217]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Materials" type="GridContainer" parent="Content/Stage/Overlay/UpgradeDetails/Details/ResourceScroll/Resources" unique_id=1110413827]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 2
+
+[node name="UpgradeButton" type="Button" parent="Content/Stage/Overlay/UpgradeDetails/Details" unique_id=1578086231]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme_override_font_sizes/font_size = 27
+text = "Ulepsz"

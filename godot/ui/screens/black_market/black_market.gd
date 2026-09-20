@@ -6,7 +6,8 @@ signal state_changed
 
 const BlackMarketServiceClass := preload("res://core/economy/black_market_service.gd")
 const BookCatalogClass := preload("res://core/progression/book_catalog.gd")
-const CarryWeightServiceClass := preload("res://core/economy/carry_weight_service.gd")
+const Card = preload("res://ui/screens/black_market/market_offer_card.gd")
+const Palette = preload("res://ui/presentation/item_rarity_palette.gd")
 const GameSessionClass := preload("res://core/game/game_session.gd")
 const ItemCatalogClass := preload("res://core/items/item_catalog.gd")
 const InterfaceStyle := preload("res://ui/presentation/interface_style.gd")
@@ -14,59 +15,26 @@ const InterfaceStyle := preload("res://ui/presentation/interface_style.gd")
 const MODE_BUY := "buy"
 const MODE_SELL := "sell"
 const SOURCE_ART_SIZE := Vector2(1672.0, 941.0)
-const SOURCE_SLOT_CENTERS := [
-	Vector2(263.0, 562.0),
-	Vector2(532.0, 541.0),
-	Vector2(751.0, 516.0),
-	Vector2(958.0, 501.0),
-]
-const SOURCE_SLOT_SIZES := [
-	Vector2(188.0, 136.0),
-	Vector2(176.0, 130.0),
-	Vector2(162.0, 122.0),
-	Vector2(150.0, 116.0),
-]
-const SOURCE_PAD_CENTERS := [
-	Vector2(271.0, 569.0),
-	Vector2(525.0, 544.0),
-	Vector2(751.0, 521.0),
-	Vector2(949.0, 503.0),
-]
-# Rope mounts on the FRONT wooden lip. Boards hang below these source-art
-# anchors, so neither the prices nor their cords cover the leather display mats.
-const SOURCE_PRICE_ANCHORS := [
-	Vector2(271.0, 628.0),
-	Vector2(525.0, 599.0),
-	Vector2(751.0, 573.0),
-	Vector2(949.0, 550.0),
-]
-const SOURCE_PRICE_SIZES := [
-	Vector2(154.0, 96.25),
-	Vector2(148.0, 92.5),
-	Vector2(142.0, 88.75),
-	Vector2(136.0, 85.0),
-]
+const MERCHANT_RECT := Rect2(340, 160, 275, 355)
+const WINDOW_SIZE := Vector2(1120, 896)
 
+var offer_slots: Array[Button] = []
 var _session: GameSessionClass
 var _mode := MODE_BUY
 var _selected_id := ""
 var _rotation_date := ""
+var _require_offer_selection := false
 var _rng := RandomNumberGenerator.new()
 
 @onready var background: TextureRect = %Background
 @onready var offer_layer: Control = %OfferLayer
-@onready var offer_slots: Array[BlackMarketOfferSlot] = [
-	$OfferLayer/OfferSlot1 as BlackMarketOfferSlot,
-	$OfferLayer/OfferSlot2 as BlackMarketOfferSlot,
-	$OfferLayer/OfferSlot3 as BlackMarketOfferSlot,
-	$OfferLayer/OfferSlot4 as BlackMarketOfferSlot,
-]
-@onready var wallet_label: Label = %WalletLabel
-@onready var carry_label: Label = %CarryLabel
+@onready var offer_window: Panel = %OfferWindow
+@onready var merchant_button: Button = %MerchantButton
+@onready var npc_action_panel: PanelContainer = %NpcActionPanel
 @onready var delivery_label: Label = %DeliveryLabel
 @onready var buy_tab: Button = %BuyTab
 @onready var sell_tab: Button = %SellTab
-@onready var sell_panel: PanelContainer = %SellPanel
+@onready var sell_panel: Panel = %SellPanel
 @onready var offer_list: ItemList = %OfferList
 @onready var category_label: Label = %CategoryLabel
 @onready var title_label: Label = %ItemTitleLabel
@@ -75,28 +43,107 @@ var _rng := RandomNumberGenerator.new()
 @onready var status_label: Label = %StatusLabel
 @onready var bargain_button: Button = %BargainButton
 @onready var action_button: Button = %ActionButton
-@onready var inventory_drop_target: BlackMarketDropTarget = %InventoryDropTarget
-@onready var drop_carry_label: Label = %DropCarryLabel
 @onready var result_label: Label = %ResultLabel
 
 
 func _ready() -> void:
 	_rng.randomize()
-	for button in [buy_tab, sell_tab, bargain_button, action_button, %BackButton]:
+	for button: Button in [
+		buy_tab, sell_tab, bargain_button, action_button, %BackButton, %CloseButton
+	]:
+		var style := InterfaceStyle.panel(0.92, Color("8d6b30"))
+		style.set_corner_radius_all(5)
+		button.add_theme_stylebox_override("normal", style)
+		button.add_theme_font_size_override("font_size", 19)
 		InterfaceStyle.button_feedback(button)
+	var selected := InterfaceStyle.panel(1.0, Color("f5cf77"))
+	selected.bg_color = Color("604722")
+	selected.set_corner_radius_all(5)
+	for button: Button in [buy_tab, sell_tab, action_button]:
+		button.add_theme_stylebox_override("pressed", selected)
+		button.add_theme_stylebox_override("hover_pressed", selected)
+	action_button.add_theme_stylebox_override("normal", selected)
+	var book_selection := InterfaceStyle.panel(0.9, Color("ae8948"))
+	book_selection.bg_color = Color("30291c")
+	book_selection.set_corner_radius_all(4)
+	offer_list.add_theme_stylebox_override("selected", book_selection)
+	offer_list.add_theme_stylebox_override("selected_focus", book_selection)
+	offer_list.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
 	%BackButton.pressed.connect(back_requested.emit)
+	%CloseButton.pressed.connect(close_offers)
+	merchant_button.pressed.connect(show_conversation)
+	%OpenServiceButton.pressed.connect(show_buy_offers)
+	%OpenBookSalesButton.pressed.connect(show_book_sales)
+	%CloseInteractionButton.pressed.connect(close_conversation)
+	for button: Button in [%OpenServiceButton, %OpenBookSalesButton, %CloseInteractionButton]:
+		InterfaceStyle.quiet_button(button)
+	npc_action_panel.add_theme_stylebox_override("panel", InterfaceStyle.panel())
+	%DailyRefreshTimer.timeout.connect(_check_daily_rotation)
 	buy_tab.pressed.connect(_set_mode.bind(MODE_BUY))
 	sell_tab.pressed.connect(_set_mode.bind(MODE_SELL))
 	offer_list.item_selected.connect(_select_entry)
 	bargain_button.pressed.connect(_bargain)
 	action_button.pressed.connect(_perform_action)
-	inventory_drop_target.offer_dropped.connect(_purchase_offer)
-	for slot: BlackMarketOfferSlot in offer_slots:
-		slot.offer_selected.connect(_select_offer)
-		slot.offer_activated.connect(_purchase_offer)
-	resized.connect(_layout_offer_slots)
+	for index in 4:
+		var card := Card.new()
+		card.name = "OfferCard%d" % (index + 1)
+		offer_layer.add_child(card)
+		offer_slots.append(card)
+		card.offer_selected.connect(_select_offer)
+	resized.connect(_layout_market)
 	_render()
-	call_deferred("_layout_offer_slots")
+	_layout_market()
+
+
+func close_offers() -> void:
+	show_conversation()
+
+
+func show_conversation() -> void:
+	offer_window.hide()
+	npc_action_panel.show()
+	merchant_button.disabled = false
+	_check_daily_rotation()
+	%OpenServiceButton.grab_focus()
+	# Wrapping/theme minimums settle after the conversation becomes visible.
+	_layout_market.call_deferred()
+
+
+func close_conversation() -> void:
+	npc_action_panel.hide()
+	merchant_button.grab_focus()
+
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		if offer_window.visible:
+			close_offers()
+		elif npc_action_panel.visible:
+			close_conversation()
+		else:
+			back_requested.emit()
+		get_viewport().set_input_as_handled()
+
+
+func _layout_market() -> void:
+	if not is_node_ready() or size.x <= 0 or size.y <= 0:
+		return
+	# Match the cover-fit background, including ultrawide cropping.
+	var art_scale := maxf(size.x / SOURCE_ART_SIZE.x, size.y / SOURCE_ART_SIZE.y)
+	var origin := (size - SOURCE_ART_SIZE * art_scale) * 0.5
+	merchant_button.position = origin + MERCHANT_RECT.position * art_scale
+	merchant_button.size = MERCHANT_RECT.size * art_scale
+	# Same floating conversation geometry and shared styling as city service NPCs.
+	npc_action_panel.set_anchors_preset(Control.PRESET_TOP_LEFT)
+	npc_action_panel.position = Vector2(size.x - 466, size.y * 0.34)
+	npc_action_panel.size = Vector2(442, 342)
+	var factor := minf(minf(size.x * 0.625 / WINDOW_SIZE.x, (size.y - 60) / WINDOW_SIZE.y), 1.1)
+	factor = maxf(factor, 0.1)
+	offer_window.scale = Vector2.ONE * factor
+	offer_window.size = WINDOW_SIZE
+	offer_window.position = Vector2(
+		size.x - WINDOW_SIZE.x * factor - 30, (size.y - WINDOW_SIZE.y * factor) * 0.5
+	)
 
 
 func configure(session: GameSessionClass, rotation_date := "") -> void:
@@ -119,98 +166,81 @@ func show_book_sales() -> void:
 
 
 func _set_mode(mode: String) -> void:
+	offer_window.show()
+	npc_action_panel.hide()
+	merchant_button.disabled = true
 	_mode = mode
 	_selected_id = ""
+	_require_offer_selection = false
 	result_label.text = ""
 	result_label.hide()
+	_check_daily_rotation()
 	_render()
 	_focus_current_mode()
 
 
 func _select_offer(offer_id: String) -> void:
+	if _check_daily_rotation():
+		return
 	if _mode != MODE_BUY or offer_id.is_empty():
 		return
+	_require_offer_selection = false
 	_selected_id = offer_id
+	result_label.hide()
 	_render_details()
+	_refresh_selection()
 
 
 func _select_entry(index: int) -> void:
 	_selected_id = str(offer_list.get_item_metadata(index))
+	result_label.hide()
 	_render_details()
 
 
 func _render() -> void:
 	if _session == null:
 		return
-	var load := CarryWeightServiceClass.carry_status(_session.player)
-	wallet_label.text = (
-		"%s  •  Złoto %s"
-		% [
-			_session.player.display_name,
-			_group_digits(_session.player.gold),
-		]
-	)
-	carry_label.text = (
-		"Udźwig %.1f/%.1f kg  •  %s"
-		% [
-			load.current_kg,
-			load.capacity_kg,
-			load.display_name,
-		]
-	)
-	drop_carry_label.text = "Udźwig: %.1f/%.1f kg" % [load.current_kg, load.capacity_kg]
 	var active_date: String = (
 		BlackMarketServiceClass.current_rotation_key()
 		if _rotation_date.is_empty()
 		else _rotation_date
 	)
 	delivery_label.text = (
-		"Dostawa: %s  •  następna: %s"
+		"Dostawa %s  ·  Następna %s"
 		% [
 			active_date,
 			BlackMarketServiceClass.next_rotation_date(active_date),
 		]
 	)
-	buy_tab.disabled = _mode == MODE_BUY
-	sell_tab.disabled = _mode == MODE_SELL
+	buy_tab.set_pressed_no_signal(_mode == MODE_BUY)
+	sell_tab.set_pressed_no_signal(_mode == MODE_SELL)
 	offer_layer.visible = _mode == MODE_BUY
-	inventory_drop_target.visible = _mode == MODE_BUY
 	sell_panel.visible = _mode == MODE_SELL
 	_refresh_list()
 	_refresh_offer_slots()
 	_render_details()
-	call_deferred("_layout_offer_slots")
+	_refresh_selection()
 
 
 func _refresh_list() -> void:
 	offer_list.clear()
 	if _mode == MODE_BUY:
-		for offer in _session.black_market.offers:
-			var definition = ItemCatalogClass.get_definition(offer.item_id)
-			if definition == null:
-				continue
-			var sold: bool = offer.offer_id in _session.black_market.purchased_offer_ids
-			var suffix := " — SPRZEDANE" if sold else ""
-			var row := (
-				offer_list
-				. add_item(
-					(
-						"%s%s%s"
-						% [
-							definition.display_name,
-							" ×%d" % offer.quantity if offer.quantity > 1 else "",
-							suffix,
-						]
-					)
-				)
-			)
-			offer_list.set_item_metadata(row, offer.offer_id)
-	else:
-		for item_id: String in BlackMarketServiceClass.books_in_inventory(_session.player):
-			var definition = ItemCatalogClass.get_definition(item_id)
-			var quantity := _session.player.inventory.count(item_id)
-			var row := offer_list.add_item("%s ×%d" % [definition.display_name, quantity])
-			offer_list.set_item_metadata(row, item_id)
+		if _require_offer_selection:
+			return
+		if BlackMarketServiceClass.find_offer(_session.black_market, _selected_id) == null:
+			_selected_id = ""
+			for offer in _session.black_market.offers:
+				if ItemCatalogClass.get_definition(offer.item_id) != null:
+					_selected_id = offer.offer_id
+					break
+		return
+	for item_id: String in BlackMarketServiceClass.books_in_inventory(_session.player):
+		var definition = ItemCatalogClass.get_definition(item_id)
+		var quantity := _session.player.inventory.count(item_id)
+		var row := offer_list.add_item(
+			"%s ×%d" % [definition.display_name, quantity], definition.icon
+		)
+		offer_list.set_item_metadata(row, item_id)
 
 	if offer_list.item_count == 0:
 		_selected_id = ""
@@ -227,7 +257,7 @@ func _refresh_offer_slots() -> void:
 	if _session == null:
 		return
 	for index in offer_slots.size():
-		var slot: BlackMarketOfferSlot = offer_slots[index]
+		var slot: Button = offer_slots[index]
 		if index >= _session.black_market.offers.size():
 			slot.clear_offer()
 			continue
@@ -237,10 +267,6 @@ func _refresh_offer_slots() -> void:
 			slot.clear_offer()
 			continue
 		var sold: bool = offer.offer_id in _session.black_market.purchased_offer_ids
-		var negotiated: bool = _session.black_market.buy_negotiated_prices.has(offer.offer_id)
-		var effective_price := BlackMarketServiceClass.effective_buy_price(
-			_session.black_market, offer
-		)
 		(
 			slot
 			. configure(
@@ -248,21 +274,10 @@ func _refresh_offer_slots() -> void:
 					"offer_id": offer.offer_id,
 					"item_id": offer.item_id,
 					"icon": definition.icon,
+					"rarity": definition.rarity,
 					"quantity": offer.quantity,
-					"base_price": offer.base_price,
-					"effective_price": effective_price,
-					"negotiated": negotiated,
 					"sold": sold,
-					"tooltip":
-					(
-						"%s\n%s\n\nCena: %s złota%s"
-						% [
-							definition.display_name,
-							definition.description,
-							_group_digits(effective_price),
-							"  •  ilość: %d" % offer.quantity if offer.quantity > 1 else "",
-						]
-					),
+					"tooltip": "%s\n%s" % [definition.display_name, definition.description],
 				}
 			)
 		)
@@ -273,14 +288,28 @@ func _render_details() -> void:
 		return
 	if _selected_id.is_empty():
 		category_label.text = "SKUP KSIĄG" if _mode == MODE_SELL else "DZIENNA DOSTAWA"
-		title_label.text = "Brak przedmiotów"
+		title_label.text = "Wybierz przedmiot" if _require_offer_selection else "Brak przedmiotów"
 		description_label.text = (
-			"Nie masz ksiąg na sprzedaż."
-			if _mode == MODE_SELL
-			else "Dostawa nie zawiera prawidłowych ofert."
+			"Dostawa odświeżyła się. Wybierz jedną z nowych ofert."
+			if _require_offer_selection
+			else (
+				"Nie masz ksiąg na sprzedaż."
+				if _mode == MODE_SELL
+				else "Dostawa nie zawiera prawidłowych ofert."
+			)
 		)
 		price_label.text = ""
+		price_label.tooltip_text = ""
+		%PriceCoin.hide()
+		%QuantityLabel.text = ""
+		%QuantityLabel.tooltip_text = ""
+		%DetailIcon.texture = null
+		%DetailIconFrame.hide()
 		status_label.text = ""
+		title_label.tooltip_text = title_label.text
+		description_label.tooltip_text = description_label.text
+		bargain_button.text = "Targuj"
+		action_button.text = "Sprzedaj 1" if _mode == MODE_SELL else "Kup"
 		bargain_button.disabled = true
 		action_button.disabled = true
 		return
@@ -304,15 +333,11 @@ func _render_buy_details() -> void:
 		if book != null
 		else "RZADKI TOWAR"
 	)
-	title_label.text = definition.display_name
-	description_label.text = definition.description
-	price_label.text = (
-		"Cena: %s złota  •  ilość: %d"
-		% [
-			_group_digits(BlackMarketServiceClass.effective_buy_price(market, offer)),
-			offer.quantity,
-		]
-	)
+	_render_definition(definition)
+	price_label.text = _group_digits(BlackMarketServiceClass.effective_buy_price(market, offer))
+	price_label.tooltip_text = "Cena oferty w złocie: " + price_label.text
+	%QuantityLabel.text = "Ilość: %d" % offer.quantity
+	%QuantityLabel.tooltip_text = %QuantityLabel.text
 	status_label.text = (
 		"SPRZEDANE" if sold else ("CENA PO TARGOWANIU" if negotiated else "JEDNA PRÓBA TARGOWANIA")
 	)
@@ -332,15 +357,13 @@ func _render_sell_details() -> void:
 	category_label.text = (
 		"KSIĘGA MISTRZOSTWA" if book.book_type == "mastery" else "KSIĘGA ŚCIEŻKI"
 	)
-	title_label.text = definition.display_name
-	description_label.text = definition.description
-	price_label.text = (
-		"Oferta skupu: %s złota / szt.  •  posiadasz: %d"
-		% [
-			_group_digits(BlackMarketServiceClass.effective_book_sell_price(market, _selected_id)),
-			_session.player.inventory.count(_selected_id),
-		]
+	_render_definition(definition)
+	price_label.text = _group_digits(
+		BlackMarketServiceClass.effective_book_sell_price(market, _selected_id)
 	)
+	price_label.tooltip_text = "Złoto za 1 księgę: " + price_label.text
+	%QuantityLabel.text = "Posiadasz: %d" % _session.player.inventory.count(_selected_id)
+	%QuantityLabel.tooltip_text = %QuantityLabel.text
 	status_label.text = "CENA PO TARGOWANIU" if negotiated else "JEDNA PRÓBA TARGOWANIA"
 	bargain_button.text = "Cena ustalona" if negotiated else "Targuj"
 	bargain_button.disabled = negotiated
@@ -349,6 +372,8 @@ func _render_sell_details() -> void:
 
 
 func _bargain() -> void:
+	if _check_daily_rotation() or _selected_id.is_empty():
+		return
 	var result := {"ok": false, "message": "Brak wybranej oferty."}
 	if _mode == MODE_BUY:
 		var offer = BlackMarketServiceClass.find_offer(_session.black_market, _selected_id)
@@ -365,6 +390,8 @@ func _bargain() -> void:
 
 
 func _perform_action() -> void:
+	if _check_daily_rotation() or _selected_id.is_empty():
+		return
 	var result := (
 		BlackMarketServiceClass.buy(_session, _selected_id)
 		if _mode == MODE_BUY
@@ -376,20 +403,32 @@ func _perform_action() -> void:
 	_render()
 
 
-func _purchase_offer(offer_id: String) -> void:
-	if _mode != MODE_BUY or offer_id.is_empty():
-		return
-	_selected_id = offer_id
-	var result := BlackMarketServiceClass.buy(_session, offer_id)
-	_show_result(result)
-	if result.ok:
-		state_changed.emit()
-	_render()
+func _check_daily_rotation() -> bool:
+	if _session == null:
+		return false
+	if not BlackMarketServiceClass.ensure_rotation(
+		_session.black_market, _session.player.display_name, _rotation_date
+	):
+		return false
+	# A new offer must never inherit an old purchase click or negotiated price.
+	_selected_id = ""
+	_require_offer_selection = _mode == MODE_BUY
+	if is_node_ready():
+		_render()
+		_show_result({"ok": true, "message": "Nowa dzienna dostawa. Wybierz ofertę."})
+	state_changed.emit()
+	return true
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_FOCUS_IN and is_node_ready():
+		_check_daily_rotation.call_deferred()
 
 
 func _show_result(result: Dictionary) -> void:
 	result_label.text = str(result.get("message", ""))
 	result_label.visible = not result_label.text.is_empty()
+	result_label.tooltip_text = result_label.text
 	(
 		result_label
 		. add_theme_color_override(
@@ -408,32 +447,30 @@ func _focus_current_mode() -> void:
 		if offer_list.visible and offer_list.item_count > 0:
 			offer_list.grab_focus()
 		return
-	for slot: BlackMarketOfferSlot in offer_slots:
+	for slot: Button in offer_slots:
 		if not slot.disabled:
 			slot.grab_focus()
 			return
 
 
-func _layout_offer_slots() -> void:
-	if offer_slots.is_empty() or size.x <= 0.0 or size.y <= 0.0:
-		return
-	var scale_factor := maxf(size.x / SOURCE_ART_SIZE.x, size.y / SOURCE_ART_SIZE.y)
-	var drawn_size := SOURCE_ART_SIZE * scale_factor
-	var origin := (size - drawn_size) * 0.5
-	for index in offer_slots.size():
-		var slot: BlackMarketOfferSlot = offer_slots[index]
-		var slot_size: Vector2 = SOURCE_SLOT_SIZES[index] * scale_factor
-		slot.size = slot_size
-		slot.position = origin + SOURCE_SLOT_CENTERS[index] * scale_factor - slot_size * 0.5
-		slot.set_counter_anchor(origin + SOURCE_PAD_CENTERS[index] * scale_factor - slot.position)
-		(
-			slot
-			. price_sign
-			. hang_from_counter(
-				origin + SOURCE_PRICE_ANCHORS[index] * scale_factor - slot.position,
-				SOURCE_PRICE_SIZES[index] * scale_factor,
-			)
-		)
+func _render_definition(definition) -> void:
+	%PriceCoin.show()
+	title_label.text = definition.display_name
+	title_label.tooltip_text = definition.display_name
+	description_label.text = definition.description
+	description_label.tooltip_text = definition.description
+	%DetailIcon.texture = definition.icon
+	%DetailIconFrame.show()
+	var rarity_color := Palette.color_for(definition.rarity)
+	category_label.add_theme_color_override("font_color", rarity_color)
+	var frame := InterfaceStyle.panel(0.9, rarity_color)
+	frame.set_corner_radius_all(4)
+	%DetailIconFrame.add_theme_stylebox_override("panel", frame)
+
+
+func _refresh_selection() -> void:
+	for card in offer_slots:
+		card.set_selected(_mode == MODE_BUY and card.offer_id == _selected_id)
 
 
 func _group_digits(value: int) -> String:

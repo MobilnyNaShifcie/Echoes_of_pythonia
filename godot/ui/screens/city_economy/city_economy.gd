@@ -13,7 +13,6 @@ const GuildStorageServiceClass := preload("res://core/economy/guild_storage_serv
 const InnServiceClass := preload("res://core/economy/inn_service.gd")
 const ItemCatalogClass := preload("res://core/items/item_catalog.gd")
 const RegionCatalogClass := preload("res://core/world/region_catalog.gd")
-const UpgradeServiceClass := preload("res://core/economy/upgrade_service.gd")
 const ItemGridLayoutClass := preload("res://ui/components/inventory_grid/item_grid_layout.gd")
 const MerchantTradeViewModelClass := preload(
 	"res://ui/screens/city_economy/merchant_trade_view_model.gd"
@@ -107,6 +106,8 @@ var _informant_present := false
 @onready var merchant_selection_price: Label = %MerchantSelectionPrice
 @onready var merchant_quantity_box: SpinBox = %MerchantQuantityBox
 @onready var merchant_action_button: Button = %MerchantActionButton
+@onready var blacksmith_workbench: Control = %BlacksmithWorkbench
+@onready var workshop_book: Control = %WorkshopBook
 
 
 static func display_name_for(service_id: String) -> String:
@@ -115,6 +116,12 @@ static func display_name_for(service_id: String) -> String:
 
 func _ready() -> void:
 	%BackButton.pressed.connect(back_requested.emit)
+	blacksmith_workbench.services_requested.connect(_focus_npc)
+	blacksmith_workbench.close_requested.connect(_show_ambient_view)
+	blacksmith_workbench.state_changed.connect(_on_workbench_state_changed)
+	workshop_book.services_requested.connect(_focus_npc)
+	workshop_book.close_requested.connect(_show_ambient_view)
+	workshop_book.state_changed.connect(_on_workbench_state_changed)
 	mode_selector.item_selected.connect(_on_mode_selected)
 	item_list.item_selected.connect(_on_item_selected)
 	quantity_box.value_changed.connect(_on_quantity_changed)
@@ -308,8 +315,29 @@ func _set_interaction_state(state: String) -> void:
 	_queue_npc_hit_area_update()
 	_set_npc_hover(false)
 	_set_informant_hover(false)
+	var workbench_open := service_open and _service_id == "blacksmith"
+	if workbench_open and not blacksmith_workbench.visible:
+		blacksmith_workbench.show_location(location_background.texture)
+		blacksmith_workbench.configure(_session)
+	blacksmith_workbench.visible = workbench_open
+	var book_open := service_open and _service_id == "workshop"
+	if book_open and not workshop_book.visible:
+		workshop_book.configure(_session)
+	workshop_book.visible = book_open
+	get_node("Page/Header").visible = not workbench_open and not book_open
+	summary_label.visible = not workbench_open and not book_open
+	if workbench_open or book_open:
+		service_toolbar.hide()
+		catalogue_panel.hide()
+		transaction_panel.hide()
+		status_label.hide()
 	if service_layout != null:
 		service_layout.refresh.call_deferred()
+
+
+func _on_workbench_state_changed() -> void:
+	_render_summary()
+	state_changed.emit()
 
 
 func _apply_npc_stage_scale() -> void:
@@ -578,23 +606,6 @@ func _build_entries(mode: String) -> Array[Dictionary]:
 			entries = _equipment_entries(mode, _session.player.inventory)
 		"storage_withdraw_equipment":
 			entries = _equipment_entries(mode, _session.guild_storage.inventory)
-		"blacksmith":
-			for slot: String in _session.player.equipment.slots:
-				var item = _session.player.equipment.slots[slot]
-				(
-					entries
-					. append(
-						{
-							"kind": mode,
-							"item": item,
-							"label": "Założone • %s" % item.formatted_name(),
-						}
-					)
-				)
-			for item in _session.player.inventory.equipment_items:
-				entries.append(
-					{"kind": mode, "item": item, "label": "Plecak • %s" % item.formatted_name()}
-				)
 		"carry_upgrade":
 			var upgrade := CarryWeightServiceClass.next_upgrade(_session.player)
 			if not upgrade.is_empty():
@@ -714,10 +725,6 @@ func _configure_quantity() -> void:
 	match entry.kind:
 		"merchant_sell_stacks", "storage_deposit_stacks", "storage_withdraw_stacks":
 			quantity_box.max_value = maxi(1, int(entry.owned))
-		"blacksmith":
-			quantity_box.max_value = maxi(
-				1, UpgradeServiceClass.MAX_UPGRADE_LEVEL - entry.item.upgrade_level
-			)
 		"merchant_buy":
 			quantity_box.max_value = 99
 		_:
@@ -814,10 +821,6 @@ func _entry_presentation(entry: Dictionary, quantity: int) -> Dictionary:
 				"%s\n\nCena sprzedaży: %d złota" % [entry.item.definition.description, price]
 			)
 			action = "Sprzedaj egzemplarz"
-		"blacksmith":
-			var plan := UpgradeServiceClass.get_upgrade_plan(entry.item, quantity)
-			details = _format_upgrade_plan(entry.item, plan)
-			action = "Ulepsz do +%d" % plan.get("target_level", entry.item.upgrade_level)
 		"workshop":
 			details = _format_recipe(entry.recipe)
 			action = "Wytwórz przedmiot"
@@ -864,31 +867,6 @@ func _entry_presentation(entry: Dictionary, quantity: int) -> Dictionary:
 	return {"details": details, "action": action}
 
 
-func _format_upgrade_plan(item, plan: Dictionary) -> String:
-	if not plan.ok:
-		return plan.message
-	var lines: Array[String] = [
-		"%s: +%d → +%d" % [item.display_name, plan.start_level, plan.target_level],
-		"Koszt: %d złota" % plan.gold,
-		"Materiały:",
-	]
-	for item_id: String in plan.materials:
-		(
-			lines
-			. append(
-				(
-					"• %s %d/%d"
-					% [
-						ItemCatalogClass.get_definition(item_id).display_name,
-						_session.player.inventory.count(item_id),
-						plan.materials[item_id],
-					]
-				)
-			)
-		)
-	return "\n".join(lines)
-
-
 func _format_recipe(recipe: Dictionary) -> String:
 	var region = RegionCatalogClass.get_definition(recipe.region_id)
 	var lines: Array[String] = [
@@ -931,10 +909,6 @@ func _perform_action() -> void:
 			result = EconomyServiceClass.sell_stack(_session.player, entry.item_id, quantity)
 		"merchant_sell_equipment":
 			result = EconomyServiceClass.sell_equipment(_session.player, int(entry.index))
-		"blacksmith":
-			result = UpgradeServiceClass.upgrade_item(
-				_session.player, entry.item, quantity, _session
-			)
 		"workshop":
 			result = CraftingServiceClass.craft(_session.player, entry.recipe.recipe_id)
 		"storage_deposit_stacks":

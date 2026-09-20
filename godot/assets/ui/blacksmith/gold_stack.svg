@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="96" height="80" viewBox="0 0 96 80">
+  <defs>
+    <linearGradient id="edge"><stop stop-color="#855019"/><stop offset=".35" stop-color="#f4c857"/><stop offset=".7" stop-color="#b77720"/><stop offset="1" stop-color="#e8b347"/></linearGradient>
+    <radialGradient id="top"><stop stop-color="#ffe8a0"/><stop offset=".7" stop-color="#eabe4b"/><stop offset="1" stop-color="#a86b1c"/></radialGradient>
+    <g id="coin"><path d="M0 0v6c0 7 36 7 36 0V0" fill="url(#edge)" stroke="#6a4116"/><ellipse cx="18" ry="7" rx="18" fill="url(#top)" stroke="#f1d176"/><ellipse cx="18" ry="4.5" rx="13" fill="none" stroke="#b8862f"/><path d="M8 3v5m5-4v5m6-4v5m6-6v5m5-7v5" stroke="#ffe19b" stroke-opacity=".6"/></g>
+  </defs>
+  <ellipse cx="48" cy="72" rx="44" ry="6" fill="#120a04" opacity=".5"/>
+  <use href="#coin" x="37" y="55"/><use href="#coin" x="37" y="49"/>
+  <use href="#coin" x="37" y="43"/><use href="#coin" x="37" y="37"/>
+  <use href="#coin" x="37" y="31"/><use href="#coin" x="37" y="25"/>
+  <use href="#coin" x="37" y="19"/><use href="#coin" x="37" y="13"/>
+  <use href="#coin" x="4" y="65"/><use href="#coin" x="4" y="59"/>
+  <use href="#coin" x="4" y="53"/><use href="#coin" x="4" y="47"/>
+  <use href="#coin" x="56" y="66"/><use href="#coin" x="56" y="60"/>
+</svg>

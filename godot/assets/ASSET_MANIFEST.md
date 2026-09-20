@@ -415,3 +415,92 @@ Unknown dungeons and surface encounters do not inherit crypt room backgrounds.
 and loot/return handling with a memory-only save substitute. Actual renders at
 720p, Full HD and ultrawide: `output/dungeon_crypt/in_game_complete/`.
 Report and remaining out-of-scope warnings: `docs/CRYPT_COMPLETION_REPORT.md`.
+
+### Garran forge presentation — owner-supplied art, 2026-09-19
+
+Scope: `assets/ui/blacksmith/` only. The owner supplied/started integrating the
+anvil and backdrop on `manual/blacksmith-visual-polish`, then explicitly requested
+their composition be finished using the new forge-only Caprice Lance illustration.
+No AI generation, repainting, inventory-icon replacement or gameplay changes.
+All three PNGs are preserved byte-for-byte; atlas cropping/rotation happen at runtime.
+
+| File | Source / presentation role | Dimensions | SHA-256 |
+| --- | --- | --- | --- |
+| `forge_panel_backdrop_v1.png` | Owner's existing working-tree asset; opaque forge background | 1536×1024 RGB | `3f16d88fd2507824db6e1e54abe5094c4d04353f439c864d827fe110e7374749` |
+| `forge_anvil_work_v2.png` | Owner's existing working-tree asset; real-alpha foreground anvil | 1536×1024 RGBA | `4841960976ef6c4fc58cb5f975f661683e50ed40426c9ae6913f39e71270c2de` |
+| `caprice_lance_forge_v1.png` | Exact copy of owner's `ChatGPT Image 17 wrz 2026, 11_02_52.png`; forge preview only | 2172×724 RGBA | `e4b7f17fdb40e994448674c5d81a878273f0dc4262a37f2e98e297c9aa6fd985` |
+| `gold_stack.svg` | Original code-native UI cost symbol; not an item asset | 96×80 SVG | Versioned source |
+
+PNG sizes: 1,876,702 / 2,460,156 / 554,606 bytes respectively. Anvil/lance
+alpha ranges are 0–255. No opaque checkerboard appears in the in-game renders.
+The lance is selected through `forge_item_presentation.gd`; its catalog icon
+`items/equipment/caprice_lance.png` remains unchanged. Other equipment uses its
+existing icon as the fallback.
+
+Actual app captures and logs are reproducible through
+`scripts/review_blacksmith_workbench.py visual-after` and stay in ignored
+`build/blacksmith-workbench-review/visual-after/evidence/`, not in Git/docs.
+Review history and visual caveats: `docs/reviews/blacksmith-workbench/README.md`.
+
+### Mirela recipe book — owner-approved direction, 2026-09-19
+
+`assets/ui/workshop/recipe_book_v1.png`: isolated empty green-leather/brass book,
+warm parchment and botanical corners, generated with the built-in **imagegen edit**
+tool from the owner-approved open-book mockup. 1448×1086 RGBA, 2,255,847 bytes;
+real alpha 0–255 (outside corners fully transparent). SHA-256:
+`8de1774d2d4ad3ad50351774261c10f77535bde9cf6a49fe572410b042c04972`.
+
+No baked labels, item illustrations, prices or controls. All contents are live
+Godot UI driven by the canonical recipe/item catalogs. Original Mirela, workshop
+background and every item icon remain unchanged. The generated original is
+preserved outside the repo; the production copy is byte-identical.
+
+Approved mockup: `exec-caf93461-3d17-4bf4-baab-e4bd6a1b7c69.png`.
+Production source: `exec-42ad992b-5022-4ccb-8768-b44ee4b0b8ed.png`.
+Both are in the task's local `.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/`.
+Exact prompt, implementation review and capture command:
+`docs/reviews/workshop-book/README.md`. Generated evidence stays in ignored
+`build/workshop-book-review/<stage>/evidence/`, never in docs or Git.
+
+### Victory standard — owner-approved compact-loot direction, 2026-09-19
+
+`assets/ui/combat/victory_atlas_v1.png`: built-in **imagegen edit** of the approved
+burgundy-standard mockup, reconstructed as seven blank UI skin pieces. 1254×1254
+RGBA, 1,703,079 bytes, real transparent alpha outside sprites. SHA-256:
+`7856e1fc6ee729b61298936f909489ddc8d9721207425293e0b37bd384c031f7`.
+
+Production copy is byte-identical to the generated original; runtime AtlasTexture
+regions only, no raster postprocessing. No baked labels, numbers, loot or hero art.
+The original hero, region backgrounds and catalog item icons remain unchanged.
+Gold uses the existing `assets/ui/blacksmith/gold_stack.svg` symbol.
+
+Approved reference: `exec-4d9fae83-4dc8-4bfc-b95f-12d504fcdd28.png`.
+Production source: `exec-f264a523-aa0e-42f5-8067-af05a8171e8c.png`.
+Local originals are retained in the task's `.codex/generated_images/01a000c5-507d-7760-aa0e-b8169452ad43/`.
+Prompt, atlas contract, tests and review: `docs/reviews/combat-victory-banner/README.md`.
+Evidence is generated into ignored `build/combat-victory-review/<stage>/evidence/`.
+
+### Combat audio — Kenney CC0, 2026-09-19
+
+Original OGG samples, byte-identical to entries from the official free packs
+[Impact Sounds](https://kenney.nl/assets/impact-sounds) and
+[RPG Audio](https://kenney.nl/assets/rpg-audio). Both packs are CC0, permitted for
+commercial use without required attribution. Original licenses are retained in
+`assets/audio/combat/LICENSE-impact-sounds.txt` and `LICENSE-rpg-audio.txt`
+(license wording unchanged; line endings/trailing whitespace normalized for Git).
+No generated audio, paid dependency, streaming or external runtime service.
+
+| File under `assets/audio/combat/` | Pack / original entry | Bytes | SHA-256 |
+| --- | --- | ---: | --- |
+| `hit.ogg` | Impact Sounds / `Audio/impactPunch_medium_000.ogg` | 8800 | `486988aa2d6440ffc4c62a0e8ccf3c23673ba84424bd4723378d451b7255eb5c` |
+| `critical.ogg` | Impact Sounds / `Audio/impactPunch_heavy_000.ogg` | 11617 | `b33a8f14068aec24ec69ba85e5e87fdc41228975f6a1a3e44a6e7d6fc3d9f8d8` |
+| `block.ogg` | Impact Sounds / `Audio/impactMetal_heavy_000.ogg` | 6110 | `e07045693e4a2b3d165c424e3dab4c781d9ff8880a386880ac89a51315d7f831` |
+| `dodge.ogg` | RPG Audio / `Audio/cloth1.ogg` | 16508 | `ddb93a3671233f95da0e0b10367f082f7eb42fa6caadcdcf776410aa8833c747d` |
+| `victory.ogg` | RPG Audio / `Audio/handleCoins2.ogg` | 13094 | `4b857968d64f9ac9336a10ffac6694d7547e1f01566ad6857b30bc8db3ee6c32` |
+
+All imports are non-looping. Runtime gain is -14/-12/-15/-16/-16 dB respectively,
+at most two voices, no random pitch. Mute is a presentation preference, not a
+player-save field. The coin cue describes reward presentation, not a second grant.
+Provenance ZIPs, rendered PCM mix and screenshots are local ignored evidence in
+`build/combat-audio-review/`; reproduction/review is documented in
+`docs/reviews/combat-audio-feedback/README.md`.

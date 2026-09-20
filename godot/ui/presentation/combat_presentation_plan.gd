@@ -59,6 +59,7 @@ static func from_report(report: Dictionary) -> Array[Dictionary]:
 						"player",
 						"BLOK" if blocked_damage <= 0 else "BLOK  •  -%d" % blocked_damage,
 						"block",
+						blocked_damage,
 					)
 				)
 			)
@@ -73,13 +74,17 @@ static func from_report(report: Dictionary) -> Array[Dictionary]:
 				_damage("player", "enemy", int(report.warrior_counter_damage), false, "KONTRA")
 			)
 		if int(report.get("boss_aura_damage", 0)) > 0:
-			events.append(_damage("enemy", "player", int(report.boss_aura_damage), false, "AURA"))
+			events.append(
+				_damage("enemy", "player", int(report.boss_aura_damage), false, "AURA", false)
+			)
 
 	if int(report.get("reflected_damage", 0)) > 0:
-		events.append(_damage("player", "enemy", int(report.reflected_damage), false, "ODBICIE"))
+		events.append(
+			_damage("player", "enemy", int(report.reflected_damage), false, "ODBICIE", false)
+		)
 	if int(report.get("enemy_bleed_damage", 0)) > 0:
 		events.append(
-			_damage("player", "enemy", int(report.enemy_bleed_damage), false, "KRWAWIENIE")
+			_damage("player", "enemy", int(report.enemy_bleed_damage), false, "KRWAWIENIE", false)
 		)
 	if int(report.get("enemy_healed", 0)) > 0:
 		events.append(_restore("enemy", int(report.enemy_healed), 0))
@@ -140,6 +145,7 @@ static func _damage(
 	amount: int,
 	critical: bool,
 	prefix := "",
+	direct_attack := true,
 ) -> Dictionary:
 	return {
 		"kind": "damage",
@@ -148,6 +154,7 @@ static func _damage(
 		"amount": amount,
 		"critical": critical,
 		"prefix": prefix,
+		"direct_attack": direct_attack,
 	}
 
 
@@ -160,10 +167,11 @@ static func _restore(target: String, health: int, mana: int) -> Dictionary:
 	}
 
 
-static func _feedback(target: String, text: String, tone: String) -> Dictionary:
+static func _feedback(target: String, text: String, tone: String, amount := 0) -> Dictionary:
 	return {
 		"kind": "feedback",
 		"target": target,
 		"text": text,
 		"tone": tone,
+		"amount": maxi(0, amount),
 	}

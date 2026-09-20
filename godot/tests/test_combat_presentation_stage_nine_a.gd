@@ -141,13 +141,15 @@ func test_resource_bars_and_result_panel_keep_a_stable_full_hd_contract() -> voi
 	assert_eq(screen.player_hp_bar.max_value, float(session.player.stats.max_hp))
 	assert_eq(screen.player_mana_bar.max_value, float(session.player.stats.max_mana))
 	assert_eq(screen.player_mana_bar.value, float(session.player.stats.current_mana))
-	var continue_size := screen.continue_button.size
 	screen._enemy.current_hp = 1
 	screen.set_reduced_motion(true)
 	screen.attack_button.pressed.emit()
 	await get_tree().process_frame
 	assert_true(screen.result_panel.visible)
 	assert_eq(screen.result_title_label.text, "ZWYCIĘSTWO")
+	var continue_size := screen.continue_button.size
+	screen._render()
+	await get_tree().process_frame
 	assert_eq(screen.continue_button.size, continue_size)
 	assert_eq(screen.continue_button.custom_minimum_size, Vector2(180, 56))
 	host.free()

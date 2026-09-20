@@ -27,16 +27,17 @@ func test_workshop_crafts_selected_first_region_recipe() -> void:
 	add_child_autofree(screen)
 	screen.configure(session, "workshop")
 
-	assert_eq(screen.mode_selector.item_count, 5)
-	assert_eq(screen.item_list.item_count, 10)
-	screen.action_button.pressed.emit()
+	screen._open_service()
+	assert_eq(screen.workshop_book.region_buttons.size(), 5)
+	assert_eq(screen.workshop_book.recipes.size(), 10)
+	screen.workshop_book.craft_button.pressed.emit()
 	assert_eq(session.player.inventory.count("leather_hood"), 1)
 	assert_eq(session.player.inventory.count("weak_leather"), 0)
 
-	screen.mode_selector.select(1)
-	screen.mode_selector.item_selected.emit(1)
-	assert_eq(screen.item_list.item_count, 8)
-	assert_string_contains(screen.details_label.text, "Czarny Bór")
+	screen.workshop_book.region_buttons[1].pressed.emit()
+	assert_eq(screen.workshop_book.recipes.size(), 8)
+	assert_string_contains(screen.workshop_book.region_label.text, "Czarny Bór")
+	await wait_process_frames(3)
 
 
 func test_blacksmith_upgrades_the_selected_equipped_item() -> void:
@@ -46,11 +47,16 @@ func test_blacksmith_upgrades_the_selected_equipped_item() -> void:
 	var screen := CITY_ECONOMY_SCENE.instantiate() as CityEconomyScreenClass
 	add_child_autofree(screen)
 	screen.configure(session, "blacksmith")
-	var selected_item = screen._selected_entry().item
+	screen._open_service()
+	var selected_item = session.player.equipment.get_item("weapon")
+	screen.blacksmith_workbench.picker.select_equipped("weapon")
 
-	screen.action_button.pressed.emit()
+	screen.blacksmith_workbench.upgrade_view.action_button.pressed.emit()
 	assert_eq(selected_item.upgrade_level, 1)
 	assert_eq(session.player.gold, 75)
+	# Material tiles replaced by the refresh are released on the next frame.
+	await get_tree().process_frame
+	await get_tree().process_frame
 
 
 func test_inn_combines_rest_storage_and_carry_operations() -> void:

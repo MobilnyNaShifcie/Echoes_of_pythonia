@@ -89,60 +89,32 @@ func test_scale_lies_on_counter_and_fits_in_viewport() -> void:
 		)
 
 
-func test_scale_live_drag_cancel_and_purchase_keep_original_item_and_price() -> void:
+func test_card_purchase_preserves_original_item_and_price() -> void:
 	var market = _market(200000)
-	await get_tree().process_frame
+	market.show_buy_offers()
 	var slot = market.offer_slots[0]
-	var view = slot.model_view
-	var world = view.model
-	var size_before: Vector2 = view.size
-	assert_almost_eq(view.size.x / slot.size.x, 1.5, 0.01)
-	assert_same(slot._item_texture, Builder.ART)
-	var data = slot._get_drag_data(Vector2(70, 35))
-	assert_eq(data.item_id, "leviathan_scale")
-	assert_same(view.model, world)
-	assert_false(view.get_parent() == slot)
-	assert_same(slot.price_sign.get_parent(), slot)
-	assert_eq(view.size, size_before)
-	assert_false(world.get_node("ContactShadow").visible)
-	var motion := InputEventMouseMotion.new()
-	motion.position = Vector2(950, 350)
-	slot._input(motion)
-	slot._process(0.0)
-	assert_eq(view.position, motion.position + slot._grab_offset)
-	slot.notification(Control.NOTIFICATION_DRAG_END)
-	await get_tree().process_frame
-	assert_same(view.get_parent(), slot)
-	assert_true(world.get_node("ContactShadow").visible)
-	var camera: Camera3D = view.viewport_3d.get_camera_3d()
-	assert_lt(
-		(view.position + camera.unproject_position(Vector3(0, 0.035, 0))).distance_to(
-			slot._counter_anchor
-		),
-		0.1
-	)
-	assert_eq(market._session.player.gold, 200000)
-	slot._get_drag_data(Vector2(70, 35))
-	market.inventory_drop_target._drop_data(Vector2.ZERO, data)
-	slot.notification(Control.NOTIFICATION_DRAG_END)
+	assert_same(slot.icon_rect.texture, Builder.ART)
+	assert_eq(slot.item_id, "leviathan_scale")
+	slot.pressed.emit()
+	assert_eq(market._session.player.gold, 200000, "Selection does not purchase")
+	market.action_button.pressed.emit()
 	assert_eq(market._session.player.gold, 187000)
 	assert_eq(market._session.player.inventory.count("leviathan_scale"), 1)
-	assert_false(view.visible)
-	assert_eq(world.get_child_count(), 0)
+	assert_true(slot.sold_label.visible)
+	assert_true(slot.disabled)
+	market._perform_action()
+	assert_eq(market._session.player.inventory.count("leviathan_scale"), 1)
 
 
-func test_failed_scale_purchase_returns_same_model_and_does_not_charge() -> void:
+func test_failed_card_purchase_keeps_offer_and_does_not_charge() -> void:
 	var market = _market(0)
-	await get_tree().process_frame
+	market.show_buy_offers()
 	var slot = market.offer_slots[0]
-	var world = slot.model_view.model
-	var data = slot._get_drag_data(Vector2(70, 35))
-	market.inventory_drop_target._drop_data(Vector2.ZERO, data)
-	slot.notification(Control.NOTIFICATION_DRAG_END)
-	assert_same(slot.model_view.model, world)
-	assert_true(slot.model_view.visible)
-	assert_same(slot.model_view.get_parent(), slot)
-	assert_true(world.get_node("ContactShadow").visible)
+	slot.pressed.emit()
+	market.action_button.pressed.emit()
+	assert_same(slot.icon_rect.texture, Builder.ART)
+	assert_false(slot.disabled)
+	assert_false(slot.sold_label.visible)
 	assert_eq(market._session.player.gold, 0)
 	assert_eq(market._session.player.inventory.count("leviathan_scale"), 0)
 

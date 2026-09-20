@@ -1,5 +1,82 @@
 # Spójny, lekki interfejs — plan i dziennik realizacji
 
+## Kontynuacja zatwierdzona 2026-09-19 — spójność rozgrywki
+
+To kolejne etapy istniejącego planu, nie nowy system UI. Zachowujemy zaakceptowane
+wyposażenie, kuźnię, rynek i księgę Mireli oraz mechaniki, katalogi i zapisy.
+
+1. [ ] **Walka i nagrody.** 1A: kompozycja, czytelność HUD, spójne kontrolki,
+   podsumowanie walki i łup. 1B: dopracowanie istniejących reakcji/animacji oraz
+   osobny przegląd dźwięków. Akceptacja 1A nie oznacza ukończenia audio i animacji.
+2. [ ] **Gildia i zadania.** Czytelne zlecenia, cel/postęp/nagroda, obecne treści.
+3. [ ] **Mapa i przygotowanie wyprawy.** Cel, zagrożenie i przygotowanie bez
+   odbierania istniejącej głębi systemu.
+4. [ ] **Drużyna i rozwój.** Role kompanów i konsekwencje wyborów rozwoju.
+5. [ ] **Przegląd pełnej pętli.** Zadanie → wyprawa → walka → łup → wykorzystanie
+   nagrody; sprawdzenie przejść, nawigacji, dźwięku i czytelności na rzeczywistym runie.
+
+Wspólny kontrakt to `AI_CONTEXT/UI_RULES.md` i `AI_CONTEXT/ART_DIRECTION.md`.
+Motywy miejsc pozostają różne, lecz focus, przyciski, podpowiedzi i hierarchia
+informacji mają być konsekwentne. Bez nowych mechanik, płatnych narzędzi,
+hurtowego generowania grafik lub przechodzenia na 3D w ramach tych zmian.
+Każda część dostaje testy, uruchomienie Godota, zrzuty przed/po w ignorowanym
+`build/` i osobną ocenę właściciela przed kontynuacją dużej przebudowy.
+
+### Pierwsze wdrożenie części 1A — historia
+
+- Baza: `d53ca6838651396928a12b59ebbf76ab594bad8a`.
+- Gałąź: `codex/combat-presentation-stage-one`; bez merge/push.
+- Zakres: wyłącznie prezentacja walki, wyników i narzędzia ich weryfikacji.
+- Pierwsze wdrożenie 1A przetestowano przed oceną wizualną właściciela;
+  późniejsza korekta znajduje się poniżej. Wynik: 753/753 GUT, 660 testów Python i 8 podtestów.
+- Zachowane akcje/zasoby/nagrody, HUD poza talią, wynik i Kontynuuj dostępne także
+  z długim raportem, brak powielania nagród przy odświeżaniu, reset kolejnej walki.
+- Szczegóły i lista plików: `docs/reviews/combat-presentation-stage-one/README.md`.
+
+### Korekta wizualna części 1A — zaakceptowany sztandar zwycięstwa
+
+- Właściciel odrzucił podstawowy panel wyniku i księgę wzorowaną na Mireli.
+  Zaakceptował bordowy sztandar, metal/złoto i wariant z mniejszymi łupami.
+- Gałąź `codex/combat-victory-banner`, baza `aef0b741ce801720e250e2bc281ae36ee97998d5`.
+- Zakres: ekran zwycięstwa, bez zmian zasad walki, katalogów, zapisów i nagród.
+- Kontynuacja etapu 1A, nie start animacji/efektów/audio części 1B.
+- Wdrożono i zweryfikowano: 762/762 GUT, 660 testów Python + 8 podtestów,
+  80 renderów rzeczywistej gry. Kierunek zaakceptowany; właściciel zlecił następny
+  krok (1B poniżej). Bez merge/push.
+- Raport wdrożenia: `docs/reviews/combat-victory-banner/README.md`.
+
+### Część 1B — czytelny moment trafienia
+
+- Użytkownik zaakceptował kierunek 1A i poprosił o następny krok.
+- Gałąź `codex/combat-impact-feedback`, baza `1ae376b7abf62cfa4284e45c4d3e0cb5479f0ca5`.
+- Zakres: lokalne reakcje na trafienie, krytyk, unik i blok; synchronizacja PŻ;
+  czytelne komunikaty w ograniczonych animacjach. Bez przebudowy zwycięstwa,
+  zmiany grafik postaci, zasad walki, RNG, nagród i zapisów.
+- Przegląd audio: w repo znaleziono wyłącznie pięć przykładowych `typing*.wav`
+  dodatku Dialogic; brak własnych dźwięków walki i odtwarzaczy w UI/scenach.
+  Nie użyto próbek pisania jako odgłosów walki. Nie kupowano/generowano audio.
+- Pozostaje osobna decyzja o spójnym, licencjonowanym zestawie dźwięków oraz
+  późniejsze animacje właściwych sylwetek/skilli; ten krok ich nie zastępuje.
+- Weryfikacja: 771/771 GUT, 660 testów Python + 8 podtestów, 100 klatek przed/po.
+  Gotowe do oceny reakcji na żywo przez właściciela; część audio nadal otwarta.
+- Szczegóły: `docs/reviews/combat-impact-feedback/README.md`.
+
+### Część 1B — dźwięki walki
+
+- Gałąź `codex/combat-audio-feedback`, baza `2f97c0d2619393b243ff6e2ce84b3cb69ed3675c`.
+- Pięć lokalnych próbek Kenney CC0: trafienie, krytyk, blok, unik i monety po
+  zwycięstwie. Bez kosztów, nowych zależności i muzyki w tle.
+- Synchronizacja z istniejącym impact, jeden sygnał w ograniczonych animacjach;
+  wyciszenie dostępne podczas tury, zapisane poza danymi postaci.
+- Zakres pozostaje prezentacyjny: bez zmian silnika, RNG, nagród i zapisów.
+- Wyniki testów, dowody i próbka odsłuchu: `docs/reviews/combat-audio-feedback/README.md`.
+- Weryfikacja: 783/783 GUT, 660 testów Python + 8 podtestów, 120 PNG przed/po
+  oraz rzeczywisty miks PCM z kontrolą ciszy i zapasu głośności.
+- Charakter brzmienia i poziom na słuchawkach/głośnikach pozostają do oceny
+  właściciela. To nie pełne udźwiękowienie umiejętności/regionów ani animacje szkieletowe.
+
+## Archiwalny plan z 2026-09-07
+
 Zakres zatwierdzony przez użytkownika 2026-09-07. Kolejne etapy realizowane
 w projekcie, z zachowaniem istniejących grafik anime fantasy i zapisów gry.
 Nie generujemy jeszcze klatek animacji umiejętności.

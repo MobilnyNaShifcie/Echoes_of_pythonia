@@ -112,7 +112,7 @@ func test_buy_bargain_is_one_attempt_and_purchase_is_single_stock() -> void:
 	assert_false(BlackMarketServiceClass.buy(session, offer.offer_id).ok)
 
 
-func test_market_drop_target_buys_selected_display_item_and_removes_it_from_counter() -> void:
+func test_market_buy_button_marks_selected_card_sold_without_duplicate() -> void:
 	var session = _unlocked_session()
 	session.player.gold = 200000
 	var market = BLACK_MARKET_SCENE.instantiate() as BlackMarketScreenClass
@@ -121,7 +121,9 @@ func test_market_drop_target_buys_selected_display_item_and_removes_it_from_coun
 	var offer = session.black_market.offers[0]
 	var before_count: int = session.player.inventory.count(offer.item_id)
 
-	market.inventory_drop_target.offer_dropped.emit(offer.offer_id)
+	market.show_buy_offers()
+	market._select_offer(offer.offer_id)
+	market.action_button.pressed.emit()
 
 	assert_true(offer.offer_id in session.black_market.purchased_offer_ids)
 	assert_eq(session.player.inventory.count(offer.item_id), before_count + offer.quantity)
@@ -253,7 +255,13 @@ func test_inn_informant_flow_and_black_market_screen_need_no_terminal() -> void:
 	var market = BLACK_MARKET_SCENE.instantiate()
 	add_child_autofree(market)
 	market.configure(session, "2099-08-16")
-	assert_eq(market.offer_list.item_count, 4)
+	assert_eq(market.offer_slots.size(), 4)
+	assert_false(market.offer_window.visible)
+	market.merchant_button.pressed.emit()
+	assert_true(market.npc_action_panel.visible)
+	assert_false(market.offer_window.visible)
+	market.get_node("%OpenServiceButton").pressed.emit()
+	assert_true(market.offer_window.visible)
 	assert_false(market.bargain_button.disabled)
 	market.show_book_sales()
 	assert_eq(market.offer_list.item_count, 0)

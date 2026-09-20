@@ -3,7 +3,7 @@ extends SceneTree
 const App = preload("res://scenes/app/app.tscn")
 const NewGame = preload("res://core/game/new_game_service.gd")
 const Skills = preload("res://core/skills/skill_catalog.gd")
-const OUTPUT := "res://../output/combat_hud/"
+var output := "res://../build/combat-presentation-review/after/evidence/"
 
 
 class MemorySave:
@@ -20,8 +20,13 @@ func _init() -> void:
 
 
 func _render_previews() -> void:
-	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(OUTPUT))
-	for dimensions: Vector2i in [Vector2i(1280, 720), Vector2i(1920, 1080), Vector2i(2560, 1080)]:
+	var args := OS.get_cmdline_user_args()
+	if not args.is_empty():
+		output = args[0]
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(output))
+	for dimensions: Vector2i in [
+		Vector2i(1280, 720), Vector2i(1366, 768), Vector2i(1920, 1080), Vector2i(2560, 1080)
+	]:
 		var viewport := SubViewport.new()
 		viewport.size = dimensions
 		var factor := minf(float(dimensions.x) / 1920.0, float(dimensions.y) / 1080.0)
@@ -66,8 +71,11 @@ func _render_previews() -> void:
 			else:
 				app._show_combat("wolf", "expedition")
 			var screen = app.screen_host.get_child(0)
+			screen._rng.seed = 83
 			screen.set_reduced_motion(true)
 			await _capture(viewport, code, dimensions)
+			screen.get_node("Page/Lower").drawer.set_open(true, true)
+			await _capture(viewport, code + "_actions", dimensions)
 			if code == "mage":
 				screen._engine.mage_arcane_weave = 3
 				screen._render()
@@ -86,10 +94,36 @@ func _render_previews() -> void:
 				screen._enemy.dodge = 0.0
 				screen.attack_button.pressed.emit()
 				await _capture(viewport, "victory", dimensions)
+				# Explicit presentation stress fixture; never awards these items to a player.
+				var drops: Array = []
+				for index in 12:
+					drops.append({"item_id": "wolf_fang", "quantity": index + 1})
+				screen.loot_presentation.set_drops(drops)
+				screen.result_label.text += "\nDługi raport zadania: Żaneta Świętopełka.".repeat(12)
+				if screen.victory_presentation != null:
+					screen.victory_presentation.set_drops(drops)
+					screen.victory_presentation.report_text.text = screen.result_label.text
+				await _capture(viewport, "result_overflow", dimensions)
+				if screen.victory_presentation != null:
+					screen.victory_presentation.report_button.button_pressed = true
+					await _capture(viewport, "victory_report", dimensions)
+				screen.configure(session, "wolf", "expedition")
+				screen._enemy.attack = 5000
+				session.player.stats.dodge = 0.0
+				screen.attack_button.pressed.emit()
+				await _capture(viewport, "defeat", dimensions)
+			else:
+				screen.configure(session, "wolf", "expedition")
+				screen._rng.seed = 83
+				screen._enemy.current_hp = 1
+				screen._enemy.defense = 0
+				screen._enemy.dodge = 0.0
+				screen.attack_button.pressed.emit()
+				await _capture(viewport, code + "_victory", dimensions)
 		app.free()
 		viewport.queue_free()
 		await process_frame
-	print("COMBAT HUD PREVIEW COMPLETE — 24 captures, memory-only saves")
+	print("COMBAT HUD PREVIEW COMPLETE — memory-only saves")
 	quit()
 
 
@@ -97,7 +131,7 @@ func _capture(viewport: SubViewport, stage: String, dimensions: Vector2i) -> voi
 	for frame in 8:
 		await process_frame
 	await RenderingServer.frame_post_draw
-	var path := OUTPUT + "%s_%dx%d.png" % [stage, dimensions.x, dimensions.y]
+	var path := output.path_join("%s_%dx%d.png" % [stage, dimensions.x, dimensions.y])
 	var error := viewport.get_texture().get_image().save_png(path)
 	if error != OK:
 		push_error("Cannot save combat HUD preview: %s" % error)

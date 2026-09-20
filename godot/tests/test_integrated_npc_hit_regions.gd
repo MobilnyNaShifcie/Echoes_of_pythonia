@@ -149,6 +149,16 @@ func test_economy_navigation_receives_pointer_in_every_interaction_state() -> vo
 			for state in ["ambient", "focused", "service"]:
 				screen._set_interaction_state(state)
 				await wait_process_frames(3)
+				if service_id in ["blacksmith", "workshop"] and state == "service":
+					assert_false(back.is_visible_in_tree())
+					var services: Button = (
+						screen.workshop_book.services_button
+						if service_id == "workshop"
+						else screen.blacksmith_workbench.get_node("%ServicesButton")
+					)
+					await _click(screen.get_viewport(), services.get_global_rect().get_center())
+					assert_eq(screen._interaction_state, "focused")
+					continue
 				await _hover(screen.get_viewport(), back.get_global_rect().get_center())
 				assert_eq(
 					screen.get_viewport().gui_get_hovered_control(),
@@ -156,10 +166,14 @@ func test_economy_navigation_receives_pointer_in_every_interaction_state() -> vo
 					"Back is not occluded: %s / %s / %s" % [service_id, state, viewport_size]
 				)
 				await _click(screen.get_viewport(), back.get_global_rect().get_center())
-			assert_signal_emit_count(screen, "back_requested", 3)
-			await _click(
-				screen.get_viewport(), screen.close_service_button.get_global_rect().get_center()
+			assert_signal_emit_count(
+				screen, "back_requested", 2 if service_id in ["blacksmith", "workshop"] else 3
 			)
+			if service_id not in ["blacksmith", "workshop"]:
+				await _click(
+					screen.get_viewport(),
+					screen.close_service_button.get_global_rect().get_center()
+				)
 			assert_eq(
 				screen._interaction_state, "focused", "Close %s service by pointer" % service_id
 			)
@@ -219,6 +233,14 @@ func test_black_market_tabs_and_back_receive_pointer() -> void:
 	for viewport_size: Vector2i in [Vector2i(1920, 1080), Vector2i(2560, 1080)]:
 		var market = await _mount(MARKET_SCENE, viewport_size)
 		watch_signals(market)
+		await _click(market.get_viewport(), market.merchant_button.get_global_rect().get_center())
+		assert_true(market.npc_action_panel.visible)
+		assert_false(market.offer_window.visible)
+		await _click(
+			market.get_viewport(),
+			market.get_node("%OpenServiceButton").get_global_rect().get_center()
+		)
+		assert_true(market.offer_window.visible)
 		await _click(market.get_viewport(), market.sell_tab.get_global_rect().get_center())
 		assert_true(market.sell_panel.visible)
 		await _click(

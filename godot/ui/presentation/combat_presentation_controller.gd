@@ -4,10 +4,15 @@ extends Node
 signal playback_started
 signal playback_finished
 signal skill_impact(event: Dictionary)
+signal impact_presented(event: Dictionary)
 
 const COMBAT_DIE_SCENE := preload("res://ui/components/combat_die/combat_die.tscn")
 const FateThrustEffect := preload("res://ui/presentation/fate_thrust_effect.gd")
+const HitEffect := preload("res://ui/presentation/combat_hit_effect.gd")
+const FeedbackText := preload("res://ui/presentation/combat_feedback_text.gd")
+const AudioFeedback := preload("res://ui/presentation/combat_audio_feedback.gd")
 
+var audio_feedback: AudioFeedback
 var reduced_motion := false
 var animation_duration_scale := 1.0
 var last_feedback_texts: Array[String] = []
@@ -15,6 +20,8 @@ var _busy := false
 var _player_visual: Control
 var _enemy_visual: Control
 var _feedback_layer: Control
+var _player_hud: Control
+var _enemy_hud: Control
 var _dice_row: HBoxContainer
 var _fate_outcome_label: Label
 var _player_hp_bar: ProgressBar
@@ -27,12 +34,18 @@ var _motion_toggle_button: Button
 var _player_stats_label: Label
 var _enemy_stats_label: Label
 var _active_skill_effect: Control
+var _feedback_labels: Array[Label] = []
 
 
 func configure(screen: Control) -> void:
+	audio_feedback = AudioFeedback.new()
+	add_child(audio_feedback)
+	audio_feedback.configure(screen)
 	_player_visual = screen.get_node("%PlayerVisual")
 	_enemy_visual = screen.get_node("%EnemyVisual")
 	_feedback_layer = screen.get_node("%FeedbackLayer")
+	_player_hud = screen.get_node("Page/Arena/PlayerPanel")
+	_enemy_hud = screen.get_node("Page/Arena/EnemyPanel")
 	_dice_row = screen.get_node("%DiceRow")
 	_fate_outcome_label = screen.get_node("%FateOutcomeLabel")
 	_player_hp_bar = screen.get_node("%PlayerHpBar")
@@ -77,11 +90,14 @@ func present(
 	if _busy:
 		return
 	_busy = true
+	clear_feedback()
 	last_feedback_texts.clear()
+	audio_feedback.begin_turn()
 	playback_started.emit()
 	_apply_resources(before)
 	if reduced_motion:
 		_present_instant(events)
+		audio_feedback.play_summary(events)
 		_apply_resources(after)
 		_set_turn_actor("player", round_number)
 		_finish_playback()
@@ -103,7 +119,10 @@ func render_dice(dice: Array[int], outcome: String) -> void:
 	_fate_outcome_label.text = "" if dice.is_empty() else outcome
 
 
-func reveal_result(panel: Control) -> void:
+func reveal_result(panel: Control, result_code := "") -> void:
+	clear_feedback()
+	if not result_code.is_empty():
+		audio_feedback.play_result(result_code)
 	panel.modulate.a = 1.0
 	panel.scale = Vector2.ONE
 	if reduced_motion:
@@ -130,10 +149,19 @@ func _present_instant(events: Array[Dictionary]) -> void:
 				render_dice(values, str(event.get("outcome", "")))
 			"damage":
 				_record_feedback(_damage_text(event))
+				_show_floating_text(
+					_visual_for(str(event.target)),
+					_damage_text(event),
+					"critical" if event.get("critical", false) else "damage"
+				)
 			"restore":
 				_record_feedback(_restore_text(event))
+				_show_floating_text(_visual_for(str(event.target)), _restore_text(event), "restore")
 			"feedback":
 				_record_feedback(str(event.get("text", "")))
+				_show_floating_text(
+					_visual_for(str(event.target)), str(event.text), str(event.tone)
+				)
 
 
 func _play_event(event: Dictionary, displayed: Dictionary, round_number: int) -> void:
@@ -152,11 +180,7 @@ func _play_event(event: Dictionary, displayed: Dictionary, round_number: int) ->
 		"restore":
 			await _play_restore(event, displayed)
 		"feedback":
-			await _play_feedback(
-				str(event.get("target", "enemy")),
-				str(event.get("text", "")),
-				str(event.get("tone", "neutral")),
-			)
+			await _play_reaction(event, displayed)
 
 
 func _play_dice(event: Dictionary) -> void:
@@ -171,26 +195,56 @@ func _play_dice(event: Dictionary) -> void:
 		die.set_value(final_value, false)
 		dice.append(die)
 	_fate_outcome_label.text = "KOŚCI W RUCHU…"
-	for step in 5:
-		for index in dice.size():
-			var preview := ((final_values[index] + step * 2 + index) % 6) + 1
-			dice[index].set_value(preview, false)
-			dice[index].rotation = deg_to_rad(-5.0 if (step + index) % 2 == 0 else 5.0)
-		await get_tree().create_timer(_duration(0.055)).timeout
+	var duration := 0.95 + maxf(0, dice.size() - 1) * 0.08
+	var roll := create_tween()
+	roll.tween_method(
+		func(elapsed: float) -> void:
+			for index in dice.size():
+				if is_instance_valid(dice[index]):
+					dice[index].sample_roll((elapsed - index * 0.08) / 0.95, index),
+		0.0,
+		duration,
+		_duration(duration)
+	)
+	await roll.finished
 	for index in dice.size():
-		dice[index].rotation = 0.0
 		dice[index].set_value(final_values[index], true)
 	_fate_outcome_label.text = str(event.get("outcome", ""))
-	await get_tree().create_timer(_duration(0.18)).timeout
+	await get_tree().create_timer(_duration(0.22)).timeout
 
 
 func _play_damage(event: Dictionary, displayed: Dictionary) -> void:
-	var actor := str(event.get("actor", "player"))
 	if str(event.get("vfx", "")) == "fate_thrust":
 		await _play_fate_thrust(event, displayed)
 		return
-	await _lunge(_visual_for(actor), 1.0 if actor == "player" else -1.0)
-	await _apply_damage_impact(event, displayed)
+	await _play_reaction(event, displayed)
+
+
+func _play_reaction(event: Dictionary, displayed: Dictionary) -> void:
+	var target := str(event.get("target", "enemy"))
+	var actor := str(event.get("actor", "player" if target == "enemy" else "enemy"))
+	var effect := HitEffect.new()
+	_feedback_layer.add_child(effect)
+	_feedback_layer.move_child(effect, 0)
+	effect.impact.connect(func() -> void: _apply_reaction_impact(event, displayed))
+	effect.start(_visual_for(actor), _visual_for(target), event, animation_duration_scale)
+	await effect.finished
+	effect.queue_free()
+
+
+func _apply_reaction_impact(event: Dictionary, displayed: Dictionary) -> void:
+	var target := str(event.get("target", "enemy"))
+	var feedback := str(event.get("kind", "")) == "feedback"
+	var text := str(event.get("text", "")) if feedback else _damage_text(event)
+	var tone := str(event.get("tone", "critical" if event.get("critical", false) else "damage"))
+	_record_feedback(text)
+	_show_floating_text(_visual_for(target), text, tone)
+	var key := "enemy_hp" if target == "enemy" else "player_hp"
+	displayed[key] = maxf(0.0, float(displayed.get(key, 0)) - float(event.get("amount", 0)))
+	# Text and visible HP change on the same impact, including partial blocks.
+	_apply_resources(displayed)
+	audio_feedback.play_event(event)
+	impact_presented.emit(event)
 
 
 func _play_fate_thrust(event: Dictionary, displayed: Dictionary) -> void:
@@ -211,6 +265,7 @@ func _play_fate_thrust(event: Dictionary, displayed: Dictionary) -> void:
 
 
 func _apply_damage_impact(event: Dictionary, displayed: Dictionary) -> void:
+	audio_feedback.play_event(event)
 	var target := str(event.get("target", "enemy"))
 	var text := _damage_text(event)
 	_record_feedback(text)
@@ -259,32 +314,6 @@ func _play_restore(event: Dictionary, displayed: Dictionary) -> void:
 		await _tween_bar(_enemy_hp_bar, enemy_target)
 
 
-func _play_feedback(target: String, text: String, tone: String) -> void:
-	_record_feedback(text)
-	_show_floating_text(_visual_for(target), text, tone)
-	await get_tree().create_timer(_duration(0.22)).timeout
-
-
-func _lunge(visual: Control, direction: float) -> void:
-	if visual == null:
-		return
-	var origin := visual.position
-	var tween := visual.create_tween()
-	(
-		tween
-		. tween_property(visual, "position:x", origin.x + 24.0 * direction, _duration(0.07))
-		. set_trans(Tween.TRANS_QUAD)
-		. set_ease(Tween.EASE_OUT)
-	)
-	(
-		tween
-		. tween_property(visual, "position:x", origin.x, _duration(0.09))
-		. set_trans(Tween.TRANS_QUAD)
-		. set_ease(Tween.EASE_IN)
-	)
-	await tween.finished
-
-
 func _flash(visual: Control, color: Color) -> void:
 	if visual == null:
 		return
@@ -296,30 +325,28 @@ func _flash(visual: Control, color: Color) -> void:
 func _show_floating_text(target: Control, text: String, tone: String) -> void:
 	if target == null or _feedback_layer == null or text.is_empty():
 		return
-	var label := Label.new()
-	label.text = text
-	label.size = Vector2(260, 52)
-	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	label.add_theme_font_size_override("font_size", 25 if tone == "critical" else 21)
-	label.add_theme_color_override("font_color", _tone_color(tone))
-	label.add_theme_color_override("font_outline_color", Color(0.03, 0.01, 0.025, 0.95))
-	label.add_theme_constant_override("outline_size", 6)
+	_feedback_labels = _feedback_labels.filter(func(node): return is_instance_valid(node))
+	var same_target: Array[Label] = _feedback_labels.filter(
+		func(node): return node.target == target
+	)
+	if same_target.size() >= 3:
+		var oldest: Label = same_target.pop_front()
+		_feedback_labels.erase(oldest)
+		oldest.free()
+	for index in same_target.size():
+		same_target[index].lane = same_target.size() - index
+	var label := FeedbackText.new()
+	label.hud = _player_hud if target == _player_visual else _enemy_hud
 	_feedback_layer.add_child(label)
-	var center: Vector2 = (
-		target.get_global_rect().get_center() - _feedback_layer.get_global_rect().position
-	)
-	label.position = center - Vector2(label.size.x * 0.5, 15.0)
-	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var tween := label.create_tween().set_parallel()
-	(
-		tween
-		. tween_property(label, "position:y", label.position.y - 64.0, _duration(0.42))
-		. set_trans(Tween.TRANS_QUAD)
-		. set_ease(Tween.EASE_OUT)
-	)
-	tween.tween_property(label, "modulate:a", 0.0, _duration(0.42)).set_delay(_duration(0.12))
-	tween.chain().tween_callback(label.queue_free)
+	label.setup(target, text, tone, _tone_color(tone), reduced_motion)
+	_feedback_labels.append(label)
+
+
+func clear_feedback() -> void:
+	for label: Label in _feedback_labels:
+		if is_instance_valid(label):
+			label.free()
+	_feedback_labels.clear()
 
 
 func _tween_bar(bar: ProgressBar, target_value: float) -> void:

@@ -20,36 +20,7 @@ func capture(path: String) -> void:
 
 func render_preview() -> void:
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(OUTPUT))
-	var session = load("res://core/game/new_game_service.gd").new().create_session("Aria", 1)
-	session.black_market.unlocked = true
-	session.black_market.rotation_key = "2026-09-06"
-	session.player.gold = 200000
-	var items := ["grandmaster_elixir", "black_pearl", "spark_of_life", "leviathan_scale"]
-	var prices := [7500, 7000, 8500, 13000]
-	for i in items.size():
-		session.black_market.offers.append(Offer.new("2026-09-06:%d" % i, items[i], 1, prices[i]))
-	var market = load("res://ui/screens/black_market/black_market.tscn").instantiate()
-	root.add_child(market)
-	market.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	market.configure(session, "2026-09-06")
-	await capture("counter")
-	root.get_texture().get_image().get_region(Rect2i(50, 440, 1300, 400)).save_png(OUTPUT + "counter_detail.png")
-	var slot = market.offer_slots[2]
-	var world = slot.model_view.model
-	slot.force_drag(slot._get_drag_data(Vector2(100, 40)), null)
-	var motion := InputEventMouseMotion.new()
-	motion.position = Vector2(1120, 390)
-	root.push_input(motion)
-	await capture("held")
-	var release := InputEventMouseButton.new()
-	release.button_index = MOUSE_BUTTON_LEFT
-	release.position = motion.position
-	root.push_input(release)
-	await process_frame
-	assert(slot.model_view.get_parent() == slot and slot.model_view.model == world)
-	print("Spark drag returned the same live model to the mat")
-	market.queue_free()
-	await process_frame
+	# Legacy 3D asset inspection only. Live market review: scripts/review_black_market.py.
 	var canvas := Control.new()
 	root.add_child(canvas)
 	canvas.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)

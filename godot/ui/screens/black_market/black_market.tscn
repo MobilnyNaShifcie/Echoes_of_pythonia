@@ -1,83 +1,43 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene load_steps=9 format=3]
 
-[ext_resource type="Script" path="res://ui/screens/black_market/black_market.gd" id="1_screen"]
-[ext_resource type="Texture2D" path="res://assets/city/varenhold/interiors/black_market_anime_integrated_v4.png" id="2_background"]
-[ext_resource type="PackedScene" path="res://ui/screens/black_market/black_market_offer_slot.tscn" id="3_offer_slot"]
-[ext_resource type="Script" path="res://ui/screens/black_market/black_market_drop_target.gd" id="4_drop"]
-[ext_resource type="Texture2D" path="res://assets/ui/city_icons/inventory.svg" id="5_inventory"]
+[ext_resource type="Script" path="res://ui/screens/black_market/black_market.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/city/varenhold/interiors/black_market_anime_integrated_v4.png" id="2"]
 
-[sub_resource type="StyleBoxFlat" id="StyleHeader"]
-bg_color = Color(0.035, 0.065, 0.095, 0.72)
-border_width_bottom = 1
-border_color = Color(0.64, 0.43, 0.13, 0.86)
-content_margin_left = 14.0
-content_margin_top = 5.0
-content_margin_right = 14.0
-content_margin_bottom = 5.0
+[ext_resource type="Texture2D" path="res://assets/ui/black_market/offer_chest_v1.png" id="3_chest"]
+[ext_resource type="Texture2D" path="res://assets/ui/black_market/gold_coin.svg" id="4_coin"]
 
-[sub_resource type="StyleBoxFlat" id="StyleOverlay"]
-bg_color = Color(0.035, 0.065, 0.095, 0.88)
+[sub_resource type="StyleBoxFlat" id="ContentStyle"]
+bg_color = Color(0.012, 0.022, 0.035, 0.68)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.55, 0.38, 0.13, 0.88)
-corner_radius_top_left = 7
-corner_radius_top_right = 7
-corner_radius_bottom_right = 7
-corner_radius_bottom_left = 7
-content_margin_left = 18.0
-content_margin_top = 15.0
-content_margin_right = 18.0
-content_margin_bottom = 15.0
+border_color = Color(0.22, 0.3, 0.4, 0.76)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
+content_margin_left = 12.0
+content_margin_top = 10.0
+content_margin_right = 12.0
+content_margin_bottom = 10.0
 
-[sub_resource type="StyleBoxFlat" id="StyleDrop"]
-bg_color = Color(0.025, 0.035, 0.052, 0.94)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.72, 0.52, 0.18, 0.92)
-corner_radius_top_left = 9
-corner_radius_top_right = 9
-corner_radius_bottom_right = 9
-corner_radius_bottom_left = 9
-content_margin_left = 16.0
-content_margin_top = 12.0
-content_margin_right = 16.0
-content_margin_bottom = 12.0
-
-[sub_resource type="StyleBoxFlat" id="StyleCompactButton"]
-bg_color = Color(0.045, 0.061, 0.087, 0.94)
+[sub_resource type="StyleBoxFlat" id="Detail"]
+bg_color = Color(0.018, 0.032, 0.046, 0.9)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.31, 0.37, 0.46, 0.9)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-content_margin_left = 13.0
-content_margin_top = 5.0
-content_margin_right = 13.0
-content_margin_bottom = 5.0
+border_color = Color(0.48, 0.37, 0.18, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_left = 6
+corner_radius_bottom_right = 6
 
-[sub_resource type="StyleBoxFlat" id="StyleCompactHover"]
-bg_color = Color(0.1, 0.13, 0.18, 0.98)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.83, 0.61, 0.2, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-content_margin_left = 13.0
-content_margin_top = 8.0
-content_margin_right = 13.0
-content_margin_bottom = 8.0
+[sub_resource type="StyleBoxEmpty" id="Empty"]
+
+[sub_resource type="SystemFont" id="HeadingFont"]
+font_names = PackedStringArray("Georgia", "Noto Serif", "DejaVu Serif")
 
 [node name="BlackMarketScreen" type="Control"]
 layout_mode = 3
@@ -87,7 +47,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 clip_contents = true
-script = ExtResource("1_screen")
+script = ExtResource("1")
 
 [node name="Background" type="TextureRect" parent="."]
 unique_name_in_owner = true
@@ -98,311 +58,360 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("2_background")
+texture = ExtResource("2")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="TopShade" type="ColorRect" parent="."]
+[node name="MerchantButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 340.0
+offset_top = 160.0
+offset_right = 615.0
+offset_bottom = 515.0
+tooltip_text = "Handlarz"
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("Empty")
+theme_override_styles/hover = SubResource("Empty")
+theme_override_styles/pressed = SubResource("Empty")
+theme_override_styles/disabled = SubResource("Empty")
+theme_override_styles/focus = SubResource("Empty")
+
+[node name="BackButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 180.0
+offset_bottom = 70.0
+text = "←  Cofnij"
+tooltip_text = "Wróć do miasta"
+
+[node name="NpcActionPanel" type="PanelContainer" parent="."]
+unique_name_in_owner = true
 visible = false
 layout_mode = 1
-anchors_preset = 10
+anchor_left = 1.0
+anchor_top = 0.5
 anchor_right = 1.0
-offset_bottom = 72.0
-grow_horizontal = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 0.3)
+anchor_bottom = 0.5
+offset_left = -430.0
+offset_right = -28.0
+offset_top = -155.0
+offset_bottom = 155.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("ContentStyle")
 
-[node name="OfferLayer" type="Control" parent="."]
+[node name="Content" type="VBoxContainer" parent="NpcActionPanel"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Eyebrow" type="Label" parent="NpcActionPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.44, 0.8, 0.58, 1)
+text = "ROZMOWA"
+
+[node name="InteractionTitle" type="Label" parent="NpcActionPanel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
+theme_override_font_sizes/font_size = 24
+text = "Handlarz"
+
+[node name="InteractionDescription" type="Label" parent="NpcActionPanel/Content"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.72, 0.79, 0.88, 1)
+text = "Codzienna dostawa rzadkich towarów i skup ksiąg."
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="OpenServiceButton" type="Button" parent="NpcActionPanel/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+text = "Zobacz ofertę"
+
+[node name="OpenBookSalesButton" type="Button" parent="NpcActionPanel/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Skup ksiąg"
+
+[node name="CloseInteractionButton" type="Button" parent="NpcActionPanel/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Odejdź od lady"
+
+[node name="OfferWindow" type="Panel" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_right = 1120.0
+offset_bottom = 896.0
+theme_override_styles/panel = SubResource("Empty")
+
+[node name="ChestArt" type="TextureRect" parent="OfferWindow"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 1
+mouse_filter = 2
+texture = ExtResource("3_chest")
+expand_mode = 1
+stretch_mode = 0
 
-[node name="OfferSlot1" parent="OfferLayer" instance=ExtResource("3_offer_slot")]
+[node name="WindowTitle" type="Label" parent="OfferWindow"]
+unique_name_in_owner = true
 layout_mode = 0
+offset_left = 170.0
+offset_top = 84.0
+offset_right = 950.0
+offset_bottom = 126.0
+theme_override_fonts/font = SubResource("HeadingFont")
+theme_override_font_sizes/font_size = 32
+text = "OFERTA CZARNEGO RYNKU"
+horizontal_alignment = 1
+mouse_filter = 2
 
-[node name="OfferSlot2" parent="OfferLayer" instance=ExtResource("3_offer_slot")]
+[node name="CloseButton" type="Button" parent="OfferWindow"]
+unique_name_in_owner = true
 layout_mode = 0
+offset_left = 956.0
+offset_top = 87.0
+offset_right = 1000.0
+offset_bottom = 131.0
+text = "×"
+tooltip_text = "Zamknij ofertę (Esc)"
 
-[node name="OfferSlot3" parent="OfferLayer" instance=ExtResource("3_offer_slot")]
+[node name="Divider" type="HSeparator" parent="OfferWindow"]
 layout_mode = 0
+offset_left = 170.0
+offset_top = 135.0
+offset_right = 950.0
+offset_bottom = 137.0
+modulate = Color(0.73, 0.56, 0.28, 1)
+mouse_filter = 2
 
-[node name="OfferSlot4" parent="OfferLayer" instance=ExtResource("3_offer_slot")]
+[node name="BuyTab" type="Button" parent="OfferWindow"]
+unique_name_in_owner = true
 layout_mode = 0
+offset_left = 170.0
+offset_top = 144.0
+offset_right = 306.0
+offset_bottom = 182.0
+toggle_mode = true
+text = "Oferta"
 
-[node name="HeaderPanel" type="PanelContainer" parent="."]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = 16.0
-offset_top = 6.0
-offset_right = -16.0
-offset_bottom = 66.0
-grow_horizontal = 2
-theme_override_styles/panel = SubResource("StyleHeader")
-
-[node name="Header" type="HBoxContainer" parent="HeaderPanel"]
-layout_mode = 2
-theme_override_constants/separation = 12
-
-[node name="Identity" type="HBoxContainer" parent="HeaderPanel/Header"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-theme_override_constants/separation = 12
-
-[node name="Eyebrow" type="Label" parent="HeaderPanel/Header/Identity"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.78, 0.56, 0.7, 1)
-theme_override_font_sizes/font_size = 12
-text = "UKRYTA DZIELNICA VARENHOLD"
-
-[node name="Title" type="Label" parent="HeaderPanel/Header/Identity"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.94, 0.95, 0.97, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 2
-theme_override_constants/shadow_offset_y = 2
-theme_override_font_sizes/font_size = 24
-text = "Czarny Rynek"
-
-[node name="DeliveryLabel" type="Label" parent="HeaderPanel/Header/Identity"]
+[node name="SellTab" type="Button" parent="OfferWindow"]
 unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.6, 0.68, 0.77, 1)
-theme_override_font_sizes/font_size = 12
-text = "Dostawa: 2099-01-01  •  następna: 2099-01-02"
-
-[node name="Status" type="HBoxContainer" parent="HeaderPanel/Header"]
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_constants/separation = 10
-
-[node name="WalletLabel" type="Label" parent="HeaderPanel/Header/Status"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.91, 0.75, 0.36, 1)
-theme_override_font_sizes/font_size = 13
-text = "Aria  •  Złoto 0"
-horizontal_alignment = 2
-
-[node name="CarryLabel" type="Label" parent="HeaderPanel/Header/Status"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.63, 0.7, 0.8, 1)
-theme_override_font_sizes/font_size = 12
-text = "Udźwig 0.0/50.0 kg"
-horizontal_alignment = 2
-
-[node name="BuyTab" type="Button" parent="HeaderPanel/Header"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 13
-theme_override_styles/normal = SubResource("StyleCompactButton")
-theme_override_styles/hover = SubResource("StyleCompactHover")
-theme_override_styles/pressed = SubResource("StyleCompactHover")
-theme_override_styles/focus = SubResource("StyleCompactHover")
-text = "Wystawa"
-
-[node name="SellTab" type="Button" parent="HeaderPanel/Header"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 13
-theme_override_styles/normal = SubResource("StyleCompactButton")
-theme_override_styles/hover = SubResource("StyleCompactHover")
-theme_override_styles/pressed = SubResource("StyleCompactHover")
-theme_override_styles/focus = SubResource("StyleCompactHover")
+layout_mode = 0
+offset_left = 320.0
+offset_top = 144.0
+offset_right = 475.0
+offset_bottom = 182.0
+toggle_mode = true
 text = "Skup ksiąg"
 
-[node name="BackButton" type="Button" parent="HeaderPanel/Header"]
+[node name="DeliveryLabel" type="Label" parent="OfferWindow"]
 unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 13
-theme_override_styles/normal = SubResource("StyleCompactButton")
-theme_override_styles/hover = SubResource("StyleCompactHover")
-theme_override_styles/pressed = SubResource("StyleCompactHover")
-theme_override_styles/focus = SubResource("StyleCompactHover")
-text = "Cofnij"
+layout_mode = 0
+offset_left = 490.0
+offset_top = 144.0
+offset_right = 950.0
+offset_bottom = 182.0
+theme_override_colors/font_color = Color(0.53, 0.62, 0.68, 1)
+theme_override_font_sizes/font_size = 15
+horizontal_alignment = 2
+text_overrun_behavior = 3
+mouse_filter = 2
 
-[node name="SellPanel" type="PanelContainer" parent="."]
+[node name="OfferLayer" type="GridContainer" parent="OfferWindow"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 170.0
+offset_top = 197.0
+offset_right = 950.0
+offset_bottom = 553.0
+theme_override_constants/h_separation = 18
+theme_override_constants/v_separation = 14
+columns = 2
+
+[node name="SellPanel" type="Panel" parent="OfferWindow"]
 unique_name_in_owner = true
 visible = false
-layout_mode = 1
-anchor_left = 0.025
-anchor_top = 0.18
-anchor_right = 0.35
-anchor_bottom = 0.78
-theme_override_styles/panel = SubResource("StyleOverlay")
+layout_mode = 0
+offset_left = 170.0
+offset_top = 197.0
+offset_right = 950.0
+offset_bottom = 553.0
+theme_override_styles/panel = SubResource("Detail")
 
-[node name="Content" type="VBoxContainer" parent="SellPanel"]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="Title" type="Label" parent="SellPanel/Content"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.88, 0.74, 0.38, 1)
-theme_override_font_sizes/font_size = 20
-text = "Księgi przyjęte do skupu"
-
-[node name="OfferList" type="ItemList" parent="SellPanel/Content"]
+[node name="OfferList" type="ItemList" parent="OfferWindow/SellPanel"]
 unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("Empty")
+theme_override_font_sizes/font_size = 21
+fixed_icon_size = Vector2i(64, 64)
 allow_reselect = true
 
-[node name="Notice" type="Label" parent="SellPanel/Content"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.56, 0.64, 0.73, 1)
-theme_override_font_sizes/font_size = 13
-text = "Rynek skupuje wyłącznie księgi mistrzostwa i ścieżek."
-autowrap_mode = 2
-
-[node name="DetailPanel" type="PanelContainer" parent="."]
+[node name="DetailPanel" type="Panel" parent="OfferWindow"]
 unique_name_in_owner = true
-layout_mode = 1
-anchor_left = 0.73
-anchor_top = 0.17
-anchor_right = 0.985
-anchor_bottom = 0.17
-offset_bottom = 320.0
-theme_override_styles/panel = SubResource("StyleOverlay")
+layout_mode = 0
+offset_left = 88.0
+offset_top = 654.0
+offset_right = 1032.0
+offset_bottom = 796.0
+theme_override_styles/panel = SubResource("Detail")
 
-[node name="Content" type="VBoxContainer" parent="DetailPanel"]
-layout_mode = 2
-theme_override_constants/separation = 7
-
-[node name="CategoryLabel" type="Label" parent="DetailPanel/Content"]
+[node name="DetailIconFrame" type="Panel" parent="OfferWindow/DetailPanel"]
 unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.78, 0.56, 0.7, 1)
-theme_override_font_sizes/font_size = 14
-text = "RZADKI TOWAR"
-
-[node name="ItemTitleLabel" type="Label" parent="DetailPanel/Content"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.94, 0.95, 0.97, 1)
-theme_override_font_sizes/font_size = 23
-text = "Przedmiot"
-autowrap_mode = 2
-
-[node name="DescriptionLabel" type="Label" parent="DetailPanel/Content"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_colors/font_color = Color(0.75, 0.79, 0.85, 1)
-theme_override_font_sizes/font_size = 14
-text = "Opis przedmiotu."
-autowrap_mode = 2
-
-[node name="Separator" type="HSeparator" parent="DetailPanel/Content"]
-layout_mode = 2
-
-[node name="PriceLabel" type="Label" parent="DetailPanel/Content"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.88, 0.7, 0.28, 1)
-theme_override_font_sizes/font_size = 17
-text = "Cena: 0 złota"
-autowrap_mode = 2
-
-[node name="StatusLabel" type="Label" parent="DetailPanel/Content"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.58, 0.66, 0.75, 1)
-theme_override_font_sizes/font_size = 12
-text = "JEDNA PRÓBA TARGOWANIA"
-
-[node name="Actions" type="HBoxContainer" parent="DetailPanel/Content"]
-layout_mode = 2
-theme_override_constants/separation = 7
-
-[node name="BargainButton" type="Button" parent="DetailPanel/Content/Actions"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 13
-theme_override_styles/normal = SubResource("StyleCompactButton")
-theme_override_styles/hover = SubResource("StyleCompactHover")
-theme_override_styles/pressed = SubResource("StyleCompactHover")
-theme_override_styles/focus = SubResource("StyleCompactHover")
-text = "Targuj"
-
-[node name="ActionButton" type="Button" parent="DetailPanel/Content/Actions"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 13
-theme_override_styles/normal = SubResource("StyleCompactButton")
-theme_override_styles/hover = SubResource("StyleCompactHover")
-theme_override_styles/pressed = SubResource("StyleCompactHover")
-theme_override_styles/focus = SubResource("StyleCompactHover")
-text = "Kup"
-
-[node name="InventoryDropTarget" type="PanelContainer" parent="."]
-unique_name_in_owner = true
-layout_mode = 1
-anchor_left = 0.73
-anchor_top = 0.75
-anchor_right = 0.985
-anchor_bottom = 0.75
-offset_bottom = 126.0
-mouse_default_cursor_shape = 2
-theme_override_styles/panel = SubResource("StyleDrop")
-script = ExtResource("4_drop")
-
-[node name="Content" type="HBoxContainer" parent="InventoryDropTarget"]
-layout_mode = 2
-theme_override_constants/separation = 12
-
-[node name="Icon" type="TextureRect" parent="InventoryDropTarget/Content"]
-custom_minimum_size = Vector2(52, 52)
-layout_mode = 2
-size_flags_vertical = 4
+layout_mode = 0
+offset_left = 12.0
+offset_top = 14.0
+offset_right = 126.0
+offset_bottom = 128.0
 mouse_filter = 2
-modulate = Color(0.88, 0.68, 0.25, 1)
-texture = ExtResource("5_inventory")
+
+[node name="DetailIcon" type="TextureRect" parent="OfferWindow/DetailPanel/DetailIconFrame"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+mouse_filter = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Labels" type="VBoxContainer" parent="InventoryDropTarget/Content"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-theme_override_constants/separation = 3
-
-[node name="DropPromptLabel" type="Label" parent="InventoryDropTarget/Content/Labels"]
+[node name="CategoryLabel" type="Label" parent="OfferWindow/DetailPanel"]
 unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.9, 0.78, 0.48, 1)
+layout_mode = 0
+offset_left = 142.0
+offset_top = 10.0
+offset_right = 578.0
+offset_bottom = 32.0
 theme_override_font_sizes/font_size = 15
-text = "PRZECIĄGNIJ DO PLECAKA"
+mouse_filter = 2
 
-[node name="DropHint" type="Label" parent="InventoryDropTarget/Content/Labels"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.63, 0.7, 0.8, 1)
-theme_override_font_sizes/font_size = 12
-text = "Upuszczenie tutaj potwierdza zakup."
-autowrap_mode = 2
-
-[node name="DropCarryLabel" type="Label" parent="InventoryDropTarget/Content/Labels"]
+[node name="ItemTitleLabel" type="Label" parent="OfferWindow/DetailPanel"]
 unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.65, 0.73, 0.82, 1)
-theme_override_font_sizes/font_size = 12
-text = "Udźwig: 0.0/50.0 kg"
+layout_mode = 0
+offset_left = 142.0
+offset_top = 34.0
+offset_right = 584.0
+offset_bottom = 65.0
+theme_override_fonts/font = SubResource("HeadingFont")
+theme_override_font_sizes/font_size = 24
+text_overrun_behavior = 3
 
-[node name="ResultLabel" type="Label" parent="DetailPanel/Content"]
+[node name="DescriptionLabel" type="Label" parent="OfferWindow/DetailPanel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 142.0
+offset_top = 70.0
+offset_right = 584.0
+offset_bottom = 128.0
+theme_override_colors/font_color = Color(0.65, 0.73, 0.8, 1)
+theme_override_font_sizes/font_size = 17
+autowrap_mode = 3
+text_overrun_behavior = 3
+max_lines_visible = 2
+
+[node name="PriceCoin" type="TextureRect" parent="OfferWindow/DetailPanel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 610.0
+offset_top = 18.0
+offset_right = 636.0
+offset_bottom = 44.0
+texture = ExtResource("4_coin")
+expand_mode = 1
+stretch_mode = 5
+mouse_filter = 2
+tooltip_text = "Złoto"
+
+[node name="PriceLabel" type="Label" parent="OfferWindow/DetailPanel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 640.0
+offset_top = 10.0
+offset_right = 800.0
+offset_bottom = 49.0
+text_overrun_behavior = 3
+theme_override_colors/font_color = Color(0.92, 0.75, 0.4, 1)
+theme_override_fonts/font = SubResource("HeadingFont")
+theme_override_font_sizes/font_size = 24
+
+[node name="QuantityLabel" type="Label" parent="OfferWindow/DetailPanel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 806.0
+offset_top = 15.0
+offset_right = 930.0
+offset_bottom = 46.0
+text_overrun_behavior = 3
+theme_override_colors/font_color = Color(0.67, 0.73, 0.8, 1)
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 2
+
+[node name="StatusLabel" type="Label" parent="OfferWindow/DetailPanel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 610.0
+offset_top = 52.0
+offset_right = 930.0
+offset_bottom = 72.0
+theme_override_colors/font_color = Color(0.62, 0.68, 0.74, 1)
+theme_override_font_sizes/font_size = 13
+text_overrun_behavior = 3
+
+[node name="BargainButton" type="Button" parent="OfferWindow/DetailPanel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 610.0
+offset_top = 83.0
+offset_right = 763.0
+offset_bottom = 128.0
+text = "Targuj"
+
+[node name="ActionButton" type="Button" parent="OfferWindow/DetailPanel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 775.0
+offset_top = 83.0
+offset_right = 930.0
+offset_bottom = 128.0
+text = "Kup"
+
+[node name="ResultLabel" type="Label" parent="OfferWindow"]
 unique_name_in_owner = true
 visible = false
-layout_mode = 2
-theme_override_colors/font_color = Color(0.48, 0.85, 0.64, 1)
-theme_override_font_sizes/font_size = 13
-autowrap_mode = 2
+layout_mode = 0
+offset_left = 95.0
+offset_top = 812.0
+offset_right = 1025.0
+offset_bottom = 842.0
+theme_override_font_sizes/font_size = 15
+text_overrun_behavior = 3
+theme_override_styles/normal = SubResource("Detail")
+horizontal_alignment = 1
+
+[node name="DailyRefreshTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 1.0
+autostart = true

@@ -84,9 +84,20 @@ func test_city_interiors_reveal_services_only_after_focusing_the_npc() -> void:
 		screen.open_service_button.pressed.emit()
 		await get_tree().process_frame
 		assert_eq(screen._interaction_state, "service", service_id)
-		assert_true(screen.service_toolbar.visible, service_id)
-		assert_eq(screen.catalogue_panel.visible, service_id not in ["merchant", "inn"], service_id)
-		assert_eq(screen.transaction_panel.visible, service_id != "merchant", service_id)
+		assert_eq(
+			screen.service_toolbar.visible, service_id not in ["blacksmith", "workshop"], service_id
+		)
+		assert_eq(
+			screen.catalogue_panel.visible,
+			service_id not in ["merchant", "inn", "blacksmith", "workshop"],
+			service_id
+		)
+		assert_eq(
+			screen.transaction_panel.visible,
+			service_id not in ["merchant", "blacksmith", "workshop"],
+			service_id
+		)
+		assert_eq(screen.blacksmith_workbench.visible, service_id == "blacksmith", service_id)
 		assert_eq(screen.merchant_trade_overlay.visible, service_id == "merchant", service_id)
 		assert_eq(npc_panel.custom_minimum_size.x, ambient_panel_width, service_id)
 		assert_almost_eq(npc_style.bg_color.a, 0.0, 0.001, service_id)
@@ -96,7 +107,13 @@ func test_city_interiors_reveal_services_only_after_focusing_the_npc() -> void:
 		assert_almost_eq(screen.npc_visual.character_zoom, ambient_zoom, 0.001, service_id)
 		assert_almost_eq(screen.npc_visual.character_anchor_x, ambient_anchor, 0.001, service_id)
 
-		screen.close_service_button.pressed.emit()
+		if service_id == "blacksmith":
+			screen.blacksmith_workbench.get_node("%ServicesButton").pressed.emit()
+		elif service_id == "workshop":
+			assert_true(screen.workshop_book.visible)
+			screen.workshop_book.services_button.pressed.emit()
+		else:
+			screen.close_service_button.pressed.emit()
 		assert_eq(screen._interaction_state, "focused", service_id)
 		assert_true(screen.npc_action_panel.visible, service_id)
 		assert_false(screen.service_toolbar.visible, service_id)
@@ -119,7 +136,7 @@ func test_equipment_and_backpack_use_separate_layers_and_spaced_inventory_cells(
 	assert_gte(screen.inventory_grid.gap, 7.0)
 
 
-func test_compact_loot_cells_do_not_force_their_standalone_68_pixel_minimum() -> void:
+func test_result_loot_cells_use_the_readable_result_grid_size() -> void:
 	var host := Control.new()
 	host.size = Vector2(1920, 1080)
 	add_child_autofree(host)
@@ -132,7 +149,8 @@ func test_compact_loot_cells_do_not_force_their_standalone_68_pixel_minimum() ->
 	var loot_grid: InventoryGridView = combat.loot_presentation.loot_grid
 	var loot_slot := loot_grid.get_child(0) as InventoryItemSlot
 	assert_eq(loot_slot.custom_minimum_size, Vector2.ZERO)
-	assert_eq(loot_slot.size, Vector2(44, 44))
+	# Stage 1A intentionally promotes the former 44 px thumbnail row to readable loot.
+	assert_eq(loot_slot.size, Vector2(72, 72))
 	assert_lte(loot_slot.get_rect().end.x, loot_grid.size.x)
 	assert_lte(loot_slot.get_rect().end.y, loot_grid.size.y)
 

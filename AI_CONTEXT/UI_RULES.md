@@ -1475,6 +1475,22 @@ Do not flip assets inconsistently between encounters.
 
 Combat text should be concise and readable.
 
+Impact feedback (stage 1B, 2026-09-19):
+
+- The recorded hit owns the timing of damage text and visible HP loss, including
+  damage remaining after a shield block. Never recalculate damage or roll RNG in VFX.
+- Distinguish a normal hit, critical hit, dodge and block with restrained local
+  reactions. No whole-screen flashes or camera shake; retain class-specific effects.
+- Passive damage (bleeding, aura, reflection) must not animate a new direct attack.
+- Anchor feedback to the painted combatant, keep it below the resource HUD and
+  inside the viewport. Limit simultaneous feedback to three non-overlapping messages
+  per combatant; the complete ordered messages remain in the combat log.
+- Reduced motion still shows static readable hit/block/dodge text, without moving
+  combatants, floating text or flashes. Clear old feedback on the next turn/result.
+- Visual feedback must not change domain results, RNG, saves, rewards or action locks.
+
+Reproduction and review: `docs/reviews/combat-impact-feedback/README.md`.
+
 Preferred critical phrasing:
 
 ```text
@@ -1545,6 +1561,20 @@ Use animation/audio to reinforce this sequence.
 If a detailed log exists, it is secondary.
 
 The main battle presentation should not require reading a scrolling transcript to know what happened.
+
+### Approved victory presentation (2026-09-19)
+
+After victory, replace the active battle HUD with the owner-approved burgundy
+standard, dark iron/gold reward strip, compact named loot cards, optional earned
+achievement and a prominent Continue button. Keep the existing full-body hero on
+the left and the actual battlefield behind the result. Do not reuse the workshop
+book, show a living defeated enemy, enlarge loot to fill the screen, or bake text
+and reward values into the decorative skin. Read one already-resolved receipt;
+presentation, scrolling and report toggles must never award rewards again.
+Long quest/contract/boss details and the combat log remain available in a scrollable
+report. Missing drops/achievements do not create placeholder rewards. Defeat and
+retreat retain their existing result presentation and terminal resource values.
+Implementation and reproducible evidence: `docs/reviews/combat-victory-banner/README.md`.
 
 ---
 
@@ -2692,6 +2722,22 @@ Future UI should support:
 - class select confirmation.
 
 Audio should reinforce hierarchy rather than make every interaction loud.
+
+Combat audio baseline (stage 1B, 2026-09-19):
+
+- Play hit/critical/block/dodge from recorded presentation events at the same
+  impact as visual feedback. Passive damage is not another audible attack.
+- Audio must never delay a turn, consume gameplay RNG or change saves/rewards.
+  Reduced motion emits one priority cue per turn, not simultaneous event spam.
+- A restrained coin cue accompanies victory once, never a redraw or unmute.
+- Keep a keyboard-accessible combat mute available during action locks. Store
+  this preference separately from player saves; stop active voices immediately.
+- Limit concurrent voices and gain; do not change Master volume or other systems.
+- Ship only licensed local samples with provenance in the asset manifest.
+  No streaming, paid services, music or class-specific sound redesign in this slice.
+
+Implementation, reproducible offline mix and review:
+`docs/reviews/combat-audio-feedback/README.md`.
 
 ---
 
