@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 import shutil
 import subprocess
+import tempfile
 import wave
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -45,12 +46,16 @@ def main():
     parser.add_argument('--tests', action='store_true')
     parser.add_argument('--only-audio', action='store_true',
                         help='Offline PNG/WAV Movie Maker demo, without playing through speakers')
+    parser.add_argument('--only-dice-movie', action='store_true',
+                        help='Record a real 3d6 skill and assemble frames as animated WebP (Pillow)')
     parser.add_argument('--test-script')
     parser.add_argument('--review-name', choices=['combat-presentation-review', 'combat-victory-review',
-                                                'combat-impact-review', 'combat-audio-review'],
+                                                'combat-impact-review', 'combat-audio-review',
+                                                'combat-dice-review'],
                         default='combat-presentation-review')
     parser.add_argument('--capture-script', choices=['render_combat_hud_preview.gd',
-                                                    'render_combat_feedback_preview.gd'],
+                                                    'render_combat_feedback_preview.gd',
+                                                    'render_combat_dice_preview.gd'],
                         default='render_combat_hud_preview.gd')
     args = parser.parse_args()
     work = ROOT / 'build' / args.review_name / args.stage
@@ -92,6 +97,16 @@ def main():
             '-gdir=res://tests', '-ginclude_subdirs']
         commands.append(('gut', ['--headless', '-s', 'res://addons/gut/gut_cmdln.gd',
                                  *selection, '-gexit']))
+    if args.only_dice_movie:
+        movie_dir = output / 'motion'
+        movie_dir.mkdir(exist_ok=True)
+        movie_frames = Path(tempfile.mkdtemp(prefix='frames-', dir=movie_dir))
+        commands = [('dice-movie', ['--rendering-method', 'gl_compatibility',
+                                   '--rendering-driver', 'opengl3', '--position', '-20000,-20000',
+                                   '--resolution', '960x540', '--fixed-fps', '30',
+                                   '--write-movie', str(movie_frames / 'combat-dice.png'),
+                                   '--script', 'res://tools/render_combat_dice_preview.gd',
+                                   '--', '--movie'])]
     for label, flags in commands:
         print('Running', label, flush=True)
         result = subprocess.run(common + flags, cwd=ROOT, env=env, startupinfo=startup,
@@ -106,6 +121,18 @@ def main():
             raise RuntimeError(f'{label} failed; see {work / (label + ".log")}\n' + log[-5000:])
         if label == 'audio':
             validate_audio(audio_dir / 'combat-audio.wav')
+        if label == 'dice-movie':
+            from PIL import Image
+            # Package untouched renderer frames for review; no game-art generation/editing.
+            frames = []
+            for path in sorted(movie_frames.glob('combat-dice*.png')):
+                with Image.open(path) as frame:
+                    frames.append(frame.convert('RGB'))
+            frames[0].save(movie_dir / 'combat-dice.webp', save_all=True,
+                           append_images=frames[1:], duration=33, loop=0, quality=90)
+            for frame in frames:
+                frame.close()
+            print('Animated review:', movie_dir / 'combat-dice.webp', flush=True)
     print('Evidence:', output, flush=True)
 
 

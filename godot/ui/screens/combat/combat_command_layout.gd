@@ -94,7 +94,19 @@ func _layout_stage() -> void:
 		)
 	# Keep the dice readable between the HUDs, away from the hero-to-enemy VFX path.
 	var fate_width := minf(360.0, bounds.x - 2.0 * hud_width - 76.0)
-	_rect(arena.get_node("VfxStage"), Rect2((bounds.x - fate_width) * 0.5, 76, fate_width, 144))
+	var fate_stage: Control = arena.get_node("VfxStage")
+	# A newly populated dice row may increase minimum height during playback.
+	# Grow downward, never upward over the turn queue.
+	fate_stage.grow_vertical = Control.GROW_DIRECTION_END
+	_rect(
+		fate_stage,
+		Rect2(
+			(bounds.x - fate_width) * 0.5,
+			76,
+			fate_width,
+			maxf(144.0, fate_stage.get_combined_minimum_size().y)
+		)
+	)
 	arena.get_node("Versus").hide()
 	var actor_top := (
 		maxf(

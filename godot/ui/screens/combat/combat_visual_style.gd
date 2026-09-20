@@ -50,7 +50,10 @@ static func apply(screen: Control) -> void:
 	]:
 		screen.get_node(path).add_theme_stylebox_override("panel", surface())
 	screen.result_panel.add_theme_stylebox_override("panel", surface())
-	screen.fate_panel.add_theme_stylebox_override("panel", surface(Color(0.71, 0.46, 0.62)))
+	var fate_surface := surface(GOLD)
+	fate_surface.bg_color = Color(0.065, 0.025, 0.04, 0.94)
+	screen.fate_panel.add_theme_stylebox_override("panel", fate_surface)
+	screen.fate_outcome_label.add_theme_color_override("font_color", Color(0.96, 0.87, 0.66))
 	for label: Label in [screen.player_name_label, screen.enemy_name_label]:
 		heading(label, 27)
 	heading(screen.result_title_label, 32)

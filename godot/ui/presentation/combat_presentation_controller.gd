@@ -195,17 +195,22 @@ func _play_dice(event: Dictionary) -> void:
 		die.set_value(final_value, false)
 		dice.append(die)
 	_fate_outcome_label.text = "KOŚCI W RUCHU…"
-	for step in 5:
-		for index in dice.size():
-			var preview := ((final_values[index] + step * 2 + index) % 6) + 1
-			dice[index].set_value(preview, false)
-			dice[index].rotation = deg_to_rad(-5.0 if (step + index) % 2 == 0 else 5.0)
-		await get_tree().create_timer(_duration(0.055)).timeout
+	var duration := 0.95 + maxf(0, dice.size() - 1) * 0.08
+	var roll := create_tween()
+	roll.tween_method(
+		func(elapsed: float) -> void:
+			for index in dice.size():
+				if is_instance_valid(dice[index]):
+					dice[index].sample_roll((elapsed - index * 0.08) / 0.95, index),
+		0.0,
+		duration,
+		_duration(duration)
+	)
+	await roll.finished
 	for index in dice.size():
-		dice[index].rotation = 0.0
 		dice[index].set_value(final_values[index], true)
 	_fate_outcome_label.text = str(event.get("outcome", ""))
-	await get_tree().create_timer(_duration(0.18)).timeout
+	await get_tree().create_timer(_duration(0.22)).timeout
 
 
 func _play_damage(event: Dictionary, displayed: Dictionary) -> void:
